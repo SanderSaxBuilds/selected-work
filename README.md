@@ -59,19 +59,25 @@ A coordinated presentation, executive summary and financing term sheet with cons
 
 A self-initiated planning application with daily and weekly views, editable blocks, overlap checks and local storage. No external calendar account is needed.
 
-- [View image](06-daybreak-01_Cover.jpg)
+- [Open demo](daybreak.html)
+- [Source files](daybreak-source.zip)
+- [Screenshot](06-daybreak-live.jpg)
 
 ## Field & Frame construction site
 
 A fictional construction website with services, process, FAQs, mobile navigation and a project-brief builder. The brief stays local and is not sent.
 
-- [View image](07-field-frame-01_Cover.jpg)
+- [Open demo](field-frame.html)
+- [Source files](field-frame-source.zip)
+- [Screenshot](07-field-frame-live.jpg)
 
 ## Countback receiving workflow
 
 An independent delivery-receiving prototype using synthetic data. It converts cartons to units, tracks shortages and damage, and preserves correction history.
 
-- [View image](08-countback-01_Cover.jpg)
+- [Open demo](countback.html)
+- [Source files](countback-source.zip)
+- [Screenshot](08-countback-live.jpg)
 
 ## Deterministic migration rehearsal
 
