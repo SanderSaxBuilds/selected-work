@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f2ed">
+  <title>Countback | Delivery receiving concept</title>
+  <meta name="description" content="An independent delivery-receiving prototype with a guided synthetic walkthrough, discrepancy review and local CSV export.">
+  <link rel="stylesheet" href="countback-style.css">
+  <script type="module" src="countback-app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="#main" aria-label="Countback home">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span class="brand-word">countback<small>INDEPENDENT PROTOTYPE</small></span>
+    </a>
+    <div class="delivery-context">
+      <span class="context-label">SYNTHETIC SAMPLE ORDER</span>
+      <strong>PO-1048</strong>
+      <span>Northside Supply <span class="context-arrow" aria-hidden="true">to</span> Corner Store</span>
+    </div>
+    <button class="button button-quiet" id="reset" type="button">New receipt <span aria-hidden="true">↗</span></button>
+  </header>
+  <div class="demo-notice" role="note">
+    <span class="notice-mark" aria-hidden="true">i</span>
+    <p><strong>Independent demo.</strong> Synthetic order and counts. This demo makes no API or microphone calls.</p>
+  </div>
+  <main id="main" class="page">
+    <section class="page-heading" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">DELIVERY RECEIVING / GUIDED SAMPLE</p>
+        <h1 id="page-title">A clear count.<br><em>A complete record.</em></h1>
+        <p class="page-lede">Follow a short scripted delivery, review every line and keep the correction history beside the receipt.</p>
+      </div>
+      <p class="sample-marker"><span class="marker-line"></span><span>3 PRODUCT LINES</span><span class="marker-divider">/</span><span>FICTIONAL ORDER</span></p>
+    </section>
+
+    <div class="workspace">
+      <aside class="walkthrough" aria-labelledby="walkthrough-title">
+        <div class="section-kicker"><span class="section-number">01</span><span>GUIDED WALKTHROUGH</span></div>
+        <h2 id="walkthrough-title">Hear the count.<br>Check the record.</h2>
+        <p class="walkthrough-copy">A scripted example shows a count, a correction, then two more product lines. No recording or connection is involved.</p>
+        <div class="walkthrough-actions">
+          <button class="button button-primary" id="demo" type="button">Play guided demo <span aria-hidden="true">↗</span></button>
+          <button class="button button-secondary" id="stop-demo" type="button" hidden>Stop walkthrough</button>
+        </div>
+        <p class="walkthrough-status" id="walkthrough-status" role="status" aria-live="polite">Ready. Start the scripted count walkthrough.</p>
+        <section class="conversation" aria-labelledby="conversation-title">
+          <div class="conversation-head">
+            <h3 id="conversation-title">Walkthrough notes</h3>
+            <span id="message-count">0 entries</span>
+          </div>
+          <div class="transcript" id="transcript" role="log" aria-live="polite" aria-relevant="additions">
+            <p class="empty-state">The example and readback will appear here.</p>
+          </div>
+        </section>
+        <p class="local-note"><span aria-hidden="true">↳</span> Scripted locally. Nothing is sent or stored after you leave this page.</p>
+      </aside>
+
+      <section class="receipt" aria-labelledby="receipt-title">
+        <div class="receipt-heading">
+          <div>
+            <div class="section-kicker"><span class="section-number">02</span><span>DELIVERY RECEIPT</span></div>
+            <h2 id="receipt-title">Review every line.</h2>
+          </div>
+          <span class="draft-label">DRAFT / CHECK BEFORE EXPORT</span>
+        </div>
+        <p class="receipt-explainer">Received includes damaged units. Usable subtracts them. A later count replaces the current total while each earlier count remains in the history.</p>
+
+        <div class="totals" aria-label="Receipt summary">
+          <div><span>LINES CHECKED</span><strong id="checked">0</strong><small>of 3 products</small></div>
+          <div><span>UNITS SHORT</span><strong id="short">-</strong><small>against order</small></div>
+          <div><span>UNITS DAMAGED</span><strong id="damage">-</strong><small>included in received</small></div>
+          <div><span>UNITS EXTRA</span><strong id="overage">-</strong><small>above order</small></div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="ledger-table">
+            <caption class="visually-hidden">Synthetic sample order receiving ledger</caption>
+            <thead><tr><th scope="col">PRODUCT / PACK</th><th scope="col">ORDERED</th><th scope="col">RECEIVED</th><th scope="col">USABLE</th><th scope="col">EXCEPTION</th><th scope="col"><span class="visually-hidden">Review count</span></th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+
+        <section class="exceptions" aria-labelledby="exceptions-title">
+          <div class="subsection-heading">
+            <div><p class="eyebrow">RECEIPT CHECK</p><h3 id="exceptions-title">Review exceptions</h3></div>
+            <span id="exception-count">3 lines to check</span>
+          </div>
+          <ul id="exceptions" class="exception-list" aria-live="polite"></ul>
+        </section>
+
+        <section class="history-section" aria-labelledby="history-title">
+          <div class="subsection-heading">
+            <div><p class="eyebrow">AUDIT TRAIL</p><h3 id="history-title">Count history</h3></div>
+            <span id="revision">No changes yet</span>
+          </div>
+          <div class="table-wrap">
+            <table class="history-table">
+              <caption class="visually-hidden">All recorded counts and corrections</caption>
+              <thead><tr><th scope="col">REV</th><th scope="col">PRODUCT</th><th scope="col">COUNT</th><th scope="col">SOURCE NOTE</th></tr></thead>
+              <tbody id="history"></tbody>
+            </table>
+          </div>
+        </section>
+        <div class="receipt-footer">
+          <p id="review-note">Check all three product lines before exporting.</p>
+          <button class="button button-export" id="export" type="button" disabled>Export CSV <span aria-hidden="true">↓</span></button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <span>Countback is an independent receiving prototype.</span>
+    <span>Synthetic order details <span class="footer-divider">/</span> Local draft export</span>
+  </footer>
+
+  <dialog id="edit-dialog" aria-labelledby="edit-title">
+    <form id="edit-form">
+      <p class="eyebrow">MANUAL REVIEW</p>
+      <h2 id="edit-title">Review count</h2>
+      <p class="dialog-intro">Enter the complete count. Damaged units are included in received.</p>
+      <label for="cartons">Cartons</label><input type="number" min="0" max="10000" step="1" id="cartons" required>
+      <label for="loose">Loose units</label><input type="number" min="0" max="10000" step="1" id="loose" required>
+      <label for="damaged">Damaged units</label><input type="number" min="0" max="10000" step="1" id="damaged" required>
+      <p class="manual-note">The local history will mark this as a manual review.</p>
+      <p id="edit-error" class="edit-error" role="alert"></p>
+      <div class="dialog-actions"><button type="button" class="button button-secondary" id="cancel-edit">Cancel</button><button class="button button-primary" type="submit">Save count</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
