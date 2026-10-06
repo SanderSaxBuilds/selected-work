@@ -157,7 +157,7 @@ function renderDay() {
   if (!shown.length) {
     const allHidden = !state.filters.length;
     $("#emptyTitle").textContent = allHidden ? "All calendars are hidden." : all.length ? "No blocks match these calendars." : `Nothing planned for ${formatDate(state.selectedDate, { weekday: "long", month: "long", day: "numeric" })}.`;
-    $("#emptyDescription").textContent = all.length ? "The blocks are still saved. Change your filters to see them." : "Add a block when you know what needs your attention.";
+    $("#emptyDescription").textContent = all.length ? "The blocks are still saved. Change your filters to see them." : "Add a block with a title, start time and duration.";
     $("#showAllCalendars").hidden = !all.length;
   }
   $("#summaryTitle").textContent = state.selectedDate === todayKey() ? "Today's plan" : "Selected day's plan";
@@ -219,7 +219,7 @@ function openEditor(item = null, date = state.selectedDate, start = defaultStart
   $("#eventDuration").value = String(item?.duration ?? 30);
   $("#eventCalendar").value = item?.calendar ?? "work";
   $("#eventProtected").checked = item?.protected ?? protectedTime;
-  $("#dialogTitle").textContent = item ? "Edit this block." : "Make room for something.";
+  $("#dialogTitle").textContent = item ? "Edit time block" : "Add a time block";
   $("#saveEvent").textContent = item ? "Save changes" : "Add block";
   $("#deleteEvent").hidden = !item;
   $("#overlapWarning").hidden = true;
