@@ -6,9 +6,9 @@ Websites, business tools, reporting workflows and editable documents. All busine
 
 [Browse the portfolio](https://sandersaxbuilds.github.io/selected-work/)
 
-## Reusable 15-layout presentation system
+## Presentation layouts and executive review
 
-A reusable presentation system with 15 layouts, an eight-slide executive review, editable charts, tables and connected diagrams. Independent work with fictional business figures.
+A 15-layout presentation design study with an eight-slide executive review, chart and table styles, and a layout guide. Published as PDF design previews using fictional business figures. Independent portfolio work.
 
 - [Preview PDF](01-northline-Northline_Layout_Gallery_Preview.pdf)
 - [Executive Review](01-northline-Northline_Executive_Review.pdf)
