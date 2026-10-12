@@ -11,8 +11,8 @@ Websites, business tools, reporting workflows and editable documents. All busine
 A 15-layout presentation design study with an eight-slide executive review, chart and table styles, and a layout guide. Published as PDF design previews using fictional business figures. Independent portfolio work.
 
 - [Preview PDF](01-northline-Northline_Layout_Gallery_Preview.pdf)
-- [Executive Review](01-northline-Northline_Executive_Review.pdf)
-- [Template Guide](01-northline-Northline_Template_Guide.pdf)
+- [Executive review](01-northline-Northline_Executive_Review.pdf)
+- [Template guide](01-northline-Northline_Template_Guide.pdf)
 - [View image](01-northline-01_Cover.jpg)
 - [View image](01-northline-02_Layouts.jpg)
 
@@ -49,9 +49,9 @@ A working CSV reporting workspace that validates orders and refunds, reconciles 
 
 A coordinated presentation, executive summary and financing term sheet with consistent figures and terminology. A fictional document-design sample.
 
-- [Property Documents](05-property-documents-Northline_Property_Documents.pdf)
-- [Financing Summary](05-property-documents-Northline_Financing_Summary.pdf)
-- [Financing Term Sheet](05-property-documents-Northline_Financing_Term_Sheet.pdf)
+- [Property documents](05-property-documents-Northline_Property_Documents.pdf)
+- [Financing summary](05-property-documents-Northline_Financing_Summary.pdf)
+- [Financing term sheet](05-property-documents-Northline_Financing_Term_Sheet.pdf)
 - [View image](05-property-documents-01_Cover.jpg)
 - [View image](05-property-documents-02_Package.jpg)
 
