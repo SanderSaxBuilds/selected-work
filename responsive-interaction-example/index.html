@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Responsive interaction example</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="jquery-4.0.0.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">↗</span> Layout / Interaction</a>
+    <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" aria-label="Page sections"><a href="#overview">Overview</a><a href="#details">Details</a><a href="#project">Try the form</a></nav>
+  </header>
+  <main>
+    <section id="overview" class="hero">
+      <div><p class="eyebrow">Independent code example</p><h1>One layout.<br>Every screen.</h1><p class="intro">A responsive HTML/CSS page with a jQuery menu, expandable detail and local form validation.</p><a class="button" href="#project">Test the interaction <span aria-hidden="true">↗</span></a></div>
+      <div class="preview" aria-label="Illustration of desktop and mobile layouts"><div class="preview-top"><span></span><span></span><span></span></div><div class="preview-body"><div class="preview-line"></div><div class="preview-line short"></div><div class="preview-grid"><div>01</div><div>02</div><div>03</div></div><div class="preview-phone"><div></div><div></div><div></div></div></div><p>Flexible grids. Clear controls.</p></div>
+    </section>
+    <section id="details" class="detail-section"><div><p class="eyebrow">What this example demonstrates</p><h2>Layout and behavior,<br>working together.</h2><p>This is an original demonstration, not commissioned client work. All form data stays in this page.</p></div><div class="detail-card"><button id="detail-toggle" aria-expanded="false" aria-controls="detail-answer"><span>What changes on a narrow screen?</span><span id="detail-symbol" aria-hidden="true">+</span></button><div id="detail-answer" hidden><p>The two-column layout stacks, the navigation becomes a menu, and controls remain readable without horizontal page scrolling.</p></div></div></section>
+    <section id="project" class="form-section"><div><p class="eyebrow">Local interaction</p><h2>Try a project title.</h2><p>The form checks empty input and displays valid text safely. It does not send a request or store your entry.</p></div><form id="project-form" novalidate><label for="project-title">Project title</label><input id="project-title" name="title" type="text" maxlength="240" autocomplete="off" aria-describedby="form-message" placeholder="Example: Supplier overview page"><button class="button" type="submit">Check title <span aria-hidden="true">→</span></button><p id="form-message" role="status" aria-live="polite"></p></form></section>
+  </main>
+  <footer>HTML / CSS / jQuery · Original source example · No external form submission</footer>
+</body>
+</html>
