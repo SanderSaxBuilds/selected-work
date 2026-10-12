@@ -1,10 +1,17 @@
 # Selected work
 
-Independent portfolio by Alexandr Khrustalev.
+Business and independent portfolio work by Alexandr Khrustalev.
 
-Websites, business tools, reporting workflows and editable documents. All business examples use fictional or synthetic data. These are independent projects.
+Websites, business tools, reporting workflows and editable documents. The ALLEX RESPECT ASIA website is a live business project. The independent demonstrations use fictional or synthetic data.
 
 [Browse the portfolio](https://sandersaxbuilds.github.io/selected-work/)
+
+## ALLEX RESPECT ASIA business website
+
+A live business website with an animated product collection, four product pages, a comparison table, company information, a document library and mobile navigation. Frontend, responsive layouts and deployment by Alexandr Khrustalev. Product artwork and records come from the business. Store links lead to external marketplaces.
+
+- [Open live website](https://temirkhanclub.com/)
+- [Homepage artwork](10-allex-homepage.jpg)
 
 ## Presentation layouts and executive review
 
