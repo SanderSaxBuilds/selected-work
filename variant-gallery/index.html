@@ -4,8 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#f2f0e9" />
+    <meta name="theme-color" content="#f6f5f0" />
     <title>Stillwater Bottle | Fieldnote Goods</title>
+    <meta name="description" content="The Stillwater Bottle in three colors and two sizes. A double-wall steel bottle with a soft matte finish." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
@@ -13,152 +17,175 @@
     <a class="skip-link" href="#main">Skip to product</a>
     <header class="site-header">
       <div class="shell header-row">
-        <a class="brand" href="#product" aria-label="Fieldnote Goods home">
+        <a class="brand" href="#product" aria-label="Fieldnote Goods, back to product">
           <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 40 40" role="presentation">
-              <path d="M20 3.5 35.5 12.4v15.2L20 36.5 4.5 27.6V12.4L20 3.5Z" fill="none" stroke="currentColor" stroke-width="1.4" />
-              <path d="M12 25.8c4.6-7.6 11.4-7.6 16 0M14.4 18.8c3.2-4.8 8-4.8 11.2 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.7" />
+            <svg viewBox="0 0 40 40">
+              <path d="M20 3.5 35.5 12.4v15.2L20 36.5 4.5 27.6V12.4L20 3.5Z" fill="none" stroke="currentColor" stroke-width="2" />
+              <path d="M12 25.8c4.6-7.6 11.4-7.6 16 0M14.4 18.8c3.2-4.8 8-4.8 11.2 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" />
             </svg>
           </span>
-          <span class="brand-name">fieldnote <span>goods</span></span>
+          <span class="brand-name">Fieldnote Goods</span>
         </a>
         <nav class="main-nav" aria-label="Main navigation">
-          <a href="#product">Collection</a>
-          <a href="#care">Care</a>
+          <a href="#product">Shop</a>
+          <a href="#details">Details</a>
           <a href="#study-panel">Study</a>
         </nav>
+        <button class="bag-button" type="button" id="bagButton" aria-haspopup="dialog" aria-label="Bag, 0 items">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 13H6L5 8Zm4 0V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" /></svg>
+          <span class="bag-label">Bag</span>
+          <span class="bag-count" id="bagCount">0</span>
+        </button>
       </div>
     </header>
 
     <main id="main">
-      <div class="shell provenance-row">
-        <span class="provenance-mark" aria-hidden="true"></span>
-        <p>Independent study <span aria-hidden="true">·</span> Fictional product</p>
-      </div>
-
-      <div class="shell product-shell">
+      <div class="shell">
         <nav class="breadcrumbs" aria-label="Breadcrumb">
-          <a href="#product">Field goods</a>
-          <span aria-hidden="true">›</span>
-          <span>Drinkware</span>
+          <ol>
+            <li><a href="#product">Shop</a></li>
+            <li><a href="#product">Drinkware</a></li>
+            <li aria-current="page">Stillwater Bottle</li>
+          </ol>
         </nav>
 
-        <section class="product-layout" id="product" aria-label="Stillwater Bottle product preview">
+        <section class="product-layout" id="product" aria-labelledby="productTitle">
           <div class="gallery-column">
             <div class="media-stage" id="mediaStage" aria-busy="false">
-              <div class="media-wash" aria-hidden="true"></div>
               <div class="media-skeleton" id="mediaSkeleton" hidden>
                 <span class="skeleton-shape"></span>
                 <span class="sr-only">Loading product image</span>
               </div>
               <div class="media-fallback" id="mediaFallback" hidden>
                 <span class="fallback-icon" aria-hidden="true">
-                  <svg viewBox="0 0 54 54" role="presentation">
-                    <rect x="7" y="9" width="40" height="36" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" />
+                  <svg viewBox="0 0 54 54">
+                    <rect x="7" y="9" width="40" height="36" rx="8" fill="none" stroke="currentColor" stroke-width="1.8" />
                     <circle cx="19" cy="21" r="3.2" fill="currentColor" />
-                    <path d="m12 39 10-10 6 6 5-5 9 9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                    <path d="m12 39 10-10 6 6 5-5 9 9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" />
                   </svg>
                 </span>
-                <strong id="fallbackTitle">Preview image unavailable</strong>
-                <span id="fallbackDescription">The selected option has no product image.</span>
+                <strong id="fallbackTitle">Photo unavailable</strong>
+                <span id="fallbackDescription">This option has no product photo yet.</span>
               </div>
-              <img class="product-image" id="mainImage" alt="" hidden />
-              <span class="image-index" id="imageIndex">01 <span aria-hidden="true">/</span> 02</span>
-              <span class="stage-note">Field series <span aria-hidden="true">·</span> 01</span>
+              <img class="product-image" id="mainImage" alt="" width="960" height="900" hidden />
+              <span class="image-index figure" id="imageIndex" aria-hidden="true">1 of 2</span>
             </div>
             <div class="gallery-thumbnails" id="galleryThumbnails" role="group" aria-label="Product views"></div>
-            <p class="gallery-caption" id="galleryCaption">Front view <span aria-hidden="true">·</span> Original vector artwork</p>
           </div>
 
-          <section class="product-info" aria-labelledby="productTitle">
+          <div class="product-info">
             <p class="eyebrow">Stillwater collection</p>
             <h1 id="productTitle">Stillwater Bottle</h1>
-            <p class="product-description">A double-wall bottle with a soft matte finish, made for the walk between home and wherever the day goes.</p>
-
             <div class="price-row">
-              <p class="price" id="priceValue" aria-label="Price">$36.00</p>
-              <span class="price-note">USD</span>
+              <p class="price figure" id="priceValue">$36.00</p>
+              <p class="price-meta" id="priceMeta">500 ml, Moss</p>
+            </div>
+            <p class="product-description">A double-wall steel bottle with a soft matte finish. Cold drinks stay cold through a long day out, and the loop lid hooks onto a bag strap.</p>
+
+            <div class="link-message" id="linkMessage" role="alert" hidden>
+              <strong>That link points to an option we don't have.</strong>
+              <p>Showing Moss 500 ml instead. Pick any option to update the link.</p>
             </div>
 
-            <div class="rule"></div>
-
-            <div class="link-message" id="linkMessage" hidden>
-              <strong>Variant link not recognized</strong>
-              <p>The default option is shown. The original link stays unchanged until you choose a valid option.</p>
-            </div>
-
-            <form class="variant-form" id="variantForm">
+            <form class="variant-form" id="variantForm" novalidate>
               <fieldset class="option-fieldset">
                 <legend>Color <span class="current-option" id="currentColor">Moss</span></legend>
                 <div class="color-options" id="colorOptions"></div>
               </fieldset>
-              <fieldset class="option-fieldset size-fieldset">
+              <fieldset class="option-fieldset">
                 <legend>Capacity <span class="current-option" id="currentSize">500 ml</span></legend>
                 <div class="size-options" id="sizeOptions"></div>
               </fieldset>
             </form>
 
-            <div class="availability-card" id="availabilityCard">
-              <span class="availability-dot" id="availabilityDot" aria-hidden="true"></span>
-              <div>
-                <strong id="availabilityLabel">Available</strong>
-                <p id="availabilityDescription">Ready for this color and capacity.</p>
-              </div>
+            <div class="availability" id="availabilityCard" data-available="true">
+              <span class="availability-dot" aria-hidden="true"></span>
+              <p><strong id="availabilityLabel">In stock</strong> <span id="availabilityDescription">Ships in 1 to 2 business days.</span></p>
             </div>
 
-            <dl class="product-details">
-              <div><dt>Finish</dt><dd>Soft-touch matte</dd></div>
-              <div><dt>Care</dt><dd>Hand wash for a lasting finish</dd></div>
-              <div><dt>Designed for</dt><dd>Daily carry</dd></div>
-            </dl>
+            <div class="buy-row">
+              <div class="quantity" role="group" aria-labelledby="quantityLabel">
+                <span class="sr-only" id="quantityLabel">Quantity</span>
+                <button class="qty-button" type="button" id="qtyDown" aria-label="Decrease quantity">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+                </button>
+                <output class="qty-value figure" id="qtyValue" aria-live="polite">1</output>
+                <button class="qty-button" type="button" id="qtyUp" aria-label="Increase quantity">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+                </button>
+              </div>
+              <button class="add-button" type="button" id="addToBag">Add to bag</button>
+            </div>
+            <p class="shipping-note">Free shipping on orders over $50. Free returns within 30 days.</p>
 
-            <a class="care-link" href="#care">See care notes <span aria-hidden="true">↗</span></a>
-          </section>
+            <dl class="spec-list" id="details">
+              <div><dt>Keeps cold</dt><dd>Up to 24 hours</dd></div>
+              <div><dt>Keeps hot</dt><dd>Up to 10 hours</dd></div>
+              <div><dt>Material</dt><dd>18/8 stainless steel, powder coat</dd></div>
+              <div><dt>Care</dt><dd>Hand wash with mild soap</dd></div>
+            </dl>
+          </div>
         </section>
 
-        <section class="care-note" id="care" aria-labelledby="careTitle">
-          <div class="care-number">01</div>
+        <section class="care" aria-labelledby="careTitle">
           <div>
-            <p class="eyebrow">A little care goes a long way</p>
+            <p class="eyebrow">Care</p>
             <h2 id="careTitle">Keep the finish feeling new.</h2>
-            <p>Use a soft cloth and mild soap. Skip abrasive pads so the matte coating stays smooth.</p>
           </div>
-          <span class="care-line" aria-hidden="true"></span>
+          <ul class="care-list">
+            <li><strong>Wash by hand.</strong> Warm water, mild soap and a soft bottle brush.</li>
+            <li><strong>Skip the scourer.</strong> Abrasive pads polish the matte coat to a shine.</li>
+            <li><strong>Dry with the lid off.</strong> The seal lasts longer when it is not stored damp.</li>
+          </ul>
         </section>
 
         <section class="study-panel" id="study-panel" aria-labelledby="studyTitle">
           <div class="study-copy">
-            <p class="study-label"><span class="study-label-dot" aria-hidden="true"></span> Interaction study <span class="synthetic-tag">Synthetic</span></p>
-            <h2 id="studyTitle">Keep the image with the selected option.</h2>
-            <p>The working view follows the color and capacity. Switch to the reproduction below to see how the image can stay behind while price and selection move ahead.</p>
+            <p class="eyebrow">Interaction study</p>
+            <h2 id="studyTitle">The photo should always match the option you picked.</h2>
+            <p>This page keeps the photo, price, stock and link in step with every choice. Switch the gallery behavior to see two common store bugs reproduced on purpose: a photo that lags behind the selection, and a photo address that returns a 404.</p>
           </div>
           <div class="study-control">
             <label for="behaviorMode">Gallery behavior</label>
             <select id="behaviorMode">
               <option value="fixed">Working gallery</option>
-              <option value="stale">Synthetic stale-image defect</option>
-              <option value="missing-file">Synthetic image URL returns 404</option>
+              <option value="stale">Bug: photo stays on the previous option</option>
+              <option value="missing-file">Bug: photo address returns 404</option>
             </select>
-            <p class="study-hint">No live store, checkout or customer data is connected.</p>
+            <div class="defect-note" id="defectNote" hidden>
+              <strong>Stale photo reproduced.</strong>
+              <p>Color, capacity and price update, but the large photo stays on the earlier option.</p>
+            </div>
+            <div class="defect-note" id="missingAssetNote" hidden>
+              <strong>Missing photo reproduced.</strong>
+              <p>The photo request fails. The page explains it, and the options and price keep working.</p>
+            </div>
           </div>
-          <div class="defect-note" id="defectNote" hidden>
-            <span class="defect-indicator" aria-hidden="true">!</span>
-            <div><strong>Stale image example</strong><p>The selected color, capacity and price update. The large image intentionally stays on the earlier option.</p></div>
-          </div>
-          <div class="defect-note" id="missingAssetNote" hidden>
-            <span class="defect-indicator" aria-hidden="true">!</span>
-            <div><strong>Missing image address</strong><p>The preview address returns a local 404. The gallery explains the failure while the selected options and price remain available.</p></div>
-          </div>
-          <p class="live-status sr-only" id="liveStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+          <p class="sr-only" id="liveStatus" role="status" aria-live="polite" aria-atomic="true"></p>
         </section>
       </div>
     </main>
 
     <footer class="site-footer">
       <div class="shell footer-row">
-        <span class="footer-brand">fieldnote goods</span>
-        <p>Fictional product. Original SVG artwork. Independent frontend study.</p>
+        <span class="footer-brand">Fieldnote Goods</span>
+        <p>Fieldnote Goods is a fictional store built as a frontend study. Nothing here is for sale, and the bottle artwork is original.</p>
       </div>
     </footer>
+
+    <dialog class="bag-dialog" id="bagDialog" aria-labelledby="bagTitle">
+      <div class="bag-head">
+        <h2 id="bagTitle">Your bag</h2>
+        <button class="icon-button" type="button" id="bagClose" aria-label="Close bag">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+        </button>
+      </div>
+      <div id="bagLines"></div>
+      <div class="bag-foot" id="bagFoot" hidden>
+        <div class="bag-total"><span>Subtotal</span><strong class="figure" id="bagSubtotal">$0.00</strong></div>
+        <p class="bag-note">Checkout is switched off in this study store.</p>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>
 </html>

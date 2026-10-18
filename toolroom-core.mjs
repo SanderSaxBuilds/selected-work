@@ -13,7 +13,7 @@ export const CATALOG = freezeDeep([
     version: '1.1.0',
     priceCents: 1400,
     category: 'pricing',
-    summary: 'Calculate service quote contribution after entered fees and direct costs, compare up to three scenarios, and export a calculation.',
+    summary: 'See what a quote leaves you after fees and costs, and what that works out to per hour. Compare up to three versions before you send one.',
     tags: ['service quotes', 'cost calculator', 'revision hours', 'scenario comparison', 'JSON export', 'CSV snapshot'],
     includes: ['Quote inputs for fees, direct costs, revision allowance, and actual hours', 'Up to three browser-saved comparison scenarios', 'JSON transfer for one calculation, CSV snapshot, and printable view'],
     compatibility: 'Python 3.9 or newer and a modern JavaScript-enabled browser. Run the supplied local server. Brave is the only browser named as tested.'
@@ -24,7 +24,7 @@ export const CATALOG = freezeDeep([
     version: '1.1.0',
     priceCents: 1900,
     category: 'data',
-    summary: 'Validate one UTF-8 CSV against explicit JSON rules, then download accepted rows, issue details, and a run summary from a local app.',
+    summary: 'Check a CSV against your own rules before it goes anywhere. Get the clean rows, a list of every problem and a short summary.',
     tags: ['csv validation', 'csv tool', 'data quality', 'python app', 'local software', 'json rules', 'row auditing', 'import checks'],
     includes: ['Required headers and values, optional unique key, exact strings, ISO dates, and bounded decimals', 'Downloads: clean.csv, row-errors.csv, and summary.json', 'Synthetic six-row CSV example and editable rules'],
     compatibility: 'Python 3.10 or newer with standard library only. Opens in the default browser on the same computer at 127.0.0.1. Windows was tested with Python 3.13. Other operating systems are unverified.'
@@ -35,7 +35,7 @@ export const CATALOG = freezeDeep([
     version: '1.0.1',
     priceCents: 1200,
     category: 'projects',
-    summary: 'Record a project objective, scope, inputs, acceptance checks, deliverables, and dated decisions in a local editable tool.',
+    summary: 'Keep the brief, scope, checks, deliverables and dated decisions for one project in a single record the next person can pick up.',
     tags: ['project handoff', 'project brief', 'local app', 'project planning', 'JSON export', 'TXT snapshot', 'acceptance checks'],
     includes: ['Project objective, audience, scope, target date, feedback owner, inputs, checks, deliverables, and dated decisions', 'Browser-profile save and editable JSON import and export, plus readable TXT snapshot', 'Three checklist groups of up to 40 rows each and a static nonfillable PDF preview'],
     compatibility: 'Python 3.9 or newer and a modern JavaScript-enabled browser. The local server needs no internet connection. Desktop Chromium was checked. Browser storage and exports are not encrypted or a cloud backup.'
@@ -46,7 +46,7 @@ export const CATALOG = freezeDeep([
     version: '1.1.0r2',
     priceCents: 2200,
     category: 'bundles',
-    summary: 'Use QuoteCheck for service quote contribution and scenario comparison, then Handoff Desk to record scope, checks, and deliverables. The local tools do not sync.',
+    summary: 'Price the job with QuoteCheck, then record what was agreed in Handoff Desk. Two separate tools for the start and end of a project.',
     tags: ['quote calculator', 'project handoff', 'local software', 'scenario comparison', 'JSON export', 'CSV snapshot', 'project planning'],
     includes: ['QuoteCheck 1.1.0 and Handoff Desk 1.0.1 local apps', 'QuoteCheck quote, fee, cost, and hours calculations with scenario and JSON or CSV export', 'Handoff project record with JSON or TXT export, checklists, and static preview'],
     compatibility: 'Python 3.9 or newer and a modern JavaScript-enabled browser. The bundle runs locally without internet. Desktop Chromium was checked, with a focused guide and import check in isolated Edge. The tools do not sync, and browser storage and files are not encrypted.'
@@ -61,7 +61,7 @@ const PRODUCT_BY_ID = new Map(CATALOG.map(product => [product.id, product]))
 const DANGEROUS_KEYS = new Set(['__proto__', 'prototype', 'constructor'])
 
 function fail(message) {
-  throw new Error(message)
+  throw new Error(/[.!?]$/.test(message) ? message : `${message}.`)
 }
 
 function requireProductId(id) {
@@ -296,6 +296,49 @@ export function exportBackup(state) {
   const text = JSON.stringify({ format: FORMAT, version: VERSION, state: canonicalState })
   if (new TextEncoder().encode(text).byteLength > MAX_BACKUP_BYTES) fail('Backup exceeds the 1 MiB limit')
   return text
+}
+
+// Plain-language problem with checkout details, or an empty string when the order can be created.
+export function checkoutProblem(contact) {
+  const name = typeof contact?.name === 'string' ? contact.name.trim() : ''
+  const email = typeof contact?.email === 'string' ? contact.email.trim() : ''
+  if (!name) return 'Enter your name.'
+  if (name.length > 80) return 'Keep the name to 80 characters or fewer.'
+  if (/[\u0000-\u001f\u007f]/.test(name)) return 'Remove the special characters from the name.'
+  if (!email) return 'Enter an email address.'
+  try {
+    normalizeEmail(email)
+  } catch {
+    return 'Enter a full email address, such as jordan@example.com.'
+  }
+  return ''
+}
+
+// Backup file name based on the visitor's local calendar date, not UTC.
+export function backupFileName(date = new Date()) {
+  const pad = value => String(value).padStart(2, '0')
+  return `Toolroom_backup_${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}.json`
+}
+
+const formatCents = cents => `$${(cents / 100).toFixed(2)}`
+
+// Readable receipt for a stored demo order.
+export function receiptText(order) {
+  const lines = [
+    'Toolroom receipt',
+    '',
+    `Order ${order.id}`,
+    `Placed ${order.createdAt.slice(0, 10)}`,
+    `Name ${order.name}`,
+    `Email ${order.email}`,
+    '',
+    ...order.items.map(item => `${item.title} ${item.version}`.padEnd(40, ' ') + formatCents(item.priceCents).padStart(10, ' ')),
+    '',
+    'Total'.padEnd(40, ' ') + formatCents(order.totalCents).padStart(10, ' '),
+    '',
+    'This is a demo order. No payment was taken and no license was issued.'
+  ]
+  return lines.join('\r\n') + '\r\n'
 }
 
 export function parseBackup(text) {

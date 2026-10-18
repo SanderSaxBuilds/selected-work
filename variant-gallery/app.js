@@ -2,19 +2,21 @@
   "use strict";
 
   const colors = [
-    { key: "moss", label: "Moss", swatch: "#748674" },
-    { key: "glacier", label: "Glacier", swatch: "#aebdb9" },
+    { key: "moss", label: "Moss", swatch: "#6f8570" },
+    { key: "glacier", label: "Glacier", swatch: "#a9bcb8" },
     { key: "ember", label: "Ember", swatch: "#b96f58" }
   ];
   const sizes = ["500 ml", "750 ml"];
   const variants = [
     { id: "8901001", color: "moss", size: "500 ml", priceCents: 3600, available: true, media: ["assets/moss-front.svg", "assets/moss-detail.svg"] },
     { id: "8901002", color: "moss", size: "750 ml", priceCents: 4200, available: true, media: ["assets/moss-front.svg", "assets/moss-detail.svg"] },
-    { id: "8901003", color: "glacier", size: "500 ml", priceCents: 3785, available: true, media: ["assets/glacier-front.svg", "assets/glacier-detail.svg"] },
-    { id: "8901004", color: "glacier", size: "750 ml", priceCents: 4400, available: false, media: [] },
-    { id: "8901005", color: "ember", size: "500 ml", priceCents: 3525, available: true, media: ["assets/ember-front.svg", "assets/ember-detail.svg"] },
-    { id: "8901006", color: "ember", size: "750 ml", priceCents: 4125, available: true, media: ["assets/ember-front.svg", "assets/ember-detail.svg"] }
+    { id: "8901003", color: "glacier", size: "500 ml", priceCents: 3800, available: true, media: ["assets/glacier-front.svg", "assets/glacier-detail.svg"] },
+    { id: "8901004", color: "glacier", size: "750 ml", priceCents: 4400, available: false, media: ["assets/glacier-front.svg", "assets/glacier-detail.svg"] },
+    { id: "8901005", color: "ember", size: "500 ml", priceCents: 3700, available: true, media: ["assets/ember-front.svg", "assets/ember-detail.svg"] },
+    { id: "8901006", color: "ember", size: "750 ml", priceCents: 4300, available: true, media: ["assets/ember-front.svg", "assets/ember-detail.svg"] }
   ];
+  const MISSING_IMAGE = "qa-fixtures/intentional-404.svg";
+  const MAX_QTY = 9;
 
   const byId = new Map(variants.map((variant) => [variant.id, variant]));
   const byOptions = new Map(variants.map((variant) => [`${variant.color}|${variant.size}`, variant]));
@@ -34,38 +36,32 @@
   const linkMessage = $("#linkMessage");
   const priceValue = $("#priceValue");
   const availabilityCard = $("#availabilityCard");
+  const addButton = $("#addToBag");
+  const qtyValue = $("#qtyValue");
+  const bagDialog = $("#bagDialog");
 
   let activeVariant = variants[0];
   let activeMediaIndex = 0;
+  let renderedMediaKey = "";
   let requestToken = 0;
   let isUnknownLink = false;
   let behavior = "fixed";
+  let quantity = 1;
+  let toastTimer = 0;
+  const bag = new Map();
 
-  function formatUsdCents(cents) {
-    const sign = cents < 0 ? "−" : "";
-    const absolute = Math.abs(cents);
-    const wholeDollars = Math.floor(absolute / 100);
-    const remainder = String(absolute % 100).padStart(2, "0");
-    const dollars = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(wholeDollars);
-    return `${sign}${dollars}.${remainder}`;
-  }
-
-  function colorLabel(key) {
-    return colors.find((color) => color.key === key)?.label ?? key;
-  }
+  const formatUsd = (cents) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
+  const colorLabel = (key) => colors.find((color) => color.key === key)?.label ?? key;
+  const viewName = (index) => (index === 0 ? "Front view" : "Detail view");
+  const optionName = (variant) => `${colorLabel(variant.color)}, ${variant.size}`;
+  const optionShort = (variant) => `${colorLabel(variant.color)} ${variant.size}`;
 
   function mediaAlt(variant, index) {
-    const view = index === 0 ? "front view" : "detail view";
-    return `${colorLabel(variant.color)} Stillwater Bottle, ${variant.size}, ${view}`;
+    return `${colorLabel(variant.color)} Stillwater Bottle, ${variant.size}, ${viewName(index).toLowerCase()}`;
   }
 
-  function renderColorOptions() {
-    colorOptions.replaceChildren();
+  /* Options are built once. Later updates change them in place so keyboard focus is never lost. */
+  function buildOptions() {
     colors.forEach((color) => {
       const label = document.createElement("label");
       label.className = "color-choice";
@@ -74,23 +70,17 @@
       radio.name = "color";
       radio.value = color.key;
       radio.id = `color-${color.key}`;
-      radio.checked = activeVariant.color === color.key;
       const swatch = document.createElement("span");
       swatch.className = "swatch";
       swatch.style.setProperty("--swatch", color.swatch);
       swatch.setAttribute("aria-hidden", "true");
       const text = document.createElement("span");
+      text.className = "choice-text";
       text.textContent = color.label;
-      label.htmlFor = radio.id;
       label.append(radio, swatch, text);
       colorOptions.append(label);
     });
-  }
-
-  function renderSizeOptions() {
-    sizeOptions.replaceChildren();
     sizes.forEach((size, index) => {
-      const variant = byOptions.get(`${activeVariant.color}|${size}`);
       const label = document.createElement("label");
       label.className = "size-choice";
       const radio = document.createElement("input");
@@ -98,16 +88,14 @@
       radio.name = "size";
       radio.value = size;
       radio.id = `size-${index}`;
-      radio.checked = activeVariant.size === size;
       const text = document.createElement("span");
       text.className = "size-label";
       text.textContent = size;
+      const price = document.createElement("span");
+      price.className = "size-price figure";
       const note = document.createElement("span");
       note.className = "option-note";
-      note.textContent = variant.available ? "" : "Sold out";
-      if (!variant.available) note.setAttribute("aria-label", "Sold out");
-      label.htmlFor = radio.id;
-      label.append(radio, text, note);
+      label.append(radio, text, price, note);
       sizeOptions.append(label);
     });
   }
@@ -116,65 +104,73 @@
     colorOptions.querySelectorAll('input[name="color"]').forEach((radio) => {
       radio.checked = radio.value === activeVariant.color;
     });
+    sizeOptions.querySelectorAll(".size-choice").forEach((label) => {
+      const radio = label.querySelector("input");
+      const variant = byOptions.get(`${activeVariant.color}|${radio.value}`);
+      radio.checked = radio.value === activeVariant.size;
+      label.dataset.available = String(variant.available);
+      label.querySelector(".size-price").textContent = formatUsd(variant.priceCents);
+      label.querySelector(".option-note").textContent = variant.available ? "" : "Sold out";
+    });
     $("#currentColor").textContent = colorLabel(activeVariant.color);
     $("#currentSize").textContent = activeVariant.size;
-    renderSizeOptions();
   }
 
   function updatePriceAndAvailability() {
-    const price = formatUsdCents(activeVariant.priceCents);
-    priceValue.textContent = price;
-    priceValue.setAttribute("aria-label", `Price ${price} USD`);
+    priceValue.textContent = formatUsd(activeVariant.priceCents);
+    $("#priceMeta").textContent = `${activeVariant.size}, ${colorLabel(activeVariant.color)}`;
     availabilityCard.dataset.available = String(activeVariant.available);
-    $("#availabilityLabel").textContent = activeVariant.available ? "Available" : "Sold out";
+    $("#availabilityLabel").textContent = activeVariant.available ? "In stock" : "Sold out";
     $("#availabilityDescription").textContent = activeVariant.available
-      ? "Ready for this color and capacity."
-      : "This color and capacity are currently unavailable.";
+      ? "Ships in 1 to 2 business days."
+      : `${optionShort(activeVariant)} is restocking. The other options ship now.`;
+    addButton.disabled = !activeVariant.available;
+    addButton.textContent = activeVariant.available ? `Add to bag, ${formatUsd(activeVariant.priceCents * quantity)}` : "Sold out";
     document.body.dataset.variantId = activeVariant.id;
     document.body.dataset.exampleMode = behavior;
   }
 
-  function updateUrl() {
+  function writeUrl() {
     const url = new URL(window.location.href);
     url.searchParams.set("variant", activeVariant.id);
-    window.history.replaceState(null, "", url);
+    window.history.replaceState(window.history.state, "", url);
     isUnknownLink = false;
     linkMessage.hidden = true;
   }
 
-  function updateThumbnails() {
-    galleryThumbnails.replaceChildren();
-    const currentMedia = activeVariant.media;
-    currentMedia.forEach((src, index) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "thumb-button";
-      button.setAttribute("aria-label", index === 0 ? "Front view" : "Detail view");
-      button.setAttribute("aria-pressed", String(index === activeMediaIndex));
-      const image = document.createElement("img");
-      image.src = src;
-      image.alt = "";
-      image.loading = "eager";
-      button.append(image);
-      button.addEventListener("click", () => {
-        activeMediaIndex = index;
-        paintMedia();
-        updateThumbnails();
-        updateLiveStatus();
+  function setIndexLabel() {
+    const count = activeVariant.media.length;
+    $("#imageIndex").textContent = count ? `${activeMediaIndex + 1} of ${count}` : "No photo";
+  }
+
+  function renderThumbnails() {
+    const key = activeVariant.media.join("|");
+    if (key !== renderedMediaKey) {
+      renderedMediaKey = key;
+      galleryThumbnails.replaceChildren();
+      activeVariant.media.forEach((src, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "thumb-button";
+        button.dataset.index = String(index);
+        const image = document.createElement("img");
+        image.src = src;
+        image.alt = "";
+        image.width = 96;
+        image.height = 90;
+        button.append(image);
+        galleryThumbnails.append(button);
       });
-      galleryThumbnails.append(button);
+    }
+    galleryThumbnails.querySelectorAll(".thumb-button").forEach((button, index) => {
+      button.setAttribute("aria-label", `${viewName(index)}, ${optionName(activeVariant)}`);
+      button.setAttribute("aria-pressed", String(index === activeMediaIndex));
     });
-    const empty = currentMedia.length === 0;
-    $("#imageIndex").innerHTML = empty ? "— <span aria-hidden=\"true\">/</span> —" : `${String(activeMediaIndex + 1).padStart(2, "0")} <span aria-hidden="true">/</span> ${String(currentMedia.length).padStart(2, "0")}`;
-    $("#galleryCaption").innerHTML = empty
-      ? "No product image supplied <span aria-hidden=\"true\">·</span> Fallback shown"
-      : `${activeMediaIndex === 0 ? "Front view" : "Detail view"} <span aria-hidden="true">·</span> Original vector artwork`;
+    setIndexLabel();
   }
 
   function showFallback(message) {
     mainImage.hidden = true;
-    mainImage.removeAttribute("srcset");
-    mainImage.removeAttribute("sizes");
     mediaSkeleton.hidden = true;
     mediaFallback.hidden = false;
     fallbackDescription.textContent = message;
@@ -191,133 +187,245 @@
       return;
     }
 
-    mediaStage.dataset.galleryState = "loading";
-    mainImage.removeAttribute("srcset");
-    mainImage.removeAttribute("sizes");
-    mainImage.removeAttribute("src");
-    mainImage.dataset.renderedVariantId = "";
-    mainImage.dataset.mediaIndex = "";
-    mainImage.hidden = true;
+    const src = behavior === "missing-file" ? MISSING_IMAGE : activeVariant.media[activeMediaIndex];
     mediaFallback.hidden = true;
-
-    const src = behavior === "missing-file"
-      ? "qa-fixtures/intentional-404.svg"
-      : activeVariant.media[activeMediaIndex];
     if (!src) {
-      showFallback(`No image is assigned to the ${colorLabel(activeVariant.color)} ${activeVariant.size} option.`);
+      showFallback(`There is no photo for ${optionShort(activeVariant)} yet.`);
       return;
     }
 
+    mediaStage.dataset.galleryState = "loading";
     mediaStage.setAttribute("aria-busy", "true");
-    mediaSkeleton.hidden = false;
+    const keepPrevious = !mainImage.hidden && mainImage.getAttribute("src");
+    mediaSkeleton.hidden = Boolean(keepPrevious);
+    const variant = activeVariant;
+    const index = activeMediaIndex;
     const probe = new Image();
     probe.onload = () => {
       if (token !== requestToken || behavior === "stale") return;
-      mainImage.onload = () => {
-        if (token !== requestToken || behavior === "stale") return;
-        mainImage.dataset.renderedVariantId = activeVariant.id;
-        mainImage.dataset.mediaIndex = String(activeMediaIndex);
-        mainImage.alt = mediaAlt(activeVariant, activeMediaIndex);
-        mainImage.hidden = false;
-        mediaSkeleton.hidden = true;
-        mediaStage.dataset.galleryState = "ready";
-        mediaStage.setAttribute("aria-busy", "false");
-        updateLiveStatus();
-      };
-      mainImage.onerror = () => {
-        if (token !== requestToken || behavior === "stale") return;
-        showFallback("The product image could not be loaded. The selected options and price are still available to review.");
-        updateLiveStatus();
-      };
-      mainImage.removeAttribute("srcset");
-      mainImage.removeAttribute("sizes");
       mainImage.src = src;
-      if (mainImage.complete && mainImage.naturalWidth > 0) {
-        mainImage.onload();
-      }
+      mainImage.alt = mediaAlt(variant, index);
+      mainImage.dataset.renderedVariantId = variant.id;
+      mainImage.dataset.mediaIndex = String(index);
+      mainImage.hidden = false;
+      mediaSkeleton.hidden = true;
+      mediaStage.dataset.galleryState = "ready";
+      mediaStage.setAttribute("aria-busy", "false");
+      updateLiveStatus();
     };
     probe.onerror = () => {
       if (token !== requestToken || behavior === "stale") return;
-      showFallback("The product image could not be loaded. The selected options and price are still available to review.");
+      mainImage.dataset.renderedVariantId = "";
+      showFallback("The photo could not be loaded. You can still pick an option and add it to your bag.");
       updateLiveStatus();
     };
     probe.src = src;
   }
 
   function updateLiveStatus(prefix = "") {
-    const price = formatUsdCents(activeVariant.priceCents);
-    const availability = activeVariant.available ? "Available" : "Sold out";
-    const linkStatus = isUnknownLink ? "Unrecognized variant link. Showing the default option. " : "";
+    const availability = activeVariant.available ? "In stock" : "Sold out";
+    const linkStatus = isUnknownLink ? "That link points to an option we don't have, so the default is shown. " : "";
     let mediaStatus;
     if (behavior === "stale") {
-      mediaStatus = mainImage.dataset.renderedVariantId !== activeVariant.id
-        ? "The image is still showing the earlier option."
-        : "The current image remains in place.";
+      mediaStatus = mainImage.dataset.renderedVariantId !== activeVariant.id ? "The photo still shows the earlier option." : "Photo unchanged.";
     } else if (mediaStage.dataset.galleryState === "loading") {
-      mediaStatus = "Image loading.";
+      mediaStatus = "Photo loading.";
     } else if (mediaStage.dataset.galleryState === "ready") {
-      mediaStatus = "Image updated.";
+      mediaStatus = `${viewName(activeMediaIndex)} shown.`;
     } else {
-      mediaStatus = "Image preview unavailable.";
+      mediaStatus = "Photo unavailable.";
     }
-    liveStatus.textContent = `${linkStatus}${prefix}${colorLabel(activeVariant.color)}, ${activeVariant.size}, ${price} USD. ${availability}. ${mediaStatus}`;
+    liveStatus.textContent = `${linkStatus}${prefix}${optionName(activeVariant)}, ${formatUsd(activeVariant.priceCents)}. ${availability}. ${mediaStatus}`;
   }
 
-  function syncView({ fromUser = false } = {}) {
+  function syncView({ writeLink = false } = {}) {
     updateControls();
     updatePriceAndAvailability();
-    updateThumbnails();
+    renderThumbnails();
     paintMedia();
-    if (fromUser) updateUrl();
+    if (writeLink) writeUrl();
     updateLiveStatus();
   }
 
-  function onOptionChange(event) {
+  function selectMedia(index, { focus = false } = {}) {
+    const count = activeVariant.media.length;
+    if (!count) return;
+    activeMediaIndex = (index + count) % count;
+    renderThumbnails();
+    paintMedia();
+    updateLiveStatus();
+    if (focus) galleryThumbnails.querySelectorAll(".thumb-button")[activeMediaIndex]?.focus();
+  }
+
+  function onOptionChange() {
     const colorInput = colorOptions.querySelector('input[name="color"]:checked');
     const sizeInput = sizeOptions.querySelector('input[name="size"]:checked');
     const next = byOptions.get(`${colorInput?.value}|${sizeInput?.value}`);
     if (!next) return;
     activeVariant = next;
     activeMediaIndex = 0;
-    defectNote.hidden = behavior !== "stale";
-    missingAssetNote.hidden = behavior !== "missing-file";
-    syncView({ fromUser: true });
+    syncView({ writeLink: true });
   }
 
-  function initializeFromUrl() {
+  /* Reads ?variant= from the current address. Used on load and on Back or Forward. */
+  function readUrl() {
     const params = new URLSearchParams(window.location.search);
-    if (!params.has("variant")) return;
     const requested = params.get("variant");
-    const match = requested === null ? undefined : byId.get(requested);
-    if (match) {
-      activeVariant = match;
+    if (requested === null) {
+      isUnknownLink = false;
+      activeVariant = variants[0];
+    } else if (byId.has(requested)) {
+      isUnknownLink = false;
+      activeVariant = byId.get(requested);
+    } else {
+      isUnknownLink = true;
+      activeVariant = variants[0];
+    }
+    linkMessage.hidden = !isUnknownLink;
+  }
+
+  /* Bag */
+  function bagItemCount() {
+    let count = 0;
+    bag.forEach((qty) => { count += qty; });
+    return count;
+  }
+
+  function renderBag() {
+    const count = bagItemCount();
+    $("#bagCount").textContent = String(count);
+    $("#bagButton").setAttribute("aria-label", `Bag, ${count} ${count === 1 ? "item" : "items"}`);
+    const lines = $("#bagLines");
+    lines.replaceChildren();
+    if (!count) {
+      const empty = document.createElement("p");
+      empty.className = "bag-empty";
+      empty.textContent = "Your bag is empty.";
+      lines.append(empty);
+      $("#bagFoot").hidden = true;
       return;
     }
-    isUnknownLink = true;
-    activeVariant = variants[0];
-    linkMessage.hidden = false;
+    let subtotal = 0;
+    bag.forEach((qty, id) => {
+      const variant = byId.get(id);
+      subtotal += variant.priceCents * qty;
+      const row = document.createElement("div");
+      row.className = "bag-line";
+      const swatch = document.createElement("span");
+      swatch.className = "bag-swatch";
+      swatch.style.setProperty("--swatch", colors.find((c) => c.key === variant.color).swatch);
+      swatch.setAttribute("aria-hidden", "true");
+      const text = document.createElement("div");
+      const name = document.createElement("strong");
+      name.textContent = "Stillwater Bottle";
+      const meta = document.createElement("span");
+      meta.textContent = `${optionName(variant)}, qty ${qty}`;
+      text.append(name, meta);
+      const price = document.createElement("span");
+      price.className = "figure";
+      price.textContent = formatUsd(variant.priceCents * qty);
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "text-button";
+      remove.dataset.remove = id;
+      remove.textContent = "Remove";
+      remove.setAttribute("aria-label", `Remove ${optionName(variant)}`);
+      row.append(swatch, text, price, remove);
+      lines.append(row);
+    });
+    $("#bagSubtotal").textContent = formatUsd(subtotal);
+    $("#bagFoot").hidden = false;
   }
 
-  renderColorOptions();
-  initializeFromUrl();
+  function toast(message) {
+    const node = $("#toast");
+    node.textContent = message;
+    node.classList.add("visible");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => node.classList.remove("visible"), 3200);
+  }
+
+  function setQuantity(next) {
+    quantity = Math.min(MAX_QTY, Math.max(1, next));
+    qtyValue.textContent = String(quantity);
+    $("#qtyDown").disabled = quantity <= 1;
+    $("#qtyUp").disabled = quantity >= MAX_QTY;
+    updatePriceAndAvailability();
+  }
+
+  /* Wiring */
+  buildOptions();
+  readUrl();
+
+  $("#variantForm").addEventListener("change", onOptionChange);
+
+  galleryThumbnails.addEventListener("click", (event) => {
+    const button = event.target.closest(".thumb-button");
+    if (button) selectMedia(Number(button.dataset.index));
+  });
+  galleryThumbnails.addEventListener("keydown", (event) => {
+    if (!event.target.closest(".thumb-button")) return;
+    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+      event.preventDefault();
+      selectMedia(activeMediaIndex + (event.key === "ArrowRight" ? 1 : -1), { focus: true });
+    }
+  });
+
   behaviorMode.addEventListener("change", () => {
     behavior = behaviorMode.value;
     defectNote.hidden = behavior !== "stale";
     missingAssetNote.hidden = behavior !== "missing-file";
     document.body.dataset.exampleMode = behavior;
-    if (behavior === "fixed") {
-      paintMedia();
-      updateLiveStatus("Working gallery restored. ");
-    } else if (behavior === "stale") {
+    if (behavior === "stale") {
       requestToken += 1;
       mediaStage.dataset.galleryState = "synthetic-stale";
       mediaStage.setAttribute("aria-busy", "false");
-      updateLiveStatus("Synthetic stale-image defect selected. ");
+      updateLiveStatus("Stale photo bug switched on. ");
     } else {
       paintMedia();
-      updateLiveStatus("Synthetic missing-image request selected. ");
+      updateLiveStatus(behavior === "fixed" ? "Working gallery restored. " : "Missing photo bug switched on. ");
     }
   });
-  $("#variantForm").addEventListener("change", onOptionChange);
+
+  window.addEventListener("popstate", () => {
+    readUrl();
+    activeMediaIndex = 0;
+    syncView();
+  });
+
+  $("#qtyDown").addEventListener("click", () => setQuantity(quantity - 1));
+  $("#qtyUp").addEventListener("click", () => setQuantity(quantity + 1));
+
+  addButton.addEventListener("click", () => {
+    if (!activeVariant.available) return;
+    const current = bag.get(activeVariant.id) ?? 0;
+    const added = Math.min(quantity, MAX_QTY - current);
+    if (added <= 0) {
+      toast(`You already have ${MAX_QTY} of the ${optionShort(activeVariant)} in your bag.`);
+      return;
+    }
+    bag.set(activeVariant.id, current + added);
+    renderBag();
+    toast(`Added ${added} ${optionShort(activeVariant)} to your bag.`);
+    setQuantity(1);
+  });
+
+  $("#bagButton").addEventListener("click", () => {
+    renderBag();
+    bagDialog.showModal();
+  });
+  $("#bagClose").addEventListener("click", () => bagDialog.close());
+  bagDialog.addEventListener("click", (event) => {
+    if (event.target === bagDialog) bagDialog.close();
+    const remove = event.target.closest("[data-remove]");
+    if (remove) {
+      bag.delete(remove.dataset.remove);
+      renderBag();
+      (bagDialog.querySelector("[data-remove]") ?? $("#bagClose")).focus();
+    }
+  });
+
+  renderBag();
+  setQuantity(1);
   syncView();
 })();
