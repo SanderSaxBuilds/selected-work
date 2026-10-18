@@ -1,0 +1,279 @@
+import { LIMITS, buildArchive, verifyArchive, compareArchiveToFiles, createRecoveryZip, formatBytes } from './archive-desk-core.mjs'
+
+const $ = id => document.getElementById(id)
+const encoder = new TextEncoder()
+const state = { files: [], created: null, verified: null, baseline: null, comparison: null, busy: false, mode: 'create' }
+const stamp = () => new Date().toISOString().slice(0, 19).replaceAll(':', '-')
+const total = files => files.reduce((sum, file) => sum + file.data.byteLength, 0)
+const countText = count => `${count} ${count === 1 ? 'file' : 'files'}`
+const dateText = value => new Date(value).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })
+const hex = bytes => Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('')
+const hash = async bytes => hex(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)))
+
+function status(message, error = false) {
+  $('status').textContent = message
+  $('status-bar').classList.toggle('error', error)
+}
+
+function controls() {
+  for (const element of document.querySelectorAll('button,input')) element.disabled = state.busy
+  $('clear-selection').disabled = state.busy || !state.files.length
+  $('build-archive').disabled = state.busy || !state.files.length
+  $('download-backup').disabled = state.busy || !state.created
+  $('download-recovered').disabled = state.busy || !state.verified
+  $('compare-button').disabled = state.busy || !state.baseline || !state.files.length
+  $('download-report').disabled = state.busy || !state.comparison
+  $('workspace').setAttribute('aria-busy', String(state.busy))
+}
+
+async function run(message, action) {
+  if (state.busy) return
+  state.busy = true
+  controls()
+  status(message)
+  try { await action() } catch (error) { status(error instanceof Error ? error.message : 'The operation could not finish.', true) }
+  finally { state.busy = false; controls() }
+}
+
+function mode(next, focus = false) {
+  state.mode = next
+  for (const tab of document.querySelectorAll('[role="tab"]')) {
+    const active = tab.dataset.mode === next
+    tab.setAttribute('aria-selected', String(active))
+    tab.tabIndex = active ? 0 : -1
+    $(`panel-${tab.dataset.mode}`).hidden = !active
+  }
+  if (focus) $(`tab-${next}`).focus()
+}
+
+for (const tab of document.querySelectorAll('[role="tab"]')) {
+  tab.addEventListener('click', () => mode(tab.dataset.mode))
+  tab.addEventListener('keydown', event => {
+    const modes = ['create', 'verify', 'compare']
+    let next
+    if (event.key === 'ArrowRight') next = (modes.indexOf(state.mode) + 1) % 3
+    if (event.key === 'ArrowLeft') next = (modes.indexOf(state.mode) + 2) % 3
+    if (event.key === 'Home') next = 0
+    if (event.key === 'End') next = 2
+    if (next !== undefined) { event.preventDefault(); mode(modes[next], true) }
+  })
+}
+
+function row(cells) {
+  const tr = document.createElement('tr')
+  for (const value of cells) {
+    const td = document.createElement('td')
+    td.textContent = value
+    tr.append(td)
+  }
+  return tr
+}
+
+function clearComparison() {
+  state.comparison = null
+  $('comparison-result').hidden = true
+  $('comparison-rows').replaceChildren()
+}
+
+function selection(files, message) {
+  state.files = files
+  state.created = null
+  clearComparison()
+  $('created-result').hidden = true
+  $('check-created').classList.remove('done')
+  $('check-reopened').classList.remove('done')
+  $('check-selection').classList.toggle('done', !!files.length)
+  $('file-count').textContent = `${countText(files.length)} selected`
+  $('file-bytes').textContent = formatBytes(total(files))
+  $('compare-current').textContent = `${countText(files.length)} selected, ${formatBytes(total(files))}`
+  $('selection-rows').replaceChildren()
+  if (!files.length) {
+    const empty = row(['No files yet. Load the demo or choose a project.'])
+    empty.className = 'empty-row'
+    empty.firstChild.colSpan = 3
+    $('selection-rows').append(empty)
+  } else for (const file of files) $('selection-rows').append(row([file.path, formatBytes(file.data.byteLength), dateText(file.modifiedAt)]))
+  $('sensitive-notice').hidden = !files.some(file => /(^|\/)(\.env(?:\..*)?|id_(?:rsa|dsa|ed25519)|.*\.(?:pem|key|p12|pfx))$/i.test(file.path))
+  status(message)
+  controls()
+}
+
+let replacementPending = false
+async function replaceAllowed() {
+  if (!state.files.length) return true
+  if (replacementPending) return false
+  replacementPending = true
+  const dialog = $('replace-dialog')
+  return new Promise(resolve => {
+    const finish = allowed => {
+      dialog.close()
+      replacementPending = false
+      $('replace-yes').removeEventListener('click', yes)
+      $('replace-no').removeEventListener('click', no)
+      dialog.removeEventListener('cancel', cancel)
+      resolve(allowed)
+    }
+    const yes = () => finish(true)
+    const no = () => finish(false)
+    const cancel = event => { event.preventDefault(); finish(false) }
+    $('replace-yes').addEventListener('click', yes)
+    $('replace-no').addEventListener('click', no)
+    dialog.addEventListener('cancel', cancel)
+    dialog.showModal()
+  })
+}
+
+async function chooseFiles(list) {
+  const files = Array.from(list)
+  if (!files.length || state.busy || !await replaceAllowed()) return
+  await run('Reading the selected files. Your original files will not be changed.', async () => {
+    if (files.length > LIMITS.maxFiles) throw new Error('Choose no more than 500 files.')
+    if (files.some(file => file.size > LIMITS.maxFileBytes)) throw new Error('Each file must be no larger than 20 MiB.')
+    if (files.reduce((sum, file) => sum + file.size, 0) > LIMITS.maxTotalBytes) throw new Error('The selected files exceed 50 MiB.')
+    const loaded = []
+    for (const file of files) loaded.push({ path: file.webkitRelativePath || file.name, data: new Uint8Array(await file.arrayBuffer()), modifiedAt: file.lastModified })
+    // The core validates paths and collisions before the selection can replace existing work.
+    await buildArchive(loaded)
+    selection(loaded, `${countText(loaded.length)} ready. Check the paths, then create your backup.`)
+  })
+}
+
+$('choose-files').addEventListener('click', event => { event.stopPropagation(); $('files-input').click() })
+$('choose-folder').addEventListener('click', event => { event.stopPropagation(); $('folder-input').click() })
+for (const id of ['files-input', 'folder-input']) $(id).addEventListener('change', async event => {
+  const files = Array.from(event.target.files)
+  event.target.value = ''
+  await chooseFiles(files)
+})
+$('clear-selection').addEventListener('click', async () => { if (await replaceAllowed()) selection([], 'Selection cleared. Original files were not changed.') })
+
+const demoFiles = () => [
+  { path: 'website/index.html', data: encoder.encode('<!doctype html>\n<title>North Studio demo</title>\n<h1>A small project, preserved.</h1>\n'), modifiedAt: 1792281600000 },
+  { path: 'website/assets/theme.css', data: encoder.encode('body { font-family: system-ui; color: #123a36; }\n'), modifiedAt: 1792281600000 },
+  { path: 'website/notes/release.txt', data: encoder.encode('Synthetic demo files. No client data.\n'), modifiedAt: 1792281600000 },
+  { path: 'website/data.bin', data: new Uint8Array([0, 1, 2, 255, 128, 0]), modifiedAt: 1792281600000 }
+]
+$('load-demo').addEventListener('click', async () => {
+  if (!await replaceAllowed()) return
+  selection(demoFiles(), 'Four synthetic demo files loaded. Create a backup to try the full check and recovery flow.')
+  mode('create')
+})
+$('load-changed-demo').addEventListener('click', async () => {
+  if (!await replaceAllowed()) return
+  const files = demoFiles().filter(file => !file.path.endsWith('release.txt'))
+  files[0].data = encoder.encode('<!doctype html>\n<title>North Studio demo</title>\n<h1>A revised homepage.</h1>\n')
+  files.push({ path: 'website/README.txt', data: encoder.encode('Added after the first backup.\n'), modifiedAt: 1792285200000 })
+  selection(files, 'Changed demo loaded. Choose the original demo ZIP as the saved backup to compare them.')
+})
+$('back-to-files').addEventListener('click', () => mode('create', true))
+
+$('build-archive').addEventListener('click', () => run('Creating the ZIP and checking its file hashes.', async () => {
+  state.created = null
+  $('created-result').hidden = true
+  $('check-created').classList.remove('done')
+  $('check-reopened').classList.remove('done')
+  const bytes = await buildArchive(state.files)
+  await verifyArchive(bytes)
+  const name = $('archive-name').value.trim().replace(/[^a-zA-Z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'project-backup'
+  state.created = { bytes, hash: await hash(bytes), name: `${name}-${stamp()}.archive.zip` }
+  $('created-name').textContent = state.created.name
+  $('created-size').textContent = `${countText(state.files.length)}, ${formatBytes(bytes.length)}`
+  $('created-hash').textContent = state.created.hash
+  $('created-result').hidden = false
+  $('check-created').classList.add('done')
+  status('Backup created and checked in memory. Download it, then open the saved ZIP in Verify archive.')
+}))
+
+function download(bytes, name, type = 'application/zip') {
+  const url = URL.createObjectURL(new Blob([bytes], { type }))
+  const link = document.createElement('a')
+  link.href = url
+  link.download = name
+  document.body.append(link)
+  link.click()
+  link.remove()
+  setTimeout(() => URL.revokeObjectURL(url), 60000)
+  status(`Download requested: ${name}. Check your browser downloads for the saved file.`)
+}
+$('download-backup').addEventListener('click', () => { if (state.created) download(state.created.bytes, state.created.name) })
+
+async function readArchive(file) {
+  if (file.size > LIMITS.maxTotalBytes + 2 * 1024 * 1024) throw new Error('This archive exceeds the 52 MiB archive input limit.')
+  const bytes = new Uint8Array(await file.arrayBuffer())
+  const result = await verifyArchive(bytes)
+  return { bytes, result, hash: await hash(bytes), name: file.name }
+}
+
+$('verify-input').addEventListener('change', async event => {
+  const file = event.target.files[0]
+  event.target.value = ''
+  if (!file) return
+  await run('Checking the ZIP structure, file CRC values and SHA-256 hashes.', async () => {
+    state.verified = null
+    $('verified-result').hidden = true
+    $('verified-rows').replaceChildren()
+    $('verify-file-name').textContent = file.name
+    $('check-reopened').classList.remove('done')
+    const archive = await readArchive(file)
+    state.verified = archive
+    $('verified-summary').textContent = `${countText(archive.result.files.length)} verified. No file content was uploaded.`
+    $('verified-date').textContent = dateText(archive.result.manifest.createdAt)
+    $('verified-bytes').textContent = formatBytes(archive.bytes.length)
+    for (const entry of archive.result.files) $('verified-rows').append(row([entry.path, formatBytes(entry.bytes), entry.sha256]))
+    $('verified-result').hidden = false
+    $('check-reopened').classList.toggle('done', archive.hash === state.created?.hash)
+    status('The selected archive passed every file check. You can now export a recovery copy.')
+  })
+})
+$('download-recovered').addEventListener('click', () => run('Checking the archive again before exporting recovered files.', async () => {
+  if (!state.verified) throw new Error('Choose and verify an archive first.')
+  const bytes = await createRecoveryZip(state.verified.bytes)
+  download(bytes, `archive-desk-recovered-${stamp()}.zip`)
+}))
+
+$('compare-input').addEventListener('change', async event => {
+  const file = event.target.files[0]
+  event.target.value = ''
+  if (!file) return
+  await run('Checking the saved backup for comparison.', async () => {
+    state.baseline = null
+    clearComparison()
+    $('compare-baseline-name').textContent = file.name
+    state.baseline = await readArchive(file)
+    status('Saved backup verified. Choose the current files, then compare them.')
+  })
+})
+function renderComparison() {
+  $('comparison-rows').replaceChildren()
+  if (!state.comparison) return
+  const rows = state.comparison.rows.filter(row => $('show-unchanged').checked || row.status !== 'unchanged')
+  for (const entry of rows) {
+    const tr = row([entry.path, '', entry.beforeBytes === null ? '-' : formatBytes(entry.beforeBytes), entry.afterBytes === null ? '-' : formatBytes(entry.afterBytes)])
+    const badge = document.createElement('span')
+    badge.className = `change-badge ${entry.status}`
+    badge.textContent = entry.status[0].toUpperCase() + entry.status.slice(1)
+    tr.children[1].append(badge)
+    $('comparison-rows').append(tr)
+  }
+  if (!rows.length) {
+    const tr = row(['No differences. Turn on Show unchanged files to see the matching paths.'])
+    tr.className = 'empty-row'
+    tr.firstChild.colSpan = 4
+    $('comparison-rows').append(tr)
+  }
+}
+$('compare-button').addEventListener('click', () => run('Comparing relative paths and file contents.', async () => {
+  clearComparison()
+  const result = await compareArchiveToFiles(state.baseline.bytes, state.files)
+  state.comparison = { format: 'archive-desk-comparison', version: 1, createdAt: new Date().toISOString(), baselineSha256: state.baseline.hash, ...result }
+  for (const [key, count] of Object.entries(result.counts)) $(`count-${key}`).textContent = String(count)
+  $('comparison-result').hidden = false
+  renderComparison()
+  status(`Comparison complete. ${result.counts.added} added, ${result.counts.changed} changed, ${result.counts.removed} removed and ${result.counts.unchanged} unchanged. No files were edited.`)
+}))
+$('show-unchanged').addEventListener('change', renderComparison)
+$('download-report').addEventListener('click', () => {
+  if (state.comparison) download(JSON.stringify(state.comparison, null, 2) + '\n', `archive-desk-comparison-${stamp()}.json`, 'application/json')
+})
+
+controls()
