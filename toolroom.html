@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f3ea">
+  <meta name="description" content="Toolroom, a working digital product storefront demonstration from SanderSaxBuilds. Explore tools, sample downloads and a portable local library.">
+  <title>Toolroom | Small tools for better work</title>
+  <link rel="icon" href="toolroom-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="toolroom-style.css">
+  <script type="module" src="toolroom-app.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="demo-bar"><span class="status-dot"></span> A working storefront study. Demo orders only, no payments.</div>
+  <header class="site-header wrap">
+    <a class="brand" href="#shop" aria-label="Toolroom home"><span class="brand-mark" aria-hidden="true">✳</span>Toolroom<span class="brand-credit">by SanderSaxBuilds</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#shop" data-route="shop">The collection</a>
+      <a href="#library" data-route="library">Your library <span id="library-count" class="count"></span></a>
+      <button class="plain nav-backup" id="backup-open">Backup</button>
+    </nav>
+    <button class="bag-button" id="cart-open" aria-label="Open bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l1 14H4L5 7Zm4 0V5a3 3 0 0 1 6 0v2"/></svg><span class="bag-label">Your bag</span><span id="cart-count" class="bag-count">0</span></button>
+  </header>
+
+  <main id="main">
+    <section id="shop-view">
+      <div class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="tiny-cross">+</span> Independent work toolbox</p>
+          <h1>Small tools.<br>Better <em>handoffs.</em></h1>
+          <p class="hero-description">Clearer quotes, cleaner data, and projects that leave your desk in good shape. Practical digital tools for people who do the work.</p>
+          <a class="button dark" href="#collection">Find your next tool <span aria-hidden="true">↘</span></a>
+          <div class="hero-note"><span class="paper-icon" aria-hidden="true">▤</span> Four tools. Useful files. Yours to explore.</div>
+        </div>
+        <div class="hero-art" role="img" aria-label="Illustrative quote sheet and project checklist on a green work surface">
+          <span class="art-label">Fewer loose ends.</span>
+          <div class="art-grid"></div>
+          <div class="sheet sheet-quote"><div class="sheet-top"><b>QuoteCheck</b><span>Q-0042</span></div><div class="sheet-rule"></div><small>Project estimate</small><h3>Good work starts<br>with a clear scope.</h3><div class="fake-line"><span>Design and build</span><b>$1,400</b></div><div class="fake-line"><span>Revision allowance</span><b>$280</b></div><div class="sheet-total"><span>Project estimate</span><strong>$1,680</strong></div><div class="sheet-foot">Illustrative sample · USD</div></div>
+          <div class="sheet sheet-check"><span class="file-tab">Handoff 03</span><h3>Ready for<br>the next person.</h3><p><i>✓</i> Files, named and checked</p><p><i>✓</i> Decisions, written down</p><p><i>✓</i> Next steps, understood</p></div>
+          <div class="art-star" aria-hidden="true">✳</div>
+        </div>
+      </div>
+      <div class="value-strip wrap"><span><b>01</b> Straightforward tools</span><span><b>02</b> Local workflows</span><span><b>03</b> Clear deliverables</span></div>
+      <section class="collection wrap" id="collection" aria-labelledby="collection-heading">
+        <div class="section-heading"><div><p class="eyebrow">The collection</p><h2 id="collection-heading">A place for every loose end.</h2></div><p class="section-aside">A small collection.<br>A useful part of your process.</p></div>
+        <div class="catalog-tools"><div class="tabs" role="group" aria-label="Filter collection"><button data-category="all" aria-pressed="true">All tools <span>4</span></button><button data-category="pricing" aria-pressed="false">Quotes</button><button data-category="data" aria-pressed="false">Data</button><button data-category="projects" aria-pressed="false">Projects</button><button data-category="bundles" aria-pressed="false">Bundles</button><button data-category="saved" aria-pressed="false">Saved <span id="saved-count">0</span></button></div><div class="search-sort"><label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="search" type="search" placeholder="Find a tool" aria-label="Search tools"></label><label class="sr-only" for="sort">Sort tools</label><select id="sort"><option value="featured">Featured</option><option value="price">Price: low to high</option><option value="name">Name: A to Z</option></select></div></div>
+        <p class="catalog-caption"><span id="result-count" role="status">4 tools</span><span>Draft prices in USD · Preview files are free</span></p>
+        <div class="product-grid" id="product-grid"></div>
+        <div class="empty-state" id="no-results" hidden><span>↳</span><h3>No tools on this shelf.</h3><p>Try another search or view the full collection.</p><button class="button outline" id="reset-filters">Show all tools</button></div>
+      </section>
+      <section class="workflow wrap"><div class="workflow-intro"><p class="eyebrow">Less setup, more doing</p><h2>From a loose end<br>to a tidy finish.</h2><p>Explore the tool before adding it to your workflow. This demo includes sample files you can keep.</p></div><ol><li><span>01</span><div><h3>Find the friction.</h3><p>A quote that keeps changing. A CSV that keeps breaking. A handoff living in your head.</p></div></li><li><span>02</span><div><h3>Try a small tool.</h3><p>Read what is included and download the sample. Each tool has one clear job.</p></div></li><li><span>03</span><div><h3>Keep your work portable.</h3><p>Your demo library stays in this browser. Export a backup and restore it whenever you need it.</p></div></li></ol></section>
+      <section class="faq wrap" aria-labelledby="faq-title"><div><p class="eyebrow">Before you start</p><h2 id="faq-title">Good questions.</h2></div><div class="faq-list"><details><summary>Can I buy these tools here?</summary><p>This is a storefront demonstration. The bag and demo checkout create local test orders only. No payment, real purchase, license grant or email delivery occurs.</p></details><details><summary>What will I download?</summary><p>The preview downloads are clearly labelled sample CSV or text files. Full product archives are not served by this demo.</p></details><details><summary>Where does my library live?</summary><p>In this browser on this device, when browser storage is available. Backup creates a portable JSON file. Restoring validates the file before changing the library. Private browser sessions and cleared storage can remove local data.</p></details><details><summary>Does this connect to Etsy or another shop?</summary><p>No. This independent demo does not connect to Etsy, Payhip or any payment provider. Production checkout and fulfillment need a separately configured service.</p></details></div></section>
+    </section>
+
+    <section id="library-view" class="library wrap" hidden aria-labelledby="library-title"><p class="eyebrow">Your work, within reach</p><div class="section-heading"><h1 id="library-title">Your library.</h1><button class="button outline" id="library-backup">Export backup <span aria-hidden="true">↗</span></button></div><p class="library-description">Demo orders and sample downloads, saved on this device. These records are not purchases.</p><div class="library-stats"><div><strong id="stat-orders">0</strong><span>Demo orders</span></div><div><strong id="stat-tools">0</strong><span>Tools explored</span></div><div><strong id="stat-value">$0</strong><span>Illustrative total only</span></div></div><div id="orders"></div><div class="empty-state" id="library-empty"><span>▤</span><h2>Make room for good work.</h2><p>Your demo orders will appear here, ready to revisit and download.</p><a class="button dark" href="#shop">Explore the collection ↗</a></div></section>
+  </main>
+
+  <footer class="site-footer wrap"><a class="brand" href="#shop"><span class="brand-mark" aria-hidden="true">✳</span>Toolroom</a><p>A small digital workshop by SanderSaxBuilds.</p><div><button class="plain" id="footer-backup">Backup and restore</button><span>Independent storefront study · 2026</span></div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="product-dialog" class="product-dialog"><div id="product-detail"></div></dialog>
+  <dialog id="cart-dialog" class="side-dialog"><header class="panel-header"><div><p class="eyebrow">A few good tools</p><h2>Your bag.</h2></div><button class="icon-button" data-close="cart-dialog" aria-label="Close bag">×</button></header><div id="cart-items"></div><div id="cart-summary"></div></dialog>
+  <dialog id="checkout-dialog" class="checkout-dialog"><button class="icon-button dialog-close" data-close="checkout-dialog" aria-label="Close demo checkout">×</button><p class="eyebrow">Try the complete flow</p><h2>One tidy handoff.</h2><p class="notice">Demo mode. Nothing is charged or emailed. Use fictional details.</p><div id="checkout-summary"></div><form id="checkout-form"><label for="demo-name">Name</label><input id="demo-name" name="name" autocomplete="off" required maxlength="80" placeholder="Jordan Example"><label for="demo-email">Email for the demo receipt</label><input id="demo-email" name="email" type="email" autocomplete="off" required maxlength="254" placeholder="jordan@example.com"><p id="checkout-error" class="form-error" role="alert"></p><button class="button dark full" type="submit">Create demo order <span aria-hidden="true">↗</span></button><p class="fine-print">The receipt is saved only in this browser. No real license or purchase is created.</p></form></dialog>
+  <dialog id="backup-dialog" class="backup-dialog"><button class="icon-button dialog-close" data-close="backup-dialog" aria-label="Close backup center">×</button><p class="eyebrow">Keep your work portable</p><h2>A little peace of mind.</h2><p>Export your bag, saved tools and demo orders as one backup file. Restore a valid backup without losing your current library until you confirm.</p><div class="backup-action"><div><h3>Export your library</h3><p>A JSON file you can keep on your device.</p></div><button class="button dark" id="export-backup">Export ↗</button></div><div class="backup-action"><div><h3>Restore a backup</h3><p>Toolroom backups only. Maximum 1 MB.</p></div><label class="button outline file-label">Choose file<input id="import-backup" type="file" accept="application/json,.json"></label></div><div id="restore-preview" hidden></div><p id="backup-message" class="form-error" role="alert"></p><p class="fine-print">Backups contain the names and emails entered in demo checkout. Keep the file private. Restoring replaces local demo data, and never changes any real shop.</p></dialog>
+  <noscript><div class="wrap notice">Enable JavaScript to use the catalogue, bag and local library.</div></noscript>
+</body>
+</html>
