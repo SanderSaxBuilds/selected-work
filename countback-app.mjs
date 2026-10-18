@@ -1,207 +1,236 @@
-import { order, createLedger, summarize, applyCount, toCSV } from "./countback-ledger.mjs";
+import { order, createLedger, summarize, applyCount, toCSV, rowExceptions, receiptTotals } from "./countback-ledger.mjs";
 import { walkthroughSteps } from "./countback-walkthrough.mjs";
 
 const $ = id => document.getElementById(id);
 let ledger = createLedger();
-let messages = [];
+let messages = 0;
 let editSku = null;
+let freshSku = null;
 let demoRunning = false;
 let runToken = 0;
 let manualSequence = 0;
+const sources = new Map();
 
-function status(text) {
-  $("walkthrough-status").textContent = text;
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+const unitWord = (row, n) => n === 1 ? row.unit.replace(/s$/, "") : row.unit;
+
+function status(text) { $("walkthrough-status").textContent = text; }
+
+function resetLog() {
+  messages = 0;
+  $("transcript").replaceChildren(el("p", "empty-log", "Spoken counts and readbacks appear here while the walkthrough plays."));
+  $("message-count").textContent = "No entries";
 }
 
 function appendMessage(role, text) {
-  const entry = document.createElement("article");
-  entry.className = "utterance " + (role === "system" ? "is-agent" : "is-user");
-  const label = document.createElement("span");
-  label.className = "utterance-label";
-  label.textContent = role === "system" ? "COUNTBACK READBACK" : "SYNTHETIC DELIVERY NOTE";
-  const copy = document.createElement("p");
-  copy.textContent = text;
-  entry.append(label, copy);
+  if (!messages) $("transcript").replaceChildren();
+  const entry = el("article", "utterance" + (role === "system" ? " is-agent" : ""));
+  entry.append(el("span", "utterance-label", role === "system" ? "Countback" : "Receiver"), el("p", "", text));
   $("transcript").append(entry);
-  messages.push({ role, text });
-  $("message-count").textContent = messages.length + (messages.length === 1 ? " entry" : " entries");
+  messages++;
+  $("message-count").textContent = plural(messages, "entry", "entries");
   $("transcript").scrollTop = $("transcript").scrollHeight;
 }
 
-function makeCell(row, className, content) {
-  const cell = document.createElement(row ? "td" : "th");
-  if (className) cell.className = className;
-  if (content instanceof Node) cell.append(content);
-  else cell.textContent = content;
-  return cell;
+function renderDelivery(rows, totals) {
+  const cartons = order.items.reduce((n, item) => n + Math.ceil(item.ordered / item.perCarton), 0);
+  const meta = $("delivery-meta");
+  if (!meta.childElementCount) {
+    for (const [term, value] of [["Arrived", "7:42 AM"], ["Drop-off", order.dock], ["Expected", plural(cartons, "carton", "cartons")], ["Lines", String(order.items.length)]]) {
+      const group = el("div"); group.append(el("dt", "", term), el("dd", "", value)); meta.append(group);
+    }
+    $("route").textContent = `${order.supplier} to ${order.store}`;
+    $("po-title").textContent = order.id;
+  }
+  $("progress-count").textContent = `${totals.checked} of ${totals.lines}`;
+  const track = $("progress-track");
+  track.style.setProperty("--lines", String(rows.length));
+  track.replaceChildren(...rows.map(row => {
+    const flags = rowExceptions(row);
+    return el("span", !row.checked ? "" : flags[0].kind === "match" ? "is-match" : "is-flag");
+  }));
+}
+
+function renderTotals(totals) {
+  const box = $("totals");
+  const any = totals.checked > 0;
+  const tiles = [
+    ["", "Received", any ? String(totals.received) : "0", any ? `of ${totals.orderedChecked} ordered on counted lines` : `${totals.ordered} units on order`],
+    ["is-short", "Short", any ? String(totals.shortage) : "0", "units below the order"],
+    ["is-damaged", "Damaged", any ? String(totals.damaged) : "0", "included in received"],
+    ["is-extra", "Extra", any ? String(totals.overage) : "0", "units above the order"],
+  ];
+  box.replaceChildren(...tiles.map(([cls, label, value, note]) => {
+    const tile = el("div", `total ${Number(value) > 0 ? cls : ""}`);
+    tile.append(el("p", "total-label", label), el("p", "total-value", value), el("p", "total-note", note));
+    return tile;
+  }));
+}
+
+function cell(className, label) {
+  const td = el("td", className);
+  if (label) td.dataset.label = label;
+  return td;
 }
 
 function renderRows(rows) {
   const body = $("rows");
   body.replaceChildren();
+  const firstOpen = rows.find(row => !row.checked)?.sku;
   for (const row of rows) {
-    const tr = document.createElement("tr");
-    const product = document.createElement("div");
-    product.className = "product-cell";
-    const name = document.createElement("strong");
-    name.textContent = row.name;
-    const pack = document.createElement("small");
-    pack.textContent = row.perCarton + " " + row.unit + " per carton · " + row.sku;
-    product.append(name, pack);
-    tr.append(makeCell(true, "", product));
-    tr.append(makeCell(true, "number-cell", String(row.ordered)));
-
-    const received = document.createElement("div");
-    received.className = "received-cell";
-    const total = document.createElement("strong");
-    total.textContent = row.checked ? String(row.received) : "Not counted";
-    received.append(total);
+    const tr = el("tr", row.sku === freshSku ? "is-fresh" : "");
+    const product = cell("product-cell");
+    const meta = el("span", "product-meta", `${row.size}, ${row.perCarton} ${row.unit} per carton, `);
+    meta.append(el("span", "sku", row.sku));
+    product.append(el("span", "product-name", row.name), meta);
+    const ordered = cell("num-col", "Ordered"); ordered.textContent = String(row.ordered);
+    const received = cell("num-col", "Received");
     if (row.checked) {
-      const detail = document.createElement("small");
-      detail.textContent = row.cartons + " cartons + " + row.loose + " loose";
-      received.append(detail);
-    }
-    tr.append(makeCell(true, "", received));
-    tr.append(makeCell(true, "number-cell", row.checked ? String(row.usable) : "-"));
-
-    let exception = "Waiting for count";
-    let warning = !row.checked;
-    if (row.checked) {
-      const parts = [];
-      if (row.shortage) parts.push(row.shortage + " short");
-      if (row.damaged) parts.push(row.damaged + " damaged");
-      if (row.overage) parts.push(row.overage + " extra");
-      exception = parts.length ? parts.join(" · ") : "Matches order";
-      warning = parts.length > 0;
-    }
-    tr.append(makeCell(true, "exception-text" + (warning ? " is-warning" : ""), exception));
-    const action = document.createElement("button");
-    action.className = "row-action";
+      received.append(document.createTextNode(String(row.received)), el("span", "count-detail", `${plural(row.cartons, "carton", "cartons")} and ${row.loose} loose`));
+    } else received.append(el("span", "not-counted", "Not yet"));
+    const usable = cell("num-col", "Usable");
+    usable.textContent = row.checked ? String(row.usable) : "0";
+    const statusCell = cell("status-cell", "Status");
+    const chips = el("div", "chips");
+    for (const flag of rowExceptions(row)) chips.append(el("span", `chip ${flag.kind}`, flag.text));
+    statusCell.append(chips);
+    const actionCell = cell("action-cell");
+    const action = el("button", "row-action" + (row.sku === firstOpen ? " is-first" : ""), row.checked ? "Recount" : "Count");
     action.type = "button";
     action.dataset.edit = row.sku;
-    action.textContent = row.checked ? "Edit count" : "Count line";
-    action.setAttribute("aria-label", (row.checked ? "Edit" : "Count") + " " + row.name);
+    action.setAttribute("aria-label", `${row.checked ? "Recount" : "Count"} ${row.name}`);
     action.disabled = demoRunning;
     action.addEventListener("click", () => openEdit(row.sku));
-    tr.append(makeCell(true, "", action));
+    actionCell.append(action);
+    tr.append(product, ordered, received, usable, statusCell, actionCell);
     body.append(tr);
   }
 }
 
-function renderExceptions(rows) {
-  const list = $("exceptions");
-  list.replaceChildren();
-  const pending = rows.filter(row => !row.checked).map(row => ({
-    text: row.name + " has not been counted.",
-    clear: false
-  }));
-  for (const row of rows.filter(item => item.checked)) {
-    if (row.shortage) pending.push({ text: row.name + ": " + row.shortage + " units short.", clear: false });
-    if (row.damaged) pending.push({ text: row.name + ": " + row.damaged + " units marked damaged.", clear: false });
-    if (row.overage) pending.push({ text: row.name + ": " + row.overage + " units above the order.", clear: false });
-    if (!row.shortage && !row.damaged && !row.overage) pending.push({ text: row.name + " matches the ordered quantity.", clear: true });
+function renderAttention(rows, totals) {
+  const list = $("attention");
+  const items = [];
+  for (const row of rows) {
+    for (const flag of rowExceptions(row)) {
+      if (flag.kind === "short") items.push(["short", `${row.name}: ${flag.units} ${unitWord(row, flag.units)} short of the ${row.ordered} ordered.`]);
+      if (flag.kind === "damaged") items.push(["damaged", `${row.name}: ${flag.units} ${unitWord(row, flag.units)} damaged. Set aside for a supplier credit.`]);
+      if (flag.kind === "extra") items.push(["extra", `${row.name}: ${flag.units} ${unitWord(row, flag.units)} more than ordered.`]);
+    }
   }
-  $("exception-count").textContent = pending.length + (pending.length === 1 ? " item" : " items");
-  for (const item of pending) {
-    const li = document.createElement("li");
-    if (item.clear) li.className = "is-clear";
-    li.textContent = item.text;
-    list.append(li);
-  }
+  const open = rows.filter(row => !row.checked);
+  if (open.length) items.push(["pending", `${plural(open.length, "line", "lines")} still to count: ${open.map(row => row.name).join(", ")}.`]);
+  if (!items.length) items.push(["clear", "Every line matches the order."]);
+  list.replaceChildren(...items.map(([kind, text]) => el("li", kind, text)));
+  $("attention-count").textContent = totals.checked ? plural(totals.attention, "line flagged", "lines flagged") : "";
 }
 
 function renderHistory() {
-  const body = $("history");
-  body.replaceChildren();
-  const events = [...ledger.events].reverse();
-  $("revision").textContent = ledger.revision ? ledger.revision + (ledger.revision === 1 ? " recorded count" : " recorded counts") : "No changes yet";
-  if (!events.length) {
-    const row = document.createElement("tr");
-    const cell = document.createElement("td");
-    cell.className = "history-empty";
-    cell.colSpan = 4;
-    cell.textContent = "Counts and corrections will remain listed here.";
-    row.append(cell);
-    body.append(row);
-    return;
-  }
-  for (const event of events) {
+  const list = $("history");
+  $("revision").textContent = ledger.revision ? plural(ledger.revision, "count", "counts") : "";
+  if (!ledger.events.length) { list.replaceChildren(el("li", "history-empty", "Every count and correction will be listed here. Nothing is overwritten.")); list.querySelector("li").style.display = "block"; return; }
+  const latest = new Map(ledger.events.map(event => [event.sku, event.revision]));
+  list.replaceChildren(...[...ledger.events].reverse().map(event => {
     const item = order.items.find(product => product.sku === event.sku);
-    const row = document.createElement("tr");
-    const rev = document.createElement("span");
-    rev.className = "history-revision";
-    rev.textContent = String(event.revision).padStart(2, "0");
-    row.append(makeCell(true, "", rev));
-    row.append(makeCell(true, "", item.name));
-    row.append(makeCell(true, "number-cell", event.cartons + " cartons + " + event.loose + " loose, " + event.damaged + " damaged"));
-    row.append(makeCell(true, "history-note", event.evidence));
-    body.append(row);
-  }
+    const li = el("li", latest.get(event.sku) === event.revision ? "" : "is-replaced");
+    li.append(el("span", "history-rev", String(event.revision).padStart(2, "0")));
+    const body = el("div");
+    const main = el("span", "history-main");
+    main.append(el("strong", "", item.name), document.createTextNode(`, ${plural(event.cartons, "carton", "cartons")} and ${event.loose} loose, ${event.damaged} damaged = ${event.cartons * item.perCarton + event.loose} ${item.unit}`));
+    if (latest.get(event.sku) !== event.revision) main.append(el("span", "replaced-tag", "Replaced"));
+    body.append(main, el("span", "history-quote", `${sources.get(event.revision) ?? "Count"}: ${event.evidence}`));
+    li.append(body);
+    return li;
+  }));
 }
 
 function render() {
   const rows = summarize(ledger);
-  const checked = rows.filter(row => row.checked).length;
-  const shortage = rows.reduce((sum, row) => sum + (row.shortage || 0), 0);
-  const damaged = rows.reduce((sum, row) => sum + row.damaged, 0);
-  const overage = rows.reduce((sum, row) => sum + (row.overage || 0), 0);
-  $("checked").textContent = String(checked);
-  $("short").textContent = checked ? String(shortage) : "-";
-  $("damage").textContent = checked ? String(damaged) : "-";
-  $("overage").textContent = checked ? String(overage) : "-";
-  $("export").disabled = checked !== order.items.length || demoRunning;
+  const totals = receiptTotals(rows);
+  const complete = totals.checked === totals.lines;
+  renderDelivery(rows, totals);
+  renderTotals(totals);
+  renderRows(rows);
+  renderAttention(rows, totals);
+  renderHistory();
+  $("export").disabled = !complete || demoRunning;
+  $("print").disabled = !complete || demoRunning;
   $("demo").disabled = demoRunning;
   $("stop-demo").hidden = !demoRunning;
   $("reset").disabled = demoRunning;
-  $("review-note").textContent = checked === order.items.length
-    ? "All product lines have a count. Review each source note before export."
-    : "Check all " + order.items.length + " product lines before exporting.";
-  renderRows(rows);
-  renderExceptions(rows);
-  renderHistory();
+  $("draft-chip").textContent = complete ? "Ready to export" : "Draft";
+  $("draft-chip").classList.toggle("is-ready", complete);
+  $("review-note").textContent = complete
+    ? `All ${totals.lines} lines counted. ${totals.attention ? `${plural(totals.attention, "line needs", "lines need")} a note to the supplier.` : "Everything matches the order."}`
+    : `Count all ${totals.lines} lines to export the receipt. ${plural(totals.lines - totals.checked, "line", "lines")} left.`;
+}
+
+function record(args, callId, evidence, source) {
+  const result = applyCount(ledger, args, callId, [evidence]);
+  if (result.revision) sources.set(result.revision, source);
+  freshSku = args.sku;
+  return result;
 }
 
 function openEdit(sku) {
   if (demoRunning) return;
   editSku = sku;
   const row = summarize(ledger).find(item => item.sku === sku);
-  $("edit-title").textContent = "Review " + row.name;
-  for (const field of ["cartons", "loose", "damaged"]) $(field).value = String(row[field]);
+  $("edit-title").textContent = `${row.checked ? "Recount" : "Count"} ${row.name}`;
+  $("edit-intro").textContent = `${row.perCarton} ${row.unit} per carton, ${row.ordered} ordered. Damaged units are part of the received total.`;
+  $("cartons").value = row.checked ? String(row.cartons) : "";
+  $("loose").value = String(row.loose);
+  $("damaged").value = String(row.damaged);
   $("edit-error").textContent = "";
+  updateLiveTotal();
   $("edit-dialog").showModal();
+  $("cartons").focus();
+  $("cartons").select();
 }
 
-function wait(ms) {
-  return new Promise(resolve => window.setTimeout(resolve, ms));
+function readField(id) {
+  const raw = $(id).value.trim();
+  return /^\d+$/.test(raw) ? Number(raw) : NaN;
 }
+
+function updateLiveTotal() {
+  const row = order.items.find(item => item.sku === editSku);
+  if (!row) return;
+  const cartons = readField("cartons"), loose = readField("loose"), damaged = readField("damaged");
+  if ([cartons, loose, damaged].some(Number.isNaN)) { $("live-total").textContent = "Enter whole numbers to see the total."; return; }
+  const received = cartons * row.perCarton + loose;
+  const diff = received - row.ordered;
+  $("live-total").textContent = `${received} ${row.unit} received, ${Math.max(0, received - damaged)} usable. ${diff === 0 ? "Matches the order." : diff < 0 ? `${-diff} short.` : `${diff} extra.`}`;
+}
+
+const wait = ms => new Promise(resolve => window.setTimeout(resolve, ms));
 
 async function playWalkthrough() {
   if (demoRunning) return;
   demoRunning = true;
   const token = ++runToken;
-  ledger = createLedger();
-  messages = [];
-  $("transcript").replaceChildren();
-  const empty = document.createElement("p");
-  empty.className = "empty-state";
-  empty.textContent = "The example and readback will appear here.";
-  $("transcript").append(empty);
-  $("message-count").textContent = "0 entries";
-  status("Playing a scripted sample. No microphone or API is used.");
+  ledger = createLedger(); sources.clear(); freshSku = null;
+  resetLog();
+  status("Playing the scripted delivery.");
   render();
   for (let index = 0; index < walkthroughSteps.length; index++) {
-    await wait(420);
+    await wait(700);
     if (token !== runToken) return;
     const step = walkthroughSteps[index];
     appendMessage("user", step.text);
-    applyCount(ledger, { ...step, evidence: step.text }, "guided-" + index, [step.text]);
+    record({ ...step, evidence: step.text }, "guided-" + index, step.text, "Walkthrough");
     render();
-    await wait(360);
+    await wait(550);
     if (token !== runToken) return;
     appendMessage("system", step.reply);
   }
   demoRunning = false;
-  status("Guided sample complete. Review exceptions, edit a count or export the draft.");
+  status("Walkthrough finished. Recount any line, then print or export the receipt.");
   render();
 }
 
@@ -210,52 +239,55 @@ $("stop-demo").addEventListener("click", () => {
   if (!demoRunning) return;
   runToken++;
   demoRunning = false;
-  status("Walkthrough stopped. Current draft remains available.");
+  status("Stopped. The counts so far stay on the receipt.");
   render();
+  $("demo").focus();
 });
 $("reset").addEventListener("click", () => {
   if (demoRunning) return;
-  ledger = createLedger();
-  messages = [];
-  $("transcript").replaceChildren();
-  const empty = document.createElement("p");
-  empty.className = "empty-state";
-  empty.textContent = "The example and readback will appear here.";
-  $("transcript").append(empty);
-  $("message-count").textContent = "0 entries";
-  status("New sample receipt ready.");
+  if (ledger.events.length && !window.confirm("Start a new receipt? The counts on this one will be cleared.")) return;
+  ledger = createLedger(); sources.clear(); freshSku = null;
+  resetLog();
+  status("New receipt. Play the walkthrough or count a line yourself.");
   render();
 });
+for (const id of ["cartons", "loose", "damaged"]) $(id).addEventListener("input", updateLiveTotal);
 $("cancel-edit").addEventListener("click", () => $("edit-dialog").close());
+$("edit-dialog").addEventListener("close", () => {
+  const button = document.querySelector(`[data-edit="${editSku}"]`);
+  if (button) button.focus();
+});
 $("edit-form").addEventListener("submit", event => {
   event.preventDefault();
-  if (!event.currentTarget.reportValidity()) return;
   const args = { sku: editSku };
-  for (const field of ["cartons", "loose", "damaged"]) args[field] = Number($(field).value);
-  args.evidence = "Manual review: " + args.cartons + " cartons, " + args.loose + " loose, " + args.damaged + " damaged.";
+  for (const field of ["cartons", "loose", "damaged"]) {
+    args[field] = readField(field);
+    if (Number.isNaN(args[field])) { $("edit-error").textContent = "Use whole numbers of 0 or more in every field."; $(field).focus(); return; }
+  }
+  const evidence = `Manual count: ${args.cartons} cartons, ${args.loose} loose, ${args.damaged} damaged.`;
   try {
     manualSequence++;
-    applyCount(ledger, args, "manual-" + Date.now() + "-" + manualSequence, [args.evidence]);
-    $("edit-dialog").close();
-    status("Manual count saved to the local draft history.");
+    record({ ...args, evidence }, "manual-" + Date.now() + "-" + manualSequence, evidence, "Manual count");
     render();
+    $("edit-dialog").close();
+    status(`${order.items.find(item => item.sku === editSku).name} saved. The history keeps every earlier count.`);
   } catch (error) {
     $("edit-error").textContent = error.message;
   }
 });
+function download(text, name, type) {
+  const url = URL.createObjectURL(new Blob([text], { type }));
+  const link = document.createElement("a");
+  link.href = url; link.download = name; link.hidden = true;
+  document.body.append(link); link.click(); link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 $("export").addEventListener("click", () => {
   if ($("export").disabled) return;
-  const file = new Blob([toCSV(ledger)], { type: "text/csv;charset=utf-8" });
-  const url = URL.createObjectURL(file);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "countback-PO-1048.csv";
-  link.hidden = true;
-  document.body.append(link);
-  link.click();
-  link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-  status("CSV draft created in this browser. No receipt was sent.");
+  download(toCSV(ledger), `countback-${order.id}.csv`, "text/csv;charset=utf-8");
+  status("CSV saved to this device. Nothing was sent.");
 });
+$("print").addEventListener("click", () => { if (!$("print").disabled) window.print(); });
 
+resetLog();
 render();

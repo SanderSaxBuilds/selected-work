@@ -3,72 +3,153 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f3ed">
-  <meta name="description" content="Schedule time blocks, check overlaps and run a focus timer. Independent browser-based planning demo.">
-  <title>Daybreak - Planning and focus concept</title>
-  <link rel="stylesheet" href="daybreak-styles.css"><link rel="stylesheet" href="daybreak-rebuild.css">
+  <meta name="theme-color" content="#f6f5f0">
+  <meta name="description" content="Plan your day and week in time blocks, see open stretches at a glance, protect focus time and run a focus timer. Works in the browser without an account.">
+  <title>Daybreak planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="daybreak-styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to planner</a>
   <div class="shell">
-    <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
-      <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>daybreak</span></div>
-      <p class="brand-subtitle">Daily and weekly planning</p>
+    <aside class="sidebar" id="sidebar" aria-label="Planner menu">
+      <div class="sidebar-top">
+        <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 22h22"/><path d="M9 22a7 7 0 0 1 14 0"/><path d="M16 6v4M7.5 10.5l2.5 2.5M24.5 10.5 22 13"/></svg></span><span>Daybreak</span></div>
+        <button type="button" class="icon-button sidebar-close" id="closeMenu" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+      <p class="brand-line">Plan the day around the work that matters.</p>
 
       <nav class="main-nav" aria-label="Views">
-        <button type="button" class="nav-button is-current" id="navToday" aria-current="page"><span class="nav-icon" aria-hidden="true">◫</span>Today</button>
-        <button type="button" class="nav-button" id="navWeek"><span class="nav-icon" aria-hidden="true">▦</span>Week planner</button>
+        <button type="button" class="nav-button" id="navToday"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Day</button>
+        <button type="button" class="nav-button" id="navWeek"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 10h18M8 10v10M13 10v10M18 10v10"/></svg>Week</button>
       </nav>
 
       <section class="calendar-filters" aria-labelledby="calendarHeading">
-        <div class="section-heading"><h2 id="calendarHeading">Calendars</h2><span>Show or hide</span></div>
-        <label><input type="checkbox" data-calendar="work" checked><span class="calendar-dot work"></span>Work</label>
-        <label><input type="checkbox" data-calendar="personal" checked><span class="calendar-dot personal"></span>Personal</label>
-        <label><input type="checkbox" data-calendar="family" checked><span class="calendar-dot family"></span>Family</label>
+        <h2 id="calendarHeading" class="side-heading">Calendars</h2>
+        <label class="filter"><input type="checkbox" data-calendar="work" checked><span class="swatch work" aria-hidden="true"></span><span class="filter-name">Work</span><span class="filter-count" id="count-work"></span></label>
+        <label class="filter"><input type="checkbox" data-calendar="personal" checked><span class="swatch personal" aria-hidden="true"></span><span class="filter-name">Personal</span><span class="filter-count" id="count-personal"></span></label>
+        <label class="filter"><input type="checkbox" data-calendar="family" checked><span class="swatch family" aria-hidden="true"></span><span class="filter-name">Family</span><span class="filter-count" id="count-family"></span></label>
+        <p class="side-note">Hidden calendars still count when Daybreak checks for overlaps and open time.</p>
       </section>
 
-      <div class="sidebar-bottom">
-        <div class="privacy-card"><span class="small-icon" aria-hidden="true">⌑</span><div><strong>Private by default</strong><p>This concept saves changes in this browser only.</p></div></div>
-        <section class="plan-backup" aria-labelledby="backupHeading"><h2 id="backupHeading">Keep a copy</h2><p>Export a JSON backup before clearing this browser. Restore replaces the current plan after your confirmation.</p><button class="text-button" type="button" id="exportPlan">Download plan JSON ↓</button><label for="restorePlan">Restore a saved plan<input type="file" id="restorePlan" accept=".json,application/json"></label></section>
-        <button class="text-button" type="button" id="resetDemo">Reset sample plan</button>
-      </div>
+      <section class="plan-backup" aria-labelledby="backupHeading">
+        <h2 id="backupHeading" class="side-heading">Keep a copy</h2>
+        <p class="side-note">Your plan is saved in this browser. Download a copy before you clear it or switch devices.</p>
+        <button class="side-button" type="button" id="exportPlan">Download plan</button>
+        <label class="side-button file-button" for="restorePlan">Restore from a file<input type="file" id="restorePlan" accept=".json,application/json"></label>
+        <button class="link-button" type="button" id="resetDemo">Start over with the sample week</button>
+      </section>
     </aside>
+    <div class="scrim" id="scrim" hidden></div>
 
-    <main id="main">
+    <main id="main" tabindex="-1">
       <header class="topbar">
-        <div class="topbar-copy"><button id="mobileMenu" type="button" class="mobile-menu" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">☰</button><div><span class="eyebrow">Planner</span><h1 id="pageTitle">Plan your day and week</h1></div></div>
-        <button class="primary-button" id="addEvent" type="button"><span aria-hidden="true">＋</span> Add a block</button>
+        <button id="mobileMenu" type="button" class="icon-button mobile-menu" aria-controls="sidebar" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        <div class="title-block">
+          <p class="eyebrow" id="eyebrow">Today</p>
+          <h1 id="pageTitle">Monday, October 19</h1>
+        </div>
+        <div class="controls">
+          <div class="date-nav" role="group" aria-label="Change date">
+            <button id="previousDate" type="button" class="icon-button" aria-label="Previous day"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button id="todayDate" type="button" class="today-button">Today</button>
+            <button id="nextDate" type="button" class="icon-button" aria-label="Next day"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+          <input id="jumpDate" class="jump-date" type="date" aria-label="Go to date">
+          <div class="view-switch" role="group" aria-label="Planner view">
+            <button id="dayViewButton" type="button" aria-pressed="true">Day</button>
+            <button id="weekViewButton" type="button" aria-pressed="false">Week</button>
+          </div>
+        </div>
+        <button class="primary-button add-button" id="addEvent" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add block</span></button>
       </header>
 
-      <div id="storageBanner" class="storage-banner" role="alert" hidden><span id="storageMessage"></span><button id="retrySave" type="button">Retry saving</button></div>
+      <div id="storageBanner" class="storage-banner" role="alert" hidden><p id="storageMessage"></p><div class="banner-actions" id="bannerActions"></div></div>
 
       <div class="workspace">
-        <section class="planner-panel" aria-labelledby="plannerHeading">
-          <div class="planner-head">
-            <div><span class="eyebrow" id="weekdayLabel">Today</span><h2 id="plannerHeading">Your day</h2><p id="dateLabel" class="date-label"></p></div>
-            <div class="planner-controls"><div class="date-nav" aria-label="Change date"><button id="previousDate" type="button" aria-label="Previous day">‹</button><button id="todayDate" type="button">Today</button><button id="nextDate" type="button" aria-label="Next day">›</button></div><input id="jumpDate" class="jump-date" type="date" aria-label="Choose planner date"><div class="view-switch" role="group" aria-label="Planner view"><button id="dayViewButton" type="button" class="is-active" aria-pressed="true">Day</button><button id="weekViewButton" type="button" aria-pressed="false">Week</button></div></div>
+        <section class="planner" aria-labelledby="plannerHeading">
+          <h2 id="plannerHeading" class="visually-hidden">Planner</h2>
+
+          <div id="dayView" class="day-view">
+            <div class="day-summary" id="daySummary"></div>
+            <div class="day-strip" id="dayStrip" aria-hidden="true"></div>
+            <div class="agenda-head"><h3>Schedule</h3><span id="visibleCount"></span></div>
+            <ol id="dayAgenda" class="agenda"></ol>
+            <div id="dayEmpty" class="empty-state" hidden>
+              <p class="empty-title" id="emptyTitle">Nothing planned yet</p>
+              <p id="emptyDescription">Add a block with a title, a start time and a length.</p>
+              <div class="empty-actions"><button type="button" class="primary-button" id="emptyAdd">Add block</button><button type="button" class="secondary-button" id="showAllCalendars" hidden>Show all calendars</button></div>
+            </div>
           </div>
 
-          <div class="guidance"><div class="guidance-icon" aria-hidden="true">✳</div><div><strong>Overlap checks</strong><p>Overlapping blocks are flagged across all calendars, including calendars you hide.</p></div></div>
-
-          <div id="dayView" class="day-view"><div class="day-stats" id="dayStats" aria-live="polite"></div><div class="timeline-head"><span>Chronological agenda</span><span id="visibleCount"></span></div><div id="dayAgenda" class="day-agenda"></div><div id="dayEmpty" class="empty-state" hidden><strong id="emptyTitle">No blocks scheduled</strong><p id="emptyDescription">Add a block with a title, start time and duration.</p><button type="button" class="secondary-button" id="emptyAdd">Add a block</button><button type="button" class="text-button" id="showAllCalendars" hidden>Show all calendars</button></div></div>
-
-          <div id="weekView" class="week-view" hidden><div id="weekGrid" class="week-grid" aria-label="Seven-day agenda"></div><p class="view-note">Select a day to see or edit its full schedule.</p></div>
+          <div id="weekView" class="week-view" hidden>
+            <div id="weekGrid" class="week-grid"></div>
+          </div>
         </section>
 
-        <aside class="right-rail" aria-label="Focus and reset tools">
-          <section class="focus-card"><div class="card-top"><span class="eyebrow">Deep focus</span><span id="timerState" class="state-pill">Ready</span></div><h2>Focus timer</h2><p class="card-intro">Choose 25, 50 or 90 minutes. Pause and resume the timer as needed.</p><div class="find-focus"><p id="focusSuggestion">Find a clear interval in your entered plan. Hidden calendars still count.</p><button type="button" id="findFocusButton">Find 25 minutes</button><button type="button" id="addSuggestedBlock" hidden>Add suggested block</button></div><div class="timer-display" id="timerDisplay" aria-live="off">50:00</div><div class="timer-presets" role="group" aria-label="Focus duration"><button type="button" data-minutes="25">25 min</button><button type="button" data-minutes="50" class="is-active">50 min</button><button type="button" data-minutes="90">90 min</button></div><div class="timer-actions"><button type="button" class="light-button" id="timerStart">Start focus</button><button type="button" class="quiet-button" id="timerReset">End</button></div><p class="fine-print">An on-screen timer only. Other apps and notifications are unchanged.</p></section>
+        <aside class="rail" aria-label="Focus tools">
+          <section class="focus-card" aria-labelledby="focusHeading">
+            <div class="card-top"><h2 id="focusHeading">Focus timer</h2><span id="timerState" class="state-pill">Ready</span></div>
+            <div class="timer-display" id="timerDisplay">50:00</div>
+            <div class="presets" role="group" aria-label="Focus length">
+              <button type="button" data-minutes="25" aria-pressed="false">25 min</button>
+              <button type="button" data-minutes="50" aria-pressed="true">50 min</button>
+              <button type="button" data-minutes="90" aria-pressed="false">90 min</button>
+            </div>
+            <div class="timer-actions"><button type="button" class="light-button" id="timerStart">Start focus</button><button type="button" class="ghost-button" id="timerReset">End</button></div>
+            <div class="find-focus">
+              <button type="button" class="find-button" id="findFocusButton">Find 50 open minutes</button>
+              <p id="focusSuggestion" aria-live="polite"></p>
+              <button type="button" class="find-add" id="addSuggestedBlock" hidden>Add it to the plan</button>
+            </div>
+          </section>
 
-          <section class="reset-card"><div class="reset-head"><div><span class="eyebrow">Optional pause</span><h2>Quiet timer</h2></div><span class="breathing-orb" id="breathingOrb" aria-hidden="true"></span></div><p id="breathingPrompt">Sit comfortably. Notice your natural breathing or a sound around you. Stop anytime.</p><div class="meditation-presets" role="group" aria-label="Meditation duration"><button type="button" data-meditation-minutes="1">1 min</button><button type="button" data-meditation-minutes="2" class="is-active">2 min</button><button type="button" data-meditation-minutes="5">5 min</button></div><div class="meditation-actions"><button type="button" class="text-button" id="breathingButton">Start quiet timer</button><span id="meditationDisplay">02:00</span></div><button type="button" class="text-button" id="endMeditation" hidden>End quiet timer</button><p class="fine-print">Optional wellbeing activity, not treatment. Stop if uncomfortable.</p></section>
+          <section class="card week-load" aria-labelledby="loadHeading">
+            <div class="card-head"><h2 id="loadHeading">This week</h2><span id="weekTotal" class="mono"></span></div>
+            <ol class="load-list" id="loadList"></ol>
+            <p class="load-key"><span class="key planned" aria-hidden="true"></span>Planned <span class="key protected" aria-hidden="true"></span>Protected focus</p>
+          </section>
 
-          <section class="summary-card"><span class="eyebrow">At a glance</span><h2 id="summaryTitle">Today's plan</h2><div id="summaryRows"></div></section>
+          <section class="card quiet-card" aria-labelledby="quietHeading">
+            <div class="card-head"><h2 id="quietHeading">Breathing break</h2><span class="breathing-orb" id="breathingOrb" aria-hidden="true"></span></div>
+            <p class="card-copy">Step away between blocks. Breathe slowly and stop whenever you like.</p>
+            <div class="presets small" role="group" aria-label="Break length">
+              <button type="button" data-meditation-minutes="1" aria-pressed="false">1 min</button>
+              <button type="button" data-meditation-minutes="2" aria-pressed="true">2 min</button>
+              <button type="button" data-meditation-minutes="5" aria-pressed="false">5 min</button>
+            </div>
+            <div class="quiet-actions"><button type="button" class="secondary-button" id="breathingButton">Start break</button><span id="meditationDisplay" class="mono">02:00</span></div>
+            <button type="button" class="link-button" id="endMeditation" hidden>End break</button>
+          </section>
         </aside>
       </div>
-      <footer class="page-footer">Independent Daybreak concept, not commissioned or endorsed. Sample calendar data. No account connection or client data.</footer>
+      <footer class="page-footer">Independent concept for the public Daybreak brief, not affiliated with Daybreak. The sample week is fictional and your changes stay in this browser.</footer>
     </main>
   </div>
 
-  <div class="dialog-backdrop" id="eventDialog" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><button class="dialog-close" id="dialogClose" type="button" aria-label="Close dialog">×</button><span class="eyebrow">Time block</span><h2 id="dialogTitle">Add a time block</h2><p id="dialogSubtitle">Choose a date, start time, duration and calendar.</p><form id="eventForm" novalidate><input type="hidden" id="eventId"><label for="eventTitle">Title<input id="eventTitle" name="title" type="text" maxlength="70" required placeholder="e.g. Review expense report"><span class="field-error" id="titleError"></span></label><div class="form-pair"><label for="eventDate">Date<input id="eventDate" name="date" type="date" required><span class="field-error" id="dateError"></span></label><label for="eventStart">Start<input id="eventStart" name="start" type="time" required><span class="field-error" id="startError"></span></label></div><div class="form-pair"><label for="eventDuration">Duration<select id="eventDuration" name="duration"><option value="15">15 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60" selected>1 hour</option><option value="90">1 hour 30 minutes</option><option value="120">2 hours</option><option value="180">3 hours</option><option value="240">4 hours</option></select><span class="field-error" id="durationError"></span></label><label for="eventCalendar">Calendar<select id="eventCalendar" name="calendar"><option value="work">Work</option><option value="personal">Personal</option><option value="family">Family</option></select><span class="field-error" id="calendarError"></span></label></div><label class="checkbox-row"><input id="eventProtected" name="protected" type="checkbox"><span>Mark as protected focus time</span></label><p id="overlapWarning" class="overlap-warning" hidden></p><div class="dialog-actions"><button id="deleteEvent" class="danger-button" type="button" hidden>Delete block</button><button class="primary-button" type="submit" id="saveEvent">Add block</button></div></form></section></div>
+  <div class="dialog-backdrop" id="eventDialog" hidden>
+    <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+      <button class="icon-button dialog-close" id="dialogClose" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <h2 id="dialogTitle">Add a block</h2>
+      <form id="eventForm" novalidate>
+        <input type="hidden" id="eventId">
+        <label for="eventTitle">Title<input id="eventTitle" name="title" type="text" maxlength="70" required autocomplete="off" placeholder="Review the launch checklist"><span class="field-error" id="titleError"></span></label>
+        <div class="form-pair">
+          <label for="eventDate">Date<input id="eventDate" name="date" type="date" required><span class="field-error" id="dateError"></span></label>
+          <label for="eventStart">Start<input id="eventStart" name="start" type="time" step="300" required><span class="field-error" id="startError"></span></label>
+        </div>
+        <div class="form-pair">
+          <label for="eventDuration">Length<select id="eventDuration" name="duration"><option value="15">15 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">1 hour</option><option value="75">1 hour 15 minutes</option><option value="90">1 hour 30 minutes</option><option value="120">2 hours</option><option value="150">2 hours 30 minutes</option><option value="180">3 hours</option><option value="240">4 hours</option></select><span class="field-error" id="durationError"></span></label>
+          <label for="eventCalendar">Calendar<select id="eventCalendar" name="calendar"><option value="work">Work</option><option value="personal">Personal</option><option value="family">Family</option></select><span class="field-error" id="calendarError"></span></label>
+        </div>
+        <label class="checkbox-row" for="eventProtected"><input id="eventProtected" name="protected" type="checkbox"><span>Protected focus time</span></label>
+        <p id="overlapWarning" class="overlap-warning" hidden></p>
+        <div class="dialog-actions"><button id="deleteEvent" class="danger-button" type="button" hidden>Delete</button><button class="primary-button" type="submit" id="saveEvent">Add block</button></div>
+      </form>
+    </section>
+  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script type="module" src="daybreak-app.js"></script>
 </body>

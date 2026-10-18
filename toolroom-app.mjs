@@ -1,10 +1,20 @@
-import { CATALOG, createState, addToCart, removeFromCart, toggleSaved, subtotal, createDemoOrder, exportBackup, parseBackup } from './toolroom-core.mjs'
+import { CATALOG, createState, addToCart, removeFromCart, toggleSaved, subtotal, createDemoOrder, exportBackup, parseBackup, checkoutProblem, backupFileName, receiptText } from './toolroom-core.mjs'
+
+// Package revision suffixes such as r2 are internal, buyers see the release number.
+const shownVersion = version => version.replace(/r\d+$/, '')
 
 const $ = selector => document.querySelector(selector)
 const byId = id => CATALOG.find(product => product.id === id)
 const money = cents => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: cents % 100 ? 2 : 0 }).format(cents / 100)
 const escape = text => String(text).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character])
 const storageKey = 'toolroom-demo-v1'
+const categoryLabels = { pricing: 'Quotes', data: 'Data', projects: 'Projects', bundles: 'Bundle' }
+const icons = {
+  bookmark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v16l-5-3.5L7 20V4Z"/></svg>',
+  check: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  download: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>',
+  close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>'
+}
 let state = createState()
 let storageAvailable = true
 let category = 'all'
@@ -18,9 +28,9 @@ let toastTimer
 try {
   const stored = localStorage.getItem(storageKey)
   if (stored) state = parseBackup(stored)
-} catch (error) {
+} catch {
   storageAvailable = false
-  setTimeout(() => notify('Saved data could not be loaded. This session still works. Export a backup before leaving.'), 150)
+  setTimeout(() => notify('Saved data could not be loaded. This session still works, so export a backup before you leave.'), 150)
 }
 
 function notify(message) {
@@ -30,7 +40,18 @@ function notify(message) {
   toastTimer = setTimeout(() => $('#toast').classList.remove('visible'), 4600)
 }
 
-function commit(next) {
+// Re-rendering replaces buttons, so keep keyboard focus on the matching control afterwards.
+function restoreFocus(key, scope, fallbackSelector) {
+  if (!key) return
+  const visible = element => element && element.getClientRects().length > 0
+  const match = [...scope.querySelectorAll('[data-focus-key]')].find(element => element.dataset.focusKey === key && visible(element))
+  const fallback = (fallbackSelector || []).map(selector => [...scope.querySelectorAll(selector)].find(visible)).find(Boolean)
+  ;(match || fallback)?.focus()
+}
+
+function commit(next, { fallbackFocus } = {}) {
+  const focusKey = document.activeElement?.dataset?.focusKey
+  const scope = document.activeElement?.closest('dialog') || document
   state = next
   try {
     localStorage.setItem(storageKey, exportBackup(state))
@@ -40,57 +61,72 @@ function commit(next) {
     notify('Browser storage is unavailable. Export a backup to keep this session.')
   }
   render()
+  restoreFocus(focusKey, scope, fallbackFocus)
 }
 
-const bookmark = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>'
-const categoryLabels = { pricing: 'Quote with clarity', data: 'Clean up the details', projects: 'Leave a clear trail', bundles: 'Better together' }
-
-function artwork(product, save = true) {
+function artwork(product) {
   const top = title => `<div class="preview-top"><i></i><i></i><i></i><b>${title}</b></div>`
-  let contents
   if (product.id === 'quotecheck') {
-    contents = `<div class="preview-window">${top('QuoteCheck 1.1')}<div class="preview-body"><div class="preview-sub">Put a number on the scope</div><div class="preview-title">A clearer starting point.</div><div class="preview-totals"><div>Base estimate<strong>$1,400</strong></div><div>With revisions<strong>$1,680</strong></div></div><div class="preview-row"><span>Design and build</span><span>40 hours</span></div><div class="preview-row"><span>Revision allowance</span><span>8 hours</span></div></div></div><div class="preview-badge">Know your next quote. ↗</div>`
-  } else if (product.id === 'exportcheck') {
-    contents = `<div class="preview-window">${top('ExportCheck 1.1')}<div class="preview-body"><div class="preview-sub">A check before the send</div><div class="preview-title">Catch the loose rows.</div><div class="csv-grid"><span>Row</span><span>Email</span><span>Status</span><span>001</span><span>Valid</span><span>Ready</span><span>002</span><span class="flag">Missing</span><span class="flag">Review</span><span>003</span><span>Valid</span><span>Ready</span></div></div></div><div class="preview-badge">A cleaner export. ✓</div>`
-  } else if (product.id === 'handoffdesk') {
-    contents = `<div class="preview-window">${top('Handoff Desk 1.0.1')}<div class="preview-body"><div class="preview-sub">A handoff the next person can use</div><div class="preview-title">Everything, in its place.</div><div class="mini-checklist"><div>✓ Project brief<b>Captured</b></div><div>✓ Decision log<b>Written</b></div><div>✓ Delivery checklist<b>Ready</b></div></div></div></div><div class="preview-badge">No more loose ends. ↗</div>`
-  } else {
-    contents = `<div class="bundle-files"><div class="bundle-file"><small>The first step</small><h3>Quote<br>Check.</h3><div class="bundle-rule"></div><p>Scope. Estimate. Revise.</p></div><div class="bundle-file"><small>The next step</small><h3>Handoff<br>Desk.</h3><div class="bundle-rule"></div><p>Brief. Decide. Deliver.</p></div></div><div class="preview-badge">Two tools. One workflow. ↗</div>`
+    return `<div class="preview-window">${top('QuoteCheck 1.1')}<div class="preview-body"><div class="preview-sub">Project estimate</div><div class="preview-title">Studio site refresh</div><div class="preview-totals"><div>Base<strong>$1,400</strong></div><div>With revisions<strong>$1,680</strong></div></div><div class="preview-row"><span>Design and build</span><span>40 h</span></div><div class="preview-row"><span>Revision allowance</span><span>8 h</span></div></div></div><div class="preview-badge">Know the number first</div>`
   }
-  return `<span class="art-index">Toolroom 0${CATALOG.indexOf(product) + 1}</span>${contents}${save ? `<button class="save-button" data-save="${product.id}" aria-label="${state.saved.includes(product.id) ? 'Unsave' : 'Save'} ${escape(product.name)}" aria-pressed="${state.saved.includes(product.id)}">${bookmark}</button>` : ''}`
+  if (product.id === 'exportcheck') {
+    return `<div class="preview-window">${top('ExportCheck 1.1')}<div class="preview-body"><div class="preview-sub">clients.csv</div><div class="preview-title">2 ready, 1 to fix</div><div class="csv-grid"><span>Row</span><span>Email</span><span>Status</span><span>001</span><span>Valid</span><span>Ready</span><span>002</span><span class="flag">Missing</span><span class="flag">Fix</span><span>003</span><span>Valid</span><span>Ready</span></div></div></div><div class="preview-badge">Catch it before it ships</div>`
+  }
+  if (product.id === 'handoffdesk') {
+    return `<div class="preview-window">${top('Handoff Desk 1.0.1')}<div class="preview-body"><div class="preview-sub">Website refresh</div><div class="preview-title">Ready for review</div><div class="mini-checklist"><div><span>Project brief</span><b>Done</b></div><div><span>Decision log</span><b>Done</b></div><div><span>Delivery checklist</span><b>Ready</b></div></div></div></div><div class="preview-badge">Nothing left in your head</div>`
+  }
+  return `<div class="bundle-files"><div class="bundle-file"><small>Step one</small><strong>QuoteCheck</strong><p>Scope, estimate, revise.</p></div><div class="bundle-file"><small>Step two</small><strong>Handoff Desk</strong><p>Brief, decide, deliver.</p></div></div><div class="preview-badge">Two tools, one workflow</div>`
+}
+
+function buyButton(product, extraClass = '') {
+  return state.cart.includes(product.id)
+    ? `<button type="button" class="button in-bag ${extraClass}" data-view-bag data-focus-key="buy:${product.id}" aria-label="${escape(product.name)} is in your bag. Open bag">${icons.check}In bag</button>`
+    : `<button type="button" class="button primary ${extraClass}" data-add="${product.id}" data-focus-key="buy:${product.id}" aria-label="Add ${escape(product.name)} to bag">Add to bag</button>`
 }
 
 function renderCatalog() {
-  let products = CATALOG.filter(product => (category === 'all' || category === 'saved' && state.saved.includes(product.id) || product.category === category) && `${product.name} ${product.summary} ${product.tags.join(' ')}`.toLowerCase().includes(search.toLowerCase().trim()))
+  const query = search.toLowerCase().trim()
+  let products = CATALOG.filter(product => (category === 'all' || (category === 'saved' && state.saved.includes(product.id)) || product.category === category) && `${product.name} ${product.summary} ${product.tags.join(' ')}`.toLowerCase().includes(query))
   if (sort === 'price') products = [...products].sort((a, b) => a.priceCents - b.priceCents)
   if (sort === 'name') products = [...products].sort((a, b) => a.name.localeCompare(b.name))
-  $('#product-grid').innerHTML = products.map(product => `<article class="product-card"><div class="product-art ${product.category}" data-detail="${product.id}" tabindex="0" role="button" aria-label="View ${escape(product.name)} details">${artwork(product)}</div><div class="product-meta"><div><h3><button data-detail="${product.id}">${escape(product.name)}</button></h3><p>${escape(product.summary)}</p></div><span class="product-price">${money(product.priceCents)}</span></div><div class="product-tags"><div>${product.tags.slice(0, 2).map(tag => `<span class="tag">${escape(tag)}</span>`).join('')}</div><button class="product-add" data-add="${product.id}">${state.cart.includes(product.id) ? 'In your bag ✓' : 'Add to bag + '}</button></div></article>`).join('')
+  $('#product-grid').innerHTML = products.map(product => {
+    const saved = state.saved.includes(product.id)
+    return `<article class="product-card"><div class="product-media"><div class="product-art ${product.category}" data-detail="${product.id}" aria-hidden="true">${artwork(product)}</div><button type="button" class="save-button" data-save="${product.id}" data-focus-key="save:${product.id}" aria-label="Save ${escape(product.name)}" aria-pressed="${saved}">${icons.bookmark}</button></div><div class="card-body"><div class="card-head"><h3><button type="button" class="card-title" data-detail="${product.id}" data-focus-key="detail:${product.id}">${escape(product.name)}</button></h3><span class="price num">${money(product.priceCents)}</span></div><p class="card-meta"><span>${categoryLabels[product.category]}</span><span class="num">v${escape(shownVersion(product.version))}</span></p><p class="summary">${escape(product.summary)}</p><div class="card-actions">${buyButton(product)}<button type="button" class="button secondary" data-detail="${product.id}" aria-label="Details for ${escape(product.name)}">Details</button></div></div></article>`
+  }).join('')
   $('#result-count').textContent = `${products.length} ${products.length === 1 ? 'tool' : 'tools'}`
   $('#no-results').hidden = products.length > 0
+  $('#no-results h3').textContent = category === 'saved' && !query ? 'No saved tools yet.' : 'Nothing matches that search.'
+  $('#no-results p').textContent = category === 'saved' && !query ? 'Tap the bookmark on any tool to keep it here.' : 'Try a different word or clear the filters.'
   document.querySelectorAll('[data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)))
 }
 
-function showProduct(id) {
-  const product = byId(id)
+function renderDetail() {
+  const product = byId(selectedProduct)
   if (!product) return
-  selectedProduct = product.id
-  $('#product-detail').innerHTML = `<div class="detail-layout"><div class="product-art ${product.category}">${artwork(product, false)}</div><div class="detail-copy"><button class="icon-button dialog-close" data-close="product-dialog" aria-label="Close product details">×</button><p class="eyebrow">${categoryLabels[product.category]}</p><h2>${escape(product.name)}</h2><p>${escape(product.summary)}</p><div class="detail-price">${money(product.priceCents)}</div><p class="detail-caption">Draft price hypothesis · Version ${escape(product.version)}</p><div class="detail-actions"><button class="button dark full" data-add="${product.id}">${state.cart.includes(product.id) ? 'In your bag ✓' : 'Add to bag + '}</button><button class="button outline full" data-preview="${product.id}">Download a free sample ↗</button></div><h3>What is included in the product</h3><ul>${product.includes.map(item => `<li>${escape(item)}</li>`).join('')}</ul><h3>Works with your process</h3><p>${escape(product.compatibility)}</p><p class="fine-print">This storefront provides sample files only. Demo checkout does not sell or deliver the full product.</p></div></div>`
+  $('#product-detail').innerHTML = `<div class="detail-layout"><div class="product-art ${product.category}" aria-hidden="true">${artwork(product)}</div><div class="detail-copy"><button type="button" class="icon-button dialog-close" data-close="product-dialog" aria-label="Close details">${icons.close}</button><p class="eyebrow">${categoryLabels[product.category]}</p><h2 id="detail-title">${escape(product.name)}</h2><p class="detail-meta num">Version ${escape(shownVersion(product.version))}</p><p class="detail-summary">${escape(product.summary)}</p><div class="detail-buy"><span class="detail-price num">${money(product.priceCents)}</span>${buyButton(product, 'grow')}</div><button type="button" class="button secondary full" data-preview="${product.id}" data-focus-key="sample:${product.id}">${icons.download}Download free sample</button><h3>What you get</h3><ul class="includes">${product.includes.map(item => `<li>${icons.check}<span>${escape(item)}</span></li>`).join('')}</ul><h3>Requirements</h3><p class="requirements">${escape(product.compatibility)}</p></div></div>`
+}
+
+function showProduct(id) {
+  if (!byId(id)) return
+  selectedProduct = id
+  renderDetail()
   openDialog('product-dialog')
 }
 
 function renderCart() {
-  $('#cart-count').textContent = state.cart.length
-  $('#cart-open').setAttribute('aria-label', `Open bag, ${state.cart.length} ${state.cart.length === 1 ? 'tool' : 'tools'}`)
-  if (!state.cart.length) {
-    $('#cart-items').innerHTML = '<div class="empty-state"><span>↳</span><h3>A little room to work.</h3><p>Add a tool from the collection to try the demo checkout.</p><button class="button outline" data-close="cart-dialog">Keep exploring</button></div>'
+  const count = state.cart.length
+  $('#cart-count').textContent = count
+  $('#cart-open').setAttribute('aria-label', `Open bag, ${count} ${count === 1 ? 'tool' : 'tools'}`)
+  if (!count) {
+    $('#cart-items').innerHTML = '<div class="empty-state compact"><h3>Your bag is empty.</h3><p>Add a tool from the collection to check out.</p><button type="button" class="button secondary" data-close="cart-dialog">Keep browsing</button></div>'
     $('#cart-summary').innerHTML = ''
     return
   }
   $('#cart-items').innerHTML = state.cart.map(id => {
     const product = byId(id)
-    return `<div class="cart-line"><div class="cart-mini ${product.category}" aria-hidden="true">0${CATALOG.indexOf(product) + 1}</div><div><h3>${escape(product.name)}</h3><p>Version ${escape(product.version)} · One demo copy</p><button class="plain" data-remove="${id}" aria-label="Remove ${escape(product.name)} from bag">Remove</button></div><strong>${money(product.priceCents)}</strong></div>`
+    return `<div class="cart-line"><div class="cart-mini ${product.category}" aria-hidden="true">${escape(product.name.slice(0, 1))}</div><div class="cart-info"><h3>${escape(product.name)}</h3><p class="num">Version ${escape(shownVersion(product.version))}</p><button type="button" class="text-button" data-remove="${id}" data-focus-key="remove:${id}" aria-label="Remove ${escape(product.name)} from bag">Remove</button></div><strong class="num">${money(product.priceCents)}</strong></div>`
   }).join('')
-  $('#cart-summary').innerHTML = `<div class="sum-row"><span>Illustrative subtotal</span><strong>${money(subtotal(state))}</strong></div><button id="checkout-open" class="button dark full">Try demo checkout <span aria-hidden="true">↗</span></button><p class="fine-print">No charge. No payment details. No real order. Full product archives are not included in this demo.</p>`
+  $('#cart-summary').innerHTML = `<div class="sum-row"><span>Subtotal</span><strong class="num">${money(subtotal(state))}</strong></div><button type="button" id="checkout-open" class="button primary full">Checkout</button><p class="fine-print">Each tool is a single download, so one copy covers you.</p>`
 }
 
 function renderLibrary() {
@@ -99,13 +135,15 @@ function renderLibrary() {
   $('#stat-tools').textContent = new Set(state.orders.flatMap(order => order.items.map(item => item.productId))).size
   $('#stat-value').textContent = money(state.orders.reduce((sum, order) => sum + order.totalCents, 0))
   $('#library-empty').hidden = state.orders.length > 0
-  $('#orders').innerHTML = [...state.orders].reverse().map(order => `<article class="order"><header class="order-header"><div><h2>Demo order ${escape(order.id)}</h2><p>${escape(new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(order.createdAt)))} · ${order.items.length} ${order.items.length === 1 ? 'tool' : 'tools'} · ${money(order.totalCents)} illustrative total</p></div><button class="plain" data-receipt="${escape(order.id)}">Receipt ↗</button></header><div class="order-body">${order.items.map(item => `<div class="order-item"><div><h3>${escape(item.title)}</h3><p>Version ${escape(item.version)} · Demo sample file</p></div><button class="button outline" data-preview="${item.productId}">Download sample ↗</button></div>`).join('')}</div><div class="order-note">Local test record for ${escape(order.name)}. Nothing was charged or emailed.</div></article>`).join('')
+  const dateFormat = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeStyle: 'short' })
+  $('#orders').innerHTML = [...state.orders].reverse().map(order => `<article class="order"><header class="order-header"><div><h2>Order <span class="num">${escape(order.id)}</span></h2><p><span>${escape(dateFormat.format(new Date(order.createdAt)))}</span><span>${order.items.length} ${order.items.length === 1 ? 'tool' : 'tools'}</span><span class="num">${money(order.totalCents)}</span></p></div><button type="button" class="button secondary" data-receipt="${escape(order.id)}">${icons.download}Receipt</button></header><div class="order-body">${order.items.map(item => `<div class="order-item"><div class="cart-mini ${byId(item.productId).category}" aria-hidden="true">${escape(item.title.slice(0, 1))}</div><div class="order-info"><h3>${escape(item.title)}</h3><p class="num">Version ${escape(shownVersion(item.version))}</p></div><button type="button" class="button secondary" data-preview="${item.productId}" aria-label="Download ${escape(item.title)} sample">${icons.download}Sample</button></div>`).join('')}</div></article>`).join('')
 }
 
 function render() {
   renderCatalog()
   renderCart()
   renderLibrary()
+  if ($('#product-dialog').open) renderDetail()
   $('#saved-count').textContent = state.saved.length
 }
 
@@ -121,22 +159,27 @@ function closeDialog(id) {
 
 function route() {
   const library = location.hash === '#library'
+  const wasLibrary = !$('#library-view').hidden
   $('#shop-view').hidden = library
   $('#library-view').hidden = !library
   document.querySelectorAll('[data-route]').forEach(link => {
     if (link.dataset.route === (library ? 'library' : 'shop')) link.setAttribute('aria-current', 'page')
     else link.removeAttribute('aria-current')
   })
-  document.title = library ? 'Your library | Toolroom' : 'Toolroom | Small tools for better work'
+  document.title = library ? 'Your library | Toolroom' : 'Toolroom | Small tools for quotes, data and handoffs'
+  const target = location.hash.length > 1 && !library ? document.getElementById(location.hash.slice(1)) : null
   if (library || location.hash === '#shop') window.scrollTo(0, 0)
+  // Anchors inside the shop cannot scroll while the shop is hidden, so scroll once it is visible again.
+  else if (wasLibrary && target) target.scrollIntoView()
 }
 
 function beginCheckout() {
   if (!state.cart.length) return
   closeDialog('cart-dialog')
-  $('#checkout-summary').innerHTML = state.cart.map(id => `<div class="checkout-line"><span>${escape(byId(id).name)}</span><span>${money(byId(id).priceCents)}</span></div>`).join('') + `<div class="checkout-line checkout-total"><span>Illustrative total</span><span>${money(subtotal(state))}</span></div>`
+  $('#checkout-summary').innerHTML = state.cart.map(id => `<div class="checkout-line"><span>${escape(byId(id).name)}</span><span class="num">${money(byId(id).priceCents)}</span></div>`).join('') + `<div class="checkout-line checkout-total"><span>Total</span><span class="num">${money(subtotal(state))}</span></div>`
   $('#checkout-error').textContent = ''
   openDialog('checkout-dialog')
+  $('#demo-name').focus()
 }
 
 function download(name, content, type) {
@@ -151,18 +194,19 @@ function download(name, content, type) {
   setTimeout(() => URL.revokeObjectURL(url), 15000)
 }
 
+const samples = {
+  quotecheck: { ext: 'csv', type: 'text/csv;charset=utf-8', text: 'QuoteCheck sample file. Not the full product.\r\nItem,Hours,Hourly rate USD,Amount USD\r\nDesign and build,40,35,1400\r\nRevision allowance,8,35,280\r\nEstimate,,,1680\r\n' },
+  exportcheck: { ext: 'csv', type: 'text/csv;charset=utf-8', text: 'ExportCheck sample file. Not the full product.\r\nRow,Email,Finding\r\n001,alex@example.com,Ready\r\n002,,Missing email\r\n003,taylor@example.com,Ready\r\n' },
+  handoffdesk: { ext: 'txt', type: 'text/plain;charset=utf-8', text: 'Handoff Desk sample file. Not the full product. Fictional project.\n\nProject: Fieldwork Studio website refresh\nOwner: Jordan Example\nStatus: Ready for review\n\nDecisions\nKeep the current logo. Use the supplied photography.\n\nDelivery checklist\n[ ] Review the homepage at desktop and phone widths\n[ ] Check contact links and downloaded assets\n[ ] Record the approved revision\n\nNext step\nConfirm the approved copy and final image set.\n' },
+  quotehandoffkit: { ext: 'txt', type: 'text/plain;charset=utf-8', text: 'Quote and Handoff Kit sample file. Not the full product.\n\n1. Define the brief and what it depends on.\n2. Separate the base estimate from revisions.\n3. Record agreed changes before changing the scope.\n4. Keep decisions, files and next steps together.\n5. Check the delivered file before handing it over.\n\nThe full kit combines the QuoteCheck and Handoff Desk apps. This text file shows the workflow.\n' }
+}
+
 function downloadPreview(id) {
   const product = byId(id)
   if (!product) return
-  const samples = {
-    quotecheck: { ext: 'csv', type: 'text/csv;charset=utf-8', text: 'Sample only - not the full QuoteCheck product\r\nItem,Hours,Hourly rate USD,Amount USD\r\nDesign and build,40,35,1400\r\nRevision allowance,8,35,280\r\nIllustrative total,,,1680\r\n' },
-    exportcheck: { ext: 'csv', type: 'text/csv;charset=utf-8', text: 'Sample only - not the full ExportCheck product\r\nRow,Email,Finding\r\n001,alex@example.com,Ready\r\n002,,Missing email\r\n003,taylor@example.com,Ready\r\n' },
-    handoffdesk: { ext: 'txt', type: 'text/plain;charset=utf-8', text: 'Handoff Desk - demo sample\nNot the full product. Fictional project.\n\nProject: Fieldwork Studio website refresh\nOwner: Jordan Example\nStatus: Prepared for review\n\nDecisions\nKeep the current logo. Use the supplied photography.\n\nDelivery checklist\n[ ] Review the homepage at desktop and mobile widths\n[ ] Check contact links and downloaded assets\n[ ] Record the approved revision\n\nNext step\nConfirm the approved copy and final image set.\n' },
-    quotehandoffkit: { ext: 'txt', type: 'text/plain;charset=utf-8', text: 'Quote and Handoff Kit - demo sample\nNot the full product. No purchase or license is created.\n\n1. Define the brief and its dependencies.\n2. Separate the base estimate from revisions.\n3. Record agreed changes before changing the scope.\n4. Keep decisions, files and next steps together.\n5. Check the delivered file before handing it over.\n\nThe full product combines the existing QuoteCheck and Handoff Desk apps. This text file is an illustrative workflow sample.\n' }
-  }
   const sample = samples[id]
-  download(`Toolroom_${product.name.replaceAll(' ', '_')}_DEMO_SAMPLE.${sample.ext}`, sample.text, sample.type)
-  notify('Sample download started. This is not the full product archive.')
+  download(`Toolroom_${product.name.replaceAll(' ', '_')}_sample.${sample.ext}`, sample.text, sample.type)
+  notify(`${product.name} sample downloaded.`)
 }
 
 function openBackup() {
@@ -175,8 +219,15 @@ function openBackup() {
 }
 
 function exportLibrary() {
-  download(`Toolroom_backup_${new Date().toISOString().slice(0, 10)}.json`, exportBackup(state), 'application/json')
-  notify('Backup download started. Keep it somewhere safe.')
+  download(backupFileName(), exportBackup(state), 'application/json')
+  notify('Backup downloaded. Keep it somewhere safe.')
+}
+
+function clearRestore() {
+  pendingRestore = null
+  pendingOriginal = null
+  $('#restore-preview').hidden = true
+  $('#import-backup').value = ''
 }
 
 document.addEventListener('click', event => {
@@ -184,22 +235,26 @@ document.addEventListener('click', event => {
   if (close) return closeDialog(close.dataset.close)
   const save = event.target.closest('[data-save]')
   if (save) {
-    event.stopPropagation()
     const saved = state.saved.includes(save.dataset.save)
-    commit(toggleSaved(state, save.dataset.save))
-    return notify(saved ? 'Removed from saved tools.' : 'Saved for later.')
+    commit(toggleSaved(state, save.dataset.save), { fallbackFocus: ['.chips [aria-pressed="true"]'] })
+    return notify(saved ? `${byId(save.dataset.save).name} removed from saved.` : `${byId(save.dataset.save).name} saved.`)
   }
   const add = event.target.closest('[data-add]')
   if (add) {
     const existed = state.cart.includes(add.dataset.add)
     commit(addToCart(state, add.dataset.add))
-    if ($('#product-dialog').open && selectedProduct === add.dataset.add) add.textContent = 'In your bag ✓'
     return notify(existed ? 'Already in your bag. One copy is all you need.' : `${byId(add.dataset.add).name} added to your bag.`)
+  }
+  if (event.target.closest('[data-view-bag]')) {
+    closeDialog('product-dialog')
+    renderCart()
+    return openDialog('cart-dialog')
   }
   const remove = event.target.closest('[data-remove]')
   if (remove) {
-    commit(removeFromCart(state, remove.dataset.remove))
-    return notify('Removed from your bag.')
+    const name = byId(remove.dataset.remove).name
+    commit(removeFromCart(state, remove.dataset.remove), { fallbackFocus: ['#cart-dialog [data-remove]', '#cart-dialog [data-close]'] })
+    return notify(`${name} removed from your bag.`)
   }
   const preview = event.target.closest('[data-preview]')
   if (preview) return downloadPreview(preview.dataset.preview)
@@ -214,37 +269,39 @@ document.addEventListener('click', event => {
   const receipt = event.target.closest('[data-receipt]')
   if (receipt) {
     const order = state.orders.find(item => item.id === receipt.dataset.receipt)
-    download(`Toolroom_DEMO_receipt_${order.id}.json`, JSON.stringify({ notice: 'Demo record only. No money charged, no purchase and no license grant.', order }, null, 2), 'application/json')
-    return notify('Demo receipt download started.')
+    if (!order) return
+    download(`Toolroom_receipt_${order.id}.txt`, receiptText(order), 'text/plain;charset=utf-8')
+    return notify('Receipt downloaded.')
   }
 })
 
-$('#product-grid').addEventListener('keydown', event => {
-  if (!['Enter', ' '].includes(event.key) || !event.target.matches('[data-detail]')) return
-  event.preventDefault()
-  showProduct(event.target.dataset.detail)
-})
 $('#search').addEventListener('input', event => { search = event.target.value; renderCatalog() })
 $('#sort').addEventListener('change', event => { sort = event.target.value; renderCatalog() })
-$('#reset-filters').addEventListener('click', () => { category = 'all'; search = ''; sort = 'featured'; $('#search').value = ''; $('#sort').value = 'featured'; renderCatalog() })
+$('#reset-filters').addEventListener('click', () => { category = 'all'; search = ''; sort = 'featured'; $('#search').value = ''; $('#sort').value = 'featured'; renderCatalog(); $('#search').focus() })
 $('#cart-open').addEventListener('click', () => { renderCart(); openDialog('cart-dialog') })
 for (const selector of ['#backup-open', '#footer-backup']) $(selector).addEventListener('click', openBackup)
 for (const selector of ['#export-backup', '#library-backup']) $(selector).addEventListener('click', exportLibrary)
 
 $('#checkout-form').addEventListener('submit', event => {
   event.preventDefault()
-  const button = event.submitter
+  const button = $('#checkout-form button[type="submit"]')
   if (button.disabled) return
+  const contact = { name: $('#demo-name').value, email: $('#demo-email').value }
+  const problem = checkoutProblem(contact)
+  if (problem) {
+    $('#checkout-error').textContent = problem
+    ;(problem.includes('name') ? $('#demo-name') : $('#demo-email')).focus()
+    return
+  }
   button.disabled = true
   try {
-    const next = createDemoOrder(state, { name: $('#demo-name').value, email: $('#demo-email').value }, { id: 'TR-' + crypto.randomUUID().slice(0, 8).toUpperCase(), createdAt: new Date().toISOString() })
+    const next = createDemoOrder(state, contact, { id: 'TR-' + crypto.randomUUID().slice(0, 8).toUpperCase(), createdAt: new Date().toISOString() })
     commit(next)
     closeDialog('checkout-dialog')
     $('#checkout-form').reset()
     location.hash = '#library'
     route()
-    notify(storageAvailable ? 'Demo order created. Your sample files are ready.' : 'Demo order created in memory. Export a backup before leaving.')
-    $('#library-title').setAttribute('tabindex', '-1')
+    notify(storageAvailable ? 'Order placed. Your receipt and samples are in your library.' : 'Order placed for this session only. Export a backup before you leave.')
     $('#library-title').focus()
   } catch (error) {
     $('#checkout-error').textContent = error.message
@@ -265,31 +322,30 @@ $('#import-backup').addEventListener('change', async event => {
     const text = await file.text()
     pendingRestore = parseBackup(text)
     pendingOriginal = exportBackup(state)
-    $('#restore-preview').innerHTML = `<h3>Ready to restore</h3><p>${pendingRestore.cart.length} bag items, ${pendingRestore.saved.length} saved tools, and ${pendingRestore.orders.length} demo orders. This replaces the current local library.</p><button class="button dark" id="confirm-restore">Restore this backup</button><button class="button outline" id="cancel-restore">Cancel</button>`
+    const plural = (count, word) => `${count} ${word}${count === 1 ? '' : 's'}`
+    $('#restore-preview').innerHTML = `<h3>Ready to restore</h3><p>This file holds ${plural(pendingRestore.cart.length, 'bag item')}, ${plural(pendingRestore.saved.length, 'saved tool')} and ${plural(pendingRestore.orders.length, 'order')}. Restoring replaces what is in this browser now.</p><div class="restore-actions"><button type="button" class="button primary" id="confirm-restore">Restore backup</button><button type="button" class="button secondary" id="cancel-restore">Cancel</button></div>`
     $('#restore-preview').hidden = false
   } catch (error) {
-    $('#backup-message').textContent = `Backup was not loaded. ${error.message} Your current library has not changed.`
+    $('#backup-message').textContent = `That file could not be restored. ${error.message} Your library has not changed.`
   }
 })
 
 $('#restore-preview').addEventListener('click', event => {
   if (event.target.closest('#cancel-restore')) {
-    pendingRestore = null
-    pendingOriginal = null
-    $('#restore-preview').hidden = true
-    $('#import-backup').value = ''
+    clearRestore()
+    $('#import-backup').focus()
+    return
   }
   if (event.target.closest('#confirm-restore') && pendingRestore) {
     if (exportBackup(state) !== pendingOriginal) {
-      $('#backup-message').textContent = 'Your local library changed after selecting this backup. Choose the file again before restoring.'
-      pendingRestore = null
+      clearRestore()
+      $('#backup-message').textContent = 'Your library changed after you chose this file. Choose the file again to restore it.'
       return
     }
     commit(pendingRestore)
-    pendingRestore = null
-    pendingOriginal = null
+    clearRestore()
     closeDialog('backup-dialog')
-    notify('Backup restored. Your local library is ready.')
+    notify('Backup restored.')
   }
 })
 
@@ -304,9 +360,9 @@ window.addEventListener('storage', event => {
   try {
     state = event.newValue ? parseBackup(event.newValue) : createState()
     render()
-    if ($('#checkout-dialog').open) { closeDialog('checkout-dialog'); notify('The library changed in another tab. Review your bag before checkout.') }
+    if ($('#checkout-dialog').open) { closeDialog('checkout-dialog'); notify('Your bag changed in another tab. Check it before you place the order.') }
     else notify('Your library was updated in another tab.')
-  } catch { notify('An update from another tab was invalid. Your current library has been kept.') }
+  } catch { notify('An update from another tab was not valid. Your library here has been kept.') }
 })
 render()
 route()
