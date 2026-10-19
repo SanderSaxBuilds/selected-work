@@ -1,31 +1,33 @@
-# Course-page and email kit
+# Leasing Practice course-page and email kit
 
-Independent concept for the Wrong Creative public brief, not a commissioned deliverable or completed platform migration.
+Speculative sample for the Wrong Creative public course-marketing brief. It was not commissioned or reviewed by Wrong Creative and it is not a completed platform migration. Leasing Practice, its courses, prices, access terms and lessons are fictional placeholders that show the shape of a finished page.
 
-## Work in this pack
+## What is in the kit
 
-- Three linked responsive pages, homepage, course and bundle comparison.
-- Module disclosure controls, an illustrative exercise and questions for the final course facts.
-- Three email concepts with subjects, preview text and matched destinations.
-- Original HTML/CSS is editable. No third-party libraries, fonts, tracking, copied imagery or checkout.
+- Three linked responsive pages: [course home](sample-wrongcreative.html), [course detail](sample-wrongcreative-course.html) and [team pathway](sample-wrongcreative-bundle.html).
+- An expandable course outline, a one-question practice exercise with feedback, FAQ sections and a comparison table.
+- [Three launch emails](sample-wrongcreative-emails.html) with subjects, preview text and the page each one links to. A [plain text version](sample-wrongcreative-emails.md) is included.
+- Plain HTML and CSS with a small script for the exercise. Fonts load from Google Fonts. No tracking, copied imagery or checkout.
 
 ## Thinkific handoff map
 
-| Page area | Proposed platform block | Required approved input |
+| Page area | Proposed platform block | Approved input needed |
 |---|---|---|
-| Homepage hero | Banner and CTA blocks | Brand, audience and approved course promise |
-| Course overview | Text, curriculum and FAQ blocks | Exact lessons, outcomes, prerequisites, duration and access rules |
-| Bundle comparison | Bundle landing-page copy and comparison | Actual included courses, entitlements, pricing and support |
-| Emails | Authorized email platform templates | Sender, audience consent/segments, real landing URLs and unsubscribe configuration |
+| Home hero and course card | Banner, text and call-to-action blocks | Brand, audience and the approved course promise |
+| Course outline | Curriculum and text blocks | Exact lessons, durations, outcomes and prerequisites |
+| Practice exercise | Quiz lesson or custom HTML block | Approved exercise and the plan's custom code allowance |
+| Team pathway comparison | Bundle landing page and comparison table | Included courses, seats, pricing, access and support |
+| FAQ | FAQ block | Real access period, refund policy and support contact |
+| Emails | The approved email platform's templates | Sender, consented segments, live landing URLs and unsubscribe settings |
 
-No claim that every custom HTML interaction ports unchanged to Thinkific. Check the authorized plan, available blocks and CSS/custom-code permissions before implementation. No paid theme, subscription or integration is included.
+Not every custom interaction will carry over to Thinkific unchanged. Check the plan, the available blocks and the custom code permissions before building. No paid theme, subscription or integration is included.
 
-## Acceptance for a funded engagement
+## Acceptance for a paid engagement
 
-Agree page count and email count, receive course inventory and existing copy, retain approved facts, review desktop/mobile layout, test navigation and the actual enrollment path, approve copy, then launch on the authorized system. Migration includes extra course data and access/checkout QA only if separately scoped. These sources have not been supplied, so actual client launch remains unstarted.
+Agree the number of pages and emails, receive the course inventory and existing copy, replace every placeholder with approved facts, review the layout on desktop and phone, test navigation and the real enrollment path, approve the copy, then launch on the client's system. Moving existing course data and testing access or checkout is extra scope unless agreed up front. None of these inputs have been supplied, so no client launch has started.
 
-## Source
+## Sources
 
 Public Contra brief: https://contra.com/opportunity/MqEMqBmc-online-course-marketing
 
-Identifiable studio: https://www.wrongcreative.com/. The studio website does not verify course ownership or paid hiring history. Both must be distinguished from the job brief.
+Studio website: https://www.wrongcreative.com/. The website does not confirm course ownership or hiring history, and both are kept separate from the brief.

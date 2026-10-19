@@ -1,4 +1,102 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Manual Node.js commands to create, verify, compare and restore Archive Desk project backups."><title>Archive Desk CLI | Backup commands and source</title><style>
-:root{color-scheme:light;--ink:#193a36;--muted:#536b67;--line:#cddbd6;--paper:#f2f6f3;--accent:#285c50}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}a{color:var(--accent);text-underline-offset:4px}a:focus-visible{outline:3px solid #ac5f22;outline-offset:5px}.skip{position:absolute;left:20px;top:-80px}.skip:focus{top:12px;background:white;padding:8px}header,main,footer{max-width:1120px;margin:auto;padding:28px}nav{display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);padding-bottom:22px}.brand{text-decoration:none;font-weight:750;font-size:20px}.tag{font-size:13px;letter-spacing:.06em}.hero{padding:54px 0 18px;max-width:900px}h1{font-size:clamp(35px,5.8vw,66px);line-height:1.08;letter-spacing:-.045em;margin:12px 0 24px}h2{font-size:27px;line-height:1.25;margin:0 0 12px}h3{font-size:20px;line-height:1.3;margin:0 0 10px}p{margin:0 0 18px}.lede{font-size:21px;max-width:780px;color:var(--muted)}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}.button{padding:12px 18px;border:1px solid var(--accent);border-radius:7px;font-weight:650;text-decoration:none;display:inline-block}.primary{background:var(--accent);color:white}.meta{font-size:14px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(220px,1fr);gap:26px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:10px;padding:28px;margin-bottom:24px;min-width:0}.step{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;margin:26px 0}.number{background:#e1ece6;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-weight:750}pre{background:#122e2a;color:#edf5ef;padding:17px;border-radius:7px;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;margin:14px 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.88em;overflow-wrap:anywhere}.result{border-left:3px solid #639783;padding:8px 14px;background:#f4f8f5;color:var(--muted);font-size:15px}ul,ol{padding-left:22px}li{margin:9px 0}dl{margin:0}dt{font-size:14px;color:var(--muted);margin-top:18px}dd{margin:2px 0;font-weight:650}details{border-top:1px solid var(--line);margin-top:24px;padding-top:18px}summary{cursor:pointer;font-weight:650}.hash{font-size:12px;display:block;margin-top:12px;overflow-wrap:anywhere}footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;margin-top:24px;padding-bottom:42px}@media(max-width:760px){header,main,footer{padding:22px 18px}.hero{padding-top:38px}.layout{grid-template-columns:minmax(0,1fr)}.panel{padding:22px}.lede{font-size:19px}nav{align-items:flex-start}.tag{max-width:110px;text-align:right}.step{grid-template-columns:28px minmax(0,1fr);gap:9px}pre{font-size:12px;padding:13px}}
-</style></head><body><a class="skip" href="#commands">Skip to commands</a><header><nav><a class="brand" href="index.html#archive-desk">Archive Desk</a><span class="tag">CLI 0.2.0 candidate</span></nav><div class="hero"><p class="meta">Manual project backups with Node.js 24</p><h1>Back up a project folder from the terminal.</h1><p class="lede">Create an Archive Desk ZIP, check the saved copy and compare a later version. Restore a checked backup into a new folder from the terminal or inspect it in the browser app.</p><div class="actions"><a class="button primary" href="archive-desk-cli-source.zip" download>Download CLI source</a><a class="button" href="archive-desk.html">Open browser app</a></div><p class="meta">22,858-byte source ZIP. Requires Node.js 24. Tested on Windows with Node.js 24.19.0.</p></div></header><main><div class="layout"><section class="panel" id="commands"><h2>Four commands, one saved baseline.</h2><p>Extract the source ZIP into a new folder and open a terminal in its ArchiveDeskCLI subfolder. Replace the example paths below with your own. Choose an existing output folder outside the project, and close editors that may change its files.</p><div class="step"><span class="number">1</span><div><h3>Create and verify a backup</h3><pre><code>node cli.mjs backup "C:\Projects\MyProject" --out "C:\Backups\project-new.zip"</code></pre><p>The command reads regular project files, saves a new ZIP and verifies the bytes read back from disk. Existing output files are refused.</p></div></div><div class="step"><span class="number">2</span><div><h3>Check a saved copy again</h3><pre><code>node cli.mjs verify "C:\Backups\project-new.zip"</code></pre><p>The check reads the ZIP records, CRC values and every manifest hash. Keep another checked copy in a separate place.</p></div></div><div class="step"><span class="number">3</span><div><h3>Compare the project later</h3><pre><code>node cli.mjs compare "C:\Backups\project-new.zip" "C:\Projects\MyProject" --report "C:\Backups\comparison-new.json"</code></pre><p>The JSON report identifies added, removed, changed and unchanged paths. It includes the SHA-256 of the exact saved baseline ZIP.</p></div></div><div class="step"><span class="number">4</span><div><h3>Restore into a new folder</h3><pre><code>node cli.mjs restore "C:\Backups\project-new.zip" --out "C:\Recovered\project-new"</code></pre><p>The parent folder must already exist. The destination must be new. Each restored file is written exclusively, synced and read back against its manifest. Existing destinations and linked parent paths are refused.</p><p>If a restore stops after creating the destination, its exact path is reported and partial files remain for inspection. Original timestamps, empty directories and permissions are not restored.</p></div></div><div class="result">Recorded synthetic comparison: 1 added, 1 removed, 1 changed and 2 unchanged. Comparison leaves the project files untouched.</div></section><aside><section class="panel"><h2>Working limits</h2><dl><dt>Eligible files</dt><dd>Up to 500</dd><dt>Per file</dt><dd>Up to 20 MiB</dd><dt>Total file content</dt><dd>Up to 50 MiB</dd><dt>Saved archive input</dt><dd>Up to 52 MiB</dd><dt>Format</dt><dd>Archive Desk ZIP v1, uncompressed</dd></dl><details><summary>Source ZIP SHA-256</summary><code class="hash">a2c133efa3a12d58f668a93f532870d79498e6ca3c78d93d84215d92bcf27dd4</code></details></section><section class="panel"><h3>Recover through the browser</h3><p>Open <a href="archive-desk.html">Archive Desk</a>, choose Verify archive and select the actual saved CLI ZIP. After verification, download the recovery ZIP and inspect it in a new folder.</p><p class="meta">The CLI handles unencrypted ZIPs. The separate <a href="archive-desk-protection.html">protection preview</a> offers optional locked copies in its custom .adlock format.</p></section></aside></div><div class="layout"><section class="panel"><h2>Check what gets included.</h2><p>The CLI reports skipped paths. Its default filename exclusions cover common dependency and credential names:</p><ul><li><code>.git</code>, <code>node_modules</code> and <code>.ssh</code></li><li><code>.env</code>, <code>.env.*</code> and <code>credentials.json</code></li><li>Files ending in <code>.pem</code>, <code>.key</code>, <code>.p12</code> or <code>.pfx</code></li></ul><p>These are filename patterns, not content-based secret detection. Review your project before sharing any backup. Symlinks, junctions and special files are refused. Empty files are retained, empty directories and permissions are not preserved.</p><h3>Use a quiet source folder.</h3><p>The CLI checks for source changes during scanning and reading. This is a manual capture, not an atomic filesystem snapshot. Close editors and other programs that write to the project before running it. A failed write may leave a partial new output, whose path is reported for inspection.</p></section><section class="panel"><h2>What was checked</h2><p>Twelve CLI child-process tests passed, including five new restore cases. They cover saved-file recovery, existing destinations, corrupt and traversal archives, linked paths and preserved partial output. The unchanged archive and protection core retains its 25 prior test passes.</p><p>Python independently checked the actual saved ZIP and a five-file restore containing nested Unicode names, empty content, binary data and a UTF-8 byte-order mark. All 1,351 bytes matched. Existing files and folders survived refusal checks, corrupt and traversal archives created no destination, and a prior four-file backup also restored correctly. All six original fixture files stayed unchanged.</p><p class="meta">Independent source candidate with synthetic fixtures. Current evidence covers Windows and the current browser. Linux and macOS have not been checked. Recovery writes only to a new folder and does not provide an adversarial race guarantee. There is no installer or scheduled sync. No production security certification or customer acceptance is claimed.</p><a href="archive-desk-cli-source.zip" download>Download the source and README</a></section></div></main><footer>Original code by SanderSaxBuilds. Node.js built-in modules, no third-party runtime packages. <a href="index.html#archive-desk">Back to selected work</a></footer></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>Archive Desk command line | Backups from the terminal</title>
+<meta name="description" content="Four Node.js commands to create, verify, compare and restore Archive Desk project backups from the terminal. Source download and setup.">
+<link rel="icon" href="archive-desk-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="archive-desk-guide.css">
+</head>
+<body>
+<a class="skip-link" href="#commands">Skip to the commands</a>
+<header class="g-top">
+  <div class="wrap g-bar"><a class="g-brand" href="archive-desk.html"><img src="archive-desk-mark.svg" alt="" width="34" height="34">Archive Desk</a><a class="g-back" href="index.html#archive-desk">Selected work</a></div>
+  <nav class="wrap g-nav" aria-label="Archive Desk"><a href="archive-desk.html">Browser app</a><a href="archive-desk-protection.html">Encrypted copies</a><a href="archive-desk-cli.html" aria-current="page">Command line</a><a href="archive-desk-workbench-history.html">Workbench</a></nav>
+</header>
+
+<main class="wrap">
+  <section class="g-hero" aria-labelledby="page-title">
+    <p class="kicker">Archive Desk for the terminal</p>
+    <h1 id="page-title">Back up a project folder from the terminal.</h1>
+    <p class="lede">Create an Archive Desk ZIP, check the saved copy and compare a later version of the folder. Restore a checked backup into a new folder, or open it in the browser app.</p>
+    <div class="actions"><a class="button primary" href="archive-desk-cli-source.zip" download>Download the command line source</a><a class="button secondary" href="archive-desk.html">Open the browser app</a></div>
+    <p class="meta">Needs Node.js 24 and nothing else. Tested on Windows with Node.js 24.19.0.</p>
+  </section>
+
+  <section id="commands" class="g-split" aria-labelledby="commands-title">
+    <div>
+      <div class="section-head"><h2 id="commands-title">Four commands, one saved baseline</h2></div>
+      <p class="note">Extract the source into a new folder and open a terminal in its ArchiveDeskCLI folder. Swap the example paths for your own, pick an existing output folder outside the project and close editors that might change its files.</p>
+      <ol class="cmd-list">
+        <li><span class="step-no">1</span><div><h3>Create and verify a backup</h3>
+<pre class="code">node cli.mjs backup "C:\Projects\MyProject" --out "C:\Backups\project-new.zip"</pre>
+          <p>Reads the regular project files, saves a new ZIP and verifies the bytes it reads back from disk. An existing output file is refused.</p></div></li>
+        <li><span class="step-no">2</span><div><h3>Check a saved copy again</h3>
+<pre class="code">node cli.mjs verify "C:\Backups\project-new.zip"</pre>
+          <p>Reads the ZIP records, CRC values and every manifest fingerprint. Keep another checked copy somewhere else.</p></div></li>
+        <li><span class="step-no">3</span><div><h3>Compare the project later</h3>
+<pre class="code">node cli.mjs compare "C:\Backups\project-new.zip" "C:\Projects\MyProject" --report "C:\Backups\comparison-new.json"</pre>
+          <p>The JSON report lists added, removed, changed and unchanged paths, plus the SHA-256 of the exact backup it compared against.</p></div></li>
+        <li><span class="step-no">4</span><div><h3>Restore into a new folder</h3>
+<pre class="code">node cli.mjs restore "C:\Backups\project-new.zip" --out "C:\Recovered\project-new"</pre>
+          <p>The parent folder must exist and the destination must be new. Each file is written, synced and read back against the manifest. Existing destinations and linked parent paths are refused.</p>
+          <p>If a restore stops partway, the command reports the exact folder and leaves the partial files there for you to inspect. Timestamps, empty folders and permissions are not restored.</p></div></li>
+      </ol>
+      <p class="result-line">In the sample comparison: 1 added, 1 removed, 1 changed and 2 unchanged. The project files stayed untouched.</p>
+    </div>
+    <aside aria-label="Limits and source">
+      <div class="card">
+        <h3>Working limits</h3>
+        <dl class="spec">
+          <div><dt>Files</dt><dd>500</dd></div>
+          <div><dt>Per file</dt><dd>20 MiB</dd></div>
+          <div><dt>Total file content</dt><dd>50 MiB</dd></div>
+          <div><dt>Saved archive input</dt><dd>52 MiB</dd></div>
+          <div><dt>Format</dt><dd>ZIP, stored</dd></div>
+        </dl>
+        <p class="note">Source ZIP, 22,858 bytes.</p>
+        <code class="hash">SHA-256 a2c133efa3a12d58f668a93f532870d79498e6ca3c78d93d84215d92bcf27dd4</code>
+      </div>
+      <div class="card">
+        <h3>Recover in the browser</h3>
+        <p class="note">Open <a href="archive-desk.html">Archive Desk</a>, choose Verify and pick the ZIP the command saved. Once it passes, download the recovery ZIP and extract it into a new folder.</p>
+        <p class="note">The command line makes unencrypted ZIPs. For a locked copy, use the <a href="archive-desk-protection.html">encrypted copies preview</a>.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="g-section g-split even" aria-labelledby="included-title">
+    <div class="prose">
+      <h2 id="included-title">Check what gets included</h2>
+      <p>The command lists every skipped path. By default it leaves out common dependency and credential names:</p>
+      <ul class="limits">
+        <li><code>.git</code>, <code>node_modules</code> and <code>.ssh</code></li>
+        <li><code>.env</code>, <code>.env.*</code> and <code>credentials.json</code></li>
+        <li>Files ending in <code>.pem</code>, <code>.key</code>, <code>.p12</code> or <code>.pfx</code></li>
+      </ul>
+      <p>These are filename patterns, not a scan of file contents, so review the project before you share a backup. Symlinks, junctions and special files are refused. Empty files are kept. Empty folders and permissions are not.</p>
+      <p>The command watches for changes while it scans and reads, but it is a manual capture, not an atomic snapshot. Close anything that writes to the project before you run it.</p>
+    </div>
+    <div class="card">
+      <h2>What has been checked</h2>
+      <ul class="checks">
+        <li>Twelve command tests pass, five of them for restore: saved-file recovery, existing destinations, corrupt and path-traversal archives, linked paths and kept partial output.</li>
+        <li>A separate script checked a five-file restore with nested Unicode names, an empty file, binary data and a UTF-8 byte-order mark. All 1,351 bytes matched.</li>
+        <li>Refused restores left existing files and folders alone, and corrupt or traversal archives created no destination.</li>
+      </ul>
+      <p class="note">Tested on Windows only. Linux and macOS have not been checked. There is no installer or scheduled sync.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="g-footer"><div class="wrap">
+  <nav aria-label="More from Archive Desk"><a href="archive-desk.html">Browser app</a><a href="archive-desk-protection.html">Encrypted copies</a><a href="archive-desk-workbench-history.html">Workbench for Windows</a></nav>
+  <p>Built by SanderSaxBuilds with Node.js built-in modules and no third-party runtime packages. The sample project is fictional.</p>
+</div></footer>
+</body>
+</html>

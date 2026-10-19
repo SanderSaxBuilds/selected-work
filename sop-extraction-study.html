@@ -1,27 +1,107 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SOP extraction study by Alexandr Khrustalev</title>
-<meta name="description" content="Inspect a recorded Word-to-JSON extraction, source paragraph references and refusal checks using a fictional work instruction.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f5f0">
+<title>Work instruction extraction</title>
+<meta name="description" content="A Python parser that turns a Word work instruction written to a set template into JSON and CSV steps, keeps a reference to each source paragraph and refuses content it can't read reliably.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="study.css">
 <style>
-:root{color-scheme:light;--ink:#132a3b;--muted:#516474;--paper:#f5f3ed;--line:#d3dcd9;--accent:#075c55;--blue:#e9f0f5;--white:#fff;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--accent);text-underline-offset:4px}a:focus-visible,summary:focus-visible{outline:3px solid #b15a16;outline-offset:5px}header,main,footer{max-width:1200px;margin:auto;padding:26px 36px}header{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);font-size:14px}header a{text-decoration:none;font-weight:650}.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:750;color:var(--accent);margin:0 0 14px}h1{font-size:clamp(38px,5.2vw,68px);line-height:1.05;letter-spacing:-.05em;max-width:760px;margin:0 0 24px}h2{font-size:30px;line-height:1.2;letter-spacing:-.025em;margin:0 0 16px}h3{font-size:19px;line-height:1.3;margin:0 0 10px}p{margin:0 0 18px}.intro{padding:42px 0 26px}.lede{font-size:20px;max-width:780px;color:var(--muted)}.scope{max-width:880px;padding:15px 20px;border-left:4px solid var(--accent);background:#e8eeea;font-size:15px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:30px 0 42px}.stat{padding:18px 22px;background:var(--white);border:1px solid var(--line);border-radius:5px}.stat strong{display:block;font-size:29px;line-height:1.3}.stat span{font-size:13px;color:var(--muted)}section{margin:0 0 44px}.split{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}.panel{min-width:0;background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden}.panel-head{padding:20px 24px;border-bottom:1px solid var(--line);background:var(--blue)}.panel-head h3{margin:0 0 4px}.panel-head p{font-size:13px;color:var(--muted);margin:0}.paragraph{display:grid;grid-template-columns:34px 1fr;gap:10px;margin:0;padding:17px 22px;border-bottom:1px solid #edf0ef;font:14px/1.65 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}.paragraph:last-child{border-bottom:0}.line-number{color:#7a8c96}.instruction{padding:22px 24px}.instruction .meta{font:12px/1.4 var(--mono);color:var(--muted);margin:0 0 16px}.instruction h3{font-size:23px}.safety{padding:12px 15px;background:#f3f5f2;border-radius:4px;font-size:14px;white-space:pre-wrap}.step{padding:17px 0;border-bottom:1px solid var(--line)}.step:last-child{border-bottom:0}.step-top{display:flex;justify-content:space-between;gap:12px;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:7px}.step p{white-space:pre-wrap;margin:0;font-size:15px}.trace{font-size:12px;color:var(--muted)}.downloads{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.downloads a{display:inline-block;border:1px solid var(--accent);padding:9px 16px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:650}.downloads a:first-child{background:var(--accent);color:white}details{border:1px solid var(--line);border-radius:5px;background:white;margin:12px 0}summary{padding:16px 20px;cursor:pointer;font-weight:650;font-size:15px}pre{font:13px/1.6 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;margin:0;padding:20px;border-top:1px solid var(--line);background:#102a3b;color:#e5f1f1}.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.check{background:white;border:1px solid var(--line);padding:22px;border-radius:6px}.check .result{font-size:11px;font-weight:750;letter-spacing:.08em;color:var(--accent);margin-bottom:12px}.check p{font-size:14px;color:var(--muted)}code{font-family:var(--mono);font-size:.86em;overflow-wrap:anywhere}.check code{display:block;background:#f1f3f1;padding:9px;color:var(--ink)}.limits{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:28px;background:#e9eeea;border-radius:7px}.limits p,.limits li{font-size:15px}.limits ul{padding-left:20px;margin:0}.limits li+li{margin-top:7px}.small{font-size:13px;color:var(--muted)}footer{border-top:1px solid var(--line);font-size:13px;color:var(--muted);padding-bottom:42px}footer p{margin:0 0 6px}@media(max-width:740px){header,main,footer{padding-left:22px;padding-right:22px}header{align-items:flex-start;flex-direction:column;gap:4px}.intro{padding-top:32px}.split,.checks,.limits{grid-template-columns:1fr}.stats{gap:8px;margin:24px 0 34px}.stat{padding:12px}.stat strong{font-size:24px}.stat span{font-size:11px}.lede{font-size:18px}h2{font-size:26px}.panel-head,.instruction{padding:18px}.paragraph{padding:15px}.limits{padding:22px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.compare { display: grid; gap: 16px; align-items: stretch; }
+@media (min-width: 900px) { .compare { grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr); gap: 0; } }
+.doc, .result { min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.pane-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--surface-soft); }
+.pane-head h3 { font-size: 17px; }
+.pane-head span { color: var(--muted); font: 500 13px/1.6 var(--mono); }
+.doc ol { margin: 0; padding: 0; list-style: none; }
+.doc li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.doc li:last-child { border-bottom: 0; }
+.para-no { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--brand-soft); color: var(--deep); font: 600 13px/1 var(--mono); }
+.para-text { white-space: pre-line; overflow-wrap: anywhere; font-size: 15px; }
+.para-text b { font-weight: 600; color: var(--brand); }
+.arrow { display: none; }
+@media (min-width: 900px) { .arrow { display: grid; place-items: center; color: var(--line-strong); } .arrow svg { width: 28px; height: 28px; } }
+.result-body { padding: 18px; }
+.result-body h4 { font-size: 21px; }
+.ref { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; color: var(--muted); font-size: 13px; }
+.ref::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--brand); }
+.safety { margin-top: 14px; padding: 12px 14px; border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0; background: var(--warning-soft); white-space: pre-line; font-size: 15px; }
+.steps { margin: 16px 0 0; padding: 0; list-style: none; counter-reset: step; }
+.steps li { position: relative; padding: 14px 0 14px 44px; border-top: 1px solid var(--line); }
+.steps li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 14px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--deep); color: #fff; font: 600 14px/1 var(--mono); }
+.steps p { white-space: pre-line; font-size: 15px; }
 </style>
 </head>
 <body>
-<header><a href="index.html">Alexandr Khrustalev / Selected work</a><span>Python document processing study</span></header>
-<main>
-<div class="intro"><p class="eyebrow">Independent study with fictional data</p><h1>From a labeled Word document to traceable steps.</h1><p class="lede">A small Python parser turns an explicit work-instruction template into JSON and CSV. Every extracted field keeps its paragraph reference, so the result can be checked against the source.</p><p class="scope">This page presents a recorded local run. It does not process uploads. The parser supports the labeled paragraph template below, not arbitrary Word documents or a manufacturing-system integration.</p></div>
-<div class="stats" aria-label="Recorded verification"><div class="stat"><strong>28</strong><span>Parser unit tests passed</span></div><div class="stat"><strong>4</strong><span>Separate CLI checks passed</span></div><div class="stat"><strong>2</strong><span>Steps in this fictional example</span></div></div>
-<section aria-labelledby="recorded"><p class="eyebrow">01 / Recorded extraction</p><h2 id="recorded">Keep the source beside the result.</h2><p>These are the main-body paragraphs used by the two-step fixture. The displayed numbers are one-based source references, not Word's visual line numbers.</p>
-<div class="split"><div class="panel"><div class="panel-head"><h3>Source paragraphs</h3><p>synthetic_sop.docx / explicit manual labels</p></div><div class="paragraph"><span class="line-number">1</span><span>Work Instruction: Review a sample café record</span></div><div class="paragraph"><span class="line-number">2</span><span>Safety Notes: Synthetic example only.
-No equipment is involved.</span></div><div class="paragraph"><span class="line-number">3</span><span>Step 1: Open the sample record.
-Check that the café record ID is present.</span></div><div class="paragraph"><span class="line-number">4</span><span>Step 2: Mark the sample record Complete.</span></div></div>
-<div class="panel"><div class="panel-head"><h3>Extracted instruction</h3><p>Recorded JSON preview / parser version 1.0.0</p></div><div class="instruction"><p class="meta">work-instruction-preview/1</p><h3>Review a sample café record</h3><p class="trace">Title from paragraph 1</p><p class="safety">Synthetic example only.
-No equipment is involved.</p><p class="trace">Safety notes from paragraph 2</p><div class="step"><div class="step-top"><span>STEP 1</span><span>Paragraph 3</span></div><p>Open the sample record.
-Check that the café record ID is present.</p></div><div class="step"><div class="step-top"><span>STEP 2</span><span>Paragraph 4</span></div><p>Mark the sample record Complete.</p></div></div></div></div>
-<div class="downloads"><a href="sop-parser-and-previews.zip" download>Download parser, tests and recorded outputs</a></div><p class="small">The download contains the same tested parser, its unit tests, a fictional-fixture generator and both recorded output files. Python 3.12, standard library only. The DOCX fixture is generated locally for testing and has not been visually checked in Word.</p>
-<details><summary>Inspect the complete recorded JSON</summary><pre id="json-preview">{
+<a class="skip-link" href="#main">Skip to the study</a>
+<header class="site-bar">
+  <div class="wrap">
+    <a class="back-link" href="index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
+    <span class="site-owner">Alexandr Khrustalev</span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero wrap" aria-labelledby="title">
+    <p class="kicker">Python document parsing</p>
+    <h1 id="title">Word procedures into steps you can trace back.</h1>
+    <p class="lede">Work instructions usually live in Word. This parser reads one written to a set template and writes the title, safety notes and steps to JSON and CSV. Every value keeps the number of the paragraph it came from and the hash of the source file. Anything outside the template stops the run instead of being guessed at.</p>
+    <div class="actions">
+      <a class="button button-primary" href="sop-parser-and-previews.zip" download><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download parser and tests <span class="file-size">14 KB</span></a>
+      <a class="button button-secondary" href="#extraction">See the extraction</a>
+    </div>
+    <dl class="facts">
+      <div class="fact"><dt>unit tests pass</dt><dd>28</dd></div>
+      <div class="fact"><dt>output formats, JSON and CSV</dt><dd>2</dd></div>
+      <div class="fact"><dt>source paragraph reference on every value</dt><dd>1:1</dd></div>
+      <div class="fact"><dt>existing outputs overwritten on a rerun</dt><dd>0</dd></div>
+    </dl>
+  </section>
+
+  <section class="section wrap" id="extraction" aria-labelledby="extraction-title">
+    <div class="section-head">
+      <p class="eyebrow">Recorded extraction</p>
+      <h2 id="extraction-title">The source and the result, side by side.</h2>
+      <p>A fictional two-step instruction. The numbers on the left are the parser's one-based paragraph references, not Word's line numbers.</p>
+    </div>
+    <div class="compare">
+      <div class="doc">
+        <div class="pane-head"><h3>Source paragraphs</h3><span>synthetic_sop.docx</span></div>
+        <ol>
+          <li><span class="para-no" aria-label="Paragraph 1">1</span><span class="para-text"><b>Work Instruction:</b> Review a sample café record</span></li>
+          <li><span class="para-no" aria-label="Paragraph 2">2</span><span class="para-text"><b>Safety Notes:</b> Synthetic example only.
+No equipment is involved.</span></li>
+          <li><span class="para-no" aria-label="Paragraph 3">3</span><span class="para-text"><b>Step 1:</b> Open the sample record.
+Check that the café record ID is present.</span></li>
+          <li><span class="para-no" aria-label="Paragraph 4">4</span><span class="para-text"><b>Step 2:</b> Mark the sample record Complete.</span></li>
+        </ol>
+      </div>
+      <div class="arrow" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="result">
+        <div class="pane-head"><h3>Extracted instruction</h3><span>parser 1.0.0</span></div>
+        <div class="result-body">
+          <h4>Review a sample café record</h4>
+          <span class="ref">From paragraph 1</span>
+          <p class="safety">Synthetic example only.
+No equipment is involved.</p>
+          <span class="ref">Safety notes from paragraph 2</span>
+          <ol class="steps">
+            <li><p>Open the sample record.
+Check that the café record ID is present.</p><span class="ref">From paragraph 3</span></li>
+            <li><p>Mark the sample record Complete.</p><span class="ref">From paragraph 4</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <details class="more">
+      <summary>Open the recorded JSON</summary>
+      <figure class="code">
+        <figcaption><span>work_instruction_preview.json</span><span>860 bytes</span></figcaption>
+<pre tabindex="0" aria-label="Recorded JSON output">{
   "parser_version": "1.0.0",
   "safety_notes": {
     "source_paragraph_index": 2,
@@ -50,16 +130,90 @@ Check that the café record ID is present.</p></div><div class="step"><div class
     "source_paragraph_index": 1,
     "text": "Review a sample café record"
   }
-}
-</pre></details><details><summary>Inspect the complete recorded CSV</summary><pre>record_type,step_number,text,source_paragraph_index,source_sha256
+}</pre>
+      </figure>
+    </details>
+    <details class="more">
+      <summary>Open the recorded CSV</summary>
+      <figure class="code">
+        <figcaption><span>work_instruction_preview.csv</span><span>552 bytes</span></figcaption>
+<pre tabindex="0" aria-label="Recorded CSV output">record_type,step_number,text,source_paragraph_index,source_sha256
 title,,Review a sample café record,1,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
 safety_notes,,"Synthetic example only.
 No equipment is involved.",2,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
 step,1,"Open the sample record.
 Check that the café record ID is present.",3,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
-step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
-</pre></details></section>
-<section aria-labelledby="checks"><p class="eyebrow">02 / Refusal and preservation checks</p><h2 id="checks">An unsupported input stops the run.</h2><div class="checks"><article class="check"><p class="result">REFUSE BEFORE OUTPUT</p><h3>No guessed steps</h3><p>Labels must start at Step 1 and stay consecutive. Tables, images, automatic numbering and unsupported body content are rejected rather than silently dropped.</p><code>Step 1 → Step 3: rejected</code></article><article class="check"><p class="result">RAW TEXT RETAINED</p><h3>Literal CSV values</h3><p>Formula-like text gets an apostrophe in CSV. JSON keeps the original value. Unicode, leading zeros and quoted text are checked separately.</p><code>=2+2 → '=2+2 in CSV</code></article><article class="check"><p class="result">EXISTING FILES PRESERVED</p><h3>No overwrite on rerun</h3><p>A second CLI run to the same output folder returns an error. The independent check confirmed both earlier outputs and the input remained unchanged.</p><code>ERROR[OUTPUT_EXISTS]</code></article></div></section>
-<section class="limits" aria-labelledby="scope"><div><h2 id="scope">Where this proof stops</h2><p>This is an extraction building block. The next project step would be to review an anonymized real document and agree its supported structure and output mapping.</p><p class="small">The recorded checks establish template parsing and file behavior. They do not establish customer acceptance, production performance or native Word rendering.</p></div><div><h3>Supported now</h3><ul><li>One manually labeled title, optional safety paragraph and sequential steps.</li><li>Source SHA-256 and paragraph references in both output formats.</li><li>Checks for unsafe ZIP members, excessive expansion and unsupported content.</li></ul><h3 style="margin-top:22px">Separate work would be required</h3><ul><li>Arbitrary SOP layouts, tables and automatic Word lists.</li><li>Approved manufacturing fields, API mapping and a test environment.</li><li>Any ION MES connection, upload or production deployment.</li></ul></div></section>
-</main><footer><p>Built by Alexandr Khrustalev. Independent portfolio work, October 2026.</p><a href="index.html">Return to selected work</a></footer>
-</body></html>
+step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267</pre>
+      </figure>
+    </details>
+    <p class="note">Both files are in the download. Running the included generator again on 19 October 2026 produced a JSON file identical to the recorded one, byte for byte.</p>
+  </section>
+
+  <section class="section wrap" aria-labelledby="refuse-title">
+    <div class="section-head">
+      <p class="eyebrow">Refusals</p>
+      <h2 id="refuse-title">When the input is wrong, nothing is written.</h2>
+      <p>A parser that skips what it doesn't understand hands someone an instruction with a missing step. This one stops and says why.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card"><span class="label">Step numbering</span><h3>No gaps, no repeats</h3><p>Steps must start at 1 and run in order. A document that jumps from Step 1 to Step 3 is rejected.</p><code class="tag">ERROR[TEMPLATE_STEP_SEQUENCE]: Expected Step 2, found Step 3.</code></div>
+      <div class="card"><span class="label">Unsupported content</span><h3>Tables and lists are refused</h3><p>Tables, images, automatic Word numbering, macros and embedded objects stop the run instead of being dropped quietly. So do unlabeled paragraphs.</p><code class="tag">ERROR[UNSUPPORTED_TABLE]: Tables are not supported by this preview.</code></div>
+      <div class="card"><span class="label">Existing files</span><h3>No overwrite on a rerun</h3><p>Writing to a folder that already has the outputs returns an error and leaves both files as they were. This is the actual message from the rerun.</p><code class="tag">ERROR[OUTPUT_EXISTS]: Refusing to overwrite existing output: work_instruction_preview.json, work_instruction_preview.csv.</code></div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="code-title">
+    <div class="split">
+      <div class="section-head">
+        <p class="eyebrow">The code that matters</p>
+        <h2 id="code-title">Safe in a spreadsheet, exact in JSON.</h2>
+        <p>Step text that starts with <code>=</code>, <code>+</code>, <code>-</code> or <code>@</code> would run as a formula when the CSV opens in Excel. The CSV gets a leading apostrophe. The JSON keeps the original text, so nothing is lost.</p>
+        <p>The parser reads the DOCX package directly with the Python standard library and checks the ZIP before it opens anything: 8 MiB compressed, 4 MiB per member and 16 MiB expanded at most.</p>
+      </div>
+      <div class="stack">
+        <figure class="code">
+          <figcaption><span>sop_to_work_instruction.py</span><span>lines 450 to 455</span></figcaption>
+<pre tabindex="0" aria-label="Excerpt: CSV formula guard">def _csv_safe_text(value: str) -&gt; str:
+    """Keep formula-like source text literal when a CSV is opened as a spreadsheet."""
+    significant = value.lstrip()
+    if significant.startswith(("=", "+", "-", "@")):
+        return "'" + value
+    return value</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>Run the tests</span><span>Python 3.12, standard library only</span></figcaption>
+<pre tabindex="0" aria-label="Test command and result">python -m unittest tests.test_sop_to_work_instruction
+<span class="c">Ran 28 tests in 0.602s</span>
+<span class="ok">OK</span></pre>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="limits-title">
+    <div class="limits">
+      <div>
+        <h2 id="limits-title">Where this stops</h2>
+        <p>This is an extraction building block tested on a fictional document. It reads one labeled template, not any Word file. The test document is generated in code and hasn't been opened in Word itself.</p>
+        <ul>
+          <li>Supported: one title, optional safety notes before the steps, then consecutive steps of one paragraph each.</li>
+          <li>Not supported: other layouts, tables, automatic lists, headers and footers.</li>
+          <li>No upload, MES connection or production deployment.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>How a real project would start</h3>
+        <p>With an anonymized copy of one of your real documents. We'd agree which structure the parser accepts and how each field maps to your system, then test against a set of known documents before connecting anything.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Independent study by Alexandr Khrustalev. The work instruction is fictional.</p>
+    <a href="index.html">Back to selected work</a>
+  </div>
+</footer>
+</body>
+</html>

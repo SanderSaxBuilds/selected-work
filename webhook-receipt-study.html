@@ -1,4 +1,177 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Webhook receipt study by Alexandr Khrustalev</title><meta name="description" content="Recorded Python webhook repair study with duplicate receipts, signature checks, atomic SQLite storage and runnable source."><style>
-:root{color-scheme:light;--ink:#132a3b;--muted:#516474;--paper:#f5f3ed;--line:#d3dcd9;--accent:#075c55;--blue:#e9f0f5;--white:#fff;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--accent);text-underline-offset:4px}a:focus-visible,summary:focus-visible{outline:3px solid #b15a16;outline-offset:5px}header,main,footer{max-width:1200px;margin:auto;padding:26px 36px}header{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);font-size:14px}header a{text-decoration:none;font-weight:650}.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:750;color:var(--accent);margin:0 0 14px}h1{font-size:clamp(38px,5.2vw,68px);line-height:1.05;letter-spacing:-.05em;max-width:760px;margin:0 0 24px}h2{font-size:30px;line-height:1.2;letter-spacing:-.025em;margin:0 0 16px}h3{font-size:19px;line-height:1.3;margin:0 0 10px}p{margin:0 0 18px}.intro{padding:42px 0 26px}.lede{font-size:20px;max-width:780px;color:var(--muted)}.scope{max-width:880px;padding:15px 20px;border-left:4px solid var(--accent);background:#e8eeea;font-size:15px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:30px 0 42px}.stat{padding:18px 22px;background:var(--white);border:1px solid var(--line);border-radius:5px}.stat strong{display:block;font-size:29px;line-height:1.3}.stat span{font-size:13px;color:var(--muted)}section{margin:0 0 44px}.split{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}.panel{min-width:0;background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden}.panel-head{padding:20px 24px;border-bottom:1px solid var(--line);background:var(--blue)}.panel-head h3{margin:0 0 4px}.panel-head p{font-size:13px;color:var(--muted);margin:0}.paragraph{display:grid;grid-template-columns:34px 1fr;gap:10px;margin:0;padding:17px 22px;border-bottom:1px solid #edf0ef;font:14px/1.65 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}.paragraph:last-child{border-bottom:0}.line-number{color:#7a8c96}.instruction{padding:22px 24px}.instruction .meta{font:12px/1.4 var(--mono);color:var(--muted);margin:0 0 16px}.instruction h3{font-size:23px}.safety{padding:12px 15px;background:#f3f5f2;border-radius:4px;font-size:14px;white-space:pre-wrap}.step{padding:17px 0;border-bottom:1px solid var(--line)}.step:last-child{border-bottom:0}.step-top{display:flex;justify-content:space-between;gap:12px;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:7px}.step p{white-space:pre-wrap;margin:0;font-size:15px}.trace{font-size:12px;color:var(--muted)}.downloads{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.downloads a{display:inline-block;border:1px solid var(--accent);padding:9px 16px;border-radius:4px;text-decoration:none;font-size:14px;font-weight:650}.downloads a:first-child{background:var(--accent);color:white}details{border:1px solid var(--line);border-radius:5px;background:white;margin:12px 0}summary{padding:16px 20px;cursor:pointer;font-weight:650;font-size:15px}pre{font:13px/1.6 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;margin:0;padding:20px;border-top:1px solid var(--line);background:#102a3b;color:#e5f1f1}.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.check{background:white;border:1px solid var(--line);padding:22px;border-radius:6px}.check .result{font-size:11px;font-weight:750;letter-spacing:.08em;color:var(--accent);margin-bottom:12px}.check p{font-size:14px;color:var(--muted)}code{font-family:var(--mono);font-size:.86em;overflow-wrap:anywhere}.check code{display:block;background:#f1f3f1;padding:9px;color:var(--ink)}.limits{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:28px;background:#e9eeea;border-radius:7px}.limits p,.limits li{font-size:15px}.limits ul{padding-left:20px;margin:0}.limits li+li{margin-top:7px}.small{font-size:13px;color:var(--muted)}footer{border-top:1px solid var(--line);font-size:13px;color:var(--muted);padding-bottom:42px}footer p{margin:0 0 6px}@media(max-width:740px){header,main,footer{padding-left:22px;padding-right:22px}header{align-items:flex-start;flex-direction:column;gap:4px}.intro{padding-top:32px}.split,.checks,.limits{grid-template-columns:1fr}.stats{gap:8px;margin:24px 0 34px}.stat{padding:12px}.stat strong{font-size:24px}.stat span{font-size:11px}.lede{font-size:18px}h2{font-size:26px}.panel-head,.instruction{padding:18px}.paragraph{padding:15px}.limits{padding:22px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-.capture{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:8px}.outcomes{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.outcome{background:white;padding:22px;border:1px solid var(--line);border-radius:6px}.outcome p{font-size:14px;margin:10px 0 0}.status{display:inline-block;color:var(--accent);font:700 14px var(--mono);margin-bottom:10px}.outcome code{display:block}.outcome:last-child{grid-column:1/-1}@media(max-width:740px){.outcomes{grid-template-columns:1fr}}</style></head><body><header><a href="index.html">Alexandr Khrustalev, selected work</a><span>Python API repair study</span></header><main><div class="intro"><p class="eyebrow">Independent study with fictional events</p><h1>Retry the delivery.<br>Keep one receipt.</h1><p class="lede">A small Python service distinguishes an identical callback from changed content under the same event ID. Signed requests, validation and a SQLite transaction keep the receipt and shipment state together.</p><p class="scope">This is a recorded local demonstration. The API does not run on this page. Download the source to run the service on your own computer. No shipping provider, customer system or production data is connected.</p><div class="downloads"><a href="webhook-receipt-source.zip" download>Download runnable source</a><a href="#outcomes">Inspect recorded outcomes</a></div></div><div class="stats" aria-label="Recorded verification"><div class="stat"><strong>32</strong><span>Unit and HTTP tests passed</span></div><div class="stat"><strong>5</strong><span>Browser request cases checked</span></div><div class="stat"><strong>1</strong><span>Real service restart checked</span></div></div><section aria-labelledby="outcomes"><p class="eyebrow">01 / Actual local responses</p><h2 id="outcomes">Same ID, different outcomes.</h2><p>These responses were checked against the stored event count and projected shipment state. The five controls send fixed fictional fixtures, not arbitrary uploads.</p><div class="outcomes"><article class="outcome"><span class="status">200 recorded</span><h3>First delivery</h3><code>evt_demo_001</code><p>One event is stored. DEMO_1042 becomes in_transit.</p></article><article class="outcome"><span class="status">200 duplicate</span><h3>Identical retry</h3><code>projection_changed: false</code><p>The callback is acknowledged. The stored event count remains one.</p></article><article class="outcome"><span class="status">409 event_id_conflict</span><h3>Changed content, reused ID</h3><code>status: delivered</code><p>The changed event is refused. The receipt and shipment state remain unchanged.</p></article><article class="outcome"><span class="status">401 invalid_signature</span><h3>Bad signature</h3><code>event_count: 1</code><p>The request is refused before storage. No receipt or projection is created.</p></article><article class="outcome"><span class="status">200 recorded</span><h3>An older, distinct event</h3><code>projection_changed: false</code><p>The earlier created event is retained as a second receipt. The latest shipment projection stays in_transit.</p></article></div></section><section aria-labelledby="workspace"><p class="eyebrow">02 / Running workspace</p><h2 id="workspace">See the journal beside stored state.</h2><p>This capture shows the actual local service after a restart. The two stored events survived. Repeating the delivery returned a duplicate acknowledgment. The response journal is browser session history and clears on page reload.</p><img class="capture" src="webhook-receipt-desktop.png" alt="Actual local receipt study showing two stored events, an in-transit shipment and response journal with duplicate, conflict and bad-signature responses" loading="lazy"></section><section aria-labelledby="checks"><p class="eyebrow">03 / Repeatable checks</p><h2 id="checks">The receipt is the unit of work.</h2><div class="checks"><div class="check"><div class="result">ATOMIC STORAGE</div><h3>Commit both changes</h3><p>An immediate SQLite transaction covers event insertion and the latest shipment projection. A reused ID with different content is refused.</p><code>BEGIN IMMEDIATE</code></div><div class="check"><div class="result">CONCURRENT REPLAY</div><h3>24 matching requests</h3><p>The concurrency test records one event and returns 23 duplicate acknowledgments. Older and equal-time events do not replace a newer projection.</p><code>1 recorded, 23 duplicates</code></div><div class="check"><div class="result">INVALID INPUT</div><h3>Refuse before storage</h3><p>Tests cover schema errors, duplicate JSON keys, invalid dates, malformed signatures and oversized bodies. A signed deeply nested body returns a validation error through the HTTP route.</p><code>422 invalid_event</code></div></div><details><summary>Run the same checks locally</summary><pre>python -m unittest test_receipts -v
-python server.py --db runs/study.sqlite --port 8962</pre></details><p class="small">Source version 1.0.1. The final source ZIP was freshly extracted and all 32 tests passed. The two added tests cover the nesting error found during code review. Desktop and narrow-screen review, page reload and service restart checks cover the unchanged browser scenarios.</p></section><section class="limits" aria-label="Scope and next step"><div><h2>Where this proof stops</h2><ul><li>One fictional event namespace and one local database.</li><li>Fresh in-memory signing key on each service start.</li><li>Five-minute delivery timestamp window.</li><li>No guarantee for exactly-once external actions.</li><li>No provider integration or production deployment claim.</li></ul></div><div><h2>A practical first repair</h2><p>For a real duplicate-callback issue, first reproduce the failure from an anonymized event and the receiving code. Agree the event ID contract, retry window, ordering rule and acceptance checks before changing storage or connecting external actions.</p><p class="small">This independent sample demonstrates a repair approach. It is not a customer case study or a production service.</p></div></section></main><footer><p>Alexandr Khrustalev. Independent Python API study.</p><p>Fictional shipment data and original interface. Source and tests included.</p></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f5f0">
+<title>Webhook receipt study</title>
+<meta name="description" content="A small Python service that stores each signed webhook once, refuses a reused event ID with changed content and keeps the receipt and shipment state in one SQLite transaction. Source, tests and recorded responses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="study.css">
+<style>
+.replay { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; font-size: 15px; }
+.replay caption { padding: 0 0 12px; text-align: left; color: var(--muted); font-size: 14px; }
+.replay th, .replay td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.replay thead th { font-size: 13px; font-weight: 600; color: var(--muted); background: var(--surface-soft); white-space: nowrap; }
+.replay tbody tr:last-child > * { border-bottom: 0; }
+.replay tbody th { font-weight: 600; min-width: 170px; }
+.replay tbody th span { display: block; margin-top: 2px; font-weight: 400; color: var(--muted); font-size: 14px; }
+.replay td code { display: block; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; line-height: 1.55; }
+.replay .count { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+.replay tr.restart th, .replay tr.restart td { background: var(--brand-soft); }
+@media (max-width: 759px) {
+  .replay, .replay tbody, .replay tr, .replay th, .replay td { display: block; }
+  .replay { border: 0; background: none; box-shadow: none; overflow: visible; }
+  .replay caption { display: block; }
+  .replay thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .replay tbody tr { margin-bottom: 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+  .replay tbody th { border-bottom: 1px solid var(--line); }
+  .replay td { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 10px 16px; border-bottom: 0; }
+  .replay td::before { content: attr(data-label); color: var(--muted); font: 600 13px/1.6 var(--body); }
+  .replay td .chip { justify-self: start; }
+  .replay .count { text-align: left; }
+}
+.run-cmd { margin-top: 16px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to the study</a>
+<header class="site-bar">
+  <div class="wrap">
+    <a class="back-link" href="index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
+    <span class="site-owner">Alexandr Khrustalev</span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero wrap" aria-labelledby="title">
+    <p class="kicker">Python API study</p>
+    <h1 id="title">A retried webhook should never count twice.</h1>
+    <p class="lede">Webhook senders retry when a reply is slow or lost. I built a small Python service that checks each signed delivery, stores every event ID once and refuses an old ID that arrives with different content. The receipt and the shipment update are saved in one SQLite transaction, so they can't drift apart.</p>
+    <div class="actions">
+      <a class="button button-primary" href="webhook-receipt-source.zip" download><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download source and tests <span class="file-size">12 KB</span></a>
+      <a class="button button-secondary" href="#responses">See the recorded responses</a>
+    </div>
+    <dl class="facts">
+      <div class="fact"><dt>unit and HTTP tests pass</dt><dd>32</dd></div>
+      <div class="fact"><dt>delivery cases replayed against the service</dt><dd>5</dd></div>
+      <div class="fact"><dt>concurrent copies of one event, stored once</dt><dd>24</dd></div>
+      <div class="fact"><dt>receipts kept across a service restart</dt><dd>2</dd></div>
+    </dl>
+  </section>
+
+  <section class="section wrap" aria-labelledby="problem-title">
+    <div class="split">
+      <div class="section-head">
+        <p class="eyebrow">The problem</p>
+        <h2 id="problem-title">Duplicates are normal. Silent damage isn't.</h2>
+        <p>A sender that doesn't get a clear reply sends the same event again. If the receiver treats each copy as new, the same shipment update runs twice. If it saves the event and then crashes before updating the shipment, the two records disagree. A reused ID with a different body is worse, because it means one side has changed history.</p>
+      </div>
+      <div class="stack">
+        <div class="card"><span class="label">Check before storing</span><h3>Signature, time window and schema</h3><p>An HMAC SHA-256 signature over the timestamp and exact body, a five-minute delivery window and a fixed JSON schema. Duplicate JSON keys, bad dates and bodies over 64 KB are refused.</p></div>
+        <div class="card"><span class="label">Store once</span><h3>One transaction per receipt</h3><p>The event row and the shipment's latest state are written together. An identical retry gets a duplicate acknowledgment. Changed content under a known ID gets a 409 and changes nothing.</p></div>
+        <div class="card"><span class="label">Keep order sane</span><h3>Older events don't roll state back</h3><p>An older event is kept as its own receipt, but the shipment keeps the newest status. Events with an equal time keep the first projection.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="responses" aria-labelledby="responses-title">
+    <div class="section-head">
+      <p class="eyebrow">Recorded responses</p>
+      <h2 id="responses-title">Same event ID, five different outcomes.</h2>
+      <p>I started the service from the published ZIP with a new database and sent its five demo deliveries in order, reading the stored state after each one. Then I stopped it, started it again on the same database and replayed the first event.</p>
+    </div>
+    <table class="replay">
+      <caption>Replayed on 19 October 2026. Shipment DEMO_1042, fictional data.</caption>
+      <thead><tr><th scope="col">Delivery</th><th scope="col">HTTP</th><th scope="col">Response body</th><th scope="col" class="count">Stored events</th><th scope="col">Shipment status</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">First delivery<span>evt_demo_001, in_transit</span></th><td data-label="HTTP"><span class="chip chip-ok">200</span></td><td data-label="Response"><code>{"result": "recorded", "event_id": "evt_demo_001", "projection_changed": true}</code></td><td data-label="Stored" class="count">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+        <tr><th scope="row">Identical retry<span>same ID, same body</span></th><td data-label="HTTP"><span class="chip chip-ok">200</span></td><td data-label="Response"><code>{"result": "duplicate", "event_id": "evt_demo_001", "projection_changed": false}</code></td><td data-label="Stored" class="count">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+        <tr><th scope="row">Changed body<span>same ID, status delivered</span></th><td data-label="HTTP"><span class="chip chip-warn">409</span></td><td data-label="Response"><code>{"error": "event_id_conflict"}</code></td><td data-label="Stored" class="count">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+        <tr><th scope="row">Bad signature<span>refused before storage</span></th><td data-label="HTTP"><span class="chip chip-bad">401</span></td><td data-label="Response"><code>{"error": "invalid_signature"}</code></td><td data-label="Stored" class="count">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+        <tr><th scope="row">Older, distinct event<span>evt_demo_older, created</span></th><td data-label="HTTP"><span class="chip chip-ok">200</span></td><td data-label="Response"><code>{"result": "recorded", "event_id": "evt_demo_older", "projection_changed": false}</code></td><td data-label="Stored" class="count">2</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+        <tr class="restart"><th scope="row">Restart, then retry<span>same database</span></th><td data-label="HTTP"><span class="chip chip-ok">200</span></td><td data-label="Response"><code>{"result": "duplicate", "event_id": "evt_demo_001", "projection_changed": false}</code></td><td data-label="Stored" class="count">2</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section wrap" aria-labelledby="code-title">
+    <div class="section-head">
+      <p class="eyebrow">The code that matters</p>
+      <h2 id="code-title">Decide inside the transaction.</h2>
+      <p>The duplicate check, the insert and the shipment update all run under <code>BEGIN IMMEDIATE</code>. Two copies arriving at once can't both see an empty table, which is what the 24-request concurrency test checks: one recorded, 23 duplicates.</p>
+    </div>
+    <figure class="code">
+      <figcaption><span>receipt_store.py</span><span>ReceiptStore.receive, lines 97 to 114</span></figcaption>
+<pre tabindex="0" aria-label="Excerpt from receipt_store.py">event, event_at, digest = decode_event(body)
+with self.connect() as db:
+    db.execute("BEGIN IMMEDIATE")
+    previous = db.execute("SELECT digest FROM events WHERE event_id = ?", (event["event_id"],)).fetchone()
+    if previous:
+        if previous["digest"] != digest:
+            raise ReceiptError(409, "event_id_conflict")
+        return {"result": "duplicate", "event_id": event["event_id"], "projection_changed": False}
+    db.execute("INSERT INTO events VALUES (?, ?, ?, ?, ?, ?)",
+               (event["event_id"], digest, event["shipment"], event["status"], event_at, now))
+    current = db.execute("SELECT latest_event_at FROM shipments WHERE shipment = ?", (event["shipment"],)).fetchone()
+    changed = current is None or event_at &gt; current["latest_event_at"]
+    if changed:
+        db.execute("""INSERT INTO shipments VALUES (?, ?, ?, ?)
+            ON CONFLICT(shipment) DO UPDATE SET status=excluded.status,
+            latest_event_at=excluded.latest_event_at, latest_event_id=excluded.latest_event_id""",
+            (event["shipment"], event["status"], event_at, event["event_id"]))
+    return {"result": "recorded", "event_id": event["event_id"], "projection_changed": changed}</pre>
+    </figure>
+    <figure class="code run-cmd">
+      <figcaption><span>Run it yourself</span><span>Python 3.10 or newer, standard library only</span></figcaption>
+<pre tabindex="0" aria-label="Commands and test result">python -m unittest test_receipts
+<span class="c">Ran 32 tests in 0.862s</span>
+<span class="ok">OK</span>
+
+python server.py --db runs/study.sqlite --port 8962</pre>
+    </figure>
+    <p class="note">The tests cover the cases above plus expired and future timestamps, unknown and missing fields, duplicate JSON keys, invalid UTF-8, a deeply nested signed body, oversized bodies, cross-origin requests and unexpected hosts. I reran them from a fresh copy of the ZIP on 19 October 2026.</p>
+  </section>
+
+  <section class="section wrap" aria-labelledby="ui-title">
+    <div class="section-head">
+      <p class="eyebrow">The local test page</p>
+      <h2 id="ui-title">Send the deliveries yourself.</h2>
+      <p>The ZIP includes a small page served by the same Python process. Each button sends one fixed delivery and then reads the stored events back. This capture was taken after a restart: both events survived and replaying the first one returned a duplicate.</p>
+    </div>
+    <figure class="shot">
+      <img src="webhook-receipt-desktop.png" width="1265" height="1449" loading="lazy" alt="Local receipt test page after a restart. Two stored events, the demo shipment in transit, five delivery buttons and a response journal showing duplicate, conflict and bad-signature responses.">
+      <figcaption>The response journal lives in the browser tab and clears on reload. The stored events live in SQLite and survive a restart.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section wrap" aria-labelledby="limits-title">
+    <div class="limits">
+      <div>
+        <h2 id="limits-title">Where this stops</h2>
+        <p>This is a study with fictional shipment events, not a client project or a production service. It shows one way to make a receiver safe to retry.</p>
+        <ul>
+          <li>One event namespace and one local SQLite database.</li>
+          <li>A new signing key is generated each time the service starts.</li>
+          <li>The five-minute window and the ordering rule are study choices.</li>
+          <li>It doesn't make external side effects exactly-once, and it isn't connected to any provider.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>How a real repair would start</h3>
+        <p>I'd reproduce the failure from an anonymized event and your receiving code first. Then we'd agree the event ID contract, the retry window, the ordering rule and the checks that prove it's fixed, before touching storage or anything that calls out.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Independent study by Alexandr Khrustalev. All shipment data is fictional.</p>
+    <a href="index.html">Back to selected work</a>
+  </div>
+</footer>
+</body>
+</html>

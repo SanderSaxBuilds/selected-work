@@ -1,31 +1,386 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Clearline, mobile expense review concept</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f5f0">
+<title>Clearline expense review</title>
+<meta name="description" content="A mobile expense review interface for small teams. Scan the month, filter what needs a decision, open an expense and approve it or ask for a correction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-:root{font-family:Arial,sans-serif;color:#152c37;background:#edf1ee;font-synthesis:none}*{box-sizing:border-box}body{margin:0}.wrapper{max-width:1020px;margin:0 auto;padding:32px 20px;display:grid;grid-template-columns:1fr 405px;gap:58px;align-items:start}.intro{padding:34px 0}.eyebrow{font-size:11px;letter-spacing:2.2px;text-transform:uppercase;color:#547361}h1{font-size:54px;line-height:1.05;letter-spacing:-2px;margin:20px 0}h2{font-size:21px;letter-spacing:-.4px;margin:0 0 18px}p{line-height:1.6;color:#53636a}.intro p{font-size:17px;max-width:410px}.intro ul{padding-left:20px;line-height:1.7;color:#53636a}.note{font-size:13px!important;border-top:1px solid #cdd8d1;padding-top:20px;margin-top:32px}.device{border:1px solid #cad6ce;background:#fbfcf9;border-radius:30px;box-shadow:0 24px 55px #21432a15;overflow:hidden;min-height:720px;position:relative}header{padding:27px 24px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e6eae2}.brand{font-weight:800;font-size:22px;letter-spacing:-.8px}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#d6e7df;color:#234e3b;font-size:12px;font-weight:700}.screen{padding:24px 22px 92px;min-height:660px}.sub{font-size:13px;color:#6a7c74}.split{display:flex;justify-content:space-between;align-items:center}.balance{background:#174e3b;color:#fff;padding:25px 23px;border-radius:20px;margin:16px 0 24px}.balance p{margin:0;color:#d4e5db;font-size:12px}.balance strong{display:block;font-size:42px;letter-spacing:-1.5px;margin:8px 0 18px}.meter{height:6px;background:#ffffff25;border-radius:4px}.meter i{display:block;background:#c9df96;height:100%;width:62.1%;border-radius:4px}.balance .split{margin-top:10px;font-size:11px;color:#e8f0e4}.summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}.stat{border:1px solid #dce3db;border-radius:15px;padding:16px 15px}.stat b{display:block;font-size:25px;margin:5px 0}.stat span{font-size:12px;color:#738277}.flag{color:#865a24!important;font-size:11px!important}.section-heading{font-size:15px;font-weight:700}.text-button{border:0;background:transparent;color:#215e45;cursor:pointer;font-weight:700;padding:9px 0;font-size:12px}.row{width:100%;border:0;border-bottom:1px solid #e3e9df;background:transparent;display:flex;align-items:center;text-align:left;gap:12px;padding:16px 0;color:inherit;cursor:pointer}.row:hover{background:#eef5ed}.row .icon{height:39px;width:39px;flex-shrink:0;border-radius:12px;background:#eef2e8;display:grid;place-items:center;font-weight:700;color:#496242}.row .data{flex:1;min-width:0}.row .data b{display:block;font-size:14px;margin-bottom:6px}.row small{color:#748279;font-size:11px}.row .amount{text-align:right}.row .amount b{font-size:14px}.status{display:block;font-size:10px;margin-top:6px;color:#916324}.status.correction{color:#934b36}.status.approved{color:#427258}.chips{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0 10px}.chip{border:1px solid #d9e2d7;border-radius:20px;background:#fff;padding:9px 13px;color:#556559;font-size:12px;cursor:pointer}.chip[aria-pressed="true"]{background:#245943;color:#fff;border-color:#245943}.search-label{font-size:12px;color:#596c61;display:block;margin:15px 0 6px}input{width:100%;border:1px solid #d3ddd3;border-radius:10px;padding:12px;background:#fff;font-size:14px;color:#263c32}.empty{text-align:center;padding:42px 16px;color:#687d70;font-size:14px}.back{border:0;background:transparent;color:#3b6550;padding:0 0 25px;font-size:13px;cursor:pointer}.detail-icon{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:#e6eee0;color:#446342;font-size:22px;margin-bottom:16px}.detail-amount{font-size:38px;font-weight:700;letter-spacing:-1.2px;margin:14px 0 26px}.details{margin:0 0 22px}.details div{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #e1e7dc;gap:10px}.details dt{color:#718276;font-size:12px}.details dd{margin:0;font-size:13px;text-align:right}.action{width:100%;border:0;background:#245c42;color:#fff;padding:15px;border-radius:13px;font-size:14px;font-weight:700;cursor:pointer}.action:disabled{background:#dfe8db;color:#507152;cursor:default}.feedback{min-height:22px;color:#42664d;font-size:12px;margin-top:12px}nav{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #dde5d9;background:#fbfcf9;display:flex;justify-content:space-around;padding:15px 12px 18px}nav button{border:0;background:transparent;color:#768376;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;width:100px}nav button[aria-current="page"]{color:#225f40;font-weight:700}nav svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}button:focus-visible,input:focus-visible{outline:3px solid #e39d33;outline-offset:3px}.screen[hidden]{display:none}@media(max-width:750px){.wrapper{grid-template-columns:1fr;max-width:455px;gap:24px;padding:18px 14px}.intro{padding:0}.intro h1{font-size:34px;letter-spacing:-1px;margin:12px 0}.intro ul{display:none}.intro p{font-size:14px;margin:0}.intro .note{font-size:11px!important;margin-top:12px;padding-top:10px}.device{min-height:690px}.screen{min-height:625px}.balance strong{font-size:38px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+:root {
+  color-scheme: light;
+  --ink: #13201b; --paper: #f6f5f0; --surface: #ffffff; --surface-soft: #fbfaf6; --line: #dfe3dc; --line-strong: #c9d1ca;
+  --muted: #5d6f66; --brand: #175841; --brand-soft: #e4efe8; --deep: #0e3b2b; --amber: #d9a441; --amber-soft: #fbefd9;
+  --error: #b4412f; --error-soft: #f9e7e2; --warning: #a86b12; --warning-ink: #6b430a; --lime: #c9df96;
+  --radius: 14px; --radius-button: 10px;
+  --shadow: 0 1px 2px rgba(19, 32, 27, .05), 0 4px 12px rgba(19, 32, 27, .05);
+  --focus: 0 0 0 3px #fff, 0 0 0 5px var(--brand);
+  --heading: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-width: 320px; color: var(--ink); background: var(--paper); font: 16px/1.5 var(--body); }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+a { color: var(--brand); text-underline-offset: 3px; }
+:focus-visible { outline: none; box-shadow: var(--focus); }
+[hidden] { display: none !important; }
+h1, h2, h3 { margin: 0; font-family: var(--heading); letter-spacing: -.02em; }
+p { margin: 0; }
+svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.page { display: grid; gap: 24px; max-width: 1080px; margin: 0 auto; padding: 16px 16px 40px; }
+@media (min-width: 900px) { .page { grid-template-columns: minmax(0, 1fr) 400px; gap: 64px; align-items: start; padding: 40px 24px 56px; } .intro { position: sticky; top: 40px; padding-top: 24px; } }
+.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--muted); font-size: 15px; font-weight: 500; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.back svg { width: 16px; height: 16px; stroke-width: 2; }
+.kicker { margin-top: 8px; color: var(--brand); font-size: 14px; font-weight: 600; }
+.intro h1 { margin-top: 8px; font-size: clamp(32px, 5.4vw, 52px); line-height: 1.05; letter-spacing: -.035em; }
+.lede { margin-top: 14px; max-width: 46ch; color: var(--muted); font-size: 18px; line-height: 1.55; }
+.features { display: grid; gap: 10px; margin: 24px 0 0; padding: 0; list-style: none; }
+.features li { display: flex; gap: 12px; align-items: start; }
+.features svg { width: 20px; height: 20px; margin-top: 2px; color: var(--brand); stroke-width: 2.2; }
+.about { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; max-width: 52ch; }
+.about p + p { margin-top: 6px; }
+@media (max-width: 899px) { .features { display: none; } .lede { font-size: 17px; } }
+
+/* Device */
+.device { position: relative; width: 100%; max-width: 420px; margin: 0 auto; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 32px; background: var(--surface-soft); box-shadow: 0 2px 4px rgba(19, 32, 27, .05), 0 20px 48px rgba(19, 32, 27, .10); }
+.app-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 18px 16px 14px 20px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.app-name { display: inline-flex; align-items: center; gap: 8px; font: 700 21px/1 var(--heading); letter-spacing: -.03em; }
+.app-name i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--deep); color: var(--lime); font-style: normal; }
+.app-name i svg { width: 16px; height: 16px; stroke-width: 2.4; }
+.app-tools { display: flex; align-items: center; gap: 6px; }
+.icon-button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 44px; padding: 0 10px; border: 0; border-radius: var(--radius-button); background: transparent; color: var(--muted); font-size: 14px; font-weight: 600; transition: background-color .18s ease-out; }
+.icon-button:hover { background: rgba(19, 32, 27, .06); color: var(--ink); }
+.icon-button svg { width: 18px; height: 18px; }
+.avatar { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--brand-soft); color: var(--deep); font-size: 13px; font-weight: 700; }
+
+.screen { min-height: 640px; padding: 20px 20px 104px; }
+.screen-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.screen-head h2 { font-size: 24px; }
+.screen-head h2:focus-visible { border-radius: 6px; }
+.sub { color: var(--muted); font-size: 14px; }
+
+.balance { margin-top: 16px; padding: 20px; border-radius: 18px; background: var(--deep); color: #fff; }
+.balance-label { color: #b9d3c5; font-size: 14px; font-weight: 500; }
+.balance-total { display: block; margin-top: 6px; font: 600 38px/1.05 var(--mono); letter-spacing: -.04em; }
+.meter { height: 8px; margin-top: 18px; border-radius: 4px; background: rgba(255, 255, 255, .16); overflow: hidden; }
+.meter i { display: block; height: 100%; border-radius: 4px; background: var(--lime); transition: width .2s ease-out; }
+.balance-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; color: #dbe9e1; font-size: 13px; }
+
+.summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.stat { display: block; width: 100%; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); text-align: left; transition: border-color .18s ease-out; }
+.stat:hover { border-color: var(--brand); }
+.stat-label { display: block; color: var(--muted); font-size: 13px; font-weight: 500; }
+.stat-value { display: block; margin-top: 2px; font: 600 28px/1.15 var(--mono); }
+.stat-note { display: block; margin-top: 2px; font-size: 13px; font-weight: 600; }
+.stat-note.is-pending { color: var(--warning-ink); }
+.stat-note.is-done { color: var(--brand); }
+
+.list-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; }
+.list-head h3 { font-size: 16px; }
+.text-button { min-height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--brand); font-size: 14px; font-weight: 600; }
+.text-button:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.rows { margin: 0; padding: 0; list-style: none; }
+.row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 72px; padding: 12px 4px; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; transition: background-color .18s ease-out; }
+.row:hover { background: rgba(23, 88, 65, .05); }
+.row-icon { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 12px; background: #eef1ea; color: #3b5a4c; font-size: 13px; font-weight: 700; }
+.row-main { flex: 1; min-width: 0; }
+.row-name { display: block; overflow: hidden; font-size: 15px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
+.row-meta { display: block; color: var(--muted); font-size: 13px; }
+.row-end { display: grid; justify-items: end; gap: 4px; }
+.row-amount { font: 600 15px/1.2 var(--mono); }
+.status { display: inline-flex; align-items: center; min-height: 22px; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.status.pending { background: var(--amber-soft); color: var(--warning-ink); }
+.status.approved { background: var(--brand-soft); color: var(--deep); }
+.status.correction { background: var(--error-soft); color: #8a2f20; }
+
+.search-label { display: block; margin-top: 16px; font-size: 14px; font-weight: 600; }
+.search { width: 100%; min-height: 48px; margin-top: 6px; padding: 10px 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-button); background: var(--surface); font-size: 16px; }
+.search::placeholder { color: #7a8981; }
+.chips { display: flex; gap: 6px; margin: 12px -20px 4px; padding: 0 20px 4px; overflow-x: auto; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; min-height: 44px; padding: 0 14px; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--surface); font-size: 14px; font-weight: 600; transition: background-color .18s ease-out; }
+.chip[aria-pressed="true"] { border-color: var(--deep); background: var(--deep); color: #fff; }
+.chip .n { margin-left: 4px; font-family: var(--mono); font-size: 13px; opacity: .75; }
+.empty { padding: 40px 12px; color: var(--muted); text-align: center; }
+
+.back-button { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px 0 0; border: 0; background: transparent; color: var(--brand); font-size: 15px; font-weight: 600; }
+.back-button svg { width: 18px; height: 18px; stroke-width: 2.2; }
+.detail-top { display: flex; gap: 14px; align-items: center; margin-top: 8px; }
+.detail-icon { display: grid; place-items: center; width: 52px; height: 52px; flex: none; border-radius: 16px; background: #eef1ea; color: #3b5a4c; font-size: 17px; font-weight: 700; }
+.detail-top h2 { font-size: 23px; }
+.detail-amount { margin: 20px 0 6px; font: 600 40px/1.1 var(--mono); letter-spacing: -.04em; }
+.details { margin: 16px 0 20px; }
+.details div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.details dt { color: var(--muted); font-size: 14px; }
+.details dd { margin: 0; max-width: 62%; text-align: right; font-size: 15px; font-weight: 500; }
+.action { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 50px; border: 1px solid transparent; border-radius: 12px; font-size: 16px; font-weight: 600; transition: background-color .18s ease-out; }
+.action svg { width: 18px; height: 18px; stroke-width: 2.2; }
+.action-primary { background: var(--brand); color: #fff; }
+.action-primary:hover:not(:disabled) { background: var(--deep); }
+.action-secondary { margin-top: 10px; border-color: #e3c6bd; background: var(--surface); color: #8a2f20; }
+.action-secondary:hover:not(:disabled) { background: var(--error-soft); }
+.action:disabled { border-color: var(--line); background: #eef0eb; color: var(--muted); }
+.undo { margin-top: 8px; }
+.feedback { min-height: 24px; margin-top: 10px; color: var(--brand); font-size: 14px; font-weight: 500; }
+.fine { margin-top: 8px; color: var(--muted); font-size: 13px; }
+
+.tabbar { position: absolute; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); background: var(--surface); padding: 6px 12px 12px; }
+.tabbar button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 56px; border: 0; border-radius: 12px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 600; }
+.tabbar button svg { width: 22px; height: 22px; }
+.tabbar button[aria-current="page"] { color: var(--deep); }
+.tabbar button[aria-current="page"] svg { color: var(--brand); stroke-width: 2.2; }
+.tab-badge { position: relative; display: block; height: 22px; }
+.tab-badge b { position: absolute; top: -6px; right: -12px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--amber); color: var(--deep); font: 600 12px/18px var(--mono); text-align: center; }
+@media (max-width: 380px) { .screen { padding-left: 16px; padding-right: 16px; } .chips { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; } .balance-total { font-size: 34px; } .stat-value { font-size: 24px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
 </style>
-<style>.intro,.device{min-width:0}.intro p{width:100%;overflow-wrap:break-word}@media(max-width:750px){.wrapper{width:100%;grid-template-columns:minmax(0,1fr)}.device{width:100%}.intro p{max-width:320px}}</style>
 </head>
-<body><main class="wrapper"><aside class="intro"><div class="eyebrow">Independent interface concept</div><h1>Review expenses.<br>Keep the next step clear.</h1><p>A mobile interface for a small team's expense review. Consistent spacing, readable totals and a clear route from overview to approval.</p><ul><li>One overview and one focused activity list.</li><li>Filter by status and search merchant names.</li><li>Review a transaction before approving it.</li><li>Keyboard access and visible feedback.</li></ul><p class="note">Fictional data. Local demonstration only. No payment, real account or server connection. This is an independent sample, not the buyer's existing app or a commissioned project.</p></aside><article class="device" aria-label="Clearline expense interface"><header><span class="brand">Clearline<span style="color:#669652">.</span></span><button id="reset-demo" class="text-button" aria-label="Reset sample data">Reset</button><span class="avatar" aria-label="Demo profile initials">AK</span></header>
-<section class="screen" id="overview"><div class="split"><h2 style="margin-bottom:0">Overview</h2><span class="sub">October 2026</span></div><div class="balance"><p>SPENT THIS MONTH</p><strong id="total-spent">$1,242.00</strong><div class="meter" aria-label="62.1 percent of the monthly budget used"><i></i></div><div class="split"><span>62% of monthly budget</span><span>$758 available</span></div></div><div class="summary"><div class="stat"><span>Awaiting review</span><b id="pending-count">2</b><span class="flag">Ready for a decision</span></div><div class="stat"><span>Approved</span><b id="approved-count">1</b><span>This month's items</span></div></div><div class="split"><span class="section-heading">Recent activity</span><button class="text-button" id="view-all">View all</button></div><div id="recent-list"></div></section>
-<section class="screen" id="activity" hidden><div class="split"><h2 style="margin-bottom:0">Activity</h2><span class="sub" id="result-count"></span></div><label class="search-label" for="search">Find an expense</label><input id="search" type="search" placeholder="Search merchant name" autocomplete="off"><div class="chips" aria-label="Expense status filter"><button class="chip" data-filter="all" aria-pressed="true">All</button><button class="chip" data-filter="pending" aria-pressed="false">To review</button><button class="chip" data-filter="approved" aria-pressed="false">Approved</button><button class="chip" data-filter="correction" aria-pressed="false">Needs correction</button></div><div id="activity-list"></div></section>
-<section class="screen" id="detail" hidden><button class="back" id="detail-back">&#8592; Back to activity</button><div class="detail-icon" id="detail-icon"></div><h2 id="detail-title" style="margin-bottom:5px"></h2><p class="sub" id="detail-subtitle" style="margin-top:0"></p><div class="detail-amount" id="detail-amount"></div><dl class="details" id="detail-fields"></dl><button class="action" id="approve">Approve expense</button><button class="action" id="request-correction" style="background:#f3ece0;color:#78503b;margin-top:10px">Request a correction</button><button class="text-button" id="undo" hidden>Undo last decision</button><div class="feedback" id="feedback" role="status" aria-live="polite"></div><p class="sub">Decisions change this sample only. Refresh or Reset restores the fictional data. No money moves.</p></section>
-<nav aria-label="Main views"><button id="nav-overview" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Overview</button><button id="nav-activity"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h15M6 12h15M6 19h15M2 5h1M2 12h1M2 19h1"/></svg>Activity</button></nav></article></main>
+<body>
+<main class="page">
+  <section class="intro" aria-labelledby="intro-title">
+    <a class="back" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
+    <p class="kicker">Mobile interface concept</p>
+    <h1 id="intro-title">Review expenses without losing the next step.</h1>
+    <p class="lede">Clearline gives a small team one place to see the month, find what needs a decision and approve or send back an expense in two taps.</p>
+    <ul class="features">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Spending against budget, recalculated as decisions change</li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Filter by status and search by merchant or teammate</li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Approve or request a correction, with one-step undo</li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Works with a keyboard, and Escape steps back from a detail</li>
+    </ul>
+    <div class="about">
+      <p>Speculative sample for a public brief that asked for a refresh of an existing expense app. It is not the buyer's app and was not commissioned.</p>
+      <p>Clearline, the team and every expense are fictional. Decisions stay on this page and nothing is sent anywhere.</p>
+    </div>
+  </section>
+
+  <article class="device" aria-label="Clearline app preview">
+    <header class="app-bar">
+      <span class="app-name"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></i>Clearline</span>
+      <div class="app-tools">
+        <button type="button" class="icon-button" id="reset-demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg>Reset</button>
+        <span class="avatar" role="img" aria-label="Signed in as Dana Ruiz">DR</span>
+      </div>
+    </header>
+
+    <section class="screen" id="overview" aria-labelledby="overview-title">
+      <div class="screen-head"><h2 id="overview-title">Overview</h2><span class="sub">October 2026</span></div>
+      <div class="balance">
+        <span class="balance-label">Spent this month</span>
+        <strong class="balance-total" id="total-spent">$0.00</strong>
+        <div class="meter" id="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Share of the monthly budget used"><i id="meter-fill"></i></div>
+        <div class="balance-foot"><span id="budget-used">0% of $4,000 budget</span><span id="budget-left">$0 left</span></div>
+      </div>
+      <div class="summary">
+        <button type="button" class="stat" data-jump="pending"><span class="stat-label">Awaiting review</span><span class="stat-value" id="pending-count">0</span><span class="stat-note is-pending num" id="pending-amount">$0.00</span></button>
+        <button type="button" class="stat" data-jump="approved"><span class="stat-label">Approved</span><span class="stat-value" id="approved-count">0</span><span class="stat-note is-done num" id="approved-amount">$0.00</span></button>
+      </div>
+      <div class="list-head"><h3>Latest expenses</h3><button type="button" class="text-button" id="view-all">View all</button></div>
+      <ul class="rows" id="recent-list"></ul>
+    </section>
+
+    <section class="screen" id="activity" aria-labelledby="activity-title" hidden>
+      <div class="screen-head"><h2 id="activity-title">Activity</h2><span class="sub" id="result-count" aria-live="polite"></span></div>
+      <label class="search-label" for="search">Find an expense</label>
+      <input class="search" id="search" type="search" placeholder="Merchant, category or teammate" autocomplete="off">
+      <div class="chips" role="group" aria-label="Filter by status">
+        <button type="button" class="chip" data-filter="all" aria-pressed="true">All<span class="n" data-count="all"></span></button>
+        <button type="button" class="chip" data-filter="pending" aria-pressed="false">To review<span class="n" data-count="pending"></span></button>
+        <button type="button" class="chip" data-filter="approved" aria-pressed="false">Approved<span class="n" data-count="approved"></span></button>
+        <button type="button" class="chip" data-filter="correction" aria-pressed="false">Needs correction<span class="n" data-count="correction"></span></button>
+      </div>
+      <ul class="rows" id="activity-list"></ul>
+    </section>
+
+    <section class="screen" id="detail" aria-labelledby="detail-title" hidden>
+      <button type="button" class="back-button" id="detail-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Activity</button>
+      <div class="detail-top"><span class="detail-icon" id="detail-icon" aria-hidden="true"></span><div><h2 id="detail-title"></h2><p class="sub" id="detail-subtitle"></p></div></div>
+      <p class="detail-amount" id="detail-amount"></p>
+      <span class="status" id="detail-status"></span>
+      <dl class="details" id="detail-fields"></dl>
+      <button type="button" class="action action-primary" id="approve"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg><span>Approve expense</span></button>
+      <button type="button" class="action action-secondary" id="request-correction">Request a correction</button>
+      <button type="button" class="text-button undo" id="undo" hidden>Undo last decision</button>
+      <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+      <p class="fine">Decisions only change this preview. Reset restores the sample month.</p>
+    </section>
+
+    <nav class="tabbar" aria-label="Main views">
+      <button type="button" id="nav-overview" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Overview</button>
+      <button type="button" id="nav-activity"><span class="tab-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg><b id="nav-badge" aria-hidden="true"></b></span><span id="nav-activity-label">Activity</span></button>
+    </nav>
+  </article>
+</main>
 <script>
-const items=[{id:1,name:'Northline Supplies',amount:184,category:'Materials',date:'5 October 2026',initials:'NS',status:'pending',note:'Replacement consumables for the workshop.'},{id:2,name:'Studio Rental',amount:920,category:'Workspace',date:'3 October 2026',initials:'SR',status:'approved',note:'October workspace rental.'},{id:3,name:'Transit Pass',amount:138,category:'Travel',date:'2 October 2026',initials:'TP',status:'pending',note:'Local monthly travel pass.'}];
-let currentFilter='all';let selectedId=null;let lastDecision=null;const originalStatuses=items.map(i=>i.status);const statusLabel=status=>({pending:'To review',approved:'Approved',correction:'Needs correction'}[status]);
-const money=v=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(v);
-function row(item){const button=document.createElement('button');button.className='row';button.setAttribute('aria-label',`Review ${item.name}, ${money(item.amount)}, ${item.status}`);button.innerHTML=`<span class="icon">${item.initials}</span><span class="data"><b>${item.name}</b><small>${item.category} · ${item.date.split(' ')[0]} Oct</small></span><span class="amount"><b>${money(item.amount)}</b><span class="status ${item.status}">${statusLabel(item.status)}</span></span>`;button.addEventListener('click',()=>openDetail(item.id));return button;}
-function render(){document.getElementById('pending-count').textContent=items.filter(i=>i.status==='pending').length;document.getElementById('approved-count').textContent=items.filter(i=>i.status==='approved').length;document.getElementById('total-spent').textContent=money(items.reduce((sum,i)=>sum+i.amount,0));const recent=document.getElementById('recent-list');recent.replaceChildren(...items.map(row));const query=document.getElementById('search').value.trim().toLowerCase();const found=items.filter(i=>(currentFilter==='all'||i.status===currentFilter)&&i.name.toLowerCase().includes(query));document.getElementById('result-count').textContent=`${found.length} ${found.length===1?'item':'items'}`;const list=document.getElementById('activity-list');list.replaceChildren(...found.map(row));if(!found.length){const empty=document.createElement('p');empty.className='empty';empty.textContent='No expenses match. Try another name or status.';list.append(empty);}}
-function show(view){for(const id of ['overview','activity','detail'])document.getElementById(id).hidden=id!==view;document.getElementById('nav-overview').setAttribute('aria-current',view==='overview'?'page':'false');document.getElementById('nav-activity').setAttribute('aria-current',view!=='overview'?'page':'false');render();const focusTarget=document.getElementById(view==='detail'?'detail-title':view==='activity'?'search':'overview');focusTarget.setAttribute('tabindex','-1');focusTarget.focus();}
-function openDetail(id){selectedId=id;const item=items.find(i=>i.id===id);document.getElementById('detail-title').textContent=item.name;document.getElementById('detail-subtitle').textContent=item.category;document.getElementById('detail-icon').textContent=item.initials;document.getElementById('detail-amount').textContent=money(item.amount);document.getElementById('detail-fields').innerHTML=`<div><dt>Date</dt><dd>${item.date}</dd></div><div><dt>Status</dt><dd>${statusLabel(item.status)}</dd></div><div><dt>Note</dt><dd style="max-width:190px">${item.note}</dd></div>`;const approve=document.getElementById('approve');approve.disabled=item.status!=='pending';approve.textContent=item.status==='approved'?'Expense approved':item.status==='correction'?'Correction requested':'Approve expense';document.getElementById('request-correction').disabled=item.status!=='pending';document.getElementById('undo').hidden=!(lastDecision&&lastDecision.id===id);document.getElementById('feedback').textContent='';show('detail');}
-document.getElementById('nav-overview').addEventListener('click',()=>show('overview'));document.getElementById('nav-activity').addEventListener('click',()=>show('activity'));document.getElementById('view-all').addEventListener('click',()=>show('activity'));document.getElementById('detail-back').addEventListener('click',()=>show('activity'));document.getElementById('search').addEventListener('input',render);document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{currentFilter=button.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));render();}));function decide(status){const item=items.find(i=>i.id===selectedId);if(!item||item.status!=='pending')return;lastDecision={id:item.id,status:item.status};item.status=status;openDetail(selectedId);document.getElementById('feedback').textContent=status==='approved'?'Approved in this sample. You can undo this decision.':'Correction requested in this sample. You can undo this decision.';document.getElementById('undo').focus();}
-document.getElementById('approve').addEventListener('click',()=>decide('approved'));
-document.getElementById('request-correction').addEventListener('click',()=>decide('correction'));
-document.getElementById('undo').addEventListener('click',()=>{if(!lastDecision)return;const id=lastDecision.id;items.find(i=>i.id===id).status=lastDecision.status;lastDecision=null;openDetail(id);document.getElementById('feedback').textContent='Decision undone. The expense is ready for review again.';document.getElementById('approve').focus();});
-document.getElementById('reset-demo').addEventListener('click',()=>{items.forEach((item,i)=>item.status=originalStatuses[i]);lastDecision=null;selectedId=null;currentFilter='all';document.getElementById('search').value='';document.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter==='all')));show('overview');});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.getElementById('detail').hidden)show('activity');});
+const BUDGET = 4000;
+const seed = [
+  { id: 1, name: 'FastFreight', category: 'Shipping', date: '2026-10-09', by: 'Owen Park', amount: 312.75, status: 'pending', note: 'Sample shipment to a retail partner in Leeds.', receipt: 'Attached' },
+  { id: 2, name: 'Harbor Print Co.', category: 'Marketing', date: '2026-10-08', by: 'Priya Nair', amount: 246.50, status: 'pending', note: 'Trade show flyers, 500 copies.', receipt: 'Attached' },
+  { id: 3, name: 'Corner Café', category: 'Meals', date: '2026-10-07', by: 'Lena Ortiz', amount: 86.40, status: 'correction', note: 'Client lunch. The receipt shows a card slip without the itemized bill.', receipt: 'Card slip only' },
+  { id: 4, name: 'Northline Supplies', category: 'Materials', date: '2026-10-05', by: 'Priya Nair', amount: 184.00, status: 'pending', note: 'Replacement consumables for the workshop.', receipt: 'Attached' },
+  { id: 5, name: 'Brightdesk Furniture', category: 'Equipment', date: '2026-10-04', by: 'Owen Park', amount: 649.00, status: 'approved', note: 'Standing desk for the new designer.', receipt: 'Attached' },
+  { id: 6, name: 'Studio Rental', category: 'Workspace', date: '2026-10-03', by: 'Dana Ruiz', amount: 920.00, status: 'approved', note: 'October workspace rental.', receipt: 'Invoice attached' },
+  { id: 7, name: 'Transit Pass', category: 'Travel', date: '2026-10-02', by: 'Lena Ortiz', amount: 138.00, status: 'pending', note: 'Monthly local travel pass.', receipt: 'Attached' },
+  { id: 8, name: 'Cloudline Hosting', category: 'Software', date: '2026-10-01', by: 'Dana Ruiz', amount: 59.00, status: 'approved', note: 'Monthly hosting plan for the client portal.', receipt: 'Invoice attached' }
+];
+let items = seed.map(i => ({ ...i }));
+let currentFilter = 'all';
+let selectedId = null;
+let lastDecision = null;
+
+const $ = id => document.getElementById(id);
+const statusLabel = s => ({ pending: 'To review', approved: 'Approved', correction: 'Needs correction' })[s];
+const money = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(v);
+const moneyWhole = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(v);
+const shortDate = iso => new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+const longDate = iso => new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const initials = name => {
+  const words = name.replace(/[^A-Za-z ]/g, '').split(' ').filter(Boolean);
+  if (words.length > 1) return words.slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  const caps = words[0].match(/[A-Z]/g) || [];
+  return (caps.length > 1 ? caps.slice(0, 2).join('') : words[0].slice(0, 2)).toUpperCase();
+};
+const sum = list => list.reduce((t, i) => t + i.amount, 0);
+
+function el(tag, cls, text) { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+
+function row(item) {
+  const li = el('li');
+  const b = el('button', 'row');
+  b.type = 'button';
+  b.setAttribute('aria-label', `${item.name}, ${money(item.amount)}, ${statusLabel(item.status)}, ${shortDate(item.date)}`);
+  const icon = el('span', 'row-icon', initials(item.name)); icon.setAttribute('aria-hidden', 'true');
+  const main = el('span', 'row-main');
+  main.append(el('span', 'row-name', item.name), el('span', 'row-meta', `${item.category}, ${shortDate(item.date)}`));
+  const end = el('span', 'row-end');
+  end.append(el('span', 'row-amount', money(item.amount)), el('span', `status ${item.status}`, statusLabel(item.status)));
+  b.append(icon, main, end);
+  b.addEventListener('click', () => openDetail(item.id));
+  li.append(b);
+  return li;
+}
+
+function render() {
+  const pending = items.filter(i => i.status === 'pending');
+  const approved = items.filter(i => i.status === 'approved');
+  const total = sum(items);
+  const pct = Math.min(100, total / BUDGET * 100);
+  $('total-spent').textContent = money(total);
+  $('meter-fill').style.width = pct.toFixed(1) + '%';
+  $('meter').setAttribute('aria-valuenow', pct.toFixed(0));
+  $('meter').setAttribute('aria-valuetext', `${pct.toFixed(0)} percent of the ${moneyWhole(BUDGET)} budget`);
+  $('budget-used').textContent = `${pct.toFixed(0)}% of ${moneyWhole(BUDGET)} budget`;
+  $('budget-left').textContent = `${money(Math.max(0, BUDGET - total))} left`;
+  $('pending-count').textContent = pending.length;
+  $('pending-amount').textContent = money(sum(pending));
+  $('approved-count').textContent = approved.length;
+  $('approved-amount').textContent = money(sum(approved));
+  $('nav-badge').textContent = pending.length || '';
+  $('nav-badge').hidden = !pending.length;
+  $('nav-activity-label').textContent = 'Activity';
+  $('nav-activity').setAttribute('aria-label', pending.length ? `Activity, ${pending.length} to review` : 'Activity');
+  for (const key of ['all', 'pending', 'approved', 'correction']) {
+    document.querySelector(`[data-count="${key}"]`).textContent = key === 'all' ? items.length : items.filter(i => i.status === key).length;
+  }
+  $('recent-list').replaceChildren(...items.slice(0, 4).map(row));
+  const query = $('search').value.trim().toLowerCase();
+  const found = items.filter(i => (currentFilter === 'all' || i.status === currentFilter) && [i.name, i.category, i.by].some(v => v.toLowerCase().includes(query)));
+  $('result-count').textContent = `${found.length} ${found.length === 1 ? 'expense' : 'expenses'}`;
+  const list = $('activity-list');
+  list.replaceChildren(...found.map(row));
+  if (!found.length) list.append(el('li', 'empty', 'Nothing matches. Try another name or status.'));
+}
+
+function setFilter(filter) {
+  currentFilter = filter;
+  document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
+  render();
+}
+
+function show(view, focus = true) {
+  for (const id of ['overview', 'activity', 'detail']) $(id).hidden = id !== view;
+  const nav = { overview: $('nav-overview'), activity: $('nav-activity') };
+  const active = view === 'overview' ? nav.overview : nav.activity;
+  const inactive = view === 'overview' ? nav.activity : nav.overview;
+  active.setAttribute('aria-current', 'page');
+  inactive.removeAttribute('aria-current');
+  render();
+  if (!focus) return;
+  const target = view === 'detail' ? $('detail-title') : view === 'activity' ? $('activity-title') : $('overview-title');
+  target.setAttribute('tabindex', '-1');
+  target.focus();
+}
+
+function openDetail(id, focus = true) {
+  selectedId = id;
+  const item = items.find(i => i.id === id);
+  $('detail-title').textContent = item.name;
+  $('detail-subtitle').textContent = item.category;
+  $('detail-icon').textContent = initials(item.name);
+  $('detail-amount').textContent = money(item.amount);
+  $('detail-status').className = `status ${item.status}`;
+  $('detail-status').textContent = statusLabel(item.status);
+  const fields = [['Date', longDate(item.date)], ['Submitted by', item.by], ['Receipt', item.receipt], ['Note', item.note]];
+  $('detail-fields').replaceChildren(...fields.map(([k, v]) => { const d = el('div'); d.append(el('dt', null, k), el('dd', null, v)); return d; }));
+  const open = item.status === 'pending';
+  $('approve').disabled = !open;
+  $('approve').querySelector('span').textContent = item.status === 'approved' ? 'Approved' : item.status === 'correction' ? 'Sent back for correction' : 'Approve expense';
+  $('request-correction').disabled = !open;
+  $('request-correction').hidden = !open;
+  $('undo').hidden = !(lastDecision && lastDecision.id === id);
+  $('feedback').textContent = '';
+  show('detail', focus);
+}
+
+function decide(status) {
+  const item = items.find(i => i.id === selectedId);
+  if (!item || item.status !== 'pending') return;
+  lastDecision = { id: item.id, status: item.status };
+  item.status = status;
+  openDetail(selectedId, false);
+  $('feedback').textContent = status === 'approved' ? `${item.name} approved. You can undo this.` : `Correction requested from ${item.by}. You can undo this.`;
+  $('undo').focus();
+}
+
+$('nav-overview').addEventListener('click', () => show('overview'));
+$('nav-activity').addEventListener('click', () => show('activity'));
+$('view-all').addEventListener('click', () => { setFilter('all'); show('activity'); });
+document.querySelectorAll('[data-jump]').forEach(b => b.addEventListener('click', () => { setFilter(b.dataset.jump); show('activity'); }));
+$('detail-back').addEventListener('click', () => show('activity'));
+$('search').addEventListener('input', render);
+document.querySelectorAll('[data-filter]').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.filter)));
+$('approve').addEventListener('click', () => decide('approved'));
+$('request-correction').addEventListener('click', () => decide('correction'));
+$('undo').addEventListener('click', () => {
+  if (!lastDecision) return;
+  const id = lastDecision.id;
+  items.find(i => i.id === id).status = lastDecision.status;
+  lastDecision = null;
+  openDetail(id, false);
+  $('feedback').textContent = 'Decision undone. The expense is back in review.';
+  $('approve').focus();
+});
+$('reset-demo').addEventListener('click', () => {
+  items = seed.map(i => ({ ...i }));
+  lastDecision = null; selectedId = null;
+  $('search').value = '';
+  setFilter('all');
+  show('overview');
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('detail').hidden) show('activity'); });
 render();
-</script></body></html>
+</script>
+</body>
+</html>

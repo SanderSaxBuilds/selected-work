@@ -1,6 +1,8 @@
 # Notas de fuentes y verificación
 
-Consulta pública realizada el 6 de octubre de 2026. En `evidence.csv`, `checked_date` indica la fecha de consulta, no la fecha de publicación de la página o del precio. Este piloto reúne señales para orientar una comprobación local. No es un censo de comercios ni un estudio contratado.
+Consulta pública realizada el 6 de octubre de 2026. Muestra especulativa preparada a partir de un planteo público, sin encargo ni revisión de quien lo publicó. Versión navegable: [sample-cosquin.html](sample-cosquin.html).
+
+En la [tabla de evidencia](sample-cosquin-evidence.csv), `checked_date` indica la fecha de consulta, no la fecha de publicación de la página o del precio. Este piloto reúne señales para orientar una comprobación local. No es un censo de comercios ni un estudio contratado.
 
 ## Fuentes de comercio o plataforma del comercio
 
@@ -87,4 +89,4 @@ El cuerpo de la nota lleva la fecha 5 de febrero de 2026 y trata la certificaci�
 - **Fuente directa o tienda del comercio:** un localizador oficial o una ficha de comercio con dirección y oferta publicados. Confirma solo lo que muestra esa página en la fecha de consulta.
 - **Espejo atribuido a un comercio:** contenido republicado o resumido por una plataforma de terceros. Sirve para hallar un candidato, requiere verificación con el negocio.
 - **Directorio:** señal de nombre, rubro o ubicación. No acredita operación actual ni los detalles narrativos de la ficha.
-- **Precio desconocido:** celda vacía en `evidence.csv`. No significa precio cero ni ausencia de producto.
+- **Precio desconocido:** celda vacía en `sample-cosquin-evidence.csv`. No significa precio cero ni ausencia de producto.

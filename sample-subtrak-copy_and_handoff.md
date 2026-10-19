@@ -1,6 +1,8 @@
-# Construction-content production kit
+# Construction content kit
 
-Independent concept for Subtrak. Three original post concepts, square assets and a vertical motion example. Not commissioned, not published, and no account or product footage accessed. Product statements grounded in the public website.
+Speculative concept written for Subtrak's public content and marketing brief. It was not commissioned, reviewed or published by Subtrak, and no Subtrak account or product footage was used. Product statements come from the public Subtrak website.
+
+The kit has three original post concepts, three square graphics and a vertical motion piece. Live page: [sample-subtrak.html](sample-subtrak.html)
 
 ## 01. Pick one repeated process
 
@@ -12,7 +14,7 @@ Write the steps and name the owner. Try the sequence on one job, then review wha
 
 Subtrak supports reusable processes with tasks, responsibility and timing. Which repeated process would you start with?
 
-### Instagram / Facebook alternative
+### Instagram and Facebook
 
 One repeated process is enough to begin. Write the steps, name the owner and review what the team needs next.
 
@@ -28,7 +30,7 @@ A useful handoff makes the next step specific: who is responsible, when it is ne
 
 Subtrak lets tasks carry instructions and reminders. Pick one handoff and check whether the person receiving it can act without another round of questions.
 
-### Instagram / Facebook alternative
+### Instagram and Facebook
 
 Who owns it? When is it due? What is needed?
 
@@ -44,26 +46,31 @@ For an important step, agree the final check before work begins. That might be a
 
 Subtrak supports completion evidence alongside tasks. What would make the next handoff clearer on your current job?
 
-### Instagram / Facebook alternative
+### Instagram and Facebook
 
 Make complete visible. Agree the final check, attach the relevant proof and make the next step clear.
 
 What would your team need to see before moving on?
 
-## Founder-recording edit map
+## Founder clip edit map
 
-Request one approved source recording. Identify the specific workflow anecdote, keep the founder's meaning, remove repetition, mark any factual uncertainty for review and create a captioned clip. Use the vertical concept only as a pacing example. No recording, voiceover or audio cleanup is claimed in this pack.
+Ask for one approved source recording. Find the specific workflow story, keep the founder's meaning, cut repetition, flag any factual point for review and make a captioned clip. The vertical piece in this kit is only a pacing example. No recording, voiceover or audio cleanup is part of this kit.
 
-## File handoff
+## Files
 
-Three 1080x1080 PNGs, three editable SVGs, a 720x1280 H264 MP4 lasting24seconds with no audio, a WebVTT caption file, this copy document and a CSV production calendar. MP4 is an original illustrative motion graphic, not a software recording. Source graphics contain an honest independent-concept label. Final branded production needs approved assets and current product facts.
+- Three 1080 by 1080 PNG graphics and their editable SVG sources.
+- A 720 by 1280, 24-second H.264 MP4 with no audio. It is an original motion graphic, not a software recording.
+- A WebVTT caption file with three cues.
+- This copy document and a CSV production calendar.
+
+Each graphic carries a small independent-concept label. Final branded production needs approved assets and current product facts.
 
 ## Scope before a monthly engagement
 
-Confirm weekly post/clip volume, supplied recordings, editorial approval, publishing permissions, community replies, reporting needs and expected availability. Podcast coordination and promotional outreach are separate deliverables to agree. The USD2000-3000 monthly range is advertised, not an agreed retainer or a funded pilot. No claim of previous SaaS social-growth results.
+Confirm the weekly number of posts and clips, supplied recordings, editorial approval, publishing permissions, community replies, reporting and availability. Podcast coordination and outreach are separate pieces of work. The monthly range on the brief is the advertised budget, not an agreed retainer or a funded pilot. No earlier SaaS social growth results are claimed.
 
 ## Sources
 
 Public brief: https://contra.com/opportunity/N7v66YlO-independent-content-and-marketing-operator
 
-Product source: https://www.subtrak.com/, checked October6. Reusable processes, task ownership/timing, attached instructions, reminders and completion evidence. No ROI, revenue, customer total or guaranteed outcome is claimed. Construction examples are illustrative editorial concepts, not technical safety instructions.
+Product source: https://www.subtrak.com/, checked on 6 October 2026. It describes reusable processes, task owners and timing, attached instructions, reminders and completion evidence. No ROI, revenue, customer count or guaranteed outcome is claimed. Construction examples are editorial ideas, not safety instructions.
