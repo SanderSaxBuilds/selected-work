@@ -57,7 +57,7 @@ Then open http://127.0.0.1:8931/. To publish, copy the folder to a GitHub Pages 
 
 ## Files
 
-- `index.html` and `styles.css` hold the page and its design, using the shared portfolio palette with Inter Tight, Inter and JetBrains Mono.
+- `index.html` and `styles.css` hold the page and its design: cool grey and slate with one working blue, IBM Plex Sans for the interface and IBM Plex Mono for figures, IDs and dates.
 - `src/core.mjs` holds the pure logic: the seeded data generator, the column schema, parsing and validation, filters, search, multi-column sort, the undo history, CSV and TSV parsing and writing, import column matching and range statistics.
 - `src/model.mjs` holds the edit model: batch validation, dirty tracking against original values, undo and redo, revert and the import plan. It has no DOM access either.
 - `src/app.mjs` is the interface: the virtualized grid, keyboard and mouse handling, menus, dialogs and the phone cards.
