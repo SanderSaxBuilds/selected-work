@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f6f5f0">
+<meta name="theme-color" content="#ffffff">
 <title>ExportCheck CSV preflight</title>
 <meta name="description" content="ExportCheck checks a CSV against a JSON rules file, writes the rows that pass to one file and every rejected row with its reasons to another. Three recorded runs and an overwrite refusal.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="study.css">
 <style>
 .exit-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
@@ -16,7 +16,7 @@
 .exit-list .code-no { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; font: 600 18px/1 var(--mono); }
 .exit-list b { display: block; font-weight: 600; }
 .exit-list span.desc { color: var(--muted); font-size: 15px; }
-.n0 { background: var(--brand-soft); color: var(--deep); }
+.n0 { background: var(--accent-soft); color: var(--accent-ink); }
 .n1 { background: var(--warning-soft); color: #6b430a; }
 .n2 { background: var(--error-soft); color: #8a2c1e; }
 .n3 { background: #e6eef6; color: #23476a; }
@@ -27,8 +27,8 @@
 @media (min-width: 760px) { .picker { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .picker legend { margin-bottom: 10px; padding: 0; font-weight: 600; }
 .pick { position: relative; display: flex; gap: 12px; align-items: flex-start; min-height: 44px; padding: 14px 16px; border: 1px solid var(--line-strong); border-radius: var(--radius-button); background: var(--surface); cursor: pointer; transition: border-color .18s var(--ease), background-color .18s var(--ease); }
-.pick:hover { border-color: #aeb9b1; background: var(--surface-soft); }
-.pick:has(input:checked) { border-color: var(--brand); background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand); }
+.pick:hover { border-color: var(--line-strong); background: var(--surface-soft); }
+.pick:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
 .pick:has(input:focus-visible) { box-shadow: var(--focus); }
 .pick input { flex: none; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--brand); }
 .pick input:focus-visible { box-shadow: none; }
@@ -41,7 +41,7 @@
 .tabs { display: flex; gap: 4px; margin-bottom: 20px; padding: 4px; border-radius: 12px; background: var(--paper); width: fit-content; max-width: 100%; }
 .tabs button { min-height: 44px; min-width: 88px; padding: 8px 16px; border: 0; border-radius: var(--radius-button); background: transparent; color: var(--muted); font-weight: 600; transition: background-color .18s var(--ease), color .18s var(--ease); }
 .tabs button:hover { color: var(--ink); }
-.tabs button[aria-selected="true"] { background: var(--surface); color: var(--deep); box-shadow: var(--shadow); }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--accent-ink); box-shadow: inset 0 -2px 0 var(--accent), 0 0 0 1px var(--line); }
 @media (max-width: 479px) { .tabs { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; } .tabs button { min-width: 0; padding: 8px 6px; } }
 .tabpanel:focus-visible { border-radius: var(--radius-button); }
 
@@ -107,7 +107,7 @@
 .hash-table td.num { text-align: right; white-space: nowrap; }
 </style>
 </head>
-<body>
+<body class="study-violet">
 <a class="skip-link" href="#main">Skip to the study</a>
 <header class="site-bar">
   <div class="wrap">

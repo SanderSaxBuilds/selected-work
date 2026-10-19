@@ -13,137 +13,127 @@
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/cover-v3-04-ledgerlens-cover.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1600">
-<meta property="og:image:height" content="900">
-<meta property="og:image:alt" content="LedgerLens revenue report on desktop and phone">
+<meta property="og:image:height" content="1000">
+<meta property="og:image:alt" content="LedgerLens revenue report, twelve-month chart">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EAK%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
 <style>
-:root{--ink:#13201b;--muted:#4c5c55;--paper:#f6f5f0;--card:#fff;--line:#dcdcd4;--green:#175841;--deep:#0e3b2b;--amber:#d9a441;--soft:#e8efe9;--display:"Inter Tight",Inter,system-ui,sans-serif;--body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+:root{--ink:#111;--muted:#666;--rule:#e6e6e6;--accent:#d13a24;--sans:Geist,system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"Geist Mono",ui-monospace,Consolas,monospace}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:var(--green)}
-a:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:4px}
-.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
-.skip{position:absolute;left:-999px;top:8px;background:var(--deep);color:#fff;padding:10px 14px;border-radius:6px;z-index:9}
+body{margin:0;background:#fff;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{--gut:32px;max-width:1240px;margin:0 auto;padding:0 var(--gut)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:10px 14px;z-index:9}
 .skip:focus{left:8px}
 
-.hero{background:var(--deep);color:#f6f5f0}
-.hero .wrap{padding-top:72px;padding-bottom:64px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:56px;align-items:center}
-.eyebrow{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a9c4b6;margin:0}
-h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,5.2vw,64px);line-height:1.02;letter-spacing:-.035em;margin:18px 0 20px}
-.lead{font-size:19px;line-height:1.55;color:#d7e3dc;margin:0 0 10px;max-width:620px}
-.where{font-size:15px;color:#a9c4b6;margin:0}
-.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid transparent}
-.hero .btn{color:#f6f5f0;border-color:rgba(246,245,240,.35)}
-.hero .btn:hover{background:rgba(246,245,240,.08)}
-.hero .btn.primary{background:var(--amber);border-color:var(--amber);color:var(--deep)}
-.hero .btn.primary:hover{background:#e5b45a}
-.hero figure{margin:0;border-radius:10px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35)}
-.hero figure img{display:block;width:100%;height:auto}
+.top{display:flex;position:relative;justify-content:space-between;align-items:center;gap:16px}.top::after{content:"";position:absolute;left:var(--gut);right:var(--gut);bottom:0;border-bottom:1px solid var(--rule)}
+.top .name{font-weight:600;text-decoration:none;min-height:56px;display:flex;align-items:center}
+.top nav{display:flex;flex-wrap:wrap;gap:0 22px}
+.top nav a{font-size:15px;color:var(--muted);text-decoration:none;min-height:56px;display:flex;align-items:center}
+.top nav a:hover{color:var(--ink)}
 
-.services{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;padding-top:28px;padding-bottom:28px}
-.services a{display:flex;flex-direction:column;gap:4px;min-height:44px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;text-decoration:none;color:inherit}
-.services a:hover{border-color:var(--green)}
-.services b{font-family:var(--display);font-size:17px;color:var(--green);letter-spacing:-.01em}
-.services span{font-size:14px;color:var(--muted);line-height:1.45}
+.intro{padding-top:88px;padding-bottom:72px;display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:48px;align-items:end}
+.intro h1{font-size:clamp(28px,3.6vw,44px);line-height:1.18;font-weight:500;letter-spacing:-.02em;margin:0;max-width:22em}
+.intro h1 span{color:var(--muted)}
+.intro aside{font-size:15px;color:var(--muted);line-height:1.55}
+.intro aside a{display:inline-flex;min-height:44px;align-items:center;color:var(--ink);font-weight:500;text-underline-offset:4px}
 
-section.group{padding:56px 0 8px;scroll-margin-top:12px}
-.group-head{display:flex;justify-content:space-between;align-items:end;gap:24px;border-top:1.5px solid var(--ink);padding-top:18px;margin-bottom:24px}
-.group-head h2{font-family:var(--display);font-size:clamp(26px,3vw,34px);letter-spacing:-.025em;line-height:1.1;margin:0}
-.group-head p{margin:0;max-width:560px;color:var(--muted);font-size:15px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-article{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-article>img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:center top;background:var(--soft);border-bottom:1px solid var(--line)}
-.content{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
-.tag{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.tag.live{color:var(--green)}
-article h3{font-family:var(--display);font-size:23px;line-height:1.2;letter-spacing:-.02em;margin:6px 0 10px}
-article p{margin:0 0 6px;color:#2c3a34}
-.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:16px}
-.links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid #c4cfc7;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none}
-.links a:first-child{background:var(--green);border-color:var(--green);color:#fff}
-.links a:hover{border-color:var(--green)}
-.links a:first-child:hover{background:var(--deep)}
+.index{display:flex;flex-wrap:wrap;gap:0 28px;padding-top:6px}.index::before{content:"";flex:0 0 100%;border-top:1px solid var(--ink);margin-top:-6px;margin-bottom:6px}
+.index a{font-family:var(--mono);font-size:13px;text-decoration:none;color:var(--muted);min-height:44px;display:flex;align-items:center;gap:8px}
+.index a:hover{color:var(--ink)}
+.index a b{font-weight:400;color:var(--ink)}
+
+section.group{padding:72px 0 0;scroll-margin-top:12px}
+.group-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:baseline;margin-bottom:32px}
+.group-head h2{font-size:clamp(22px,2.4vw,28px);font-weight:600;letter-spacing:-.015em;line-height:1.2;margin:0}
+.group-head p{margin:0;color:var(--muted);font-size:15px;max-width:520px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 40px}
+article{display:flex;flex-direction:column}
+article>img{display:block;width:100%;height:auto;aspect-ratio:8/5;object-fit:cover;background:#f2f2f2;border-radius:3px}
+.content{padding-top:18px;display:flex;flex-direction:column;flex:1}
+.tag{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.tag.live{color:var(--accent)}
+article h3{font-size:20px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin:4px 0 8px}
+article p{margin:0 0 4px;color:#333;max-width:36em}
+.links{display:flex;flex-wrap:wrap;gap:0 22px;margin-top:auto;padding-top:6px}
+.links a{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:500;text-decoration:underline;text-decoration-color:#bbb;text-underline-offset:5px}
+.links a:hover{text-decoration-color:var(--ink)}
+.links a:first-child::after{content:"\2192";margin-left:6px;text-decoration:none}
 .more{font-size:14px;color:var(--muted);margin-top:12px}
 .more a{display:inline-block;padding:10px 0}
 
-.note{margin:56px 0 0;padding:20px 24px;background:var(--soft);border-radius:10px;max-width:860px;color:#2c3a34}
-footer{background:var(--deep);color:#d7e3dc;margin-top:64px}
-footer .wrap{padding-top:44px;padding-bottom:52px}
-footer strong{display:block;font-family:var(--display);font-size:26px;letter-spacing:-.02em;color:#f6f5f0;margin-bottom:6px}
-footer .links a{color:#f6f5f0;border-color:rgba(246,245,240,.35);background:none}
-footer .links a:first-child{background:var(--amber);border-color:var(--amber);color:var(--deep)}
+.note{margin:88px 0 0;padding-top:20px;border-top:1px solid var(--rule);max-width:760px;color:var(--muted);font-size:14px}
+footer{margin-top:72px;border-top:1px solid var(--ink)}
+footer .wrap{padding-top:40px;padding-bottom:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+footer strong{display:block;font-size:clamp(22px,2.4vw,28px);font-weight:600;letter-spacing:-.015em;line-height:1.25;margin-bottom:8px}
+footer p{margin:0;color:var(--muted)}
+footer .links{align-self:end;padding:0}
 
-@media (max-width:1000px){.services{grid-template-columns:repeat(3,minmax(0,1fr))}.hero .wrap{grid-template-columns:1fr;gap:36px}}
-@media (max-width:720px){.wrap{padding:0 16px}.hero .wrap{padding-top:44px;padding-bottom:40px}.services{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.group-head{display:block}.group-head p{margin-top:8px}.content{padding:20px}}
-@media (max-width:720px){.services{padding-top:20px;padding-bottom:4px}.services a{padding:12px 14px}.services span{display:none}}
+@media (max-width:860px){.intro{grid-template-columns:1fr;padding-top:48px;padding-bottom:40px;gap:24px}.group-head{grid-template-columns:1fr;gap:8px}footer .wrap{grid-template-columns:1fr}}
+@media (max-width:720px){.wrap{--gut:16px}.grid{grid-template-columns:1fr;gap:48px}.top nav a.opt{display:none}section.group{padding-top:56px}}
 </style>
 </head>
 <body>
 <a class="skip" href="#work">Skip to the work</a>
-<header class="hero"><div class="wrap">
-<div>
-<p class="eyebrow">Alexandr Khrustalev</p>
-<h1>Websites and data tools for small businesses.</h1>
-<p class="lead">I build websites, turn messy CSV exports into reports you can check, and connect the small pieces between systems. Everything below is a working example you can open, try or download.</p>
-<p class="where">Based in Thailand, UTC+7. I work in English and Russian.</p>
-<div class="cta"><a class="btn primary" href="https://www.upwork.com/freelancers/~0152698543f52fe912">Hire me on Upwork</a><a class="btn" href="https://contra.com/alexandr_khrustalev_tbhzo1a2">Work with me on Contra</a><a class="btn" href="Selected_Work_Overview.pdf">Overview PDF</a></div>
+<header class="wrap top"><a class="name" href="./">Alexandr Khrustalev</a><nav aria-label="Contact"><a href="#work" class="opt">Work</a><a href="Selected_Work_Overview.pdf" class="opt">Overview PDF</a><a href="https://www.upwork.com/freelancers/~0152698543f52fe912">Upwork</a><a href="https://contra.com/alexandr_khrustalev_tbhzo1a2">Contra</a></nav></header>
+
+<div class="wrap intro">
+<h1>I build websites and data tools for small businesses. <span>Business sites, CSV reports you can check line by line, and the small connections between systems.</span></h1>
+<aside>Based in Thailand, UTC+7. I work in English and Russian. Everything below opens as a working demo or a file you can download.<br><a href="https://www.upwork.com/freelancers/~0152698543f52fe912">Hire me on Upwork</a></aside>
 </div>
-<figure><img src="cover-v3-04-ledgerlens-cover.png" alt="LedgerLens revenue report on desktop and phone" width="1600" height="900"></figure>
-</div></header>
 
-<nav class="wrap services" aria-label="What I can help with">
-<a href="#websites"><b>Websites</b><span>Business sites, stores, course pages and phone layouts.</span></a>
-<a href="#data"><b>CSV reports</b><span>Imports that check every row and totals that reconcile.</span></a>
-<a href="#integrations"><b>Integrations</b><span>Webhooks, document parsing, migrations and backups.</span></a>
-<a href="#documents"><b>Documents</b><span>Presentations, catalogues and financial packs.</span></a>
-<a href="#content"><b>Research and content</b><span>Market scans and social content with sources.</span></a>
+<nav class="wrap index" aria-label="Sections">
+<a href="#websites"><b>Websites</b> 01</a>
+<a href="#data"><b>CSV reports</b> 02</a>
+<a href="#integrations"><b>Integrations</b> 03</a>
+<a href="#documents"><b>Documents</b> 04</a>
+<a href="#content"><b>Research and content</b> 05</a>
 </nav>
-
 <main id="work" class="wrap">
 <section class="group" id="websites"><div class="group-head"><h2>Websites</h2><p>One live business site, plus demos that show store, planning, course and mobile work.</p></div><div class="grid">
 <article id="10-allex-website"><img src="10-allex-homepage.jpg" alt="ALLEX RESPECT ASIA live homepage with four product collections"><div class="content"><span class="tag live">Live business website</span><h3>ALLEX RESPECT ASIA</h3><p>I built the company's live site: an animated product collection, four product pages, a comparison table, company information, a document library and mobile navigation. I did the frontend, responsive layouts and deployment. Product artwork and records come from the business.</p><div class="links"><a href="https://temirkhanclub.com/">Open the live site</a></div></div></article>
-<article id="toolroom"><img src="cover-toolroom.png" alt="Toolroom storefront on desktop and phone" loading="lazy"><div class="content"><span class="tag">Storefront demo</span><h3>Toolroom store and seller workspace</h3><p>A small digital-goods store with search, saved items, a bag and a demo checkout. Buyers get a library with downloads and receipts they can back up. The seller workspace manages the same catalogue. No real payments.</p><div class="links"><a href="toolroom.html">Try the store</a><a href="toolroom-studio.html">Seller workspace</a><a href="toolroom-source.zip">Source</a></div></div></article>
-<article id="07-field-frame"><span id="07"></span><img src="cover-v3-07-field-frame-cover.png" alt="Field &amp; Frame builder site on desktop and phone" loading="lazy"><div class="content"><span class="tag">Website concept</span><h3>Field &amp; Frame builder site</h3><p>A local builder site with services, project sheets, a four-step process and a brief planner that stays on the visitor's device. The company is fictional.</p><div class="links"><a href="field-frame.html">Open the site</a><a href="field-frame-source.zip">Source</a></div></div></article>
-<article id="sample-courses"><img src="cover-sample-courses.png" alt="Leasing Practice course site on desktop and phone" loading="lazy"><div class="content"><span class="tag">Course website and emails</span><h3>Leasing Practice courses</h3><p>A course site for leasing teams with a practice exercise that works in the page, a course page, a team bundle, three launch emails and handoff notes. A speculative sample for a public brief.</p><div class="links"><a href="sample-wrongcreative.html">Open the course site</a><a href="sample-wrongcreative-emails.html">Launch emails</a></div></div></article>
-<article id="06-daybreak"><span id="06"></span><img src="cover-v3-06-daybreak-cover.png" alt="Daybreak week planner on desktop and phone" loading="lazy"><div class="content"><span class="tag">Web app</span><h3>Daybreak week planner</h3><p>Day and week views with three calendars, overlap checks, a focus timer that finds open time and a backup you can restore. It works without a calendar account.</p><div class="links"><a href="daybreak.html">Open the planner</a><a href="daybreak-source.zip">Source</a></div></div></article>
-<article id="sample-mobile"><img src="cover-sample-mobile.png" alt="Clearline expense review on desktop and phone" loading="lazy"><div class="content"><span class="tag">Mobile interface</span><h3>Clearline expense review</h3><p>A phone-first screen where a small team scans the month, filters what needs a decision and approves an expense or asks for a correction. The budget is worked out from the sample expenses.</p><div class="links"><a href="sample-mobile.html">Open the interface</a><a href="sample-mobile-handoff.md">Handoff notes</a></div></div></article>
-<article id="variant-gallery"><img src="cover-variant-gallery.png" alt="Fieldnote Goods bottle product page on desktop and phone" loading="lazy"><div class="content"><span class="tag">Frontend bug study</span><h3>Product page that stays in sync</h3><p>Color, size, price, stock, photo and link always match the choice. Switch on the two common bugs to see them, then compare the fixed page and try it with a keyboard.</p><div class="links"><a href="variant-gallery/">Try the product page</a></div></div></article>
+<article id="toolroom"><img src="cover-toolroom.png" alt="Toolroom store filter bar and product cards" loading="lazy"><div class="content"><span class="tag">Storefront demo</span><h3>Toolroom store and seller workspace</h3><p>A small digital-goods store with search, saved items, a bag and a demo checkout. Buyers get a library with downloads and receipts they can back up. The seller workspace manages the same catalogue. No real payments.</p><div class="links"><a href="toolroom.html">Try the store</a><a href="toolroom-studio.html">Seller workspace</a><a href="toolroom-source.zip">Source</a></div></div></article>
+<article id="07-field-frame"><span id="07"></span><img src="cover-v3-07-field-frame-cover.png" alt="Field &amp; Frame builder site homepage" loading="lazy"><div class="content"><span class="tag">Website concept</span><h3>Field &amp; Frame builder site</h3><p>A local builder site with services, project sheets, a four-step process and a brief planner that stays on the visitor's device. The company is fictional.</p><div class="links"><a href="field-frame.html">Open the site</a><a href="field-frame-source.zip">Source</a></div></div></article>
+<article id="sample-courses"><img src="cover-sample-courses.png" alt="Leasing Practice home and course pages" loading="lazy"><div class="content"><span class="tag">Course website and emails</span><h3>Leasing Practice courses</h3><p>A course site for leasing teams with a practice exercise that works in the page, a course page, a team bundle, three launch emails and handoff notes. A speculative sample for a public brief.</p><div class="links"><a href="sample-wrongcreative.html">Open the course site</a><a href="sample-wrongcreative-emails.html">Launch emails</a></div></div></article>
+<article id="06-daybreak"><span id="06"></span><img src="cover-v3-06-daybreak-cover.png" alt="Daybreak day timeline with a protected focus block" loading="lazy"><div class="content"><span class="tag">Web app</span><h3>Daybreak week planner</h3><p>Day and week views with three calendars, overlap checks, a focus timer that finds open time and a backup you can restore. It works without a calendar account.</p><div class="links"><a href="daybreak.html">Open the planner</a><a href="daybreak-source.zip">Source</a></div></div></article>
+<article id="sample-mobile"><img src="cover-sample-mobile.png" alt="Clearline expense review on a phone" loading="lazy"><div class="content"><span class="tag">Mobile interface</span><h3>Clearline expense review</h3><p>A phone-first screen where a small team scans the month, filters what needs a decision and approves an expense or asks for a correction. The budget is worked out from the sample expenses.</p><div class="links"><a href="sample-mobile.html">Open the interface</a><a href="sample-mobile-handoff.md">Handoff notes</a></div></div></article>
+<article id="variant-gallery"><img src="cover-variant-gallery.png" alt="Fieldnote Goods bottle page in two colour variants" loading="lazy"><div class="content"><span class="tag">Frontend bug study</span><h3>Product page that stays in sync</h3><p>Color, size, price, stock, photo and link always match the choice. Switch on the two common bugs to see them, then compare the fixed page and try it with a keyboard.</p><div class="links"><a href="variant-gallery/">Try the product page</a></div></div></article>
 <article id="orbit-study"><img src="cover-orbit.png" alt="Orbit WebGL scene with three lit rings" loading="lazy"><div class="content"><span class="tag">3D and interaction</span><h3>Orbit and other interaction studies</h3><p>A WebGL scene written without a 3D library that you can drag, turn with the keyboard or swap for a still image. Also a layered graphic that separates as you scroll, and a small responsive page.</p><div class="links"><a href="orbit-study.html">Open Orbit</a><a href="interaction-proof.html">Layered graphic</a><a href="responsive-interaction-example/">Responsive page</a></div></div></article>
 </div></section>
 
 <section class="group" id="data"><div class="group-head"><h2>CSV reports and spreadsheets</h2><p>Tools that read real exports, say which rows were rejected and why, and give totals you can check by hand.</p></div><div class="grid">
-<article id="gridline"><img src="cover-gridline.png" alt="Gridline order grid on desktop and phone" loading="lazy"><div class="content"><span class="tag">Working web app</span><h3>Gridline order grid</h3><p>Edit 20,000 purchase orders in the browser. Filter and sort, paste whole blocks, undo anything and review every change before you export it. Scrolls at 60 fps with 54 unit tests and 128 browser checks. The orders are fictional sample data.</p><div class="links"><a href="gridline/">Open Gridline</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/gridline">Source</a></div></div></article><article id="04-ledgerlens"><span id="04"></span><img src="cover-v3-04-ledgerlens-cover.png" alt="LedgerLens revenue report on desktop and phone" loading="lazy"><div class="content"><span class="tag">Working web app</span><h3>LedgerLens revenue report</h3><p>Load order and refund exports and get reconciled revenue, a twelve-month trend and every excluded row with the reason. The sample store has 308 orders and 23 refunds. Files stay in the browser.</p><div class="links"><a href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/">Open LedgerLens</a><a href="https://github.com/SanderSaxBuilds/ledgerlens-report-builder">Source</a></div></div></article>
-<article id="03-financial-report"><span id="03"></span><img src="cover-v3-03-expense-reporting-cover.png" alt="Expense report workbook summary sheet" loading="lazy"><div class="content"><span class="tag">Excel workbook</span><h3>Expense report workbook</h3><p>Two CSV files become an Excel report with budget variance, a prior-month comparison and reconciliation checks. Six months of sample data, and every total is a live formula.</p><div class="links"><a href="03-financial-report-Expense_Report_Sample.xlsx">Sample workbook</a><a href="03-financial-report-Expense_Report_Source.zip">Source</a></div></div></article>
-<article id="exportcheck-study"><img src="cover-exportcheck.png" alt="ExportCheck study page on desktop and phone" loading="lazy"><div class="content"><span class="tag">Python tool</span><h3>ExportCheck CSV preflight</h3><p>Checks headers, keys, dates and amounts before a CSV goes to someone else. See three recorded runs: a clean file, one with row errors kept for review and one rejected outright.</p><div class="links"><a href="exportcheck-study.html">See the recorded runs</a></div></div></article>
-<article id="08-countback"><span id="08"></span><img src="cover-v3-08-countback-cover.png" alt="Countback delivery receiving on desktop and phone" loading="lazy"><div class="content"><span class="tag">Web app</span><h3>Countback delivery receiving</h3><p>Count a delivery by carton or unit, flag shortages, damage and extras, and keep every correction in the history. Print the result or export it as CSV.</p><div class="links"><a href="countback.html">Open the demo</a><a href="countback-source.zip">Source</a></div></div></article>
+<article id="gridline"><img src="cover-gridline.png" alt="Gridline grid with edited cells and the review panel open" loading="lazy"><div class="content"><span class="tag">Working web app</span><h3>Gridline order grid</h3><p>Edit 20,000 purchase orders in the browser. Filter and sort, paste whole blocks, undo anything and review every change before you export it. Scrolls at 60 fps with 54 unit tests and 128 browser checks. The orders are fictional sample data.</p><div class="links"><a href="gridline/">Open Gridline</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/gridline">Source</a></div></div></article><article id="04-ledgerlens"><span id="04"></span><img src="cover-v3-04-ledgerlens-cover.png" alt="LedgerLens twelve-month revenue chart" loading="lazy"><div class="content"><span class="tag">Working web app</span><h3>LedgerLens revenue report</h3><p>Load order and refund exports and get reconciled revenue, a twelve-month trend and every excluded row with the reason. The sample store has 308 orders and 23 refunds. Files stay in the browser.</p><div class="links"><a href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/">Open LedgerLens</a><a href="https://github.com/SanderSaxBuilds/ledgerlens-report-builder">Source</a></div></div></article>
+<article id="03-financial-report"><span id="03"></span><img src="cover-v3-03-expense-reporting-cover.png" alt="Expense report workbook, summary and monthly sheets" loading="lazy"><div class="content"><span class="tag">Excel workbook</span><h3>Expense report workbook</h3><p>Two CSV files become an Excel report with budget variance, a prior-month comparison and reconciliation checks. Six months of sample data, and every total is a live formula.</p><div class="links"><a href="03-financial-report-Expense_Report_Sample.xlsx">Sample workbook</a><a href="03-financial-report-Expense_Report_Source.zip">Source</a></div></div></article>
+<article id="exportcheck-study"><img src="cover-exportcheck.png" alt="ExportCheck results for three sample files" loading="lazy"><div class="content"><span class="tag">Python tool</span><h3>ExportCheck CSV preflight</h3><p>Checks headers, keys, dates and amounts before a CSV goes to someone else. See three recorded runs: a clean file, one with row errors kept for review and one rejected outright.</p><div class="links"><a href="exportcheck-study.html">See the recorded runs</a></div></div></article>
+<article id="08-countback"><span id="08"></span><img src="cover-v3-08-countback-cover.png" alt="Countback receipt with a shortage on paper cups" loading="lazy"><div class="content"><span class="tag">Web app</span><h3>Countback delivery receiving</h3><p>Count a delivery by carton or unit, flag shortages, damage and extras, and keep every correction in the history. Print the result or export it as CSV.</p><div class="links"><a href="countback.html">Open the demo</a><a href="countback-source.zip">Source</a></div></div></article>
 </div></section>
 
 <section class="group" id="integrations"><div class="group-head"><h2>Integrations and data moves</h2><p>The parts between systems: callbacks that must not double-count, documents that need to become data, and records that have to move safely.</p></div><div class="grid">
-<article id="webhook-receipt"><img src="cover-webhook.png" alt="Webhook receipt study on desktop and phone" loading="lazy"><div class="content"><span class="tag">Python API</span><h3>Webhook receipts without duplicates</h3><p>A local service that checks signed callbacks, processes each event once and saves each receipt together with its shipment update. See five recorded outcomes, a restart and 32 passing tests.</p><div class="links"><a href="webhook-receipt-study.html">See the study</a></div></div></article>
-<article id="sop-extraction"><img src="cover-sop-extraction.png" alt="Word procedure extraction study on desktop and phone" loading="lazy"><div class="content"><span class="tag">Document parsing</span><h3>Work instructions from Word to JSON and CSV</h3><p>A parser that turns a Word procedure written to a set template into structured steps, keeps a reference back to each source paragraph and refuses content it can't read reliably.</p><div class="links"><a href="sop-extraction-study.html">See the extraction</a></div></div></article>
-<article id="archive-desk"><img src="cover-archive-desk.png" alt="Archive Desk backup app on desktop and phone" loading="lazy"><div class="content"><span class="tag">Backup app</span><h3>Archive Desk project backups</h3><p>Make a ZIP backup of a project in the browser, check every file against its fingerprint, compare versions and recover into a new folder. The Windows Workbench adds a backup library, imports and run history.</p><div class="links"><a href="archive-desk.html">Try it in the browser</a><a href="archive-desk-workbench-history.html">Workbench guide</a><a href="https://github.com/SanderSaxBuilds/selected-work/releases/tag/archive-desk-workbench-0.6-windows-r2">Windows download</a></div><p class="more">Also: <a href="archive-desk-cli.html">command-line companion</a>, <a href="archive-desk-protection.html">encrypted backup preview</a>, <a href="archive-desk-workbench-0.6-source.zip">Workbench source</a>.</p></div></article>
-<article id="09-migration-proof"><span id="09"></span><img src="cover-v3-09-migration-rehearsal-cover.png" alt="Migration rehearsal cover" loading="lazy"><div class="content"><span class="tag">Migration method</span><h3>Data migration rehearsal</h3><p>Repeatable transforms, a target schema with row-level security, row and total reconciliation, and a cutover and rollback runbook, rehearsed on sample data.</p><div class="links"><a href="09-migration-proof-Migration_Rehearsal_Method_Source.zip">Source and runbook</a><a href="https://github.com/SanderSaxBuilds/supabase-migration-proof">Repository</a></div></div></article>
+<article id="webhook-receipt"><img src="cover-webhook.png" alt="Webhook study with recorded responses" loading="lazy"><div class="content"><span class="tag">Python API</span><h3>Webhook receipts without duplicates</h3><p>A local service that checks signed callbacks, processes each event once and saves each receipt together with its shipment update. See five recorded outcomes, a restart and 32 passing tests.</p><div class="links"><a href="webhook-receipt-study.html">See the study</a></div></div></article>
+<article id="sop-extraction"><img src="cover-sop-extraction.png" alt="Source procedure beside the extracted steps" loading="lazy"><div class="content"><span class="tag">Document parsing</span><h3>Work instructions from Word to JSON and CSV</h3><p>A parser that turns a Word procedure written to a set template into structured steps, keeps a reference back to each source paragraph and refuses content it can't read reliably.</p><div class="links"><a href="sop-extraction-study.html">See the extraction</a></div></div></article>
+<article id="archive-desk"><img src="cover-archive-desk.png" alt="Archive Desk comparing two backups" loading="lazy"><div class="content"><span class="tag">Backup app</span><h3>Archive Desk project backups</h3><p>Make a ZIP backup of a project in the browser, check every file against its fingerprint, compare versions and recover into a new folder. The Windows Workbench adds a backup library, imports and run history.</p><div class="links"><a href="archive-desk.html">Try it in the browser</a><a href="archive-desk-workbench-history.html">Workbench guide</a><a href="https://github.com/SanderSaxBuilds/selected-work/releases/tag/archive-desk-workbench-0.6-windows-r2">Windows download</a></div><p class="more">Also: <a href="archive-desk-cli.html">command-line companion</a>, <a href="archive-desk-protection.html">encrypted backup preview</a>, <a href="archive-desk-workbench-0.6-source.zip">Workbench source</a>.</p></div></article>
+<article id="09-migration-proof"><span id="09"></span><img src="cover-v3-09-migration-rehearsal-cover.png" alt="Migration rehearsal method, runbook and schema pages" loading="lazy"><div class="content"><span class="tag">Migration method</span><h3>Data migration rehearsal</h3><p>Repeatable transforms, a target schema with row-level security, row and total reconciliation, and a cutover and rollback runbook, rehearsed on sample data.</p><div class="links"><a href="09-migration-proof-Migration_Rehearsal_Method_Source.zip">Source and runbook</a><a href="https://github.com/SanderSaxBuilds/supabase-migration-proof">Repository</a></div></div></article>
 </div></section>
 
 <section class="group" id="documents"><div class="group-head"><h2>Business documents</h2><p>Presentations, catalogues and financial packs where the numbers and terms match from page to page.</p></div><div class="grid">
 <article id="01-northline"><span id="01"></span><img src="cover-v3-01-northline-cover.png" alt="Northline executive review and slide layouts" loading="lazy"><div class="content"><span class="tag">Presentation design</span><h3>Northline presentation system</h3><p>An eight-slide executive review with charts, a bridge and a decision slide, fifteen finished slide layouts and a two-page guide. Shown as PDF design previews.</p><div class="links"><a href="01-northline-Northline_Executive_Review.pdf">Executive review</a><a href="01-northline-Northline_Layout_Gallery_Preview.pdf">Layouts PDF</a><a href="01-northline-Northline_Template_Guide.pdf">Guide</a></div></div></article>
-<article id="02-werksupply"><span id="02"></span><img src="cover-v3-02-werksupply-cover.png" alt="WerkSupply four-page product catalogue" loading="lazy"><div class="content"><span class="tag">Catalogue design</span><h3>WerkSupply product catalogue</h3><p>Four catalogue pages with original product drawings, comparable specifications and a sample quote that adds up. The editable HTML source and product list are included.</p><div class="links"><a href="02-werksupply-WerkSupply_Catalogue_Preview.pdf">Catalogue PDF</a><a href="02-werksupply-WerkSupply_Editable_Source.zip">Editable source</a></div></div></article>
+<article id="02-werksupply"><span id="02"></span><img src="cover-v3-02-werksupply-cover.png" alt="WerkSupply catalogue page with drawing and quote details" loading="lazy"><div class="content"><span class="tag">Catalogue design</span><h3>WerkSupply product catalogue</h3><p>Four catalogue pages with original product drawings, comparable specifications and a sample quote that adds up. The editable HTML source and product list are included.</p><div class="links"><a href="02-werksupply-WerkSupply_Catalogue_Preview.pdf">Catalogue PDF</a><a href="02-werksupply-WerkSupply_Editable_Source.zip">Editable source</a></div></div></article>
 <article id="05-property-documents"><span id="05"></span><img src="cover-v3-05-property-documents-cover.png" alt="Northline property financing pack" loading="lazy"><div class="content"><span class="tag">Financial documents</span><h3>Property financing pack</h3><p>A fifteen-slide portfolio deck, a four-page financing summary and a one-page term sheet for a fictional ten-asset portfolio. The figures agree across all three.</p><div class="links"><a href="05-property-documents-Northline_Property_Documents.pdf">Portfolio deck</a><a href="05-property-documents-Northline_Financing_Summary.pdf">Summary</a><a href="05-property-documents-Northline_Financing_Term_Sheet.pdf">Term sheet</a></div></div></article>
 </div></section>
 
 <section class="group" id="content"><div class="group-head"><h2>Research and content</h2><p>Speculative samples written for public briefs. None was commissioned or reviewed by the brief's author.</p></div><div class="grid">
-<article id="sample-cosquin"><img src="cover-sample-cosquin.png" alt="Spanish-language market scan for Cosquín on desktop and phone" loading="lazy"><div class="content"><span class="tag">Market research, Spanish</span><h3>Market signals in Cosquín</h3><p>A Spanish-language scan of public sources on food retail in Cosquín, Córdoba: eight shops to verify, the prices that are visible, the gaps, and a source for every figure.</p><div class="links"><a href="sample-cosquin.html">Open the report</a><a href="sample-cosquin-source_notes.md">Source notes</a></div></div></article>
-<article id="sample-subtrak"><img src="cover-sample-subtrak.png" alt="Construction content kit on desktop and phone" loading="lazy"><div class="content"><span class="tag">Social content</span><h3>Construction content kit</h3><p>Three posts about the small things that slow a job down, with square graphics, a 24-second vertical piece, captions and a production calendar.</p><div class="links"><a href="sample-subtrak.html">Open the kit</a><a href="sample-subtrak-copy_and_handoff.md">Copy and handoff</a></div></div></article>
+<article id="sample-cosquin"><img src="cover-sample-cosquin.png" alt="Spanish-language market scan for Cosquín" loading="lazy"><div class="content"><span class="tag">Market research, Spanish</span><h3>Market signals in Cosquín</h3><p>A Spanish-language scan of public sources on food retail in Cosquín, Córdoba: eight shops to verify, the prices that are visible, the gaps, and a source for every figure.</p><div class="links"><a href="sample-cosquin.html">Open the report</a><a href="sample-cosquin-source_notes.md">Source notes</a></div></div></article>
+<article id="sample-subtrak"><img src="cover-sample-subtrak.png" alt="Three posts from the construction content kit" loading="lazy"><div class="content"><span class="tag">Social content</span><h3>Construction content kit</h3><p>Three posts about the small things that slow a job down, with square graphics, a 24-second vertical piece, captions and a production calendar.</p><div class="links"><a href="sample-subtrak.html">Open the kit</a><a href="sample-subtrak-copy_and_handoff.md">Copy and handoff</a></div></div></article>
 </div></section>
 
 <p class="note">ALLEX RESPECT ASIA is a live business site. The other projects are my own work, built with fictional companies and sample data to show how I'd handle a real brief. None of them is presented as client work.</p>
 </main>
 
-<footer><div class="wrap"><strong>Have a page, file or export that needs work?</strong>Send it with a short note on what should happen, and I'll reply with the scope, price and timing.<div class="links"><a href="https://www.upwork.com/freelancers/~0152698543f52fe912">Upwork</a><a href="https://contra.com/alexandr_khrustalev_tbhzo1a2">Contra</a><a href="https://www.linkedin.com/in/sander-sax-9835a82b4/">LinkedIn</a><a href="https://github.com/SanderSaxBuilds">GitHub</a></div></div></footer>
+<footer><div class="wrap"><div><strong>Have a page, file or export that needs work?</strong><p>Send it with a short note on what should happen, and I'll reply with the scope, price and timing.</p></div><div class="links"><a href="https://www.upwork.com/freelancers/~0152698543f52fe912">Upwork</a><a href="https://contra.com/alexandr_khrustalev_tbhzo1a2">Contra</a><a href="https://www.linkedin.com/in/sander-sax-9835a82b4/">LinkedIn</a><a href="https://github.com/SanderSaxBuilds">GitHub</a></div></div></footer>
 </body>
 </html>
