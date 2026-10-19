@@ -1,0 +1,15 @@
+{
+  "name": "gridline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Editable data grid for operations teams. Static site, plain ES modules, no build step.",
+  "type": "module",
+  "scripts": {
+    "start": "node checks/serve.mjs . 8931",
+    "test": "node --test tests/*.test.mjs",
+    "flow": "node checks/flow.mjs http://127.0.0.1:8931/",
+    "shots": "node checks/shots.mjs http://127.0.0.1:8931/ shots 320,390,768,1440",
+    "bench": "node checks/bench.mjs",
+    "cover": "node checks/cover.mjs http://127.0.0.1:8931/"
+  }
+}

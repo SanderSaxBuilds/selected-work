@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gridline purchase order grid</title>
+<meta name="description" content="Gridline is an editable data grid for operations teams. Sort, filter, edit, paste and review changes across 20,000 sample purchase orders.">
+<meta property="og:title" content="Gridline purchase order grid">
+<meta property="og:description" content="Edit 20,000 purchase orders with filters, bulk paste, undo and a review of every change before export.">
+<meta property="og:image" content="cover-gridline.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e3b2b'/%3E%3Cpath d='M8 11h16M8 16h16M8 21h16M13 8v16' stroke='%23d9a441' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-mode="grid">
+<a class="skip" href="#grid">Skip to the order grid</a>
+<div class="app">
+  <header class="bar">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#175841"/><path d="M8 11h16M8 16h16M8 21h16M13 8v16" stroke="#d9a441" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <div>
+        <h1>Gridline</h1>
+        <p>Purchase orders for Larkfield Industrial Supply</p>
+      </div>
+    </div>
+    <div class="bar-actions">
+      <button type="button" class="btn ghost icon-btn" id="undo" aria-keyshortcuts="Control+Z" aria-label="Undo" title="Undo" disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 5 3.5 9l4 4M4 9h8a4.5 4.5 0 0 1 0 9H9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="btn ghost icon-btn" id="redo" aria-keyshortcuts="Control+Y" aria-label="Redo" title="Redo" disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 5l4 4-4 4M16 9H8a4.5 4.5 0 0 0 0 9h3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="btn ghost" id="review-open"><span class="desk-text">Review changes</span><span class="phone-text">Changes</span> <span class="count" id="change-count">0</span></button>
+      <button type="button" class="btn ghost desk-only" id="import-open">Import</button>
+      <button type="button" class="btn amber" id="export-open" aria-haspopup="menu" aria-expanded="false" aria-controls="export-menu"><span class="desk-text">Export</span><span class="phone-text">Files</span></button>
+      <button type="button" class="btn ghost icon-btn desk-only" id="shortcuts-open" aria-label="Keyboard shortcuts" title="Keyboard shortcuts"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="5" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 8h1M8 8h1M11 8h1M14 8h1M6 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    </div>
+  </header>
+
+  <section class="tools" aria-label="Search and views">
+    <div class="search">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <label class="sr" for="search">Search all orders</label>
+      <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="Search PO, supplier, item, SKU or buyer">
+    </div>
+    <div class="views">
+      <label for="views">View</label>
+      <select id="views"></select>
+      <button type="button" class="btn line" id="view-save">Save view</button>
+      <button type="button" class="btn line desk-only" id="view-delete" disabled>Delete view</button>
+    </div>
+    <button type="button" class="btn line desk-only" id="columns-open">Columns</button>
+    <button type="button" class="btn line phone-only" id="filters-open">Filters <span class="count soft" id="filter-count" hidden>0</span></button>
+    <div class="phone-only phone-sort">
+      <label for="phone-sort">Sort</label>
+      <select id="phone-sort"></select>
+    </div>
+  </section>
+
+  <div class="chips" id="chips" aria-label="Active filters and sort"></div>
+
+  <main class="main" id="main">
+    <div class="grid-wrap" id="grid-wrap">
+      <div id="grid" class="grid" role="grid" tabindex="0" aria-label="Purchase orders" aria-multiselectable="true" aria-describedby="grid-help">
+        <div class="canvas" id="canvas">
+          <div class="head" role="rowgroup"><div class="hrow" role="row" aria-rowindex="1" id="hrow"></div></div>
+          <div class="body" role="rowgroup" id="body"></div>
+        </div>
+      </div>
+      <div class="edit-layer" id="edit-layer"><input id="editor" class="editor" type="text" autocomplete="off" spellcheck="false" hidden aria-describedby="edit-error"></div>
+      <p class="edit-error" id="edit-error" role="alert" hidden></p>
+      <div class="drop-mark" id="drop-mark" hidden></div>
+      <div class="empty" id="empty" hidden><p>No orders match these filters.</p><button type="button" class="btn line" id="empty-clear">Clear filters and search</button></div>
+    </div>
+    <div id="cards" class="cards" role="list" aria-label="Purchase orders"><div class="cards-sizer" id="cards-sizer"></div></div>
+  </main>
+
+  <footer class="status">
+    <span id="row-count" class="row-count" aria-live="polite"></span>
+    <span id="summary" class="summary"></span>
+  </footer>
+  <p class="note">All suppliers, orders and people here are fictional sample data. Edits stay in this browser tab until you export them. Built by <a href="https://sandersaxbuilds.github.io/selected-work/">Alexandr Khrustalev</a>.</p>
+</div>
+
+<p class="sr" id="grid-help">Use arrow keys to move. Shift with arrows selects a range. Enter or F2 edits a cell, Escape cancels. Control C copies, Control V pastes, Control D fills down, Control Z undoes.</p>
+<textarea id="clip" class="clip" tabindex="-1" aria-hidden="true"></textarea>
+<div id="datalists"></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden>
+  <div class="toast-body"><p id="toast-msg"></p><ul id="toast-list"></ul></div>
+  <button type="button" class="toast-x" id="toast-x" aria-label="Dismiss message">&times;</button>
+</div>
+
+<div class="popover" id="colmenu" role="dialog" aria-modal="false" hidden></div>
+<div class="popover menu" id="export-menu" role="menu" aria-label="Export" hidden>
+  <button type="button" role="menuitem" id="export-view">Export current view <span>Rows and columns as shown</span></button>
+  <button type="button" role="menuitem" id="export-changes-menu">Export changes only <span>Old and new value for each edited cell</span></button>
+  <button type="button" role="menuitem" id="import-menu" class="phone-menu">Import a CSV <span>Update orders from a file</span></button>
+</div>
+
+<dialog class="drawer" id="review" aria-labelledby="review-title">
+  <div class="dlg-head">
+    <div><h2 id="review-title">Review changes</h2><p id="review-sub" class="muted"></p></div>
+    <button type="button" class="dlg-x" data-close aria-label="Close review">&times;</button>
+  </div>
+  <div class="dlg-actions">
+    <button type="button" class="btn line" id="export-changes">Export changes</button>
+    <button type="button" class="btn danger" id="revert-all">Revert all</button>
+  </div>
+  <div class="review-list" id="review-list"></div>
+</dialog>
+
+<dialog class="sheet wide" id="import" aria-labelledby="import-title">
+  <div class="dlg-head">
+    <div><h2 id="import-title">Import a CSV</h2><p class="muted">Rows are matched by PO number. A row with any invalid value is skipped and listed with the reason, the rest are applied as one step you can undo.</p></div>
+    <button type="button" class="dlg-x" data-close aria-label="Close import">&times;</button>
+  </div>
+  <div class="import-pick">
+    <label class="file-btn btn line"><input type="file" id="import-file" accept=".csv,text/csv"> Choose a CSV file</label>
+    <button type="button" class="btn line" id="import-sample">Use the sample file</button>
+    <button type="button" class="btn link" id="sample-download">Download the sample</button>
+  </div>
+  <p class="import-file-name muted" id="import-name"></p>
+  <div id="import-map"></div>
+  <div id="import-result" aria-live="polite"></div>
+  <div class="dlg-foot">
+    <button type="button" class="btn line" data-close>Cancel</button>
+    <button type="button" class="btn primary" id="import-apply" disabled>Apply changes</button>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="columns" aria-labelledby="columns-title">
+  <div class="dlg-head">
+    <div><h2 id="columns-title">Columns</h2><p class="muted">Show, hide, pin and reorder. Pinned columns stay on the left while you scroll sideways.</p></div>
+    <button type="button" class="dlg-x" data-close aria-label="Close columns">&times;</button>
+  </div>
+  <ul class="col-list" id="col-list"></ul>
+  <div class="dlg-foot"><button type="button" class="btn line" id="columns-reset">Reset columns</button><button type="button" class="btn primary" data-close>Done</button></div>
+</dialog>
+
+<dialog class="sheet narrow" id="save-view" aria-labelledby="save-title">
+  <form method="dialog" id="save-form">
+    <div class="dlg-head"><div><h2 id="save-title">Save this view</h2><p class="muted">Saves the filters, sort, search and column layout in this browser.</p></div></div>
+    <label class="field-label" for="view-name">View name</label>
+    <input id="view-name" class="text-in" maxlength="40" required autocomplete="off">
+    <div class="dlg-foot"><button type="button" class="btn line" data-close>Cancel</button><button type="submit" class="btn primary" value="save">Save view</button></div>
+  </form>
+</dialog>
+
+<dialog class="sheet" id="shortcuts" aria-labelledby="shortcuts-title">
+  <div class="dlg-head"><div><h2 id="shortcuts-title">Keyboard shortcuts</h2><p class="muted">Click the grid or tab into it first.</p></div><button type="button" class="dlg-x" data-close aria-label="Close shortcuts">&times;</button></div>
+  <table class="keys">
+    <tbody>
+      <tr><th scope="row"><kbd>Arrows</kbd></th><td>Move one cell</td></tr>
+      <tr><th scope="row"><kbd>Shift</kbd> with arrows</th><td>Select a range</td></tr>
+      <tr><th scope="row"><kbd>Ctrl</kbd> with arrows</th><td>Jump to the first or last row or column</td></tr>
+      <tr><th scope="row"><kbd>Home</kbd> and <kbd>End</kbd></th><td>First or last column, with Ctrl the first or last cell</td></tr>
+      <tr><th scope="row"><kbd>Page Up</kbd> and <kbd>Page Down</kbd></th><td>Move one screen</td></tr>
+      <tr><th scope="row"><kbd>Enter</kbd> or <kbd>F2</kbd></th><td>Edit the cell, or start typing to replace it</td></tr>
+      <tr><th scope="row"><kbd>Enter</kbd> and <kbd>Tab</kbd> while editing</th><td>Save and move down or right</td></tr>
+      <tr><th scope="row"><kbd>Esc</kbd></th><td>Cancel the edit or collapse the selection</td></tr>
+      <tr><th scope="row"><kbd>Delete</kbd></th><td>Clear the selected cells that allow blanks</td></tr>
+      <tr><th scope="row"><kbd>Ctrl</kbd> <kbd>C</kbd> and <kbd>Ctrl</kbd> <kbd>V</kbd></th><td>Copy and paste as tab separated text</td></tr>
+      <tr><th scope="row"><kbd>Ctrl</kbd> <kbd>D</kbd></th><td>Fill the top row of the selection down</td></tr>
+      <tr><th scope="row"><kbd>Ctrl</kbd> <kbd>Z</kbd> and <kbd>Ctrl</kbd> <kbd>Y</kbd></th><td>Undo and redo, including bulk edits</td></tr>
+      <tr><th scope="row"><kbd>Ctrl</kbd> <kbd>A</kbd></th><td>Select every row in the view</td></tr>
+      <tr><th scope="row">On a header, <kbd>Enter</kbd></th><td>Sort by that column, with Shift add it as the next sort</td></tr>
+      <tr><th scope="row"><kbd>Alt</kbd> <kbd>Down</kbd></th><td>Open the column menu for filters, pinning and width</td></tr>
+    </tbody>
+  </table>
+</dialog>
+
+<dialog class="sheet" id="filters" aria-labelledby="filters-title">
+  <div class="dlg-head"><div><h2 id="filters-title">Filters</h2><p class="muted" id="filters-sub"></p></div><button type="button" class="dlg-x" data-close aria-label="Close filters">&times;</button></div>
+  <div id="filters-body"></div>
+  <div class="dlg-foot"><button type="button" class="btn line" id="filters-clear">Clear all</button><button type="button" class="btn primary" data-close>Show orders</button></div>
+</dialog>
+
+<dialog class="sheet" id="card-edit" aria-labelledby="card-title">
+  <form id="card-form" novalidate></form>
+</dialog>
+
+<script type="module" src="src/app.mjs"></script>
+</body>
+</html>
