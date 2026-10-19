@@ -1,32 +1,85 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Save project backup sets, review exact file inventories and create separately verified archives. Download the local Node.js app source."><title>Archive Desk Workbench 0.5 · SanderSaxBuilds</title><style>
-:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;font:15px/1.7 system-ui,Arial,sans-serif;color:#253c30;background:#f6f7f0}a{color:inherit}header{max-width:1130px;margin:auto;padding:26px 30px;display:flex;justify-content:space-between;border-bottom:1px solid #dfe5d4;font-size:12px}header a{text-decoration:none}main{max-width:1130px;margin:auto;padding:55px 30px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#789363}h1{font-weight:600;font-size:clamp(38px,7vw,76px);letter-spacing:-3px;line-height:1.08;max-width:820px;margin:19px 0 25px}h2{font-size:29px;font-weight:600;letter-spacing:-1px;line-height:1.25}h3{font-size:17px;font-weight:600}.intro{max-width:610px;color:#7d8c70;font-size:17px}.actions{display:flex;gap:12px;margin:28px 0 23px;flex-wrap:wrap}.button{padding:12px 20px;background:#c9e78a;border:1px solid #adc56f;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600}.button.secondary{background:transparent;border-color:#d7dfca}.note{font-size:11px;color:#849577;max-width:730px}.hero{background:#e8eedb;border:1px solid #d9e3c8;border-radius:17px;padding:20px;margin:42px 0 20px}.hero img{width:100%;height:auto;border:1px solid #cfdac2;border-radius:10px;display:block}.caption{font-size:11px;color:#8a9b7a;text-align:center;margin-top:12px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:42px 0}.card{background:#fff;border:1px solid #dfe6d3;border-radius:12px;padding:26px}.card span{font-size:10px;color:#91a479}.card h3{margin:12px 0}.card p{font-size:13px;color:#819270}.split{display:grid;grid-template-columns:1.1fr 1fr;gap:35px;border-top:1px solid #dce5cd;padding-top:35px;margin-top:45px}.split p,.split li{font-size:13px;color:#7a8c6a}.split ul{padding-left:20px}.code{background:#21372c;color:#d8e7bd;padding:25px;border-radius:12px;font:12px/2 Consolas,monospace;overflow:auto;white-space:pre}.step{display:flex;gap:13px;margin:19px 0;color:#7e916b;font-size:13px}.step strong{background:#e4edcf;border-radius:50%;flex-shrink:0;width:27px;height:27px;text-align:center;color:#68844c}.phone{width:190px;max-width:100%;display:block;border:1px solid #d6e2c3;border-radius:10px;margin:20px auto}.fingerprint{font:11px/1.8 Consolas,monospace;overflow-wrap:anywhere;border-top:1px solid #dce5cd;padding-top:25px;margin-top:35px;color:#8c9e79}footer{border-top:1px solid #dce5cd;margin-top:45px;padding:25px 0;font-size:11px;color:#8b9c7a;display:flex;justify-content:space-between;gap:20px}a:focus-visible{outline:3px solid #6c9a44;outline-offset:4px}@media(max-width:700px){header{padding:20px}main{padding:35px 20px}h1{letter-spacing:-1.8px}.grid,.split{grid-template-columns:1fr;gap:15px}.grid{margin:30px 0}.split{margin-top:30px}.hero{padding:8px;border-radius:10px;margin-top:30px}.hero img{border-radius:5px}.intro{font-size:15px}.card{padding:23px}.actions .button{padding:11px 15px;font-size:12px}.code{font-size:10px;padding:18px}footer{flex-direction:column;gap:6px}}
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>Back up several folders | Archive Desk Workbench</title>
+<meta name="description" content="Save a set of project folders, review their current files and create a separate verified backup for each, with a clear result for every source. Archive Desk Workbench guide.">
+<link rel="icon" href="archive-desk-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="archive-desk-guide.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to the content</a>
+<header class="g-top">
+  <div class="wrap g-bar"><a class="g-brand" href="archive-desk-workbench-history.html"><img src="archive-desk-mark.svg" alt="" width="34" height="34">Archive Desk <span>Workbench</span></a><a class="g-back" href="index.html#archive-desk">Selected work</a></div>
+  <nav class="wrap g-nav" aria-label="Workbench guides"><a href="archive-desk-workbench-history.html">Overview</a><a href="archive-desk-workbench.html">Backups</a><a href="archive-desk-workbench-import.html">Import</a><a href="archive-desk-workbench-recovery.html">Recovery</a><a href="archive-desk-workbench-library-check.html">Library check</a><a href="archive-desk-workbench-sets.html" aria-current="page">Backup sets</a><a href="archive-desk-workbench-history.html#history">Run history</a></nav>
+</header>
 
-.intro,.note,.caption,.card p,.split p,.split li,.step,.fingerprint,footer{color:#566a49}.card span{color:#617b50}.button{font-size:14px}.note,.caption{font-size:12px}.fingerprint{font-size:12px}.split li{margin:8px 0}.split>div{min-width:0}.code{max-width:100%;width:100%}</style></head><body>
-<header><a href="index.html">SanderSaxBuilds</a><a href="index.html#archive-desk">Back to selected work</a></header><main>
-<div class="eyebrow">Archive Desk Workbench 0.5. Local app preview</div>
-<h1>Several projects.<br>One clear review.</h1>
-<p class="intro">Save the folders you back up together. Review their current files, create separate verified copies and see exactly which sources completed.</p>
-<div class="actions"><a class="button" href="archive-desk-workbench-0.5-source.zip" download>Download the local app source</a><a class="button secondary" href="#start">Setup and backup sets</a></div>
-<p class="note">Version 0.5.0-candidate.1. Requires Node.js 24. This page presents the app. Backup operations run on your computer after you extract the source and start the local server.</p>
-<figure class="hero"><img src="archive-desk-sets-review.png" alt="A saved three-folder set reviews website and report files as ready while the missing delivery folder has its own failed row" width="1440" height="1100"><figcaption class="caption">Actual local app with fictional files and deliberately long project labels. Review lists ready and failed sources without creating archives.</figcaption></figure>
-<section class="grid" aria-label="Saved backup set workflow">
-<article class="card"><span>01. Save the group</span><h3>Keep the folder list.</h3><p>Name a set and add relative folders from your configured workspace. Save up to 12 sets with 8 non-overlapping folders in each. Saving a list does not create a backup.</p></article>
-<article class="card"><span>02. Review current files</span><h3>Check each source first.</h3><p>Inspect file paths, sizes, hashes and exclusions. Missing or unsafe folders fail their own row. Edits require another review, and plans expire after ten minutes.</p></article>
-<article class="card"><span>03. Read every result</span><h3>Partial stays partial.</h3><p>The app checks ready sources again and verifies each new archive. Changed sources fail. Sources that failed review are skipped. A dated JSON report keeps the result.</p></article>
-</section>
-<figure class="hero"><img src="archive-desk-sets-result.png" alt="The actual run records one saved and verified website archive, one changed-file failure and one skipped missing folder" width="1440" height="1100"><figcaption class="caption">Controlled test: a same-length CSV edit after review was refused. The website archive still completed, and the unavailable delivery folder was skipped.</figcaption></figure>
-<section class="split" id="start"><div><div class="eyebrow">Start the local app</div><h2>Extract, start and review.</h2>
-<div class="step"><strong>1</strong><span>Install Node.js 24 from its official distribution. Extract the source ZIP and open a terminal inside ArchiveDeskWorkbench.</span></div>
-<div class="step"><strong>2</strong><span>Run node server.mjs. Open the local address printed in the terminal. The default starter files are fictional.</span></div>
-<div class="step"><strong>3</strong><span>Choose Backup sets. Enter a name, project labels and relative folders. Save the set, then select Review this set.</span></div>
-<div class="step"><strong>4</strong><span>Inspect every ready and failed row before selecting Back up ready sources. Download the result before refreshing or editing the set.</span></div>
-</div><div><pre class="code">node server.mjs
+<main id="main" class="wrap">
+  <section class="g-hero" aria-labelledby="page-title">
+    <p class="kicker">Workbench guide</p>
+    <h1 id="page-title">Several projects. One clear review.</h1>
+    <p class="lede">Save the folders you back up together. Review their current files, create a separate verified copy of each and see exactly which ones completed.</p>
+    <div class="actions"><a class="button primary" href="https://github.com/SanderSaxBuilds/selected-work/releases/tag/archive-desk-workbench-0.6-windows-r2">Download for Windows x64</a><a class="button secondary" href="archive-desk-workbench-history.html#start">How to start</a></div>
+  </section>
 
-http://127.0.0.1:4330/
+  <figure class="g-shot lead">
+    <div class="frame"><img src="archive-desk-sets-review-crop.png" alt="A saved three-folder set where the website and report folders are ready and the missing delivery folder has its own failed row" width="1130" height="550"></div>
+    <figcaption>A review of three fictional folders. Two are ready, the missing one fails on its own row, and no archive has been created yet.</figcaption>
+  </figure>
 
-npm test</pre><p class="note">Built with Node.js modules and browser JavaScript. No runtime package installation or cloud account is required. Stop the app with Ctrl+C. The README explains how to choose your workspace, backup storage and port.</p><img class="phone" src="archive-desk-sets-phone.png" alt="Long backup labels and individual result rows wrap in the actual 390-pixel layout" width="390" height="1100"></div></section>
-<section class="split"><div><div class="eyebrow">Reviewed input, separate copies</div><h2>Changed files need a fresh review.</h2><p>A source is rescanned and rehashed before backup. The verified archive inventory must also match the reviewed paths, byte counts and hashes before it enters the library. One failed folder does not hide the other outcomes.</p><p>Each plan is used once. Restarting the server clears plans, while saved sets and library records remain. The run report is available until you refresh the library or edit a set. Download it if you need to keep the full batch result.</p><p>The report omits absolute workspace and storage paths. Labels and relative filenames can still identify your work. Review it before sharing. Hashes establish consistency, not ownership or a trusted origin.</p></div><div><div class="eyebrow">Recovery stays explicit</div><h2>Recover into a new folder.</h2><p>Open saved backup selects the exact completed copy. Verify it, compare changes or review a recovery destination. Recovery checks the archive again and refuses an existing destination.</p><p>The tested website archive recovered both original files byte for byte. The source folder stayed unchanged. File paths and contents are restored, not empty folders, original timestamps or permissions.</p><p><a href="archive-desk-workbench-library-check.html">The whole-library check guide remains available.</a> <a href="archive-desk-workbench-recovery.html">See recovery plans and verification downloads.</a> <a href="archive-desk-workbench-import.html">Import an existing Archive Desk ZIP.</a></p></div></section>
-<section class="split"><div><div class="eyebrow">Tested package</div><h2>40 tests passed.</h2><p>The backend and CLI suite covers saved sets, restart persistence, duplicate and overlapping folders, corrupt settings, read-only review, changed files, stale plans, replay refusal, Unicode labels, independent archives and recovery.</p><p>The actual source ZIP was freshly extracted. All 18 source files matched their recorded hashes and the same 40 tests passed again. The extracted app reopened the saved profile and existing library through its browser interface. Repeated checks are not extra unique tests.</p><p>Browser checks covered save and edit, reload, review invalidation, the partial result, actual JSON download and verified recovery. Populated layouts were inspected at 320, 390, 768, 1024 and 1440 pixels without horizontal overflow.</p></div><div><h3>Limits that matter.</h3><ul><li>Manual local developer preview, tested on Windows with Node.js 24.19.0 and the current test browser. Linux and macOS remain untested.</li><li>Up to 500 files, 20 MiB per file, 50 MiB of source data and a 52 MiB archive per source.</li><li>Unencrypted Archive Desk ZIP Store imports only. Arbitrary compressed, encrypted and ZIP64 files are unsupported.</li><li>Filename exclusions are not sensitive-content detection. Review the included paths.</li><li>No automatic schedule, source-file edits, retention cleanup or cloud synchronization.</li></ul><p>Stop programs that can change files while backing up. The scan is not an atomic snapshot or an adversarial filesystem race guarantee. Keep another verified copy on a separate device. This is independent product work with synthetic data, not a production backup service or customer acceptance.</p></div></section>
-<div class="fingerprint">Source package: 88,725 bytes. SHA-256: <span id="package-sha">9851847b3d3725fd9703c152313fd64435f0e185263b36f5af1bf7c2266473b4</span></div>
-<footer><span>Original code and design by SanderSaxBuilds.</span><span>Local developer source preview.</span></footer></main></body></html>
+  <ol class="g-steps">
+    <li><span class="step-no">01</span><h3>Keep the folder list.</h3><p>Name a set and add folders from your workspace. Save up to 12 sets with up to 8 separate folders each. Saving a list does not start a backup.</p></li>
+    <li><span class="step-no">02</span><h3>Check each source first.</h3><p>Review file paths, sizes, fingerprints and exclusions. A missing or unsafe folder fails its own row. Editing the set needs a new review, and a review expires after ten minutes.</p></li>
+    <li><span class="step-no">03</span><h3>Partial stays partial.</h3><p>Ready folders are checked again and each new archive is verified. A folder that changed since the review fails, and a folder that failed review is skipped.</p></li>
+  </ol>
+
+  <figure class="g-shot g-section">
+    <div class="frame"><img src="archive-desk-sets-result-crop.png" alt="The run result with one saved and verified website archive, one changed-file failure and one skipped missing folder" width="1130" height="545" loading="lazy"></div>
+    <figcaption>A CSV file was edited after the review, so that folder was refused. The website archive still completed and the missing folder was skipped.</figcaption>
+  </figure>
+
+  <section class="g-section g-split" aria-labelledby="try-title">
+    <div class="card">
+      <h2 id="try-title">Try it</h2>
+      <ol class="how">
+        <li><span>Start the app. The <a href="archive-desk-workbench-history.html#start">overview</a> shows how.</span></li>
+        <li><span>Choose <span class="ui">Backup sets</span>. Enter a set name, then a label and relative folder for each project.</span></li>
+        <li><span>Save the set and select <span class="ui">Review this set</span>.</span></li>
+        <li><span>Read every ready and failed row, then select <span class="ui">Back up ready sources</span>. The result is saved to <a href="archive-desk-workbench-history.html#history">run history</a>.</span></li>
+      </ol>
+    </div>
+    <div class="phone-frame tall"><img src="archive-desk-sets-phone.png" alt="Long backup labels and each result row wrapping cleanly at phone width" width="375" height="1058" loading="lazy"></div>
+  </section>
+
+  <section class="g-section g-split even" aria-labelledby="know-title">
+    <div class="prose">
+      <h2 id="know-title">Changed files need a fresh review</h2>
+      <p>Each folder is rescanned and its fingerprints recalculated right before the backup. The finished archive must match the reviewed paths, sizes and fingerprints before it joins the library. One failed folder never hides the other results.</p>
+      <p>Each review is used once. Restarting the app clears pending reviews, while saved sets and library records stay.</p>
+      <p>To recover, <span class="ui">Open saved backup</span> selects the exact completed copy. From there you can verify it, compare changes or <a href="archive-desk-workbench-recovery.html">review a recovery</a> into a new folder.</p>
+    </div>
+    <div class="card">
+      <h3>Limits</h3>
+      <ul class="limits">
+        <li>Up to 500 files, 20 MiB per file, 50 MiB of source data and a 52 MiB archive for each folder.</li>
+        <li>Exclusions work by filename, so check the included paths yourself.</li>
+        <li>No schedule, retention cleanup or cloud sync, and source files are never edited.</li>
+        <li>Close programs that might change files during the run. A scan is not an atomic snapshot.</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="pager" aria-label="More guides"><a href="archive-desk-workbench-library-check.html"><span>Previous</span><strong>Check the whole library</strong></a><a class="next" href="archive-desk-workbench-history.html#history"><span>Next guide</span><strong>Reopen run history</strong></a></nav>
+</main>
+
+<footer class="g-footer"><div class="wrap">
+  <nav aria-label="More from Archive Desk"><a href="archive-desk.html">Browser app</a><a href="archive-desk-protection.html">Encrypted copies</a><a href="archive-desk-cli.html">Command line</a></nav>
+  <p>Built by SanderSaxBuilds. The projects in these screenshots are fictional sample data.</p>
+</div></footer>
+</body>
+</html>

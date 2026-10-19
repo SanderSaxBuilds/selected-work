@@ -1,1259 +1,418 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <title>ExportCheck study, recorded synthetic demonstration</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --paper: #f5f1e8;
-      --paper-bright: #fffdf8;
-      --ink: #18283a;
-      --muted: #526171;
-      --line: #cbc7bd;
-      --teal: #17556b;
-      --teal-dark: #103f52;
-      --teal-pale: #e5eef0;
-      --gold: #925a14;
-      --gold-pale: #f7ead0;
-      --red: #8d3029;
-      --red-pale: #f8e7e3;
-      --green: #275e48;
-      --green-pale: #e6efe8;
-      --code: #142635;
-      --code-ink: #f2f5f5;
-      --shadow: 0 18px 48px rgb(24 40 58 / 8%);
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--ink);
-      background: var(--paper);
-      font-synthesis: none;
-      text-rendering: optimizeLegibility;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-width: 320px;
-      line-height: 1.55;
-      background:
-        radial-gradient(ellipse at 92% 6%, rgb(23 85 107 / 8%), transparent 34rem),
-        var(--paper);
-    }
-
-    a {
-      color: var(--teal-dark);
-      text-decoration-thickness: 1px;
-      text-underline-offset: 0.18em;
-    }
-
-    a:hover {
-      text-decoration-thickness: 2px;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button:focus-visible,
-    input:focus-visible,
-    a:focus-visible,
-    summary:focus-visible,
-    pre:focus-visible {
-      outline: 3px solid #b35d16;
-      outline-offset: 3px;
-    }
-
-    .page {
-      width: min(1260px, calc(100% - 48px));
-      margin: 0 auto;
-    }
-
-    .site-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      min-height: 88px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .owner-name {
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-
-    .site-header a {
-      font-weight: 700;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(250px, 0.7fr);
-      gap: clamp(32px, 6vw, 82px);
-      align-items: end;
-      padding: 74px 0 64px;
-    }
-
-    .eyebrow {
-      margin: 0 0 18px;
-      color: var(--teal-dark);
-      font-size: 0.83rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    p {
-      margin-top: 0;
-    }
-
-    h1 {
-      max-width: 850px;
-      margin-bottom: 22px;
-      font-size: clamp(2.55rem, 6vw, 5rem);
-      line-height: 1.02;
-      letter-spacing: -0.045em;
-    }
-
-    .hero-copy {
-      max-width: 780px;
-      color: #304253;
-      font-size: clamp(1.08rem, 1.8vw, 1.32rem);
-    }
-
-    .hero-copy p:last-child {
-      margin-bottom: 0;
-    }
-
-    .hero-side {
-      padding: 24px;
-      border: 1px solid #bac9cb;
-      border-radius: 20px;
-      background: rgb(255 253 248 / 84%);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-side strong {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--teal-dark);
-      font-size: 1.06rem;
-    }
-
-    .hero-side p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 0.98rem;
-    }
-
-    .quick-facts {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 34px;
-    }
-
-    .quick-fact {
-      min-height: 106px;
-      padding: 16px 18px;
-      border-top: 3px solid var(--teal);
-      background: rgb(255 253 248 / 70%);
-    }
-
-    .quick-fact strong {
-      display: block;
-      font-size: 1.75rem;
-      line-height: 1.15;
-    }
-
-    .quick-fact span {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .notice {
-      padding: 18px 20px;
-      border-left: 4px solid var(--gold);
-      border-radius: 0 12px 12px 0;
-      background: var(--gold-pale);
-      color: #523b1f;
-    }
-
-    .notice strong {
-      color: #3d2b15;
-    }
-
-    .section {
-      margin: 0 0 52px;
-      padding: clamp(24px, 4vw, 48px);
-      border: 1px solid #d1ccc1;
-      border-radius: 26px;
-      background: var(--paper-bright);
-      box-shadow: var(--shadow);
-    }
-
-    .section-heading {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-
-    .section-heading .eyebrow {
-      margin-bottom: 8px;
-    }
-
-    .section-heading h2 {
-      margin-bottom: 6px;
-      font-size: clamp(1.8rem, 3.6vw, 2.8rem);
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-    }
-
-    .section-heading p:last-child {
-      margin-bottom: 0;
-      color: var(--muted);
-    }
-
-    .source-label {
-      max-width: 300px;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .fixture-picker {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin: 0;
-      padding: 0;
-      border: 0;
-    }
-
-    .fixture-picker legend {
-      width: 100%;
-      margin-bottom: 12px;
-      font-size: 0.93rem;
-      font-weight: 700;
-    }
-
-    .fixture-card {
-      display: flex;
-      min-height: 116px;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      background: #fffefa;
-      cursor: pointer;
-      transition: border-color 120ms ease, background-color 120ms ease;
-    }
-
-    .fixture-card:has(input:checked) {
-      border-color: var(--teal);
-      background: var(--teal-pale);
-      box-shadow: inset 0 0 0 1px var(--teal);
-    }
-
-    .fixture-card input {
-      flex: 0 0 auto;
-      width: 19px;
-      height: 19px;
-      margin: 2px 0 0;
-      accent-color: var(--teal-dark);
-    }
-
-    .fixture-card span {
-      display: block;
-    }
-
-    .fixture-card .fixture-title {
-      margin-bottom: 4px;
-      font-weight: 700;
-    }
-
-    .fixture-card small {
-      display: block;
-      color: var(--muted);
-      font-size: 0.85rem;
-      line-height: 1.45;
-    }
-
-    .run-summary {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px 24px;
-      margin: 20px 0 26px;
-      padding: 17px 19px;
-      border-radius: 14px;
-      background: #edf0ee;
-    }
-
-    .run-summary p {
-      margin: 0;
-    }
-
-    .run-summary .summary-title {
-      font-weight: 700;
-    }
-
-    .exit-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: #fffefa;
-      color: var(--ink);
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-
-    .exit-badge[data-state="pass"] {
-      color: var(--green);
-    }
-
-    .exit-badge[data-state="reject"] {
-      color: var(--gold);
-    }
-
-    .exit-badge[data-state="fail"] {
-      color: var(--red);
-    }
-
-    .view-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 18px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .view-tabs button {
-      min-width: 94px;
-      padding: 10px 16px;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      background: transparent;
-      color: var(--muted);
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .view-tabs button[aria-selected="true"] {
-      border-color: #9bb2b6;
-      background: var(--teal-pale);
-      color: var(--teal-dark);
-    }
-
-    .view-tabs button:hover {
-      border-color: #9bb2b6;
-    }
-
-    .tabpanel {
-      min-height: 360px;
-    }
-
-    [hidden] {
-      display: none !important;
-    }
-
-    .panel-heading {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 20px;
-      margin: 6px 0 20px;
-    }
-
-    .panel-heading h3 {
-      margin-bottom: 4px;
-      font-size: 1.35rem;
-    }
-
-    .panel-heading p {
-      margin-bottom: 0;
-      color: var(--muted);
-    }
-
-    .metadata {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px 22px;
-      margin: 0;
-    }
-
-    .metadata div {
-      min-width: 0;
-    }
-
-    .metadata dt {
-      color: var(--muted);
-      font-size: 0.77rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .metadata dd {
-      overflow-wrap: anywhere;
-      margin: 2px 0 0;
-      font-size: 0.92rem;
-    }
-
-    code,
-    pre,
-    .code-font {
-      font-family: Consolas, "Liberation Mono", monospace;
-      font-size: 0.9em;
-    }
-
-    pre {
-      overflow: auto;
-      max-width: 100%;
-      margin: 0;
-      padding: 18px;
-      border: 1px solid #243c4c;
-      border-radius: 14px;
-      background: var(--code);
-      color: var(--code-ink);
-      line-height: 1.55;
-      tab-size: 2;
-    }
-
-    .source-code {
-      max-height: 440px;
-      white-space: pre;
-    }
-
-    .hash-code {
-      word-break: break-all;
-    }
-
-    .note {
-      margin: 15px 0 0;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .rule-cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin: 0 0 24px;
-    }
-
-    .rule-card {
-      min-height: 112px;
-      padding: 17px;
-      border: 1px solid #d5d2c9;
-      border-radius: 14px;
-      background: #faf8f1;
-    }
-
-    .rule-card strong {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--teal-dark);
-    }
-
-    .rule-card span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .result-counts {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin: 0 0 24px;
-    }
-
-    .count-card {
-      padding: 15px 16px;
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      background: #faf8f1;
-    }
-
-    .count-card strong {
-      display: block;
-      font-size: 1.55rem;
-      line-height: 1.2;
-    }
-
-    .count-card span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-
-    .output-block {
-      margin: 20px 0 0;
-    }
-
-    .output-block h4 {
-      margin-bottom: 8px;
-      font-size: 1.03rem;
-    }
-
-    .output-block > p {
-      margin-bottom: 10px;
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    details {
-      margin-top: 13px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #fffefa;
-    }
-
-    details summary {
-      padding: 13px 15px;
-      color: var(--teal-dark);
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    details pre {
-      margin: 0 12px 12px;
-    }
-
-    .error-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .error-card {
-      padding: 18px;
-      border: 1px solid #e0c4bd;
-      border-left: 4px solid var(--red);
-      border-radius: 14px;
-      background: #fffaf8;
-    }
-
-    .error-heading {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 6px 14px;
-      margin-bottom: 10px;
-    }
-
-    .error-heading h4 {
-      margin: 0;
-    }
-
-    .error-heading span {
-      color: var(--red);
-      font-size: 0.87rem;
-      font-weight: 700;
-    }
-
-    .issue-list {
-      display: grid;
-      gap: 9px;
-      margin: 0 0 14px;
-      padding: 0;
-      list-style: none;
-    }
-
-    .issue {
-      padding: 12px;
-      border-radius: 10px;
-      background: var(--red-pale);
-    }
-
-    .issue-top {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 10px;
-      align-items: baseline;
-    }
-
-    .issue-top code {
-      color: #67241f;
-      font-weight: 700;
-    }
-
-    .issue p {
-      margin: 5px 0 0;
-      color: #503a38;
-    }
-
-    .raw-value {
-      display: block;
-      margin-top: 5px;
-      color: #503a38;
-      font-size: 0.88rem;
-    }
-
-    .row-details {
-      padding-top: 10px;
-      border-top: 1px solid #dfc8c2;
-    }
-
-    .row-details summary {
-      padding: 8px 0;
-    }
-
-    .field-values {
-      display: grid;
-      grid-template-columns: minmax(130px, 0.7fr) minmax(0, 2fr);
-      gap: 0;
-      margin: 0;
-      border-top: 1px solid #e5d8d4;
-    }
-
-    .field-values dt,
-    .field-values dd {
-      margin: 0;
-      padding: 8px 6px;
-      border-bottom: 1px solid #e5d8d4;
-      overflow-wrap: anywhere;
-    }
-
-    .field-values dt {
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .field-values dd {
-      white-space: pre-wrap;
-    }
-
-    .failure-panel {
-      padding: 22px;
-      border: 1px solid #e0bcb5;
-      border-left: 5px solid var(--red);
-      border-radius: 16px;
-      background: var(--red-pale);
-    }
-
-    .failure-panel h3 {
-      margin-bottom: 8px;
-      color: #67241f;
-    }
-
-    .failure-panel p:last-child {
-      margin-bottom: 0;
-    }
-
-    .safe-output {
-      margin: 45px 0 52px;
-      padding: clamp(24px, 4vw, 40px);
-      border: 1px solid #b8c9c2;
-      border-radius: 22px;
-      background: var(--green-pale);
-    }
-
-    .safe-output h2 {
-      margin-bottom: 8px;
-      font-size: clamp(1.55rem, 3vw, 2.2rem);
-      line-height: 1.15;
-    }
-
-    .safe-output > p {
-      max-width: 820px;
-      color: #354e42;
-    }
-
-    .refusal-result {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr);
-      gap: 18px;
-      align-items: start;
-      margin-top: 18px;
-    }
-
-    .refusal-facts {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-    }
-
-    .refusal-facts div {
-      padding: 11px 13px;
-      border-radius: 10px;
-      background: rgb(255 255 255 / 70%);
-    }
-
-    .refusal-facts dt {
-      color: var(--muted);
-      font-size: 0.79rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .refusal-facts dd {
-      margin: 3px 0 0;
-      overflow-wrap: anywhere;
-    }
-
-    .limits {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin: 0 0 60px;
-    }
-
-    .limit-card {
-      padding: 20px;
-      border-top: 3px solid var(--teal);
-      background: rgb(255 253 248 / 78%);
-    }
-
-    .limit-card h3 {
-      margin-bottom: 8px;
-      font-size: 1.02rem;
-    }
-
-    .limit-card p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    .page-footer {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 22px 0 34px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .page-footer p {
-      max-width: 720px;
-      margin: 0;
-    }
-
-    @media (max-width: 820px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding-top: 52px;
-      }
-
-      .hero-side {
-        max-width: none;
-      }
-
-      .section-heading,
-      .panel-heading {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .source-label {
-        max-width: none;
-      }
-
-      .fixture-picker,
-      .rule-cards,
-      .limits {
-        grid-template-columns: 1fr;
-      }
-
-      .result-counts {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 560px) {
-      .page {
-        width: min(100% - 28px, 1260px);
-      }
-
-      .site-header {
-        min-height: 72px;
-        gap: 12px;
-        font-size: 0.9rem;
-      }
-
-      .hero {
-        padding: 42px 0;
-      }
-
-      h1 {
-        font-size: clamp(2.35rem, 12vw, 3.5rem);
-      }
-
-      .quick-facts {
-        grid-template-columns: 1fr;
-      }
-
-      .quick-fact {
-        min-height: 0;
-      }
-
-      .section {
-        padding: 20px 16px;
-        border-radius: 18px;
-      }
-
-      .view-tabs {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 5px;
-      }
-
-      .view-tabs button {
-        min-width: 0;
-        padding: 10px 6px;
-      }
-
-      .metadata {
-        grid-template-columns: 1fr;
-      }
-
-      .refusal-result {
-        grid-template-columns: 1fr;
-      }
-
-      .field-values {
-        grid-template-columns: 1fr;
-      }
-
-      .field-values dt {
-        padding-bottom: 2px;
-        border-bottom: 0;
-      }
-
-      .field-values dd {
-        padding-top: 2px;
-      }
-
-      .page-footer {
-        flex-direction: column;
-      }
-    }
-
-    @media print {
-      body {
-        background: #fff;
-      }
-
-      .page {
-        width: 100%;
-      }
-
-      .site-header,
-      .view-tabs,
-      .fixture-picker {
-        break-inside: avoid;
-      }
-
-      .section,
-      .safe-output {
-        box-shadow: none;
-      }
-
-      pre {
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f5f0">
+<title>ExportCheck CSV preflight</title>
+<meta name="description" content="ExportCheck checks a CSV against a JSON rules file, writes the rows that pass to one file and every rejected row with its reasons to another. Three recorded runs and an overwrite refusal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="study.css">
+<style>
+.exit-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.exit-list li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: center; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.exit-list .code-no { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; font: 600 18px/1 var(--mono); }
+.exit-list b { display: block; font-weight: 600; }
+.exit-list span.desc { color: var(--muted); font-size: 15px; }
+.n0 { background: var(--brand-soft); color: var(--deep); }
+.n1 { background: var(--warning-soft); color: #6b430a; }
+.n2 { background: var(--error-soft); color: #8a2c1e; }
+.n3 { background: #e6eef6; color: #23476a; }
+
+.viewer { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+@media (min-width: 900px) { .viewer { padding: 28px; } }
+.picker { display: grid; gap: 10px; margin: 0; padding: 0; border: 0; min-width: 0; }
+@media (min-width: 760px) { .picker { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.picker legend { margin-bottom: 10px; padding: 0; font-weight: 600; }
+.pick { position: relative; display: flex; gap: 12px; align-items: flex-start; min-height: 44px; padding: 14px 16px; border: 1px solid var(--line-strong); border-radius: var(--radius-button); background: var(--surface); cursor: pointer; transition: border-color .18s var(--ease), background-color .18s var(--ease); }
+.pick:hover { border-color: #aeb9b1; background: var(--surface-soft); }
+.pick:has(input:checked) { border-color: var(--brand); background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand); }
+.pick:has(input:focus-visible) { box-shadow: var(--focus); }
+.pick input { flex: none; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--brand); }
+.pick input:focus-visible { box-shadow: none; }
+.pick b { display: block; font-weight: 600; }
+.pick small { display: block; margin-top: 2px; color: var(--muted); font-size: 14px; line-height: 1.45; }
+
+.run-summary { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; margin: 20px 0; padding: 14px 16px; border-radius: var(--radius-button); background: var(--paper); }
+.run-summary p { font-weight: 600; }
+
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; padding: 4px; border-radius: 12px; background: var(--paper); width: fit-content; max-width: 100%; }
+.tabs button { min-height: 44px; min-width: 88px; padding: 8px 16px; border: 0; border-radius: var(--radius-button); background: transparent; color: var(--muted); font-weight: 600; transition: background-color .18s var(--ease), color .18s var(--ease); }
+.tabs button:hover { color: var(--ink); }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--deep); box-shadow: var(--shadow); }
+@media (max-width: 479px) { .tabs { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; } .tabs button { min-width: 0; padding: 8px 6px; } }
+.tabpanel:focus-visible { border-radius: var(--radius-button); }
+
+.panel-head { display: grid; gap: 16px; margin-bottom: 16px; }
+@media (min-width: 900px) { .panel-head { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); align-items: start; } }
+.panel-head h3 { font-size: 20px; }
+.panel-head p { margin-top: 4px; color: var(--muted); font-size: 15px; }
+.meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 20px; margin: 0; }
+.meta div { min-width: 0; }
+.meta dt { color: var(--muted); font-size: 13px; font-weight: 600; }
+.meta dd { margin: 2px 0 0; overflow-wrap: anywhere; font-size: 15px; }
+.meta dd code { font-size: 12.5px; word-break: break-all; }
+@media (max-width: 479px) { .meta { grid-template-columns: 1fr; } }
+
+.rule-cards { display: grid; gap: 10px; margin-bottom: 16px; }
+@media (min-width: 760px) { .rule-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rule-card { padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius-button); background: var(--surface-soft); }
+.rule-card b { display: block; color: var(--deep); font-weight: 600; }
+.rule-card span { color: var(--muted); font-size: 14px; }
+
+.counts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
+@media (min-width: 760px) { .counts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.count { padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius-button); background: var(--surface-soft); }
+.count strong { display: block; font: 600 28px/1.1 var(--mono); font-variant-numeric: tabular-nums; }
+.count span { color: var(--muted); font-size: 14px; }
+.count.is-bad strong { color: var(--error); }
+.count.is-ok strong { color: var(--brand); }
+
+.block { margin-top: 20px; }
+.block > h4 { font-size: 17px; margin-bottom: 4px; }
+.block > p { margin-bottom: 10px; color: var(--muted); font-size: 15px; }
+.code pre.scroll { max-height: 420px; }
+
+.errors { display: grid; gap: 12px; }
+.err { padding: 16px; border: 1px solid #ecd0c8; border-left: 4px solid var(--error); border-radius: var(--radius-button); background: #fffaf8; }
+.err-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin-bottom: 10px; }
+.err-head h5 { margin: 0; font: 600 16px/1.3 var(--heading); }
+.err-head span { color: var(--error); font-size: 14px; font-weight: 600; }
+.issues { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.issue { padding: 10px 12px; border-radius: 8px; background: var(--error-soft); }
+.issue-top { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.issue-top code { color: #7a2618; font-weight: 600; font-size: 13px; overflow-wrap: anywhere; }
+.issue p { margin-top: 4px; font-size: 15px; }
+.issue .raw { display: block; margin-top: 2px; color: #5b3d37; font-size: 14px; overflow-wrap: anywhere; }
+.err details { margin-top: 10px; }
+.err summary { display: flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--deep); cursor: pointer; }
+.fields { display: grid; grid-template-columns: minmax(110px, .6fr) minmax(0, 2fr); margin: 0; border-top: 1px solid #ecd0c8; font-size: 14px; }
+.fields dt, .fields dd { margin: 0; padding: 6px 4px; border-bottom: 1px solid #ecd0c8; overflow-wrap: anywhere; }
+.fields dt { color: var(--muted); font-weight: 600; font-family: var(--mono); font-size: 13px; }
+.fields dd { white-space: pre-wrap; }
+
+.failure { padding: 18px; border: 1px solid #ecd0c8; border-left: 4px solid var(--error); border-radius: var(--radius-button); background: #fffaf8; margin-bottom: 12px; }
+.failure h3 { font-size: 18px; color: #7a2618; }
+.failure p { margin-top: 6px; }
+
+.refusal { display: grid; gap: 16px; align-items: start; }
+@media (min-width: 900px) { .refusal { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
+.refusal .meta { grid-template-columns: 1fr; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.hash-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.hash-table th, .hash-table td { padding: 8px 4px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.hash-table th { color: var(--muted); font-weight: 600; }
+.hash-table td code { word-break: break-all; font-size: 12px; }
+.hash-table td.num { text-align: right; white-space: nowrap; }
+</style>
 </head>
 <body>
-  <header class="page site-header">
-    <div class="owner-name">Alexandr Khrustalev</div>
-    <a href="./index.html">Selected work index</a>
-  </header>
+<a class="skip-link" href="#main">Skip to the study</a>
+<header class="site-bar">
+  <div class="wrap">
+    <a class="back-link" href="index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
+    <span class="site-owner">Alexandr Khrustalev</span>
+  </div>
+</header>
 
-  <main class="page">
-    <section class="hero" aria-labelledby="page-title">
+<main id="main">
+  <section class="hero wrap" aria-labelledby="title">
+    <p class="kicker">Python command-line tool</p>
+    <h1 id="title">Check a CSV before it goes anywhere, and keep the rows that fail.</h1>
+    <p class="lede">ExportCheck checks one CSV against a small JSON rules file. Rows that pass go to <code>clean.csv</code>. Every rejected row goes to <code>row-errors.csv</code> with each reason and the full original row, so nothing disappears. Below are three recorded runs and one refusal, with the exact files they produced.</p>
+    <div class="actions">
+      <a class="button button-primary" href="#runs">Inspect the recorded runs</a>
+      <a class="button button-secondary" href="#refusal">See the overwrite refusal</a>
+    </div>
+    <dl class="facts">
+      <div class="fact"><dt>recorded runs on synthetic files</dt><dd>3</dd></div>
+      <div class="fact"><dt>issues caught across 4 rejected rows</dt><dd>8</dd></div>
+      <div class="fact"><dt>distinct exit codes a script can branch on</dt><dd>4</dd></div>
+      <div class="fact"><dt>result files changed when it refused to overwrite</dt><dd>0</dd></div>
+    </dl>
+  </section>
+
+  <section class="section wrap" aria-labelledby="problem-title">
+    <div class="split">
+      <div class="section-head">
+        <p class="eyebrow">The problem</p>
+        <h2 id="problem-title">One bad row shouldn't sink the file, or vanish.</h2>
+        <p>An export lands in someone else's import. A duplicate order ID, an impossible date or an amount with three decimals either breaks the import or slips through. Many checks reject the whole file, or quietly drop the bad rows and leave no record of what went missing.</p>
+        <p>ExportCheck splits the file instead and writes a <code>summary.json</code> with the counts. Formula-like text such as <code>=SUM(1,2)</code> gets an apostrophe in the clean file so it can't run in a spreadsheet.</p>
+      </div>
       <div>
-        <p class="eyebrow">ExportCheck 1.0.0 recorded synthetic demonstration</p>
-        <h1 id="page-title">Check the rows you accept. Keep rejected rows in view.</h1>
-        <div class="hero-copy">
-          <p>ExportCheck checks one UTF-8 CSV against a local JSON rules file. This page shows three synthetic files run through the reviewed candidate and the exact results it produced.</p>
-          <p>Accepted rows, every row-level issue, file-level failures, and an existing-output refusal are shown separately.</p>
-        </div>
-        <div class="quick-facts" aria-label="Recorded demonstration facts">
-          <div class="quick-fact"><strong>3</strong><span>synthetic CSV fixtures</span></div>
-          <div class="quick-fact"><strong>8</strong><span>issue entries in the mixed run</span></div>
-          <div class="quick-fact"><strong>0</strong><span>existing result files changed on refusal</span></div>
-        </div>
+        <p class="eyebrow">Exit codes</p>
+        <ul class="exit-list">
+          <li><span class="code-no n0">0</span><span><b>Every row passed</b><span class="desc">Clean file, empty error file, summary.</span></span></li>
+          <li><span class="code-no n1">1</span><span><b>Some rows were rejected</b><span class="desc">The good rows still go through. The rest are listed with reasons.</span></span></li>
+          <li><span class="code-no n2">2</span><span><b>The file itself is unusable</b><span class="desc">For example duplicate headers. No result folder is created.</span></span></li>
+          <li><span class="code-no n3">3</span><span><b>The output folder already exists</b><span class="desc">Earlier results are never overwritten.</span></span></li>
+        </ul>
       </div>
-      <aside class="hero-side">
-        <strong>Recorded evidence only</strong>
-        <p>This page displays saved local CLI results. It has no file upload and does not validate files supplied by a reader. No customer data, paid work, or production acceptance is represented.</p>
-      </aside>
-    </section>
+    </div>
+  </section>
 
-    <section class="section" aria-labelledby="evidence-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Input, rules, and results</p>
-          <h2 id="evidence-title">Inspect each recorded run</h2>
-          <p>The same sample rules were used with all three fixtures.</p>
-        </div>
-        <div class="source-label">ExportCheck 1.0.0 candidate. Python 3.10 or newer. Standard library only.</div>
-      </div>
-
-      <fieldset class="fixture-picker" aria-describedby="fixture-help">
-        <legend>Choose a synthetic fixture</legend>
-        <label class="fixture-card">
-          <input type="radio" name="fixture" value="clean" checked>
-          <span>
-            <span class="fixture-title">Clean data</span>
-            <small>Three accepted rows. No row errors. Process exit code 0.</small>
-          </span>
-        </label>
-        <label class="fixture-card">
-          <input type="radio" name="fixture" value="mixed_row_failures">
-          <span>
-            <span class="fixture-title">Mixed row failures</span>
-            <small>One accepted row, four rejected rows, eight issue entries. Process exit code 1.</small>
-          </span>
-        </label>
-        <label class="fixture-card">
-          <input type="radio" name="fixture" value="duplicate_header_file_failure">
-          <span>
-            <span class="fixture-title">Duplicate header</span>
-            <small>File-level failure. No result folder. Process exit code 2.</small>
-          </span>
-        </label>
+  <section class="section wrap" id="runs" aria-labelledby="runs-title">
+    <div class="section-head">
+      <p class="eyebrow">Recorded runs</p>
+      <h2 id="runs-title">Pick a file and look at what came out.</h2>
+      <p>All three runs used the same rules file. Everything shown is the exact text of the input and output files, saved from the command-line run.</p>
+    </div>
+    <div class="viewer">
+      <fieldset class="picker">
+        <legend>Sample file</legend>
+        <label class="pick"><input type="radio" name="fixture" value="clean" checked><span><b>Clean data</b><small>3 rows, all accepted. Exit code 0.</small></span></label>
+        <label class="pick"><input type="radio" name="fixture" value="mixed_row_failures"><span><b>Mixed row failures</b><small>1 row accepted, 4 rejected with 8 issues. Exit code 1.</small></span></label>
+        <label class="pick"><input type="radio" name="fixture" value="duplicate_header_file_failure"><span><b>Duplicate header</b><small>Stopped before any row was read. Exit code 2.</small></span></label>
       </fieldset>
-      <p id="fixture-help" class="note">Use the radio buttons to select a run. The Input, Rules, and Results tabs show the matching captured evidence.</p>
 
-      <div id="run-summary" class="run-summary" aria-live="polite" aria-atomic="true">
-        <p class="summary-title">Loading captured evidence.</p>
-      </div>
+      <div id="run-summary" class="run-summary" aria-live="polite" aria-atomic="true"><p>Loading the recorded run.</p></div>
 
-      <div class="view-tabs" role="tablist" aria-label="Evidence view">
+      <div class="tabs" role="tablist" aria-label="Recorded run views">
         <button id="tab-input" type="button" role="tab" aria-selected="true" aria-controls="panel-input" tabindex="0">Input</button>
         <button id="tab-rules" type="button" role="tab" aria-selected="false" aria-controls="panel-rules" tabindex="-1">Rules</button>
         <button id="tab-results" type="button" role="tab" aria-selected="false" aria-controls="panel-results" tabindex="-1">Results</button>
       </div>
+      <div id="panel-input" class="tabpanel" role="tabpanel" aria-labelledby="tab-input" tabindex="0"></div>
+      <div id="panel-rules" class="tabpanel" role="tabpanel" aria-labelledby="tab-rules" tabindex="0" hidden></div>
+      <div id="panel-results" class="tabpanel" role="tabpanel" aria-labelledby="tab-results" tabindex="0" hidden></div>
+      <noscript><p class="note">Switching between runs needs JavaScript. The clean run is described above.</p></noscript>
+    </div>
+  </section>
 
-      <section id="panel-input" class="tabpanel" role="tabpanel" aria-labelledby="tab-input" tabindex="0">
-        <div id="input-content"></div>
-      </section>
-      <section id="panel-rules" class="tabpanel" role="tabpanel" aria-labelledby="tab-rules" tabindex="0" hidden>
-        <div id="rules-content"></div>
-      </section>
-      <section id="panel-results" class="tabpanel" role="tabpanel" aria-labelledby="tab-results" tabindex="0" hidden>
-        <div id="results-content"></div>
-      </section>
-      <noscript><p class="notice">JavaScript is required to switch between the recorded fixtures.</p></noscript>
-    </section>
+  <section class="section wrap" id="refusal" aria-labelledby="refusal-title">
+    <div class="section-head">
+      <p class="eyebrow">Overwrite refusal</p>
+      <h2 id="refusal-title">Run it twice and the first results stay put.</h2>
+      <p>After the clean run created its result folder, I pointed ExportCheck at the same folder again. It refused with exit code 3. The three result files had the same paths, sizes and SHA-256 hashes before and after.</p>
+    </div>
+    <div class="refusal" id="refusal-content"></div>
+  </section>
 
-    <section class="safe-output" aria-labelledby="safe-output-title">
-      <p class="eyebrow">Separate output-path check</p>
-      <h2 id="safe-output-title">An existing results folder stays untouched</h2>
-      <p>After the clean run created its result folder, the same output path was tried again. ExportCheck refused it with process exit code 3. The three existing result files had the same paths, byte sizes, and SHA-256 hashes before and after the refusal.</p>
-      <div id="overwrite-content" class="refusal-result"></div>
-    </section>
-
-    <section aria-labelledby="limits-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Scope of this proof</p>
-          <h2 id="limits-title">What these runs establish</h2>
-          <p>The output reflects only the exact sample rules shown above.</p>
-        </div>
+  <section class="section wrap" aria-labelledby="limits-title">
+    <div class="limits">
+      <div>
+        <h2 id="limits-title">Where this stops</h2>
+        <p>These are saved results from ExportCheck 1.0.0 on synthetic sample files. The page doesn't run the tool or accept your file, and the tool has no customer use yet.</p>
+        <ul>
+          <li>The output only reflects the sample rules shown in the Rules tab.</li>
+          <li>Amounts are checked as exact decimals within a range. It doesn't infer currency or reconcile totals.</li>
+          <li>It doesn't repair rows or connect to an ERP.</li>
+        </ul>
       </div>
-      <div class="limits">
-        <article class="limit-card">
-          <h3>Decimal checks are exact</h3>
-          <p>The sample requires a finite plain decimal, permits at most two digits after the point, and includes its negative and positive bounds. It does not infer a currency or reconcile totals.</p>
-        </article>
-        <article class="limit-card">
-          <h3>Rejected rows remain available</h3>
-          <p>Every row-level issue appears in row-errors.csv. Each issue record includes the complete source row as original_row_json, so rejected data is retained in the output.</p>
-        </article>
-        <article class="limit-card">
-          <h3>This page is a fixed study</h3>
-          <p>It does not accept a CSV, repair a row, connect to an ERP, or prove suitability for a business process. The sample files are synthetic and have no customer-use history.</p>
-        </article>
+      <div>
+        <h3>What it needs</h3>
+        <p>Python 3.10 or newer and nothing else. The standard library covers the CSV reading, decimal checks and file writing.</p>
       </div>
-    </section>
+    </div>
+  </section>
+</main>
 
-    <footer class="page-footer">
-      <p>Independent demonstration work by Alexandr Khrustalev. ExportCheck has no recorded customer use or production acceptance.</p>
-      <a href="./index.html">View the selected work index</a>
-    </footer>
-  </main>
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Independent work by Alexandr Khrustalev. The sample files are synthetic.</p>
+    <a href="index.html">Back to selected work</a>
+  </div>
+</footer>
 
-  <script id="proof-data" type="application/json">{"version":"1.0.0 candidate","rules":{"sha256":"74f2d6e54fa4017fba3cafaef50209e6418f2b50c0808dcdd97e8d6f57ee9ed8","text":"{\n  \"schema_version\": 1,\n  \"required_headers\": [\n    \"order_id\",\n    \"customer\",\n    \"status\",\n    \"ordered_on\",\n    \"amount\",\n    \"notes\"\n  ],\n  \"unique_key\": \"order_id\",\n  \"required_values\": [\n    \"order_id\",\n    \"customer\",\n    \"status\",\n    \"ordered_on\",\n    \"amount\"\n  ],\n  \"string_enums\": {\n    \"status\": [\n      \"open\",\n      \"paid\",\n      \"cancelled\"\n    ]\n  },\n  \"iso_dates\": [\n    \"ordered_on\"\n  ],\n  \"decimals\": {\n    \"amount\": {\n      \"min\": \"-999999.99\",\n      \"max\": \"999999.99\",\n      \"max_scale\": 2\n    }\n  },\n  \"limits\": {\n    \"max_rows\": 10000,\n    \"max_bytes\": 5000000,\n    \"max_output_bytes\": 20000000\n  }\n}\n"},"rule_facts":[{"title":"Headers","detail":"All 6 required names must match exactly, including case."},{"title":"Unique key","detail":"order_id must be present and unique across data rows."},{"title":"Required values","detail":"order_id, customer, status, ordered_on, and amount cannot be blank."},{"title":"Status values","detail":"The only configured choices are open, paid, and cancelled."},{"title":"ISO dates","detail":"ordered_on must be a valid calendar date written as YYYY-MM-DD."},{"title":"Exact decimals","detail":"amount must be finite, within -999999.99 to 999999.99, with no more than 2 decimal places."}],"cases":{"clean":{"label":"Clean data","state":"pass","summary_title":"All three rows passed the configured rules.","input_note":"The negative amount remains valid under the configured range. The formula-like note is prefixed in clean.csv.","exit_code":0,"input":{"name":"clean.csv","text":"order_id,customer,status,ordered_on,amount,notes\nORD-2001,Demo Wholesale,open,2026-10-12,1250.00,Ready for review\nORD-2002,\"Sample, Retail\",paid,2026-10-13,-49.50,\"Credit note, retained\"\nORD-2003,Harbor Sample,cancelled,2026-10-14,0,\"=SUM(1,2)\"\n","bytes":245,"sha256":"4c52ad8e9649af36f503845ef759386fa2d6cb1d432401f1420e8afaad433f53","data_record_count":3},"output_directory_created":true,"file_failure":null,"outputs":{"clean_csv":"order_id,customer,status,ordered_on,amount,notes\nORD-2001,Demo Wholesale,open,2026-10-12,1250.00,Ready for review\nORD-2002,\"Sample, Retail\",paid,2026-10-13,-49.50,\"Credit note, retained\"\nORD-2003,Harbor Sample,cancelled,2026-10-14,0,\"'=SUM(1,2)\"\n","row_errors_csv":"row_number,column,code,message,raw_value,original_row_json\n","summary_json":"{\n  \"summary_version\": 1,\n  \"tool\": \"ExportCheck\",\n  \"status\": \"completed\",\n  \"input\": {\n    \"file_name\": \"clean.csv\",\n    \"sha256\": \"4c52ad8e9649af36f503845ef759386fa2d6cb1d432401f1420e8afaad433f53\",\n    \"bytes\": 245\n  },\n  \"limits\": {\n    \"max_rows\": 10000,\n    \"max_input_bytes\": 5000000,\n    \"max_output_bytes\": 20000000,\n    \"hard_max_rows\": 100000,\n    \"hard_max_input_bytes\": 50000000,\n    \"hard_max_output_bytes\": 50000000,\n    \"max_columns\": 256,\n    \"max_field_characters\": 256000\n  },\n  \"records\": {\n    \"data_rows\": 3,\n    \"accepted_rows\": 3,\n    \"rejected_rows\": 0,\n    \"row_error_entries\": 0\n  },\n  \"outputs\": {\n    \"clean_csv\": \"clean.csv\",\n    \"row_errors_csv\": \"row-errors.csv\",\n    \"summary_json\": \"summary.json\"\n  },\n  \"transformations\": {\n    \"formula_safe_prefixes\": 1,\n    \"formula_safety\": \"Formula-like text is prefixed with an apostrophe. Strict signed decimal text is left unchanged.\",\n    \"cell_normalization\": \"None. Cell values are preserved except for formula-safe prefixes.\",\n    \"csv_serialization\": \"Rows are reserialized with Python CSV quoting. Quoting style may differ while parsed cell values stay the same.\",\n    \"csv_encoding\": \"UTF-8 without a byte-order mark.\",\n    \"csv_record_terminator\": \"LF. Input line endings are normalized by CSV output writing.\",\n    \"rejected_rows\": \"Every rejected data row appears in row-errors.csv and in the rejected row count.\"\n  }\n}\n"},"counts":[["Data rows",3],["Accepted rows",3],["Rejected rows",0],["Issue entries",0]],"error_groups":[],"output_directory":"runs/clean","formula_safe_prefixes":1},"mixed_row_failures":{"label":"Mixed row failures","state":"reject","summary_title":"One row passed. Four rejected rows have eight recorded issues.","input_note":"The last note is quoted across two physical lines. The reader counts it as one CSV record, reported as record 6.","exit_code":1,"input":{"name":"mixed-row-failures.csv","text":"order_id,customer,status,ordered_on,amount,notes\nORD-3001,Demo Wholesale,open,2026-10-14,12.50,Valid row\nORD-3001,,pending,2026-02-30,1.234,\"=SUM(1,2)\"\nORD-3003,Boundary Demo,paid,2026-10-15,1000000.00,Outside inclusive maximum\nORD-3004,Number Demo,open,2026-10-16,NaN,Non-finite decimal\nORD-3005,Line Break Demo,open,2026-10-17,Infinity,\"First line\nSecond line, with comma\"\n","bytes":375,"sha256":"03fcdf6ec34f9394a30d14c2aa14c40eba11c62f3b93619698b9a4b16a1f27b1","data_record_count":5},"output_directory_created":true,"file_failure":null,"outputs":{"clean_csv":"order_id,customer,status,ordered_on,amount,notes\nORD-3001,Demo Wholesale,open,2026-10-14,12.50,Valid row\n","row_errors_csv":"row_number,column,code,message,raw_value,original_row_json\n3,customer,required_value_missing,A value is required.,,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,order_id,duplicate_unique_key,The unique key already appeared on record 2.,ORD-3001,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,status,enum_value_invalid,The value is not one of the configured choices.,pending,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,ordered_on,iso_date_invalid,Use a valid date in YYYY-MM-DD form.,2026-02-30,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,amount,decimal_scale,Use no more than 2 digits after the decimal point.,1.234,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n4,amount,decimal_out_of_range,The value is outside the configured inclusive range.,1000000.00,\"[\"\"ORD-3003\"\",\"\"Boundary Demo\"\",\"\"paid\"\",\"\"2026-10-15\"\",\"\"1000000.00\"\",\"\"Outside inclusive maximum\"\"]\"\n5,amount,invalid_decimal,Use a finite decimal without exponent notation.,NaN,\"[\"\"ORD-3004\"\",\"\"Number Demo\"\",\"\"open\"\",\"\"2026-10-16\"\",\"\"NaN\"\",\"\"Non-finite decimal\"\"]\"\n6,amount,invalid_decimal,Use a finite decimal without exponent notation.,Infinity,\"[\"\"ORD-3005\"\",\"\"Line Break Demo\"\",\"\"open\"\",\"\"2026-10-17\"\",\"\"Infinity\"\",\"\"First line\\nSecond line, with comma\"\"]\"\n","summary_json":"{\n  \"summary_version\": 1,\n  \"tool\": \"ExportCheck\",\n  \"status\": \"completed_with_rejected_rows\",\n  \"input\": {\n    \"file_name\": \"mixed-row-failures.csv\",\n    \"sha256\": \"03fcdf6ec34f9394a30d14c2aa14c40eba11c62f3b93619698b9a4b16a1f27b1\",\n    \"bytes\": 375\n  },\n  \"limits\": {\n    \"max_rows\": 10000,\n    \"max_input_bytes\": 5000000,\n    \"max_output_bytes\": 20000000,\n    \"hard_max_rows\": 100000,\n    \"hard_max_input_bytes\": 50000000,\n    \"hard_max_output_bytes\": 50000000,\n    \"max_columns\": 256,\n    \"max_field_characters\": 256000\n  },\n  \"records\": {\n    \"data_rows\": 5,\n    \"accepted_rows\": 1,\n    \"rejected_rows\": 4,\n    \"row_error_entries\": 8\n  },\n  \"outputs\": {\n    \"clean_csv\": \"clean.csv\",\n    \"row_errors_csv\": \"row-errors.csv\",\n    \"summary_json\": \"summary.json\"\n  },\n  \"transformations\": {\n    \"formula_safe_prefixes\": 0,\n    \"formula_safety\": \"Formula-like text is prefixed with an apostrophe. Strict signed decimal text is left unchanged.\",\n    \"cell_normalization\": \"None. Cell values are preserved except for formula-safe prefixes.\",\n    \"csv_serialization\": \"Rows are reserialized with Python CSV quoting. Quoting style may differ while parsed cell values stay the same.\",\n    \"csv_encoding\": \"UTF-8 without a byte-order mark.\",\n    \"csv_record_terminator\": \"LF. Input line endings are normalized by CSV output writing.\",\n    \"rejected_rows\": \"Every rejected data row appears in row-errors.csv and in the rejected row count.\"\n  }\n}\n"},"counts":[["Data rows",5],["Accepted rows",1],["Rejected rows",4],["Issue entries",8]],"error_groups":[{"row_number":"3","issues":[{"column":"customer","code":"required_value_missing","message":"A value is required.","raw_value":""},{"column":"order_id","code":"duplicate_unique_key","message":"The unique key already appeared on record 2.","raw_value":"ORD-3001"},{"column":"status","code":"enum_value_invalid","message":"The value is not one of the configured choices.","raw_value":"pending"},{"column":"ordered_on","code":"iso_date_invalid","message":"Use a valid date in YYYY-MM-DD form.","raw_value":"2026-02-30"},{"column":"amount","code":"decimal_scale","message":"Use no more than 2 digits after the decimal point.","raw_value":"1.234"}],"original_fields":[["order_id","ORD-3001"],["customer",""],["status","pending"],["ordered_on","2026-02-30"],["amount","1.234"],["notes","=SUM(1,2)"]]},{"row_number":"4","issues":[{"column":"amount","code":"decimal_out_of_range","message":"The value is outside the configured inclusive range.","raw_value":"1000000.00"}],"original_fields":[["order_id","ORD-3003"],["customer","Boundary Demo"],["status","paid"],["ordered_on","2026-10-15"],["amount","1000000.00"],["notes","Outside inclusive maximum"]]},{"row_number":"5","issues":[{"column":"amount","code":"invalid_decimal","message":"Use a finite decimal without exponent notation.","raw_value":"NaN"}],"original_fields":[["order_id","ORD-3004"],["customer","Number Demo"],["status","open"],["ordered_on","2026-10-16"],["amount","NaN"],["notes","Non-finite decimal"]]},{"row_number":"6","issues":[{"column":"amount","code":"invalid_decimal","message":"Use a finite decimal without exponent notation.","raw_value":"Infinity"}],"original_fields":[["order_id","ORD-3005"],["customer","Line Break Demo"],["status","open"],["ordered_on","2026-10-17"],["amount","Infinity"],["notes","First line\nSecond line, with comma"]]}],"output_directory":"runs/mixed","formula_safe_prefixes":0},"duplicate_header_file_failure":{"label":"Duplicate header","state":"fail","summary_title":"Duplicate column names stopped this file before row processing.","input_note":"The final two column names are both notes. Duplicate headers are a file-level error.","exit_code":2,"input":{"name":"duplicate-headers.csv","text":"order_id,customer,status,ordered_on,amount,notes,notes\nORD-4001,Header Demo,paid,2026-10-18,25.00,first notes,second notes\n","bytes":123,"sha256":"9746c9601cf7794759b7a639434078d88c67216f1b67056fea4a18d4b7e7403b","data_record_count":1},"output_directory_created":false,"file_failure":{"code":"duplicate_headers","message":"The CSV header contains duplicate names.","exact_stderr":"ExportCheck file failure [duplicate_headers]: The CSV header contains duplicate names."},"outputs":null,"counts":[],"error_groups":[]}},"existing_output_refusal":{"exit_code":3,"exact_stderr":"ExportCheck output failure [output_exists]: The output path already exists. Choose a new directory name.","manifest_sha256":"da478a333dde9d9626adeb2ae863e0c1f367a3e2e0a763794855b668f527a452","unchanged":true,"files":[{"path":"clean.csv","bytes":246,"sha256":"cd3b49788de566398d86e4680777fb61975a1c032c46c05160aea49d9eabf2ed"},{"path":"row-errors.csv","bytes":59,"sha256":"a2085e481575ac926d485bbdf052cae8067e25a1257274f1bd009cd7c08fb275"},{"path":"summary.json","bytes":1406,"sha256":"c4a439f101a6a64eabff4e083bccc6a0c274899c350101d352dcc77e33f4664d"}]}}</script>
-  <script>
-    (() => {
-      "use strict";
+<script id="proof-data" type="application/json">{"version":"1.0.0 candidate","rules":{"sha256":"74f2d6e54fa4017fba3cafaef50209e6418f2b50c0808dcdd97e8d6f57ee9ed8","text":"{\n  \"schema_version\": 1,\n  \"required_headers\": [\n    \"order_id\",\n    \"customer\",\n    \"status\",\n    \"ordered_on\",\n    \"amount\",\n    \"notes\"\n  ],\n  \"unique_key\": \"order_id\",\n  \"required_values\": [\n    \"order_id\",\n    \"customer\",\n    \"status\",\n    \"ordered_on\",\n    \"amount\"\n  ],\n  \"string_enums\": {\n    \"status\": [\n      \"open\",\n      \"paid\",\n      \"cancelled\"\n    ]\n  },\n  \"iso_dates\": [\n    \"ordered_on\"\n  ],\n  \"decimals\": {\n    \"amount\": {\n      \"min\": \"-999999.99\",\n      \"max\": \"999999.99\",\n      \"max_scale\": 2\n    }\n  },\n  \"limits\": {\n    \"max_rows\": 10000,\n    \"max_bytes\": 5000000,\n    \"max_output_bytes\": 20000000\n  }\n}\n"},"rule_facts":[{"title":"Headers","detail":"All 6 required names must match exactly, including case."},{"title":"Unique key","detail":"order_id must be present and unique across data rows."},{"title":"Required values","detail":"order_id, customer, status, ordered_on, and amount cannot be blank."},{"title":"Status values","detail":"The only configured choices are open, paid, and cancelled."},{"title":"ISO dates","detail":"ordered_on must be a valid calendar date written as YYYY-MM-DD."},{"title":"Exact decimals","detail":"amount must be finite, within -999999.99 to 999999.99, with no more than 2 decimal places."}],"cases":{"clean":{"label":"Clean data","state":"pass","summary_title":"All three rows passed the configured rules.","input_note":"The negative amount remains valid under the configured range. The formula-like note is prefixed in clean.csv.","exit_code":0,"input":{"name":"clean.csv","text":"order_id,customer,status,ordered_on,amount,notes\nORD-2001,Demo Wholesale,open,2026-10-12,1250.00,Ready for review\nORD-2002,\"Sample, Retail\",paid,2026-10-13,-49.50,\"Credit note, retained\"\nORD-2003,Harbor Sample,cancelled,2026-10-14,0,\"=SUM(1,2)\"\n","bytes":245,"sha256":"4c52ad8e9649af36f503845ef759386fa2d6cb1d432401f1420e8afaad433f53","data_record_count":3},"output_directory_created":true,"file_failure":null,"outputs":{"clean_csv":"order_id,customer,status,ordered_on,amount,notes\nORD-2001,Demo Wholesale,open,2026-10-12,1250.00,Ready for review\nORD-2002,\"Sample, Retail\",paid,2026-10-13,-49.50,\"Credit note, retained\"\nORD-2003,Harbor Sample,cancelled,2026-10-14,0,\"'=SUM(1,2)\"\n","row_errors_csv":"row_number,column,code,message,raw_value,original_row_json\n","summary_json":"{\n  \"summary_version\": 1,\n  \"tool\": \"ExportCheck\",\n  \"status\": \"completed\",\n  \"input\": {\n    \"file_name\": \"clean.csv\",\n    \"sha256\": \"4c52ad8e9649af36f503845ef759386fa2d6cb1d432401f1420e8afaad433f53\",\n    \"bytes\": 245\n  },\n  \"limits\": {\n    \"max_rows\": 10000,\n    \"max_input_bytes\": 5000000,\n    \"max_output_bytes\": 20000000,\n    \"hard_max_rows\": 100000,\n    \"hard_max_input_bytes\": 50000000,\n    \"hard_max_output_bytes\": 50000000,\n    \"max_columns\": 256,\n    \"max_field_characters\": 256000\n  },\n  \"records\": {\n    \"data_rows\": 3,\n    \"accepted_rows\": 3,\n    \"rejected_rows\": 0,\n    \"row_error_entries\": 0\n  },\n  \"outputs\": {\n    \"clean_csv\": \"clean.csv\",\n    \"row_errors_csv\": \"row-errors.csv\",\n    \"summary_json\": \"summary.json\"\n  },\n  \"transformations\": {\n    \"formula_safe_prefixes\": 1,\n    \"formula_safety\": \"Formula-like text is prefixed with an apostrophe. Strict signed decimal text is left unchanged.\",\n    \"cell_normalization\": \"None. Cell values are preserved except for formula-safe prefixes.\",\n    \"csv_serialization\": \"Rows are reserialized with Python CSV quoting. Quoting style may differ while parsed cell values stay the same.\",\n    \"csv_encoding\": \"UTF-8 without a byte-order mark.\",\n    \"csv_record_terminator\": \"LF. Input line endings are normalized by CSV output writing.\",\n    \"rejected_rows\": \"Every rejected data row appears in row-errors.csv and in the rejected row count.\"\n  }\n}\n"},"counts":[["Data rows",3],["Accepted rows",3],["Rejected rows",0],["Issue entries",0]],"error_groups":[],"output_directory":"runs/clean","formula_safe_prefixes":1},"mixed_row_failures":{"label":"Mixed row failures","state":"reject","summary_title":"One row passed. Four rejected rows have eight recorded issues.","input_note":"The last note is quoted across two physical lines. The reader counts it as one CSV record, reported as record 6.","exit_code":1,"input":{"name":"mixed-row-failures.csv","text":"order_id,customer,status,ordered_on,amount,notes\nORD-3001,Demo Wholesale,open,2026-10-14,12.50,Valid row\nORD-3001,,pending,2026-02-30,1.234,\"=SUM(1,2)\"\nORD-3003,Boundary Demo,paid,2026-10-15,1000000.00,Outside inclusive maximum\nORD-3004,Number Demo,open,2026-10-16,NaN,Non-finite decimal\nORD-3005,Line Break Demo,open,2026-10-17,Infinity,\"First line\nSecond line, with comma\"\n","bytes":375,"sha256":"03fcdf6ec34f9394a30d14c2aa14c40eba11c62f3b93619698b9a4b16a1f27b1","data_record_count":5},"output_directory_created":true,"file_failure":null,"outputs":{"clean_csv":"order_id,customer,status,ordered_on,amount,notes\nORD-3001,Demo Wholesale,open,2026-10-14,12.50,Valid row\n","row_errors_csv":"row_number,column,code,message,raw_value,original_row_json\n3,customer,required_value_missing,A value is required.,,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,order_id,duplicate_unique_key,The unique key already appeared on record 2.,ORD-3001,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,status,enum_value_invalid,The value is not one of the configured choices.,pending,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,ordered_on,iso_date_invalid,Use a valid date in YYYY-MM-DD form.,2026-02-30,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,amount,decimal_scale,Use no more than 2 digits after the decimal point.,1.234,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n4,amount,decimal_out_of_range,The value is outside the configured inclusive range.,1000000.00,\"[\"\"ORD-3003\"\",\"\"Boundary Demo\"\",\"\"paid\"\",\"\"2026-10-15\"\",\"\"1000000.00\"\",\"\"Outside inclusive maximum\"\"]\"\n5,amount,invalid_decimal,Use a finite decimal without exponent notation.,NaN,\"[\"\"ORD-3004\"\",\"\"Number Demo\"\",\"\"open\"\",\"\"2026-10-16\"\",\"\"NaN\"\",\"\"Non-finite decimal\"\"]\"\n6,amount,invalid_decimal,Use a finite decimal without exponent notation.,Infinity,\"[\"\"ORD-3005\"\",\"\"Line Break Demo\"\",\"\"open\"\",\"\"2026-10-17\"\",\"\"Infinity\"\",\"\"First line\\nSecond line, with comma\"\"]\"\n","summary_json":"{\n  \"summary_version\": 1,\n  \"tool\": \"ExportCheck\",\n  \"status\": \"completed_with_rejected_rows\",\n  \"input\": {\n    \"file_name\": \"mixed-row-failures.csv\",\n    \"sha256\": \"03fcdf6ec34f9394a30d14c2aa14c40eba11c62f3b93619698b9a4b16a1f27b1\",\n    \"bytes\": 375\n  },\n  \"limits\": {\n    \"max_rows\": 10000,\n    \"max_input_bytes\": 5000000,\n    \"max_output_bytes\": 20000000,\n    \"hard_max_rows\": 100000,\n    \"hard_max_input_bytes\": 50000000,\n    \"hard_max_output_bytes\": 50000000,\n    \"max_columns\": 256,\n    \"max_field_characters\": 256000\n  },\n  \"records\": {\n    \"data_rows\": 5,\n    \"accepted_rows\": 1,\n    \"rejected_rows\": 4,\n    \"row_error_entries\": 8\n  },\n  \"outputs\": {\n    \"clean_csv\": \"clean.csv\",\n    \"row_errors_csv\": \"row-errors.csv\",\n    \"summary_json\": \"summary.json\"\n  },\n  \"transformations\": {\n    \"formula_safe_prefixes\": 0,\n    \"formula_safety\": \"Formula-like text is prefixed with an apostrophe. Strict signed decimal text is left unchanged.\",\n    \"cell_normalization\": \"None. Cell values are preserved except for formula-safe prefixes.\",\n    \"csv_serialization\": \"Rows are reserialized with Python CSV quoting. Quoting style may differ while parsed cell values stay the same.\",\n    \"csv_encoding\": \"UTF-8 without a byte-order mark.\",\n    \"csv_record_terminator\": \"LF. Input line endings are normalized by CSV output writing.\",\n    \"rejected_rows\": \"Every rejected data row appears in row-errors.csv and in the rejected row count.\"\n  }\n}\n"},"counts":[["Data rows",5],["Accepted rows",1],["Rejected rows",4],["Issue entries",8]],"error_groups":[{"row_number":"3","issues":[{"column":"customer","code":"required_value_missing","message":"A value is required.","raw_value":""},{"column":"order_id","code":"duplicate_unique_key","message":"The unique key already appeared on record 2.","raw_value":"ORD-3001"},{"column":"status","code":"enum_value_invalid","message":"The value is not one of the configured choices.","raw_value":"pending"},{"column":"ordered_on","code":"iso_date_invalid","message":"Use a valid date in YYYY-MM-DD form.","raw_value":"2026-02-30"},{"column":"amount","code":"decimal_scale","message":"Use no more than 2 digits after the decimal point.","raw_value":"1.234"}],"original_fields":[["order_id","ORD-3001"],["customer",""],["status","pending"],["ordered_on","2026-02-30"],["amount","1.234"],["notes","=SUM(1,2)"]]},{"row_number":"4","issues":[{"column":"amount","code":"decimal_out_of_range","message":"The value is outside the configured inclusive range.","raw_value":"1000000.00"}],"original_fields":[["order_id","ORD-3003"],["customer","Boundary Demo"],["status","paid"],["ordered_on","2026-10-15"],["amount","1000000.00"],["notes","Outside inclusive maximum"]]},{"row_number":"5","issues":[{"column":"amount","code":"invalid_decimal","message":"Use a finite decimal without exponent notation.","raw_value":"NaN"}],"original_fields":[["order_id","ORD-3004"],["customer","Number Demo"],["status","open"],["ordered_on","2026-10-16"],["amount","NaN"],["notes","Non-finite decimal"]]},{"row_number":"6","issues":[{"column":"amount","code":"invalid_decimal","message":"Use a finite decimal without exponent notation.","raw_value":"Infinity"}],"original_fields":[["order_id","ORD-3005"],["customer","Line Break Demo"],["status","open"],["ordered_on","2026-10-17"],["amount","Infinity"],["notes","First line\nSecond line, with comma"]]}],"output_directory":"runs/mixed","formula_safe_prefixes":0},"duplicate_header_file_failure":{"label":"Duplicate header","state":"fail","summary_title":"Duplicate column names stopped this file before row processing.","input_note":"The final two column names are both notes. Duplicate headers are a file-level error.","exit_code":2,"input":{"name":"duplicate-headers.csv","text":"order_id,customer,status,ordered_on,amount,notes,notes\nORD-4001,Header Demo,paid,2026-10-18,25.00,first notes,second notes\n","bytes":123,"sha256":"9746c9601cf7794759b7a639434078d88c67216f1b67056fea4a18d4b7e7403b","data_record_count":1},"output_directory_created":false,"file_failure":{"code":"duplicate_headers","message":"The CSV header contains duplicate names.","exact_stderr":"ExportCheck file failure [duplicate_headers]: The CSV header contains duplicate names."},"outputs":null,"counts":[],"error_groups":[]}},"existing_output_refusal":{"exit_code":3,"exact_stderr":"ExportCheck output failure [output_exists]: The output path already exists. Choose a new directory name.","manifest_sha256":"da478a333dde9d9626adeb2ae863e0c1f367a3e2e0a763794855b668f527a452","unchanged":true,"files":[{"path":"clean.csv","bytes":246,"sha256":"cd3b49788de566398d86e4680777fb61975a1c032c46c05160aea49d9eabf2ed"},{"path":"row-errors.csv","bytes":59,"sha256":"a2085e481575ac926d485bbdf052cae8067e25a1257274f1bd009cd7c08fb275"},{"path":"summary.json","bytes":1406,"sha256":"c4a439f101a6a64eabff4e083bccc6a0c274899c350101d352dcc77e33f4664d"}]}}</script>
+<script>
+(() => {
+  "use strict";
+  const proof = JSON.parse(document.getElementById("proof-data").textContent);
+  const fixtures = Array.from(document.querySelectorAll('input[name="fixture"]'));
+  const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  const panels = {
+    input: document.getElementById("panel-input"),
+    rules: document.getElementById("panel-rules"),
+    results: document.getElementById("panel-results")
+  };
+  const runSummary = document.getElementById("run-summary");
+  const chipFor = { pass: "chip-ok", reject: "chip-warn", fail: "chip-bad" };
 
-      const proof = JSON.parse(document.getElementById("proof-data").textContent);
-      const fixtures = Array.from(document.querySelectorAll('input[name="fixture"]'));
-      const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
-      const panels = {
-        input: document.getElementById("panel-input"),
-        rules: document.getElementById("panel-rules"),
-        results: document.getElementById("panel-results")
-      };
-      const runSummary = document.getElementById("run-summary");
-      let activeView = "input";
+  function make(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (text !== undefined) el.textContent = text;
+    return el;
+  }
 
-      function make(tag, className, text) {
-        const element = document.createElement(tag);
-        if (className) element.className = className;
-        if (text !== undefined) element.textContent = text;
-        return element;
-      }
+  function pair(label, value, asCode) {
+    const wrap = make("div");
+    wrap.append(make("dt", "", label));
+    const dd = make("dd");
+    dd.append(asCode ? make("code", "", value) : document.createTextNode(value));
+    wrap.append(dd);
+    return wrap;
+  }
 
-      function replaceContents(element, children) {
-        element.replaceChildren(...children);
-      }
+  function codeFigure(name, detail, text, label) {
+    const fig = make("figure", "code");
+    const cap = make("figcaption");
+    cap.append(make("span", "", name), make("span", "", detail));
+    const pre = make("pre", "scroll", text);
+    pre.tabIndex = 0;
+    pre.setAttribute("aria-label", label);
+    fig.append(cap, pre);
+    return fig;
+  }
 
-      function metadataPair(label, value, codeValue) {
-        const wrapper = make("div");
-        wrapper.append(make("dt", "", label));
-        const valueNode = make("dd");
-        valueNode.append(codeValue ? make("code", "hash-code", value) : document.createTextNode(value));
-        wrapper.append(valueNode);
-        return wrapper;
-      }
+  function moreDetails(summaryText, child) {
+    const d = make("details", "more");
+    d.append(make("summary", "", summaryText), child);
+    return d;
+  }
 
-      function sourceBlock(label, text) {
-        const block = make("div", "output-block");
-        block.append(make("h4", "", label));
-        const pre = make("pre", "source-code", text);
-        pre.tabIndex = 0;
-        pre.setAttribute("aria-label", label + " captured contents");
-        block.append(pre);
-        return block;
-      }
+  function setActiveView(view, focusTab) {
+    for (const tab of tabs) {
+      const on = tab.id === "tab-" + view;
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+      tab.tabIndex = on ? 0 : -1;
+      if (on && focusTab) tab.focus();
+    }
+    for (const [name, panel] of Object.entries(panels)) panel.hidden = name !== view;
+  }
 
-      function setActiveView(view, focusButton) {
-        activeView = view;
-        for (const tab of tabs) {
-          const selected = tab.id === "tab-" + view;
-          tab.setAttribute("aria-selected", selected ? "true" : "false");
-          tab.tabIndex = selected ? 0 : -1;
-          if (selected && focusButton) tab.focus();
-        }
-        for (const [name, panel] of Object.entries(panels)) {
-          panel.hidden = name !== view;
-        }
-      }
+  function current() {
+    const picked = fixtures.find((i) => i.checked);
+    return proof.cases[picked ? picked.value : "clean"];
+  }
 
-      function selectedFixture() {
-        const selected = fixtures.find((input) => input.checked);
-        return proof.cases[selected ? selected.value : "clean"];
-      }
+  function renderSummary(item) {
+    const chip = make("span", "chip " + chipFor[item.state], "Exit code " + item.exit_code);
+    runSummary.replaceChildren(make("p", "", item.summary_title), chip);
+  }
 
-      function renderRunSummary(item) {
-        const summary = make("p", "summary-title", item.summary_title);
-        const badge = make("span", "exit-badge", "Process exit code " + item.exit_code);
-        badge.dataset.state = item.state;
-        replaceContents(runSummary, [summary, badge]);
-      }
+  function renderInput(item) {
+    const head = make("div", "panel-head");
+    const title = make("div");
+    title.append(make("h3", "", "Input file"), make("p", "", item.input_note));
+    const meta = make("dl", "meta");
+    meta.append(pair("File", item.input.name), pair("Size", item.input.bytes + " bytes"), pair("Data rows", String(item.input.data_record_count)), pair("SHA-256", item.input.sha256, true));
+    head.append(title, meta);
+    panels.input.replaceChildren(head, codeFigure(item.input.name, "UTF-8, exact contents", item.input.text, "Contents of " + item.input.name));
+  }
 
-      function renderInput(item) {
-        const container = document.getElementById("input-content");
-        const heading = make("div", "panel-heading");
-        const title = make("div");
-        title.append(make("h3", "", "Captured input fixture"));
-        title.append(make("p", "", "Exact UTF-8 contents supplied to the recorded run."));
-        const metadata = make("dl", "metadata");
-        metadata.append(metadataPair("File", item.input.name, false));
-        metadata.append(metadataPair("Bytes", String(item.input.bytes), false));
-        metadata.append(metadataPair("Data records", String(item.input.data_record_count), false));
-        metadata.append(metadataPair("Input SHA-256", item.input.sha256, true));
-        heading.append(title, metadata);
-        const pre = make("pre", "source-code", item.input.text);
-        pre.tabIndex = 0;
-        pre.setAttribute("aria-label", "Exact CSV input contents");
-        const note = make("p", "note", item.input_note);
-        replaceContents(container, [heading, pre, note]);
-      }
+  function renderRules() {
+    const head = make("div", "panel-head");
+    const title = make("div");
+    title.append(make("h3", "", "Rules used for every run"), make("p", "", "The same rules.json shipped with the tool as its sample."));
+    const meta = make("dl", "meta");
+    meta.append(pair("File", "rules.json"), pair("SHA-256", proof.rules.sha256, true));
+    head.append(title, meta);
+    const cards = make("div", "rule-cards");
+    for (const fact of proof.rule_facts) {
+      const card = make("div", "rule-card");
+      card.append(make("b", "", fact.title), make("span", "", fact.detail));
+      cards.append(card);
+    }
+    panels.rules.replaceChildren(head, cards, moreDetails("Open the full rules.json", codeFigure("rules.json", "exact contents", proof.rules.text, "Contents of rules.json")));
+  }
 
-      function renderRules() {
-        const container = document.getElementById("rules-content");
-        const heading = make("div", "panel-heading");
-        const title = make("div");
-        title.append(make("h3", "", "Rules used for every fixture"));
-        title.append(make("p", "", "The rules copy matches the sample file in the candidate package."));
-        const metadata = make("dl", "metadata");
-        metadata.append(metadataPair("File", "rules.json", false));
-        metadata.append(metadataPair("Rules SHA-256", proof.rules.sha256, true));
-        heading.append(title, metadata);
+  function errorCard(row) {
+    const card = make("article", "err");
+    const head = make("div", "err-head");
+    head.append(make("h5", "", "Record " + row.row_number), make("span", "", row.issues.length + (row.issues.length === 1 ? " issue" : " issues")));
+    const list = make("ul", "issues");
+    for (const issue of row.issues) {
+      const li = make("li", "issue");
+      const top = make("div", "issue-top");
+      top.append(make("code", "", issue.column), make("code", "", issue.code));
+      li.append(top, make("p", "", issue.message), make("span", "raw", "Value: " + (issue.raw_value === "" ? "empty" : issue.raw_value)));
+      list.append(li);
+    }
+    const fields = make("dl", "fields");
+    for (const [key, value] of row.original_fields) {
+      fields.append(make("dt", "", key), make("dd", "", value === "" ? "empty" : value));
+    }
+    const d = make("details");
+    d.append(make("summary", "", "Show the full original row"), fields);
+    card.append(head, list, d);
+    return card;
+  }
 
-        const cards = make("div", "rule-cards");
-        for (const fact of proof.rule_facts) {
-          const card = make("div", "rule-card");
-          card.append(make("strong", "", fact.title));
-          card.append(make("span", "", fact.detail));
-          cards.append(card);
-        }
-        const raw = sourceBlock("Exact JSON rules", proof.rules.text);
-        replaceContents(container, [heading, cards, raw]);
-      }
+  function renderResults(item) {
+    if (item.file_failure) {
+      const fail = make("div", "failure");
+      fail.append(make("h3", "", "Stopped at the header"), make("p", "", "Exit code 2. No result folder was created, so there is no clean.csv, row-errors.csv or summary.json for this file."));
+      const fig = codeFigure("stderr", "exact message", item.file_failure.exact_stderr, "Exact error message");
+      fig.classList.add("wrap-lines");
+      panels.results.replaceChildren(fail, fig);
+      return;
+    }
+    const counts = make("div", "counts");
+    for (const [label, value] of item.counts) {
+      const c = make("div", "count" + (label === "Rejected rows" && value ? " is-bad" : label === "Accepted rows" ? " is-ok" : ""));
+      c.append(make("strong", "", String(value)), make("span", "", label));
+      counts.append(c);
+    }
+    const where = make("p", "note", "Written to a new folder, " + item.output_directory + ".");
+    const clean = make("div", "block");
+    clean.append(make("h4", "", "clean.csv"), make("p", "", "The rows that passed, ready to hand on."), codeFigure("clean.csv", "exact contents", item.outputs.clean_csv, "Contents of clean.csv"));
+    const errors = make("div", "block");
+    errors.append(make("h4", "", "row-errors.csv"));
+    if (item.error_groups.length) {
+      errors.append(make("p", "", "Each rejected row with every reason. Record numbers count the header as record 1."));
+      const list = make("div", "errors");
+      for (const row of item.error_groups) list.append(errorCard(row));
+      errors.append(list);
+    } else {
+      errors.append(make("p", "", "No rows were rejected, so the file holds only its header."));
+    }
+    errors.append(moreDetails("Open the raw row-errors.csv", codeFigure("row-errors.csv", "exact contents", item.outputs.row_errors_csv, "Contents of row-errors.csv")));
+    const summary = make("div", "block");
+    summary.append(make("h4", "", "summary.json"), moreDetails("Open summary.json", codeFigure("summary.json", "exact contents", item.outputs.summary_json, "Contents of summary.json")));
+    panels.results.replaceChildren(counts, where, clean, errors, summary);
+  }
 
-      function errorCard(row) {
-        const card = make("article", "error-card");
-        const heading = make("div", "error-heading");
-        heading.append(make("h4", "", "CSV record " + row.row_number));
-        heading.append(make("span", "", row.issues.length + (row.issues.length === 1 ? " issue" : " issues")));
-        const issues = make("ul", "issue-list");
-        for (const issue of row.issues) {
-          const item = make("li", "issue");
-          const top = make("div", "issue-top");
-          top.append(make("code", "", issue.column));
-          top.append(make("code", "", issue.code));
-          item.append(top);
-          item.append(make("p", "", issue.message));
-          const raw = issue.raw_value === "" ? "empty value" : issue.raw_value;
-          item.append(make("span", "raw-value", "Raw value: " + raw));
-          issues.append(item);
-        }
-        const details = document.createElement("details");
-        details.className = "row-details";
-        details.open = true;
-        details.append(make("summary", "", "Complete rejected row"));
-        const fields = make("dl", "field-values");
-        for (const [key, value] of row.original_fields) {
-          fields.append(make("dt", "", key));
-          fields.append(make("dd", "", value === "" ? "empty value" : value));
-        }
-        details.append(fields);
-        card.append(heading, issues, details);
-        return card;
-      }
+  function renderRefusal() {
+    const r = proof.existing_output_refusal;
+    const left = make("div", "stack");
+    const fig = codeFigure("stderr", "exit code " + r.exit_code, r.exact_stderr, "Exact refusal message");
+    fig.classList.add("wrap-lines");
+    const table = make("table", "hash-table");
+    table.innerHTML = "<caption class=\"visually-hidden\">Result files checked before and after the refusal</caption><thead><tr><th scope=\"col\">File</th><th scope=\"col\" class=\"num\">Bytes</th><th scope=\"col\">SHA-256, unchanged</th></tr></thead>";
+    const body = make("tbody");
+    for (const f of r.files) {
+      const tr = make("tr");
+      const name = make("td"); name.append(make("code", "", f.path));
+      const hash = make("td"); hash.append(make("code", "", f.sha256));
+      tr.append(name, make("td", "num", String(f.bytes)), hash);
+      body.append(tr);
+    }
+    table.append(body);
+    left.append(fig, moreDetails("Show the file hashes", table));
+    const meta = make("dl", "meta");
+    meta.append(pair("Exit code", String(r.exit_code)), pair("Result files checked", String(r.files.length)), pair("Before and after", "Same paths, sizes and hashes"), pair("Manifest SHA-256", r.manifest_sha256, true));
+    document.getElementById("refusal-content").replaceChildren(left, meta);
+  }
 
-      function renderResults(item) {
-        const container = document.getElementById("results-content");
-        if (item.file_failure) {
-          const failure = make("div", "failure-panel");
-          failure.append(make("h3", "", "File-level failure"));
-          failure.append(make("p", "", "Process exit code 2. No result directory was created, so there is no clean.csv, row-errors.csv, or summary.json for this fixture."));
-          const error = make("pre", "source-code", item.file_failure.exact_stderr);
-          error.tabIndex = 0;
-          error.setAttribute("aria-label", "Exact file-level error from ExportCheck");
-          replaceContents(container, [failure, error]);
-          return;
-        }
+  function render() {
+    const item = current();
+    renderSummary(item);
+    renderInput(item);
+    renderResults(item);
+  }
 
-        const counts = make("div", "result-counts");
-        for (const [label, value] of item.counts) {
-          const card = make("div", "count-card");
-          card.append(make("strong", "", String(value)));
-          card.append(make("span", "", label));
-          counts.append(card);
-        }
-
-        const outputState = make("p", "note", "Results were written to a new folder named " + item.output_directory + ".");
-        const clean = sourceBlock("clean.csv", item.outputs.clean_csv);
-        clean.querySelector("pre").setAttribute("aria-label", "Exact generated clean.csv contents");
-
-        const errors = make("section", "output-block");
-        errors.append(make("h4", "", "Rejected rows and validation issues"));
-        if (item.error_groups.length) {
-          errors.append(make("p", "", "Each issue below includes the full original row. Record numbers count CSV records, including the header."));
-          const list = make("div", "error-list");
-          for (const row of item.error_groups) list.append(errorCard(row));
-          errors.append(list);
-        } else {
-          errors.append(make("p", "", "No rows were rejected in this run."));
-        }
-        const rawErrors = document.createElement("details");
-        rawErrors.append(make("summary", "", "Open the exact row-errors.csv file"));
-        const rawErrorsText = make("pre", "source-code", item.outputs.row_errors_csv);
-        rawErrorsText.tabIndex = 0;
-        rawErrorsText.setAttribute("aria-label", "Exact generated row-errors.csv contents");
-        rawErrors.append(rawErrorsText);
-        errors.append(rawErrors);
-
-        const rawSummary = document.createElement("details");
-        rawSummary.append(make("summary", "", "Open the exact summary.json file"));
-        const rawSummaryText = make("pre", "source-code", item.outputs.summary_json);
-        rawSummaryText.tabIndex = 0;
-        rawSummaryText.setAttribute("aria-label", "Exact generated summary.json contents");
-        rawSummary.append(rawSummaryText);
-
-        replaceContents(container, [counts, outputState, clean, errors, rawSummary]);
-      }
-
-      function renderOverwriteCheck() {
-        const target = document.getElementById("overwrite-content");
-        const refusal = proof.existing_output_refusal;
-        const error = make("pre", "source-code", refusal.exact_stderr);
-        error.tabIndex = 0;
-        error.setAttribute("aria-label", "Exact output path refusal from ExportCheck");
-        const facts = make("dl", "refusal-facts");
-        facts.append(metadataPair("Process exit", String(refusal.exit_code), false));
-        facts.append(metadataPair("Result files checked", String(refusal.files.length), false));
-        facts.append(metadataPair("Output manifest SHA-256", refusal.manifest_sha256, true));
-        facts.append(metadataPair("Before and after comparison", "All file paths, sizes, and hashes matched.", false));
-        const details = document.createElement("details");
-        details.append(make("summary", "", "Inspect the unchanged output file hashes"));
-        const list = make("div", "field-values");
-        for (const file of refusal.files) {
-          list.append(make("dt", "", file.path));
-          list.append(make("dd", "", file.bytes + " bytes. SHA-256 " + file.sha256));
-        }
-        details.append(list);
-        facts.append(details);
-        replaceContents(target, [error, facts]);
-      }
-
-      function render() {
-        const item = selectedFixture();
-        renderRunSummary(item);
-        renderInput(item);
-        renderRules();
-        renderResults(item);
-      }
-
-      for (const input of fixtures) {
-        input.addEventListener("change", render);
-      }
-
-      for (const tab of tabs) {
-        tab.addEventListener("click", () => setActiveView(tab.id.slice(4), false));
-        tab.addEventListener("keydown", (event) => {
-          const current = tabs.indexOf(tab);
-          let next = current;
-          if (event.key === "ArrowRight") next = (current + 1) % tabs.length;
-          if (event.key === "ArrowLeft") next = (current + tabs.length - 1) % tabs.length;
-          if (event.key === "Home") next = 0;
-          if (event.key === "End") next = tabs.length - 1;
-          if (next !== current) {
-            event.preventDefault();
-            setActiveView(tabs[next].id.slice(4), true);
-          }
-        });
-      }
-
-      renderOverwriteCheck();
-      render();
-      setActiveView(activeView, false);
-    })();
-  </script>
+  for (const input of fixtures) input.addEventListener("change", render);
+  for (const tab of tabs) {
+    tab.addEventListener("click", () => setActiveView(tab.id.slice(4), false));
+    tab.addEventListener("keydown", (event) => {
+      const i = tabs.indexOf(tab);
+      let next = i;
+      if (event.key === "ArrowRight") next = (i + 1) % tabs.length;
+      if (event.key === "ArrowLeft") next = (i + tabs.length - 1) % tabs.length;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = tabs.length - 1;
+      if (next !== i) { event.preventDefault(); setActiveView(tabs[next].id.slice(4), true); }
+    });
+  }
+  renderRules();
+  renderRefusal();
+  render();
+  setActiveView("input", false);
+})();
+</script>
 </body>
 </html>

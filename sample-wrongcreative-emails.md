@@ -1,8 +1,10 @@
-# Three-email concept sequence
+# Leasing Practice launch emails
 
-Independent fictional content. Unsent. Final course facts, consented audience, sender identity and unsubscribe settings are required before launch. No enrollment or performance claim.
+Three-email sequence for the fictional Leasing Practice course. Speculative sample for a public course-marketing brief. These emails have never been sent. Before any real send, add the approved course facts, the sender identity, a consented audience and a working unsubscribe link.
 
-## Email 01
+Rendered version: [sample-wrongcreative-emails.html](sample-wrongcreative-emails.html)
+
+## Email 01, day 0
 
 Subject: A clearer next step in the leasing conversation
 
@@ -10,37 +12,42 @@ Preview: Three moments to practice with your team.
 
 When a prospect asks for details, what happens next?
 
-A useful conversation starts with understanding what matters to the prospect. The leasing conversation course takes you through three moments: asking focused questions, explaining relevant options and agreeing follow-up. Explore the outline and choose the moment your team wants to practice first.
+A useful conversation starts with understanding what matters to the prospect. The leasing conversation takes you through three moments: asking focused questions, explaining the options that matter and agreeing a follow-up.
 
-CTA: Review the sample outline
+Look through the outline and pick the moment your team wants to practice first.
 
-Target: course.html#outline
+Button: See the course outline
 
-## Email 02
+Links to: [sample-wrongcreative-course.html#outline](sample-wrongcreative-course.html#outline)
+
+## Email 02, day 3
 
 Subject: Try one follow-up question
 
-Preview: A short exercise to review with your team.
+Preview: A one-minute exercise to try with your team.
 
 Make the follow-up more specific.
 
-“I will send you some details” leaves the next step open. Try asking what those details should help the prospect decide. Our sample exercise gives you one response to review, then a prompt to discuss with a colleague. Take a look and compare it with the way your team follows up today.
+“I'll send you some details” leaves the next step open. Try asking what those details should help the prospect decide.
 
-CTA: Open the sample exercise
+Our practice exercise gives you three follow-ups to compare and explains which one works. Try it, then compare it with how your team follows up today.
 
-Target: course.html#sample
+Button: Try the exercise
 
-## Email 03
+Links to: [sample-wrongcreative-course.html#sample](sample-wrongcreative-course.html#sample)
 
-Subject: Course or team pathway?
+## Email 03, day 7
 
-Preview: Compare the material before deciding.
+Subject: On your own or as a team?
 
-Choose the learning route that fits.
+Preview: Compare the course and the team pathway.
 
-Want to work through the conversation individually? Start with the focused course. Want to compare responses together? Review the team pathway, which adds discussion prompts and a review worksheet. The comparison shows what each route includes so you can choose the material your team needs.
+Choose the way of learning that fits.
 
-CTA: Compare the pathway
+Want to work through the conversation on your own? Start with the course. Want to compare answers together? The team pathway adds a discussion guide and a review worksheet for each module.
 
-Target: bundle.html#compare
+The comparison shows what each option includes, so you can pick the one your team needs.
 
+Button: Compare the options
+
+Links to: [sample-wrongcreative-bundle.html#compare](sample-wrongcreative-bundle.html#compare)

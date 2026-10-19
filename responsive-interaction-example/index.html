@@ -3,25 +3,71 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Responsive interaction example</title>
+  <meta name="theme-color" content="#f6f5f0">
+  <title>Responsive layout example</title>
+  <meta name="description" content="A small responsive page with a phone menu, an expandable answer and a form that checks its input in the browser. HTML, CSS and jQuery.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="jquery-4.0.0.min.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#overview">Skip to the content</a>
   <header class="site-header">
-    <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">↗</span> Layout / Interaction</a>
-    <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
-    <nav id="site-nav" aria-label="Page sections"><a href="#overview">Overview</a><a href="#details">Details</a><a href="#project">Try the form</a></nav>
+    <div class="bar">
+      <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="13" height="16" rx="2"/><rect x="15" y="9" width="6" height="11" rx="1.5"/></svg></span>Layout and interaction</a>
+      <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="menu-icon" aria-hidden="true"></span>Menu</button>
+      <nav id="site-nav" aria-label="Page sections"><a href="#overview">Overview</a><a href="#details">Details</a><a href="#project">Try the form</a></nav>
+    </div>
   </header>
   <main>
-    <section id="overview" class="hero">
-      <div><p class="eyebrow">Independent code example</p><h1>One layout.<br>Every screen.</h1><p class="intro">A responsive HTML/CSS page with a jQuery menu, expandable detail and local form validation.</p><a class="button" href="#project">Test the interaction <span aria-hidden="true">↗</span></a></div>
-      <div class="preview" aria-label="Illustration of desktop and mobile layouts"><div class="preview-top"><span></span><span></span><span></span></div><div class="preview-body"><div class="preview-line"></div><div class="preview-line short"></div><div class="preview-grid"><div>01</div><div>02</div><div>03</div></div><div class="preview-phone"><div></div><div></div><div></div></div></div><p>Flexible grids. Clear controls.</p></div>
+    <section id="overview" class="hero" tabindex="-1">
+      <div>
+        <p class="eyebrow">Responsive code example</p>
+        <h1>One layout.<br>Every screen.</h1>
+        <p class="intro">A responsive HTML and CSS page with a phone menu, an expandable answer and a form that checks its input in the browser. The interactions use jQuery.</p>
+        <a class="button" href="#project">Try the form<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <figure class="preview" aria-hidden="true">
+        <div class="preview-top"><span></span><span></span><span></span></div>
+        <div class="preview-body">
+          <div class="preview-line"></div><div class="preview-line short"></div>
+          <div class="preview-grid"><div>01</div><div>02</div><div>03</div></div>
+          <div class="preview-phone"><div></div><div></div><div></div></div>
+        </div>
+        <figcaption>Flexible grids. Clear controls.</figcaption>
+      </figure>
     </section>
-    <section id="details" class="detail-section"><div><p class="eyebrow">What this example demonstrates</p><h2>Layout and behavior,<br>working together.</h2><p>This is an original demonstration, not commissioned client work. All form data stays in this page.</p></div><div class="detail-card"><button id="detail-toggle" aria-expanded="false" aria-controls="detail-answer"><span>What changes on a narrow screen?</span><span id="detail-symbol" aria-hidden="true">+</span></button><div id="detail-answer" hidden><p>The two-column layout stacks, the navigation becomes a menu, and controls remain readable without horizontal page scrolling.</p></div></div></section>
-    <section id="project" class="form-section"><div><p class="eyebrow">Local interaction</p><h2>Try a project title.</h2><p>The form checks empty input and displays valid text safely. It does not send a request or store your entry.</p></div><form id="project-form" novalidate><label for="project-title">Project title</label><input id="project-title" name="title" type="text" maxlength="240" autocomplete="off" aria-describedby="form-message" placeholder="Example: Supplier overview page"><button class="button" type="submit">Check title <span aria-hidden="true">→</span></button><p id="form-message" role="status" aria-live="polite"></p></form></section>
+    <section id="details" class="detail-section" tabindex="-1">
+      <div>
+        <p class="eyebrow">What it shows</p>
+        <h2>Layout and behavior, working together.</h2>
+        <p>An original example, not commissioned client work. Nothing you type leaves this page.</p>
+      </div>
+      <div class="detail-card">
+        <button id="detail-toggle" type="button" aria-expanded="false" aria-controls="detail-answer"><span>What changes on a narrow screen?</span><span class="detail-symbol" aria-hidden="true"></span></button>
+        <div id="detail-answer" hidden><p>The two columns stack, the navigation folds into a menu and every control stays large enough to tap, with no sideways scrolling.</p></div>
+      </div>
+    </section>
+    <section id="project" class="form-section" tabindex="-1">
+      <div>
+        <p class="eyebrow">Local interaction</p>
+        <h2>Try a project title.</h2>
+        <p>The form catches an empty title and shows what you typed as plain text. It doesn't send or store anything.</p>
+      </div>
+      <form id="project-form" novalidate>
+        <label for="project-title">Project title</label>
+        <input id="project-title" name="title" type="text" maxlength="240" autocomplete="off" aria-describedby="form-message" placeholder="Example: Supplier overview page">
+        <button class="button" type="submit">Check title<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></button>
+        <p id="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
   </main>
-  <footer>HTML / CSS / jQuery · Original source example · No external form submission</footer>
+  <footer class="site-footer">
+    <p>Written in HTML, CSS and jQuery by Alexandr Khrustalev. The form doesn't submit anywhere.</p>
+    <a href="../index.html">Back to selected work</a>
+  </footer>
 </body>
 </html>

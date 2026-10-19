@@ -1,19 +1,31 @@
 $(function () {
-  $('#menu-toggle').on('click', function () {
-    const open = $(this).attr('aria-expanded') === 'true';
-    $(this).attr('aria-expanded', String(!open));
-    $('#site-nav').toggleClass('is-open', !open);
+  const $toggle = $('#menu-toggle');
+  const $nav = $('#site-nav');
+
+  function setMenu(open) {
+    $toggle.attr('aria-expanded', String(open));
+    $nav.toggleClass('is-open', open);
+  }
+
+  $toggle.on('click', function () {
+    setMenu($toggle.attr('aria-expanded') !== 'true');
   });
-  $('#site-nav a').on('click', function () {
-    $('#menu-toggle').attr('aria-expanded', 'false');
-    $('#site-nav').removeClass('is-open');
+  $nav.find('a').on('click', function () {
+    setMenu(false);
   });
+  $(document).on('keydown', function (event) {
+    if (event.key === 'Escape' && $toggle.attr('aria-expanded') === 'true') {
+      setMenu(false);
+      $toggle.trigger('focus');
+    }
+  });
+
   $('#detail-toggle').on('click', function () {
     const open = $(this).attr('aria-expanded') === 'true';
     $(this).attr('aria-expanded', String(!open));
     $('#detail-answer').prop('hidden', open);
-    $('#detail-symbol').text(open ? '+' : '−');
   });
+
   $('#project-form').on('submit', function (event) {
     event.preventDefault();
     const title = String($('#project-title').val()).trim();
