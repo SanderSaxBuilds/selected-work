@@ -1,0 +1,14 @@
+{
+  "name": "slotbook",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sample appointment booking page for a fictional bike workshop. Static site, plain ES modules, no build step.",
+  "type": "module",
+  "scripts": {
+    "start": "node checks/serve.mjs . 8932",
+    "test": "node --test tests/core.test.mjs",
+    "flow": "node checks/flow.mjs http://127.0.0.1:8932/",
+    "shots": "node checks/shots.mjs http://127.0.0.1:8932/ shots 320,390,768,1440",
+    "cover": "node checks/cover.mjs http://127.0.0.1:8932/"
+  }
+}

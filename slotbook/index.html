@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slotbook booking page sample</title>
+<meta name="description" content="Slotbook is a sample appointment booking page for a fictional bike workshop in Chiang Mai. Pick a service, a day and a time, then download the booking for your calendar.">
+<meta property="og:title" content="Slotbook booking page sample">
+<meta property="og:description" content="Weekly hours, date overrides, buffers and time zone aware slots for a fictional bike workshop.">
+<meta property="og:image" content="cover-slotbook.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='2' fill='%23721c2a'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23f6f4ef' stroke-width='4' stroke-dasharray='3 2.65'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23f6f4ef'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Spline+Sans+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to booking</a>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="2" fill="currentColor"/><circle cx="16" cy="16" r="9" fill="none" stroke="#f6f4ef" stroke-width="4" stroke-dasharray="3 2.65"/><circle cx="16" cy="16" r="3" fill="#f6f4ef"/></svg>
+      <div>
+        <p class="brand-name">Lamyai Cycle Workshop</p>
+        <p class="brand-sub">Book a bench slot. Chiang Mai.</p>
+      </div>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Views">
+      <button type="button" role="tab" id="tab-book" aria-controls="panel-book" aria-selected="true">Book</button>
+      <button type="button" role="tab" id="tab-staff" aria-controls="panel-staff" aria-selected="false" tabindex="-1">Staff view</button>
+    </div>
+  </div>
+</header>
+
+<p class="sample-note"><span class="tag">Sample</span> Slotbook demo. Lamyai Cycle Workshop is a fictional business. Every booking here is sample data kept only in this browser and no message is sent.</p>
+
+<main id="main" tabindex="-1">
+  <section id="panel-book" role="tabpanel" aria-labelledby="tab-book">
+    <div class="book" id="book">
+      <div class="left">
+        <section class="step services" aria-labelledby="h-service">
+          <h1 class="page-title">Book a workshop slot</h1>
+          <h2 id="h-service" class="step-h"><span class="num">1</span>Choose a service</h2>
+          <div class="service-list" id="services" role="radiogroup" aria-labelledby="h-service"></div>
+        </section>
+        <section class="hours" aria-label="Opening hours">
+          <h2 class="small-h">Workshop hours</h2>
+          <dl id="weekly"></dl>
+          <h2 class="small-h">Changes to normal hours</h2>
+          <ul id="changes" class="changes"></ul>
+        </section>
+      </div>
+
+      <section class="step when" aria-labelledby="h-day">
+        <div class="when-head">
+          <h2 id="h-day" class="step-h"><span class="num">2</span>Pick a day</h2>
+          <div class="zone">
+            <label for="zone">Show times in</label>
+            <select id="zone"></select>
+          </div>
+        </div>
+        <p class="zone-note" id="zone-note" hidden></p>
+        <div class="cal-wrap">
+          <div class="cal-head">
+            <button type="button" class="icon-btn" id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></button>
+            <h3 id="cal-title" class="cal-title" aria-live="polite"></h3>
+            <button type="button" class="icon-btn" id="cal-next" aria-label="Next month"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></button>
+          </div>
+          <table class="cal" id="cal" role="grid" aria-labelledby="cal-title">
+            <thead><tr id="cal-dow"></tr></thead>
+            <tbody id="cal-body"></tbody>
+          </table>
+          <p class="cal-help" id="cal-help">Arrow keys move by day and week. Page Up and Page Down change month. Enter picks the day.</p>
+        </div>
+      </section>
+
+      <section class="step times" aria-labelledby="h-time">
+        <h2 id="h-time" class="step-h"><span class="num">3</span>Pick a time</h2>
+        <p class="times-for" id="times-for">Pick a day to see open times.</p>
+        <div id="slots" class="slots"></div>
+      </section>
+
+      <section class="step details" id="details" aria-labelledby="h-details" hidden>
+        <h2 id="h-details" class="step-h" tabindex="-1"><span class="num">4</span>Your details</h2>
+        <div class="summary" id="summary"></div>
+        <form id="form" novalidate>
+          <div class="errors" id="errors" tabindex="-1" hidden></div>
+          <div class="fields">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" autocomplete="name" aria-describedby="e-name" required>
+              <p class="err" id="e-name"></p>
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" aria-describedby="e-email" required>
+              <p class="err" id="e-email"></p>
+            </div>
+            <div class="field">
+              <label for="f-phone">Phone</label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="h-phone e-phone" required>
+              <p class="hint" id="h-phone">The workshop calls if a part needs ordering.</p>
+              <p class="err" id="e-phone"></p>
+            </div>
+            <div class="field">
+              <label for="f-bike">Bike</label>
+              <select id="f-bike" name="bike" aria-describedby="e-bike" required></select>
+              <p class="err" id="e-bike"></p>
+            </div>
+            <div class="field wide">
+              <label for="f-notes">What needs looking at? <span class="opt">Optional</span></label>
+              <textarea id="f-notes" name="notes" rows="3" maxlength="600" aria-describedby="h-notes e-notes"></textarea>
+              <p class="hint" id="h-notes">Up to 500 characters.</p>
+              <p class="err" id="e-notes"></p>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn primary" id="submit">Confirm booking</button>
+            <button type="button" class="btn line" id="change-time">Change time</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <section class="done" id="done" aria-labelledby="h-done" hidden>
+      <h2 id="h-done" tabindex="-1">Booking confirmed</h2>
+      <div id="done-body"></div>
+      <div class="form-actions">
+        <a class="btn primary" id="ics" download>Add to calendar</a>
+        <button type="button" class="btn line" id="again">Book another slot</button>
+      </div>
+      <p class="fine">This is a sample. No email or text was sent and the workshop is fictional.</p>
+    </section>
+  </section>
+
+  <section id="panel-staff" role="tabpanel" aria-labelledby="tab-staff" hidden>
+    <div class="staff">
+      <div class="staff-head">
+        <h1 class="page-title">Bookings for the day</h1>
+        <div class="day-nav">
+          <button type="button" class="icon-btn" id="staff-prev" aria-label="Previous day"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></button>
+          <p class="staff-date" id="staff-date" aria-live="polite"></p>
+          <button type="button" class="icon-btn" id="staff-next" aria-label="Next day"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></button>
+          <button type="button" class="btn line" id="staff-today">Today</button>
+        </div>
+      </div>
+      <p class="staff-hours" id="staff-hours"></p>
+      <p class="fine">Times are workshop time in Chiang Mai, UTC+7.</p>
+      <ol class="bookings" id="staff-list"></ol>
+      <p class="empty" id="staff-empty" hidden>No bookings on this day.</p>
+      <div class="reset">
+        <button type="button" class="btn line" id="reset">Reset sample data</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="sr" id="live" aria-live="polite"></div>
+<script type="module" src="src/app.mjs"></script>
+</body>
+</html>
