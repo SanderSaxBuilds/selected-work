@@ -27,7 +27,7 @@ No build step, no npm packages and no external scripts. The only outside request
 1. Open the studio. The spa sample loads first.
 2. Pick a type of business. It fills in sample services, questions, hours and colours. Undo is in the toast.
 3. Fill in the name, headline and sub line. The bar above the cards sets which language you are editing. Fields left empty show the English text, and the checklist at the top counts what is still untranslated.
-4. Choose an accent colour or a custom one, a dark or light theme and the site languages.
+4. Choose an accent colour or a custom one, a light or dark theme and the site languages.
 5. Edit services with name, minutes and price. Use 0 for free and 1440 minutes for a day rental.
 6. Set weekly hours and the time slot length. The widget only offers start times where the service ends before closing.
 7. Pick the booking channel and enter the handle. The studio shows the exact link the site will open.
@@ -57,7 +57,7 @@ window.LANTA is plain JSON inside a script. Text fields take a single string or 
 | sample | true shows a sample banner. Set false for a real client. |
 | name, tagline, sub | Business name, the large headline and the line under it. |
 | accent | Any #rrggbb colour. Button text turns dark or light by itself for contrast. |
-| theme | dark or light. |
+| theme | light or dark. Light is the default. |
 | languages, defaultLang | Languages in the switch, and the one used for search data and as a fallback. |
 | timezone | Asia/Bangkok unless the business is elsewhere. |
 | slotMinutes | Distance between offered start times. |

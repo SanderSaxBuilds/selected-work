@@ -1,6 +1,6 @@
 /* Lanta site config. This is the only file you need to edit.
    Text fields accept one string, or an object with en, ru and th. An empty language falls back to English.
-   type: spa, tours, bike, dental, cafe or other. theme: dark or light. accent: any #rrggbb colour.
+   type: spa, tours, bike, dental, cafe or other. theme: light or dark, light is the default. accent: any #rrggbb colour.
    hours: "mon" to "sun", each ["10:00", "21:00"] or null when closed. "00:00" as closing time means midnight.
    contact.channel: whatsapp, line or telegram. The handle is a number like 66812345678 for WhatsApp,
    an Official Account ID like @yourshop for LINE, or a username for Telegram.
@@ -21,7 +21,7 @@ window.LANTA = {
     "th": "นักนวดมากประสบการณ์ ห้องเงียบสงบ และน้ำมันสมุนไพรอุ่นๆ เลือกเวลาแล้วส่งคำขอทางแชท"
   },
   "accent": "#0e7490",
-  "theme": "dark",
+  "theme": "light",
   "languages": ["en", "ru", "th"],
   "defaultLang": "en",
   "timezone": "Asia/Bangkok",
