@@ -1,0 +1,28 @@
+Thanks, {{customer.first}}. Your order is in.
+
+We roast your coffee on {{order.roastDay}} and post it the next morning. One more email follows with tracking when the box leaves us.
+
+Order {{order.number}}, placed {{order.placed}}
+
+{{#each lines}}
+{{textRow}}
+    {{options}}, {{unitPrice}} each
+{{/each}}
+{{textRule}}
+{{#each totals}}
+{{textRow}}
+{{/each}}
+{{grandTextRow}}
+
+DELIVERING TO
+{{customer.name}}
+{{customer.address.0}}
+{{customer.address.1}}
+
+DELIVERY AND PAYMENT
+{{order.delivery}}
+{{order.payment}}
+
+{{> button href=links.order label=cta}}
+
+{{help}}

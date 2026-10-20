@@ -1,0 +1,74 @@
+<tr>
+<td class="bg-card" style="padding:0;">
+<img src="{{images.hero}}" width="{{hero.width}}" height="{{hero.height}}" alt="{{hero.alt}}" class="fluid" style="max-width:600px;font-family:Arial,sans-serif;font-size:14px;line-height:20px;color:#6e5a52;">
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:32px 40px 8px;">
+<p class="small muted" style="margin:0 0 8px;">{{issue}}</p>
+<h1>{{headline}}</h1>
+<p class="last">{{intro}}</p>
+</td>
+</tr>
+<!-- Product grid. Each row is two fluid hybrid columns: inline-block divs
+     at 280 pixels that sit side by side in a 600 pixel card and wrap onto
+     their own lines when the screen is narrower, with no media query.
+     Outlook ignores max-width, so a ghost table gives it fixed cells. -->
+{{#each productRows}}
+<tr>
+<td align="center" valign="top" class="bg-card cols-pad" style="padding:{{#if @first}}24px{{else}}0{{/if}} 20px 8px;font-size:0;">
+<!--[if mso]><table role="presentation" width="560" border="0" cellpadding="0" cellspacing="0"><tr><![endif]-->
+{{#each this}}
+<!--[if mso]><td width="280" valign="top"><![endif]-->
+<div class="col" style="max-width:280px;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" style="padding:8px 20px 24px;">
+<a href="{{link}}" style="display:block;text-decoration:none;"><img src="{{image}}" width="240" height="240" alt="{{alt}}" class="fluid" style="max-width:240px;border-radius:4px;font-family:Arial,sans-serif;font-size:14px;line-height:20px;color:#6e5a52;"></a>
+</td>
+</tr>
+<tr>
+<td valign="top" align="left" style="padding:0 20px 28px;">
+{{#if badge}}
+<p class="small accent" style="margin:0 0 4px;">{{badge}}</p>
+{{/if}}
+<h3>{{name}}</h3>
+<p class="small muted" style="margin:0 0 8px;">{{origin}}</p>
+<p style="margin:0 0 8px;">{{notes}}</p>
+<p class="price">{{priceText}}</p>
+{{> button href=link label=cta width=220 outline=true}}
+</td>
+</tr>
+</table>
+</div>
+<!--[if mso]></td><![endif]-->
+{{/each}}
+<!--[if mso]></tr></table><![endif]-->
+</td>
+</tr>
+{{/each}}
+<tr>
+<td class="bg-card pad" style="padding:0 40px;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="rule">&nbsp;</td></tr></table>
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:28px 40px 28px;">
+<h2>{{brew.title}}</h2>
+<p>{{brew.text}}</p>
+{{> button href=links.brew label=brew.cta width=240 outline=true}}
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:0 40px 36px;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td class="bg-tint" style="padding:24px 24px;border-radius:4px;">
+<h3>{{event.title}}</h3>
+<p>{{event.text}}</p>
+{{> button href=links.cupping label=event.cta width=260}}
+</td>
+</tr>
+</table>
+</td>
+</tr>

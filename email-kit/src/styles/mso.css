@@ -1,0 +1,7 @@
+/* Outlook on Windows only, inside <!--[if mso]>. Word renders the email,
+   so force safe fonts and exact line heights on every text element. */
+
+table { border-collapse: collapse; }
+td, th, div, p, a, span { font-family: Arial, Helvetica, sans-serif !important; mso-line-height-rule: exactly; }
+h1, h2, h3, .wordmark { font-family: Georgia, 'Times New Roman', serif !important; mso-line-height-rule: exactly; }
+.code, .tracking { font-family: 'Courier New', Courier, monospace !important; }

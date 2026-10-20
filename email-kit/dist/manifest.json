@@ -1,0 +1,100 @@
+{
+  "kit": "Inkpost",
+  "base": "https://sandersaxbuilds.github.io/selected-work/email-kit/",
+  "clipLimit": 102000,
+  "emails": [
+    {
+      "id": "welcome",
+      "name": "Welcome",
+      "subject": "Welcome to Kettlewick",
+      "preheader": "Your code for 15% off the first bag, and what to expect from us.",
+      "summary": "Sent once, straight after someone joins the list.",
+      "handles": [
+        "Hidden preheader followed by spacer characters, so the inbox preview stops where it should",
+        "VML roundrect button for Outlook on Windows, with a styled link for every other client",
+        "Logo badge with its own background, readable in light and dark inboxes",
+        "Dashed code box and numbered steps built from table cells, so they show with images off",
+        "Dark mode through prefers-color-scheme, repeated for Outlook.com with data-ogsc and data-ogsb",
+        "Plain text version with every link written out"
+      ],
+      "html": "dist/welcome.html",
+      "text": "dist/welcome.txt",
+      "url": "https://sandersaxbuilds.github.io/selected-work/email-kit/dist/welcome.html",
+      "bytes": 19652,
+      "kb": "19.2",
+      "textBytes": 1891,
+      "amounts": null
+    },
+    {
+      "id": "order-confirmation",
+      "name": "Order confirmation",
+      "subject": "Order KW-20418 is confirmed",
+      "preheader": "Thanks, Jamie. We roast your coffee on Tuesday and post it on Wednesday morning.",
+      "summary": "Sent when an order is paid. Lists the items, the totals and where the order is going.",
+      "handles": [
+        "Line items in a real data table with column and row headers, so a screen reader can follow it",
+        "Line totals, the discount and the total worked out at build time from unit prices, then checked again by the tests",
+        "Delivery and payment details in two fluid hybrid columns that stack on phones without a media query",
+        "Ghost tables in Outlook conditional comments keep those columns side by side in Outlook",
+        "Thumbnails sized by width and height attributes, so Outlook on a high DPI screen keeps them at 56 pixels",
+        "Figures right aligned with tabular numbers"
+      ],
+      "html": "dist/order-confirmation.html",
+      "text": "dist/order-confirmation.txt",
+      "url": "https://sandersaxbuilds.github.io/selected-work/email-kit/dist/order-confirmation.html",
+      "bytes": 23256,
+      "kb": "22.7",
+      "textBytes": 2137,
+      "amounts": {
+        "subtotal": 3600,
+        "coffee": 3100,
+        "discount": 465,
+        "shipping": 395,
+        "total": 3530
+      }
+    },
+    {
+      "id": "shipping-update",
+      "name": "Shipping update",
+      "subject": "Your coffee is on its way",
+      "preheader": "Order KW-20418 left the roastery today. Harbour Post expects to deliver it on Friday 23 October.",
+      "summary": "Sent when the parcel is handed to the carrier, with tracking and a delivery estimate.",
+      "handles": [
+        "Tracking button in VML for Outlook and a 48 pixel tall link everywhere else",
+        "Four step progress bar made of table cells with bgcolor, so it shows with images off",
+        "Tracking number in a monospaced face with letter spacing, and format detection off so iOS leaves it alone",
+        "Brew tip callout with its own dark mode colours",
+        "Every link and button is at least 44 pixels tall"
+      ],
+      "html": "dist/shipping-update.html",
+      "text": "dist/shipping-update.txt",
+      "url": "https://sandersaxbuilds.github.io/selected-work/email-kit/dist/shipping-update.html",
+      "bytes": 21519,
+      "kb": "21.0",
+      "textBytes": 1641,
+      "amounts": null
+    },
+    {
+      "id": "newsletter",
+      "name": "Newsletter",
+      "subject": "Roast notes: a Kenya and a Guatemala for November",
+      "preheader": "Two new coffees, the brew ratio we use on the bar and a free cupping on Saturday 14 November.",
+      "summary": "Roast notes, the monthly email. A hero, a product grid, a brew tip and an event.",
+      "handles": [
+        "Two column product grid in fluid hybrid columns, side by side at 600 pixels and stacked on phones even when a client strips media queries",
+        "Media queries widen the stacked cards and images to the full width as an enhancement",
+        "Young Serif headings where web fonts load, with Georgia as the fallback that Outlook is held to",
+        "Full width hero that scales with height auto, sized for Outlook by its width and height attributes",
+        "Outline buttons in VML as well, so all six buttons stay buttons in Outlook",
+        "Unsubscribe and preference links in the footer, each a full size tap target"
+      ],
+      "html": "dist/newsletter.html",
+      "text": "dist/newsletter.txt",
+      "url": "https://sandersaxbuilds.github.io/selected-work/email-kit/dist/newsletter.html",
+      "bytes": 29501,
+      "kb": "28.8",
+      "textBytes": 2867,
+      "amounts": null
+    }
+  ]
+}

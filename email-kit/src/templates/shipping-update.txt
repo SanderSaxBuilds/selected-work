@@ -1,0 +1,20 @@
+Your coffee is on its way
+
+Order {{order.number}} left the roastery this morning, the day after roasting. {{carrier}} expects to deliver it on {{eta}}.
+
+{{#each steps}}
+[{{#if done}}x{{else}} {{/if}}] {{label}}, {{date}}
+{{/each}}
+
+{{carrier}} tracking number: {{tracking}}
+
+{{> button href=links.track label=cta}}
+
+IN THE BOX
+
+{{#each items}}
+{{qty}} x {{name}}, {{options}}
+{{/each}}
+
+{{tip.title}}
+{{tip.text}}

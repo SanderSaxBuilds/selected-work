@@ -1,0 +1,37 @@
+/* Stays in the head. These rules need selectors or at-rules that cannot be
+   inlined. The emails already work without them: the columns stack on
+   their own and every colour is inlined. This file only refines that. */
+
+:root { color-scheme: light dark; supported-color-schemes: light dark; }
+html, body { margin: 0 auto !important; padding: 0 !important; width: 100% !important; }
+* { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+table, td { mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; }
+table { border-spacing: 0 !important; border-collapse: collapse !important; }
+
+/* The preheader is also hidden inline. This covers a client that drops inline display. */
+.preheader { display: none !important; visibility: hidden; mso-hide: all; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; }
+
+/* Samsung Mail and Outlook.com wrappers */
+#MessageViewBody, #MessageWebViewDiv { width: 100% !important; }
+
+/* Apple Mail and Gmail turn dates, times and numbers into links */
+a[x-apple-data-detectors], .aBn { border-bottom: 0 !important; cursor: default !important; color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
+
+/* Gmail's download button over large images */
+.a6S { display: none !important; opacity: 0.01 !important; }
+
+.btn:hover { background-color: #8a1b31 !important; border-color: #8a1b31 !important; }
+.btn-outline:hover { background-color: #f8e3dc !important; border-color: #a3213a !important; }
+
+/* Phones. The columns have already stacked by this point. These rules
+   widen them to the full card and tighten the side padding. */
+@media screen and (max-width: 600px) {
+  .page-pad { padding-left: 8px !important; padding-right: 8px !important; }
+  .pad { padding-left: 20px !important; padding-right: 20px !important; }
+  .cols-pad { padding-left: 0 !important; padding-right: 0 !important; }
+  .col { max-width: 100% !important; }
+  .fluid { max-width: 100% !important; }
+  .btn { width: 100% !important; }
+  .hide-sm { display: none !important; }
+  h1 { font-size: 26px !important; line-height: 32px !important; }
+}

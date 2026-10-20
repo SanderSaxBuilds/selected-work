@@ -1,0 +1,83 @@
+<tr>
+<td class="bg-card pad" style="padding:32px 40px 8px;">
+<h1>Thanks, {{customer.first}}. Your order is in.</h1>
+<p>We roast your coffee on {{order.roastDay}} and post it the next morning. One more email follows with tracking when the box leaves us.</p>
+<p class="small muted last">Order <strong>{{order.number}}</strong>, placed {{order.placed}}</p>
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:24px 40px 8px;">
+<!-- A data table, so no role="presentation". Column and row headers carry scope. -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th scope="col" align="left" class="th">Item</th>
+<th scope="col" align="center" width="44" class="th">Qty</th>
+<th scope="col" align="right" width="84" class="th">Price</th>
+</tr>
+{{#each lines}}
+<tr>
+<td valign="top" class="td">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="68" valign="top" class="hide-sm"><img src="{{thumb}}" width="56" height="56" alt="" style="width:56px;height:56px;border-radius:2px;"></td>
+<td valign="top">
+<p class="item-name">{{name}}</p>
+<p class="small muted item-meta">{{options}}, {{unitPrice}} each</p>
+</td>
+</tr>
+</table>
+</td>
+<td valign="top" align="center" class="td num">{{qty}}</td>
+<td valign="top" align="right" class="td num">{{lineTotal}}</td>
+</tr>
+{{/each}}
+{{#each totals}}
+<tr>
+<th scope="row" colspan="2" align="right" class="tot-label">{{label}}</th>
+<td align="right" class="tot num">{{value}}</td>
+</tr>
+{{/each}}
+<tr>
+<th scope="row" colspan="2" align="right" class="tot-label grand">Total paid</th>
+<td align="right" class="tot num grand">{{grandTotal}}</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td align="center" valign="top" class="bg-card cols-pad" style="padding:24px 20px 8px;font-size:0;">
+<!--[if mso]><table role="presentation" width="560" border="0" cellpadding="0" cellspacing="0"><tr><td width="280" valign="top"><![endif]-->
+<div class="col" style="max-width:280px;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td style="padding:0 20px 16px;">
+<h3>Delivering to</h3>
+<p class="last">{{customer.name}}<br>{{customer.address.0}}<br>{{customer.address.1}}</p>
+</td>
+</tr>
+</table>
+</div>
+<!--[if mso]></td><td width="280" valign="top"><![endif]-->
+<div class="col" style="max-width:280px;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td style="padding:0 20px 16px;">
+<h3>Delivery and payment</h3>
+<p class="last">{{order.delivery}}<br>{{order.payment}}</p>
+</td>
+</tr>
+</table>
+</div>
+<!--[if mso]></td></tr></table><![endif]-->
+</td>
+</tr>
+<tr>
+<td align="center" class="bg-card pad" style="padding:16px 40px 12px;">
+{{> button href=links.order label=cta width=240}}
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:8px 40px 36px;">
+<p class="small muted center last">{{help}}</p>
+</td>
+</tr>
