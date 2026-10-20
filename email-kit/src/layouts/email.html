@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
+<title>{{subject}}</title>
+<!--[if mso]>
+<noscript><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+<style>{{{css.mso}}}</style>
+<![endif]-->
+<!--[if !mso]><!-->
+<style>{{{css.font}}}</style>
+<!--<![endif]-->
+<style>{{{css.head}}}</style>
+<style>{{{css.dark}}}</style>
+</head>
+<body class="bg-page">
+<div role="article" aria-roledescription="email" aria-label="{{subject}}" lang="en" dir="ltr" class="bg-page">
+<!-- Inbox preview text. The spacer after it stops the client pulling body copy into the preview. -->
+<div class="preheader" style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">{{preheader}}</div>
+<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">{{{preheaderSpacer}}}</div>
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" class="bg-page">
+<tr>
+<td align="center" valign="top" class="page-pad" style="padding:16px 12px 32px;">
+<!--[if mso]><table role="presentation" align="center" width="600" border="0" cellpadding="0" cellspacing="0"><tr><td width="600" valign="top"><![endif]-->
+<div style="max-width:600px;margin:0 auto;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="right" style="padding:0 0 8px;">
+<a class="footer-link" href="{{viewInBrowser}}">View this email in your browser</a>
+</td>
+</tr>
+<tr>
+<td>
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" class="bg-card" style="border-radius:4px;">
+{{> header}}
+{{{body}}}
+</table>
+</td>
+</tr>
+{{> footer}}
+</table>
+</div>
+<!--[if mso]></td></tr></table><![endif]-->
+</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

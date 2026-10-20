@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Inkpost email templates</title>
+<meta name="description" content="Four responsive HTML emails for a fictional coffee roaster, with Outlook fallbacks, fluid hybrid columns, dark mode and plain text versions.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23b0136a'/%3E%3Cpath d='M7 10h18v13H7z' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3Cpath d='M7 10l9 7 9-7' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif&amp;display=swap">
+<link rel="stylesheet" href="preview.css">
+<script type="module" src="preview.js"></script>
+</head>
+<body>
+<a class="skip" href="#viewer">Skip to the preview</a>
+<header class="masthead">
+<div class="wrap topbar">
+<a class="quiet" href="../">Selected work</a>
+<a class="quiet" href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source on GitHub</a>
+</div>
+<div class="wrap intro">
+<h1>Inkpost</h1>
+<p class="lede">Four HTML emails for Kettlewick Coffee Roasters, a fictional roaster, built from one shared layout by a small Node script with its own CSS inliner. Each one carries Outlook fallbacks, stacks on phones and has a dark mode.</p>
+</div>
+</header>
+<main id="viewer" class="wrap" tabindex="-1">
+<div class="controls">
+<div class="tabs" role="tablist" aria-label="Emails">
+<button type="button" role="tab" id="tab-welcome" aria-controls="panel-welcome" aria-selected="true" tabindex="0" data-id="welcome"><span class="tab-name">Welcome</span> <span class="tab-size">19.2 KB</span></button>
+<button type="button" role="tab" id="tab-order-confirmation" aria-controls="panel-order-confirmation" aria-selected="false" tabindex="-1" data-id="order-confirmation"><span class="tab-name">Order confirmation</span> <span class="tab-size">22.7 KB</span></button>
+<button type="button" role="tab" id="tab-shipping-update" aria-controls="panel-shipping-update" aria-selected="false" tabindex="-1" data-id="shipping-update"><span class="tab-name">Shipping update</span> <span class="tab-size">21.0 KB</span></button>
+<button type="button" role="tab" id="tab-newsletter" aria-controls="panel-newsletter" aria-selected="false" tabindex="-1" data-id="newsletter"><span class="tab-name">Newsletter</span> <span class="tab-size">28.8 KB</span></button>
+</div>
+<div class="toggles">
+<fieldset class="seg">
+<legend>Width</legend>
+<label><input type="radio" name="width" value="375"><span>Phone 375</span></label>
+<label><input type="radio" name="width" value="680" checked><span>Desktop 680</span></label>
+</fieldset>
+<fieldset class="seg">
+<legend>Mode</legend>
+<label><input type="radio" name="theme" value="light" checked><span>Light</span></label>
+<label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+</fieldset>
+</div>
+</div>
+<section class="panel" role="tabpanel" id="panel-welcome" aria-labelledby="tab-welcome" data-id="welcome">
+<div class="stage">
+<div class="frame-box"><iframe title="Welcome email" data-src="dist/welcome.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<h2>Welcome</h2>
+<p class="summary">Sent once, straight after someone joins the list.</p>
+<dl class="meta">
+<div><dt>Subject</dt><dd>Welcome to Kettlewick</dd></div>
+<div><dt>Preview text</dt><dd>Your code for 15% off the first bag, and what to expect from us.</dd></div>
+<div><dt>Built size</dt><dd><span class="num">19.2 KB</span> of the 102 KB where Gmail starts clipping</dd></div>
+</dl>
+<h3>What it handles</h3>
+<ul class="checks">
+<li>Hidden preheader followed by spacer characters, so the inbox preview stops where it should</li>
+<li>VML roundrect button for Outlook on Windows, with a styled link for every other client</li>
+<li>Logo badge with its own background, readable in light and dark inboxes</li>
+<li>Dashed code box and numbered steps built from table cells, so they show with images off</li>
+<li>Dark mode through prefers-color-scheme, repeated for Outlook.com with data-ogsc and data-ogsb</li>
+<li>Plain text version with every link written out</li>
+</ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-welcome" data-source="dist/welcome.html">View source</button>
+<a class="action" href="dist/welcome.html" download="kettlewick-welcome.html">Download HTML</a>
+<a class="action" href="dist/welcome.txt" download="kettlewick-welcome.txt">Download plain text</a>
+<a class="action" href="dist/welcome.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-welcome" hidden>
+<p class="source-head"><span>dist/welcome.html</span><span class="num">19652 bytes</span></p>
+<pre tabindex="0" aria-label="Built HTML of the Welcome email"><code></code></pre>
+</div>
+</section>
+<section class="panel" role="tabpanel" id="panel-order-confirmation" aria-labelledby="tab-order-confirmation" data-id="order-confirmation">
+<div class="stage">
+<div class="frame-box"><iframe title="Order confirmation email" data-src="dist/order-confirmation.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<h2>Order confirmation</h2>
+<p class="summary">Sent when an order is paid. Lists the items, the totals and where the order is going.</p>
+<dl class="meta">
+<div><dt>Subject</dt><dd>Order KW-20418 is confirmed</dd></div>
+<div><dt>Preview text</dt><dd>Thanks, Jamie. We roast your coffee on Tuesday and post it on Wednesday morning.</dd></div>
+<div><dt>Built size</dt><dd><span class="num">22.7 KB</span> of the 102 KB where Gmail starts clipping</dd></div>
+</dl>
+<h3>What it handles</h3>
+<ul class="checks">
+<li>Line items in a real data table with column and row headers, so a screen reader can follow it</li>
+<li>Line totals, the discount and the total worked out at build time from unit prices, then checked again by the tests</li>
+<li>Delivery and payment details in two fluid hybrid columns that stack on phones without a media query</li>
+<li>Ghost tables in Outlook conditional comments keep those columns side by side in Outlook</li>
+<li>Thumbnails sized by width and height attributes, so Outlook on a high DPI screen keeps them at 56 pixels</li>
+<li>Figures right aligned with tabular numbers</li>
+</ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-order-confirmation" data-source="dist/order-confirmation.html">View source</button>
+<a class="action" href="dist/order-confirmation.html" download="kettlewick-order-confirmation.html">Download HTML</a>
+<a class="action" href="dist/order-confirmation.txt" download="kettlewick-order-confirmation.txt">Download plain text</a>
+<a class="action" href="dist/order-confirmation.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-order-confirmation" hidden>
+<p class="source-head"><span>dist/order-confirmation.html</span><span class="num">23256 bytes</span></p>
+<pre tabindex="0" aria-label="Built HTML of the Order confirmation email"><code></code></pre>
+</div>
+</section>
+<section class="panel" role="tabpanel" id="panel-shipping-update" aria-labelledby="tab-shipping-update" data-id="shipping-update">
+<div class="stage">
+<div class="frame-box"><iframe title="Shipping update email" data-src="dist/shipping-update.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<h2>Shipping update</h2>
+<p class="summary">Sent when the parcel is handed to the carrier, with tracking and a delivery estimate.</p>
+<dl class="meta">
+<div><dt>Subject</dt><dd>Your coffee is on its way</dd></div>
+<div><dt>Preview text</dt><dd>Order KW-20418 left the roastery today. Harbour Post expects to deliver it on Friday 23 October.</dd></div>
+<div><dt>Built size</dt><dd><span class="num">21.0 KB</span> of the 102 KB where Gmail starts clipping</dd></div>
+</dl>
+<h3>What it handles</h3>
+<ul class="checks">
+<li>Tracking button in VML for Outlook and a 48 pixel tall link everywhere else</li>
+<li>Four step progress bar made of table cells with bgcolor, so it shows with images off</li>
+<li>Tracking number in a monospaced face with letter spacing, and format detection off so iOS leaves it alone</li>
+<li>Brew tip callout with its own dark mode colours</li>
+<li>Every link and button is at least 44 pixels tall</li>
+</ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-shipping-update" data-source="dist/shipping-update.html">View source</button>
+<a class="action" href="dist/shipping-update.html" download="kettlewick-shipping-update.html">Download HTML</a>
+<a class="action" href="dist/shipping-update.txt" download="kettlewick-shipping-update.txt">Download plain text</a>
+<a class="action" href="dist/shipping-update.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-shipping-update" hidden>
+<p class="source-head"><span>dist/shipping-update.html</span><span class="num">21519 bytes</span></p>
+<pre tabindex="0" aria-label="Built HTML of the Shipping update email"><code></code></pre>
+</div>
+</section>
+<section class="panel" role="tabpanel" id="panel-newsletter" aria-labelledby="tab-newsletter" data-id="newsletter">
+<div class="stage">
+<div class="frame-box"><iframe title="Newsletter email" data-src="dist/newsletter.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<h2>Newsletter</h2>
+<p class="summary">Roast notes, the monthly email. A hero, a product grid, a brew tip and an event.</p>
+<dl class="meta">
+<div><dt>Subject</dt><dd>Roast notes: a Kenya and a Guatemala for November</dd></div>
+<div><dt>Preview text</dt><dd>Two new coffees, the brew ratio we use on the bar and a free cupping on Saturday 14 November.</dd></div>
+<div><dt>Built size</dt><dd><span class="num">28.8 KB</span> of the 102 KB where Gmail starts clipping</dd></div>
+</dl>
+<h3>What it handles</h3>
+<ul class="checks">
+<li>Two column product grid in fluid hybrid columns, side by side at 600 pixels and stacked on phones even when a client strips media queries</li>
+<li>Media queries widen the stacked cards and images to the full width as an enhancement</li>
+<li>Young Serif headings where web fonts load, with Georgia as the fallback that Outlook is held to</li>
+<li>Full width hero that scales with height auto, sized for Outlook by its width and height attributes</li>
+<li>Outline buttons in VML as well, so all six buttons stay buttons in Outlook</li>
+<li>Unsubscribe and preference links in the footer, each a full size tap target</li>
+</ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-newsletter" data-source="dist/newsletter.html">View source</button>
+<a class="action" href="dist/newsletter.html" download="kettlewick-newsletter.html">Download HTML</a>
+<a class="action" href="dist/newsletter.txt" download="kettlewick-newsletter.txt">Download plain text</a>
+<a class="action" href="dist/newsletter.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-newsletter" hidden>
+<p class="source-head"><span>dist/newsletter.html</span><span class="num">29501 bytes</span></p>
+<pre tabindex="0" aria-label="Built HTML of the Newsletter email"><code></code></pre>
+</div>
+</section>
+</main>
+<footer class="wrap foot">
+<p>Kettlewick Coffee Roasters is a fictional business. Its people, orders and prices are sample content made for this portfolio piece, not client work. Rendering was checked in Chromium only. Outlook, Gmail and Apple Mail were not opened, so the Outlook code is checked by tests on its structure.</p>
+<p><a class="quiet" href="../">Back to selected work</a></p>
+</footer>
+</body>
+</html>

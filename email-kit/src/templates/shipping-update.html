@@ -1,0 +1,68 @@
+<tr>
+<td class="bg-card pad" style="padding:32px 40px 8px;">
+<h1>Your coffee is on its way</h1>
+<p>Order {{order.number}} left the roastery this morning, the day after roasting. {{carrier}} expects to deliver it on <strong>{{eta}}</strong>.</p>
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:8px 36px 24px;">
+<!-- Progress bar from table cells and bgcolor, so it needs no images. -->
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+{{#each steps}}
+<td width="25%" valign="top" style="padding:0 4px;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="{{#if done}}bar-done{{else}}bar-todo{{/if}}" height="6">&nbsp;</td></tr></table>
+<p class="step-label">{{label}}</p>
+<p class="step-date">{{date}}</p>
+</td>
+{{/each}}
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:0 40px 28px;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td class="bg-soft" align="center" style="padding:24px 20px;border-radius:4px;">
+<p class="small muted center" style="margin:0 0 6px;">{{carrier}} tracking number</p>
+<p class="tracking center">{{tracking}}</p>
+{{> button href=links.track label=cta width=240}}
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:4px 40px 8px;">
+<h2>In the box</h2>
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:0 40px 16px;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+{{#each items}}
+<tr>
+<td width="68" valign="middle" style="padding:0 0 12px;"><img src="{{thumb}}" width="56" height="56" alt="" style="width:56px;height:56px;border-radius:2px;"></td>
+<td valign="middle" style="padding:0 0 12px;">
+<p class="item-name">{{name}}</p>
+<p class="small muted item-meta">{{options}}</p>
+</td>
+<td width="48" align="right" valign="middle" class="num" style="padding:0 0 12px;"><p class="last">&times; {{qty}}</p></td>
+</tr>
+{{/each}}
+</table>
+</td>
+</tr>
+<tr>
+<td class="bg-card pad" style="padding:8px 40px 36px;">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td class="bg-tint" style="padding:20px 24px;border-radius:4px;">
+<h3>{{tip.title}}</h3>
+<p class="last">{{tip.text}}</p>
+</td>
+</tr>
+</table>
+</td>
+</tr>

@@ -1,0 +1,35 @@
+/* Dark mode. Apple Mail, iOS Mail and Outlook for Mac read the media query.
+   Outlook.com and the Outlook apps mark the elements they recolour with
+   data-ogsc for text and data-ogsb for backgrounds, so the same palette is
+   repeated under those attributes. Kept in its own style block so a client
+   that rejects attribute selectors only drops this block. */
+
+@media (prefers-color-scheme: dark) {
+  .bg-page { background-color: #17110f !important; }
+  .bg-card { background-color: #221a17 !important; }
+  .bg-tint { background-color: #3b2520 !important; }
+  .bg-soft { background-color: #2c221e !important; }
+  h1, h2, h3, strong, .wordmark, .item-name, .step-label, .tracking, .price, .grand { color: #f6ece4 !important; }
+  p, .td, .tot, .tot-label { color: #e8dbd2 !important; }
+  .muted, .th, .wordmark-sub, .step-date, .footer-link, .footer-text { color: #c4b1a7 !important; }
+  a, .code, .accent { color: #f6a5b0 !important; }
+  .btn { color: #ffffff !important; }
+  .btn-outline { background-color: #221a17 !important; color: #f6a5b0 !important; border-color: #f6a5b0 !important; }
+  .code-box { border-color: #f6a5b0 !important; }
+  .rule, .th, .td { border-color: #4a3a34 !important; }
+  .bar-done { background-color: #e0576f !important; }
+  .bar-todo { background-color: #4a3a34 !important; }
+}
+
+[data-ogsb] .bg-page { background-color: #17110f !important; }
+[data-ogsb] .bg-card { background-color: #221a17 !important; }
+[data-ogsb] .bg-tint { background-color: #3b2520 !important; }
+[data-ogsb] .bg-soft { background-color: #2c221e !important; }
+[data-ogsb] .bar-done { background-color: #e0576f !important; }
+[data-ogsb] .bar-todo { background-color: #4a3a34 !important; }
+[data-ogsb] .btn-outline { background-color: #221a17 !important; }
+[data-ogsc] h1, [data-ogsc] h2, [data-ogsc] h3, [data-ogsc] strong, [data-ogsc] .wordmark, [data-ogsc] .item-name, [data-ogsc] .step-label, [data-ogsc] .tracking, [data-ogsc] .price, [data-ogsc] .grand { color: #f6ece4 !important; }
+[data-ogsc] p, [data-ogsc] .td, [data-ogsc] .tot, [data-ogsc] .tot-label { color: #e8dbd2 !important; }
+[data-ogsc] .muted, [data-ogsc] .th, [data-ogsc] .wordmark-sub, [data-ogsc] .step-date, [data-ogsc] .footer-link, [data-ogsc] .footer-text { color: #c4b1a7 !important; }
+[data-ogsc] .btn { color: #ffffff !important; }
+[data-ogsc] a, [data-ogsc] .code, [data-ogsc] .accent, [data-ogsc] .btn-outline { color: #f6a5b0 !important; }

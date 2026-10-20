@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Inkpost email templates</title>
+<meta name="description" content="Four responsive HTML emails for a fictional coffee roaster, with Outlook fallbacks, fluid hybrid columns, dark mode and plain text versions.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23b0136a'/%3E%3Cpath d='M7 10h18v13H7z' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3Cpath d='M7 10l9 7 9-7' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif&amp;display=swap">
+<link rel="stylesheet" href="preview.css">
+<script type="module" src="preview.js"></script>
+</head>
+<body>
+<a class="skip" href="#viewer">Skip to the preview</a>
+<header class="masthead">
+<div class="wrap topbar">
+<a class="quiet" href="../">Selected work</a>
+<a class="quiet" href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source on GitHub</a>
+</div>
+<div class="wrap intro">
+<h1>Inkpost</h1>
+<p class="lede">Four HTML emails for {{brand.name}}, a fictional roaster, built from one shared layout by a small Node script with its own CSS inliner. Each one carries Outlook fallbacks, stacks on phones and has a dark mode.</p>
+</div>
+</header>
+<main id="viewer" class="wrap" tabindex="-1">
+<div class="controls">
+<div class="tabs" role="tablist" aria-label="Emails">
+{{#each emails}}
+<button type="button" role="tab" id="tab-{{id}}" aria-controls="panel-{{id}}" aria-selected="{{#if first}}true{{else}}false{{/if}}" tabindex="{{#if first}}0{{else}}-1{{/if}}" data-id="{{id}}"><span class="tab-name">{{name}}</span> <span class="tab-size">{{kb}} KB</span></button>
+{{/each}}
+</div>
+<div class="toggles">
+<fieldset class="seg">
+<legend>Width</legend>
+<label><input type="radio" name="width" value="375"><span>Phone 375</span></label>
+<label><input type="radio" name="width" value="680" checked><span>Desktop 680</span></label>
+</fieldset>
+<fieldset class="seg">
+<legend>Mode</legend>
+<label><input type="radio" name="theme" value="light" checked><span>Light</span></label>
+<label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+</fieldset>
+</div>
+</div>
+{{#each emails}}
+<section class="panel" role="tabpanel" id="panel-{{id}}" aria-labelledby="tab-{{id}}" data-id="{{id}}">
+<div class="stage">
+<div class="frame-box"><iframe title="{{name}} email" data-src="{{html}}" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<h2>{{name}}</h2>
+<p class="summary">{{summary}}</p>
+<dl class="meta">
+<div><dt>Subject</dt><dd>{{subject}}</dd></div>
+<div><dt>Preview text</dt><dd>{{preheader}}</dd></div>
+<div><dt>Built size</dt><dd><span class="num">{{kb}} KB</span> of the 102 KB where Gmail starts clipping</dd></div>
+</dl>
+<h3>What it handles</h3>
+<ul class="checks">
+{{#each handles}}
+<li>{{this}}</li>
+{{/each}}
+</ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-{{id}}" data-source="{{html}}">View source</button>
+<a class="action" href="{{html}}" download="kettlewick-{{id}}.html">Download HTML</a>
+<a class="action" href="{{text}}" download="kettlewick-{{id}}.txt">Download plain text</a>
+<a class="action" href="{{html}}" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-{{id}}" hidden>
+<p class="source-head"><span>{{html}}</span><span class="num">{{bytes}} bytes</span></p>
+<pre tabindex="0" aria-label="Built HTML of the {{name}} email"><code></code></pre>
+</div>
+</section>
+{{/each}}
+</main>
+<footer class="wrap foot">
+<p>{{brand.name}} is a fictional business. Its people, orders and prices are sample content made for this portfolio piece, not client work. Rendering was checked in Chromium only. Outlook, Gmail and Apple Mail were not opened, so the Outlook code is checked by tests on its structure.</p>
+<p><a class="quiet" href="../">Back to selected work</a></p>
+</footer>
+</body>
+</html>
