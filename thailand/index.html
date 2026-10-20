@@ -4,116 +4,520 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Сайты для бизнеса в Таиланде · Alexandr Khrustalev</title>
-<meta name="description" content="Быстрый сайт на русском и английском с записью или заказом через Telegram или LINE. Для бизнеса в Паттайе, на Пхукете и в Бангкоке.">
-<meta property="og:title" content="Сайты для бизнеса в Таиланде">
+<meta name="description" content="Быстрые сайты на русском и английском, где клиенты сами записываются через Telegram или LINE. Для бизнеса в Паттайе, на Пхукете и в Бангкоке.">
+<meta property="og:title" content="Сайты, на которых клиенты записываются сами">
 <meta property="og:description" content="Быстрый сайт на русском и английском с записью через Telegram или LINE. Фиксированная цена.">
-<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/cover-slotbook.png">
-<meta name="theme-color" content="#14213d">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2314213d'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='14' fill='%23ffb627' text-anchor='middle'%3EAK%3C/text%3E%3C/svg%3E">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/thailand/og.png">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0f1733">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f1733'/%3E%3Ccircle cx='22' cy='10' r='4' fill='%23ffb020'/%3E%3Ctext x='13' y='24' font-family='Arial' font-weight='700' font-size='13' fill='%23fff' text-anchor='middle'%3EAK%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#14213d;--paper:#fbf7f0;--card:#ffffff;--muted:#555b6e;--line:#e4ddd0;--accent:#ffb627;--accent-ink:#8a5a00;--link:#1f4fd1}
+:root{
+  --night:#0f1733;--night-2:#18234a;--night-3:#24315f;
+  --sand:#f7f1e6;--sand-2:#efe5d3;--card:#fffdf8;
+  --ink:#0f1733;--muted:#5a6078;--line:#e3d8c4;
+  --mango:#ffb020;--coral:#ff6a4d;--sea:#18a8bd;--sea-ink:#0b6b78;
+  --tg:#2aabee;--r:18px;--r-sm:10px;
+  --display:Unbounded,"Arial Black",system-ui,sans-serif;
+  --body:Onest,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 Onest,system-ui,sans-serif;min-width:320px}
-a{color:var(--link);text-underline-offset:3px}
-a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-header{border-bottom:1px solid var(--line)}
-header .wrap{display:flex;justify-content:space-between;align-items:center;min-height:64px;gap:12px}
-.name{font-weight:700}
-.lang{display:flex;gap:4px}
-.lang button{font:inherit;font-size:15px;min-width:48px;min-height:44px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:4px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
-.intro{padding-top:48px;padding-bottom:32px;display:grid;gap:28px}
-h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:0;letter-spacing:-.02em;max-width:18ch}
-.lead{font-size:19px;color:var(--muted);max-width:56ch;margin:0}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:4px;font-weight:700;text-decoration:none}
-.btn-main{background:var(--accent);color:var(--ink)}
-.btn-alt{border:2px solid var(--ink);color:var(--ink)}
-section{padding:32px 0;border-top:1px solid var(--line)}
-h2{font-size:26px;margin:0 0 20px;letter-spacing:-.01em}
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.plan{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:22px}
-.plan h3{margin:0 0 4px;font-size:20px}
-.price{font-size:28px;font-weight:700;margin:6px 0 12px;font-variant-numeric:tabular-nums}
-.price small{font-size:15px;font-weight:400;color:var(--muted)}
-ul{margin:0;padding-left:20px}
-li{margin:4px 0}
-.steps{counter-reset:s;list-style:none;padding:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px}
-.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--accent);font-weight:700;margin-bottom:8px}
-.work{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.work a{display:block;background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden;color:var(--ink);text-decoration:none}
-.work img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--line)}
-.work span{display:block;padding:12px 14px 14px}
-.work strong{display:block}
-.work em{font-style:normal;color:var(--muted);font-size:15px}
-.note{color:var(--muted);font-size:15px}
-footer{padding:32px 0 48px;border-top:1px solid var(--line)}
-[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--sand);color:var(--ink);font:17px/1.6 var(--body);min-width:320px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--mango);outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding-left:20px;padding-right:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:12px;top:12px;z-index:99;background:var(--mango);color:var(--night);padding:12px 16px;border-radius:8px;font-weight:700;transform:translateY(-200%)}
+.skip:focus{transform:none}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(15,23,51,.94);color:#fff;backdrop-filter:saturate(1.4) blur(8px)}
+.bar .wrap{display:flex;align-items:center;gap:16px;min-height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:15px;text-decoration:none;white-space:nowrap}
+.logo i{width:34px;height:34px;border-radius:10px;background:var(--mango);display:grid;place-items:center;color:var(--night);font-style:normal;font-size:13px}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{padding:10px 12px;border-radius:8px;text-decoration:none;font-size:15px;color:#d6dcf2}
+.nav a:hover{color:#fff;background:var(--night-2)}
+.lang{display:flex;background:var(--night-2);border-radius:10px;padding:3px}
+.lang button{border:0;background:transparent;color:#c7cee8;min-width:44px;min-height:40px;border-radius:8px;font-weight:600;font-size:14px}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--night)}
+.bar .cta-s{background:var(--mango);color:var(--night);text-decoration:none;font-weight:700;padding:0 16px;min-height:44px;border-radius:10px;display:inline-flex;align-items:center;font-size:15px;white-space:nowrap}
+@media (max-width:980px){.nav{display:none}.lang{margin-left:auto}}
+@media (max-width:420px){.bar .cta-s{display:none}}
+@media (max-width:370px){.logo span{display:none}}
+
+/* hero */
+.hero{background:var(--night);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-120px;top:-140px;width:420px;height:420px;border-radius:50%;background:var(--mango);opacity:.95}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center;padding-top:72px;padding-bottom:88px}
+.kicker{display:inline-flex;align-items:center;gap:8px;background:var(--night-2);border:1px solid var(--night-3);color:#dfe4f7;border-radius:999px;padding:6px 14px 6px 8px;font-size:14px}
+.kicker b{width:22px;height:22px;border-radius:50%;background:var(--sea);display:inline-block;position:relative}
+.kicker b::after{content:"";position:absolute;inset:7px;border-radius:50%;background:#fff}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(26px,4.3vw,58px);line-height:1.04;letter-spacing:-.02em;margin:22px 0 22px}
+h1 em{font-style:normal;color:var(--mango)}
+.hero p.lead{font-size:clamp(17px,1.6vw,20px);color:#cdd4ee;max-width:34em;margin:0 0 30px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 24px;border-radius:14px;font-weight:700;text-decoration:none;border:0}
+.btn svg{width:20px;height:20px}
+.btn-mango{background:var(--mango);color:var(--night)}
+.btn-mango:hover{background:#ffc04d}
+.btn-ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px #46538a}
+.btn-ghost:hover{box-shadow:inset 0 0 0 2px #fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;padding:0;list-style:none}
+.chips li{font-size:14px;color:#dfe4f7;border:1px solid var(--night-3);border-radius:999px;padding:6px 12px}
+.hero .wrap>*{min-width:0}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;padding-top:48px;padding-bottom:64px}.hero::before{width:260px;height:260px;right:-90px;top:-90px}}
+
+/* phone demo */
+.stage{position:relative;display:flex;justify-content:center}
+.phone{width:min(340px,100%);background:#0a0f24;border-radius:44px;padding:12px;box-shadow:0 0 0 2px #2c3870,0 30px 60px rgba(0,0,0,.45);position:relative}
+.screen{background:var(--sand);border-radius:34px;overflow:hidden;height:620px;position:relative;display:flex;flex-direction:column;color:var(--ink)}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:26px;border-radius:14px;background:#0a0f24;z-index:3}
+.app{display:flex;flex-direction:column;height:100%;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.app-head{background:var(--sea-ink);color:#fff;padding:46px 18px 16px}
+.app-head small{display:block;font-size:12px;opacity:.85}
+.app-head strong{font-family:var(--display);font-size:17px;font-weight:500}
+.app-body{padding:14px 16px 16px;overflow:auto;flex:1}
+.lbl{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:10px 0 8px}
+.svc{display:grid;gap:8px}
+.svc button{display:flex;justify-content:space-between;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px;min-height:48px;font-size:14px}
+.svc button span:last-child{font-weight:700;white-space:nowrap;padding-left:8px}
+.svc button[aria-pressed="true"]{border-color:var(--sea-ink);box-shadow:inset 0 0 0 1px var(--sea-ink);background:#e8f6f8}
+.days,.times{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.days button{flex:0 0 auto;min-width:52px;padding:0 6px;min-height:58px;border:1.5px solid var(--line);background:var(--card);border-radius:12px;font-size:12px;line-height:1.2}
+.days button b{display:block;font-size:17px}
+.times{flex-wrap:wrap}
+.times button{min-width:64px;min-height:44px;border:1.5px solid var(--line);background:var(--card);border-radius:10px;font-size:14px;font-variant-numeric:tabular-nums}
+.days button[aria-pressed="true"],.times button[aria-pressed="true"]{background:var(--night);border-color:var(--night);color:#fff}
+.times button:disabled{opacity:.35;text-decoration:line-through;cursor:not-allowed}
+.book{margin-top:14px;width:100%;min-height:50px;border:0;border-radius:12px;background:var(--coral);color:#fff;font-weight:700;font-size:16px}
+.book:disabled{background:#c9bfae;cursor:not-allowed}
+.demo-note{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
+/* telegram pane */
+.tg{position:absolute;inset:0;background:#dfe9f2;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.screen.sent .tg{transform:none}
+.screen.sent .app{transform:translateX(-30%)}
+.tg-head{background:var(--tg);color:#fff;padding:46px 14px 12px;display:flex;align-items:center;gap:10px}
+.tg-head i{width:36px;height:36px;border-radius:50%;background:#fff;color:var(--tg);display:grid;place-items:center;font-style:normal;font-weight:700}
+.tg-head strong{display:block;font-size:15px}
+.tg-head small{font-size:12px;opacity:.9}
+.tg-body{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:8px;justify-content:flex-end}
+.msg{max-width:88%;background:#fff;border-radius:14px 14px 14px 4px;padding:10px 12px;font-size:14px;line-height:1.45;box-shadow:0 1px 1px rgba(0,0,0,.08);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.screen.sent .msg{opacity:1;transform:none}
+.screen.sent .msg:nth-child(2){transition-delay:.5s}
+.msg b{display:block;color:var(--tg);font-size:13px;margin-bottom:2px}
+.msg time{display:block;text-align:right;font-size:11px;color:#8a94a6}
+.msg .acts{display:flex;gap:6px;margin-top:8px}
+.msg .acts span{flex:1;text-align:center;border-radius:8px;background:#eaf5fd;color:#1b7fc0;font-weight:600;font-size:13px;padding:7px 4px}
+.tg-foot{padding:10px 12px 16px}
+.again{width:100%;min-height:46px;border:0;border-radius:12px;background:#fff;color:var(--tg);font-weight:700}
+.float-tag{position:absolute;left:-10px;bottom:-18px;background:#fff;color:var(--ink);border-radius:14px;padding:10px 14px;font-size:13px;box-shadow:0 12px 30px rgba(0,0,0,.25);display:flex;gap:10px;align-items:center;max-width:220px}
+.float-tag i{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--coral);display:grid;place-items:center;color:#fff;font-style:normal;font-weight:700}
+@media (max-width:900px){.float-tag{display:none}}
+@media (max-width:380px){.screen{height:580px}}
+
+/* sections */
+section{padding:88px 0}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:40px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.6vw,44px);line-height:1.08;letter-spacing:-.02em;margin:0}
+.sec-head p{margin:0;color:var(--muted);font-size:18px}
+@media (max-width:800px){.sec-head{grid-template-columns:1fr;gap:14px}section{padding:64px 0}}
+
+.types{background:var(--sand-2);padding:22px 0;border-bottom:1px solid var(--line)}
+.types ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 10px;justify-content:center}
+.types li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:15px;font-weight:500}
+
+.fixes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fix{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:14px}
+.fix .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center}
+.fix .ic svg{width:26px;height:26px}
+.fix:nth-child(1) .ic{background:#ffe9d6;color:#b04a00}
+.fix:nth-child(2) .ic{background:#dff3f6;color:var(--sea-ink)}
+.fix:nth-child(3) .ic{background:#ffe1db;color:#b0301a}
+.fix h3{font-size:20px;margin:0;line-height:1.25}
+.fix .was{margin:0;color:var(--muted);font-size:15px}
+.fix .now{margin:auto 0 0;padding-top:14px;border-top:1px dashed var(--line);font-weight:600;font-size:15px}
+.fix .now::before{content:"→ ";color:var(--coral)}
+@media (max-width:900px){.fixes{grid-template-columns:1fr}}
+
+.prices{background:var(--night);color:#fff}
+.prices .sec-head p{color:#b9c2e2}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+.plan{min-width:0;overflow-wrap:break-word;background:var(--night-2);border:1px solid var(--night-3);border-radius:var(--r);padding:28px;display:flex;flex-direction:column}
+.plan.hot{background:var(--sand);color:var(--ink);border-color:var(--sand);position:relative}
+.plan .tag{position:absolute;top:-13px;left:28px;background:var(--coral);color:#fff;font-size:13px;font-weight:700;border-radius:999px;padding:4px 12px}
+.plan h3{font-size:20px;margin:0 0 6px}
+.plan .sub{font-size:15px;color:#b9c2e2;margin:0 0 18px}
+.plan.hot .sub{color:var(--muted)}
+.amount{font-family:var(--display);font-size:42px;font-weight:700;line-height:1;margin:0 0 4px;font-variant-numeric:tabular-nums}
+.amount small{font-family:var(--body);font-size:16px;font-weight:500;opacity:.75;margin-right:4px}
+.when{font-size:14px;color:#b9c2e2;margin:0 0 20px}
+.plan.hot .when{color:var(--muted)}
+.plan ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px;font-size:15px}
+.plan li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start}
+.plan li svg{width:18px;height:18px;margin-top:3px;color:var(--mango)}
+.plan.hot li svg{color:var(--coral)}
+.plan .btn{margin-top:auto;width:100%}
+.plan .btn-line{box-shadow:inset 0 0 0 2px #46538a;color:#fff;background:transparent}
+.plan .btn-line:hover{box-shadow:inset 0 0 0 2px #fff}
+.terms{margin:26px 0 0;color:#b9c2e2;font-size:15px;display:flex;flex-wrap:wrap;gap:8px 24px;padding:0;list-style:none}
+.terms li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--mango);margin-right:8px;vertical-align:middle}
+@media (max-width:900px){.plans{grid-template-columns:1fr}.plan.hot{order:-1}}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step}
+.step{counter-increment:step;position:relative;padding-top:64px}
+.step::before{content:counter(step,decimal-leading-zero);position:absolute;top:0;left:0;font-family:var(--display);font-size:28px;font-weight:700;color:var(--coral);line-height:1}
+.step::after{content:"";position:absolute;top:13px;left:58px;right:-18px;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 14px)}
+.step:last-child::after{display:none}
+.step h3{font-size:19px;margin:0 0 8px;line-height:1.3}
+.step p{margin:0;color:var(--muted);font-size:15px}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr;row-gap:36px}.step::after{display:none}}
+@media (max-width:560px){.steps{grid-template-columns:1fr;row-gap:28px}.step{padding-top:0;padding-left:64px}.step::before{top:2px}}
+
+.work{background:var(--sand-2)}
+.cases{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto;gap:18px}
+.case{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.case:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(15,23,51,.12)}
+.case:first-child{grid-row:span 2}
+.case img{width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--line)}
+.case:first-child img{aspect-ratio:auto;flex:1;min-height:280px}
+.case div{padding:18px 20px 20px}
+.case .k{font-size:13px;font-weight:600;color:var(--sea-ink);text-transform:uppercase;letter-spacing:.06em}
+.case h3{margin:4px 0 6px;font-size:21px}
+.case p{margin:0;color:var(--muted);font-size:15px}
+.more{margin:22px 0 0;color:var(--muted);font-size:15px}
+.more a{font-weight:600;color:var(--ink)}
+@media (max-width:800px){.cases{grid-template-columns:1fr}.case:first-child{grid-row:auto}.case:first-child img{aspect-ratio:16/10;flex:none;min-height:0}}
+
+.faq{display:grid;grid-template-columns:1fr 1.4fr;gap:40px}
+.qs{display:grid;gap:10px}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px}
+summary{list-style:none;cursor:pointer;padding:18px 54px 18px 20px;font-weight:600;position:relative;min-height:44px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:18px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--sand-2);display:grid;place-items:center;font-size:20px;line-height:1;font-weight:500}
+details[open] summary::after{content:"−"}
+details p{margin:0;padding:0 20px 18px;color:var(--muted);font-size:16px}
+@media (max-width:800px){.faq{grid-template-columns:1fr;gap:20px}}
+
+.contact{background:var(--coral);color:#fff}
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact h2{color:#fff}
+.contact .lead{font-size:19px;margin:18px 0 26px;color:#fff3ef}
+.mail{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:18px;color:#fff;text-decoration:underline;text-underline-offset:5px;word-break:break-all}
+form{background:var(--card);color:var(--ink);border-radius:var(--r);padding:26px;display:grid;gap:14px;box-shadow:0 20px 40px rgba(120,30,10,.25)}
+label{font-weight:600;font-size:15px;display:grid;gap:6px}
+input,textarea{font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;min-height:48px;width:100%}
+textarea{min-height:100px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--night);box-shadow:0 0 0 3px rgba(255,176,32,.6)}
+.err{color:#b0301a;font-size:14px;font-weight:600;min-height:0}
+form .btn{background:var(--night);color:#fff;width:100%}
+form small{color:var(--muted);font-size:13px}
+@media (max-width:860px){.contact .wrap{grid-template-columns:1fr;gap:28px}}
+
+footer{background:var(--night);color:#b9c2e2;padding:32px 0;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer a{color:#fff}
 </style>
 </head>
 <body>
-<header><div class="wrap"><span class="name">Alexandr Khrustalev</span><div class="lang" role="group" aria-label="Язык / Language"><button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button></div></div></header>
+<a class="skip" href="#main" data-t="skip">Перейти к содержанию</a>
 
-<main>
-<div data-lang="ru">
-<div class="wrap intro">
-<h1>Сайт для вашего бизнеса в Таиланде, с записью через Telegram или LINE</h1>
-<p class="lead">Я живу в Паттайе и делаю быстрые сайты на русском и английском для турагентств, клиник, школ, аренды и других местных компаний. Клиент открывает сайт с телефона, видит цены и записывается в пару нажатий.</p>
-<div class="cta"><a class="btn btn-main" href="mailto:leshadqq@gmail.com?subject=%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B0">Написать на почту</a><a class="btn btn-alt" href="#work">Посмотреть работы</a></div>
-</div>
-<section><div class="wrap"><h2>Что входит</h2><div class="plans">
-<div class="plan"><h3>Сайт</h3><p class="price">от $400</p><ul><li>До 5 страниц: главная, услуги, цены, о вас, контакты</li><li>Русский и английский, тайский по желанию</li><li>Быстро открывается на телефоне</li><li>Кнопки Telegram, LINE, WhatsApp и карта</li><li>Готово за 7 до 10 дней</li></ul></div>
-<div class="plan"><h3>Сайт и онлайн-запись</h3><p class="price">от $900</p><ul><li>Всё из первого пакета</li><li>Запись или заказ с выбором даты и времени</li><li>Заявка сразу приходит вам в Telegram или LINE</li><li>Время показывается в часовом поясе клиента</li><li>Готово за 2 до 3 недель</li></ul></div>
-<div class="plan"><h3>Поддержка</h3><p class="price">по договорённости</p><ul><li>Правки цен, фото и текстов</li><li>Новые страницы и акции</li><li>Проверка, что сайт и форма работают</li></ul></div>
-</div><p class="note">Цена фиксируется до начала работы. Домен и хостинг оформляются на вас.</p></div></section>
-<section><div class="wrap"><h2>Как это работает</h2><ol class="steps"><li>Вы присылаете ссылку на текущий сайт, Instagram или Telegram-канал.</li><li>Я бесплатно присылаю короткий разбор и набросок главной страницы.</li><li>Договариваемся о цене и сроке, вы вносите половину.</li><li>Я делаю сайт, вы смотрите и правите, после запуска вторая половина.</li></ol></div></section>
-<section id="work"><div class="wrap"><h2>Работы</h2><div class="work">
-<a href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/"><img src="../cover-v3-04-ledgerlens-cover.png" alt="Отчёт LedgerLens по выручке" loading="lazy"><span><strong>LedgerLens</strong><em>Мой пример: отчёт по продажам из CSV-выгрузок</em></span></a>
-<a href="../slotbook/"><img src="../cover-slotbook.png" alt="Онлайн-запись Slotbook на телефоне" loading="lazy"><span><strong>Онлайн-запись Slotbook</strong><em>Пример для вымышленной веломастерской в Чиангмае</em></span></a>
-<a href="../field-frame.html"><img src="../cover-v3-07-field-frame-cover.png" alt="Сайт Field and Frame" loading="lazy"><span><strong>Field and Frame</strong><em>Пример сайта для вымышленной строительной компании</em></span></a>
-</div><p class="note">Все три работы мои, сделаны как примеры, это не заказы клиентов. Все работы: <a href="../">sandersaxbuilds.github.io/selected-work</a></p></div></section>
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="#top"><i>AK</i><span>Alexandr Khrustalev</span></a>
+    <nav class="nav" aria-label="Разделы" data-t-aria="navLabel">
+      <a href="#demo" data-t="nDemo">Демо</a>
+      <a href="#fixes" data-t="nFix">Что меняю</a>
+      <a href="#prices" data-t="nPrice">Цены</a>
+      <a href="#process" data-t="nProc">Как работаем</a>
+      <a href="#work" data-t="nWork">Работы</a>
+      <a href="#faq" data-t="nFaq">Вопросы</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Язык / Language">
+      <button type="button" data-l="ru" aria-pressed="true">RU</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="cta-s" href="#contact" data-t="ctaS">Бесплатный разбор</a>
+  </div>
+</header>
+
+<main id="main">
+<div class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="kicker"><b></b><span data-t="kicker">Паттайя · Пхукет · Бангкок</span></span>
+      <h1 data-t="h1">Сайты, на которых клиенты <em>записываются сами</em></h1>
+      <p class="lead" data-t="lead">Я делаю быстрые сайты на русском и английском для местного бизнеса в Таиланде. Клиент открывает сайт с телефона, видит цены, выбирает время, и заявка сразу приходит вам в Telegram или LINE.</p>
+      <div class="btns">
+        <a class="btn btn-mango" href="#contact"><span data-t="cta1">Получить бесплатный разбор</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="#demo" data-t="cta2">Попробовать запись</a>
+      </div>
+      <ul class="chips">
+        <li data-t="c1">Русский, английский, тайский</li>
+        <li data-t="c2">Заявки в Telegram и LINE</li>
+        <li data-t="c3">Цена фиксируется заранее</li>
+      </ul>
+    </div>
+
+    <div class="stage" id="demo">
+      <div class="phone">
+        <div class="screen" id="screen">
+          <div class="notch" aria-hidden="true"></div>
+          <div class="app" id="app">
+            <div class="app-head"><small data-t="dBiz">Демо · вымышленный салон</small><strong>Lotus Spa Pattaya</strong></div>
+            <div class="app-body">
+              <h2 class="sr" data-t="dTitle">Демо онлайн-записи</h2>
+              <p class="lbl" id="l-svc" data-t="dSvc">Услуга</p>
+              <div class="svc" id="svc" role="group" aria-labelledby="l-svc"></div>
+              <p class="lbl" id="l-day" data-t="dDay">День</p>
+              <div class="days" id="days" role="group" aria-labelledby="l-day"></div>
+              <p class="lbl" id="l-time" data-t="dTime">Время</p>
+              <div class="times" id="times" role="group" aria-labelledby="l-time"></div>
+              <button class="book" id="book" type="button" disabled data-t="dBook">Записаться</button>
+              <p class="demo-note" data-t="dNote">Это демо. Никакие данные не отправляются.</p>
+            </div>
+          </div>
+          <div class="tg" id="tg" aria-hidden="true">
+            <div class="tg-head"><i>L</i><div><strong data-t="tgName">Бот записи Lotus Spa</strong><small data-t="tgSub">бот · сейчас</small></div></div>
+            <div class="tg-body">
+              <div class="msg" id="msg1"></div>
+              <div class="msg" id="msg2"></div>
+            </div>
+            <div class="tg-foot"><button class="again" id="again" type="button" data-t="tgAgain">Попробовать ещё раз</button></div>
+          </div>
+          <p class="sr" id="live" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="float-tag" aria-hidden="true"><i>!</i><span data-t="float">Новая запись пришла вам в Telegram за секунду</span></div>
+    </div>
+  </div>
 </div>
 
-<div data-lang="en" hidden>
-<div class="wrap intro">
-<h1>A website for your business in Thailand, with booking through Telegram or LINE</h1>
-<p class="lead">I live in Pattaya and build fast websites in English and Russian for tour agencies, clinics, schools, rentals and other local businesses. Customers open the site on a phone, see your prices and book in a couple of taps.</p>
-<div class="cta"><a class="btn btn-main" href="mailto:leshadqq@gmail.com?subject=Website%20for%20my%20business">Send me an email</a><a class="btn btn-alt" href="#work-en">See the work</a></div>
-</div>
-<section><div class="wrap"><h2>What you get</h2><div class="plans">
-<div class="plan"><h3>Website</h3><p class="price">from $400</p><ul><li>Up to 5 pages: home, services, prices, about, contact</li><li>English and Russian, Thai if you need it</li><li>Fast on phones</li><li>Telegram, LINE, WhatsApp buttons and a map</li><li>Ready in 7 to 10 days</li></ul></div>
-<div class="plan"><h3>Website with online booking</h3><p class="price">from $900</p><ul><li>Everything in the first package</li><li>Booking or ordering with a date and time picker</li><li>Each request goes straight to your Telegram or LINE</li><li>Times shown in the customer's own time zone</li><li>Ready in 2 to 3 weeks</li></ul></div>
-<div class="plan"><h3>Care plan</h3><p class="price">by agreement</p><ul><li>Price, photo and text updates</li><li>New pages and promotions</li><li>Checks that the site and form keep working</li></ul></div>
-</div><p class="note">The price is fixed before work starts. The domain and hosting are registered in your name.</p></div></section>
-<section><div class="wrap"><h2>How it works</h2><ol class="steps"><li>Send me your current site, Instagram or Telegram channel.</li><li>I send a short free review and a sketch of your new home page.</li><li>We agree on price and timing, and you pay half.</li><li>I build the site, you review it, and the second half is due at launch.</li></ol></div></section>
-<section id="work-en"><div class="wrap"><h2>Work</h2><div class="work">
-<a href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/"><img src="../cover-v3-04-ledgerlens-cover.png" alt="LedgerLens revenue report" loading="lazy"><span><strong>LedgerLens</strong><em>My sample: a sales report built from CSV exports</em></span></a>
-<a href="../slotbook/"><img src="../cover-slotbook.png" alt="Slotbook booking page on a phone" loading="lazy"><span><strong>Slotbook online booking</strong><em>Sample for a fictional bike workshop in Chiang Mai</em></span></a>
-<a href="../field-frame.html"><img src="../cover-v3-07-field-frame-cover.png" alt="Field and Frame website" loading="lazy"><span><strong>Field and Frame</strong><em>Sample site for a fictional builder</em></span></a>
-</div><p class="note">All three are my own samples, not client work. All work: <a href="../">sandersaxbuilds.github.io/selected-work</a></p></div></section>
-</div>
+<div class="types"><div class="wrap"><ul>
+  <li data-t="t1">Экскурсии и туры</li><li data-t="t2">Спа и массаж</li><li data-t="t3">Стоматология и клиники</li><li data-t="t4">Аренда байков и авто</li><li data-t="t5">Недвижимость</li><li data-t="t6">Школы и секции</li><li data-t="t7">Яхты и трансферы</li><li data-t="t8">Кафе и доставка</li>
+</ul></div></div>
+
+<section id="fixes">
+  <div class="wrap">
+    <div class="sec-head"><h2 data-t="fxH">Что я меняю в первую очередь</h2><p data-t="fxP">Большинство клиентов в Таиланде находят вас с телефона. Если сайт неудобен, они пишут конкурентам. Вот три вещи, которые я чиню чаще всего.</p></div>
+    <div class="fixes">
+      <article class="fix"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span><h3 data-t="f1h">Сайт неудобен на телефоне</h3><p class="was" data-t="f1w">Мелкий текст, всё съезжает, страница грузится долго через мобильный интернет.</p><p class="now" data-t="f1n">Лёгкий сайт, который открывается быстро и читается одной рукой</p></article>
+      <article class="fix"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V7l-8-5-8 5v10l8 5 4-2.5"/><path d="M8 11h8M8 15h5"/><circle cx="19" cy="18" r="3"/></svg></span><h3 data-t="f2h">Нет цен и понятных услуг</h3><p class="was" data-t="f2w">Клиенту приходится писать и ждать ответа, чтобы узнать, сколько стоит.</p><p class="now" data-t="f2n">Ясный список услуг с ценами на русском и английском</p></article>
+      <article class="fix"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span><h3 data-t="f3h">Записаться можно только звонком</h3><p class="was" data-t="f3w">Звонить иностранцам неудобно, а сообщения в директе теряются.</p><p class="now" data-t="f3n">Запись в пару нажатий, заявка сразу у вас в Telegram или LINE</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="prices" id="prices">
+  <div class="wrap">
+    <div class="sec-head"><h2 data-t="pH">Понятные цены</h2><p data-t="pP">Цена фиксируется до начала работы. Половина вперёд, вторая половина после запуска.</p></div>
+    <div class="plans">
+      <article class="plan">
+        <h3 data-t="p1h">Сайт</h3><p class="sub" data-t="p1s">Для тех, кому нужна аккуратная витрина</p>
+        <p class="amount"><small data-t="from">от</small>$400</p><p class="when" data-t="p1t">Готово за 7 до 10 дней</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p1a">До 5 страниц: главная, услуги, цены, о вас, контакты</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p1b">Русский и английский, тайский по желанию</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p1c">Кнопки Telegram, LINE, WhatsApp и карта</span></li>
+        </ul>
+        <a class="btn btn-line" href="#contact" data-t="pBtn">Обсудить</a>
+      </article>
+      <article class="plan hot">
+        <span class="tag" data-t="pTag">Чаще всего выбирают</span>
+        <h3 data-t="p2h">Сайт с онлайн-записью</h3><p class="sub" data-t="p2s">Клиенты записываются сами, без звонков</p>
+        <p class="amount"><small data-t="from">от</small>$900</p><p class="when" data-t="p2t">Готово за 2 до 3 недель</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2a">Всё из пакета «Сайт»</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2b">Запись или заказ с выбором даты и времени</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2c">Заявка сразу приходит вам в Telegram или LINE</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2d">Время показывается в часовом поясе клиента</span></li>
+        </ul>
+        <a class="btn btn-mango" href="#contact" data-t="pBtn2">Хочу такой сайт</a>
+      </article>
+      <article class="plan">
+        <h3 data-t="p3h">Поддержка</h3><p class="sub" data-t="p3s">Чтобы сайт оставался свежим</p>
+        <p class="amount" style="font-size:clamp(20px,5.4vw,28px)" data-t="p3p">По договорённости</p><p class="when" data-t="p3t">Помесячно, без долгих договоров</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p3a">Правки цен, фото и текстов</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p3b">Новые страницы и акции к сезону</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p3c">Проверка, что сайт и запись работают</span></li>
+        </ul>
+        <a class="btn btn-line" href="#contact" data-t="pBtn">Обсудить</a>
+      </article>
+    </div>
+    <ul class="terms"><li data-t="tm1">Домен и хостинг оформляются на вас</li><li data-t="tm2">Исходники остаются у вас</li><li data-t="tm3">Общение на русском или английском</li></ul>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head"><h2 data-t="sH">Как это работает</h2><p data-t="sP">Первый шаг бесплатный. Вы ничего не платите, пока не увидите, каким будет сайт.</p></div>
+    <ol class="steps">
+      <li class="step"><h3 data-t="s1h">Присылаете ссылку</h3><p data-t="s1p">Текущий сайт, Instagram, Facebook или Telegram-канал.</p></li>
+      <li class="step"><h3 data-t="s2h">Бесплатный разбор</h3><p data-t="s2p">За один день присылаю, что мешает клиентам, и набросок новой главной.</p></li>
+      <li class="step"><h3 data-t="s3h">Фиксируем цену</h3><p data-t="s3p">Договариваемся о составе и сроке, вы вносите половину.</p></li>
+      <li class="step"><h3 data-t="s4h">Запуск</h3><p data-t="s4p">Вы проверяете и правите, после запуска оплачиваете вторую половину.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="sec-head"><h2 data-t="wH">Мои работы</h2><p data-t="wP">Примеры, которые я сделал сам, чтобы показать, как работают запись, отчёты и сайты. Это не заказы клиентов, а мои образцы.</p></div>
+    <div class="cases">
+      <a class="case" href="../slotbook/"><img src="../cover-slotbook.png" alt="" loading="lazy"><div><span class="k" data-t="w1k">Онлайн-запись</span><h3>Slotbook</h3><p data-t="w1p">Запись в вымышленную веломастерскую: часы работы, выходные, перерывы между клиентами и правильное время для гостей из других стран.</p></div></a>
+      <a class="case" href="../field-frame.html"><img src="../cover-v3-07-field-frame-cover.png" alt="" loading="lazy"><div><span class="k" data-t="w2k">Сайт компании</span><h3>Field and Frame</h3><p data-t="w2p">Сайт для вымышленной строительной компании с услугами, проектами и формой заявки.</p></div></a>
+      <a class="case" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/"><img src="../cover-v3-04-ledgerlens-cover.png" alt="" loading="lazy"><div><span class="k" data-t="w3k">Отчёты</span><h3>LedgerLens</h3><p data-t="w3p">Отчёт о продажах из выгрузок заказов и возвратов, с графиком за год.</p></div></a>
+    </div>
+    <p class="more"><span data-t="wMore">Все работы:</span> <a href="../">sandersaxbuilds.github.io/selected-work</a></p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap faq">
+    <div><h2 data-t="qH">Частые вопросы</h2></div>
+    <div class="qs">
+      <details><summary data-t="q1">Мне нужен свой домен?</summary><p data-t="a1">Да, и он будет оформлен на вас. Если домена ещё нет, я помогу выбрать и зарегистрировать его. Обычно это около $15 в год.</p></details>
+      <details><summary data-t="q2">Сколько стоит хостинг?</summary><p data-t="a2">Для таких сайтов часто подходит бесплатный хостинг. Если нужен платный, я скажу заранее, сколько он стоит, и аккаунт тоже будет на вас.</p></details>
+      <details><summary data-t="q3">Как заявка попадает в Telegram или LINE?</summary><p data-t="a3">Форма на сайте отправляет заявку вашему боту, и он сразу пишет вам сообщение с услугой, датой, временем и контактом клиента. Как в демо выше.</p></details>
+      <details><summary data-t="q4">Могу ли я сам менять цены и фото?</summary><p data-t="a4">Да. Я покажу, как это делать, или возьму правки на себя в рамках поддержки.</p></details>
+      <details><summary data-t="q5">Вы работаете только в Паттайе?</summary><p data-t="a5">Я живу в Паттайе, но работаю удалённо с бизнесом по всему Таиланду. Созвониться или встретиться можно по договорённости.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <h2 data-t="kH">Пришлите ссылку, я пришлю разбор</h2>
+      <p class="lead" data-t="kP">Бесплатно и без обязательств. Отвечаю в течение суток, обычно быстрее.</p>
+      <a class="mail" href="mailto:leshadqq@gmail.com"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>leshadqq@gmail.com</a>
+    </div>
+    <form id="form" novalidate>
+      <label><span data-t="fName">Как вас зовут</span><input id="fName" name="name" autocomplete="name" required></label>
+      <label><span data-t="fBiz">Ссылка на сайт, Instagram или Telegram</span><input id="fLink" name="link" inputmode="url" required></label>
+      <label><span data-t="fMsg">Что хотите улучшить</span><textarea id="fMsg" name="msg"></textarea></label>
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn" type="submit" data-t="fSend">Открыть письмо с заявкой</button>
+      <small data-t="fNote">Кнопка откроет вашу почту с готовым письмом. Сайт ничего не сохраняет.</small>
+    </form>
+  </div>
+</section>
 </main>
 
-<footer><div class="wrap"><p><strong>Alexandr Khrustalev</strong>, Pattaya. <a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p></div></footer>
+<footer><div class="wrap"><span>© 2026 Alexandr Khrustalev · <span data-t="fCity">Паттайя, Таиланд</span></span><a href="../" data-t="fAll">Все работы</a></div></footer>
 
 <script>
 (function(){
-  var btns=document.querySelectorAll('.lang button');
-  function set(l){
-    document.documentElement.lang=l;
-    document.querySelectorAll('[data-lang]').forEach(function(el){el.hidden=el.getAttribute('data-lang')!==l});
-    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.l===l))});
-    try{localStorage.setItem('ak-lang',l)}catch(e){}
-  }
-  btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l)})});
-  var q=new URLSearchParams(location.search).get('lang'),s=null;
-  try{s=localStorage.getItem('ak-lang')}catch(e){}
-  set(q==='en'||q==='ru'?q:(s||'ru'));
+var T={
+ru:{},
+en:{skip:"Skip to content",navLabel:"Sections",nDemo:"Demo",nFix:"What I fix",nPrice:"Prices",nProc:"How it works",nWork:"Work",nFaq:"FAQ",ctaS:"Free review",
+kicker:"Pattaya · Phuket · Bangkok",h1:"Websites where customers <em>book themselves</em>",lead:"I build fast websites in English and Russian for local businesses in Thailand. Customers open the site on a phone, see your prices, pick a time, and the request lands in your Telegram or LINE straight away.",
+cta1:"Get a free review",cta2:"Try the booking",c1:"English, Russian, Thai",c2:"Requests in Telegram and LINE",c3:"Price fixed in advance",
+dBiz:"Demo · fictional salon",dTitle:"Online booking demo",dSvc:"Service",dDay:"Day",dTime:"Time",dBook:"Book now",dNote:"This is a demo. Nothing is sent anywhere.",
+tgName:"Lotus Spa booking bot",tgSub:"bot · now",tgAgain:"Try again",float:"A new booking reaches your Telegram in a second",
+t1:"Tours and excursions",t2:"Spa and massage",t3:"Dental and clinics",t4:"Bike and car rental",t5:"Real estate",t6:"Schools and classes",t7:"Yachts and transfers",t8:"Cafes and delivery",
+fxH:"What I fix first",fxP:"Most customers in Thailand find you on a phone. If the site is awkward, they message a competitor instead. These are the three things I fix most often.",
+f1h:"The site is hard to use on a phone",f1w:"Tiny text, things slide off the screen, and the page loads slowly on mobile data.",f1n:"A light site that opens fast and reads with one hand",
+f2h:"No prices or clear services",f2w:"Customers have to message you and wait just to find out the price.",f2n:"A clear list of services with prices in English and Russian",
+f3h:"Booking only by phone call",f3w:"Foreign visitors avoid calling, and direct messages get lost.",f3n:"Booking in a couple of taps, straight to your Telegram or LINE",
+pH:"Clear prices",pP:"The price is fixed before work starts. Half up front, half at launch.",from:"from",
+p1h:"Website",p1s:"A tidy shop window for your business",p1t:"Ready in 7 to 10 days",p1a:"Up to 5 pages: home, services, prices, about, contact",p1b:"English and Russian, Thai if you need it",p1c:"Telegram, LINE, WhatsApp buttons and a map",pBtn:"Talk it through",
+pTag:"Most popular",p2h:"Website with online booking",p2s:"Customers book themselves, no calls needed",p2t:"Ready in 2 to 3 weeks",p2a:"Everything in Website",p2b:"Booking or ordering with a date and time picker",p2c:"Each request goes straight to your Telegram or LINE",p2d:"Times shown in the customer's own time zone",pBtn2:"I want this site",
+p3h:"Care plan",p3s:"Keeps the site fresh",p3p:"By agreement",p3t:"Monthly, no long contracts",p3a:"Price, photo and text updates",p3b:"New pages and seasonal offers",p3c:"Checks that the site and booking keep working",
+tm1:"Domain and hosting registered in your name",tm2:"You keep the source files",tm3:"We talk in English or Russian",
+sH:"How it works",sP:"The first step is free. You pay nothing until you see what the site will look like.",
+s1h:"Send a link",s1p:"Your current site, Instagram, Facebook or Telegram channel.",s2h:"Free review",s2p:"Within a day I send what is getting in your customers' way and a sketch of a new home page.",s3h:"Fix the price",s3p:"We agree on scope and timing, and you pay half.",s4h:"Launch",s4p:"You review and request changes, then pay the second half at launch.",
+wH:"My work",wP:"Samples I built myself to show how booking, reports and sites work. They are my own samples, not client projects.",
+w1k:"Online booking",w1p:"Booking for a fictional bike workshop: opening hours, days off, gaps between customers and the right times for visitors from abroad.",
+w2k:"Company website",w2p:"A site for a fictional builder with services, projects and a request form.",w3k:"Reports",w3p:"A sales report from order and refund exports, with a twelve-month chart.",wMore:"All work:",
+qH:"Common questions",q1:"Do I need my own domain?",a1:"Yes, and it will be registered in your name. If you do not have one yet, I will help you pick and register it. That is usually about $15 a year.",
+q2:"How much is hosting?",a2:"Sites like these can often use free hosting. If paid hosting is needed, I will tell you the cost up front, and the account will be yours too.",
+q3:"How does a request reach Telegram or LINE?",a3:"The form on the site sends the request to your bot, which messages you right away with the service, date, time and the customer's contact. Just like the demo above.",
+q4:"Can I change prices and photos myself?",a4:"Yes. I will show you how, or handle changes as part of the care plan.",
+q5:"Do you only work in Pattaya?",a5:"I live in Pattaya and work remotely with businesses all over Thailand. We can talk on a call or meet when it suits you.",
+kH:"Send a link, get a review",kP:"Free and with no obligation. I reply within a day, usually sooner.",
+fName:"Your name",fBiz:"Link to your site, Instagram or Telegram",fMsg:"What would you like to improve",fSend:"Open the email with my request",fNote:"The button opens your email app with the message ready. This site stores nothing.",
+fCity:"Pattaya, Thailand",fAll:"All work"}
+};
+var D={
+ru:{svc:[["Тайский массаж, 60 мин","500 ฿"],["Массаж с маслом, 90 мин","900 ฿"],["Спа для ног, 45 мин","400 ฿"]],days:["Вс","Пн","Вт","Ср","Чт","Пт","Сб"],months:["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек"],
+ new:"Новая запись",client:"Клиент: Анна, Telegram @anna_demo",ok:"Подтвердить",move:"Перенести",reply:"Клиенту отправлено подтверждение на русском.",live:"Запись создана. Заявка пришла в Telegram.",today:"Сегодня",
+ errName:"Напишите, как вас зовут.",errLink:"Добавьте ссылку на сайт, Instagram или Telegram.",subj:"Бесплатный разбор сайта",bName:"Имя",bLink:"Ссылка",bMsg:"Что улучшить"},
+en:{svc:[["Thai massage, 60 min","500 ฿"],["Oil massage, 90 min","900 ฿"],["Foot spa, 45 min","400 ฿"]],days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],months:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+ new:"New booking",client:"Customer: Anna, Telegram @anna_demo",ok:"Confirm",move:"Reschedule",reply:"Confirmation sent to the customer in English.",live:"Booking made. The request arrived in Telegram.",today:"Today",
+ errName:"Please add your name.",errLink:"Please add a link to your site, Instagram or Telegram.",subj:"Free website review",bName:"Name",bLink:"Link",bMsg:"What to improve"}
+};
+var lang="ru",st={svc:0,day:0,time:null};
+document.querySelectorAll("[data-t]").forEach(function(el){T.ru[el.dataset.t]=el.innerHTML});
+document.querySelectorAll("[data-t-aria]").forEach(function(el){T.ru[el.dataset.tAria]=el.getAttribute("aria-label")});
+var $=function(id){return document.getElementById(id)};
+
+function bkk(){ // today's date in Bangkok
+  var p=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Bangkok",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hour12:false}).formatToParts(new Date()),o={};
+  p.forEach(function(x){o[x.type]=x.value});return {y:+o.year,m:+o.month-1,d:+o.day,h:+o.hour%24};
+}
+function dayList(){var t=bkk(),out=[];for(var i=0;i<6;i++){var dt=new Date(Date.UTC(t.y,t.m,t.d+i));out.push(dt)}return out}
+var SLOTS=["10:00","11:30","13:00","14:30","16:00","17:30","19:00"];
+function taken(dayIdx,slot){ // fixed, believable pattern of booked times
+  var h=+slot.slice(0,2),t=bkk();
+  if(dayIdx===0&&h<=t.h+1)return true;
+  return ((dayIdx*3+SLOTS.indexOf(slot)*5)%7)===2;
+}
+function press(group,i){[].forEach.call(group.children,function(b,j){b.setAttribute("aria-pressed",String(j===i))})}
+function renderDemo(){
+  var d=D[lang],svc=$("svc"),days=$("days"),times=$("times");
+  svc.innerHTML="";d.svc.forEach(function(s,i){var b=document.createElement("button");b.type="button";b.innerHTML="<span>"+s[0]+"</span><span>"+s[1]+"</span>";b.onclick=function(){st.svc=i;press(svc,i)};svc.appendChild(b)});press(svc,st.svc);
+  days.innerHTML="";dayList().forEach(function(dt,i){var b=document.createElement("button");b.type="button";b.innerHTML=(i===0?d.today:d.days[dt.getUTCDay()])+"<b>"+dt.getUTCDate()+"</b>";b.setAttribute("aria-label",(i===0?d.today+", ":"")+d.days[dt.getUTCDay()]+" "+dt.getUTCDate()+" "+d.months[dt.getUTCMonth()]);b.onclick=function(){st.day=i;st.time=null;press(days,i);renderTimes()};days.appendChild(b)});press(days,st.day);
+  renderTimes();
+}
+function renderTimes(){
+  var times=$("times");times.innerHTML="";
+  SLOTS.forEach(function(s){var b=document.createElement("button");b.type="button";b.textContent=s;b.disabled=taken(st.day,s);b.onclick=function(){st.time=s;[].forEach.call(times.children,function(x){x.setAttribute("aria-pressed",String(x===b))});$("book").disabled=false};b.setAttribute("aria-pressed",String(st.time===s));times.appendChild(b)});
+  $("book").disabled=!st.time;
+}
+$("book").onclick=function(){
+  var d=D[lang],dt=dayList()[st.day],s=d.svc[st.svc],now=bkk();
+  var when=d.days[dt.getUTCDay()]+" "+dt.getUTCDate()+" "+d.months[dt.getUTCMonth()]+", "+st.time;
+  var hm=String(now.h).padStart(2,"0")+":"+String(new Date().getMinutes()).padStart(2,"0");
+  $("msg1").innerHTML="<b>"+d.new+"</b>"+s[0]+"<br>"+when+"<br>"+d.client+'<div class="acts"><span>'+d.ok+"</span><span>"+d.move+"</span></div><time>"+hm+"</time>";
+  $("msg2").innerHTML=d.reply+"<time>"+hm+"</time>";
+  $("screen").classList.add("sent");$("tg").setAttribute("aria-hidden","false");$("app").setAttribute("aria-hidden","true");
+  $("live").textContent=d.live;setTimeout(function(){$("again").focus({preventScroll:true})},450);
+};
+$("again").onclick=function(){
+  $("screen").classList.remove("sent");$("tg").setAttribute("aria-hidden","true");$("app").removeAttribute("aria-hidden");
+  st.time=null;renderTimes();setTimeout(function(){$("book").focus({preventScroll:true})},450);
+};
+$("form").addEventListener("submit",function(e){
+  e.preventDefault();var d=D[lang],n=$("fName").value.trim(),l=$("fLink").value.trim(),m=$("fMsg").value.trim(),err=$("err");
+  if(!n){err.textContent=d.errName;$("fName").focus();return}
+  if(!l){err.textContent=d.errLink;$("fLink").focus();return}
+  err.textContent="";
+  var body=d.bName+": "+n+"\n"+d.bLink+": "+l+(m?"\n"+d.bMsg+": "+m:"");
+  location.href="mailto:leshadqq@gmail.com?subject="+encodeURIComponent(d.subj)+"&body="+encodeURIComponent(body);
+});
+function setLang(l){
+  lang=l;document.documentElement.lang=l;
+  document.querySelectorAll("[data-t]").forEach(function(el){var v=T[l][el.dataset.t];if(v!=null)el.innerHTML=v});
+  document.querySelectorAll("[data-t-aria]").forEach(function(el){var v=T[l][el.dataset.tAria];if(v!=null)el.setAttribute("aria-label",v)});
+  document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.l===l))});
+  document.title=l==="en"?"Websites for businesses in Thailand · Alexandr Khrustalev":"Сайты для бизнеса в Таиланде · Alexandr Khrustalev";
+  $("err").textContent="";
+  if($("screen").classList.contains("sent"))$("again").onclick();
+  renderDemo();
+  try{localStorage.setItem("ak-lang",l)}catch(e){}
+}
+document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){setLang(b.dataset.l)})});
+var q=new URLSearchParams(location.search).get("lang"),saved=null;try{saved=localStorage.getItem("ak-lang")}catch(e){}
+setLang(q==="en"||q==="ru"?q:(saved==="en"?"en":"ru"));
 })();
 </script>
 </body>
