@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Сайты для бизнеса в Таиланде · Alexandr Khrustalev</title>
-<meta name="description" content="Быстрые сайты на русском, английском и тайском, где клиенты сами записываются через Telegram или LINE. Для бизнеса в Паттайе, на Пхукете и в Бангкоке.">
+<meta name="description" content="Быстрые сайты на русском, английском и тайском, где клиенты сами записываются через Telegram или LINE. Для бизнеса по всему Таиланду, работаю удалённо.">
 <meta property="og:title" content="Сайты, на которых клиенты записываются сами">
 <meta property="og:description" content="Быстрый сайт на русском, английском и тайском с записью через Telegram или LINE. Фиксированная цена.">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/thailand/og.png">
@@ -72,8 +72,7 @@ main{overflow-x:clip}
 .hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding-top:84px;padding-bottom:96px}
 .hero .wrap>*{min-width:0}
 .kicker{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line-d);background:rgba(255,255,255,.03);color:#c9c9d1;border-radius:999px;padding:6px 14px 6px 10px;font-size:13px}
-.kicker b{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:ping 2.2s ease-out infinite}
-@keyframes ping{100%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
+.kicker svg{width:15px;height:15px;color:var(--accent)}
 h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,5vw,68px);line-height:1.04;letter-spacing:-.025em;margin:26px 0 24px}
 .rot{display:inline-block;color:var(--accent);font-style:normal}
 .rot span{display:inline-block;animation:rotIn .7s cubic-bezier(.16,1,.3,1)}
@@ -158,6 +157,27 @@ h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,5vw,68px);lin
 .track span::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent)}
 @keyframes marq{to{transform:translateX(-50%)}}
 
+/* stats */
+.stats{background:var(--paper);border-bottom:1px solid var(--line)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:36px 24px 36px 0;display:grid;gap:6px;min-width:0}
+.stat+.stat{padding-left:24px;border-left:1px solid var(--line)}
+.stat b{font-family:var(--display);font-size:clamp(34px,4vw,48px);font-weight:600;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.stat b small{font-family:var(--body);font-size:15px;font-weight:400;color:var(--muted);letter-spacing:0}
+.stat>span{color:var(--muted);font-size:15px;line-height:1.45}
+@media (max-width:820px){.stats .wrap{grid-template-columns:1fr 1fr}.stat{padding:26px 16px 26px 0}.stat+.stat{padding-left:16px}.stat:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--line)}.stat:nth-child(4){border-top:1px solid var(--line)}}
+
+/* included */
+.incl{background:#fff;border-top:1px solid var(--line)}
+.feats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.feat-i{min-width:0;border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--paper);transition:border-color .3s,transform .35s cubic-bezier(.16,1,.3,1),background .3s}
+.feat-i:hover{border-color:var(--accent);transform:translateY(-4px);background:#fff}
+.feat-i svg{width:24px;height:24px;fill:none;stroke:var(--accent-ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-bottom:16px}
+.feat-i h3{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:-.01em;margin:0 0 6px}
+.feat-i p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.5}
+@media (max-width:980px){.feats{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.feats{grid-template-columns:1fr}}
+
 /* sections */
 section{padding:112px 0;position:relative}
 .sec-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:52px}
@@ -181,6 +201,7 @@ h2 .hl{color:var(--accent-ink)}
 .new::before{content:"";position:absolute;width:420px;height:420px;right:-120px;top:-160px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,31,.35),transparent 65%)}
 @media (min-width:700px){.new .inner{margin-left:auto;width:min(100%,440px);position:relative;z-index:1}}
 .new .inner{position:relative}
+@media (max-width:699px){.new .inner{padding-left:15%}}
 .new .nbar{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:14px}
 .new .nbar span:last-child{background:var(--tg);color:#fff;border-radius:999px;padding:5px 12px;font-size:12px}
 .new h4{font-family:var(--display);font-weight:600;font-size:clamp(22px,3vw,32px);line-height:1.08;letter-spacing:-.03em;margin:30px 0 12px;max-width:14ch}
@@ -249,22 +270,26 @@ h2 .hl{color:var(--accent-ink)}
 
 /* work */
 .work{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.cases{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto;gap:16px}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.case.feat{grid-column:span 2;grid-row:span 2;background:var(--bg);color:#fff;border-color:var(--bg)}
+.case.feat p{color:#a9a9b2}
+.case .k.real{color:var(--accent);display:inline-flex;align-items:center;gap:6px}
+.case .go{display:inline-block;margin-top:14px;font-weight:600;font-size:15px;color:#fff;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}
 .case{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:box-shadow .35s,transform .35s cubic-bezier(.16,1,.3,1)}
 .case:hover{transform:translateY(-4px);box-shadow:0 30px 60px -30px rgba(18,18,20,.35)}
-.case:first-child{grid-row:span 2}
 .case .im{overflow:hidden;background:var(--line)}
-.case img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.case img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform .8s cubic-bezier(.16,1,.3,1)}
 .case:hover img{transform:scale(1.04)}
-.case:first-child .im{flex:1;display:flex}
-.case:first-child img{aspect-ratio:auto;min-height:280px}
+.case.feat .im{flex:1;display:flex}
+.case.feat img{aspect-ratio:auto;min-height:300px}
 .case div.tx{padding:20px 22px 22px}
 .case .k{font-size:11px;font-weight:600;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.1em}
 .case h3{font-family:var(--display);margin:6px 0 6px;font-size:21px;font-weight:600;letter-spacing:-.015em}
 .case p{margin:0;color:var(--muted);font-size:15px}
 .more{margin:28px 0 0;font-size:15px;color:var(--muted)}
 .more a{font-weight:600;color:var(--ink)}
-@media (max-width:820px){.cases{grid-template-columns:1fr}.case:first-child{grid-row:auto}.case:first-child img{aspect-ratio:16/10;min-height:0}}
+@media (max-width:980px){.cases{grid-template-columns:1fr 1fr}.case.feat{grid-row:auto}.case.feat img{aspect-ratio:16/9;min-height:0}}
+@media (max-width:640px){.cases{grid-template-columns:1fr}.case.feat{grid-column:auto}}
 
 /* faq */
 .faq{display:grid;grid-template-columns:1fr 1.4fr;gap:48px}
@@ -319,6 +344,7 @@ footer a{color:#fff}
     <nav class="nav" aria-label="Разделы" data-t-aria="navLabel">
       <a href="#demo" data-t="nDemo">Демо</a>
       <a href="#fixes" data-t="nFix">До и после</a>
+      <a href="#included" data-t="nInc">Что входит</a>
       <a href="#prices" data-t="nPrice">Цены</a>
       <a href="#process" data-t="nProc">Как работаем</a>
       <a href="#work" data-t="nWork">Работы</a>
@@ -338,7 +364,7 @@ footer a{color:#fff}
 <div class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="kicker rv"><b></b><span data-t="kicker">Паттайя · Пхукет · Бангкок</span></span>
+      <span class="kicker rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-t="kicker">По всему Таиланду, удалённо</span></span>
       <h1 class="rv d1"><span data-t="h1a">Сайты, на которых клиенты</span> <span class="rot" id="rot"><span>записываются сами</span></span></h1>
       <p class="lead rv d2" data-t="lead">Я делаю быстрые сайты на русском, английском и тайском для местного бизнеса. Клиент открывает сайт с телефона, видит цены, выбирает время, и заявка сразу приходит вам в Telegram или LINE.</p>
       <div class="btns rv d3">
@@ -391,6 +417,13 @@ footer a{color:#fff}
 <div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
 <ul class="sr" id="typesList"></ul>
 
+<div class="stats"><div class="wrap">
+  <div class="stat rv"><b><span class="count" data-to="3">3</span></b><span data-t="st1">языка на сайте: русский, английский и тайский</span></div>
+  <div class="stat rv d1"><b><small data-t="from">от</small> <span class="count" data-to="7">7</span></b><span data-t="st2">дней до запуска простого сайта</span></div>
+  <div class="stat rv d2"><b>0 ฿</b><span data-t="st3">стоит первый разбор и набросок главной</span></div>
+  <div class="stat rv d3"><b><span class="count" data-to="50">50</span>%</b><span data-t="st4">оплаты только после запуска</span></div>
+</div></div>
+
 <section id="fixes">
   <div class="wrap">
     <div class="sec-head"><h2 class="rv" data-t="fxH">Потяните и посмотрите <span class="hl">разницу</span></h2><p class="rv d1" data-t="fxP">Слева типичный старый сайт, справа то, что я делаю. Большинство клиентов в Таиланде находят вас с телефона, и если сайт неудобен, они пишут конкурентам.</p></div>
@@ -417,6 +450,22 @@ footer a{color:#fff}
       <article class="fix rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span><h3 data-t="f1h">Сайт неудобен на телефоне</h3><p class="was" data-t="f1w">Мелкий текст, всё съезжает, страница грузится долго через мобильный интернет.</p><p class="now" data-t="f1n">Лёгкий сайт, который открывается быстро и читается одной рукой</p></article>
       <article class="fix rv d1"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V7l-8-5-8 5v10l8 5 4-2.5"/><path d="M8 11h8M8 15h5"/><circle cx="19" cy="18" r="3"/></svg></span><h3 data-t="f2h">Нет цен и понятных услуг</h3><p class="was" data-t="f2w">Клиенту приходится писать и ждать ответа, чтобы узнать, сколько стоит.</p><p class="now" data-t="f2n">Ясный список услуг с ценами на трёх языках</p></article>
       <article class="fix rv d2"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span><h3 data-t="f3h">Записаться можно только звонком</h3><p class="was" data-t="f3w">Звонить иностранцам неудобно, а сообщения в директе теряются.</p><p class="now" data-t="f3n">Запись в пару нажатий, заявка сразу у вас в Telegram или LINE</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="incl" id="included">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="rv" data-t="inH">Что входит в <span class="hl">каждый сайт</span></h2><p class="rv d1" data-t="inP">Не только красивая главная. Всё, что нужно, чтобы клиенты вас находили, понимали и записывались.</p></div>
+    <div class="feats">
+      <div class="feat-i rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><h3 data-t="i1h">Быстрая загрузка</h3><p data-t="i1p">Лёгкие страницы без лишних библиотек открываются быстро даже на мобильном интернете.</p></div>
+      <div class="feat-i rv d1"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg><h3 data-t="i2h">Сначала для телефона</h3><p data-t="i2p">Крупные кнопки, читаемый текст и меню под большой палец. Потом уже компьютер.</p></div>
+      <div class="feat-i rv d2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><h3 data-t="i3h">Три языка</h3><p data-t="i3p">Русский, английский и тайский с переключателем. Перевод входит в работу.</p></div>
+      <div class="feat-i rv d3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/></svg><h3 data-t="i4h">Telegram и LINE</h3><p data-t="i4p">Кнопки связи и заявки, которые сразу приходят вам в мессенджер, без проверки почты.</p></div>
+      <div class="feat-i rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><h3 data-t="i5h">Карта и Google</h3><p data-t="i5p">Карта с маршрутом, правильные часы работы и связь с вашим профилем в Google Maps.</p></div>
+      <div class="feat-i rv d1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg><h3 data-t="i6h">Базовое SEO</h3><p data-t="i6p">Заголовки, описания, карта сайта и красивые превью ссылок в мессенджерах и соцсетях.</p></div>
+      <div class="feat-i rv d2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h3 data-t="i7h">Статистика</h3><p data-t="i7p">Простой счётчик посещений, чтобы видеть, откуда приходят клиенты и что они смотрят.</p></div>
+      <div class="feat-i rv d3"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><h3 data-t="i8h">Всё на ваше имя</h3><p data-t="i8p">Домен, хостинг и исходники принадлежат вам. Вы не привязаны ко мне.</p></div>
     </div>
   </div>
 </section>
@@ -476,11 +525,14 @@ footer a{color:#fff}
 
 <section class="work" id="work">
   <div class="wrap">
-    <div class="sec-head"><h2 class="rv" data-t="wH">Мои работы</h2><p class="rv d1" data-t="wP">Примеры, которые я сделал сам, чтобы показать, как работают запись, отчёты и сайты. Это мои образцы, а не заказы клиентов.</p></div>
+    <div class="sec-head"><h2 class="rv" data-t="wH">Мои работы</h2><p class="rv d1" data-t="wP">Настоящий сайт компании, который я сделал и запустил, и образцы, которые я собрал сам, чтобы показать запись, письма, отчёты и таблицы. Образцы помечены как образцы.</p></div>
     <div class="cases">
-      <a class="case rv" href="../slotbook/"><span class="im"><img src="../cover-slotbook.png" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w1k">Онлайн-запись</span><h3>Slotbook</h3><p data-t="w1p">Запись в вымышленную веломастерскую: часы работы, выходные, перерывы между клиентами и правильное время для гостей из других стран.</p></div></a>
+      <a class="case feat rv" href="https://temirkhanclub.com/"><span class="im"><img src="../10-allex-homepage.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k real" data-t="w0k">Работающий сайт компании</span><h3>temirkhanclub.com</h3><p data-t="w0p">Каталог продукции для ALLEX RESPECT ASIA: анимированная витрина, четыре страницы товаров, таблица сравнения, информация о компании, библиотека документов и мобильное меню. Я сделал вёрстку, адаптивность и запуск. Фото и данные о товарах предоставила компания.</p><span class="go" data-t="wGo">Открыть сайт →</span></div></a>
+      <a class="case rv d1" href="../slotbook/"><span class="im"><img src="../cover-slotbook.png" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w1k">Онлайн-запись</span><h3>Slotbook</h3><p data-t="w1p">Запись в вымышленную веломастерскую: часы работы, выходные, перерывы между клиентами и правильное время для гостей из других стран.</p></div></a>
       <a class="case rv d1" href="../field-frame.html"><span class="im"><img src="../cover-v3-07-field-frame-cover.png" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w2k">Сайт компании</span><h3>Field and Frame</h3><p data-t="w2p">Сайт для вымышленной строительной компании с услугами, проектами и формой заявки.</p></div></a>
       <a class="case rv d2" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/"><span class="im"><img src="../cover-v3-04-ledgerlens-cover.png" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w3k">Отчёты</span><h3>LedgerLens</h3><p data-t="w3p">Отчёт о продажах из выгрузок заказов и возвратов, с графиком за год.</p></div></a>
+      <a class="case rv d1" href="../email-kit/"><span class="im"><img src="../cover-email-kit.png" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w4k">Письма клиентам</span><h3>Inkpost</h3><p data-t="w4p">Четыре письма для вымышленной кофейни: приветствие, заказ, доставка и рассылка. Хорошо выглядят на телефоне и в тёмной теме.</p></div></a>
+      <a class="case rv d2" href="../gridline/"><span class="im"><img src="../cover-gridline.png" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w5k">Рабочая таблица</span><h3>Gridline</h3><p data-t="w5p">Редактирование 20 000 заказов прямо в браузере: фильтры, вставка блоков, отмена и проверка изменений перед выгрузкой.</p></div></a>
     </div>
     <p class="more"><span data-t="wMore">Все работы:</span> <a href="../">sandersaxbuilds.github.io/selected-work</a></p>
   </div>
@@ -494,7 +546,9 @@ footer a{color:#fff}
       <details class="rv d1"><summary data-t="q2">Сколько стоит хостинг?</summary><p data-t="a2">Для таких сайтов часто подходит бесплатный хостинг. Если нужен платный, я скажу заранее, сколько он стоит, и аккаунт тоже будет на вас.</p></details>
       <details class="rv d2"><summary data-t="q3">Как заявка попадает в Telegram или LINE?</summary><p data-t="a3">Форма на сайте отправляет заявку вашему боту, и он сразу пишет вам сообщение с услугой, датой, временем и контактом клиента. Как в демо выше.</p></details>
       <details class="rv d3"><summary data-t="q4">Могу ли я сам менять цены и фото?</summary><p data-t="a4">Да. Я покажу, как это делать, или возьму правки на себя в рамках поддержки.</p></details>
-      <details class="rv d4"><summary data-t="q5">Вы работаете только в Паттайе?</summary><p data-t="a5">Я живу в Паттайе, но работаю удалённо с бизнесом по всему Таиланду и за его пределами. Созвониться или встретиться можно по договорённости.</p></details>
+      <details class="rv d4"><summary data-t="q5">Вы работаете только в определённых городах?</summary><p data-t="a5">Нет. Я работаю удалённо с бизнесом в любой части Таиланда, от Чиангмая до Самуи, и за его пределами. Всё обсуждаем в Telegram, LINE или по видеосвязи.</p></details>
+      <details class="rv d4"><summary data-t="q6">Что мне нужно подготовить?</summary><p data-t="a6">Список услуг с ценами, несколько фото, адрес и контакты. Если чего-то нет, я помогу с текстами и подберу оформление. Перевод на английский и тайский входит в работу.</p></details>
+      <details class="rv d4"><summary data-t="q7">Можно ли переделать мой текущий сайт, а не делать новый?</summary><p data-t="a7">Да. Иногда достаточно исправить мобильную версию, добавить цены и кнопку записи. В бесплатном разборе я скажу честно, что выгоднее в вашем случае.</p></details>
     </div>
   </div>
 </section>
@@ -518,14 +572,14 @@ footer a{color:#fff}
 </section>
 </main>
 
-<footer><div class="wrap"><span>© 2026 Alexandr Khrustalev · <span data-t="fCity">Паттайя, Таиланд</span></span><a href="../" data-t="fAll">Все работы</a></div></footer>
+<footer><div class="wrap"><span>© 2026 Alexandr Khrustalev · <span data-t="fCity">Таиланд, работаю удалённо</span></span><a href="../" data-t="fAll">Все работы</a></div></footer>
 
 <script>
 (function(){
 var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 var T={ru:{},
 en:{skip:"Skip to content",navLabel:"Sections",pickLabel:"Business type",nDemo:"Demo",nFix:"Before and after",nPrice:"Prices",nProc:"How it works",nWork:"Work",nFaq:"FAQ",ctaS:"Free review",
-kicker:"Pattaya · Phuket · Bangkok",h1a:"Websites where customers",lead:"I build fast websites in English, Russian and Thai for local businesses. Customers open the site on a phone, see your prices, pick a time, and the request lands in your Telegram or LINE straight away.",
+kicker:"Anywhere in Thailand, fully remote",h1a:"Websites where customers",lead:"I build fast websites in English, Russian and Thai for local businesses. Customers open the site on a phone, see your prices, pick a time, and the request lands in your Telegram or LINE straight away.",
 cta1:"Get a free review",cta2:"Try the booking",c1:"English, Russian, Thai",c2:"Requests in Telegram and LINE",c3:"Price fixed in advance",
 dBiz:"Demo · fictional business",dTitle:"Online booking demo",dSvc:"Service",dDay:"Day",dTime:"Time",dBook:"Book now",dNote:"This is a demo. Nothing is sent anywhere.",
 tgSub:"bot · now",tgAgain:"Try again",toast:"A new booking just reached Telegram",
@@ -541,19 +595,30 @@ p3h:"Care plan",p3s:"Keeps the site fresh",p3p:"By agreement",p3t:"Monthly, no l
 tm1:"Domain and hosting in your name",tm2:"You keep the source files",tm3:"We talk in English, Russian or Thai",
 sH:"How it <span class=\"hl\">works</span>",sP:"The first step is free. You pay nothing until you see what the site will look like.",
 s1h:"Send a link",s1p:"Your current site, Instagram, Facebook or Telegram channel.",s2h:"Free review",s2p:"Within a day I send what is getting in your customers' way and a sketch of a new home page.",s3h:"Fix the price",s3p:"We agree on scope and timing, and you pay half.",s4h:"Launch",s4p:"You review and request changes, then pay the second half at launch.",
-wH:"My work",wP:"Samples I built myself to show how booking, reports and sites work. They are my own samples, not client projects.",
+wH:"My work",wP:"A real company website I built and launched, plus samples I made myself to show booking, emails, reports and tables. Samples are marked as samples.",
+w0k:"Live company website",w0p:"A product catalogue for ALLEX RESPECT ASIA: an animated showcase, four product pages, a comparison table, company information, a document library and mobile navigation. I did the frontend, responsive layouts and launch. Product photos and records came from the company.",wGo:"Open the site →",
+w4k:"Customer emails",w4p:"Four emails for a fictional coffee roaster: welcome, order, shipping and a newsletter. They look right on phones and in dark mode.",
+w5k:"Working table",w5p:"Edit 20,000 orders right in the browser: filters, block paste, undo and a review of every change before export.",
 w1k:"Online booking",w1p:"Booking for a fictional bike workshop: opening hours, days off, gaps between customers and the right times for visitors from abroad.",
 w2k:"Company website",w2p:"A site for a fictional builder with services, projects and a request form.",w3k:"Reports",w3p:"A sales report from order and refund exports, with a twelve-month chart.",wMore:"All work:",
 qH:"Common <span class=\"hl\">questions</span>",q1:"Do I need my own domain?",a1:"Yes, and it will be registered in your name. If you do not have one yet, I will help you pick and register it. That is usually about $15 a year.",
 q2:"How much is hosting?",a2:"Sites like these can often use free hosting. If paid hosting is needed, I will tell you the cost up front, and the account will be yours too.",
 q3:"How does a request reach Telegram or LINE?",a3:"The form on the site sends the request to your bot, which messages you right away with the service, date, time and the customer's contact. Just like the demo above.",
 q4:"Can I change prices and photos myself?",a4:"Yes. I will show you how, or handle changes as part of the care plan.",
-q5:"Do you only work in Pattaya?",a5:"I live in Pattaya and work remotely with businesses all over Thailand and beyond. We can talk on a call or meet when it suits you.",
+q5:"Do you only work in certain cities?",a5:"No. I work remotely with businesses anywhere in Thailand, from Chiang Mai to Samui, and beyond. We talk in Telegram, LINE or on a video call.",
+q6:"What do I need to prepare?",a6:"Your services with prices, a few photos, your address and contacts. If something is missing, I help with the text and the look. Translation into English and Thai is included.",
+q7:"Can you fix my current site instead of building a new one?",a7:"Yes. Sometimes it is enough to fix the mobile version, add prices and a booking button. In the free review I will tell you honestly which option makes more sense.",
 kH:"Send a link, get a review",kP:"Free and with no obligation. I reply within a day, usually sooner.",
 fName:"Your name",fBiz:"Link to your site, Instagram or Telegram",fMsg:"What would you like to improve",fSend:"Open the email with my request",fNote:"The button opens your email app with the message ready. This site stores nothing.",
-fCity:"Pattaya, Thailand",fAll:"All work"},
+nInc:"What you get",st1:"languages on the site: English, Russian and Thai",st2:"days to launch a simple site",st3:"for the first review and a home page sketch",st4:"of the payment only after launch",
+inH:"What comes with <span class=\"hl\">every site</span>",inP:"Not just a pretty home page. Everything customers need to find you, understand you and book.",
+i1h:"Fast loading",i1p:"Light pages without extra libraries open quickly, even on mobile data.",i2h:"Phone first",i2p:"Big buttons, readable text and a menu within thumb reach. Desktop comes second.",
+i3h:"Three languages",i3p:"English, Russian and Thai with a switcher. Translation is included.",i4h:"Telegram and LINE",i4p:"Contact buttons and requests that land straight in your messenger, no inbox checking.",
+i5h:"Maps and Google",i5p:"A map with directions, correct opening hours and a link to your Google Maps profile.",i6h:"SEO basics",i6p:"Titles, descriptions, a sitemap and good link previews in messengers and social apps.",
+i7h:"Visitor stats",i7p:"A simple visit counter so you can see where customers come from and what they look at.",i8h:"All in your name",i8p:"The domain, hosting and source files belong to you. You are never tied to me.",
+fCity:"Thailand, working remotely",fAll:"All work"},
 th:{skip:"ข้ามไปที่เนื้อหา",navLabel:"หมวด",pickLabel:"ประเภทธุรกิจ",nDemo:"เดโม",nFix:"ก่อนและหลัง",nPrice:"ราคา",nProc:"ขั้นตอน",nWork:"ผลงาน",nFaq:"คำถาม",ctaS:"รีวิวฟรี",
-kicker:"พัทยา · ภูเก็ต · กรุงเทพฯ",h1a:"เว็บไซต์ที่ลูกค้า",lead:"ผมทำเว็บไซต์ที่โหลดเร็ว ทั้งภาษาไทย อังกฤษ และรัสเซีย สำหรับธุรกิจท้องถิ่น ลูกค้าเปิดเว็บจากมือถือ เห็นราคา เลือกเวลา แล้วคำขอจองจะส่งเข้า Telegram หรือ LINE ของคุณทันที",
+kicker:"ทั่วประเทศไทย ทำงานออนไลน์",h1a:"เว็บไซต์ที่ลูกค้า",lead:"ผมทำเว็บไซต์ที่โหลดเร็ว ทั้งภาษาไทย อังกฤษ และรัสเซีย สำหรับธุรกิจท้องถิ่น ลูกค้าเปิดเว็บจากมือถือ เห็นราคา เลือกเวลา แล้วคำขอจองจะส่งเข้า Telegram หรือ LINE ของคุณทันที",
 cta1:"รับรีวิวเว็บไซต์ฟรี",cta2:"ลองจองดู",c1:"ไทย อังกฤษ รัสเซีย",c2:"รับคำขอผ่าน Telegram และ LINE",c3:"ตกลงราคาก่อนเริ่มงาน",
 dBiz:"เดโม · ธุรกิจสมมติ",dTitle:"เดโมการจองออนไลน์",dSvc:"บริการ",dDay:"วัน",dTime:"เวลา",dBook:"จองเลย",dNote:"นี่คือเดโม ไม่มีการส่งข้อมูลใดๆ",
 tgSub:"บอท · ตอนนี้",tgAgain:"ลองอีกครั้ง",toast:"มีการจองใหม่เข้า Telegram แล้ว",
@@ -569,17 +634,28 @@ p3h:"ดูแลรายเดือน",p3s:"ให้เว็บสดใ�
 tm1:"โดเมนและโฮสติ้งเป็นชื่อของคุณ",tm2:"ไฟล์ต้นฉบับเป็นของคุณ",tm3:"คุยได้ทั้งไทย อังกฤษ และรัสเซีย",
 sH:"ขั้นตอน<span class=\"hl\">การทำงาน</span>",sP:"ขั้นแรกฟรี คุณไม่ต้องจ่ายอะไรจนกว่าจะเห็นว่าเว็บจะออกมาเป็นแบบไหน",
 s1h:"ส่งลิงก์มา",s1p:"เว็บปัจจุบัน Instagram Facebook หรือช่อง Telegram",s2h:"รีวิวฟรี",s2p:"ภายในหนึ่งวัน ผมจะส่งสิ่งที่ทำให้ลูกค้าติดขัด พร้อมภาพร่างหน้าแรกใหม่",s3h:"ตกลงราคา",s3p:"ตกลงขอบเขตและระยะเวลา แล้วจ่ายครึ่งหนึ่ง",s4h:"เปิดใช้งาน",s4p:"คุณตรวจและขอแก้ไข แล้วจ่ายอีกครึ่งเมื่อเว็บพร้อมใช้งาน",
-wH:"ผลงานของผม",wP:"ตัวอย่างที่ผมทำเอง เพื่อแสดงการทำงานของระบบจอง รายงาน และเว็บไซต์ เป็นตัวอย่างของผมเอง ไม่ใช่งานลูกค้า",
+wH:"ผลงานของผม",wP:"เว็บไซต์บริษัทจริงที่ผมทำและเปิดใช้งาน และตัวอย่างที่ผมทำเองเพื่อแสดงระบบจอง อีเมล รายงาน และตาราง ตัวอย่างมีการระบุไว้ชัดเจน",
+w0k:"เว็บไซต์บริษัทที่ใช้งานจริง",w0p:"แคตตาล็อกสินค้าของ ALLEX RESPECT ASIA มีหน้าแสดงสินค้าแบบเคลื่อนไหว หน้าสินค้าสี่หน้า ตารางเปรียบเทียบ ข้อมูลบริษัท คลังเอกสาร และเมนูมือถือ ผมทำส่วนหน้าเว็บ การแสดงผลทุกขนาดจอ และการเปิดใช้งาน รูปและข้อมูลสินค้ามาจากบริษัท",wGo:"เปิดเว็บไซต์ →",
+w4k:"อีเมลถึงลูกค้า",w4p:"อีเมลสี่แบบของร้านกาแฟสมมติ: ต้อนรับ ยืนยันคำสั่งซื้อ จัดส่ง และจดหมายข่าว แสดงผลดีบนมือถือและโหมดมืด",
+w5k:"ตารางทำงาน",w5p:"แก้ไขคำสั่งซื้อ 20,000 รายการในเบราว์เซอร์ มีตัวกรอง วางข้อมูลเป็นบล็อก ย้อนกลับ และตรวจทุกการเปลี่ยนแปลงก่อนส่งออก",
 w1k:"จองออนไลน์",w1p:"ระบบจองของร้านซ่อมจักรยานสมมติ มีเวลาเปิดปิด วันหยุด ช่วงพักระหว่างลูกค้า และเวลาที่ถูกต้องสำหรับลูกค้าต่างประเทศ",
 w2k:"เว็บบริษัท",w2p:"เว็บไซต์ของบริษัทก่อสร้างสมมติ มีบริการ ผลงาน และแบบฟอร์มขอใบเสนอราคา",w3k:"รายงาน",w3p:"รายงานยอดขายจากไฟล์คำสั่งซื้อและการคืนเงิน พร้อมกราฟรายปี",wMore:"ผลงานทั้งหมด:",
 qH:"คำถาม<span class=\"hl\">ที่พบบ่อย</span>",q1:"ต้องมีโดเมนของตัวเองไหม",a1:"ต้องมี และจะจดในชื่อของคุณ ถ้ายังไม่มี ผมช่วยเลือกและจดให้ได้ ปกติประมาณ $15 ต่อปี",
 q2:"ค่าโฮสติ้งเท่าไร",a2:"เว็บแบบนี้มักใช้โฮสติ้งฟรีได้ ถ้าต้องใช้แบบเสียเงิน ผมจะแจ้งราคาก่อน และบัญชีก็เป็นของคุณ",
 q3:"คำขอจองเข้า Telegram หรือ LINE ได้อย่างไร",a3:"แบบฟอร์มบนเว็บจะส่งคำขอไปที่บอทของคุณ แล้วบอทจะส่งข้อความหาคุณทันที พร้อมบริการ วัน เวลา และช่องทางติดต่อลูกค้า เหมือนในเดโมด้านบน",
 q4:"ฉันแก้ราคาและรูปเองได้ไหม",a4:"ได้ ผมจะสอนวิธีแก้ หรือดูแลให้ในแพ็กเกจดูแลรายเดือน",
-q5:"รับงานเฉพาะพัทยาหรือเปล่า",a5:"ผมอยู่พัทยา แต่ทำงานออนไลน์กับธุรกิจทั่วประเทศไทยและต่างประเทศ นัดคุยทางโทรศัพท์หรือเจอกันได้ตามสะดวก",
+q5:"รับงานเฉพาะบางเมืองหรือเปล่า",a5:"ไม่ใช่ ผมทำงานออนไลน์กับธุรกิจได้ทุกที่ในประเทศไทย ตั้งแต่เชียงใหม่ถึงสมุย และต่างประเทศ คุยกันผ่าน Telegram, LINE หรือวิดีโอคอล",
+q6:"ต้องเตรียมอะไรบ้าง",a6:"รายการบริการพร้อมราคา รูปถ่ายสักหน่อย ที่อยู่ และช่องทางติดต่อ ถ้ายังไม่มีบางอย่าง ผมช่วยเรื่องข้อความและการออกแบบได้ การแปลเป็นภาษาอังกฤษและไทยรวมอยู่ในงานแล้ว",
+q7:"ปรับปรุงเว็บเดิมแทนการทำใหม่ได้ไหม",a7:"ได้ บางครั้งแค่แก้เวอร์ชันมือถือ เพิ่มราคา และปุ่มจองก็พอ ในรีวิวฟรี ผมจะบอกตรงๆ ว่าแบบไหนคุ้มกว่าสำหรับคุณ",
 kH:"ส่งลิงก์มา รับรีวิวกลับไป",kP:"ฟรีและไม่มีข้อผูกมัด ตอบภายในหนึ่งวัน ส่วนใหญ่เร็วกว่านั้น",
 fName:"ชื่อของคุณ",fBiz:"ลิงก์เว็บไซต์ Instagram หรือ Telegram",fMsg:"อยากปรับปรุงอะไร",fSend:"เปิดอีเมลพร้อมคำขอ",fNote:"ปุ่มนี้จะเปิดแอปอีเมลพร้อมข้อความที่เขียนไว้ให้ เว็บนี้ไม่เก็บข้อมูลใดๆ",
-fCity:"พัทยา ประเทศไทย",fAll:"ผลงานทั้งหมด"}
+nInc:"สิ่งที่ได้รับ",st1:"ภาษาบนเว็บ: ไทย อังกฤษ และรัสเซีย",st2:"วันจนเว็บพื้นฐานพร้อมใช้งาน",st3:"สำหรับรีวิวครั้งแรกและภาพร่างหน้าแรก",st4:"ของค่าบริการจ่ายหลังเว็บพร้อมใช้งาน",
+inH:"สิ่งที่มาพร้อม<span class=\"hl\">ทุกเว็บไซต์</span>",inP:"ไม่ใช่แค่หน้าแรกที่สวย แต่ครบทุกอย่างที่ช่วยให้ลูกค้าหาคุณเจอ เข้าใจ และจองได้",
+i1h:"โหลดเร็ว",i1p:"หน้าเว็บเบา ไม่มีไลบรารีเกินจำเป็น เปิดเร็วแม้ใช้เน็ตมือถือ",i2h:"ออกแบบเพื่อมือถือก่อน",i2p:"ปุ่มใหญ่ ตัวหนังสืออ่านง่าย เมนูกดได้ด้วยนิ้วโป้ง แล้วค่อยปรับสำหรับคอมพิวเตอร์",
+i3h:"สามภาษา",i3p:"ไทย อังกฤษ และรัสเซีย พร้อมปุ่มสลับภาษา รวมค่าแปลแล้ว",i4h:"Telegram และ LINE",i4p:"ปุ่มติดต่อและคำขอจองที่ส่งตรงเข้าแชทของคุณ ไม่ต้องคอยเช็กอีเมล",
+i5h:"แผนที่และ Google",i5p:"แผนที่พร้อมเส้นทาง เวลาเปิดปิดที่ถูกต้อง และลิงก์ไปยังโปรไฟล์ Google Maps ของคุณ",i6h:"SEO พื้นฐาน",i6p:"หัวข้อ คำอธิบาย แผนผังเว็บไซต์ และภาพตัวอย่างลิงก์ที่สวยงามในแชทและโซเชียล",
+i7h:"สถิติผู้เข้าชม",i7p:"ตัวนับผู้เข้าชมแบบง่าย ให้เห็นว่าลูกค้ามาจากไหนและดูอะไรบ้าง",i8h:"ทุกอย่างเป็นชื่อคุณ",i8p:"โดเมน โฮสติ้ง และไฟล์ต้นฉบับเป็นของคุณ ไม่ผูกมัดกับผม",
+fCity:"ประเทศไทย ทำงานออนไลน์",fAll:"ผลงานทั้งหมด"}
 };
 var ROT={ru:["записываются сами","бронируют сами","заказывают сами","находят вас сами"],en:["book themselves","order themselves","find you first","come back again"],th:["จองได้เอง","สั่งได้เอง","หาคุณเจอเอง","กลับมาอีกครั้ง"]};
 var TYPES={ru:["Экскурсии и туры","Спа и массаж","Стоматология","Аренда байков и авто","Недвижимость","Школы и секции","Яхты и трансферы","Кафе и доставка","Фитнес и муай-тай"],
@@ -672,8 +748,9 @@ function renderTypes(){var t=TYPES[lang],h="";for(var k=0;k<2;k++)t.forEach(func
 
 /* before after */
 var ba=$("ba"),rg=$("baRange");function setCut(v){ba.style.setProperty("--cut",v+"%")}
-rg.addEventListener("input",function(){setCut(rg.value)});setCut(50);
-if(!reduce&&"IntersectionObserver"in window){var played=false;new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!played){played=true;var t0=performance.now();(function step(t){var k=(t-t0)/1600;if(k>1){setCut(rg.value);return}setCut(50+Math.sin(k*Math.PI*2)*30);requestAnimationFrame(step)})(t0)}})},{threshold:.5}).observe(ba)}
+var base=innerWidth<700?14:50;rg.value=base;
+rg.addEventListener("input",function(){setCut(rg.value)});setCut(base);
+if(!reduce&&"IntersectionObserver"in window){var played=false;new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!played){played=true;var t0=performance.now();(function step(t){var k=(t-t0)/1600;if(k>1){setCut(rg.value);return}setCut(base+Math.sin(k*Math.PI*2)*(base<30?10:30));requestAnimationFrame(step)})(t0)}})},{threshold:.5}).observe(ba)}
 
 /* reveal, counters, steps, progress, parallax */
 var io="IntersectionObserver"in window&&!reduce?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);var c=e.target.querySelector&&e.target.querySelector(".count");if(c)countUp(c)}})},{threshold:.15}):null;
