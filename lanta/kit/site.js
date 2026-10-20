@@ -12,7 +12,7 @@
   const SCHEMA_DAY = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
   const LD_TYPE = { spa: 'DaySpa', tours: 'TravelAgency', bike: 'AutoRental', dental: 'Dentist', cafe: 'CafeOrCoffeeShop', other: 'LocalBusiness' };
   const CH_NAME = { whatsapp: 'WhatsApp', line: 'LINE', telegram: 'Telegram' };
-  const DEFAULT_ACCENT = '#4c6fff';
+  const DEFAULT_ACCENT = '#1f5c46';
 
   /* ---------- interface text ---------- */
   const DICT = {
@@ -172,7 +172,7 @@
       tagline: isText(c.tagline) ? c.tagline : '',
       sub: isText(c.sub) ? c.sub : '',
       accent: /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(c.accent || '') ? c.accent : DEFAULT_ACCENT,
-      theme: c.theme === 'light' ? 'light' : 'dark',
+      theme: c.theme === 'dark' ? 'dark' : 'light',
       languages: languages.length ? [...new Set(languages)] : ['en'],
       defaultLang: 'en',
       timezone: typeof c.timezone === 'string' ? c.timezone : 'Asia/Bangkok',
@@ -403,7 +403,7 @@
     const root = document.documentElement;
     const a = rgb(cfg.accent);
     const dark = cfg.theme === 'dark';
-    const bg = dark ? [11, 11, 13] : [245, 243, 238];
+    const bg = dark ? [27, 26, 23] : [243, 239, 230];
     const white = [255, 255, 255], ink = [18, 18, 20];
     const cw = contrast(a, white), ci = contrast(a, ink);
     const on = cw >= 3.2 || cw >= ci ? white : ink;
@@ -416,7 +416,7 @@
     root.style.setProperty('--on-accent', toHex(on));
     root.style.setProperty('--accent-rgb', a.join(','));
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', dark ? '#0b0b0d' : '#f5f3ee');
+    if (meta) meta.setAttribute('content', dark ? '#1b1a17' : '#f3efe6');
     return { on: toHex(on) };
   }
 

@@ -10,7 +10,7 @@
   const SLOT_OPTIONS = [15, 20, 30, 45, 60, 90, 120];
   const CH = { whatsapp: 'WhatsApp', line: 'LINE', telegram: 'Telegram' };
   const SAMPLE_HANDLE = { whatsapp: '66000000000', line: '@lanta.sample', telegram: 'lanta_sample' };
-  const SWATCHES = ['#4c6fff', '#0e7490', '#15803d', '#ea580c', '#e11d48', '#7c3aed', '#b45309', '#3f3f46'];
+  const SWATCHES = ['#1f5c46', '#0e7490', '#15803d', '#2f4b8a', '#b45309', '#8a4b2e', '#e11d48', '#44403c'];
   const KIT_FILES = ['site.html', 'site.css', 'site.js'];
 
   /* ---------- icons ---------- */
@@ -32,14 +32,14 @@
     en: {
       skip: 'Skip to settings', topNote: 'Website kit for local businesses in Thailand', uiLang: 'Interface language', copyCfg: 'Copy config', download: 'Download site',
       viewLabel: 'View', tabEdit: 'Edit', tabPreview: 'Preview',
-      eyebrow: 'Personal project by Alexandr Khrustalev', h1: 'Booking sites for local businesses in Thailand',
+      eyebrow: 'Personal project by Alexandr Khrustalev', h1: 'Booking sites for local businesses in', h1em: 'Thailand',
       lead: 'Fill in the business, watch the site change, then download it ready to host. No sign up, and nothing leaves your browser.',
       sections: 'Sections', textLang: 'Text language', textLangHint: 'Text fields edit the language picked above. Empty ones show English.',
       cBusiness: 'Business', cLook: 'Look', cServices: 'Services', cHours: 'Hours', cContact: 'Booking', cLocation: 'Location', cFaq: 'FAQ',
       hBusiness: 'Business', hLook: 'Look and languages', hServices: 'Services and prices', hHours: 'Opening hours', hContact: 'Booking channel', hLocation: 'Location', hFaq: 'Questions and answers',
       fType: 'Type of business', fTypeHelp: 'Fills in sample services, questions and hours. You can undo it.', fName: 'Business name', fTagline: 'Headline',
       fTaglineHelp: 'What you do and where, in one line. Shown large at the top.', fSub: 'Sub line', fSample: 'Sample banner', fSampleHelp: 'Marks the site as a demo. Turn it off for a real client.',
-      fAccent: 'Accent colour', fCustom: 'Custom colour', fHex: 'Hex code', hexErr: 'Use a hex code like #4c6fff.', fTheme: 'Theme', dark: 'Dark', light: 'Light',
+      fAccent: 'Accent colour', fCustom: 'Custom colour', fHex: 'Hex code', hexErr: 'Use a hex code like #1f5c46.', fTheme: 'Theme', dark: 'Dark', light: 'Light',
       fLangs: 'Site languages', fLangsHelp: 'Visitors can switch between these. At least one stays on.', fDefault: 'Default language',
       fDefaultHelp: 'Used by search engines and when the browser language of a visitor is not on the list.', lastLang: 'At least one language stays on.',
       svcName: 'Name', svcMin: 'Minutes', svcPrice: 'Price, ฿', moveUp: 'Move up', removeSvc: 'Remove service {n}', removeFaq: 'Remove question {n}', addSvc: 'Add service',
@@ -69,21 +69,21 @@
       presetApplied: '{name} sample loaded', restored: 'Draft restored from this browser',
       presets: { spa: 'Spa', tours: 'Tours', bike: 'Bike rental', dental: 'Dental', cafe: 'Cafe' },
       langNames: { en: 'English', ru: 'Russian', th: 'Thai' },
-      sw: { '#4c6fff': 'Lanta blue', '#0e7490': 'Lagoon', '#15803d': 'Jungle', '#ea580c': 'Mango', '#e11d48': 'Orchid', '#7c3aed': 'Plum', '#b45309': 'Teak', '#3f3f46': 'Graphite' },
+      sw: { '#1f5c46': 'Jungle', '#0e7490': 'Lagoon', '#15803d': 'Palm', '#2f4b8a': 'Indigo', '#b45309': 'Teak', '#8a4b2e': 'Clay', '#e11d48': 'Orchid', '#44403c': 'Stone' },
       days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       min: 'min', h: 'h', free: 'free', day1: 'day', dayN: 'days'
     },
     ru: {
       skip: 'Перейти к настройкам', topNote: 'Конструктор сайтов для местного бизнеса в Таиланде', uiLang: 'Язык интерфейса', copyCfg: 'Скопировать конфиг', download: 'Скачать сайт',
       viewLabel: 'Режим', tabEdit: 'Настройки', tabPreview: 'Просмотр',
-      eyebrow: 'Личный проект Александра Хрусталёва', h1: 'Сайты с онлайн-записью для бизнеса в Таиланде',
+      eyebrow: 'Личный проект Александра Хрусталёва', h1: 'Сайты с онлайн-записью для бизнеса в', h1em: 'Таиланде',
       lead: 'Заполните данные, смотрите, как меняется сайт, и скачайте архив, готовый к публикации. Без регистрации, все данные остаются в браузере.',
       sections: 'Разделы', textLang: 'Язык текстов', textLangHint: 'Текстовые поля редактируют выбранный выше язык. Пустые показывают английский текст.',
       cBusiness: 'Бизнес', cLook: 'Вид', cServices: 'Услуги', cHours: 'Часы', cContact: 'Запись', cLocation: 'Адрес', cFaq: 'Вопросы',
       hBusiness: 'Бизнес', hLook: 'Оформление и языки', hServices: 'Услуги и цены', hHours: 'Часы работы', hContact: 'Канал для заявок', hLocation: 'Адрес', hFaq: 'Вопросы и ответы',
       fType: 'Тип бизнеса', fTypeHelp: 'Подставляет примеры услуг, вопросов и часов работы. Это можно отменить.', fName: 'Название', fTagline: 'Заголовок',
       fTaglineHelp: 'Чем вы занимаетесь и где, одной строкой. Крупно вверху страницы.', fSub: 'Подзаголовок', fSample: 'Плашка «пример»', fSampleHelp: 'Помечает сайт как демо. Выключите для настоящего клиента.',
-      fAccent: 'Акцентный цвет', fCustom: 'Свой цвет', fHex: 'HEX-код', hexErr: 'Введите код вида #4c6fff.', fTheme: 'Тема', dark: 'Тёмная', light: 'Светлая',
+      fAccent: 'Акцентный цвет', fCustom: 'Свой цвет', fHex: 'HEX-код', hexErr: 'Введите код вида #1f5c46.', fTheme: 'Тема', dark: 'Тёмная', light: 'Светлая',
       fLangs: 'Языки сайта', fLangsHelp: 'Посетитель может переключаться между ними. Хотя бы один язык остаётся включённым.', fDefault: 'Основной язык',
       fDefaultHelp: 'Для поисковиков и для посетителей, чей язык браузера не в списке.', lastLang: 'Хотя бы один язык должен остаться.',
       svcName: 'Название', svcMin: 'Минуты', svcPrice: 'Цена, ฿', moveUp: 'Поднять выше', removeSvc: 'Удалить услугу {n}', removeFaq: 'Удалить вопрос {n}', addSvc: 'Добавить услугу',
@@ -113,7 +113,7 @@
       presetApplied: 'Загружен пример: {name}', restored: 'Черновик восстановлен из этого браузера',
       presets: { spa: 'Спа', tours: 'Туры', bike: 'Аренда байков', dental: 'Стоматология', cafe: 'Кафе' },
       langNames: { en: 'Английский', ru: 'Русский', th: 'Тайский' },
-      sw: { '#4c6fff': 'Синий Lanta', '#0e7490': 'Лагуна', '#15803d': 'Джунгли', '#ea580c': 'Манго', '#e11d48': 'Орхидея', '#7c3aed': 'Слива', '#b45309': 'Тик', '#3f3f46': 'Графит' },
+      sw: { '#1f5c46': 'Джунгли', '#0e7490': 'Лагуна', '#15803d': 'Пальма', '#2f4b8a': 'Индиго', '#b45309': 'Тик', '#8a4b2e': 'Глина', '#e11d48': 'Орхидея', '#44403c': 'Камень' },
       days: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
       min: 'мин', h: 'ч', free: 'бесплатно', day1: 'день', dayN: 'дн.'
     }
@@ -136,7 +136,7 @@
       sub: L3('Experienced therapists, quiet rooms and warm herbal oils. Choose a time and send the request in your messenger.',
         'Опытные мастера, тихие комнаты и тёплые травяные масла. Выберите время и отправьте заявку в мессенджер.',
         'นักนวดมากประสบการณ์ ห้องเงียบสงบ และน้ำมันสมุนไพรอุ่นๆ เลือกเวลาแล้วส่งคำขอทางแชท'),
-      accent: '#0e7490', theme: 'dark', slotMinutes: 30,
+      accent: '#0e7490', theme: 'light', slotMinutes: 30,
       services: [
         svc('Thai massage', 'Тайский массаж', 'นวดแผนไทย', 60, 400),
         svc('Thai massage', 'Тайский массаж', 'นวดแผนไทย', 90, 550),
@@ -221,7 +221,7 @@
       sub: L3('English and Russian speaking staff, and clear prices before any treatment. Request a visit and we confirm it the same day.',
         'Персонал говорит по-английски и по-русски, цены известны до начала лечения. Отправьте заявку, и мы подтвердим визит в тот же день.',
         'เจ้าหน้าที่พูดภาษาอังกฤษและรัสเซียได้ แจ้งราคาก่อนเริ่มรักษา ส่งคำขอแล้วเรายืนยันภายในวันเดียวกัน'),
-      accent: '#4c6fff', theme: 'light', slotMinutes: 30,
+      accent: '#2f4b8a', theme: 'light', slotMinutes: 30,
       services: [
         svc('Check-up and cleaning', 'Осмотр и чистка', 'ตรวจฟันและขูดหินปูน', 45, 1200),
         svc('Consultation and X-ray', 'Консультация и снимок', 'ปรึกษาและเอกซเรย์', 30, 600),
@@ -366,7 +366,7 @@
     out.languages = Array.isArray(c.languages) ? c.languages.filter(l => LANGS.includes(l)) : base.languages;
     if (!out.languages.length) out.languages = ['en'];
     if (!out.languages.includes(out.defaultLang)) out.defaultLang = out.languages[0];
-    if (!/^#[0-9a-f]{6}$/i.test(out.accent || '')) out.accent = '#4c6fff';
+    if (!/^#[0-9a-f]{6}$/i.test(out.accent || '')) out.accent = '#1f5c46';
     if (!SLOT_OPTIONS.includes(+out.slotMinutes)) out.slotMinutes = 30;
     return out;
   }
@@ -462,8 +462,9 @@
   }
 
   function fillLook() {
-    const c = (cfg.accent || '#4c6fff').toLowerCase();
+    const c = (cfg.accent || '#1f5c46').toLowerCase();
     $('#f-color').value = c;
+    $('#colorWrap').style.setProperty('--c', c);
     const hex = $('#f-hex');
     if (document.activeElement !== hex) hex.value = c;
     hex.classList.remove('is-bad');
@@ -1082,7 +1083,9 @@
   const bar = $('#bar');
   const stuck = () => {
     const limit = $('.top').offsetHeight + $('#tabs').offsetHeight + 1;
-    bar.classList.toggle('is-stuck', bar.getBoundingClientRect().top <= limit);
+    const on = bar.getBoundingClientRect().top <= limit;
+    bar.classList.toggle('is-stuck', on);
+    if (!on) setJump(null);
   };
   panel.addEventListener('scroll', stuck, { passive: true });
   window.addEventListener('scroll', stuck, { passive: true });
@@ -1121,10 +1124,10 @@
     const tag = txt(cfg.tagline, L);
     const desc = txt(cfg.sub, L) || tag;
     let out = html
-      .replace(/<html lang="[^"]*" data-theme="[^"]*">/, `<html lang="${L}" data-theme="${cfg.theme === 'light' ? 'light' : 'dark'}">`)
+      .replace(/<html lang="[^"]*" data-theme="[^"]*">/, `<html lang="${L}" data-theme="${cfg.theme === 'dark' ? 'dark' : 'light'}">`)
       .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(name + (tag ? ' · ' + tag : ''))}</title>`)
       .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(desc)}">`)
-      .replace(/<meta name="theme-color" content="[^"]*">/, `<meta name="theme-color" content="${cfg.theme === 'light' ? '#f5f3ee' : '#0b0b0d'}">`);
+      .replace(/<meta name="theme-color" content="[^"]*">/, `<meta name="theme-color" content="${cfg.theme === 'dark' ? '#1b1a17' : '#f3efe6'}">`);
     if (ld) out = out.replace('</head>', `<script type="application/ld+json" id="lanta-ld">${ld.replace(/</g, '\\u003c')}</script>\n</head>`);
     return out;
   }
@@ -1168,7 +1171,7 @@ Open config.js in any text editor, change the values and save. Reload the page t
 - Prices are whole baht. A price of 0 shows as free.
 - Hours use 24 hour time, for example ["09:00", "18:00"]. Use null for a day off. A closing time of "00:00" means midnight.
 - slotMinutes sets how far apart the offered start times are. leadMinutes hides times that start too soon today.
-- accent is any #rrggbb colour. theme is dark or light. Button text switches to dark or light by itself for contrast.
+- accent is any #rrggbb colour. theme is light or dark. Button text switches to dark or light by itself for contrast.
 
 Keep the quotes, commas and brackets as they are. If the page turns blank after an edit, a comma or a quote is usually missing.
 
