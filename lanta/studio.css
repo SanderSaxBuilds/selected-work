@@ -11,6 +11,7 @@
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --ease:ease;
   --top:60px;--tabs:0px;--bar:56px;
+  --sun:rgba(255,222,174,.55);
   color-scheme:light;
 }
 html{-webkit-text-size-adjust:100%}
@@ -85,7 +86,7 @@ body[data-view="preview"] .tab-pill{transform:translateX(calc(100% + 4px))}
 
 /* layout */
 .studio{display:grid;grid-template-columns:minmax(380px,468px) 1fr;height:calc(100vh - var(--top));height:calc(100dvh - var(--top))}
-.panel{position:relative;overflow-y:auto;overscroll-behavior:contain;scroll-padding:68px 0 24px;padding:30px 24px 40px;border-right:1px solid var(--line);background:var(--paper);scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.panel{position:relative;overflow-y:auto;overscroll-behavior:contain;scroll-padding:68px 0 24px;padding:30px 24px 40px;border-right:1px solid var(--line);background:var(--shade) no-repeat right -300px top -170px/900px auto,radial-gradient(620px 420px at 100% 0,var(--sun),transparent 70%),var(--paper);background-attachment:local;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
 .panel:focus{outline:none}
 .preview{display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--stage)}
 
@@ -283,7 +284,8 @@ select option{background:var(--surface);color:var(--ink)}
 .pv-status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .pv-status i{display:none}
 .pv-meta{margin-left:auto;font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
-.pv-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--stage)}
+/* the stage sits in the same warm light and palm shade as the panel */
+.pv-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--shade) no-repeat right -120px top -90px/1100px auto,radial-gradient(900px 620px at 92% -6%,var(--sun),transparent 70%),var(--stage)}
 .pv-box{position:relative;flex:0 0 auto}
 .pv-device{position:absolute;top:0;left:0;transform-origin:0 0;display:flex;flex-direction:column;overflow:hidden;background:var(--surface)}
 .pv-device[data-dev="desktop"]{border-radius:8px;box-shadow:0 0 0 1px var(--ink)}
