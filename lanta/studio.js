@@ -10,8 +10,38 @@
   const SLOT_OPTIONS = [15, 20, 30, 45, 60, 90, 120];
   const CH = { whatsapp: 'WhatsApp', line: 'LINE', telegram: 'Telegram' };
   const SAMPLE_HANDLE = { whatsapp: '66000000000', line: '@lanta.sample', telegram: 'lanta_sample' };
-  const SWATCHES = ['#1f5c46', '#0e7490', '#15803d', '#2f4b8a', '#b45309', '#8a4b2e', '#e11d48', '#44403c'];
+  const SWATCHES = ['#1f5c46', '#0e7490', '#15803d', '#2f4b8a', '#7a5534', '#8a4b2e', '#8b3a7e', '#44403c'];
   const KIT_FILES = ['site.html', 'site.css', 'site.js'];
+
+  /* ---------- palm shade: the still motif the kit also draws, for the panel head and the preview stage ---------- */
+  (() => {
+    let s = 7;
+    const R = () => (s = s * 16807 % 2147483647) / 2147483647;
+    const f1 = v => v.toFixed(1);
+    let leaf = '', rib = '';
+    for (let i = 0; i < 6; i++) {
+      const ang = 1.95 + 1.3 * i / 5 + (R() - 0.5) * 0.18, len = 780 * (0.8 + 0.35 * R()), curl = (R() < 0.5 ? -1 : 1) * (0.35 + 0.35 * R());
+      const P = [[1290, -130]], H = [ang];
+      let x = 1290, y = -130;
+      rib += 'M1290 -130';
+      for (let k = 1; k <= 40; k++) {
+        const h = ang + curl * Math.pow(k / 40, 1.6);
+        x += Math.cos(h) * len / 40; y += Math.sin(h) * len / 40;
+        P.push([x, y]); H.push(h); rib += 'L' + f1(x) + ' ' + f1(y);
+      }
+      for (const side of [-1, 1]) for (let k = 3; k < 40; k++) {
+        const t = k / 40, [bx, by] = P[k], dir = H[k] + side * (1.05 - 0.45 * t) + (R() - 0.5) * 0.12;
+        const L = len * 0.4 * Math.pow(Math.sin(Math.PI * Math.min(1, 0.08 + t * 1.02)), 0.75) * (0.82 + 0.3 * R());
+        const droop = side * (0.18 + 0.25 * t) * (curl >= 0 ? 1 : -1);
+        const tx = bx + Math.cos(dir + droop) * L, ty = by + Math.sin(dir + droop) * L;
+        const cx = bx + Math.cos(dir) * L * 0.55, cy = by + Math.sin(dir) * L * 0.55;
+        const nx = -Math.sin(dir), ny = Math.cos(dir), wd = L * (0.045 + 0.02 * R());
+        leaf += `M${f1(bx)} ${f1(by)}Q${f1(cx + nx * wd)} ${f1(cy + ny * wd)} ${f1(tx)} ${f1(ty)}Q${f1(cx - nx * wd)} ${f1(cy - ny * wd)} ${f1(bx)} ${f1(by)}Z`;
+      }
+    }
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><filter id="a" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1600" height="1300"><feGaussianBlur stdDeviation="4"/></filter><g fill="#3d3220" stroke="#3d3220" opacity=".13" filter="url(#a)"><path d="${leaf}"/><path d="${rib}" fill="none" stroke-width="6"/></g></svg>`;
+    document.documentElement.style.setProperty('--shade', 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
+  })();
 
   /* ---------- icons ---------- */
   const ICON = {
@@ -69,7 +99,7 @@
       presetApplied: '{name} sample loaded', restored: 'Draft restored from this browser',
       presets: { spa: 'Spa', tours: 'Tours', bike: 'Bike rental', dental: 'Dental', cafe: 'Cafe' },
       langNames: { en: 'English', ru: 'Russian', th: 'Thai' },
-      sw: { '#1f5c46': 'Jungle', '#0e7490': 'Lagoon', '#15803d': 'Palm', '#2f4b8a': 'Indigo', '#b45309': 'Teak', '#8a4b2e': 'Clay', '#e11d48': 'Orchid', '#44403c': 'Stone' },
+      sw: { '#1f5c46': 'Jungle', '#0e7490': 'Lagoon', '#15803d': 'Palm', '#2f4b8a': 'Indigo', '#7a5534': 'Teak', '#8a4b2e': 'Clay', '#8b3a7e': 'Orchid', '#44403c': 'Stone' },
       days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       min: 'min', h: 'h', free: 'free', day1: 'day', dayN: 'days'
     },
@@ -113,7 +143,7 @@
       presetApplied: 'Загружен пример: {name}', restored: 'Черновик восстановлен из этого браузера',
       presets: { spa: 'Спа', tours: 'Туры', bike: 'Аренда байков', dental: 'Стоматология', cafe: 'Кафе' },
       langNames: { en: 'Английский', ru: 'Русский', th: 'Тайский' },
-      sw: { '#1f5c46': 'Джунгли', '#0e7490': 'Лагуна', '#15803d': 'Пальма', '#2f4b8a': 'Индиго', '#b45309': 'Тик', '#8a4b2e': 'Глина', '#e11d48': 'Орхидея', '#44403c': 'Камень' },
+      sw: { '#1f5c46': 'Джунгли', '#0e7490': 'Лагуна', '#15803d': 'Пальма', '#2f4b8a': 'Индиго', '#7a5534': 'Тик', '#8a4b2e': 'Глина', '#8b3a7e': 'Орхидея', '#44403c': 'Камень' },
       days: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
       min: 'мин', h: 'ч', free: 'бесплатно', day1: 'день', dayN: 'дн.'
     }
@@ -193,7 +223,7 @@
       sub: L3('Well kept bikes, two helmets and a phone holder with every rental. Choose a pickup time and we get the bike ready.',
         'Ухоженные байки, два шлема и держатель для телефона в каждой аренде. Выберите время, и мы подготовим байк.',
         'รถดูแลอย่างดี ทุกคันมีหมวกกันน็อก 2 ใบและที่จับโทรศัพท์ เลือกเวลารับรถ แล้วเราจะเตรียมรถไว้ให้'),
-      accent: '#e11d48', theme: 'dark', slotMinutes: 30,
+      accent: '#8b3a7e', theme: 'dark', slotMinutes: 30,
       services: [
         svc('Honda Click 125', 'Honda Click 125', 'Honda Click 125', 1440, 250),
         svc('Honda PCX 160', 'Honda PCX 160', 'Honda PCX 160', 1440, 400),
@@ -249,7 +279,7 @@
       sub: L3('Beans from farms in Chiang Rai and Nan, roasted every week. Reserve a table or a tasting and we keep it for you.',
         'Зерно с ферм Чианграя и Нана, обжарка каждую неделю. Забронируйте стол или дегустацию, и мы оставим их за вами.',
         'เมล็ดกาแฟจากไร่ในเชียงรายและน่าน คั่วใหม่ทุกสัปดาห์ จองโต๊ะหรือคอร์สชิมกาแฟ แล้วเราจะเก็บไว้ให้'),
-      accent: '#b45309', theme: 'light', slotMinutes: 30,
+      accent: '#7a5534', theme: 'light', slotMinutes: 30,
       services: [
         svc('Brunch table for two', 'Стол на двоих для бранча', 'โต๊ะบรันช์สำหรับ 2 ท่าน', 90, 0),
         svc('Table for up to six', 'Стол для компании до 6 человек', 'โต๊ะสำหรับไม่เกิน 6 ท่าน', 90, 0),
