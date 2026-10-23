@@ -60,8 +60,10 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 /* top bar, navy like the offer page header */
 .top{position:sticky;top:0;z-index:40;height:var(--top);display:flex;align-items:center;gap:18px;padding:0 16px 0 20px;background:var(--navy);color:var(--on-navy);border-bottom:1px solid var(--navy-line)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:0 0 auto;font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
-.brand-mark{width:28px;height:28px;border-radius:8px;background:#fff;color:var(--navy);display:grid;place-items:center;font-size:11.5px;font-weight:700;letter-spacing:0}
-.brand-w{color:#fff}
+/* SanderSax lockup: crest plus the wordmark as text, cream with a thin dark outline and a small salmon offset */
+.brand-mark{display:block;width:33px;height:39px;flex:0 0 auto}
+.ssx{font:400 20px/1 Anton,Impact,"Arial Narrow",sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#f4e7c9;text-shadow:1px 0 #1c1715,-1px 0 #1c1715,0 1px #1c1715,0 -1px #1c1715,1px 1px #1c1715,-1px -1px #1c1715,1px -1px #1c1715,-1px 1px #1c1715,2px 2px #f48b67,3px 3px #f48b67}
+.brand-w{margin-right:2px}
 .brand-tag{color:var(--navy-muted);font-weight:500}
 .top-note{color:var(--navy-muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;padding-left:18px;border-left:1px solid var(--navy-line)}
 .top-r{display:flex;align-items:center;gap:8px;margin-left:auto;flex:0 0 auto}
@@ -83,10 +85,12 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
   .btn-primary .lbl{display:none}
   .btn-primary .ext{margin-left:-2px;opacity:1}
   .seg-ui button{min-width:34px;padding:0 7px}
-  .brand-w{display:none}
-  .brand-tag{color:var(--on-navy)}
+  .brand-tag{display:none}
+  .brand{gap:8px}
+  .brand-mark{width:30px;height:35px}
+  .ssx{font-size:17px;letter-spacing:.04em}
 }
-@media (max-width:400px){.brand-tag{display:none}}
+@media (max-width:359px){.brand-w{display:none}}
 
 /* mobile tabs */
 .tabs{display:none;position:sticky;top:var(--top);z-index:35;height:var(--tabs);padding:7px 14px;gap:4px;background:var(--paper);border-bottom:1px solid var(--line)}
