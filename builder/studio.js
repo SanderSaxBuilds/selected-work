@@ -1,4 +1,4 @@
-/* Lanta Studio
+/* Site builder studio
    Edits a site config, previews it live in the kit and exports a ready static site as a zip.
    Everything runs in the browser. The draft stays in localStorage on this device. */
 (() => {
@@ -9,39 +9,9 @@
   const STORE = 'lanta.studio.v1';
   const SLOT_OPTIONS = [15, 20, 30, 45, 60, 90, 120];
   const CH = { whatsapp: 'WhatsApp', line: 'LINE', telegram: 'Telegram' };
-  const SAMPLE_HANDLE = { whatsapp: '66000000000', line: '@lanta.sample', telegram: 'lanta_sample' };
+  const SAMPLE_HANDLE = { whatsapp: '66000000000', line: '@sample.shop', telegram: 'sample_shop' };
   const SWATCHES = ['#1f5c46', '#0e7490', '#15803d', '#2f4b8a', '#7a5534', '#8a4b2e', '#8b3a7e', '#44403c'];
   const KIT_FILES = ['site.html', 'site.css', 'site.js'];
-
-  /* ---------- palm shade: the still motif the kit also draws, for the panel head and the preview stage ---------- */
-  (() => {
-    let s = 7;
-    const R = () => (s = s * 16807 % 2147483647) / 2147483647;
-    const f1 = v => v.toFixed(1);
-    let leaf = '', rib = '';
-    for (let i = 0; i < 6; i++) {
-      const ang = 1.95 + 1.3 * i / 5 + (R() - 0.5) * 0.18, len = 780 * (0.8 + 0.35 * R()), curl = (R() < 0.5 ? -1 : 1) * (0.35 + 0.35 * R());
-      const P = [[1290, -130]], H = [ang];
-      let x = 1290, y = -130;
-      rib += 'M1290 -130';
-      for (let k = 1; k <= 40; k++) {
-        const h = ang + curl * Math.pow(k / 40, 1.6);
-        x += Math.cos(h) * len / 40; y += Math.sin(h) * len / 40;
-        P.push([x, y]); H.push(h); rib += 'L' + f1(x) + ' ' + f1(y);
-      }
-      for (const side of [-1, 1]) for (let k = 3; k < 40; k++) {
-        const t = k / 40, [bx, by] = P[k], dir = H[k] + side * (1.05 - 0.45 * t) + (R() - 0.5) * 0.12;
-        const L = len * 0.4 * Math.pow(Math.sin(Math.PI * Math.min(1, 0.08 + t * 1.02)), 0.75) * (0.82 + 0.3 * R());
-        const droop = side * (0.18 + 0.25 * t) * (curl >= 0 ? 1 : -1);
-        const tx = bx + Math.cos(dir + droop) * L, ty = by + Math.sin(dir + droop) * L;
-        const cx = bx + Math.cos(dir) * L * 0.55, cy = by + Math.sin(dir) * L * 0.55;
-        const nx = -Math.sin(dir), ny = Math.cos(dir), wd = L * (0.045 + 0.02 * R());
-        leaf += `M${f1(bx)} ${f1(by)}Q${f1(cx + nx * wd)} ${f1(cy + ny * wd)} ${f1(tx)} ${f1(ty)}Q${f1(cx - nx * wd)} ${f1(cy - ny * wd)} ${f1(bx)} ${f1(by)}Z`;
-      }
-    }
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><filter id="a" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1600" height="1300"><feGaussianBlur stdDeviation="4"/></filter><g fill="#3d3220" stroke="#3d3220" opacity=".13" filter="url(#a)"><path d="${leaf}"/><path d="${rib}" fill="none" stroke-width="6"/></g></svg>`;
-    document.documentElement.style.setProperty('--shade', 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
-  })();
 
   /* ---------- icons ---------- */
   const ICON = {
@@ -60,7 +30,7 @@
   /* ---------- interface text ---------- */
   const UI = {
     en: {
-      skip: 'Skip to settings', topNote: 'Website kit for local businesses in Thailand', uiLang: 'Interface language', copyCfg: 'Copy config', download: 'Download site',
+      skip: 'Skip to settings', brandTag: 'Site builder', topNote: 'Website kit for local businesses in Thailand', uiLang: 'Interface language', copyCfg: 'Copy config', download: 'Download site',
       viewLabel: 'View', tabEdit: 'Edit', tabPreview: 'Preview',
       eyebrow: 'Personal project by Alexandr Khrustalev', h1: 'Booking sites for local businesses in', h1em: 'Thailand',
       lead: 'Fill in the business, watch the site change, then download it ready to host. No sign up, and nothing leaves your browser.',
@@ -86,7 +56,7 @@
       fPhone: 'Phone', optional: 'optional', fCity: 'Area or city', fAddress: 'Address', fMaps: 'Google Maps link', fMapsHelp: 'In Google Maps, open the place, press Share and copy the link.',
       mapsBad: 'Paste a full link that starts with https://', mapsNotGoogle: 'Not a Google Maps link, but it still works as a map link.', mapsOk: 'Link looks good.',
       faqQ: 'Question', faqA: 'Answer', addFaq: 'Add question', faqEmptyT: 'No questions yet', faqEmptyP: 'Short answers to what people ask in chat save time every day.',
-      foot1: 'Lanta is a personal freelance project by Alexandr Khrustalev. The downloaded site is plain HTML, CSS and JavaScript that any static host can serve.',
+      foot1: 'This site builder is a personal freelance project by Alexandr Khrustalev. The downloaded site is plain HTML, CSS and JavaScript that any static host can serve.',
       kitDemo: 'Open the kit demo', readme: 'Read the guide', reset: 'Start over', resetDone: 'Started over with the spa sample',
       pvTitle: 'Preview', pvSize: 'Preview size', desktop: 'Desktop', phone: 'Phone', pvLive: 'Preview', pvUpdated: 'Updated', pvWaiting: 'Updating', pvFrame: 'Site preview',
       pvErrT: 'The preview could not start', pvErrP: 'Open the studio from a web server, for example GitHub Pages or a local static server, not straight from a file on disk.', retry: 'Try again',
@@ -104,7 +74,7 @@
       min: 'min', h: 'h', free: 'free', day1: 'day', dayN: 'days'
     },
     ru: {
-      skip: 'Перейти к настройкам', topNote: 'Конструктор сайтов для местного бизнеса в Таиланде', uiLang: 'Язык интерфейса', copyCfg: 'Скопировать конфиг', download: 'Скачать сайт',
+      skip: 'Перейти к настройкам', brandTag: 'Конструктор сайтов', topNote: 'Конструктор сайтов для местного бизнеса в Таиланде', uiLang: 'Язык интерфейса', copyCfg: 'Скопировать конфиг', download: 'Скачать сайт',
       viewLabel: 'Режим', tabEdit: 'Настройки', tabPreview: 'Просмотр',
       eyebrow: 'Личный проект Александра Хрусталёва', h1: 'Сайты с онлайн-записью для бизнеса в', h1em: 'Таиланде',
       lead: 'Заполните данные, смотрите, как меняется сайт, и скачайте архив, готовый к публикации. Без регистрации, все данные остаются в браузере.',
@@ -130,7 +100,7 @@
       fPhone: 'Телефон', optional: 'необязательно', fCity: 'Район или город', fAddress: 'Адрес', fMaps: 'Ссылка на Google Карты', fMapsHelp: 'В Google Картах откройте место, нажмите «Поделиться» и скопируйте ссылку.',
       mapsBad: 'Вставьте полную ссылку, которая начинается с https://', mapsNotGoogle: 'Это не Google Карты, но ссылка всё равно сработает.', mapsOk: 'Ссылка в порядке.',
       faqQ: 'Вопрос', faqA: 'Ответ', addFaq: 'Добавить вопрос', faqEmptyT: 'Вопросов пока нет', faqEmptyP: 'Короткие ответы на то, что спрашивают в чате, экономят время каждый день.',
-      foot1: 'Lanta создан Александром Хрусталёвым как личный фриланс-проект. Скачанный сайт состоит из обычных HTML, CSS и JavaScript и работает на любом статическом хостинге.',
+      foot1: 'Этот конструктор сайтов Александр Хрусталёв сделал как личный фриланс-проект. Скачанный сайт состоит из обычных HTML, CSS и JavaScript и работает на любом статическом хостинге.',
       kitDemo: 'Открыть демо шаблона', readme: 'Инструкция', reset: 'Начать заново', resetDone: 'Начали заново с примера спа',
       pvTitle: 'Предпросмотр', pvSize: 'Размер предпросмотра', desktop: 'Компьютер', phone: 'Телефон', pvLive: 'Предпросмотр', pvUpdated: 'Обновлено', pvWaiting: 'Обновляем', pvFrame: 'Предпросмотр сайта',
       pvErrT: 'Предпросмотр не запустился', pvErrP: 'Откройте студию через веб-сервер, например GitHub Pages или локальный статический сервер, а не как файл с диска.', retry: 'Повторить',
@@ -162,7 +132,7 @@
   const PRESETS = {
     spa: {
       name: L3('Baan Sabai Spa', 'Baan Sabai Spa', 'บ้านสบาย สปา'),
-      tagline: L3('Thai massage on Koh Lanta, booked in a minute', 'Тайский массаж на Ко Ланте, запись за минуту', 'นวดแผนไทยบนเกาะลันตา จองได้ในหนึ่งนาที'),
+      tagline: L3('Thai massage in Rawai, Phuket, booked in a minute', 'Тайский массаж в Равае на Пхукете, запись за минуту', 'นวดแผนไทยที่ราไวย์ ภูเก็ต จองได้ในหนึ่งนาที'),
       sub: L3('Experienced therapists, quiet rooms and warm herbal oils. Choose a time and send the request in your messenger.',
         'Опытные мастера, тихие комнаты и тёплые травяные масла. Выберите время и отправьте заявку в мессенджер.',
         'นักนวดมากประสบการณ์ ห้องเงียบสงบ และน้ำมันสมุนไพรอุ่นๆ เลือกเวลาแล้วส่งคำขอทางแชท'),
@@ -177,8 +147,8 @@
       hours: week('10:00', '21:00'),
       contact: { channel: 'line', handle: SAMPLE_HANDLE.line, phone: '+66 80 000 0000' },
       address: {
-        text: L3('12 Moo 2, Saladan, Koh Lanta, Krabi 81150', '12 Му 2, Саладан, Ко Ланта, Краби 81150', '12 หมู่ 2 ต.ศาลาด่าน อ.เกาะลันตา จ.กระบี่ 81150'),
-        city: L3('Koh Lanta', 'Ко Ланта', 'เกาะลันตา'), region: 'Krabi', postalCode: '81150', mapsUrl: 'https://maps.google.com/?q=Saladan,+Koh+Lanta'
+        text: L3('45/12 Wiset Road, Rawai, Phuket 83100', '45/12 Висет-роуд, Равай, Пхукет 83100', '45/12 ถ.วิเศษ ต.ราไวย์ จ.ภูเก็ต 83100'),
+        city: L3('Rawai', 'Равай', 'ราไวย์'), region: 'Phuket', postalCode: '83100', mapsUrl: 'https://maps.google.com/?q=Wiset+Road,+Rawai,+Phuket'
       },
       faq: [
         qa(['Do I need to book in advance?', 'Нужно ли записываться заранее?', 'ต้องจองล่วงหน้าไหม'],
@@ -218,8 +188,8 @@
       ]
     },
     bike: {
-      name: L3('Saladan Scooters', 'Saladan Scooters', 'ศาลาด่าน สกู๊ตเตอร์'),
-      tagline: L3('Scooters for rent on Koh Lanta, delivered to your hotel', 'Аренда скутеров на Ко Ланте с доставкой в отель', 'ให้เช่าสกู๊ตเตอร์บนเกาะลันตา ส่งถึงโรงแรม'),
+      name: L3('Chalong Scooters', 'Chalong Scooters', 'ฉลอง สกู๊ตเตอร์'),
+      tagline: L3('Scooters for rent in Phuket, delivered to your hotel', 'Аренда скутеров на Пхукете с доставкой в отель', 'ให้เช่าสกู๊ตเตอร์ในภูเก็ต ส่งถึงโรงแรม'),
       sub: L3('Well kept bikes, two helmets and a phone holder with every rental. Choose a pickup time and we get the bike ready.',
         'Ухоженные байки, два шлема и держатель для телефона в каждой аренде. Выберите время, и мы подготовим байк.',
         'รถดูแลอย่างดี ทุกคันมีหมวกกันน็อก 2 ใบและที่จับโทรศัพท์ เลือกเวลารับรถ แล้วเราจะเตรียมรถไว้ให้'),
@@ -233,8 +203,8 @@
       hours: week('08:00', '19:00'),
       contact: { channel: 'whatsapp', handle: SAMPLE_HANDLE.whatsapp, phone: '+66 80 000 0000' },
       address: {
-        text: L3('Saladan Pier Road, Koh Lanta, Krabi 81150', 'Дорога к пирсу Саладан, Ко Ланта, Краби 81150', 'ถนนท่าเรือศาลาด่าน เกาะลันตา จ.กระบี่ 81150'),
-        city: L3('Koh Lanta', 'Ко Ланта', 'เกาะลันตา'), region: 'Krabi', postalCode: '81150', mapsUrl: 'https://maps.google.com/?q=Saladan+Pier,+Koh+Lanta'
+        text: L3('Chao Fa West Road, Chalong, Phuket 83130', 'Чао Фа Вест-роуд, Чалонг, Пхукет 83130', 'ถ.เจ้าฟ้าตะวันตก ต.ฉลอง จ.ภูเก็ต 83130'),
+        city: L3('Chalong', 'Чалонг', 'ฉลอง'), region: 'Phuket', postalCode: '83130', mapsUrl: 'https://maps.google.com/?q=Chao+Fa+West+Road,+Chalong,+Phuket'
       },
       faq: [
         qa(['Do I need a driving licence?', 'Нужны ли права?', 'ต้องมีใบขับขี่ไหม'],
@@ -1053,7 +1023,7 @@
 
   function slug() {
     const s = txt(cfg.name, 'en').toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').trim().replace(/[\s_]+/g, '-').replace(/-+/g, '-').slice(0, 40);
-    return /[a-z0-9]/.test(s) ? s : 'lanta-site';
+    return /[a-z0-9]/.test(s) ? s : 'booking-site';
   }
 
   function layout() {
@@ -1142,9 +1112,9 @@
   function configJs() {
     const c = exportCfg();
     const name = txt(c.name, c.defaultLang).replace(/\*\//g, '');
-    return '/* Lanta site config for ' + name + '.\n' +
+    return '/* Site config for ' + name + '.\n' +
       '   Edit the values and keep the structure. Text fields take en, ru and th, an empty language shows English.\n' +
-      '   Made with Lanta Studio on ' + new Date().toISOString().slice(0, 10) + '. README.md explains every field. */\n' +
+      '   Made with the site builder by Alexandr Khrustalev on ' + new Date().toISOString().slice(0, 10) + '. README.md explains every field. */\n' +
       'window.LANTA = ' + JSON.stringify(c, null, 2) + ';\n';
   }
 
@@ -1157,7 +1127,7 @@
       .replace(/<html lang="[^"]*" data-theme="[^"]*">/, `<html lang="${L}" data-theme="${cfg.theme === 'dark' ? 'dark' : 'light'}">`)
       .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(name + (tag ? ' · ' + tag : ''))}</title>`)
       .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(desc)}">`)
-      .replace(/<meta name="theme-color" content="[^"]*">/, `<meta name="theme-color" content="${cfg.theme === 'dark' ? '#1b1a17' : '#f3efe6'}">`);
+      .replace(/<meta name="theme-color" content="[^"]*">/, `<meta name="theme-color" content="${cfg.theme === 'dark' ? '#0a1020' : '#f5f3ee'}">`);
     if (ld) out = out.replace('</head>', `<script type="application/ld+json" id="lanta-ld">${ld.replace(/</g, '\\u003c')}</script>\n</head>`);
     return out;
   }
@@ -1172,7 +1142,7 @@
     ui.lang = 'en';
     const todo = issues().map(x => '- ' + x.msg);
     ui.lang = uiLang;
-    if (c.sample) todo.push('- Set "sample" to false in config.js, or switch off Sample banner in Lanta Studio.');
+    if (c.sample) todo.push('- Set "sample" to false in config.js, or switch off Sample banner in the site builder.');
     if (hd && hd === cleanHandle(ch, SAMPLE_HANDLE[ch])) todo.push('- Replace the placeholder ' + CH[ch] + ' contact with the real one.');
     todo.push('- Check every price, duration and opening time with the owner.', '- Open the site on a phone and send one test request to yourself.');
     const chLine = hd
@@ -1181,7 +1151,7 @@
     const tg = ch === 'telegram' ? '\n\nTelegram cannot prefill a message in a chat with a person. The site copies the request to the clipboard first and tells the visitor to paste it.' : '';
     return `# ${name} website
 
-A one page booking site made with Lanta, a website kit for local businesses in Thailand. It is plain HTML, CSS and JavaScript with no build step and no tracking.
+A one page booking site made with the site builder by Alexandr Khrustalev, for local businesses in Thailand. It is plain HTML, CSS and JavaScript with no build step and no tracking.
 
 ## Files
 
@@ -1209,7 +1179,7 @@ Keep the quotes, commas and brackets as they are. If the page turns blank after 
 
 ${chLine}${tg}
 
-The site never stores requests. If you want a copy of every request in a Telegram chat, set relayUrl in config.js to a small relay such as the optional Cloudflare Worker described in the Lanta README.
+The site never stores requests. If you want a copy of every request in a Telegram chat, set relayUrl in config.js to a small relay such as the optional Cloudflare Worker that comes with the site builder.
 
 ## Publish
 

@@ -1,11 +1,11 @@
-# Lanta
+# Site builder for businesses in Thailand
 
-Lanta is a reusable website kit and a browser studio for local businesses in Thailand: spas, tour desks, bike rentals, clinics and cafes. It produces a fast one page site with services in baht, opening hours, a booking widget and an address block, in English, Russian and Thai. Booking requests open in the business's own WhatsApp, LINE or Telegram, so there is no backend, no database and no monthly fee.
+This is a reusable website kit and a browser studio for local businesses in Thailand: spas, tour desks, bike rentals, clinics and cafes. It produces a fast one page site with services in baht, opening hours, a booking widget and an address block, in English, Russian and Thai. Booking requests open in the business's own WhatsApp, LINE or Telegram, so there is no backend, no database and no monthly fee.
 
-Lanta is personal freelance work by Alexandr Khrustalev.
+It is personal freelance work by Alexandr Khrustalev.
 
-- Studio: https://sandersaxbuilds.github.io/selected-work/lanta/
-- Kit demo with a sample business: https://sandersaxbuilds.github.io/selected-work/lanta/kit/site.html
+- Studio: https://sandersaxbuilds.github.io/selected-work/builder/
+- Kit demo with a sample business: https://sandersaxbuilds.github.io/selected-work/builder/kit/site.html
 
 All businesses, prices and contacts in the presets and the demo are samples.
 

@@ -36,7 +36,7 @@
       noContact: 'Online requests are not set up yet. Please call or visit us.', requestNote: 'This is a request, not a confirmed booking. We reply in the chat to confirm the time.',
       hoursTitle: 'Opening hours', locationTitle: 'How to find us', openMaps: 'Open in Google Maps', copyAddress: 'Copy address', addressCopied: 'Address copied',
       callUs: 'Call {p}', writeUs: 'Message us in {ch}', faqTitle: 'Frequently asked questions', mapLabel: 'Map of {c}',
-      sample: 'Sample site made with Lanta. The business, prices and contacts are placeholders.', rights: '© {y} {n}',
+      sample: 'Sample site. The business, prices and contacts are placeholders.', rights: '© {y} {n}',
       msgHello: 'Hello, {n}! I would like to book a time.', msgService: 'Service', msgDate: 'Date', msgTime: 'Time', msgName: 'Name', msgNote: 'Comment', msgFrom: 'Sent from the website',
       dateLong: '{wd} {d} {m}', unitMin: 'min', unitH: 'h', dayForms: { one: 'day', other: 'days' }, timeSuffix: '',
       types: { spa: 'Spa and massage', tours: 'Tours and trips', bike: 'Motorbike rental', dental: 'Dental clinic', cafe: 'Cafe', other: 'Local business' },
@@ -65,7 +65,7 @@
       noContact: 'Онлайн-заявки пока не настроены. Позвоните нам или приходите.', requestNote: 'Это заявка, а не подтверждённая запись. Мы ответим в чате и подтвердим время.',
       hoursTitle: 'Часы работы', locationTitle: 'Как нас найти', openMaps: 'Открыть в Google Картах', copyAddress: 'Скопировать адрес', addressCopied: 'Адрес скопирован',
       callUs: 'Позвонить {p}', writeUs: 'Написать в {ch}', faqTitle: 'Частые вопросы', mapLabel: 'Карта, {c}',
-      sample: 'Пример сайта на Lanta. Компания, цены и контакты условные.', rights: '© {y} {n}',
+      sample: 'Пример сайта. Компания, цены и контакты условные.', rights: '© {y} {n}',
       msgHello: 'Здравствуйте, {n}! Хочу записаться.', msgService: 'Услуга', msgDate: 'Дата', msgTime: 'Время', msgName: 'Имя', msgNote: 'Комментарий', msgFrom: 'Отправлено с сайта',
       dateLong: '{wd}, {d} {m}', unitMin: 'мин', unitH: 'ч', dayForms: { one: 'день', few: 'дня', many: 'дней', other: 'дня' }, timeSuffix: '',
       types: { spa: 'Спа и массаж', tours: 'Экскурсии и поездки', bike: 'Аренда байков', dental: 'Стоматология', cafe: 'Кафе', other: 'Местный бизнес' },
@@ -94,7 +94,7 @@
       noContact: 'ยังไม่เปิดรับคำขอออนไลน์ กรุณาโทรหรือแวะมาที่ร้าน', requestNote: 'นี่คือคำขอ ยังไม่ใช่การจองที่ยืนยันแล้ว เราจะตอบกลับในแชทเพื่อยืนยันเวลา',
       hoursTitle: 'เวลาทำการ', locationTitle: 'วิธีเดินทางมาหาเรา', openMaps: 'เปิดใน Google Maps', copyAddress: 'คัดลอกที่อยู่', addressCopied: 'คัดลอกที่อยู่แล้ว',
       callUs: 'โทร {p}', writeUs: 'ทักแชททาง {ch}', faqTitle: 'คำถามที่พบบ่อย', mapLabel: 'แผนที่ {c}',
-      sample: 'ตัวอย่างเว็บไซต์จาก Lanta ชื่อร้าน ราคา และช่องทางติดต่อเป็นข้อมูลสมมติ', rights: '© {y} {n}',
+      sample: 'เว็บไซต์ตัวอย่าง ชื่อร้าน ราคา และช่องทางติดต่อเป็นข้อมูลสมมติ', rights: '© {y} {n}',
       msgHello: 'สวัสดี {n} ต้องการจองเวลา', msgService: 'บริการ', msgDate: 'วันที่', msgTime: 'เวลา', msgName: 'ชื่อ', msgNote: 'หมายเหตุ', msgFrom: 'ส่งจากเว็บไซต์',
       dateLong: '{wd}ที่ {d} {m}', unitMin: 'นาที', unitH: 'ชม.', dayForms: { other: 'วัน' }, timeSuffix: ' น.',
       types: { spa: 'สปาและนวด', tours: 'ทัวร์และทริป', bike: 'เช่ามอเตอร์ไซค์', dental: 'คลินิกทันตกรรม', cafe: 'คาเฟ่', other: 'ธุรกิจท้องถิ่น' },
@@ -399,89 +399,12 @@
   }
   const contrast = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
 
-  /* ---------- art: still palm shade and an arched sea view, built once per colour as SVG images ---------- */
-  const f1 = v => v.toFixed(1);
-  function fronds(seed, crowns) {
-    let s = seed;
-    const R = () => (s = s * 16807 % 2147483647) / 2147483647;
-    let leaf = '', rib = '';
-    for (const c of crowns) for (let i = 0; i < c.n; i++) {
-      const ang = c.a0 + (c.a1 - c.a0) * (c.n > 1 ? i / (c.n - 1) : 0.5) + (R() - 0.5) * 0.18;
-      const len = c.len * (0.8 + 0.35 * R());
-      const curl = (c.fall ? (Math.cos(ang) >= 0 ? 1 : -1) : (R() < 0.5 ? -1 : 1)) * (0.35 + 0.35 * R());
-      const P = [[c.x, c.y]], H = [ang];
-      let x = c.x, y = c.y;
-      rib += 'M' + f1(x) + ' ' + f1(y);
-      for (let k = 1; k <= 40; k++) {
-        const h = ang + curl * Math.pow(k / 40, 1.6);
-        x += Math.cos(h) * len / 40; y += Math.sin(h) * len / 40;
-        P.push([x, y]); H.push(h); rib += 'L' + f1(x) + ' ' + f1(y);
-      }
-      for (const side of [-1, 1]) for (let k = 3; k < 40; k++) {
-        const t = k / 40, [bx, by] = P[k], dir = H[k] + side * (1.05 - 0.45 * t) + (R() - 0.5) * 0.12;
-        const L = len * c.w * Math.pow(Math.sin(Math.PI * Math.min(1, 0.08 + t * 1.02)), 0.75) * (0.82 + 0.3 * R());
-        const droop = side * (0.18 + 0.25 * t) * (curl >= 0 ? 1 : -1);
-        const tx = bx + Math.cos(dir + droop) * L, ty = by + Math.sin(dir + droop) * L;
-        const cx = bx + Math.cos(dir) * L * 0.55, cy = by + Math.sin(dir) * L * 0.55;
-        const nx = -Math.sin(dir), ny = Math.cos(dir), wd = L * (0.045 + 0.02 * R());
-        leaf += `M${f1(bx)} ${f1(by)}Q${f1(cx + nx * wd)} ${f1(cy + ny * wd)} ${f1(tx)} ${f1(ty)}Q${f1(cx - nx * wd)} ${f1(cy - ny * wd)} ${f1(bx)} ${f1(by)}Z`;
-      }
-    }
-    return { leaf, rib };
-  }
-  const svgUrl = s => 'url("data:image/svg+xml,' + encodeURIComponent(s) + '")';
-  const SVG = '<svg xmlns="http://www.w3.org/2000/svg" ';
-  let shadeNear, archPalms, archFront;
-  /* Dappled shade of palm leaves, as if the page sat under a tree. Light themes get soft shadow, dark themes get light falling through the leaves. */
-  function shadeArt(dark) {
-    shadeNear = shadeNear || fronds(7, [{ x: 1290, y: -130, n: 6, a0: 1.95, a1: 3.25, len: 780, w: 0.4 }]);
-    const leaves = (p, b) => `<g filter="url(#${b})"><path d="${p.leaf}"/><path d="${p.rib}" fill="none" stroke-width="6"/></g>`;
-    const blur = '<filter id="a" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1600" height="1300"><feGaussianBlur stdDeviation="4"/></filter><filter id="b" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1600" height="1300"><feGaussianBlur stdDeviation="9"/></filter>';
-    if (!dark) return svgUrl(SVG + `viewBox="0 0 1200 900"><defs>${blur}</defs><g fill="#3d3220" stroke="#3d3220" opacity=".13">${leaves(shadeNear, 'a')}</g></svg>`);
-    return svgUrl(SVG + `viewBox="0 0 1200 900"><defs>${blur}<radialGradient id="l" cx=".74" cy=".3" r=".62"><stop offset="0" stop-color="#ffe6bf" stop-opacity=".16"/><stop offset=".6" stop-color="#ffe6bf" stop-opacity=".05"/><stop offset="1" stop-color="#ffe6bf" stop-opacity="0"/></radialGradient><mask id="m"><rect width="1200" height="900" fill="#fff"/><g fill="#000" stroke="#000">${leaves(shadeNear, 'a')}</g></mask></defs><rect width="1200" height="900" fill="url(#l)" mask="url(#m)"/></svg>`);
-  }
-  /* Broken streaks of light on the water under the glow. */
-  function glitter() {
-    let s = 77, out = '';
-    const R = () => (s = s * 16807 % 2147483647) / 2147483647;
-    for (let i = 0; i < 10; i++) {
-      const y = 304 + i * 7 + i * i * 1.5, half = (74 - i * 6.5) * (0.6 + 0.5 * R()), x0 = 170 + (R() - 0.5) * 18 - half, gap = half * (0.2 + 0.5 * R());
-      const cut = x0 + half * (0.5 + 0.8 * R()), o = (0.4 - i * 0.034).toFixed(2), hgt = f1(1 + R() * 0.9);
-      out += `<rect x="${f1(x0)}" y="${f1(y)}" width="${f1(cut - x0)}" height="${hgt}" opacity="${o}"/><rect x="${f1(cut + gap)}" y="${f1(y)}" width="${f1(Math.max(2, x0 + half * 2 - cut - gap))}" height="${hgt}" opacity="${o}"/>`;
-    }
-    return out;
-  }
-  /* A view through an arch: dusk over the sea in the accent colour, with palm silhouettes. */
-  function archArt(a) {
-    archPalms = archPalms || fronds(29, [{ x: 300, y: 152, n: 8, a0: -3.05, a1: 0.15, len: 176, w: 0.27, fall: true }]);
-    archFront = archFront || fronds(41, [{ x: -50, y: -40, n: 4, a0: 0.25, a1: 1.35, len: 250, w: 0.42 }]);
-    const ink = [9, 12, 11], glow = [247, 219, 182], c = v => toHex(v);
-    const sky0 = mix(a, ink, 0.66), sky1 = mix(a, ink, 0.22), sky2 = mix(mix(a, glow, 0.62), [255, 255, 255], 0.08);
-    const sea0 = mix(a, ink, 0.4), sea1 = mix(a, ink, 0.74), land = mix(a, ink, 0.58), leaf = mix(a, ink, 0.86);
-    return svgUrl(SVG + `viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice"><defs>
-<linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c(sky0)}"/><stop offset=".55" stop-color="${c(sky1)}"/><stop offset="1" stop-color="${c(sky2)}"/></linearGradient>
-<linearGradient id="w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c(sea0)}"/><stop offset="1" stop-color="${c(sea1)}"/></linearGradient>
-<radialGradient id="g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${c(glow)}" stop-opacity=".7"/><stop offset=".5" stop-color="${c(glow)}" stop-opacity=".22"/><stop offset="1" stop-color="${c(glow)}" stop-opacity="0"/></radialGradient>
-<filter id="b1" filterUnits="userSpaceOnUse" x="-100" y="-100" width="600" height="700"><feGaussianBlur stdDeviation=".8"/></filter><filter id="b2" filterUnits="userSpaceOnUse" x="-100" y="-100" width="600" height="700"><feGaussianBlur stdDeviation="1.1"/></filter><filter id="b3" filterUnits="userSpaceOnUse" x="-100" y="-100" width="600" height="700"><feGaussianBlur stdDeviation="2.4"/></filter>
-<filter id="n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .09 0"/></filter></defs>
-<rect width="400" height="300" fill="url(#s)"/>
-<ellipse cx="170" cy="296" rx="260" ry="120" fill="url(#g)"/>
-<path d="M-10 300C30 284 64 280 96 289C120 294 150 297 176 300Z" fill="${c(land)}" filter="url(#b1)"/>
-<path d="M250 300C276 292 300 290 326 295C344 298 360 299 372 300Z" fill="${c(land)}" opacity=".7" filter="url(#b1)"/>
-<rect y="299" width="400" height="201" fill="url(#w)"/>
-<g fill="${c(glow)}" filter="url(#b2)">${glitter()}</g>
-<path d="M426 520C414 400 374 262 300 152" fill="none" stroke="${c(leaf)}" stroke-width="8" stroke-linecap="round"/>
-<g fill="${c(leaf)}" stroke="${c(leaf)}" filter="url(#b1)"><path d="${archPalms.leaf}"/><path d="${archPalms.rib}" fill="none" stroke-width="2.4"/></g>
-<g fill="${c(leaf)}" stroke="${c(leaf)}" filter="url(#b3)"><path d="${archFront.leaf}"/><path d="${archFront.rib}" fill="none" stroke-width="3.5"/></g>
-<rect width="400" height="500" filter="url(#n)"/></svg>`);
-  }
-
-  const artCache = {};
   function applyColours() {
     const root = document.documentElement;
     const a = rgb(cfg.accent);
     const dark = cfg.theme === 'dark';
-    const bg = dark ? [27, 26, 23] : [243, 239, 230];
+    /* accent text has to read on the weakest surface of each theme: the tinted band in light, the card in dark */
+    const bg = dark ? [17, 26, 51] : [238, 235, 228];
     const white = [255, 255, 255], ink = [18, 18, 20];
     const cw = contrast(a, white), ci = contrast(a, ink);
     const on = cw >= 3.2 || cw >= ci ? white : ink;
@@ -493,14 +416,8 @@
     root.style.setProperty('--accent-text', toHex(text));
     root.style.setProperty('--on-accent', toHex(on));
     root.style.setProperty('--accent-rgb', a.join(','));
-    root.style.setProperty('--deep', toHex(mix(a, [12, 14, 13], 0.76)));
-    const key = cfg.theme + toHex(a);
-    if (!artCache[key]) artCache[key] = { shade: shadeArt(dark), night: shadeArt(true), arch: archArt(a) };
-    root.style.setProperty('--shade', artCache[key].shade);
-    root.style.setProperty('--shade-night', artCache[key].night);
-    root.style.setProperty('--arch', artCache[key].arch);
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', dark ? '#1b1a17' : '#f3efe6');
+    if (meta) meta.setAttribute('content', dark ? '#0a1020' : '#f5f3ee');
     return { on: toHex(on) };
   }
 
@@ -592,14 +509,14 @@
     return h('section', { class: 'hero', id: 'top', 'aria-labelledby': 'heroT' },
       h('div', { class: 'wrap hero-g' },
         h('div', { class: 'hero-c' },
-          h('p', { class: 'kicker' }, h('span', { class: 'k-dot', 'aria-hidden': 'true' }), t('types')[cfg.type] + (city ? ' · ' + city : '')),
+          h('p', { class: 'kicker' }, t('types')[cfg.type] + (city ? ' · ' + city : '')),
           h('h1', { id: 'heroT', text: tx(cfg.tagline) || tx(cfg.name) }),
           sub ? h('p', { class: 'lead', text: sub }) : null,
-          h('p', { class: 'status is-' + st.cls }, h('i', { 'aria-hidden': 'true' }), st.text),
+          h('p', { class: 'status is-' + st.cls }, ic('clock'), st.text),
           h('div', { class: 'btns' },
             h('a', { class: 'btn btn-accent', href: '#booking' }, t('heroCta'), ic('arrow')),
             cfg.services.length ? h('a', { class: 'btn btn-line', href: '#services', text: t('heroAlt') }) : null)),
-        h('div', { class: 'hero-v' }, h('div', { class: 'arch', 'aria-hidden': 'true' }), facts(days))));
+        h('div', { class: 'hero-v' }, facts(days))));
   }
 
   function facts(days) {
@@ -619,16 +536,21 @@
       const sl = slotsFor(d, svc);
       if (sl.length) { next = { d, sl: sl.slice(0, 3) }; break; }
     }
-    return h('aside', { class: 'facts', 'aria-label': tx(cfg.name) },
-      h('dl', { class: 'f-list' }, rows.map(([k, v, i]) => h('div', { class: 'f-row' },
-        h('dt', null, i ? ic(i) : h('span', { class: 'f-baht', 'aria-hidden': 'true', text: '฿' }), k),
-        h('dd', { text: v })))),
-      next && cfg.services.length ? h('div', { class: 'f-next' },
-        h('p', { class: 'f-k', id: 'nextT', text: t('factNext', { d: dayWord(next.d) }) }),
-        h('div', { class: 'f-slots', role: 'group', 'aria-labelledby': 'nextT' }, next.sl.map(m => h('button', {
-          type: 'button', class: 'chip', 'data-k': 'next-' + m, text: fromMin(m),
-          onclick: () => { S.day = next.d.i; S.time = m; renderBooking(); go('booking', '.send'); }
-        })))) : null);
+    const name = tx(cfg.name);
+    return h('aside', { class: 'facts', 'aria-label': name },
+      h('div', { class: 'f-head' },
+        h('span', { class: 'mark', 'aria-hidden': 'true', text: (Array.from(name)[0] || 'L').toUpperCase() }),
+        h('div', null, h('small', { text: t('types')[cfg.type] }), h('strong', { text: name }))),
+      h('div', { class: 'f-body' },
+        next && cfg.services.length ? h('div', { class: 'f-next' },
+          h('p', { class: 'f-k', id: 'nextT', text: t('factNext', { d: dayWord(next.d) }) }),
+          h('div', { class: 'f-slots', role: 'group', 'aria-labelledby': 'nextT' }, next.sl.map(m => h('button', {
+            type: 'button', class: 'chip', 'data-k': 'next-' + m, text: fromMin(m),
+            onclick: () => { S.day = next.d.i; S.time = m; renderBooking(); go('booking', '.send'); }
+          })))) : null,
+        h('dl', { class: 'f-list' }, rows.map(([k, v, i]) => h('div', { class: 'f-row' },
+          h('dt', null, i ? ic(i) : h('span', { class: 'f-baht', 'aria-hidden': 'true', text: '฿' }), k),
+          h('dd', { text: v }))))));
   }
 
   function secHead(id, title, sub) {
@@ -822,7 +744,7 @@
     }));
     const hoursCard = h('div', { class: 'card', id: 'hours', 'aria-labelledby': 'hrT', role: 'region' },
       h('h2', { id: 'hrT', class: 'card-t', text: t('hoursTitle') }),
-      h('p', { class: 'status is-' + st.cls }, h('i', { 'aria-hidden': 'true' }), st.text),
+      h('p', { class: 'status is-' + st.cls }, ic('clock'), st.text),
       h('table', { class: 'hours' },
         h('caption', { class: 'sr', text: t('hoursTitle') }),
         h('tbody', null, WEEK.map((k, i) => {

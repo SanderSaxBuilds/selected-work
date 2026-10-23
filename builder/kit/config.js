@@ -1,4 +1,4 @@
-/* Lanta site config. This is the only file you need to edit.
+/* Site config. This is the only file you need to edit.
    Text fields accept one string, or an object with en, ru and th. An empty language falls back to English.
    type: spa, tours, bike, dental, cafe or other. theme: light or dark, light is the default. accent: any #rrggbb colour.
    hours: "mon" to "sun", each ["10:00", "21:00"] or null when closed. "00:00" as closing time means midnight.
@@ -11,9 +11,9 @@ window.LANTA = {
   "sample": true,
   "name": { "en": "Baan Sabai Spa", "ru": "Baan Sabai Spa", "th": "บ้านสบาย สปา" },
   "tagline": {
-    "en": "Thai massage on Koh Lanta, booked in a minute",
-    "ru": "Тайский массаж на Ко Ланте, запись за минуту",
-    "th": "นวดแผนไทยบนเกาะลันตา จองได้ในหนึ่งนาที"
+    "en": "Thai massage in Rawai, Phuket, booked in a minute",
+    "ru": "Тайский массаж в Равае на Пхукете, запись за минуту",
+    "th": "นวดแผนไทยที่ราไวย์ ภูเก็ต จองได้ในหนึ่งนาที"
   },
   "sub": {
     "en": "Experienced therapists, quiet rooms and warm herbal oils. Choose a time and send the request in your messenger.",
@@ -38,17 +38,17 @@ window.LANTA = {
     "mon": ["10:00", "21:00"], "tue": ["10:00", "21:00"], "wed": ["10:00", "21:00"], "thu": ["10:00", "21:00"],
     "fri": ["10:00", "21:00"], "sat": ["10:00", "21:00"], "sun": ["10:00", "21:00"]
   },
-  "contact": { "channel": "line", "handle": "@lanta.sample", "phone": "+66 80 000 0000" },
+  "contact": { "channel": "line", "handle": "@sample.shop", "phone": "+66 80 000 0000" },
   "address": {
     "text": {
-      "en": "12 Moo 2, Saladan, Koh Lanta, Krabi 81150",
-      "ru": "12 Му 2, Саладан, Ко Ланта, Краби 81150",
-      "th": "12 หมู่ 2 ต.ศาลาด่าน อ.เกาะลันตา จ.กระบี่ 81150"
+      "en": "45/12 Wiset Road, Rawai, Phuket 83100",
+      "ru": "45/12 Висет-роуд, Равай, Пхукет 83100",
+      "th": "45/12 ถ.วิเศษ ต.ราไวย์ จ.ภูเก็ต 83100"
     },
-    "city": { "en": "Koh Lanta", "ru": "Ко Ланта", "th": "เกาะลันตา" },
-    "region": "Krabi",
-    "postalCode": "81150",
-    "mapsUrl": "https://maps.google.com/?q=Saladan,+Koh+Lanta"
+    "city": { "en": "Rawai", "ru": "Равай", "th": "ราไวย์" },
+    "region": "Phuket",
+    "postalCode": "83100",
+    "mapsUrl": "https://maps.google.com/?q=Wiset+Road,+Rawai,+Phuket"
   },
   "faq": [
     {
