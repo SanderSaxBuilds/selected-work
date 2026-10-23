@@ -3,19 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Проверка сайта для бизнеса · SanderSax</title>
+<title>Проверка сайта для бизнеса · Alexandr Khrustalev</title>
 <meta name="description" content="Бесплатная проверка сайта для бизнеса в Таиланде. Короткие вопросы, оценка из 100 и три главных исправления для вашего типа бизнеса.">
 <meta property="og:title" content="Проверка сайта за 2 минуты">
 <meta property="og:description" content="Оценка из 100 и три главных исправления для спа, туров, проката, кафе и клиник в Таиланде. Бесплатно.">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/thailand/og.png">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0a1020">
-<link rel="icon" href="../brand/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="../brand/sandersax-mark-small.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="../brand/apple-touch-icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0b0d'/%3E%3Ctext x='13' y='24' font-family='Arial' font-weight='700' font-size='13' fill='%23fff' text-anchor='middle'%3EAK%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 @property --a{syntax:"<color>";inherits:true;initial-value:#6f8bff}
 @property --ai{syntax:"<color>";inherits:true;initial-value:#3451d1}
@@ -47,10 +45,8 @@ button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:tra
 /* top bar, same family as the offer page */
 .bar{position:sticky;top:0;z-index:20;background:rgba(10,16,32,.86);color:#fff;-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line-d)}
 .bar .wrap{display:flex;align-items:center;gap:14px;min-height:60px}
-/* SanderSax lockup: crest plus the wordmark as text, cream with a thin dark outline and a small salmon offset */
-.logo{display:flex;align-items:center;gap:9px;text-decoration:none;white-space:nowrap}
-.logo img{display:block;width:36px;height:42px;flex:0 0 auto}
-.ssx{font:400 21px/1 Anton,Impact,"Arial Narrow",sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#f4e7c9;text-shadow:1px 0 #1c1715,-1px 0 #1c1715,0 1px #1c1715,0 -1px #1c1715,1px 1px #1c1715,-1px -1px #1c1715,1px -1px #1c1715,-1px 1px #1c1715,2px 2px #f48b67,3px 3px #f48b67}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap;letter-spacing:-.01em}
+.logo i{width:30px;height:30px;border-radius:8px;background:#fff;display:grid;place-items:center;color:var(--bg);font-style:normal;font-size:12px;font-weight:700}
 .nav{display:flex;gap:2px;margin-left:auto}
 .nav a{white-space:nowrap;padding:10px 11px;border-radius:8px;text-decoration:none;font-size:14px;color:#a7aec6;transition:color .2s}
 .nav a:hover{color:#fff}
@@ -59,7 +55,7 @@ button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:tra
 .lang button[aria-pressed="true"]{color:#fff}
 .lang .pill{position:absolute;top:3px;bottom:3px;left:3px;width:44px;border-radius:7px;background:#2b3558;transition:transform .35s cubic-bezier(.16,1,.3,1)}
 @media (max-width:720px){.nav{display:none}.lang{margin-left:auto}}
-@media (max-width:339px){.logo .ssx{display:none}}
+@media (max-width:400px){.logo span{display:none}}
 
 /* stage: navy with a still glow that takes the business colour */
 .stage{position:relative;overflow:hidden;isolation:isolate;color:#fff;border-radius:0 0 32px 32px;
@@ -274,7 +270,7 @@ footer a{color:var(--ink)}
 <a class="skip" href="#card" data-t="skip">Перейти к проверке</a>
 <header class="bar">
   <div class="wrap">
-    <a class="logo" href="../thailand/"><img src="../brand/sandersax-mark.svg" alt="" width="36" height="42"><span class="ssx">SanderSax</span></a>
+    <a class="logo" href="../thailand/"><i>AK</i><span>Alexandr Khrustalev</span></a>
     <nav class="nav" aria-label="Разделы" data-t-aria="navLabel">
       <a href="../thailand/#prices" data-t="nPrice">Цены</a>
       <a href="../thailand/#work" data-t="nWork">Работы</a>
@@ -349,7 +345,7 @@ footer a{color:var(--ink)}
 </section>
 </main>
 
-<footer><div class="wrap"><span>© 2026 SanderSax · Alexandr Khrustalev · <span data-t="fCity">Таиланд, работаю удалённо</span></span><nav aria-label="Ссылки" data-t-aria="footLabel"><a href="../thailand/" data-t="fOffer">Сайты для бизнеса</a><a href="../" data-t="fAll">Все работы</a></nav></div></footer>
+<footer><div class="wrap"><span>© 2026 Alexandr Khrustalev · <span data-t="fCity">Таиланд, работаю удалённо</span></span><nav aria-label="Ссылки" data-t-aria="footLabel"><a href="../thailand/" data-t="fOffer">Сайты для бизнеса</a><a href="../" data-t="fAll">Все работы</a></nav></div></footer>
 
 <script>
 (function(){
@@ -695,7 +691,7 @@ document.addEventListener("keydown",function(e){
 });
 
 /* language */
-var LS=["ru","en","th"],TITLES={ru:"Проверка сайта для бизнеса · SanderSax",en:"Website check for businesses · SanderSax",th:"เช็กเว็บไซต์สำหรับธุรกิจ · SanderSax"};
+var LS=["ru","en","th"],TITLES={ru:"Проверка сайта для бизнеса · Alexandr Khrustalev",en:"Website check for businesses · Alexandr Khrustalev",th:"เช็กเว็บไซต์สำหรับธุรกิจ · Alexandr Khrustalev"};
 function setLang(l){
   lang=l;document.documentElement.lang=l;
   document.querySelectorAll("[data-t]").forEach(function(el){var v=T[l][el.dataset.t];if(v!=null)el.innerHTML=v});
