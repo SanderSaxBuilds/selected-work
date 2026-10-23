@@ -27,12 +27,99 @@
   };
   const svg = (name, cls = 'i') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICON[name] || ''}</svg>`;
 
+  /* ---------- play: type word, accent glow, a device that turns toward the pointer, booking notes, a burst on download ---------- */
+  const fun = (() => {
+    const calm = matchMedia('(prefers-reduced-motion: reduce)');
+    const el = id => document.getElementById(id);
+    const APP = { whatsapp: ['WhatsApp', '#25d366'], line: ['LINE', '#06c755'], telegram: ['Telegram', '#2aabee'] };
+    let lastType = null, lastLang = null, noteTimer = 0;
+    const host = el('burst');
+    if (host) document.body.append(host);
+
+    function sync() {
+      const word = el('typeWord');
+      const key = PRESETS[cfg.type] ? cfg.type : 'none';
+      if (word && (key !== lastType || ui.lang !== lastLang)) {
+        word.textContent = T('typeWord')[key];
+        word.style.setProperty('--tc', key === 'none' ? 'var(--accent)' : PRESETS[key].accent);
+        if (lastType !== null && key !== lastType && !calm.matches) { word.classList.remove('is-in'); void word.offsetWidth; word.classList.add('is-in'); }
+        lastType = key; lastLang = ui.lang;
+      }
+      const st = el('stage');
+      if (st && /^#[0-9a-f]{6}$/i.test(cfg.accent || '')) st.style.setProperty('--glow', cfg.accent);
+    }
+
+    (() => {
+      const st = el('stage'), bx = el('pvBox'), fr = el('frame');
+      if (!st || !bx || !matchMedia('(pointer: fine)').matches) return;
+      let raf = 0, rx = 0, ry = 0;
+      const set = () => { raf = 0; bx.style.setProperty('--rx', rx.toFixed(2) + 'deg'); bx.style.setProperty('--ry', ry.toFixed(2) + 'deg'); };
+      st.addEventListener('pointermove', e => {
+        if (calm.matches) return;
+        const r = st.getBoundingClientRect();
+        const k = el('device').dataset.dev === 'phone' ? 8 : 2.5;
+        ry = ((e.clientX - r.left) / r.width - 0.5) * 2 * k;
+        rx = -((e.clientY - r.top) / r.height - 0.5) * 1.4 * k;
+        if (!raf) raf = requestAnimationFrame(set);
+      });
+      const flat = () => { rx = 0; ry = 0; if (!raf) raf = requestAnimationFrame(set); };
+      st.addEventListener('pointerleave', flat);
+      if (fr) fr.addEventListener('mouseenter', flat);
+    })();
+
+    const tryBtn = el('pvTry');
+    if (tryBtn) tryBtn.addEventListener('click', () => {
+      const fr = el('frame');
+      try { fr.contentWindow.postMessage({ type: 'lanta:goto', id: 'bk' }, location.origin); } catch (e) { /* frame gone */ }
+    });
+
+    function note(d) {
+      const box = el('pvNote');
+      if (!box) return;
+      const [app, col] = APP[d.channel] || APP.line;
+      const lines = String(d.text || '').split('\n').map(s => s.trim()).filter(Boolean).slice(0, 5);
+      box.innerHTML = `<div class="nt-h"><span class="nt-app" style="background:${col}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5c-4.7 0-8.5 3-8.5 6.8 0 2.2 1.3 4.2 3.4 5.4l-.6 2.8 3.1-1.7c.8.2 1.7.3 2.6.3 4.7 0 8.5-3 8.5-6.8S16.7 4.5 12 4.5z"/></svg></span><b>${esc(app)}</b><span>${esc(T('noteNow'))}</span></div>` +
+        `<strong>${esc(T('noteTitle'))}${d.business ? ' · ' + esc(d.business) : ''}</strong><p>${lines.map(esc).join('<br>')}</p><small>${esc(T('noteCap'))}</small>`;
+      box.hidden = false;
+      box.classList.remove('is-in'); void box.offsetWidth; box.classList.add('is-in');
+      if (tryBtn) tryBtn.classList.add('is-gone');
+      clearTimeout(noteTimer);
+      noteTimer = setTimeout(() => box.classList.remove('is-in'), 9000);
+    }
+
+    function burst(btn) {
+      if (!host || calm.matches || !host.animate) return;
+      const r = btn.getBoundingClientRect();
+      const x0 = r.left + r.width / 2, y0 = r.top + r.height / 2;
+      const cols = [cfg.accent || '#4c6fff', '#4c6fff', '#ffffff', '#8fe0b4', '#f5f3ee'];
+      host.textContent = '';
+      for (let i = 0; i < 26; i++) {
+        const s = document.createElement('i');
+        const a = Math.PI * (0.55 + Math.random() * 0.9), v = 90 + Math.random() * 170;
+        const dx = Math.cos(a) * v, dy = Math.sin(a) * v * 0.6 + 40;
+        s.style.cssText = `left:${x0}px;top:${y0}px;background:${cols[i % cols.length]};width:${5 + Math.random() * 5}px;height:${8 + Math.random() * 8}px`;
+        host.append(s);
+        s.animate([
+          { transform: 'translate(-50%,-50%) rotate(0deg)', opacity: 1 },
+          { transform: `translate(calc(-50% + ${dx * 0.7}px), calc(-50% + ${dy * 0.4 - 30}px)) rotate(${Math.random() * 360}deg)`, opacity: 1, offset: 0.45 },
+          { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy + 140}px)) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+        ], { duration: 1100 + Math.random() * 600, easing: 'cubic-bezier(.2,.6,.4,1)', fill: 'forwards' }).onfinish = () => s.remove();
+      }
+      toast(T('celebrate'), { key: 'party', ms: 3200 });
+    }
+
+    return { sync, note, burst };
+  })();
+
   /* ---------- interface text ---------- */
   const UI = {
     en: {
       skip: 'Skip to settings', brandTag: 'Site builder', topNote: 'Website kit for local businesses in Thailand', uiLang: 'Interface language', copyCfg: 'Copy config', download: 'Download site',
       viewLabel: 'View', tabEdit: 'Edit', tabPreview: 'Preview',
-      eyebrow: 'Personal project by Alexandr Khrustalev', h1: 'Booking sites for local businesses in', h1em: 'Thailand',
+      eyebrow: 'Personal project by Alexandr Khrustalev', h1: 'Booking sites for', h1in: 'in', h1em: 'Thailand',
+      typeWord: { none: 'local businesses', spa: 'spas', tours: 'tour desks', bike: 'bike rentals', dental: 'dental clinics', cafe: 'cafes' },
+      tryIt: 'Try it like a customer: book a time in the preview', noteTitle: 'New booking request', noteNow: 'now', noteCap: 'This is how a request lands on the owner\'s phone. No server, no monthly fee.',
+      readyPct: 'Your site is {n}% ready', celebrate: 'Packed and ready to go live',
       lead: 'Fill in the business, watch the site change, then download it ready to host. No sign up, and nothing leaves your browser.',
       sections: 'Sections', textLang: 'Text language', textLangHint: 'Text fields edit the language picked above. Empty ones show English.',
       cBusiness: 'Business', cLook: 'Look', cServices: 'Services', cHours: 'Hours', cContact: 'Booking', cLocation: 'Location', cFaq: 'FAQ',
@@ -76,7 +163,10 @@
     ru: {
       skip: 'Перейти к настройкам', brandTag: 'Конструктор сайтов', topNote: 'Конструктор сайтов для местного бизнеса в Таиланде', uiLang: 'Язык интерфейса', copyCfg: 'Скопировать конфиг', download: 'Скачать сайт',
       viewLabel: 'Режим', tabEdit: 'Настройки', tabPreview: 'Просмотр',
-      eyebrow: 'Личный проект Александра Хрусталёва', h1: 'Сайты с онлайн-записью для бизнеса в', h1em: 'Таиланде',
+      eyebrow: 'Личный проект Александра Хрусталёва', h1: 'Сайты с онлайн-записью для', h1in: 'в', h1em: 'Таиланде',
+      typeWord: { none: 'местного бизнеса', spa: 'спа-салонов', tours: 'турагентств', bike: 'проката байков', dental: 'стоматологий', cafe: 'кафе' },
+      tryIt: 'Попробуйте как клиент: запишитесь в превью', noteTitle: 'Новая заявка на запись', noteNow: 'сейчас', noteCap: 'Так заявка приходит на телефон владельца. Без сервера и абонентской платы.',
+      readyPct: 'Сайт готов на {n}%', celebrate: 'Архив собран, сайт готов к запуску',
       lead: 'Заполните данные, смотрите, как меняется сайт, и скачайте архив, готовый к публикации. Без регистрации, все данные остаются в браузере.',
       sections: 'Разделы', textLang: 'Язык текстов', textLangHint: 'Текстовые поля редактируют выбранный выше язык. Пустые показывают английский текст.',
       cBusiness: 'Бизнес', cLook: 'Вид', cServices: 'Услуги', cHours: 'Часы', cContact: 'Запись', cLocation: 'Адрес', cFaq: 'Вопросы',
@@ -451,7 +541,7 @@
 
   function renderPresets() {
     $('#presets').innerHTML = Object.keys(PRESETS).map(k =>
-      `<button type="button" class="preset" data-preset="${k}" aria-pressed="${cfg.type === k}">${svg(k)}<span>${esc(T('presets')[k])}</span></button>`).join('');
+      `<button type="button" class="preset" style="--pc:${PRESETS[k].accent}" data-preset="${k}" aria-pressed="${cfg.type === k}"><span class="preset-i">${svg(k)}</span><span>${esc(T('presets')[k])}</span></button>`).join('');
   }
 
   function renderSwatches() {
@@ -672,12 +762,31 @@
     const miss = missing();
     const el = $('#ready');
     el.className = 'ready ' + (list.length ? 'is-warn' : 'is-ok');
-    const head = list.length ? (list.length === 1 ? T('issue1') : T('issuesN', { n: list.length })) : T('ready');
-    let html = `<div class="ready-h"><i>${svg(list.length ? 'alert' : 'check')}</i><strong>${esc(head)}</strong></div>`;
-    if (!list.length) html += `<p>${esc(T('readyP'))}</p>`;
+    const pct = readiness();
+    const head = pct === 100 && !list.length ? T('ready') : T('readyPct', { n: pct });
+    const sub = list.length ? (list.length === 1 ? T('issue1') : T('issuesN', { n: list.length })) : '';
+    const C = 2 * Math.PI * 17;
+    let html = `<div class="ready-h"><span class="ring" style="--p:${pct}"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="ring-t" cx="20" cy="20" r="17"/><circle class="ring-v" cx="20" cy="20" r="17" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - pct / 100)).toFixed(1)}"/></svg><b>${pct === 100 ? svg('check') : pct}</b></span><span><strong>${esc(head)}</strong>${sub ? `<small>${esc(sub)}</small>` : ''}</span></div>`;
+    if (!list.length && pct === 100) html += `<p>${esc(T('readyP'))}</p>`;
     else html += `<ul>${list.slice(0, 5).map(x => `<li><button type="button" data-go="${esc(x.go)}">${esc(x.msg)}</button></li>`).join('')}</ul>`;
     if (miss.length) html += `<ul class="info">${miss.map(m => `<li><button type="button" data-edit="${m.l}">${esc(T('missingLang', { lang: T('langNames')[m.l], n: m.n }))}</button></li>`).join('')}</ul>`;
     el.innerHTML = html;
+    el.classList.toggle('is-full', pct === 100);
+    fun.sync();
+  }
+  function readiness() {
+    const ch = cfg.contact.channel;
+    const open = WEEK.filter(k => cfg.hours[k]);
+    const checks = [
+      anyText(cfg.name), anyText(cfg.tagline),
+      cfg.services.length > 0 && cfg.services.every(s => anyText(s.name) && s.minutes >= 5 && s.price >= 0),
+      open.length > 0 && open.every(k => hoursValid(cfg.hours[k])),
+      !!cleanHandle(ch, String(cfg.contact.handle || '').trim()),
+      anyText(cfg.address.text) || anyText(cfg.address.city),
+      /^https?:\/\/\S+$/i.test(String(cfg.address.mapsUrl || '').trim()),
+      cfg.faq.some(f => anyText(f.q))
+    ];
+    return Math.round(checks.filter(Boolean).length / checks.length * 100);
   }
 
   /* ---------- editing events ---------- */
@@ -976,6 +1085,8 @@
       clearTimeout(loadTimer);
       $('#pvErr').hidden = true;
       post();
+    } else if (d.type === 'lanta:request') {
+      fun.note(d);
     } else if (d.type === 'lanta:rendered' && frameReady) {
       $('#pvLoad').classList.add('is-off');
       setStatus('flash');
@@ -1312,6 +1423,7 @@ ${todo.join('\n')}
       else toast(T('downloaded', { file, n: files.length, kb: Math.max(1, Math.round(blob.size / 1024)) }));
       btn.classList.add('is-done');
       setTimeout(() => btn.classList.remove('is-done'), 1400);
+      fun.burst(btn);
     } catch (err) {
       toast(T('zipFail'), { tone: 'err', ms: 7000 });
     } finally {

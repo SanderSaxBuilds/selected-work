@@ -665,7 +665,14 @@
         phoneHref() ? h('a', { class: 'btn btn-accent send', href: phoneHref() }, ic('phone'), t('callUs', { p: cfg.contact.phone })) : null);
     } else if (ready) {
       send = h('a', { class: 'btn btn-accent send', href: chatLink(msg), target: '_blank', rel: 'noopener', 'data-k': 'send' }, ic('send'), t('sendVia', { ch: chName() }));
-      send.addEventListener('click', () => onSend(hint));
+      send.addEventListener('click', e => {
+        if (PREVIEW) {
+          e.preventDefault();
+          window.parent.postMessage({ type: 'lanta:request', channel: cfg.contact.channel, business: tx(cfg.name), text: message(upcoming(), cfg.services[S.svc]) }, location.origin);
+          return;
+        }
+        onSend(hint);
+      });
     } else {
       send = h('button', { type: 'button', class: 'btn btn-accent send', 'aria-disabled': 'true', 'aria-describedby': 'bkHint', 'data-k': 'send' }, ic('send'), t('sendVia', { ch: chName() }));
       send.addEventListener('click', () => {
@@ -869,6 +876,9 @@
       } else if (d.type === 'lanta:lang' && cfg.languages.includes(d.lang)) {
         lang = d.lang;
         render();
+      } else if (d.type === 'lanta:goto') {
+        const t = document.getElementById(String(d.id || ''));
+        if (t) (t.closest('section') || t).scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   }
