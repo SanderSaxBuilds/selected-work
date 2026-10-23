@@ -10,10 +10,12 @@
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/thailand/og.png">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0a1020">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0b0d'/%3E%3Ctext x='13' y='24' font-family='Arial' font-weight='700' font-size='13' fill='%23fff' text-anchor='middle'%3EAK%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/sandersax-icon-32.png">
+<link rel="apple-touch-icon" href="../assets/sandersax-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&family=Barlow+Condensed:wght@700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../check/check.css">
 <style>
 :root{
   --bg:#0a1020;--bg-2:#111a33;--bg-3:#1a2443;
@@ -56,7 +58,8 @@ h2.rv.in{clip-path:inset(-20% -4% -40% -4%);translate:0 0}
 .bar{position:sticky;top:0;z-index:20;background:rgba(10,16,32,.78);color:#fff;backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line-d)}
 .bar .wrap{display:flex;align-items:center;gap:14px;min-height:64px}
 .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap;letter-spacing:-.01em}
-.logo i{width:30px;height:30px;border-radius:8px;background:#fff;display:grid;place-items:center;color:var(--bg);font-style:normal;font-size:12px;font-weight:700;position:relative}
+.logo .mk{flex:0 0 auto;width:22px;height:36px;background:#f5f3ee;-webkit-mask:url(../assets/sandersax-mark.png) center/contain no-repeat;mask:url(../assets/sandersax-mark.png) center/contain no-repeat}
+.logo .wm{font-family:"Barlow Condensed",var(--display);font-weight:700;font-size:20px;letter-spacing:.06em;color:#f5f3ee}
 .nav{display:flex;gap:2px;margin-left:auto}
 .nav a{white-space:nowrap;padding:10px 11px;border-radius:8px;text-decoration:none;font-size:14px;color:#a7aec6;transition:color .2s}
 .nav a:hover{color:#fff}
@@ -68,7 +71,7 @@ h2.rv.in{clip-path:inset(-20% -4% -40% -4%);translate:0 0}
 .bar .cta-s:hover{background:#e9e7e2}
 @media (max-width:1180px){.nav{display:none}.lang{margin-left:auto}}
 @media (max-width:470px){.bar .cta-s{display:none}}
-@media (max-width:440px){.logo span{display:none}}
+@media (max-width:359px){.logo .wm{display:none}}
 
 /* hero */
 .hero{background:radial-gradient(1100px 620px at 88% -8%,rgba(76,111,255,.24),transparent 62%),radial-gradient(900px 560px at -8% 112%,rgba(45,212,191,.09),transparent 62%),var(--bg);border-radius:0 0 32px 32px;color:#fff;position:relative;overflow:hidden;isolation:isolate}
@@ -204,7 +207,9 @@ h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,5vw,68px);lin
 /* sections */
 section{padding:112px 0;position:relative}
 /* paper light: soft still glows behind the light sections, no pattern, no motion */
-#fixes::before,#process::before,#faq::before,.stats::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0}
+#check::before{background:radial-gradient(760px 520px at 6% 20%,rgba(76,111,255,.06),transparent 70%)}
+#check{border-top:1px solid var(--line)}
+#fixes::before,#process::before,#faq::before,#check::before,.stats::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0}
 #fixes::before{background:radial-gradient(820px 520px at 94% 4%,rgba(76,111,255,.075),transparent 70%),radial-gradient(640px 460px at 2% 98%,rgba(45,212,191,.06),transparent 70%)}
 #process::before{background:radial-gradient(760px 420px at 8% 30%,rgba(129,140,248,.07),transparent 70%)}
 #faq::before{background:radial-gradient(700px 480px at 96% 80%,rgba(76,111,255,.06),transparent 70%),radial-gradient(520px 360px at 0% 10%,rgba(56,189,248,.05),transparent 70%)}
@@ -545,8 +550,9 @@ footer a{color:var(--ink)}
 
 <header class="bar">
   <div class="wrap">
-    <a class="logo" href="#top"><i>AK</i><span>Alexandr Khrustalev</span></a>
+    <a class="logo" href="#top" aria-label="SanderSax"><i class="mk" aria-hidden="true"></i><span class="wm" aria-hidden="true">[SANDERSAX]</span></a>
     <nav class="nav" aria-label="Разделы" data-t-aria="navLabel">
+      <a href="#check" data-t="nChk">Проверка сайта</a>
       <a href="#included" data-t="nInc">Что входит</a>
       <a href="#prices" data-t="nPrice">Цены</a>
       <a href="#process" data-t="nProc">Как работаем</a>
@@ -689,6 +695,10 @@ footer a{color:var(--ink)}
   </div>
 </section>
 
+<section id="check">
+  <div class="wrap"><div data-site-check data-offer="#prices" data-here></div></div>
+</section>
+
 <section class="incl" id="included">
   <div class="aur" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
@@ -796,7 +806,7 @@ footer a{color:var(--ink)}
     <div>
       <h2 class="rv" data-t="kH">Пришлите ссылку, я пришлю разбор</h2>
       <p class="lead rv d1" data-t="kP">Бесплатно и без обязательств. Отвечаю в течение суток, обычно быстрее.</p>
-      <a class="chk rv d3" href="../check/"><span data-t="chk">Сначала проверьте свой сайт сами, это займёт 2 минуты</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="chk rv d3" href="#check"><span data-t="chk">Сначала проверьте свой сайт сами, это займёт 2 минуты</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="reach rv d1" id="reach">
       <p class="reach-h" data-t="rH">Напишите или позвоните, как вам удобнее</p>
@@ -848,7 +858,7 @@ q6:"What do I need to prepare?",a6:"Your services with prices, a few photos, you
 q7:"Can you fix my current site instead of building a new one?",a7:"Yes. Sometimes it is enough to fix the mobile version, add prices and a booking button. In the free review I will tell you honestly which option makes more sense.",
 kH:"Send a link, get a review",kP:"Free and with no obligation. I reply within a day, usually sooner.",
 rH:"Message or call, whichever is easier",rTg:"Message on Telegram",rWa:"Message on WhatsApp",rTh:"Call or text, Thailand",rKz:"Phone, Kazakhstan",rEm:"Email",chk:"Check your own site first, it takes 2 minutes",
-nInc:"What you get",st1:"languages on the site: English, Russian and Thai",st2:"days to launch a simple site",st3:"for the first review and a home page sketch",st4:"of the payment only after launch",
+nInc:"What you get",nChk:"Website check",st1:"languages on the site: English, Russian and Thai",st2:"days to launch a simple site",st3:"for the first review and a home page sketch",st4:"of the payment only after launch",
 inH:"What comes with <span class=\"hl\">every site</span>",inP:"Not just a pretty home page. Everything customers need to find you, understand you and book.",
 i1h:"Fast loading",i1p:"Light pages without extra libraries open quickly, even on mobile data.",i2h:"Phone first",i2p:"Big buttons, readable text and a menu within thumb reach. Desktop comes second.",
 i3h:"Three languages",i3p:"English, Russian and Thai with a switcher. Translation is included.",i4h:"Telegram and LINE",i4p:"Contact buttons and requests that land straight in your messenger, no inbox checking.",
@@ -887,7 +897,7 @@ q6:"ต้องเตรียมอะไรบ้าง",a6:"รายกา�
 q7:"ปรับปรุงเว็บเดิมแทนการทำใหม่ได้ไหม",a7:"ได้ บางครั้งแค่แก้เวอร์ชันมือถือ เพิ่มราคา และปุ่มจองก็พอ ในรีวิวฟรี ผมจะบอกตรงๆ ว่าแบบไหนคุ้มกว่าสำหรับคุณ",
 kH:"ส่งลิงก์มา รับรีวิวกลับไป",kP:"ฟรีและไม่มีข้อผูกมัด ตอบภายในหนึ่งวัน ส่วนใหญ่เร็วกว่านั้น",
 rH:"ทักหรือโทรมาได้ตามสะดวก",rTg:"ทักทาง Telegram",rWa:"ทักทาง WhatsApp",rTh:"โทรหรือส่ง SMS ในไทย",rKz:"โทรศัพท์ คาซัคสถาน",rEm:"อีเมล",chk:"ลองเช็กเว็บไซต์ของคุณเองก่อน ใช้เวลาแค่ 2 นาที",
-nInc:"สิ่งที่ได้รับ",st1:"ภาษาบนเว็บ: ไทย อังกฤษ และรัสเซีย",st2:"วันจนเว็บพื้นฐานพร้อมใช้งาน",st3:"สำหรับรีวิวครั้งแรกและภาพร่างหน้าแรก",st4:"ของค่าบริการจ่ายหลังเว็บพร้อมใช้งาน",
+nInc:"สิ่งที่ได้รับ",nChk:"เช็กเว็บไซต์",st1:"ภาษาบนเว็บ: ไทย อังกฤษ และรัสเซีย",st2:"วันจนเว็บพื้นฐานพร้อมใช้งาน",st3:"สำหรับรีวิวครั้งแรกและภาพร่างหน้าแรก",st4:"ของค่าบริการจ่ายหลังเว็บพร้อมใช้งาน",
 inH:"สิ่งที่มาพร้อม<span class=\"hl\">ทุกเว็บไซต์</span>",inP:"ไม่ใช่แค่หน้าแรกที่สวย แต่ครบทุกอย่างที่ช่วยให้ลูกค้าหาคุณเจอ เข้าใจ และจองได้",
 i1h:"โหลดเร็ว",i1p:"หน้าเว็บเบา ไม่มีไลบรารีเกินจำเป็น เปิดเร็วแม้ใช้เน็ตมือถือ",i2h:"ออกแบบเพื่อมือถือก่อน",i2p:"ปุ่มใหญ่ ตัวหนังสืออ่านง่าย เมนูกดได้ด้วยนิ้วโป้ง แล้วค่อยปรับสำหรับคอมพิวเตอร์",
 i3h:"สามภาษา",i3p:"ไทย อังกฤษ และรัสเซีย พร้อมปุ่มสลับภาษา รวมค่าแปลแล้ว",i4h:"Telegram และ LINE",i4p:"ปุ่มติดต่อและคำขอจองที่ส่งตรงเข้าแชทของคุณ ไม่ต้องคอยเช็กอีเมล",
@@ -1244,5 +1254,6 @@ var q=new URLSearchParams(location.search).get("lang"),saved=null;try{saved=loca
 setLang(LS.indexOf(q)>=0?q:(LS.indexOf(saved)>=0?saved:"ru"));
 })();
 </script>
+<script src="../check/check.js" defer></script>
 </body>
 </html>
