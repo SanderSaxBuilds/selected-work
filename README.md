@@ -11,7 +11,7 @@ Websites, business tools, reporting workflows and editable documents. The ALLEX 
 A live business website with an animated product collection, four product pages, a comparison table, company information, a document library and mobile navigation. Frontend, responsive layouts and deployment by Alexandr Khrustalev. Product artwork and records come from the business. Store links lead to external marketplaces.
 
 - [Open live website](https://temirkhanclub.com/)
-- [Homepage artwork](10-allex-homepage.jpg)
+- [Homepage artwork](cover-temirkhan.jpg)
 
 ## Presentation layouts and executive review
 
