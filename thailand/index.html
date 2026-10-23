@@ -277,7 +277,7 @@ h2.in .hl{background-size:100% 2px}
 .new .nbtn{background:var(--nb);color:#fff;box-shadow:0 10px 30px -10px color-mix(in srgb,var(--na) 70%,transparent);transition:transform .35s cubic-bezier(.16,1,.3,1)}
 .new .nbtn:hover{transform:translateY(-2px)}
 .nline{box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
-.ncard{position:relative;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 30px 60px -30px rgba(0,0,0,.9);transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.ncard{position:relative;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px;box-shadow:0 30px 60px -30px rgba(0,0,0,.9);transition:transform .8s cubic-bezier(.16,1,.3,1)}
 .ncard.live{transition:transform .15s linear}
 .ncard::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(240px circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.14),transparent 60%);opacity:0;transition:opacity .4s}
 .ncard.live::after{opacity:1}
@@ -311,15 +311,15 @@ h2.in .hl{background-size:100% 2px}
 
 /* glass objects that float out of the layout and follow the cursor */
 .orb,.ring,.gpill{position:absolute;translate:var(--tx,0) var(--ty,0)}
-.new .orb{z-index:3;left:calc(50% - 44px);top:62px;width:80px;height:80px;border-radius:50%;cursor:pointer;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.95),rgba(255,255,255,.3) 14%,transparent 34%),radial-gradient(circle at 72% 80%,color-mix(in srgb,var(--nt) 75%,transparent),transparent 46%),radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--na) 22%,transparent) 40%,color-mix(in srgb,var(--na) 60%,transparent) 72%,color-mix(in srgb,var(--nb) 85%,transparent));box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),inset -10px -14px 26px color-mix(in srgb,var(--n2) 55%,transparent),0 26px 50px -18px rgba(0,0,0,.75);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);transition:translate .35s cubic-bezier(.16,1,.3,1),scale .7s cubic-bezier(.34,1.56,.64,1),opacity .3s}
+.new .orb{z-index:3;left:calc(50% - 44px);top:62px;width:80px;height:80px;border-radius:50%;cursor:pointer;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.95),rgba(255,255,255,.3) 14%,transparent 34%),radial-gradient(circle at 72% 80%,color-mix(in srgb,var(--nt) 75%,transparent),transparent 46%),radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--na) 22%,transparent) 40%,color-mix(in srgb,var(--na) 60%,transparent) 72%,color-mix(in srgb,var(--nb) 85%,transparent));box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),inset -10px -14px 26px color-mix(in srgb,var(--n2) 55%,transparent),0 26px 50px -18px rgba(0,0,0,.75);transition:translate .35s cubic-bezier(.16,1,.3,1),scale .7s cubic-bezier(.34,1.56,.64,1),opacity .3s}
 .new .orb:hover{scale:1.08}
 .new .orb.pop{scale:1.6;opacity:0;transition:scale .22s ease-out,opacity .22s}
 .new .orb.gone{scale:0;opacity:0;transition:none}
-.ring{z-index:0;left:31%;bottom:34px;width:150px;height:150px;border-radius:50%;pointer-events:none;background:conic-gradient(from 210deg,var(--na),#fff 18%,var(--nb) 40%,color-mix(in srgb,var(--na) 40%,transparent) 62%,#fff 80%,var(--na));-webkit-mask:radial-gradient(circle,transparent 53%,#000 55%,#000 69%,transparent 71%);mask:radial-gradient(circle,transparent 53%,#000 55%,#000 69%,transparent 71%);transform:rotateX(66deg) rotateZ(-18deg);opacity:.55;transition:translate .5s cubic-bezier(.16,1,.3,1)}
-.gpill{z-index:3;right:22px;bottom:70px;width:94px;height:36px;border-radius:999px;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.75),color-mix(in srgb,var(--na) 55%,transparent) 45%,rgba(255,255,255,.1));box-shadow:inset 0 0 0 1px rgba(255,255,255,.4),inset 0 -6px 12px color-mix(in srgb,var(--nb) 50%,transparent),0 18px 34px -14px rgba(0,0,0,.7);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transform:rotate(-28deg);transition:translate .3s cubic-bezier(.16,1,.3,1)}
+.ring{z-index:0;left:31%;bottom:34px;width:150px;height:150px;border-radius:50%;pointer-events:none;background:conic-gradient(from 210deg,var(--na),#fff 18%,var(--nb) 40%,color-mix(in srgb,var(--na) 40%,transparent) 62%,#fff 80%,var(--na));-webkit-mask:radial-gradient(circle,transparent 53%,#000 55%,#000 69%,transparent 71%);mask:radial-gradient(circle,transparent 53%,#000 55%,#000 69%,transparent 71%);transform:scaleY(.41) rotate(-18deg);opacity:.55;transition:translate .5s cubic-bezier(.16,1,.3,1)}
+.gpill{z-index:3;right:22px;bottom:70px;width:94px;height:36px;border-radius:999px;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.75),color-mix(in srgb,var(--na) 55%,transparent) 45%,rgba(255,255,255,.1));box-shadow:inset 0 0 0 1px rgba(255,255,255,.4),inset 0 -6px 12px color-mix(in srgb,var(--nb) 50%,transparent),0 18px 34px -14px rgba(0,0,0,.7);transform:rotate(-28deg);transition:translate .3s cubic-bezier(.16,1,.3,1)}
 
 /* notification, tuk-tuk, confetti */
-.nnote{position:absolute;z-index:6;top:12px;right:16px;width:min(310px,calc(100% - 32px));display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:16px;background:rgba(250,250,248,.95);color:var(--ink);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 20px 40px -12px rgba(0,0,0,.6);font-size:12.5px;line-height:1.35;transform:translateY(-140%);opacity:0;transition:transform .6s cubic-bezier(.34,1.4,.64,1),opacity .3s;pointer-events:none}
+.nnote{position:absolute;z-index:6;top:12px;right:16px;width:min(310px,calc(100% - 32px));display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:16px;background:rgba(250,250,248,.95);color:var(--ink);box-shadow:0 20px 40px -12px rgba(0,0,0,.6);font-size:12.5px;line-height:1.35;transform:translateY(-140%);opacity:0;transition:transform .6s cubic-bezier(.34,1.4,.64,1),opacity .3s;pointer-events:none}
 .new.noted .nnote{transform:none;opacity:1}
 .nnote i{flex:0 0 auto;width:30px;height:30px;border-radius:8px;background:var(--nm);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:13px}
 .nnote div{flex:1;min-width:0}
@@ -362,8 +362,7 @@ h2.in .hl{background-size:100% 2px}
   .new .nslots button{min-height:40px}
   .new .nbook{min-height:44px}
   .new .orb{width:52px;height:52px;left:auto;right:10px;top:116px}
-  .ring{width:96px;height:96px;left:auto;right:-26px;bottom:240px}
-  .gpill{width:60px;height:24px;right:10px;bottom:54px}
+  .ring,.gpill{display:none}
   .nnote{right:10px;width:calc(83% - 20px)}
   .tuk{bottom:46px;width:64px;height:40px}
 }
@@ -735,7 +734,7 @@ footer a{color:var(--ink)}
       <a class="case rv d2" href="../field-frame.html"><span class="im"><img src="../cover-v3-07-field-frame-cover.png" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w2k">Сайт компании</span><h3>Field and Frame</h3><p data-t="w2p">Сайт для вымышленной строительной компании с услугами, проектами и формой заявки.</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
       <a class="case rv" href="../gridline/"><span class="im"><img src="../cover-gridline.png" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w5k">Рабочая таблица</span><h3>Gridline</h3><p data-t="w5p">Редактирование 20 000 заказов прямо в браузере: фильтры, вставка блоков, отмена и проверка изменений перед выгрузкой.</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
       <a class="case rv d1" href="../builder/"><span class="im"><img src="../cover-builder.png" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w1k">Рабочее приложение</span><h3 data-t="w1h">Конструктор сайтов с записью</h3><p data-t="w1p">Мой набор для сайтов местного бизнеса: заполняете услуги, цены и часы работы, видите сайт на телефоне и компьютере и скачиваете готовый архив. Заявки уходят в WhatsApp, LINE или Telegram.</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
-      <a class="case rv d2" href="https://temirkhanclub.com/"><span class="im"><img src="../10-allex-homepage.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w0k">Сайт компании</span><h3>temirkhanclub.com</h3><p data-t="w0p">Каталог продукции для ALLEX RESPECT ASIA: анимированная витрина, четыре страницы товаров, таблица сравнения, информация о компании, библиотека документов и мобильное меню. Я сделал вёрстку, адаптивность и запуск. Фото и данные о товарах предоставила компания.</p><span class="go" data-t="wGo">Открыть сайт →</span></div></a>
+      <a class="case rv d2" href="https://temirkhanclub.com/"><span class="im"><img src="../cover-temirkhan.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w0k">Сайт компании</span><h3>temirkhanclub.com</h3><p data-t="w0p">Каталог продукции для ALLEX RESPECT ASIA: анимированная витрина, четыре страницы товаров, таблица сравнения, информация о компании, библиотека документов и мобильное меню. Я сделал вёрстку, адаптивность и запуск. Фото и данные о товарах предоставила компания.</p><span class="go" data-t="wGo">Открыть сайт →</span></div></a>
     </div>
     <p class="more"><span data-t="wMore">Все работы:</span> <a href="../">sandersaxbuilds.github.io/selected-work</a></p>
   </div>
