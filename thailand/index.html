@@ -338,24 +338,32 @@ h2.in .hl{background-size:100% 2px}
 .nconf{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
 
 /* first arrival and theme swaps */
-@keyframes nrise{from{opacity:0;transform:translateY(14px);filter:blur(6px)}}
+@keyframes nrise{from{opacity:0;transform:translateY(14px)}}
 .ba.in .ncopy>*{animation:nrise .9s cubic-bezier(.16,1,.3,1) backwards}
 .ba.in .ncopy>:nth-child(2){animation-delay:.07s}.ba.in .ncopy>:nth-child(3){animation-delay:.14s}.ba.in .ncopy>:nth-child(4){animation-delay:.21s}.ba.in .ncopy>:nth-child(5){animation-delay:.28s}
 .ba.in .ncard{animation:nrise 1s cubic-bezier(.16,1,.3,1) .3s backwards}
 .new.swap .ncopy>:not(.nh),.new.swap .ncard>*{animation:nswap .65s cubic-bezier(.16,1,.3,1) backwards}
 .new.swap .ncard>:nth-child(2){animation-delay:.05s}.new.swap .ncard>:nth-child(3){animation-delay:.1s}.new.swap .ncard>:nth-child(4){animation-delay:.15s}
-@keyframes nswap{from{opacity:0;transform:translateY(8px);filter:blur(5px)}}
+@keyframes nswap{from{opacity:0;transform:translateY(8px)}}
+/* headline swap: the final text keeps the layout, the scramble draws on top of it */
+.new .nh{position:relative}
+.nh-f{visibility:hidden}
+.nh-s{position:absolute;left:0;top:0;width:100%;pointer-events:none}
+.new .nh.nh-in{animation:nhin .5s cubic-bezier(.16,1,.3,1)}
+@keyframes nhin{from{opacity:0;transform:translateY(6px)}}
 
 @media (max-width:900px){.nlinks{display:none}.nlang{margin-left:auto}.ngrid{gap:20px}}
 @media (max-width:699px){
-  .ba{height:640px}.old .ogrid{grid-template-columns:1fr}
+  .ba{height:664px}.old .ogrid{grid-template-columns:1fr}
   .nw{padding:14px 14px 14px 17%}
   .nnav{flex-wrap:wrap;gap:10px;padding-bottom:12px}
   .ntg{display:none}
   .nthemes{order:3;width:100%}
   .nthemes button{flex:1;min-height:36px;padding:0 6px}
   .ngrid{grid-template-columns:1fr;gap:12px;align-content:start;padding:12px 0}
-  .new .nh{font-size:23px;margin:8px 0;min-height:0}
+  .new .nh{font-size:23px;margin:8px 0;min-height:3.15em}
+  .nsvc span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nsvc b{white-space:nowrap}
   .nsub,.nfeat,.nrow span:nth-child(3),.nline{display:none}
   .nrow{margin:10px 0 12px}
   .new .nslots button:nth-child(-n+4){display:none}
@@ -365,6 +373,14 @@ h2.in .hl{background-size:100% 2px}
   .ring,.gpill{display:none}
   .nnote{right:10px;width:calc(83% - 20px)}
   .tuk{bottom:46px;width:64px;height:40px}
+}
+/* phones and touch screens: the glass stays still while the divider moves, no sticky hover lifts */
+@media (max-width:699px),(hover:none){
+  .orb,.ring,.gpill{translate:none!important}
+  .new .orb{transition:scale .7s cubic-bezier(.34,1.56,.64,1),opacity .3s}
+  .new .orb:hover{scale:1}
+  .new .nslots button:not(:disabled):hover,.new .nbtn:hover,.tagl:hover,.tagr:hover{transform:none}
+  .nlogo:hover i{transform:none}
 }
 .handle{position:absolute;z-index:8;top:0;bottom:0;left:var(--cut,50%);width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.15);cursor:ew-resize;touch-action:none}
 .handle::before{content:"";position:absolute;top:0;bottom:0;left:-22px;right:-22px}
@@ -391,33 +407,44 @@ h2.in .hl{background-size:100% 2px}
 @media (max-width:920px){.fixes{grid-template-columns:1fr}}
 
 /* prices */
-.prices{background:var(--bg);color:#fff;overflow:hidden}
+.prices{background:radial-gradient(760px 520px at 6% 104%,rgba(139,92,246,.22),transparent 70%),radial-gradient(680px 500px at 100% 62%,rgba(45,212,191,.14),transparent 70%),radial-gradient(520px 380px at 40% 58%,rgba(76,111,255,.08),transparent 70%),var(--bg);color:#fff;overflow:hidden}
 .prices,.contact{margin:12px;border-radius:32px;transform-origin:50% 0}
 @media (max-width:640px){.hero{border-radius:0 0 22px 22px}.prices,.contact{margin:8px;border-radius:22px}}
-.prices::before{content:"";position:absolute;width:800px;height:800px;left:50%;top:-420px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(76,111,255,.18),transparent 65%)}
+.prices::before{content:"";position:absolute;width:800px;height:800px;left:50%;top:-420px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(76,111,255,.26),transparent 65%)}
 .prices .wrap{position:relative;z-index:1}
 .prices .sec-head p{color:#a7aec6}
 .prices h2 .hl{color:var(--accent)}
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
-.plan{min-width:0;overflow-wrap:break-word;background:var(--bg-2);border:1px solid var(--line-d);border-radius:20px;padding:30px;display:flex;flex-direction:column;transition:border-color .3s,transform .3s}
-.plan:hover{border-color:rgba(255,255,255,.22);transform:translateY(-4px)}
-.plan.hot{background:linear-gradient(180deg,#17244d,var(--bg-2) 55%);border-color:rgba(76,111,255,.55);position:relative}
-.plan.hot:hover{border-color:var(--accent)}
-.plan{position:relative;background:radial-gradient(360px circle at var(--mx,-999px) var(--my,-999px),rgba(111,139,255,.10),transparent 60%),var(--bg-2)}
-.plan.hot{background:radial-gradient(360px circle at var(--mx,-999px) var(--my,-999px),rgba(111,139,255,.14),transparent 60%),linear-gradient(180deg,#17244d,var(--bg-2) 55%)}
-.plan::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;background:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(140,162,255,.9),transparent 65%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
-.plan .tag{position:absolute;top:-12px;left:30px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;border-radius:999px;padding:4px 12px}
+/* each plan has its own still colour: soft blue, indigo to violet, teal */
+.plan{--pc:#7c9bff;--pc2:#4c6fff;--pt:#aebfff;position:relative;min-width:0;overflow-wrap:break-word;border:1px solid rgba(124,155,255,.26);border-radius:20px;padding:30px;display:flex;flex-direction:column;
+  background:linear-gradient(90deg,var(--pc),var(--pc2)) top/100% 3px no-repeat,radial-gradient(360px circle at var(--mx,-999px) var(--my,-999px),rgba(255,255,255,.07),transparent 60%),radial-gradient(130% 62% at 50% 0%,rgba(124,155,255,.17),transparent 72%),var(--bg-2);
+  box-shadow:0 34px 70px -42px rgba(76,111,255,.8);transition:border-color .3s,transform .3s,box-shadow .3s}
+.plan.p-care{--pc:#5eead4;--pc2:#14b8a6;--pt:#7ff0dc;border-color:rgba(94,234,212,.24);
+  background:linear-gradient(90deg,var(--pc),var(--pc2)) top/100% 3px no-repeat,radial-gradient(360px circle at var(--mx,-999px) var(--my,-999px),rgba(255,255,255,.07),transparent 60%),radial-gradient(130% 62% at 50% 0%,rgba(45,212,191,.15),transparent 72%),var(--bg-2);
+  box-shadow:0 34px 70px -42px rgba(20,184,166,.75)}
+.plan:hover{border-color:color-mix(in srgb,var(--pc) 62%,transparent);transform:translateY(-4px)}
+.plan.hot{--pc:#ffffff;--pc2:#c4b5fd;--pt:#fff;color:#fff;border-color:rgba(196,181,253,.5);
+  background:radial-gradient(360px circle at var(--mx,-999px) var(--my,-999px),rgba(255,255,255,.14),transparent 60%),radial-gradient(90% 55% at 88% 0%,rgba(255,255,255,.2),transparent 62%),radial-gradient(80% 50% at 0% 100%,rgba(139,92,246,.55),transparent 70%),linear-gradient(155deg,#4f46e5 0%,#5a3fd2 50%,#6d28d9 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 40px 90px -36px rgba(109,40,217,.85)}
+.plan.hot:hover{border-color:rgba(255,255,255,.6)}
+.plan::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;background:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),color-mix(in srgb,var(--pc) 90%,transparent),transparent 65%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.plan .tag{position:absolute;top:-12px;left:30px;background:#fff;color:#4338ca;font-size:12px;font-weight:600;border-radius:999px;padding:4px 12px;box-shadow:0 10px 24px -10px rgba(0,0,0,.6)}
 .plan h3{font-family:var(--display);font-size:19px;font-weight:600;margin:0 0 6px}
 .plan .sub{font-size:15px;color:#8a93ae;margin:0 0 22px}
-.amount{font-family:var(--display);font-size:48px;font-weight:600;letter-spacing:-.04em;line-height:1;margin:0 0 6px;font-variant-numeric:tabular-nums}
+.amount{font-family:var(--display);font-size:48px;font-weight:600;letter-spacing:-.04em;line-height:1;margin:0 0 6px;font-variant-numeric:tabular-nums;color:var(--pt,#fff)}
 .amount small{font-family:var(--body);font-size:15px;font-weight:400;color:#8a93ae;letter-spacing:0;margin-right:6px}
 .when{font-size:14px;color:#8a93ae;margin:0 0 24px}
+.plan.hot .sub,.plan.hot .when,.plan.hot .amount small{color:rgba(255,255,255,.8)}
 .plan ul{list-style:none;margin:0 0 28px;padding:24px 0 0;border-top:1px solid var(--line-d);display:grid;gap:12px;font-size:15px;color:#d4d9e7}
+.plan.hot ul{border-top-color:rgba(255,255,255,.2);color:#fff}
 .plan li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start}
-.plan li svg{width:16px;height:16px;margin-top:4px;color:var(--accent)}
+.plan li svg{width:20px;height:20px;padding:4px;border-radius:50%;margin-top:2px;color:var(--pt);background:color-mix(in srgb,var(--pc2) 30%,transparent)}
+.plan.hot li svg{color:#fff;background:rgba(255,255,255,.2)}
 .plan .btn{margin-top:auto;width:100%}
-.plan .btn-line{box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);color:#fff;background:transparent}
-.plan .btn-line:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+.plan .btn-line{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pc) 50%,transparent);color:#fff;background:color-mix(in srgb,var(--pc2) 10%,transparent)}
+.plan .btn-line:hover{box-shadow:inset 0 0 0 1px var(--pc);background:color-mix(in srgb,var(--pc2) 18%,transparent)}
+.plan.hot .btn-mango{background:#fff;color:#3730a3;box-shadow:0 12px 30px -12px rgba(0,0,0,.5)}
+.plan.hot .btn-mango:hover{background:#eef0ff;box-shadow:0 16px 40px -12px rgba(0,0,0,.55)}
 .terms{margin:32px 0 0;color:#a7aec6;font-size:14px;display:flex;flex-wrap:wrap;gap:10px 28px;padding:0;list-style:none}
 .terms li::before{content:"✓  ";color:var(--accent);font-weight:700}
 @media (max-width:920px){.plans{grid-template-columns:1fr}.plan.hot{order:-1}}
@@ -588,7 +615,7 @@ footer a{color:var(--ink)}
 <div class="stats"><div class="wrap">
   <div class="stat rv"><b><span class="count" data-to="3">3</span></b><span data-t="st1">языка на сайте: русский, английский и тайский</span></div>
   <div class="stat rv d1"><b><small data-t="from">от</small> <span class="count" data-to="3">3</span></b><span data-t="st2">дней до запуска простого сайта</span></div>
-  <div class="stat rv d2"><b>0 ฿</b><span data-t="st3">стоит первый разбор и набросок главной</span></div>
+  <div class="stat rv d2"><b>$0</b><span data-t="st3">стоит первый разбор и набросок главной</span></div>
   <div class="stat rv d3"><b><span class="count" data-to="50">50</span>%</b><span data-t="st4">оплаты только после запуска</span></div>
 </div></div>
 
@@ -676,9 +703,9 @@ footer a{color:var(--ink)}
   <div class="wrap">
     <div class="sec-head"><h2 class="rv" data-t="pH">Понятные цены</h2><p class="rv d1" data-t="pP">Цена фиксируется до начала работы. Половина вперёд, вторая половина после запуска.</p></div>
     <div class="plans">
-      <article class="plan rv">
+      <article class="plan p-site rv">
         <h3 data-t="p1h">Сайт</h3><p class="sub" data-t="p1s">Для тех, кому нужна аккуратная витрина</p>
-        <p class="amount"><small data-t="from">от</small><span class="count" data-to="9900">9 900</span> ฿</p><p class="when" data-t="p1t">Готово за 3-5 дней</p>
+        <p class="amount"><small data-t="from">от</small>$<span class="count" data-to="300">300</span></p><p class="when" data-t="p1t">Готово за 3-5 дней</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p1a">До 5 страниц: главная, услуги, цены, о вас, контакты</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p1b">Русский, английский и тайский</span></li>
@@ -689,7 +716,7 @@ footer a{color:var(--ink)}
       <article class="plan hot rv d1">
         <span class="tag" data-t="pTag">Чаще всего выбирают</span>
         <h3 data-t="p2h">Сайт с онлайн-записью</h3><p class="sub" data-t="p2s">Клиенты записываются сами, без звонков</p>
-        <p class="amount"><small data-t="from">от</small><span class="count" data-to="19900">19 900</span> ฿</p><p class="when" data-t="p2t">Готово за 5-7 дней</p>
+        <p class="amount"><small data-t="from">от</small>$<span class="count" data-to="600">600</span></p><p class="when" data-t="p2t">Готово за 5-7 дней</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2a">Всё из пакета «Сайт»</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2b">Запись или заказ с выбором даты и времени</span></li>
@@ -698,9 +725,9 @@ footer a{color:var(--ink)}
         </ul>
         <a class="btn btn-mango" href="#contact" data-t="pBtn2">Хочу такой сайт</a>
       </article>
-      <article class="plan rv d2">
+      <article class="plan p-care rv d2">
         <h3 data-t="p3h">Поддержка</h3><p class="sub" data-t="p3s">Чтобы сайт оставался свежим</p>
-        <p class="amount" style="font-size:clamp(20px,5.4vw,28px)" data-t="p3p">990 ฿ в месяц</p><p class="when" data-t="p3t">Помесячно, без долгих договоров</p>
+        <p class="amount" style="font-size:clamp(20px,5.4vw,28px)" data-t="p3p">$30 в месяц</p><p class="when" data-t="p3t">Помесячно, без долгих договоров</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p3a">Правки цен, фото и текстов</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p3b">Новые страницы и акции к сезону</span></li>
@@ -744,7 +771,7 @@ footer a{color:var(--ink)}
   <div class="wrap faq">
     <div><h2 class="rv" data-t="qH">Частые <span class="hl">вопросы</span></h2></div>
     <div class="qs">
-      <details class="rv"><summary data-t="q1">Мне нужен свой домен?</summary><p data-t="a1">Да, и он будет оформлен на вас. Если домена ещё нет, я помогу выбрать и зарегистрировать его. Обычно это около 500 ฿ в год.</p></details>
+      <details class="rv"><summary data-t="q1">Мне нужен свой домен?</summary><p data-t="a1">Да, и он будет оформлен на вас. Если домена ещё нет, я помогу выбрать и зарегистрировать его. Обычно это около $15 в год.</p></details>
       <details class="rv d1"><summary data-t="q2">Сколько стоит хостинг?</summary><p data-t="a2">Для таких сайтов часто подходит бесплатный хостинг. Если нужен платный, я скажу заранее, сколько он стоит, и аккаунт тоже будет на вас.</p></details>
       <details class="rv d2"><summary data-t="q3">Как заявка попадает в Telegram или LINE?</summary><p data-t="a3">Форма на сайте отправляет заявку вашему боту, и он сразу пишет вам сообщение с услугой, датой, временем и контактом клиента. Как в демо выше.</p></details>
       <details class="rv d3"><summary data-t="q4">Могу ли я сам менять цены и фото?</summary><p data-t="a4">Да. Я покажу, как это делать, или возьму правки на себя в рамках поддержки.</p></details>
@@ -794,7 +821,7 @@ f3h:"Booking only by phone call",f3w:"Foreign visitors avoid calling, and direct
 pH:"Clear prices",pP:"The price is fixed before work starts. Half up front, half at launch.",from:"from",
 p1h:"Website",p1s:"A tidy shop window for your business",p1t:"Ready in 3 to 5 days",p1a:"Up to 5 pages: home, services, prices, about, contact",p1b:"English, Russian and Thai",p1c:"Telegram, LINE, WhatsApp buttons and a map",pBtn:"Talk it through",
 pTag:"Most popular",p2h:"Website with online booking",p2s:"Customers book themselves, no calls needed",p2t:"Ready in 5 to 7 days",p2a:"Everything in Website",p2b:"Booking or ordering with a date and time picker",p2c:"Each request goes straight to your Telegram or LINE",p2d:"Times shown in the customer's own time zone",pBtn2:"I want this site",
-p3h:"Monthly support",p3s:"Keeps the site fresh",p3p:"990 ฿ a month",p3t:"Stop any month, no contract",p3a:"Price, photo and text updates",p3b:"New pages and seasonal offers",p3c:"Checks that the site and booking keep working",
+p3h:"Monthly support",p3s:"Keeps the site fresh",p3p:"$30 a month",p3t:"Stop any month, no contract",p3a:"Price, photo and text updates",p3b:"New pages and seasonal offers",p3c:"Checks that the site and booking keep working",
 tm1:"Domain and hosting in your name",tm2:"You keep the source files",tm3:"We talk in English, Russian or Thai",
 sH:"How it <span class=\"hl\">works</span>",sP:"The first step is free. You pay nothing until you see what the site will look like.",
 s1h:"Send a link",s1p:"Your current site, Instagram, Facebook or Telegram channel.",s2h:"Free review",s2p:"Within a day I send what is getting in your customers' way and a sketch of a new home page.",s3h:"Fix the price",s3p:"We agree on scope and timing, and you pay half.",s4h:"Launch",s4p:"You review and request changes, then pay the second half at launch.",
@@ -804,7 +831,7 @@ w4k:"Customer emails",w4p:"Four emails for a fictional coffee roaster: welcome, 
 w5k:"Working table",w5p:"Edit 20,000 orders right in the browser: filters, block paste, undo and a review of every change before export.",
 w1k:"Working web app",w1h:"Booking site builder",w1p:"My kit for local business sites: fill in services, prices and hours, see the site on phone and desktop, then download it ready to host. Requests go to WhatsApp, LINE or Telegram.",
 w2k:"Company website",w2p:"A site for a fictional builder with services, projects and a request form.",w3k:"Reports",w3p:"A sales report from order and refund exports, with a twelve-month chart.",wMore:"All work:",
-qH:"Common <span class=\"hl\">questions</span>",q1:"Do I need my own domain?",a1:"Yes, and it will be registered in your name. If you do not have one yet, I will help you pick and register it. That is usually about 500 ฿ a year.",
+qH:"Common <span class=\"hl\">questions</span>",q1:"Do I need my own domain?",a1:"Yes, and it will be registered in your name. If you do not have one yet, I will help you pick and register it. That is usually about $15 a year.",
 q2:"How much is hosting?",a2:"Sites like these can often use free hosting. If paid hosting is needed, I will tell you the cost up front, and the account will be yours too.",
 q3:"How does a request reach Telegram or LINE?",a3:"The form on the site sends the request to your bot, which messages you right away with the service, date, time and the customer's contact. Just like the demo above.",
 q4:"Can I change prices and photos myself?",a4:"Yes. I will show you how, or handle changes as part of the care plan.",
@@ -833,7 +860,7 @@ f3h:"จองได้แค่ทางโทรศัพท์",f3w:"ลู�
 pH:"ราคาชัดเจน",pP:"ตกลงราคาก่อนเริ่มงาน จ่ายครึ่งหนึ่งก่อน อีกครึ่งเมื่อเว็บพร้อมใช้งาน",from:"เริ่มต้น",
 p1h:"เว็บไซต์",p1s:"หน้าร้านออนไลน์ที่ดูดี",p1t:"เสร็จภายใน 3 ถึง 5 วัน",p1a:"สูงสุด 5 หน้า: หน้าแรก บริการ ราคา เกี่ยวกับเรา ติดต่อ",p1b:"ไทย อังกฤษ และรัสเซีย",p1c:"ปุ่ม Telegram, LINE, WhatsApp และแผนที่",pBtn:"คุยรายละเอียด",
 pTag:"ยอดนิยม",p2h:"เว็บไซต์พร้อมระบบจอง",p2s:"ลูกค้าจองเองได้ ไม่ต้องโทร",p2t:"เสร็จภายใน 5 ถึง 7 วัน",p2a:"ทุกอย่างในแพ็กเกจเว็บไซต์",p2b:"จองหรือสั่งซื้อ พร้อมเลือกวันและเวลา",p2c:"คำขอส่งตรงเข้า Telegram หรือ LINE ของคุณ",p2d:"แสดงเวลาตามเขตเวลาของลูกค้า",pBtn2:"อยากได้เว็บแบบนี้",
-p3h:"ดูแลรายเดือน",p3s:"ให้เว็บสดใหม่อยู่เสมอ",p3p:"990 ฿ ต่อเดือน",p3t:"รายเดือน ไม่มีสัญญาผูกมัดยาว",p3a:"แก้ไขราคา รูปภาพ และข้อความ",p3b:"หน้าใหม่และโปรโมชันตามฤดูกาล",p3c:"ตรวจว่าเว็บและระบบจองยังทำงานดี",
+p3h:"ดูแลรายเดือน",p3s:"ให้เว็บสดใหม่อยู่เสมอ",p3p:"$30 ต่อเดือน",p3t:"รายเดือน ไม่มีสัญญาผูกมัดยาว",p3a:"แก้ไขราคา รูปภาพ และข้อความ",p3b:"หน้าใหม่และโปรโมชันตามฤดูกาล",p3c:"ตรวจว่าเว็บและระบบจองยังทำงานดี",
 tm1:"โดเมนและโฮสติ้งเป็นชื่อของคุณ",tm2:"ไฟล์ต้นฉบับเป็นของคุณ",tm3:"คุยได้ทั้งไทย อังกฤษ และรัสเซีย",
 sH:"ขั้นตอน<span class=\"hl\">การทำงาน</span>",sP:"ขั้นแรกฟรี คุณไม่ต้องจ่ายอะไรจนกว่าจะเห็นว่าเว็บจะออกมาเป็นแบบไหน",
 s1h:"ส่งลิงก์มา",s1p:"เว็บปัจจุบัน Instagram Facebook หรือช่อง Telegram",s2h:"รีวิวฟรี",s2p:"ภายในหนึ่งวัน ผมจะส่งสิ่งที่ทำให้ลูกค้าติดขัด พร้อมภาพร่างหน้าแรกใหม่",s3h:"ตกลงราคา",s3p:"ตกลงขอบเขตและระยะเวลา แล้วจ่ายครึ่งหนึ่ง",s4h:"เปิดใช้งาน",s4p:"คุณตรวจและขอแก้ไข แล้วจ่ายอีกครึ่งเมื่อเว็บพร้อมใช้งาน",
@@ -843,7 +870,7 @@ w4k:"อีเมลถึงลูกค้า",w4p:"อีเมลสี่�
 w5k:"ตารางทำงาน",w5p:"แก้ไขคำสั่งซื้อ 20,000 รายการในเบราว์เซอร์ มีตัวกรอง วางข้อมูลเป็นบล็อก ย้อนกลับ และตรวจทุกการเปลี่ยนแปลงก่อนส่งออก",
 w1k:"เว็บแอปที่ใช้งานได้จริง",w1h:"เครื่องมือสร้างเว็บไซต์รับจอง",w1p:"ชุดสร้างเว็บไซต์ของผมสำหรับธุรกิจท้องถิ่น กรอกบริการ ราคา และเวลาเปิด ดูเว็บบนมือถือและคอมพิวเตอร์ แล้วดาวน์โหลดไปใช้งานได้ทันที คำขอจองส่งเข้า WhatsApp, LINE หรือ Telegram",
 w2k:"เว็บบริษัท",w2p:"เว็บไซต์ของบริษัทก่อสร้างสมมติ มีบริการ ผลงาน และแบบฟอร์มขอใบเสนอราคา",w3k:"รายงาน",w3p:"รายงานยอดขายจากไฟล์คำสั่งซื้อและการคืนเงิน พร้อมกราฟรายปี",wMore:"ผลงานทั้งหมด:",
-qH:"คำถาม<span class=\"hl\">ที่พบบ่อย</span>",q1:"ต้องมีโดเมนของตัวเองไหม",a1:"ต้องมี และจะจดในชื่อของคุณ ถ้ายังไม่มี ผมช่วยเลือกและจดให้ได้ ปกติประมาณ 500 ฿ ต่อปี",
+qH:"คำถาม<span class=\"hl\">ที่พบบ่อย</span>",q1:"ต้องมีโดเมนของตัวเองไหม",a1:"ต้องมี และจะจดในชื่อของคุณ ถ้ายังไม่มี ผมช่วยเลือกและจดให้ได้ ปกติประมาณ $15 ต่อปี",
 q2:"ค่าโฮสติ้งเท่าไร",a2:"เว็บแบบนี้มักใช้โฮสติ้งฟรีได้ ถ้าต้องใช้แบบเสียเงิน ผมจะแจ้งราคาก่อน และบัญชีก็เป็นของคุณ",
 q3:"คำขอจองเข้า Telegram หรือ LINE ได้อย่างไร",a3:"แบบฟอร์มบนเว็บจะส่งคำขอไปที่บอทของคุณ แล้วบอทจะส่งข้อความหาคุณทันที พร้อมบริการ วัน เวลา และช่องทางติดต่อลูกค้า เหมือนในเดโมด้านบน",
 q4:"ฉันแก้ราคาและรูปเองได้ไหม",a4:"ได้ ผมจะสอนวิธีแก้ หรือดูแลให้ในแพ็กเกจดูแลรายเดือน",
@@ -979,19 +1006,35 @@ var ba=$("ba"),rg=$("baRange"),hd=$("baHandle"),mock=$("mock"),card=$("mCard"),b
 var mfine=matchMedia("(pointer:fine)").matches,mlang="ru",mth=0,mOff=[],mSlot=-1,mCount=12,mBooked=0,cut=50,touched=false,glideRaf=0;
 var themeBtns=[].slice.call($("mThemes").querySelectorAll("button"));
 var fxEls=[[orb,24],[mock.querySelector(".ring"),-14],[mock.querySelector(".gpill"),36]],pN={x:0,y:0};
-function fxPos(){var rev=(100-cut)/100;fxEls.forEach(function(f){var d=f[1];f[0].style.setProperty("--tx",(pN.x*d-(1-rev)*d*1.8).toFixed(1)+"px");f[0].style.setProperty("--ty",(pN.y*d*.7).toFixed(1)+"px")})}
+/* phones and touch screens get a calm version: still glass, no scramble, lighter confetti */
+var calmQ=matchMedia("(max-width:699px),(hover:none)");
+function calm(){return calmQ.matches}
+function fxPos(){
+  if(calm()){fxEls.forEach(function(f){if(f[0]._fx){f[0].style.removeProperty("--tx");f[0].style.removeProperty("--ty");f[0]._fx=0}});return}
+  var rev=(100-cut)/100;fxEls.forEach(function(f){var d=f[1];f[0]._fx=1;f[0].style.setProperty("--tx",(pN.x*d-(1-rev)*d*1.8).toFixed(1)+"px");f[0].style.setProperty("--ty",(pN.y*d*.7).toFixed(1)+"px")})}
 function setCut(v){cut=+v;ba.style.setProperty("--cut",cut.toFixed(2)+"%");fxPos()}
+/* pointer moves are applied once per frame */
+var cutQ=null,cutRaf=0;
+function queueCut(v){cutQ=v;if(!cutRaf)cutRaf=requestAnimationFrame(function(){cutRaf=0;if(cutQ!=null)setCut(cutQ)})}
 function glide(to){touched=true;cancelAnimationFrame(glideRaf);if(reduce){rg.value=to;setCut(to);return}var from=cut,t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/750),e=1-Math.pow(1-k,4),v=from+(to-from)*e;setCut(v);rg.value=Math.round(v);if(k<1)glideRaf=requestAnimationFrame(f)})(t0)}
 
 /* text scramble for headlines */
-var GLY="abcdefghkmnoprstuvwxyz0123456789#%&*+";
+/* letters are swapped for letters of the same script and case, spaces and punctuation stay put */
+var GLY={lat:"abcdeghkmnoprsuvwxyz",LAT:"ABCDEGHKMNOPRSUVWXYZ",cyr:"абвгдеиклмнопрстуэя",CYR:"АБВГДЕИКЛМНОПРСТУЭЯ",th:"กขคงจดตทนบปพมยรลวสหอ"};
+function glyFor(c){
+  if(/[a-z]/.test(c))return GLY.lat;if(/[A-Z]/.test(c))return GLY.LAT;
+  if(/[а-яё]/.test(c))return GLY.cyr;if(/[А-ЯЁ]/.test(c))return GLY.CYR;
+  if(/[ก-ะาำเ-ๆ]/.test(c))return GLY.th;return null}
 function scramble(el,txt){
-  if(el._raf)cancelAnimationFrame(el._raf);
+  if(el._raf){cancelAnimationFrame(el._raf);el._raf=0}
   if(reduce){el.textContent=txt;return}
-  var ch=Array.from(txt),n=ch.length,t0=performance.now(),dur=Math.min(950,320+n*16);
+  if(calm()){el.textContent=txt;el.classList.remove("nh-in");void el.offsetWidth;el.classList.add("nh-in");return}
+  el.innerHTML='<span class="nh-f"></span><span class="nh-s" aria-hidden="true"></span>';
+  var fin=el.firstChild,sc=el.lastChild;fin.textContent=txt;
+  var ch=Array.from(txt),n=ch.length,g=ch.map(glyFor),t0=performance.now(),dur=Math.min(800,300+n*12);
   (function f(t){var k=Math.min(1,(t-t0)/dur),done=Math.floor(k*k*(3-2*k)*n),out="";
-    for(var i=0;i<n;i++)out+=(i<done||ch[i]===" ")?ch[i]:GLY[(Math.random()*GLY.length)|0];
-    el.textContent=out;if(k<1)el._raf=requestAnimationFrame(f);else{el.textContent=txt;el._raf=0}})(t0);
+    for(var i=0;i<n;i++)out+=(i<done||!g[i])?ch[i]:g[i][(Math.random()*g[i].length)|0];
+    sc.textContent=out;if(k<1)el._raf=requestAnimationFrame(f);else{el.textContent=txt;el._raf=0}})(t0);
 }
 
 /* slots and rendering */
@@ -1023,7 +1066,7 @@ function mRender(anim){
 }
 function mSetLang(l){mlang=l;mRender(false);$("odlgT").textContent=M[l].dlgT;$("odlgB").textContent=M[l].dlg}
 themeBtns.forEach(function(b,i){b.addEventListener("click",function(){if(i===mth)return;mth=i;resetSlots();mock.classList.remove("noted");mRender(true);
-  var r=b.getBoundingClientRect(),mr=mock.getBoundingClientRect();burst(r.left-mr.left+r.width/2,r.top-mr.top+r.height/2,18,0)})});
+  if(calm())return;var r=b.getBoundingClientRect(),mr=mock.getBoundingClientRect();burst(r.left-mr.left+r.width/2,r.top-mr.top+r.height/2,18,0)})});
 addEventListener("resize",function(){mPk();cv._ok=0});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(mPk);
 $("mLang").addEventListener("click",function(){mlang=LSM[(LSM.indexOf(mlang)+1)%3];mRender(true)});
 $("mPick").addEventListener("click",function(){card.classList.remove("call");void card.offsetWidth;card.classList.add("call");var s=$("mSlots").children[mSlot];if(s)s.focus({preventScroll:true})});
@@ -1035,8 +1078,9 @@ function sizeCv(){var r=mock.getBoundingClientRect(),d=Math.min(2,window.deviceP
 function burst(x,y,n,big){
   if(reduce||!cx)return;if(!cv._ok){sizeCv();cv._ok=1}
   var cs=getComputedStyle(mock),cols=[cs.getPropertyValue("--na").trim(),cs.getPropertyValue("--nt").trim(),"#ffffff",cs.getPropertyValue("--nb").trim()];
+  var lf=calm()?.65:1;
   for(var i=0;i<n;i++){var a=big?-Math.PI/2+(Math.random()-.5)*Math.PI*1.3:Math.random()*Math.PI*2,sp=big?4+Math.random()*7.5:1.2+Math.random()*3.2;
-    parts.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,g:big?.2:.05,s:big?4+Math.random()*4:2+Math.random()*3,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.45,t:0,life:big?70+Math.random()*45:26+Math.random()*22,sh:big?i%3:1})}
+    parts.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,g:big?.2:.05,s:big?4+Math.random()*4:2+Math.random()*3,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.45,t:0,life:(big?70+Math.random()*45:26+Math.random()*22)*lf,sh:big?i%3:1})}
   if(!craf)craf=requestAnimationFrame(tick);
 }
 function tick(){
@@ -1052,7 +1096,7 @@ function tick(){
 bookB.addEventListener("click",function(){
   if(mSlot<0)resetSlots();
   var th=THEMES[mth],t=th.t[mlang],m=M[mlang],i=mSlot,time=th.slots[i];
-  var r=bookB.getBoundingClientRect(),mr=mock.getBoundingClientRect();burst(r.left-mr.left+r.width/2,r.top-mr.top+r.height/2,120,1);
+  var r=bookB.getBoundingClientRect(),mr=mock.getBoundingClientRect();burst(r.left-mr.left+r.width/2,r.top-mr.top+r.height/2,calm()?60:120,1);
   bookB.classList.add("done");$("mBookT").textContent=m.done;clearTimeout(bookB._t);
   bookB._t=setTimeout(function(){bookB.classList.remove("done");$("mBookT").textContent=THEMES[mth].t[mlang].book},1600);
   $("mNoteT").textContent=th.name+" · "+t.nt;$("mNoteB").textContent=t.cs+", "+m.todayL+" "+time+" · "+t.cp;$("mNoteTime").textContent=m.now;
@@ -1114,7 +1158,7 @@ $("oldPane").addEventListener("pointerdown",function(e){if(e.button>0||e.target.
 ba.addEventListener("pointermove",function(e){
   if(!drag||e.pointerId!==drag.id)return;
   if(!drag.moved){if(Math.abs(e.clientX-drag.x0)<6)return;drag.moved=true;touched=true;cancelAnimationFrame(glideRaf);try{ba.setPointerCapture(e.pointerId)}catch(_){}ba.classList.add("dragging")}
-  var v=cutAt(e.clientX);rg.value=Math.round(v);setCut(v);
+  var v=cutAt(e.clientX);rg.value=Math.round(v);queueCut(v);
 });
 ba.addEventListener("pointerup",function(e){if(!drag||e.pointerId!==drag.id)return;var click=drag.old&&!drag.moved;drag=null;ba.classList.remove("dragging");if(click)showDlg()});
 ba.addEventListener("pointercancel",function(){drag=null;ba.classList.remove("dragging")});
