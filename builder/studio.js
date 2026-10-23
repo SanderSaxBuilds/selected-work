@@ -1423,7 +1423,7 @@ ${todo.join('\n')}
       else toast(T('downloaded', { file, n: files.length, kb: Math.max(1, Math.round(blob.size / 1024)) }));
       btn.classList.add('is-done');
       setTimeout(() => btn.classList.remove('is-done'), 1400);
-      fun.burst(btn);
+      try { fun.burst(btn); } catch (e) { /* decoration only */ }
     } catch (err) {
       toast(T('zipFail'), { tone: 'err', ms: 7000 });
     } finally {
