@@ -39,7 +39,7 @@ const layout = `(() => {
     frameWidth: frame ? frame.style.width : null,
     transform: frame ? frame.style.transform : null,
     note: panel ? panel.querySelector('.scale-note').textContent : '',
-    fonts: document.fonts.check('16px "Instrument Sans"') && document.fonts.check('40px "Instrument Serif"'),
+    fonts: document.fonts.check('16px "Schibsted Grotesk"') && document.fonts.check('12px "Fragment Mono"'),
     height: Math.ceil(document.documentElement.scrollHeight)
   };
 })()`;

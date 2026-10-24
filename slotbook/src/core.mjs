@@ -241,6 +241,23 @@ export function cancelBooking(bookings, id, now) {
   return { ok: found, bookings: next };
 }
 
+// Moves a booking to a new start under the same rules as a new booking:
+// open hours, buffers, notice and the booking window. The booking does not
+// block itself, so it can slide into time that overlaps where it was.
+export function rescheduleBooking({ config, services, bookings, now, id, start }) {
+  const b = bookings.find(x => x.id === id);
+  if (!b) return { ok: false, error: 'unknown-booking' };
+  if (b.status === 'cancelled') return { ok: false, error: 'cancelled' };
+  if (b.start === start) return { ok: false, error: 'same-time' };
+  const service = services.find(s => s.id === b.serviceId);
+  if (!service) return { ok: false, error: 'unknown-service' };
+  const others = bookings.filter(x => x.id !== id);
+  const slot = generateSlots({ config, service, bookings: others, now }).find(s => s.start === start);
+  if (!slot) return { ok: false, error: 'slot-taken' };
+  const moved = { ...b, start: slot.start, end: slot.end, movedAt: now, movedFrom: b.start };
+  return { ok: true, booking: moved, bookings: bookings.map(x => (x.id === id ? moved : x)) };
+}
+
 export const bookingsOnDate = (bookings, iso, zone) =>
   bookings.filter(b => dateInZone(b.start, zone) === iso).sort((a, b) => a.start - b.start);
 

@@ -245,6 +245,31 @@ test('cancelBooking marks it cancelled once', () => {
   assert.equal(C.cancelBooking(r.bookings, 'zzz', 6).ok, false);
 });
 
+test('rescheduleBooking moves within the rules and ignores itself', () => {
+  const config = base({ bufferMin: 15 });
+  const services = [{ id: 'one', name: 'One hour', duration: 60 }];
+  const slots = C.generateSlots({ config, service: services[0], now: MON });
+  const at = t => slots.find(s => C.formatTime(s.start, BKK) === t && s.date === '2026-10-20').start;
+  const a = { id: 'a', serviceId: 'one', start: at('09:00'), end: at('09:00') + 3600000, status: 'confirmed' };
+  const b = { id: 'b', serviceId: 'one', start: at('14:00'), end: at('14:00') + 3600000, status: 'confirmed' };
+  const list = [a, b];
+  const ok = C.rescheduleBooking({ config, services, bookings: list, now: MON, id: 'a', start: at('09:30') });
+  assert.equal(ok.ok, true);
+  assert.equal(ok.booking.start, at('09:30'));
+  assert.equal(ok.booking.end, at('09:30') + 3600000);
+  assert.equal(ok.booking.movedFrom, a.start);
+  assert.equal(list[0].start, a.start);
+  // 13:00 ends at 14:00, inside the 15 minute buffer before b
+  assert.equal(C.rescheduleBooking({ config, services, bookings: list, now: MON, id: 'a', start: at('13:00') }).error, 'slot-taken');
+  assert.equal(C.rescheduleBooking({ config, services, bookings: list, now: MON, id: 'a', start: a.start }).error, 'same-time');
+  assert.equal(C.rescheduleBooking({ config, services, bookings: list, now: MON, id: 'zz', start: at('10:00') }).error, 'unknown-booking');
+  const cancelled = C.cancelBooking(list, 'a', MON).bookings;
+  assert.equal(C.rescheduleBooking({ config, services, bookings: cancelled, now: MON, id: 'a', start: at('10:00') }).error, 'cancelled');
+  // 11:30 would run into the lunch break
+  assert.equal(C.rescheduleBooking({ config, services, bookings: list, now: MON, id: 'a', start: at('11:00') }).ok, true);
+  assert.equal(slots.some(s => C.formatTime(s.start, BKK) === '11:30' && s.date === '2026-10-20'), false);
+});
+
 test('bookingsOnDate uses the workshop date and sorts', () => {
   const list = [
     { id: '2', start: Z('2026-10-20T08:00:00Z') },

@@ -1,5 +1,6 @@
-// Inkpost preview: tabs, phone and desktop widths, light and dark mode, and
-// the source view. The emails load into same-origin iframes so the page can
+// Inkpost preview: the inbox list, client frames (bare canvas, webmail window,
+// phone mail), phone and desktop widths, light and dark mode, and the source
+// view. The emails load into same-origin iframes so the page can
 // size them and switch their dark mode rules on and off.
 
 // The built emails point their images and links at the published kit. On a
@@ -13,6 +14,7 @@ const tabs = [...document.querySelectorAll('[role="tab"]')];
 const panels = [...document.querySelectorAll('[role="tabpanel"]')];
 const state = {
   width: innerWidth < 720 ? 375 : 680,
+  client: innerWidth < 720 ? 'none' : 'web',
   theme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 };
 const frames = new Map(panels.map(p => [p.dataset.id, {
@@ -20,6 +22,7 @@ const frames = new Map(panels.map(p => [p.dataset.id, {
   panel: p,
   stage: p.querySelector('.stage'),
   box: p.querySelector('.frame-box'),
+  client: p.querySelector('.client'),
   frame: p.querySelector('iframe'),
   note: p.querySelector('.scale-note'),
   darkRules: [],
@@ -71,13 +74,32 @@ function prepare(f) {
 // viewer's own system setting is.
 function applyTheme(f) {
   for (const rule of f.darkRules) rule.media.mediaText = state.theme === 'dark' ? 'all' : 'not all';
+  f.client.dataset.theme = state.theme;
+}
+
+// The client frame is drawn around the real email: its chrome follows the
+// light or dark mode, and the phone frame holds the email in its own scroll.
+function applyClient(f) {
+  f.client.dataset.client = state.client;
+  f.client.dataset.theme = state.theme;
+}
+
+// Horizontal room the client frame itself takes, so the email inside keeps
+// its true width or scales down as a whole.
+function chromeX(f) {
+  let x = 0;
+  for (const el of [f.client, f.client.querySelector('.cl-body')]) {
+    const s = getComputedStyle(el);
+    x += parseFloat(s.paddingLeft) + parseFloat(s.paddingRight) + parseFloat(s.borderLeftWidth) + parseFloat(s.borderRightWidth);
+  }
+  return x;
 }
 
 function size(f) {
   const doc = f.frame.contentDocument;
   if (!doc || f.panel.hidden) return;
   const cs = getComputedStyle(f.stage);
-  const avail = f.stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  const avail = f.stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - chromeX(f);
   const scale = Math.min(1, avail / state.width);
   f.frame.style.width = state.width + 'px';
   const article = doc.querySelector('[role="article"]');
@@ -86,9 +108,11 @@ function size(f) {
   f.frame.style.transform = scale < 1 ? `scale(${scale})` : '';
   f.box.style.width = Math.floor(state.width * scale) + 'px';
   f.box.style.height = Math.ceil(height * scale) + 'px';
+  f.client.style.width = Math.floor(state.width * scale) + chromeX(f) + 'px';
+  const where = { none: 'on the bare canvas', web: 'in a webmail window', phone: 'in a phone mail app' }[state.client];
   f.note.textContent = scale < 1
-    ? `${state.width} pixels wide, shown at ${Math.round(scale * 100)}% to fit this screen`
-    : `${state.width} pixels wide`;
+    ? `${state.width} pixels wide ${where}, shown at ${Math.round(scale * 100)}% to fit this screen`
+    : `${state.width} pixels wide ${where}`;
 }
 
 async function select(id, { focus = false, updateHash = true } = {}) {
@@ -109,7 +133,7 @@ async function select(id, { focus = false, updateHash = true } = {}) {
 document.querySelector('[role="tablist"]').addEventListener('keydown', e => {
   const i = tabs.indexOf(document.activeElement);
   if (i < 0) return;
-  const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+  const next = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
   if (next === undefined) return;
   e.preventDefault();
   select(tabs[(next + tabs.length) % tabs.length].dataset.id, { focus: true });
@@ -118,7 +142,17 @@ tabs.forEach(t => t.addEventListener('click', () => select(t.dataset.id)));
 
 document.querySelectorAll('input[name="width"]').forEach(r => r.addEventListener('change', () => {
   state.width = Number(r.value);
-  frames.forEach(f => size(f));
+  // a phone mail app never shows the desktop width, so the frame steps up to webmail
+  if (state.width === 680 && state.client === 'phone') { state.client = 'web'; setRadio('client', 'web'); }
+  frames.forEach(f => { applyClient(f); size(f); });
+}));
+document.querySelectorAll('input[name="client"]').forEach(r => r.addEventListener('change', () => {
+  const was = state.client;
+  state.client = r.value;
+  if (state.client === 'phone') state.width = 375;
+  else if (was === 'phone') state.width = 680;
+  setRadio('width', state.width);
+  frames.forEach(f => { applyClient(f); size(f); });
 }));
 document.querySelectorAll('input[name="theme"]').forEach(r => r.addEventListener('change', () => {
   state.theme = r.value;
@@ -150,6 +184,8 @@ addEventListener('resize', () => {
 
 setRadio('width', state.width);
 setRadio('theme', state.theme);
+setRadio('client', state.client);
+frames.forEach(f => applyClient(f));
 const fromHash = location.hash.slice(1);
 const first = frames.has(fromHash) ? fromHash : tabs[0].dataset.id;
 await select(first, { updateHash: frames.has(fromHash) });
