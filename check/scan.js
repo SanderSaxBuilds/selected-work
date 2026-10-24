@@ -1,4 +1,4 @@
-/* Website check, console edition. A visitor types an address at a terminal prompt, a real Lighthouse run measures it, and the result prints in plain words.
+/* Website check, green screen edition. A visitor types an address in the box, a real Lighthouse run measures it, and the result prints in plain words.
    Engine: Microlink's free Lighthouse endpoint (browser callable, no key, about 25 runs a day per visitor).
    PageSpeed Insights is used instead when PSI_KEY holds a browser key restricted to this site. Google's keyless PSI quota is 0. */
 (function(){
@@ -289,264 +289,91 @@ function verdict(M,F){
   return {s:s,tail:tail};
 }
 
-/* -------- console words -------- */
+/* -------- interface words -------- */
 var C={
-en:{skip:"Skip to the command line",sys:"SANDERSAX WEBSITE CHECK, CONSOLE WC-3270",eng:"ENGINE    LIGHTHOUSE {v}, RUN BY MICROLINK",devs:"DEVICES   PHONE, MID-RANGE ON SLOW 4G. DESKTOP, FAST LINE.",
- h1:"Measure any website in about thirty seconds.",hint1:"Type an address and press Enter, for example",
- hint2:"On a phone, tap the keys below. {ex} shows a sample report, {help} lists every command.",
- ready:"READY",run:"RUNNING, ESC STOPS",prt:"PRINTING, ANY KEY SKIPS",typeAddr:"TYPE THE ADDRESS, THEN PRESS ENTER",
- busy:"A test is running. Type STOP or press Esc to cancel it.",noRun:"Nothing is running.",unknown:"Unknown command {c}. Type HELP for the list.",
- helpH:"COMMANDS",helpKeys:"Up and Down arrows bring back earlier commands. Esc or a tap skips the printing.",
- help:[["yourbusiness.com","Measure a website. SCAN yourbusiness.com does the same.",0],["SCAN address DESKTOP","Measure it as a desktop computer instead of a phone.",0],["DEVICE","Switch the test device between phone and desktop.",1],["EXAMPLE","Show a real report for example.com.",1],["FIX 1","Show what the test saw for fix number 1.",1],["MORE","List the smaller things found.",1],["PRINT","Print the last report, or save it as PDF.",1],["SHARE","Copy a link that opens this check again.",1],["COPY","Copy a short summary of the report.",1],["CONTACT","Ways to reach me about the fixes.",1],["STOP","Cancel a running test.",1],["RETRY","Run the last test again.",1],["LANG RU","Change the language: EN, RU or TH.",1],["CLEAR","Clear the screen.",1]],
- devSet:"Test device is now: {d}.",scanH:"MEASURING {u} ON {D}",elapsed:"ELAPSED",usual:"usually done between 15 and 40 s",doneL:"Done in {x} s. Report follows.",
- rpH:"WEBSITE REPORT",tagS:"EXAMPLE",tagL:"MEASURED JUST NOW",sampleP:"A real report for example.com, the standard test address. Type your own address to measure your site.",
- scores:"SCORES",verdict:"VERDICT",fixHint:"Ordered by how much each one helps your visitors. Type FIX and a number to see what the test saw.",
- moreL:"Smaller things found: {n}.",moreH:"SMALLER THINGS FOUND",evH:"FIX {n}, WHAT THE TEST SAW",evNone:"The test gave no more detail for this one.",
- noRep:"No report yet. Type an address, or EXAMPLE for a sample.",noFix:"There is no fix {n}. This report lists {m}.",noMore:"Nothing smaller was found.",
- next:"NEXT",eT:{empty:"NO ADDRESS",invalid:"BAD ADDRESS",local:"PRIVATE ADDRESS",unreach:"NO REPLY",timeout:"TIMED OUT",quota:"DAILY LIMIT",net:"OFFLINE",other:"NOT FINISHED",stopped:"STOPPED"},
- hRetry:"Type RETRY to run it again.",hQuota:"Type CONTACT and send me the address, I will run it for you.",hAddr:"Try for example SCAN yourbusiness.com",noRetry:"Nothing to retry yet.",
- copiedL:"Link copied.",copiedS:"Summary copied.",shared:"Shared.",copyFail:"Could not copy. Select the text above and copy it by hand.",
- printL:"Opening the print dialog. Choose Save as PDF to keep a file.",langSet:"Language set to English.",otherHint:"Type {c} to measure on {d} too.",
- ph:"yourbusiness.com",inLabel:"Command line",keysLabel:"Command keys",oDev:"DEVICE",printHead:"SanderSax website check",cmdW:"Command"},
-ru:{skip:"Перейти к командной строке",sys:"SANDERSAX ПРОВЕРКА САЙТА, КОНСОЛЬ WC-3270",eng:"ДВИЖОК     LIGHTHOUSE {v}, ЗАПУСК ЧЕРЕЗ MICROLINK",devs:"УСТРОЙСТВА ТЕЛЕФОН, СРЕДНИЙ, МЕДЛЕННЫЙ 4G. КОМПЬЮТЕР, БЫСТРЫЙ ИНТЕРНЕТ.",
- h1:"Измерьте любой сайт примерно за полминуты.",hint1:"Введите адрес и нажмите Enter, например",
- hint2:"На телефоне нажимайте клавиши внизу. {ex} покажет пример отчёта, {help} покажет все команды.",
- ready:"ГОТОВ",run:"ИДЁТ ТЕСТ, ESC ОСТАНОВИТ",prt:"ПЕЧАТЬ, ЛЮБАЯ КЛАВИША ПРОПУСКАЕТ",typeAddr:"ВВЕДИТЕ АДРЕС И НАЖМИТЕ ENTER",
- busy:"Идёт тест. Введите STOP или нажмите Esc, чтобы отменить.",noRun:"Сейчас ничего не запущено.",unknown:"Неизвестная команда {c}. Введите HELP, чтобы увидеть список.",
- helpH:"КОМАНДЫ",helpKeys:"Стрелки вверх и вниз возвращают прошлые команды. Esc или касание пропускают печать.",
- help:[["vash-biznes.com","Измерить сайт. SCAN vash-biznes.com делает то же самое.",0],["SCAN адрес DESKTOP","Измерить как на компьютере, а не на телефоне.",0],["DEVICE","Переключить тестовое устройство: телефон или компьютер.",1],["EXAMPLE","Показать настоящий отчёт для example.com.",1],["FIX 1","Показать, что увидел тест, для исправления номер 1.",1],["MORE","Список мелочей.",1],["PRINT","Напечатать последний отчёт или сохранить в PDF.",1],["SHARE","Скопировать ссылку, которая снова откроет эту проверку.",1],["COPY","Скопировать краткий итог отчёта.",1],["CONTACT","Как связаться со мной насчёт исправлений.",1],["STOP","Отменить идущий тест.",1],["RETRY","Запустить последний тест ещё раз.",1],["LANG EN","Сменить язык: EN, RU или TH.",1],["CLEAR","Очистить экран.",1]],
- devSet:"Тестовое устройство: {d}.",scanH:"ИЗМЕРЯЕМ {u}, {D}",elapsed:"ПРОШЛО",usual:"обычно готово за 15-40 с",doneL:"Готово за {x} с. Отчёт ниже.",
- rpH:"ОТЧЁТ О САЙТЕ",tagS:"ПРИМЕР",tagL:"ИЗМЕРЕНО ТОЛЬКО ЧТО",sampleP:"Настоящий отчёт для example.com, стандартного тестового адреса. Введите свой адрес, чтобы измерить свой сайт.",
- scores:"ОЦЕНКИ",verdict:"ИТОГ",fixHint:"По порядку пользы для посетителей. Введите FIX и номер, чтобы увидеть, что увидел тест.",
- moreL:"Мелочей найдено: {n}.",moreH:"МЕЛОЧИ",evH:"ИСПРАВЛЕНИЕ {n}, ЧТО УВИДЕЛ ТЕСТ",evNone:"Тест не дал подробностей по этому пункту.",
- noRep:"Отчёта пока нет. Введите адрес или EXAMPLE для примера.",noFix:"Исправления {n} нет. В отчёте их {m}.",noMore:"Мелочей не найдено.",
- next:"ДАЛЬШЕ",eT:{empty:"НЕТ АДРЕСА",invalid:"НЕВЕРНЫЙ АДРЕС",local:"ЧАСТНЫЙ АДРЕС",unreach:"НЕТ ОТВЕТА",timeout:"ВРЕМЯ ВЫШЛО",quota:"ЛИМИТ НА СЕГОДНЯ",net:"НЕТ СВЯЗИ",other:"ТЕСТ НЕ ЗАВЕРШЁН",stopped:"ОСТАНОВЛЕНО"},
- hRetry:"Введите RETRY, чтобы запустить снова.",hQuota:"Введите CONTACT и пришлите мне адрес, я проверю сам.",hAddr:"Например: SCAN vash-biznes.com",noRetry:"Повторять пока нечего.",
- copiedL:"Ссылка скопирована.",copiedS:"Итог скопирован.",shared:"Отправлено.",copyFail:"Не удалось скопировать. Выделите текст выше и скопируйте вручную.",
- printL:"Открываю печать. Выберите «Сохранить как PDF», чтобы получить файл.",langSet:"Язык: русский.",otherHint:"Введите {c}, чтобы измерить и на {d}.",
- ph:"vash-biznes.com",inLabel:"Командная строка",keysLabel:"Командные клавиши",oDev:"УСТР.",printHead:"SanderSax, проверка сайта",cmdW:"Команда"},
-th:{skip:"ข้ามไปที่บรรทัดคำสั่ง",sys:"SANDERSAX เช็กเว็บไซต์ คอนโซล WC-3270",eng:"เครื่องมือ  LIGHTHOUSE {v} รันผ่าน MICROLINK",devs:"อุปกรณ์  มือถือระดับกลาง เน็ต 4G ช้า และคอมพิวเตอร์ เน็ตเร็ว",
- h1:"วัดเว็บไซต์ไหนก็ได้ในราวสามสิบวินาที",hint1:"พิมพ์ที่อยู่เว็บแล้วกด Enter เช่น",
- hint2:"บนมือถือแตะปุ่มด้านล่าง {ex} แสดงรายงานตัวอย่าง {help} แสดงคำสั่งทั้งหมด",
- ready:"พร้อม",run:"กำลังทดสอบ กด ESC เพื่อหยุด",prt:"กำลังพิมพ์ กดปุ่มใดก็ได้เพื่อข้าม",typeAddr:"พิมพ์ที่อยู่เว็บ แล้วกด ENTER",
- busy:"กำลังทดสอบอยู่ พิมพ์ STOP หรือกด Esc เพื่อยกเลิก",noRun:"ตอนนี้ไม่มีการทดสอบ",unknown:"ไม่รู้จักคำสั่ง {c} พิมพ์ HELP เพื่อดูรายการ",
- helpH:"คำสั่ง",helpKeys:"ลูกศรขึ้นและลงเรียกคำสั่งก่อนหน้า กด Esc หรือแตะเพื่อข้ามการพิมพ์",
- help:[["yourbusiness.com","วัดเว็บไซต์ พิมพ์ SCAN yourbusiness.com ก็ได้ผลเหมือนกัน",0],["SCAN ที่อยู่ DESKTOP","วัดแบบคอมพิวเตอร์แทนมือถือ",0],["DEVICE","สลับอุปกรณ์ทดสอบระหว่างมือถือกับคอมพิวเตอร์",1],["EXAMPLE","ดูรายงานจริงของ example.com",1],["FIX 1","ดูสิ่งที่การทดสอบเห็นสำหรับข้อที่ 1",1],["MORE","ดูเรื่องเล็กๆ ที่พบ",1],["PRINT","พิมพ์รายงานล่าสุด หรือบันทึกเป็น PDF",1],["SHARE","คัดลอกลิงก์ที่เปิดการเช็กนี้อีกครั้ง",1],["COPY","คัดลอกสรุปสั้นๆ ของรายงาน",1],["CONTACT","ช่องทางติดต่อผมเรื่องการแก้ไข",1],["STOP","ยกเลิกการทดสอบที่กำลังทำ",1],["RETRY","ทดสอบครั้งล่าสุดอีกครั้ง",1],["LANG EN","เปลี่ยนภาษา EN, RU หรือ TH",1],["CLEAR","ล้างหน้าจอ",1]],
- devSet:"อุปกรณ์ทดสอบตอนนี้คือ{d}",scanH:"กำลังวัด {u} บน{D}",elapsed:"ผ่านไป",usual:"ปกติเสร็จใน 15 ถึง 40 วินาที",doneL:"เสร็จใน {x} วินาที รายงานอยู่ด้านล่าง",
- rpH:"รายงานเว็บไซต์",tagS:"ตัวอย่าง",tagL:"เพิ่งวัดเสร็จ",sampleP:"รายงานจริงของ example.com ที่อยู่สำหรับทดสอบมาตรฐาน พิมพ์ที่อยู่ของคุณเพื่อวัดเว็บของคุณ",
- scores:"คะแนน",verdict:"สรุป",fixHint:"เรียงตามประโยชน์ต่อผู้เข้าชม พิมพ์ FIX ตามด้วยหมายเลขเพื่อดูสิ่งที่การทดสอบเห็น",
- moreL:"พบเรื่องเล็กๆ {n} ข้อ",moreH:"เรื่องเล็กๆ ที่พบ",evH:"ข้อ {n} สิ่งที่การทดสอบเห็น",evNone:"การทดสอบไม่มีรายละเอียดเพิ่มสำหรับข้อนี้",
- noRep:"ยังไม่มีรายงาน พิมพ์ที่อยู่เว็บ หรือ EXAMPLE เพื่อดูตัวอย่าง",noFix:"ไม่มีข้อ {n} รายงานนี้มี {m} ข้อ",noMore:"ไม่พบเรื่องเล็กๆ",
- next:"ต่อไป",eT:{empty:"ไม่มีที่อยู่",invalid:"ที่อยู่ไม่ถูกต้อง",local:"ที่อยู่ส่วนตัว",unreach:"ไม่มีการตอบกลับ",timeout:"หมดเวลา",quota:"ครบโควตาวันนี้",net:"ออฟไลน์",other:"ทดสอบไม่เสร็จ",stopped:"หยุดแล้ว"},
- hRetry:"พิมพ์ RETRY เพื่อลองใหม่",hQuota:"พิมพ์ CONTACT แล้วส่งที่อยู่มา ผมจะเช็กให้",hAddr:"ลองแบบนี้ SCAN yourbusiness.com",noRetry:"ยังไม่มีอะไรให้ลองใหม่",
- copiedL:"คัดลอกลิงก์แล้ว",copiedS:"คัดลอกสรุปแล้ว",shared:"แชร์แล้ว",copyFail:"คัดลอกไม่สำเร็จ เลือกข้อความด้านบนแล้วคัดลอกเอง",
- printL:"กำลังเปิดหน้าพิมพ์ เลือกบันทึกเป็น PDF เพื่อเก็บไฟล์",langSet:"เปลี่ยนเป็นภาษาไทยแล้ว",otherHint:"พิมพ์ {c} เพื่อวัดบน{d}ด้วย",
- ph:"yourbusiness.com",inLabel:"บรรทัดคำสั่ง",keysLabel:"ปุ่มคำสั่ง",oDev:"อุปกรณ์",printHead:"SanderSax เช็กเว็บไซต์",cmdW:"คำสั่ง"}
+en:{skip:"Skip to the address box",fieldLabel:"Your website address",check:"Check my site",example:"See an example report",cancel:"Cancel",tryAgain:"Try again",
+ runH:"Measuring {u} on {d}",usual:"Usually done in 15 to 40 seconds.",elapsed:"Elapsed",errH:"The check did not finish",
+ rpH:"Website report",tagS:"Example",tagL:"Measured just now",sampleP:"A real report for example.com, the standard test address. Type your own address above to measure your site.",
+ scores:"Scores",verdict:"Verdict",fixHint:"Ordered by how much each one helps your visitors. Open a fix to see what the test saw.",
+ share:"Share",shared:"Shared",contact:"Contact me",printHead:"SanderSax website check",
+ ready:"READY",run:"MEASURING",done:"REPORT READY",err:"NOT FINISHED",oDev:"DEVICE"},
+ru:{skip:"Перейти к полю адреса",fieldLabel:"Адрес вашего сайта",check:"Проверить сайт",example:"Посмотреть пример отчёта",cancel:"Отмена",tryAgain:"Попробовать снова",
+ runH:"Измеряем {u}, {d}",usual:"Обычно занимает от 15 до 40 секунд.",elapsed:"Прошло",errH:"Проверка не завершилась",
+ rpH:"Отчёт о сайте",tagS:"Пример",tagL:"Измерено только что",sampleP:"Настоящий отчёт для example.com, стандартного тестового адреса. Введите свой адрес выше, чтобы измерить свой сайт.",
+ scores:"Оценки",verdict:"Итог",fixHint:"По порядку пользы для посетителей. Откройте пункт, чтобы увидеть, что увидел тест.",
+ share:"Поделиться",shared:"Отправлено",contact:"Связаться со мной",printHead:"SanderSax, проверка сайта",
+ ready:"ГОТОВ",run:"ИДЁТ ИЗМЕРЕНИЕ",done:"ОТЧЁТ ГОТОВ",err:"НЕ ЗАВЕРШЕНО",oDev:"УСТРОЙСТВО"},
+th:{skip:"ข้ามไปที่ช่องที่อยู่เว็บ",fieldLabel:"ที่อยู่เว็บไซต์ของคุณ",check:"เช็กเว็บของฉัน",example:"ดูรายงานตัวอย่าง",cancel:"ยกเลิก",tryAgain:"ลองอีกครั้ง",
+ runH:"กำลังวัด {u} บน{d}",usual:"ปกติใช้เวลา 15 ถึง 40 วินาที",elapsed:"ผ่านไป",errH:"การเช็กไม่สำเร็จ",
+ rpH:"รายงานเว็บไซต์",tagS:"ตัวอย่าง",tagL:"เพิ่งวัดเสร็จ",sampleP:"รายงานจริงของ example.com ที่อยู่สำหรับทดสอบมาตรฐาน พิมพ์ที่อยู่ของคุณด้านบนเพื่อวัดเว็บของคุณ",
+ scores:"คะแนน",verdict:"สรุป",fixHint:"เรียงตามประโยชน์ต่อผู้เข้าชม เปิดแต่ละข้อเพื่อดูสิ่งที่การทดสอบเห็น",
+ share:"แชร์",shared:"แชร์แล้ว",contact:"ติดต่อผม",printHead:"SanderSax เช็กเว็บไซต์",
+ ready:"พร้อม",run:"กำลังวัด",done:"รายงานพร้อม",err:"ไม่สำเร็จ",oDev:"อุปกรณ์"}
 };
-var KEYS=["SCAN","EXAMPLE","DEVICE","PRINT","SHARE","CONTACT","HELP","CLEAR"];
 function cell(c){return '<i class="c '+c+'"></i>'}   /* one character cell of a gauge, drawn as a lit block */
 
 /* -------- state -------- */
-var lang="en",dev="mobile",ctrl=null,t0=0,tb=0,tick=null,retried=false,stepN=-1,runBox=null;
+var lang="en",dev="mobile",ctrl=null,t0=0,tb=0,tick=null,retried=false,stepN=-1,mode="idle";
 var store={sample:window.CHECK_SAMPLE||null,live:{}};
-var cur=null,lastScan=null,lastErr=false,hist=[],hi=0,touch=false,follow=true,rpN=0,idle=[];
+var cur=null,lastScan=null,lastErr=null,rpN=0;
 var ver=((store.sample&&store.sample.mobile&&store.sample.mobile.ver)||"13").split(".")[0];
-var log=$("[data-log]"),form=$("#cmd"),input=$("#cmd-in"),pr=$("[data-prompt]"),keys=$("[data-keys]"),live=$("[data-live]"),stat=$("[data-stat]"),screen=$("[data-screen]");
+var form=$("#probe"),input=$("#url"),goBtn=$("[data-go]"),fieldErr=$("[data-err]"),panel=$("[data-panel]"),rep=$("[data-rep]"),live=$("[data-live]"),stat=$("[data-stat]");
 function T(){return S[lang]}
 function K(){return C[lang]}
-function disp(u){return String(u).replace(/^https:\/\//,"").replace(/\/$/,"")}
-function L(html,cls,tag){tag=tag||"div";return "<"+tag+' class="ln'+(cls?" "+cls:"")+'">'+html+"</"+tag+">"}
-function B(cmd,label){return '<button type="button" class="k" data-cmd="'+esc(cmd)+'">'+esc(label||cmd)+"</button>"}
+function disp(u){return String(u).replace(/^https?:\/\//,"").replace(/\/$/,"")}
 function pad(n){return (n<10?"0":"")+n}
 function sec(x){var v=x.toFixed(1);return lang==="ru"?v.replace(".",","):v}
 
-/* -------- teletype printer: every .ln is one line, revealed in order -------- */
-var Q=[],qt=null,printing=false;
-function put(html,opt){
-  opt=opt||{};
-  var box=document.createElement("div");box.className="blk"+(opt.cls?" "+opt.cls:"");box.innerHTML=html;
-  log.appendChild(box);
-  var lines=$$(".ln",box);
-  if(opt.now||reduce||(!Q.length&&!lines.length)){if(!printing)settle();return box}
-  lines.forEach(function(n){n.classList.add("wait");Q.push(n)});
-  if(!printing){printing=true;pr.classList.add("off");setStat()}
-  if(!qt)pump();
-  return box;
-}
-function pump(){
-  var n=Q.shift();
-  if(!n){qt=null;printing=false;pr.classList.remove("off");setStat();settle();return}
-  n.classList.remove("wait");
-  var len=Math.min(90,(n.textContent||"").replace(/\s+/g," ").length),d=Math.max(50,Math.min(240,len*4.5));
-  n.style.setProperty("--n",String(Math.max(1,Math.round(len/2))));n.style.setProperty("--d",Math.round(d)+"ms");
-  n.classList.add("tt");
-  if(follow)keep(n);
-  qt=setTimeout(pump,Math.max(24,d*0.5)+(n.classList.contains("gap")?50:0));
-}
-function skip(){
-  if(!printing)return;
-  clearTimeout(qt);qt=null;
-  Q.forEach(function(n){n.classList.remove("wait")});Q=[];
-  pump();
-}
-function keep(n){
-  var r=n.getBoundingClientRect(),kb=keys.getBoundingClientRect(),lim=Math.min(window.innerHeight,kb.top>0?kb.top:window.innerHeight)-14;
-  if(r.bottom>lim)window.scrollBy(0,Math.ceil(r.bottom-lim));
-}
-function settle(){
-  setStat();
-  if(follow)keep(pr);
-  if(!touch){try{input.focus({preventScroll:true})}catch(e){}}
-  var c=idle.splice(0);c.forEach(function(f){f()});
-}
-function say(html,cls){return put(L(html,cls))}
-
-/* -------- status line and keys -------- */
-function setStat(m){
-  var k=K();
-  stat.textContent=m||(ctrl?k.run:printing?k.prt:k.ready);
-  stat.className=ctrl?"st run":printing?"st prt":"st";
+function setStat(){
+  var k=K();stat.textContent=mode==="run"?k.run:mode==="done"?k.done:mode==="err"?k.err:k.ready;
+  stat.className="st "+mode;
   $("[data-odev]").textContent=k.oDev+" "+T().dev[dev].toUpperCase();
 }
-function keysRender(){
-  keys.innerHTML=KEYS.map(function(c,i){
-    var cmd=(i===0&&ctrl)?"STOP":c,sub=c==="DEVICE"?T().dev[dev].toUpperCase():"";
-    return '<button type="button" class="key'+(cmd==="STOP"?" stop":"")+'" data-key="'+cmd+'"><small aria-hidden="true">PF'+(i+1)+'</small><b>'+cmd+'</b>'+(sub?'<em>'+esc(sub)+'</em>':"")+'</button>';
-  }).join("");
+function syncDev(){
+  $$("[data-dev]").forEach(function(b){b.setAttribute("aria-checked",String(b.getAttribute("data-dev")===dev))});
+  $(".dev-sw").setAttribute("data-on",dev);setStat();
 }
-function syncDev(){setStat();keysRender()}
-
-/* -------- commands -------- */
-var DEVW={PHONE:"mobile",MOBILE:"mobile",DESKTOP:"desktop",PC:"desktop",COMPUTER:"desktop",LAPTOP:"desktop"};
-var CMD={
-  SCAN:cmdScan,MEASURE:cmdScan,CHECK:cmdScan,RUN:cmdScan,TEST:cmdScan,
-  HELP:cmdHelp,"?":cmdHelp,CLEAR:cmdClear,CLS:cmdClear,
-  PRINT:cmdPrint,SHARE:cmdShare,LINK:cmdShare,COPY:cmdCopy,SUMMARY:cmdCopy,
-  EXAMPLE:cmdExample,SAMPLE:cmdExample,DEMO:cmdExample,
-  DEVICE:cmdDevice,PHONE:function(){cmdDevice(["PHONE"])},MOBILE:function(){cmdDevice(["PHONE"])},DESKTOP:function(){cmdDevice(["DESKTOP"])},
-  FIX:cmdFix,MORE:cmdMore,CONTACT:cmdContact,STOP:cmdStop,RETRY:cmdRetry,LANG:cmdLang
-};
-var DURING=["STOP","HELP","?","CLEAR","CLS","LANG"];
-function exec(raw){
-  skip();follow=true;
-  var s=String(raw||"").trim().slice(0,300);
-  put(L('<span class="pp" aria-hidden="true">===&gt;</span> <span class="sr">'+esc(K().cmdW)+': </span>'+esc(s),"echo"),{now:true});
-  if(!s){settle();return}
-  if(hist[hist.length-1]!==s)hist.push(s);hi=hist.length;
-  var parts=s.split(/\s+/),w=parts[0].toUpperCase(),arg=parts.slice(1);
-  if(ctrl&&DURING.indexOf(w)<0){say(esc(K().busy),"dim");return}
-  if(CMD[w]){CMD[w](arg);return}
-  if(parts.length<=2&&/[.:\/]/.test(parts[0])){cmdScan(parts);return}
-  say(esc(fmt(K().unknown,{c:parts[0].toUpperCase()})),"warn");
-}
-function cmdScan(a){
-  var d=dev,addr=null;
-  a.forEach(function(x){var u=x.toUpperCase();if(DEVW[u])d=DEVW[u];else if(!addr)addr=x});
-  if(!addr){errBlock("empty");return}
-  var p=parseAddress(addr);
-  if(p.err){errBlock(p.err);return}
-  start(p.url,d);
-}
-function cmdHelp(){
-  var k=K(),h=L(esc(k.helpH),"sec","h2");
-  k.help.forEach(function(r){h+=L('<span class="hp-c">'+(r[2]?B(r[0]):'<code>'+esc(r[0])+'</code>')+'</span><span class="hp-d">'+esc(r[1])+'</span>',"hp")});
-  h+=L(esc(k.helpKeys),"dim");
-  put(h,{cls:"help"});
-}
-function cmdClear(){skip();log.innerHTML="";follow=true;window.scrollTo(0,0);settle()}
-function cmdExample(){
-  var M=store.sample&&(store.sample[dev]||store.sample.mobile);
-  if(!M){errBlock("other","no sample");return}
-  showReport(M,"sample","https://example.com/");
-}
-function cmdDevice(a){
-  var w=(a[0]||"").toUpperCase();
-  dev=DEVW[w]||(dev==="mobile"?"desktop":"mobile");syncDev();
-  var h=L(esc(fmt(K().devSet,{d:T().dev[dev]})));
-  if(cur&&cur.src==="live"&&!store.live[dev+"|"+cur.url]){var c="SCAN "+disp(cur.url)+" "+(dev==="desktop"?"DESKTOP":"PHONE");h+=L(esc(fmt(K().otherHint,{c:"{c}",d:T().devWord[dev]})).replace("{c}",B(c)),"dim")}
-  put(h);
-}
-function cmdLang(a){
-  var w=(a[0]||"").toLowerCase(),order=["en","ru","th"];
-  setLang(S[w]?w:order[(order.indexOf(lang)+1)%3]);
-  say(esc(K().langSet));
-}
-function need(){if(!cur){say(esc(K().noRep)+" "+B("EXAMPLE"),"warn");return false}return true}
-function allFixes(){return cur.top.concat(cur.rest)}
-function cmdFix(a){
-  if(!need())return;
-  var all=allFixes(),n=parseInt(a[0],10);
-  if(!(n>=1&&n<=all.length)){say(esc(fmt(K().noFix,{n:a[0]||"?",m:all.length})),"warn");return}
-  put(L(esc(fmt(K().evH,{n:n})),"sec","h2")+L(esc(fixTitle(all[n-1])),"hi")+evHTML(all[n-1]));
-}
-function cmdMore(){
-  if(!need())return;
-  if(!cur.rest.length){say(esc(K().noMore));return}
-  var h=L(esc(K().moreH),"sec","h2");
-  cur.rest.forEach(function(o,i){h+=fixHTML(o,cur.top.length+i)});
-  put(h);
-}
-function cmdPrint(){
-  if(!need())return;
-  if(!cur.el||!cur.el.isConnected){var b=put(reportHTML(cur),{now:true});cur.el=$(".rp",b)}
-  mark(cur.el);
-  say(esc(K().printL),"dim");
-  skip();
-  setTimeout(function(){window.print()},reduce?0:120);
-}
-function mark(el){$$(".rp.pr").forEach(function(x){x.classList.remove("pr")});el.classList.add("pr");document.body.classList.add("has-pr")}
-function shareURL(){return cur&&cur.src==="live"?location.href:location.origin+location.pathname}
-function cmdShare(){
-  var u=shareURL(),k=K(),coarse=window.matchMedia("(pointer: coarse)").matches;
-  if(navigator.share&&coarse){navigator.share({title:T().doc,url:u}).then(function(){say(esc(k.shared))},function(){copyOut(u,k.copiedL)});return}
-  copyOut(u,k.copiedL);
-}
-function cmdCopy(){if(!need())return;copyOut(summary(cur.M,cur.top),K().copiedS,true)}
-function copyOut(text,okMsg,quiet){
-  copy(text).then(function(){say(esc(okMsg)+(quiet?"":' <span class="dim">'+esc(text)+'</span>'))},function(){say(esc(K().copyFail)+' <span class="hi">'+esc(text)+'</span>',"warn")});
-}
-function cmdContact(){put(ctaHTML(cur?summary(cur.M,cur.top):T().hello,cur?host(cur.M.final||cur.M.url):""))}
-function cmdStop(){if(ctrl)ctrl.abort("user");else say(esc(K().noRun),"dim")}
-function cmdRetry(){if(!lastScan){say(esc(K().noRetry),"dim");return}start(lastScan.url,lastScan.dev)}
+function setErr(m){fieldErr.textContent=m||"";fieldErr.hidden=!m;input.setAttribute("aria-invalid",m?"true":"false")}
 
 /* -------- a live measurement -------- */
 function start(url,d){
-  dev=d;lastScan={url:url,dev:d};lastErr=false;retried=false;stepN=-1;
-  var k=K(),t=T();
-  runBox=put(L(esc(fmt(k.scanH,{u:disp(url),D:t.dev[d].toUpperCase()})),"hd")+L(esc(t.devNote[d]),"dim")+'<ol class="steps" data-steps></ol>'+L("","prog"),{now:true,cls:"run"});
+  if(ctrl)return;
+  dev=d;syncDev();lastScan={url:url,dev:d};lastErr=null;retried=false;stepN=-1;setErr("");
+  input.value=disp(url);
+  var k=K(),t=T();mode="run";setStat();
+  panel.hidden=false;panel.className="panel run";
+  panel.innerHTML='<h2 class="pn-h">'+esc(fmt(k.runH,{u:disp(url),d:t.dev[d].toLowerCase()}))+'</h2>'+
+    '<p class="pn-dev">'+esc(t.devNote[d])+'</p>'+
+    '<div class="pbar" aria-hidden="true" data-pbar></div>'+
+    '<p class="pn-clock"><span>'+esc(k.elapsed)+'</span> <b data-clock>0.0 s</b> <span class="pn-usual">'+esc(k.usual)+'</span></p>'+
+    '<ol class="steps" data-steps></ol>'+
+    '<button type="button" class="kc kc-sm" data-cancel>'+esc(k.cancel)+'</button>';
+  $("[data-cancel]",panel).addEventListener("click",function(){if(ctrl)ctrl.abort("user")});
+  goBtn.disabled=true;
   t0=tb=performance.now();
-  ctrl={pending:true};syncDev();
   setStep(1);
   tick=setInterval(clock,reduce?1000:100);clock();
-  live.textContent=fmt(k.scanH,{u:disp(url),D:t.dev[d]});
+  live.textContent=fmt(k.runH,{u:disp(url),d:t.dev[d]});
+  panel.scrollIntoView({behavior:reduce?"auto":"smooth",block:"nearest"});
   go(url,d);
 }
 function stepLabel(i){return i===1&&retried?T().retry:T().steps[i]}
 function setStep(n){
-  if(!runBox||n<=stepN)return;
-  var ol=$("[data-steps]",runBox);
+  var ol=$("[data-steps]",panel);if(!ol||n<=stepN)return;
   for(var i=stepN+1;i<=n;i++){
     var prev=ol.lastElementChild;
-    if(prev&&!prev.classList.contains("ok")){prev.classList.add("ok");$("em",prev).textContent="OK "+sec((performance.now()-t0)/1000)}
-    var li=document.createElement("li");li.className="ln";
-    li.innerHTML='<span>'+esc(stepLabel(i))+'</span><i aria-hidden="true"></i><em>...</em>';
+    if(prev&&!prev.classList.contains("ok")){prev.classList.add("ok");$("em",prev).textContent="OK "+sec((performance.now()-t0)/1000)+" s"}
+    var li=document.createElement("li");
+    li.innerHTML='<span>'+esc(stepLabel(i))+'</span><em>...</em>';
     ol.appendChild(li);
   }
   stepN=n;
-  if(follow)keep(pr);
-}
-function gauge(s){
-  var n=20,f=Math.min(n,Math.floor(s/60*n)),a="";
-  for(var i=0;i<f;i++)a+=cell("on");
-  /* filled part, then the "usually done here" stretch (15 to 40 s of 60), then the rest */
-  var h='<span class="g-on">'+a+'</span>';
-  for(var j=f;j<n;j++){h+=cell(j>=5&&j<14?"typ":"off")}
-  return h;
 }
 function clock(){
-  if(!runBox)return;
-  var s=(performance.now()-t0)/1000,sb=(performance.now()-tb)/1000,k=K();
-  $(".prog",runBox).innerHTML='<span class="pl">'+esc(k.elapsed)+' <b>'+sec(s)+' s</b></span><span class="pg" aria-hidden="true">['+gauge(s)+']</span><span class="pu dim">'+esc(k.usual)+'</span>';
+  var s=(performance.now()-t0)/1000,sb=(performance.now()-tb)/1000,n=30,f=Math.min(n,Math.floor(s/60*n)),h="";
+  for(var j=0;j<n;j++)h+=cell(j<f?"on":(j>=7.5&&j<20?"typ":"off"));
+  var pb=$("[data-pbar]",panel);if(pb)pb.innerHTML=h;
+  var c=$("[data-clock]",panel);if(c)c.textContent=sec(s)+" s";
   for(var i=STEP_AT.length-2;i>=2;i--){if(sb>=STEP_AT[i]){setStep(i);break}}
 }
 function go(url,d){
@@ -554,126 +381,139 @@ function go(url,d){
   var timer=setTimeout(function(){ac.abort("limit")},LIMIT);
   measure(url,d,ac.signal).then(function(M){
     clearTimeout(timer);if(ac!==ctrl)return;
-    setStep(6);
-    var took=(performance.now()-t0)/1000;
-    finish(true);
+    setStep(6);finish();
     store.live[d+"|"+url]=M;
-    put(L(esc(fmt(K().doneL,{x:sec(took)})),"ok"),{now:true});
+    panel.hidden=true;panel.innerHTML="";
     shareState(url,d);
-    showReport(M,"live",url);
+    showReport(M,"live",url,true);
   },function(e){
     clearTimeout(timer);if(ac!==ctrl)return;
-    if(ac.signal.aborted){finish(false);errBlock(ac.signal.reason==="limit"?"timeout":"stopped");return}
-    if(e.code==="timeout"&&!retried){retried=true;tb=performance.now();var ol=$("[data-steps]",runBox);ol.innerHTML="";stepN=-1;setStep(1);go(url,d);return}
-    finish(false);errBlock(e.code||"other",e.detail);
+    if(ac.signal.aborted){finish();if(ac.signal.reason==="limit")fail("timeout");else{panel.hidden=true;panel.innerHTML="";mode=cur?"done":"idle";setStat();setErr(T().e.stopped);input.focus()}return}
+    if(e.code==="timeout"&&!retried){retried=true;tb=performance.now();$("[data-steps]",panel).innerHTML="";stepN=-1;setStep(1);go(url,d);return}
+    finish();fail(e.code||"other",e.detail);
   });
 }
-function finish(ok){
-  clearInterval(tick);tick=null;ctrl=null;
-  if(runBox){
-    clock();
-    var last=$("[data-steps] li:last-child",runBox);
-    if(last&&!last.classList.contains("ok")){last.classList.add(ok?"ok":"bad");$("em",last).textContent=ok?"OK "+sec((performance.now()-t0)/1000):"--"}
-  }
-  runBox=null;syncDev();
-}
-function errBlock(code,detail){
+function finish(){clearInterval(tick);tick=null;ctrl=null;goBtn.disabled=false}
+function fail(code,detail){
   var t=T(),k=K(),msg=fmt(t.e[code]||t.e.other,{c:detail||code});
-  var addr=code==="empty"||code==="invalid"||code==="local";
-  var h=L('<span class="er-c">?ERR</span> '+esc(k.eT[code]||k.eT.other),"er-h")+L(esc(msg));
-  if(addr)h+=L(esc(k.hAddr)+" "+B("EXAMPLE"),"dim");
-  else if(code==="quota")h+=L(esc(k.hQuota)+" "+B("CONTACT")+" "+B("RETRY"),"dim");
-  else h+=L(esc(k.hRetry)+" "+B("RETRY"),"dim");
-  lastErr=!addr;
-  put(h,{cls:"er"});
-  live.textContent=(k.eT[code]||"")+". "+msg;
+  lastErr=code;mode="err";setStat();
+  panel.hidden=false;panel.className="panel err";
+  panel.innerHTML='<h2 class="pn-h">'+esc(k.errH)+'</h2><p class="pn-msg">'+esc(msg)+'</p>'+
+    '<div class="pn-acts"><button type="button" class="kc" data-retry>'+esc(k.tryAgain)+'</button>'+
+    (code==="quota"?'<a class="kc kc-ghost" href="https://t.me/'+CONTACT.telegram+'" target="_blank" rel="noopener">Telegram @'+CONTACT.telegram+'</a><a class="kc kc-ghost" href="mailto:'+CONTACT.email+'">'+CONTACT.email+'</a>':"")+'</div>';
+  $("[data-retry]",panel).addEventListener("click",function(){if(lastScan)start(lastScan.url,lastScan.dev)});
+  live.textContent=k.errH+". "+msg;
+  try{$("[data-retry]",panel).focus({preventScroll:true})}catch(x){}
+  panel.scrollIntoView({behavior:reduce?"auto":"smooth",block:"nearest"});
 }
 function shareState(url,d){try{var p=new URLSearchParams(location.search);p.set("url",disp(url));p.set("device",d);history.replaceState(null,"","?"+p.toString()+location.hash)}catch(e){}}
 
-/* -------- the report, printed as console output -------- */
+/* -------- the report -------- */
 function split(F){
   var top=[],rest=[];
   F.forEach(function(o){(top.length<5&&(lvl(o.imp)>0||top.length<3)?top:rest).push(o)});
   return {top:top,rest:rest};
 }
-function showReport(M,src,url){
+function showReport(M,src,url,scroll){
   var F=fixes(M),sp=split(F);
-  cur={M:M,F:F,top:sp.top,rest:sp.rest,src:src,url:url,el:null};
-  var box=put(reportHTML(cur),{cls:"rpb"});
-  cur.el=$(".rp",box);
+  cur={M:M,F:F,top:sp.top,rest:sp.rest,src:src,url:url};
+  mode="done";setStat();
+  render(true);
   var t=T();
   live.textContent=K().rpH+". "+CATS.map(function(c){return t.cats[c]+" "+(M.cats[c]==null?"-":M.cats[c])}).join(", ");
+  if(scroll){var r=$("#report");setTimeout(function(){r.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});try{r.focus({preventScroll:true})}catch(x){}},reduce?0:150)}
 }
 function bar(v){
-  var n=20,f=v==null?0:Math.round(v/100*n),on="",off="";
-  for(var i=0;i<n;i++){if(i<f)on+=cell("on");else off+=cell("off")}
-  return '[<span class="on">'+on+'</span><span class="off">'+off+'</span>]';
-}
-function rgauge(k,v){
-  var sc=SCALE[k],n=15,g=Math.round(sc[0]/sc[2]*n),f=Math.round(sc[1]/sc[2]*n),p=Math.min(n-1,Math.floor(v/sc[2]*n)),h="";
-  for(var i=0;i<n;i++){var z=i<g?0:i<f?1:2;h+='<span class="z'+z+(i===p?" mk":"")+'">'+(i===p?cell("mk"):"-")+'</span>'}
-  return "["+h+"]";
+  var n=20,f=v==null?0:Math.round(v/100*n),h="";
+  for(var i=0;i<n;i++)h+=cell(i<f?"on":"off");
+  return h;
 }
 var SCALE={fcp:[1800,3000,6000],lcp:[2500,4000,8000],tbt:[200,600,1200],cls:[0.1,0.25,0.5],tbw:[1677722,3355443,6710886]};
+function rgauge(k,v){
+  var sc=SCALE[k],n=15,g=Math.round(sc[0]/sc[2]*n),f=Math.round(sc[1]/sc[2]*n),p=Math.min(n-1,Math.floor(v/sc[2]*n)),h="";
+  for(var i=0;i<n;i++){var z=i<g?0:i<f?1:2;h+='<span class="z'+z+'">'+(i===p?cell("mk"):"-")+'</span>'}
+  return "["+h+"]";
+}
 function readVal(k,m){return k==="cls"?(lang==="ru"?m.v.toFixed(3).replace(".",","):m.v.toFixed(3)):k==="tbw"?bytes(m.v,lang):k==="tbt"?Math.round(m.v)+(lang==="ru"?" мс":" ms"):secs(m.v,lang)}
 function fixTitle(o){var tx=o.fx?(o.fx[lang]||o.fx.en):null;return tx?tx[0]:o.titles[0]}
+function nb(s){return s.replace(/(\d) (s|с|ms|мс)([ .]|$)/g,"$1 $2$3").replace(/ (\d[\d.,]*)\.$/," $1.")}
 function evHTML(o){
-  var k=K(),h="";
-  if(o.titles.length)h+=L(esc(o.titles.join(". "))+(o.dv.length?' <span class="dim">('+esc(o.dv.join(", "))+')</span>':""),"ev");
-  o.items.forEach(function(it){h+=L("- "+esc(it),"ev it")});
-  if(!o.dv.length&&!o.items.length)h+=L(esc(k.evNone),"ev dim");
+  var h="";
+  if(o.titles.length)h+='<p class="ev-t">'+esc(o.titles.join(". "))+(o.dv.length?' <span class="dim">('+esc(o.dv.join(", "))+')</span>':"")+'</p>';
+  if(o.items.length)h+='<ul class="ev-l">'+o.items.map(function(it){return "<li>"+esc(it)+"</li>"}).join("")+'</ul>';
   return h;
 }
 function fixHTML(o,i){
   var t=T(),fx=o.fx,tx=fx?fx[lang]||fx.en:null,lv=lvl(o.imp),n=i+1;
-  var body=tx?tx[1]:t.generic,imp=["#--","##-","###"][lv];
-  var h='<div class="fx l'+lv+'">';
-  h+=L('<span class="fx-n">'+pad(n)+'</span><span class="fx-t">'+esc(fixTitle(o))+'</span>',"fx-h");
-  h+=L('<span class="fx-i"><span aria-hidden="true">['+imp+']</span> '+esc(t.impact[lv])+'</span><span class="fx-c">'+esc(t.cats[o.cat])+'</span><span class="np">'+B("FIX "+n)+'</span>',"fx-m");
-  h+=L(esc(body),"fx-p");
-  if(o.cat==="performance"&&o.sav>=100)h+=L(esc(fmt(t.saves,{x:secs(o.sav,lang)})),"fx-s");
-  h+='<div class="po fx-ev">'+evHTML(o)+'</div></div>';
-  return h;
+  var body=tx?tx[1]:t.generic;
+  var h='<li class="fx l'+lv+'">';
+  h+='<div class="fx-h"><span class="fx-n">'+pad(n)+'</span><h4 class="fx-t">'+esc(fixTitle(o))+'</h4></div>';
+  h+='<p class="fx-m"><span class="fx-i"><span class="fx-bars" aria-hidden="true">'+cell(lv>=0?"on":"off")+cell(lv>=1?"on":"off")+cell(lv>=2?"on":"off")+'</span>'+esc(t.impact[lv])+'</span><span class="fx-c">'+esc(t.cats[o.cat])+'</span></p>';
+  h+='<p class="fx-p">'+esc(body)+'</p>';
+  if(o.cat==="performance"&&o.sav>=100)h+='<p class="fx-s">'+esc(fmt(t.saves,{x:secs(o.sav,lang)}))+'</p>';
+  if(o.titles.length||o.items.length)h+='<details class="ev"><summary>'+esc(t.saw)+'</summary><div class="ev-b">'+evHTML(o)+'</div></details>';
+  return h+'</li>';
 }
 function ctaHTML(txt,u){
   var t=T(),wa="https://wa.me/"+CONTACT.whatsapp+"?text="+encodeURIComponent(txt);
   var em="mailto:"+CONTACT.email+"?subject="+encodeURIComponent(fmt(t.subj,{u:u||"my website"}))+"&body="+encodeURIComponent(txt);
-  return L(esc(t.ctaH),"sec","h3")+L(esc(t.ctaP),"cta-p")+
-    L('<a class="lk" href="https://t.me/'+CONTACT.telegram+'" target="_blank" rel="noopener">TELEGRAM @'+CONTACT.telegram+'</a><a class="lk" href="'+esc(wa)+'" target="_blank" rel="noopener">WHATSAPP</a><a class="lk" href="'+esc(em)+'">EMAIL</a>',"cta-l np")+
-    L(esc(t.waS),"dim np")+
-    '<p class="po">Telegram @'+CONTACT.telegram+', WhatsApp +66 96 134 7329, '+CONTACT.email+'</p>';
+  return '<section class="cta" id="contact" tabindex="-1"><h3 class="sec">'+esc(t.ctaH)+'</h3><p class="cta-p">'+esc(t.ctaP)+'</p>'+
+    '<div class="cta-l np"><a class="kc kc-ghost" href="https://t.me/'+CONTACT.telegram+'" target="_blank" rel="noopener" data-tg>'+esc(t.tg)+' <small>@'+CONTACT.telegram+'</small></a>'+
+    '<a class="kc kc-ghost" href="'+esc(wa)+'" target="_blank" rel="noopener">'+esc(t.wa)+' <small>'+esc(t.waS)+'</small></a>'+
+    '<a class="kc kc-ghost" href="'+esc(em)+'">'+esc(t.em)+' <small>'+CONTACT.email+'</small></a></div>'+
+    '<p class="po">Telegram @'+CONTACT.telegram+', WhatsApp +66 96 134 7329, '+CONTACT.email+'</p></section>';
 }
-function reportHTML(c){
-  var M=c.M,t=T(),k=K(),isS=c.src==="sample",V=verdict(M,c.top),id="rp"+(++rpN),other=M.device==="mobile"?"desktop":"mobile";
-  var h='<section class="rp" aria-labelledby="'+id+'">';
-  h+='<p class="po ph">'+esc(k.printHead)+', sandersaxbuilds.github.io/selected-work/check/</p>';
-  h+=L('<h2 id="'+id+'">'+esc(k.rpH)+'</h2><span class="tag'+(isS?" s":"")+'">'+esc(isS?k.tagS:k.tagL)+'</span>',"rp-h");
-  if(isS)h+=L(esc(k.sampleP),"dim");
-  h+='<dl class="meta">'+[[t.fAddr,disp(M.final||M.url).replace(/^http:\/\//,"")],[t.fWhen,when(M.at,lang)],[t.fDev,t.dev[M.device]],[t.fEng,"Lighthouse "+M.ver+(M.src?", "+M.src:"")]].map(function(r){return '<div class="ln mr"><dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd></div>'}).join("")+'</dl>';
-  h+='<div class="rp-top"><div class="rp-sc">';
-  h+=L(esc(k.scores),"sec","h3");
+function render(anim){
+  if(!cur){rep.innerHTML="";rep.hidden=true;return}
+  var c=cur,M=c.M,t=T(),k=K(),isS=c.src==="sample",V=verdict(M,c.top),id="rp"+(++rpN),other=M.device==="mobile"?"desktop":"mobile";
+  var h='<p class="po ph">'+esc(k.printHead)+', sandersaxbuilds.github.io/selected-work/check/</p>';
+  h+='<header class="rp-h"><h2 id="'+id+'">'+esc(k.rpH)+'</h2><span class="tag'+(isS?" s":"")+'">'+esc(isS?k.tagS:k.tagL)+'</span></header>';
+  if(isS)h+='<p class="rp-note">'+esc(k.sampleP)+'</p>';
+  h+='<dl class="meta">'+[[t.fAddr,disp(M.final||M.url)],[t.fWhen,when(M.at,lang)],[t.fDev,t.dev[M.device]],[t.fEng,"Lighthouse "+M.ver+(M.src?", "+M.src:"")]].map(function(r){return '<div><dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd></div>'}).join("")+'</dl>';
+  h+='<div class="rp-top"><div class="rp-sc"><h3 class="sec">'+esc(k.scores)+'</h3><ul class="scs">';
   CATS.forEach(function(cat){var v=M.cats[cat],b=band(v);
-    h+=L('<span class="sc-l">'+esc(t.cats[cat])+'</span><span class="sc-b" aria-hidden="true">'+bar(v)+'</span><span class="sc-n">'+(v==null?"--":v)+'<span class="sr"> '+esc(t.of)+',</span></span><span class="sc-w">'+(b<0?"":esc(t.band[b]))+'</span>',"sc b"+b)});
-  h+=L(esc(k.verdict),"sec","h3")+L(esc(V.s)+(V.tail?" "+esc(V.tail):""),"vd");
+    h+='<li class="sc b'+b+'"><span class="sc-l">'+esc(t.cats[cat])+'<small>'+esc(t.catSub[cat])+'</small></span><span class="sc-b" aria-hidden="true">'+bar(v)+'</span><span class="sc-n">'+(v==null?"--":v)+'<span class="sr"> '+esc(t.of)+',</span></span><span class="sc-w">'+(b<0?"":esc(t.band[b]))+'</span></li>'});
+  h+='</ul><h3 class="sec">'+esc(k.verdict)+'</h3><p class="vd">'+esc(V.s)+(V.tail?" "+esc(V.tail):"")+'</p></div>';
+  if(M.shot)h+='<figure class="shot '+M.device+'"><img src="'+M.shot+'" alt="'+esc(fmt(t.shotAlt,{d:t.dev[M.device].toLowerCase()}))+'"></figure>';
   h+='</div>';
-  if(M.shot)h+='<figure class="ln shot '+M.device+'"><img src="'+M.shot+'" alt="'+esc(fmt(t.shotAlt,{d:t.dev[M.device].toLowerCase()}))+'"></figure>';
-  h+='</div>';
-  h+=L(esc(t.readings),"sec","h3");
+  h+='<h3 class="sec">'+esc(t.readings)+'</h3><ul class="rds">';
   ["lcp","fcp","tbt","cls","tbw"].forEach(function(key){var m=M.m[key];if(!m||m.v==null)return;var b=sband(m.s);
-    h+=L('<span class="rd-l">'+esc(t.mn[key])+'</span><span class="rd-v">'+esc(readVal(key,m))+'</span><span class="rd-w">'+(b<0?"":esc(t.band[b]))+'</span><span class="rd-g" aria-hidden="true">'+rgauge(key,m.v)+'</span>',"rd b"+b)+L(esc(t.mh[key]).replace(/(\d) (s|с|ms|มс)([ .]|$)/g,"$1 $2$3").replace(/ (\d[\d.,]*)\.$/," $1."),"rd-h dim")});
-  h+=L(esc(t.fixHead),"sec","h3");
-  if(c.top.length){h+=L(esc(k.fixHint),"dim np");c.top.forEach(function(o,i){h+=fixHTML(o,i)})}
-  else h+=L(esc(t.noFix));
-  if(c.rest.length){
-    h+=L(esc(fmt(k.moreL,{n:c.rest.length}))+' <span class="np">'+B("MORE")+'</span>',"more");
-    h+='<div class="po">'+c.rest.map(function(o,i){return fixHTML(o,c.top.length+i)}).join("")+'</div>';
-  }
-  var nx=[B("PRINT"),B("SHARE"),B("COPY"),B("CONTACT")];
-  if(!isS&&!store.live[other+"|"+c.url])nx.push(B("SCAN "+disp(c.url)+" "+(other==="desktop"?"DESKTOP":"PHONE"),T().dev[other].toUpperCase()));
-  h+=L('<span class="nx-l">'+esc(k.next)+'</span>'+nx.join(""),"nx np");
+    h+='<li class="rd b'+b+'"><span class="rd-l">'+esc(t.mn[key])+'</span><span class="rd-v">'+esc(readVal(key,m))+'</span><span class="rd-w">'+(b<0?"":esc(t.band[b]))+'</span><span class="rd-g" aria-hidden="true">'+rgauge(key,m.v)+'</span><span class="rd-h">'+esc(nb(t.mh[key]))+'</span></li>'});
+  h+='</ul>';
+  h+='<h3 class="sec">'+esc(t.fixHead)+'</h3>';
+  if(c.top.length){h+='<p class="sec-p np">'+esc(k.fixHint)+'</p><ol class="fxs">'+c.top.map(function(o,i){return fixHTML(o,i)}).join("")+'</ol>'}
+  else h+='<p class="nofix">'+esc(t.noFix)+'</p>';
+  if(c.rest.length)h+='<details class="more"><summary>'+esc(fmt(t.more,{n:c.rest.length}))+'</summary><ol class="fxs" start="'+(c.top.length+1)+'">'+c.rest.map(function(o,i){return fixHTML(o,c.top.length+i)}).join("")+'</ol></details>';
+  h+='<div class="acts np">'+
+    '<button type="button" class="kc" data-act="print">'+esc(t.actPrint)+'</button>'+
+    '<button type="button" class="kc" data-act="share">'+esc(k.share)+'</button>'+
+    '<button type="button" class="kc" data-act="link">'+esc(t.actLink)+'</button>'+
+    '<button type="button" class="kc" data-act="copy">'+esc(t.actCopy)+'</button>'+
+    '<button type="button" class="kc" data-act="contact">'+esc(k.contact)+'</button>'+
+    (!isS&&!store.live[other+"|"+c.url]?'<button type="button" class="kc kc-ghost" data-act="other">'+esc(fmt(t.otherDev,{d:t.devWord[other]}))+'</button>':"")+
+  '</div>';
   h+=ctaHTML(summary(M,c.top),host(M.final||M.url));
-  h+='</section>';
-  return h;
+  rep.innerHTML='<section class="rp" aria-labelledby="'+id+'">'+h+'</section>';
+  rep.hidden=false;
+  rep.classList.remove("in");
+  if(anim&&!reduce){void rep.offsetWidth;rep.classList.add("in")}
+  $("[data-tg]",rep).addEventListener("click",function(){copy(summary(M,c.top)).catch(function(){})});
+  $$("[data-act]",rep).forEach(function(b){b.addEventListener("click",function(){act(b.getAttribute("data-act"),b)})});
+}
+function flash(b,ok,txt){var old=b.textContent;b.textContent=txt;b.classList.toggle("ok",ok);setTimeout(function(){if(b.isConnected){b.textContent=old;b.classList.remove("ok")}},2000)}
+function shareURL(){return cur&&cur.src==="live"?location.href:location.origin+location.pathname}
+function act(a,b){
+  var t=T(),k=K();
+  if(a==="print"){$$("details",rep).forEach(function(d){d.open=true});window.print()}
+  else if(a==="share"){
+    var u=shareURL();
+    if(navigator.share&&window.matchMedia("(pointer: coarse)").matches){navigator.share({title:t.doc,url:u}).then(function(){flash(b,true,k.shared)},function(){})}
+    else copy(u).then(function(){flash(b,true,t.copied)},function(){flash(b,false,t.copyFail)});
+  }
+  else if(a==="link")copy(shareURL()).then(function(){flash(b,true,t.copied)},function(){flash(b,false,t.copyFail)});
+  else if(a==="copy")copy(summary(cur.M,cur.top)).then(function(){flash(b,true,t.copied)},function(){flash(b,false,t.copyFail)});
+  else if(a==="contact"){var cta=$("#contact");cta.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});try{cta.focus({preventScroll:true})}catch(x){}}
+  else if(a==="other"){var o=cur.M.device==="mobile"?"desktop":"mobile";start(cur.url,o)}
 }
 function summary(M,top){
   var t=T(),u=host(M.final||M.url),lines=[t.hello,"",fmt(t.sum,{u:u,d:t.dev[M.device],t:when(M.at,lang)})];
@@ -689,16 +529,6 @@ function copy(text){
   });
 }
 
-/* -------- boot -------- */
-function boot(){
-  var k=K(),t=T();
-  put(L(esc(k.sys),"hi")+L(esc(fmt(k.eng,{v:ver})),"dim")+L(esc(k.devs),"dim")+L("","gap")+
-    '<h1 class="ln h1">'+esc(k.h1)+'</h1>'+L(esc(t.lead),"lead")+L("","gap")+
-    L(esc(k.hint1)+' <code>'+esc(k.ph)+'</code>')+
-    L(esc(k.hint2).replace("{ex}",B("EXAMPLE")).replace("{help}",B("HELP")))+
-    L(esc(t.privacy),"dim sm"),{cls:"boot"});
-}
-
 /* -------- language -------- */
 function setLang(l){
   lang=S[l]?l:"en";var t=T(),k=K();
@@ -707,56 +537,41 @@ function setLang(l){
   $$("[data-c]").forEach(function(el){var v=k[el.getAttribute("data-c")];if(typeof v==="string")el.textContent=v});
   $$("[data-s-aria]").forEach(function(el){var v=t[el.getAttribute("data-s-aria")];if(typeof v==="string")el.setAttribute("aria-label",v)});
   $$(".langs button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-l")===lang))});
-  input.placeholder=k.ph;keys.setAttribute("aria-label",k.keysLabel);
-  syncDev();
+  input.placeholder=t.ph;
+  if(fieldErr.textContent)setErr("");
+  if(mode==="err"&&lastErr)fail(lastErr);
+  else if(mode==="run"&&panel.firstChild){$(".pn-h",panel).textContent=fmt(k.runH,{u:disp(lastScan.url),d:t.dev[lastScan.dev].toLowerCase()});$(".pn-usual",panel).textContent=k.usual;$("[data-cancel]",panel).textContent=k.cancel}
+  syncDev();render(false);
   try{localStorage.setItem("ak-lang",lang)}catch(e){}
 }
 
 /* -------- wiring -------- */
-form.addEventListener("submit",function(e){e.preventDefault();var v=input.value;input.value="";exec(v)});
-input.addEventListener("keydown",function(e){
-  if(e.key==="ArrowUp"&&hist.length){e.preventDefault();hi=Math.max(0,hi-1);input.value=hist[hi];setTimeout(function(){input.setSelectionRange(input.value.length,input.value.length)},0)}
-  else if(e.key==="ArrowDown"&&hist.length){e.preventDefault();hi=Math.min(hist.length,hi+1);input.value=hist[hi]||""}
+form.addEventListener("submit",function(e){
+  e.preventDefault();
+  if(ctrl)return;
+  var p=parseAddress(input.value);
+  if(p.err){setErr(T().e[p.err]);input.focus();return}
+  start(p.url,dev);
 });
-document.addEventListener("keydown",function(e){
-  touch=false;
-  if(e.key==="Escape"){if(printing){skip();e.preventDefault()}else if(ctrl){ctrl.abort("user");e.preventDefault()}else if(document.activeElement===input)input.value="";return}
-  if(printing&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&["Shift","Control","Alt","Meta","Tab","CapsLock"].indexOf(e.key)<0)skip();
+input.addEventListener("input",function(){if(fieldErr.textContent)setErr("")});
+$$("[data-dev]").forEach(function(b){
+  b.addEventListener("click",function(){if(ctrl)return;dev=b.getAttribute("data-dev");syncDev()});
+  b.addEventListener("keydown",function(e){if(/^Arrow/.test(e.key)){e.preventDefault();if(ctrl)return;dev=dev==="mobile"?"desktop":"mobile";syncDev();$('[data-dev="'+dev+'"]').focus()}});
 });
-document.addEventListener("pointerdown",function(e){touch=e.pointerType==="touch"||e.pointerType==="pen";if(printing&&screen.contains(e.target)&&!e.target.closest("a,button"))skip()});
-function stopFollow(){if(printing||ctrl)follow=false}
-window.addEventListener("wheel",function(e){if(e.deltaY<0)stopFollow()},{passive:true});
-window.addEventListener("touchmove",stopFollow,{passive:true});
-function onCmdClick(e){
-  var b=e.target.closest("[data-cmd],[data-key]");if(!b)return;
-  if(b.hasAttribute("data-key")){
-    var c=b.getAttribute("data-key");
-    if(c==="SCAN"){var v=input.value.trim();if(v){input.value="";exec(/^scan\b/i.test(v)?v:"SCAN "+v)}else{skip();setStat(K().typeAddr);input.focus()}return}
-    exec(c);return;
-  }
-  exec(b.getAttribute("data-cmd"));
-}
-log.addEventListener("click",onCmdClick);
-keys.addEventListener("click",onCmdClick);
-screen.addEventListener("click",function(e){
-  if(touch||e.target.closest("a,button,input,img")||String(window.getSelection&&window.getSelection())!=="")return;
-  try{input.focus({preventScroll:true})}catch(x){}
+$("[data-example]").addEventListener("click",function(){
+  if(ctrl)return;
+  var M=store.sample&&(store.sample[dev]||store.sample.mobile);if(!M)return;
+  panel.hidden=true;showReport(M,"sample","https://example.com/",true);
 });
-$$(".langs button").forEach(function(b){b.addEventListener("click",function(){var l=b.getAttribute("data-l");if(l!==lang){setLang(l);say(esc(K().langSet))}})});
-window.addEventListener("beforeprint",function(){
-  skip();
-  if(!$(".rp.pr")){var all=$$(".rp");if(all.length)mark(all[all.length-1])}
-});
-window.addEventListener("afterprint",function(){$$(".rp.pr").forEach(function(x){x.classList.remove("pr")});document.body.classList.remove("has-pr")});
+$$(".langs button").forEach(function(b){b.addEventListener("click",function(){setLang(b.getAttribute("data-l"))})});
+window.addEventListener("beforeprint",function(){$$("details",rep).forEach(function(d){d.open=true})});
 try{window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change",function(m){reduce=m.matches})}catch(e){}
 
 var P=new URLSearchParams(location.search),saved=null;try{saved=localStorage.getItem("ak-lang")}catch(e){}
 var nl=(navigator.language||"en").slice(0,2);
-setLang(S[P.get("lang")]?P.get("lang"):S[saved]?saved:S[nl]?nl:"en");
-if(P.get("device")==="desktop")dev="desktop";
 $("[data-ver]").textContent=ver;
-syncDev();
-boot();
-if(P.get("url")){var q="SCAN "+P.get("url").slice(0,200)+(dev==="desktop"?" DESKTOP":"");if(printing)idle.push(function(){exec(q)});else exec(q)}
-window.__check={parseAddress:parseAddress,fixes:fixes,store:store,exec:exec,skip:skip,cur:function(){return cur},printing:function(){return printing}};
+if(P.get("device")==="desktop")dev="desktop";
+setLang(S[P.get("lang")]?P.get("lang"):S[saved]?saved:S[nl]?nl:"en");
+if(P.get("url")){var pa=parseAddress(P.get("url"));if(pa.url)start(pa.url,dev);else{input.value=P.get("url");setErr(T().e[pa.err])}}
+window.__check={parseAddress:parseAddress,fixes:fixes,store:store,cur:function(){return cur},mode:function(){return mode}};
 })();

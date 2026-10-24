@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Website check · SanderSax</title>
-<meta name="description" content="Type any website address at the console prompt and get a real Lighthouse report in plain words: speed, ease of use, trust and Google basics, with the fixes that matter most. Free, no sign up.">
+<meta name="description" content="Type any website address and get a real Lighthouse report in plain words: speed, ease of use, trust and Google basics, with the fixes that matter most. Free, no sign up.">
 <meta property="og:title" content="Website check, a real report in about thirty seconds">
-<meta property="og:description" content="An old style console that measures any website with Lighthouse and prints the scores and the fixes that matter most, written for business owners. Free.">
+<meta property="og:description" content="Scores for speed, ease of use, trust and Google, with the fixes that matter most, written for business owners. Free.">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/check.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0d0e0c">
@@ -15,11 +15,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.microlink.io" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="scan.css?v=20261025c">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scan.css?v=20261025h">
 </head>
 <body>
-<a class="skip" href="#cmd-in" data-c="skip">Skip to the command line</a>
+<a class="skip" href="#url" data-c="skip">Skip to the address box</a>
 <header class="top">
   <a class="brand" href="../" aria-label="SanderSax, all work"><span class="mk" aria-hidden="true"></span>SanderSax</a>
   <a class="back" href="../" data-s="fAll">All work</a>
@@ -27,7 +27,7 @@
 
 <main id="main" class="mon">
   <div class="case">
-    <div class="screen" data-screen>
+    <div class="screen">
       <div class="bar">
         <span class="bar-t" aria-hidden="true">WC-3270</span>
         <span class="bar-c" data-s="kick">Website check</span>
@@ -37,23 +37,46 @@
           <button type="button" data-l="th" aria-pressed="false">TH</button>
         </div>
       </div>
-      <div class="log" data-log></div>
-      <form class="prompt" id="cmd" data-prompt autocomplete="off" novalidate>
-        <label for="cmd-in"><span class="pp" aria-hidden="true">===&gt;</span><span class="sr" data-c="inLabel">Command line</span></label>
-        <input id="cmd-in" type="text" name="cmd" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" maxlength="300">
+
+      <section class="intro">
+        <h1><span data-s="h1a">Measure any website</span> <em data-s="h1b">in about thirty seconds.</em></h1>
+        <p class="lead" data-s="lead"></p>
+      </section>
+
+      <form class="probe" id="probe" novalidate>
+        <label class="f-lab" for="url" data-c="fieldLabel">Your website address</label>
+        <div class="f-row">
+          <span class="f-box"><span class="f-pre" aria-hidden="true">https://</span><input id="url" type="text" name="url" inputmode="url" autocomplete="url" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-describedby="url-err"></span>
+          <div class="dev" role="radiogroup" aria-label="Device" data-s-aria="devLabel">
+            <div class="dev-sw" data-on="mobile">
+              <button type="button" role="radio" aria-checked="true" data-dev="mobile" data-s="phone">Phone</button>
+              <button type="button" role="radio" aria-checked="false" data-dev="desktop" data-s="desktop">Desktop</button>
+            </div>
+          </div>
+          <button class="kc kc-go" type="submit" data-go data-c="check">Check my site</button>
+        </div>
+        <p class="f-err" id="url-err" data-err aria-live="polite" hidden></p>
+        <div class="f-sub">
+          <button type="button" class="link-btn" data-example data-c="example">See an example report</button>
+          <p class="privacy" data-s="privacy"></p>
+        </div>
       </form>
+
+      <div class="panel" data-panel hidden aria-live="polite"></div>
+
+      <div class="rep-wrap" id="report" tabindex="-1"><div class="rep" data-rep hidden></div></div>
+
       <div class="oia" aria-hidden="true"><span data-stat class="st">READY</span><span data-odev></span><span>LIGHTHOUSE <b data-ver>13</b></span></div>
     </div>
     <div class="badge" aria-hidden="true"><span class="badge-n">SANDERSAX</span><span>WC-3270 WEBSITE CHECK TERMINAL</span></div>
-    <div class="keys" data-keys role="group" aria-label="Command keys"></div>
   </div>
 </main>
 <p class="sr" aria-live="polite" data-live></p>
 
 <footer class="foot"><span>© 2026 Alexandr Khrustalev · SanderSax · <span data-s="fCity">Thailand, working remotely</span></span><nav aria-label="Links" data-s-aria="footLabel"><a href="../thailand/" data-s="fOffer">Websites for businesses</a><a href="../" data-s="fAll">All work</a></nav></footer>
 
-<script src="lh.js?v=20261025c"></script>
-<script src="sample.js?v=20261025c"></script>
-<script src="scan.js?v=20261025c" defer></script>
+<script src="lh.js?v=20261025h"></script>
+<script src="sample.js?v=20261025h"></script>
+<script src="scan.js?v=20261025h" defer></script>
 </body>
 </html>
