@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#efe6d6">
+  <meta name="theme-color" content="#121417">
   <meta name="description" content="Toolroom sells small desktop tools for freelancers and studios: QuoteCheck, ExportCheck, Handoff Desk and the Quote and Handoff Kit. Try a free sample of each.">
   <title>Toolroom | Small tools for quotes, data and handoffs</title>
   <link rel="icon" href="toolroom-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Azeret+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="toolroom-style.css">
   <script type="module" src="toolroom-app.mjs"></script>
 </head>
@@ -31,14 +31,20 @@
     <div id="shop-view">
       <section class="hero wrap" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">Desktop tools for freelancers and small studios</p>
+          <p class="eyebrow"><span class="num">TR-01</span> Desktop tools for freelancers and small studios</p>
           <h1 id="hero-title">Small tools for quotes, data and clean handoffs.</h1>
           <p class="lede">Price a job before you send it, check a CSV before it ships, and leave every project in a state the next person can pick up. Each tool runs on your own computer.</p>
           <div class="hero-actions">
-            <a class="button primary" href="#collection">Browse the tools</a>
+            <a class="button primary" href="#collection">Open the drawer</a>
             <a class="button secondary" href="#how">How it works</a>
           </div>
-          <p class="hero-note">Four tools, from $12. Every one has a free sample, and every one runs on your own computer.</p>
+          <dl class="spec-strip">
+            <div><dt>Tools</dt><dd class="num">4</dd></div>
+            <div><dt>From</dt><dd class="num">$12</dd></div>
+            <div><dt>Runs</dt><dd>Offline</dd></div>
+            <div><dt>Account</dt><dd>None</dd></div>
+          </dl>
+          <p class="hero-note">Every tool has a free sample, and every one runs on your own computer.</p>
         </div>
         <div class="bench" aria-labelledby="bench-title">
           <div class="bench-head">
@@ -71,6 +77,7 @@
               <div><dt>Payment fee, 3%</dt><dd class="num" id="q-fee">-$50.40</dd></div>
               <div><dt>Software and stock</dt><dd class="num">-$40</dd></div>
             </dl>
+            <div class="q-gauge" aria-hidden="true"><i id="q-gauge-keep"></i><i id="q-gauge-fee"></i></div>
             <div class="q-keep" aria-live="polite">
               <p><span>You keep</span><strong class="num" id="q-keep">$1,589.60</strong></p>
               <p class="q-hour"><span class="num" id="q-hour">$33.12</span> an hour</p>
@@ -94,16 +101,28 @@
             </table>
             <div class="csv-foot">
               <button type="button" class="button primary small" id="csv-download" disabled>Download clean CSV</button>
-              <span class="csv-stamp" id="csv-stamp" aria-hidden="true">Ready to ship</span>
+              <span class="csv-stamp" id="csv-stamp" aria-hidden="true">Passed</span>
             </div>
           </div>
           <p class="bench-note">A taste of each tool, worked in this page. The full apps do more, and nothing here leaves your browser.</p>
         </div>
       </section>
+
+      <section class="finder wrap" aria-labelledby="finder-title">
+        <div class="finder-head"><p class="eyebrow"><span class="num">TR-02</span> Pick the loose end</p><h2 id="finder-title">What keeps costing you time?</h2></div>
+        <div class="finder-grid" role="group" aria-labelledby="finder-title">
+          <button type="button" data-find="quotecheck"><span class="num">A</span><b>A quote that keeps changing</b><small>Leads to QuoteCheck</small></button>
+          <button type="button" data-find="exportcheck"><span class="num">B</span><b>A CSV that keeps breaking</b><small>Leads to ExportCheck</small></button>
+          <button type="button" data-find="handoffdesk"><span class="num">C</span><b>A handoff that lives in your head</b><small>Leads to Handoff Desk</small></button>
+          <button type="button" data-find="quotehandoffkit"><span class="num">D</span><b>Both ends of the same project</b><small>Leads to the Kit</small></button>
+        </div>
+        <p class="finder-result" id="finder-result" role="status"></p>
+      </section>
+
       <section class="collection wrap" id="collection" aria-labelledby="collection-heading">
         <div class="section-head">
-          <div><p class="eyebrow">The collection</p><h2 id="collection-heading">One job per tool.</h2></div>
-          <p class="section-note">Pick the loose end that costs you the most time, then grab the tool that closes it.</p>
+          <div><p class="eyebrow"><span class="num">TR-03</span> The drawer</p><h2 id="collection-heading">One job per tool.</h2></div>
+          <p class="section-note">Each tool sits in its own pocket. Put one in your bag and its outline stays behind, so you can see what is out.</p>
         </div>
         <div class="catalog-tools">
           <div class="chips" role="group" aria-label="Filter tools">
@@ -119,13 +138,13 @@
             <label class="sort"><span class="sr-only">Sort tools</span><select id="sort"><option value="featured">Featured</option><option value="price">Lowest price</option><option value="name">Name</option></select></label>
           </div>
         </div>
-        <p class="catalog-caption"><span id="result-count" role="status">4 tools</span><span>Prices in USD</span></p>
-        <div class="product-grid" id="product-grid"></div>
+        <p class="catalog-caption"><span id="result-count" role="status">4 tools</span><span id="drawer-out">All tools in the drawer</span><span>Prices in USD</span></p>
+        <div class="drawer"><div class="product-grid" id="product-grid"></div></div>
         <div class="empty-state" id="no-results" hidden><h3>Nothing matches that search.</h3><p>Try a different word or clear the filters.</p><button type="button" class="button secondary" id="reset-filters">Show all tools</button></div>
       </section>
 
       <section class="how wrap" id="how" aria-labelledby="how-title">
-        <div class="how-intro"><p class="eyebrow">How it works</p><h2 id="how-title">From loose end to tidy finish.</h2><p>No account to create. Pick a tool, check the sample, and keep everything in a library you can back up.</p></div>
+        <div class="how-intro"><p class="eyebrow"><span class="num">TR-04</span> How it works</p><h2 id="how-title">From loose end to tidy finish.</h2><p>No account to create. Pick a tool, check the sample, and keep everything in a library you can back up.</p></div>
         <ol>
           <li><span class="step num">01</span><div><h3>Find the friction</h3><p>A quote that keeps changing. A CSV that keeps breaking. A handoff that lives in your head.</p></div></li>
           <li><span class="step num">02</span><div><h3>Try the sample</h3><p>Open a tool, read what is included and download its sample file.</p></div></li>
@@ -134,7 +153,7 @@
       </section>
 
       <section class="faq wrap" aria-labelledby="faq-title">
-        <div><p class="eyebrow">Questions</p><h2 id="faq-title">Good to know.</h2></div>
+        <div><p class="eyebrow"><span class="num">TR-05</span> Spec notes</p><h2 id="faq-title">Good to know.</h2></div>
         <div class="faq-list">
           <details><summary>Can I buy these tools here?</summary><p>No. This storefront runs a demo checkout that saves a test order in your browser. No payment is taken, no license is issued and no email is sent.</p></details>
           <details><summary>Do the tools need an internet connection?</summary><p>No. Each tool opens in your browser from a small local server on your own computer, so your quotes, CSV files and project notes stay on your machine. Exports are plain JSON, CSV and TXT files.</p></details>
@@ -147,7 +166,7 @@
 
     <section id="library-view" class="library wrap" hidden aria-labelledby="library-title">
       <div class="library-head">
-        <div><p class="eyebrow">Your library</p><h1 id="library-title" tabindex="-1">Everything you ordered.</h1><p class="library-description">Orders, receipts and sample downloads, saved in this browser.</p></div>
+        <div><p class="eyebrow"><span class="num">TR-06</span> Your library</p><h1 id="library-title" tabindex="-1">Everything you ordered.</h1><p class="library-description">Orders, receipts and sample downloads, saved in this browser.</p></div>
         <button type="button" class="button secondary" id="library-backup">Export backup</button>
       </div>
       <dl class="library-stats">
@@ -156,7 +175,7 @@
         <div><dt>Order value</dt><dd id="stat-value" class="num">$0</dd></div>
       </dl>
       <div id="orders"></div>
-      <div class="empty-state" id="library-empty"><h2>No orders yet.</h2><p>Orders you place appear here with their receipts and downloads.</p><a class="button primary" href="#collection">Browse the tools</a></div>
+      <div class="empty-state" id="library-empty"><h2>No orders yet.</h2><p>Orders you place appear here with their receipts and downloads.</p><a class="button primary" href="#collection">Open the drawer</a></div>
     </section>
   </main>
 

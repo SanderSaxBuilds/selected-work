@@ -10,6 +10,16 @@ const roundTo = (n, step) => Math.round(n / step) * step;
 const header = $("[data-header]");
 const heroImg = $(".hero-photo img");
 const steps = $("[data-steps]");
+const build = $("[data-build]");
+const buildCaption = $("[data-build-caption]");
+const BUILD_CAPTIONS = [
+  "Stage 0 of 5. Empty plot, before the first visit.",
+  "Stage 1 of 5. Plot walked, measured and pegged out.",
+  "Stage 2 of 5. Heights agreed, fixed price signed.",
+  "Stage 3 of 5. Drawing issued, permit submitted.",
+  "Stage 4 of 5. Slab, frame and roof on site.",
+  "Stage 5 of 5. Closed in, lit and handed over."
+];
 let ticking = false;
 function onScroll() {
   ticking = false;
@@ -20,12 +30,16 @@ function onScroll() {
     heroImg.style.transform = `scale(${(1.08 - t * 0.035).toFixed(4)}) translateY(${(t * 12).toFixed(1)}px)`;
   }
   if (steps) {
-    const r = steps.getBoundingClientRect();
+    // Each step that scrolls past the reading line adds one stage to the elevation drawing.
     const vh = window.innerHeight;
-    const p = Math.max(0, Math.min(1, (vh * 0.8 - r.top) / (vh * 0.55)));
-    steps.style.setProperty("--p", p.toFixed(3));
     const items = $$("li", steps);
-    items.forEach((li, i) => li.classList.toggle("reached", p >= i / (items.length - 1) - 0.001 && p > 0));
+    let stage = 0;
+    items.forEach(li => { const on = li.getBoundingClientRect().top < vh * 0.62; li.classList.toggle("reached", on); if (on) stage += 1; });
+    steps.style.setProperty("--p", (stage / items.length).toFixed(3));
+    if (build && build.dataset.stage !== String(stage)) {
+      build.dataset.stage = String(stage);
+      if (buildCaption) buildCaption.textContent = BUILD_CAPTIONS[stage];
+    }
   }
 }
 window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
@@ -35,7 +49,7 @@ onScroll();
 /* Mobile navigation: open, close, Escape, outside click, focus trap */
 const menuButton = $("[data-menu-toggle]");
 const siteNav = $("[data-site-nav]");
-const phoneNav = window.matchMedia("(max-width: 860px)");
+const phoneNav = window.matchMedia("(max-width: 960px)");
 const menuIsOpen = () => menuButton?.getAttribute("aria-expanded") === "true";
 function setMenu(open, { returnFocus = false } = {}) {
   if (!menuButton || !siteNav) return;
@@ -148,7 +162,7 @@ function drawPlan(g, plan) {
   g.replaceChildren();
   const defs = el("defs", {});
   const pat = el("pattern", { id: "ff-hatch", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
-  pat.append(el("rect", { width: 6, height: 6, fill: "#ebe1d1" }), el("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: "#a88459", "stroke-width": 1.2 }));
+  pat.append(el("rect", { width: 6, height: 6, fill: "#e4e9ee" }), el("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: "#5b7a9a", "stroke-width": 1.1 }));
   defs.append(pat);
   g.append(defs);
   const layers = { base: el("g", {}), walls: el("g", {}), labels: el("g", {}) };
@@ -163,7 +177,7 @@ function drawPlan(g, plan) {
     } else if (kind === "r" || kind === "h") {
       layers.base.append(el("rect", { x: a[0], y: a[1], width: a[2], height: a[3], class: `${cls} ${kind === "h" ? "hatch" : "fill"}`, ...(when === "a" ? { pathLength: 1 } : {}) }));
     } else if (kind === "W") {
-      layers.walls.append(el("rect", { x: a[0], y: a[1], width: a[2], height: a[3], class: `${cls} win`, fill: "#f8f6f1", stroke: "#22241f", "stroke-width": 1 }));
+      layers.walls.append(el("rect", { x: a[0], y: a[1], width: a[2], height: a[3], class: `${cls} win`, fill: "#f7f8f6", stroke: "#15191c", "stroke-width": 1 }));
     } else if (kind === "c") {
       layers.base.append(el("path", { d: a[0], class: `${cls} contour` }));
     } else if (kind === "s") {
@@ -250,7 +264,7 @@ const KINDS = {
   newhome: { label: "New home", min: 1000, max: 4000, step: 50, area: 2100, rates: [[250, 320], [320, 410], [410, 540]], weeks: [39, 61],
     trades: [["Design and permits", 7], ["Groundwork", 12], ["Structure and roof", 26], ["Windows, doors, cladding", 15], ["Wiring, plumbing, heating", 16], ["Fit-out", 18], ["Contingency", 6]] }
 };
-const COLORS = ["#2f3a35", "#55635a", "#86938a", "#8a6640", "#b6956a", "#d3bf9c", "#a9594b"];
+const COLORS = ["#15283f", "#1d3a5c", "#3f6488", "#7593b0", "#a9bccd", "#7c8a7a", "#b3262f"];
 const FINISH_NOTES = [
   "Good stock items, painted finishes, laminate or compact worktops.",
   "Semi-custom joinery, engineered wood floors, quartz worktops.",
@@ -319,6 +333,14 @@ if (estForm) {
     const r = compute();
     lastEstimate = r;
     areaOut.textContent = `${r.area.toLocaleString("en-US")} sq ft`;
+    // The floor area drawn to scale against the largest area for this kind of job.
+    const room = $("[data-area-room]");
+    if (room) {
+      const side = Math.sqrt(r.area / r.k.max) * 100;
+      room.style.width = `${side * 1.4}px`; room.style.height = `${side * 1.4}px`;
+      const feet = Math.round(Math.sqrt(r.area));
+      $("[data-area-note]").textContent = `About ${feet} ft by ${feet} ft`;
+    }
     area.style.setProperty("--fill", `${((r.area - r.k.min) / (r.k.max - r.k.min)) * 100}%`);
     $("[data-finish-note]").textContent = FINISH_NOTES[r.finish];
     tween(r.low, r.high);
@@ -405,6 +427,37 @@ if (briefForm && downloadButton) {
     downloadButton.disabled = !ready;
     previewState.dataset.ready = String(ready);
     previewState.textContent = ready ? "Ready" : "Draft";
+    $(".brief-sheet").dataset.ready = String(ready);
+  }
+  // The draft stays in this browser so a visitor can come back to it. Nothing leaves the device.
+  const DRAFT_KEY = "fieldframe.brief-draft.v1";
+  function saveDraft() {
+    const v = getValues();
+    const empty = !Object.values(v).some(x => Array.isArray(x) ? x.length : x) && !attached;
+    try {
+      if (empty) localStorage.removeItem(DRAFT_KEY);
+      else localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...v, estimate: attached ? { kind: attached.kind, area: attached.area, finish: attached.finish, oldHouse: attached.oldHouse, low: attached.low, high: attached.high, wLow: attached.wLow, wHigh: attached.wHigh } : null, saved: Date.now() }));
+      $("#draft-note").textContent = empty ? "Saved as a text file on your device. Nothing is sent." : "Draft kept in this browser. Nothing is sent.";
+    } catch { $("#draft-note").textContent = "This browser is not keeping drafts, so download the brief before you leave."; }
+  }
+  function restoreDraft() {
+    let d = null;
+    try { d = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch { d = null; }
+    if (!d || typeof d !== "object") return false;
+    for (const key of Object.keys(controls)) {
+      const value = typeof d[key] === "string" ? d[key].slice(0, MAX_SCOPE) : "";
+      const c = controls[key];
+      if (c.tagName === "SELECT") { if ([...c.options].some(o => o.value === value)) c.value = value; } else c.value = value;
+    }
+    const picked = Array.isArray(d.priorities) ? d.priorities : [];
+    priorityInputs.forEach(i => { i.checked = picked.includes(i.value); });
+    const e = d.estimate;
+    if (e && KINDS[e.kind] && [e.area, e.finish, e.low, e.high, e.wLow, e.wHigh].every(Number.isFinite)) {
+      attached = { ...e, k: KINDS[e.kind], oldHouse: Boolean(e.oldHouse) };
+      estBox.hidden = false;
+      $("[data-brief-est-text]").textContent = estimateLine(attached);
+    }
+    return true;
   }
   function updatePreview() {
     const v = getValues();
@@ -416,6 +469,7 @@ if (briefForm && downloadButton) {
     previewNodes.priorities.textContent = v.priorities.length ? v.priorities.join(", ") : previewNodes.priorities.dataset.empty;
     previewNodes.priorities.dataset.emptyState = String(!v.priorities.length);
     scopeCount.textContent = `${v.scope.length} / ${MAX_SCOPE}`;
+    saveDraft();
   }
   function setError(control, message) {
     const node = document.getElementById(control.id + "-error");
@@ -494,5 +548,14 @@ if (briefForm && downloadButton) {
   }
   $("[data-to-brief]")?.addEventListener("click", () => { if (lastEstimate) attach(lastEstimate); });
   $("[data-brief-est-clear]")?.addEventListener("click", () => { attach(null); downloadButton.disabled ? controls.projectType.focus() : downloadButton.focus(); });
+  $("#clear-brief")?.addEventListener("click", () => {
+    if (!window.confirm("Clear every answer in this brief?")) return;
+    briefForm.reset(); attached = null; estBox.hidden = true;
+    Object.values(controls).forEach(c => setError(c, ""));
+    setReady(false); updatePreview(); setStatus("Brief cleared.", "");
+    controls.projectType.focus();
+  });
+  const restored = restoreDraft();
   updatePreview();
+  if (restored) { const v = getValues(); if (v.projectType && v.propertyType && v.timeframe && v.budgetBand && v.scope.length >= MIN_SCOPE) validate({ focus: false }); setStatus("Your saved draft is back.", ""); }
 }
