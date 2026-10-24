@@ -15,6 +15,8 @@ function status(message, error = false) {
   $('status').textContent = message
   $('status-bar').classList.toggle('error', error)
   $('status-bar').classList.toggle('done', !error)
+  // The log line sits under the tabs. A failure further down the page brings it into view.
+  if (error) { const box = $('status-bar').getBoundingClientRect(); if (box.top < 0 || box.bottom > innerHeight) $('status-bar').scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }) }
 }
 
 function controls() {
@@ -24,6 +26,7 @@ function controls() {
   $('download-backup').disabled = state.busy || !state.created
   $('download-recovered').disabled = state.busy || !state.verified
   $('use-created').disabled = state.busy || !state.created
+  $('verify-created').disabled = state.busy || !state.created
   $('compare-button').disabled = state.busy || !state.baseline || !state.files.length
   $('download-report').disabled = state.busy || !state.comparison
   $('workspace').setAttribute('aria-busy', String(state.busy))
@@ -280,27 +283,36 @@ async function readArchive(file) {
   return { bytes, result, hash: await hash(bytes), name: file.name }
 }
 
+// Shared by the file picker and the in-tab check. Only a reopened saved file completes check 3.
+async function showVerified(name, load, saved) {
+  state.verified = null
+  $('verified-result').hidden = true
+  $('verified-rows').replaceChildren()
+  $('verify-file-name').textContent = name
+  $('check-reopened').classList.remove('done')
+  const archive = await load()
+  state.verified = archive
+  $('verified-summary').textContent = `${countText(archive.result.files.length)} verified${saved ? '' : ' in this tab'}. Nothing was uploaded.`
+  $('verified-date').textContent = dateText(archive.result.manifest.createdAt)
+  $('verified-bytes').textContent = formatBytes(archive.bytes.length)
+  for (const entry of archive.result.files) $('verified-rows').append(row([entry.path, formatBytes(entry.bytes), entry.sha256]))
+  $('verified-result').hidden = false
+  $('check-reopened').classList.toggle('done', saved && archive.hash === state.created?.hash)
+  status(saved
+    ? 'The archive passed every file check. You can now download a recovery copy.'
+    : 'The copy held in this tab passed every file check. Download it and open the saved file here to complete check 3.')
+}
 $('verify-input').addEventListener('change', async event => {
   const file = event.target.files[0]
   event.target.value = ''
   if (!file) return
-  await run('Checking the ZIP structure, file CRC values and SHA-256 fingerprints.', async () => {
-    state.verified = null
-    $('verified-result').hidden = true
-    $('verified-rows').replaceChildren()
-    $('verify-file-name').textContent = file.name
-    $('check-reopened').classList.remove('done')
-    const archive = await readArchive(file)
-    state.verified = archive
-    $('verified-summary').textContent = `${countText(archive.result.files.length)} verified. Nothing was uploaded.`
-    $('verified-date').textContent = dateText(archive.result.manifest.createdAt)
-    $('verified-bytes').textContent = formatBytes(archive.bytes.length)
-    for (const entry of archive.result.files) $('verified-rows').append(row([entry.path, formatBytes(entry.bytes), entry.sha256]))
-    $('verified-result').hidden = false
-    $('check-reopened').classList.toggle('done', archive.hash === state.created?.hash)
-    status('The archive passed every file check. You can now download a recovery copy.')
-  })
+  await run('Checking the ZIP structure, file CRC values and SHA-256 fingerprints.', () => showVerified(file.name, () => readArchive(file), true))
 })
+$('verify-created').addEventListener('click', () => run('Checking the backup held in this tab.', async () => {
+  if (!state.created) throw new Error('Create a backup first.')
+  const { name, hash: sha } = state.created
+  await showVerified(`${name}, held in this tab`, async () => { const bytes = state.created.bytes.slice(); return { bytes, result: await checkArchive(bytes), hash: sha, name } }, false)
+}))
 $('download-recovered').addEventListener('click', () => run('Checking the archive again before exporting the files.', async () => {
   if (!state.verified) throw new Error('Choose and verify an archive first.')
   const bytes = await createRecoveryZip(state.verified.bytes)

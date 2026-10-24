@@ -36,6 +36,8 @@
     <button role="tab" type="button" id="tab-compare" aria-controls="panel-compare" aria-selected="false" tabindex="-1" data-mode="compare"><span class="tab-number">03</span><span>Compare<span class="tab-extra"> versions</span></span></button>
   </div>
 
+  <div class="status-bar" id="status-bar"><span class="status-label" aria-hidden="true">Desk log</span><p id="status" role="status" aria-live="polite">Ready. Try the sample files or choose the project you want to keep.</p></div>
+
   <div id="workspace" tabindex="-1">
     <section id="panel-create" role="tabpanel" aria-labelledby="tab-create">
       <div class="workspace-grid">
@@ -91,6 +93,7 @@
           <p class="section-intro">Open a backup made by Archive Desk. The check reads the ZIP structure, each CRC value and every SHA-256 fingerprint before it offers the files back.</p>
           <label class="file-picker" for="verify-input"><span class="picker-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 15v3.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V15"/></svg></span><span><strong>Choose a backup ZIP</strong><small id="verify-file-name">No archive selected</small></span></label>
           <input class="visually-hidden" type="file" id="verify-input" accept=".zip,application/zip" aria-label="Backup ZIP to verify">
+          <div class="verify-alt"><button class="button secondary" id="verify-created" type="button" disabled>Check the backup made in this tab</button><span class="small muted">Quick check before you download. Only the saved file completes check 3.</span></div>
           <div id="verified-result" hidden>
             <div class="result-heading"><span class="result-check" aria-hidden="true">✓</span><div><h3>Every file matches the manifest.</h3><p id="verified-summary"></p></div></div>
             <dl class="archive-facts"><div><dt>Created</dt><dd id="verified-date"></dd></div><div><dt>Format</dt><dd>Archive Desk ZIP v1</dd></div><div><dt>Archive size</dt><dd id="verified-bytes"></dd></div></dl>
@@ -141,7 +144,6 @@
     </section>
   </div>
 
-  <div class="status-bar" id="status-bar"><span class="status-dot" aria-hidden="true"></span><p id="status" role="status" aria-live="polite">Ready. Try the sample files or choose the project you want to keep.</p></div>
 
   <footer class="site-footer">
     <nav aria-label="More from Archive Desk"><a href="archive-desk-protection.html">Encrypted copies</a><a href="archive-desk-cli.html">Command line</a><a href="archive-desk-workbench-history.html">Workbench for Windows</a><a href="archive-desk-source.zip" download>Source code</a></nav>
