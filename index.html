@@ -321,7 +321,8 @@ function layout(){
 }
 function ease(t){t=Math.max(0,Math.min(1,(t-.14)/.72));return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
 function target(){
-  var s=Math.max(0,Math.min(N-1,scrollY/SEG)),i=Math.min(N-2,Math.floor(s)),e=ease(s-i),a=pos[i],b=pos[i+1];
+  if(!(SEG>0)||innerHeight<2)layout();
+  var s=SEG>0?Math.max(0,Math.min(N-1,scrollY/SEG)):0,i=Math.min(N-2,Math.floor(s)),e=ease(s-i),a=pos[i],b=pos[i+1];
   tgt.x=a.x+(b.x-a.x)*e;tgt.y=a.y+(b.y-a.y)*e;tgt.z=a.z+(b.z-a.z)*e;
 }
 function place(el,p,isWord){
@@ -356,7 +357,7 @@ function goTo(i,instant){
   else sts[i].scrollIntoView({behavior:instant?"auto":"smooth",block:"start"});
 }
 addEventListener("scroll",function(){if(!depth())return;target();kick();if(scrollY>40)hint.classList.add("gone")},{passive:true});
-addEventListener("resize",function(){if(!depth())return;var k=scrollY/SEG;layout();scrollTo(0,k*SEG);snap()});
+addEventListener("resize",function(){if(!depth())return;var k=SEG>0?scrollY/SEG:0;layout();scrollTo(0,k*SEG);snap()});
 if(fine)addEventListener("pointermove",function(e){if(!depth())return;look.x=e.clientX/innerWidth*2-1;look.y=e.clientY/innerHeight*2-1;kick()},{passive:true});
 document.getElementById("prev").addEventListener("click",function(){goTo(Math.round(scrollY/SEG)-1)});
 document.getElementById("next").addEventListener("click",function(){goTo(Math.round(scrollY/SEG)+1)});
