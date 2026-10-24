@@ -6,7 +6,7 @@ It is a single static page written as plain ES modules. There is no framework, n
 
 All suppliers, orders, buyers and figures are fictional sample data, generated from a fixed seed so every visit sees the same 20,000 rows.
 
-![Gridline on desktop and phone](cover-gridline.png)
+![Gridline on desktop](../assets/j/gridline.jpg)
 
 ## What you can do
 

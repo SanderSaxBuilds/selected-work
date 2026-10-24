@@ -1,13 +1,14 @@
-/* Gridline: an enterprise data tool. Dense, neutral, cool grey and slate with one working blue. Square 4 px corners, hairline borders. */
+/* Gridline: a purchasing ledger for an industrial supply house. Dense, graphite on warm steel grey, with one
+   parts-bin green for the working actions and selection. Square 4 px corners, hairline borders. */
 :root {
-  --ink: #1f2933; --paper: #f4f5f7; --line: #d5d9e0; --line-soft: #e6e9ee; --line-strong: #8d96a3; --muted: #556170;
-  --blue: #2f6fed; --blue-ink: #1f55c9; --blue-deep: #1a46a8; --error: #c42b2b; --warning: #a35400;
-  --card: #fff; --soft: #eef3ff; --head: #f4f5f7; --dirty: #fff6d6; --dirty-edge: #c08a00;
-  --sel: rgba(47, 111, 237, .1); --sel-edge: #2f6fed;
+  --ink: #22272a; --paper: #f2f2ef; --line: #d6d8d2; --line-soft: #e7e8e3; --line-strong: #8b918a; --muted: #545b57;
+  --blue: #22744a; --blue-ink: #1b5e3b; --blue-deep: #154a2f; --error: #c42b2b; --warning: #a35400;
+  --card: #fff; --soft: #e6f1ea; --head: #ebece7; --dirty: #fff6d6; --dirty-edge: #c08a00;
+  --sel: rgba(34, 116, 74, .1); --sel-edge: #22744a;
   --display: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
-  --shadow: 0 1px 2px rgba(31, 41, 51, .08);
+  --shadow: 0 1px 2px rgba(34, 39, 42, .08);
   --pop: 0 8px 24px rgba(31, 41, 51, .16), 0 0 0 1px rgba(31, 41, 51, .06);
   --r: 4px;
   --row-h: 36px; --head-h: 40px;
@@ -59,7 +60,7 @@ a { color: var(--blue-ink); }
 .search { position: relative; flex: 1 1 320px; max-width: 460px; min-width: 0; }
 .search svg { position: absolute; left: 10px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
 .search input { width: 100%; min-height: 40px; padding: 0 10px 0 34px; border: 1px solid var(--line-strong); border-radius: var(--r); background: var(--card); font-size: 14px; }
-.search input:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 2px rgba(47, 111, 237, .25); }
+.search input:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 2px rgba(34, 116, 74, .25); }
 .views { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .views label, .phone-sort label { font-size: 13px; font-weight: 500; color: var(--muted); }
 select { min-height: 40px; border: 1px solid var(--line-strong); border-radius: var(--r); background: var(--card); padding: 0 8px; font-size: 14px; max-width: 100%; }
@@ -108,8 +109,8 @@ select { min-height: 40px; border: 1px solid var(--line-strong); border-radius: 
 .row { position: absolute; left: 0; display: flex; height: var(--row-h); }
 .cell { flex: none; height: var(--row-h); padding: 0 10px; display: flex; align-items: center; border-right: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: var(--card); font-size: 14px; white-space: nowrap; overflow: hidden; cursor: cell; }
 .cell > .v { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.row.odd .cell { background: #fafbfc; }
-.row:hover .cell { background: #eef3ff; }
+.row.odd .cell { background: #f9f9f7; }
+.row:hover .cell { background: #eef5f0; }
 .cell.mono { font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; }
 .cell.num { justify-content: flex-end; }
 .cell.ro { color: #3a4553; }
