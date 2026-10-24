@@ -108,7 +108,8 @@ textarea:focus-visible { outline-offset: -1px; }
 .resp code { font-size: 13px; overflow-wrap: anywhere; }
 .resp p { margin: 0; font-size: 14.5px; line-height: 1.5; }
 
-.tables { display: grid; grid-template-columns: 1fr; }
+.tables { display: grid; grid-template-columns: minmax(0, 1fr); }
+.tbl { min-width: 0; }
 .tbl { padding: 14px 16px 6px; }
 .tbl + .tbl { border-top: 1px solid var(--rule); }
 .tbl h3 { font: 600 12.5px/1.5 var(--mono); display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; }

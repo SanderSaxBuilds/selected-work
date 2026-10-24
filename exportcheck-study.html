@@ -47,7 +47,8 @@ button { cursor: pointer; }
 
 /* hero */
 .hero { padding: clamp(36px, 6vw, 72px) 0 28px; }
-.hero-grid { display: grid; gap: 28px 56px; align-items: end; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px 56px; align-items: end; }
+.hero-grid > * { min-width: 0; }
 @media (min-width: 980px) { .hero-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
 .kicker { font: 500 13px/1.4 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
 h1 { margin-top: 14px; font-weight: 800; font-stretch: 72%; font-size: clamp(42px, 7.4vw, 92px); line-height: .92; letter-spacing: -.01em; text-transform: uppercase; }
