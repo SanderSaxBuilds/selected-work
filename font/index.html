@@ -18,10 +18,11 @@
 :root{
   --bg:#0a1020;--bg-2:#111a33;--bg-3:#1a2443;
   --paper:#f5f3ee;--ink:#121214;--muted:#62626b;--line:#e3dfd6;--line-d:rgba(255,255,255,.1);
-  --ac:#4c6fff;--ac-ink:#3451d1;
+  --ac:#4c6fff;--ac-ink:#3451d1;--glow:#9db0ff;
   --display:"Inter Tight",system-ui,sans-serif;
   --body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
   --hand:Caveat,"Segoe Print",cursive;
+  --uh:"Caveat";--uhm:"Caveat";
   --ease:cubic-bezier(.16,1,.3,1);
   --tex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .22 0 0 0 0 .2 0 0 0 0 .16 0 0 0 .9 -.32'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.2'/%3E%3C/svg%3E");
 }
@@ -52,26 +53,103 @@ button{cursor:pointer}
 @media (max-width:760px){.nav{display:none}.lang{margin-left:auto}}
 @media (max-width:359px){.logo .wm{display:none}}
 
-/* hero */
-.hero{background:var(--bg);color:#fff;position:relative;isolation:isolate;padding:72px 0 220px;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(900px 520px at 85% 10%,rgba(76,111,255,.28),transparent 65%),radial-gradient(600px 420px at 0% 100%,rgba(76,111,255,.12),transparent 70%)}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;align-items:end}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#a7aec6;margin:0 0 20px}
-.eyebrow b{background:var(--ac);color:#fff;padding:3px 9px;border-radius:6px;letter-spacing:.06em}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(40px,6.6vw,88px);line-height:.96;letter-spacing:-.035em;margin:0}
-h1 .h{display:block;font-family:var(--hand);font-weight:700;letter-spacing:0;color:#9db0ff;font-size:1.18em;line-height:1;margin-top:.08em;transform:rotate(-2deg);transform-origin:left}
-.hero .side p{color:#c4c9da;font-size:clamp(16px,1.4vw,18px);margin:0 0 24px;max-width:30em}
-.cta{display:flex;flex-wrap:wrap;gap:10px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 22px;border-radius:14px;text-decoration:none;font-weight:600;font-size:15px;border:0;transition:transform .35s var(--ease),background .25s,box-shadow .35s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 22px;border-radius:14px;text-decoration:none;font-weight:600;font-size:15px;border:0;transition:transform .35s var(--ease),background .25s,box-shadow .35s;white-space:nowrap}
 .btn svg{width:18px;height:18px;flex:0 0 auto}
 .btn.p{background:var(--ac);color:#fff;box-shadow:0 10px 30px -10px rgba(76,111,255,.9)}
 .btn.g{background:rgba(255,255,255,.07);color:#fff;border:1px solid var(--line-d)}
 .btn.k{background:var(--ink);color:#fff}
 .btn:hover{transform:translateY(-2px)}
-@media (max-width:860px){.hero{padding:44px 0 200px}.hero .wrap{grid-template-columns:1fr;gap:22px}}
+
+/* hero: the pen writes a name live */
+.hero{background:var(--bg);color:#fff;position:relative;isolation:isolate;overflow:hidden;min-height:calc(100svh - 64px);display:flex}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(1000px 560px at 50% 52%,rgba(76,111,255,.26),transparent 66%),radial-gradient(520px 380px at 100% 0%,rgba(76,111,255,.14),transparent 70%)}
+.hero .wrap{display:flex;flex-direction:column;padding-top:48px;padding-bottom:36px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#a7aec6;margin:0 0 16px}
+.eyebrow b{background:var(--ac);color:#fff;padding:3px 9px;border-radius:6px;letter-spacing:.06em}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(36px,5.4vw,76px);line-height:.98;letter-spacing:-.035em;margin:0}
+h1 span{color:var(--glow);display:block}
+.stage{position:relative;height:clamp(200px,40vh,440px);margin:6px -24px 4px;flex:1 0 auto}
+.stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.gm{transform-box:fill-box;transform-origin:50% 80%;transition:transform .5s var(--ease)}
+.gl{transform-box:fill-box;transform-origin:50% 50%;transition:transform .8s var(--ease),opacity .6s,filter .6s}
+.gl.out{transform:translateY(-34px) rotate(-6deg);opacity:0;filter:blur(6px)}
+.gl .c{fill:none;stroke:var(--glow);stroke-width:1.7;vector-effect:non-scaling-stroke;stroke-linejoin:round;transition:opacity 1.1s}
+.gl .f{fill:#f5f3ee;opacity:0;transition:opacity .55s}
+.gl.in .f{opacity:1}
+.gl.in .c{opacity:0}
+#swash{fill:none;stroke:var(--ac);stroke-width:5;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke-dashoffset .8s var(--ease),opacity .5s}
+#nib{transition:opacity .3s}
+.hbot{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;justify-content:space-between}
+.hbot>div:first-child{flex:1 1 340px;min-width:0;max-width:520px}
+.namebox{display:flex;align-items:center;gap:12px;min-height:62px;padding:6px 8px 6px 20px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid var(--line-d);transition:border-color .3s,background .3s}
+.namebox:focus-within{border-color:rgba(157,176,255,.6);background:rgba(255,255,255,.09)}
+.namebox label{font-size:13px;color:#a7aec6;white-space:nowrap}
+.namebox input{flex:1;min-width:0;background:transparent;border:0;outline:0;font:600 21px var(--display);color:#fff;min-height:48px;letter-spacing:-.01em}
+.namebox input::placeholder{color:#59617d}
+.namebox .pen{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--ac);flex:0 0 auto}
+.namebox .pen svg{width:18px;height:18px}
+.hnote{font-size:13px;color:#7c84a0;margin:10px 0 0}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:640px){.hero .wrap{padding-top:32px;padding-bottom:24px}.stage{margin:4px -16px;height:clamp(170px,30vh,300px)}.cta .btn{flex:1 1 auto}}
+
+/* story: paper to font, driven by scroll */
+.story{position:relative;height:340vh}
+.pin{position:sticky;top:64px;height:calc(100svh - 64px);display:flex;align-items:center;overflow:hidden}
+.pin .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;align-items:center}
+.kick{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 14px}
+.stx h2,.head h2{font-family:var(--display);font-size:clamp(30px,3.8vw,52px);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin:0}
+.stx h2 em,.head h2 em{font-style:normal;font-family:var(--hand);font-weight:700;color:var(--ac);letter-spacing:0;font-size:1.2em;display:inline-block}
+.sl{list-style:none;margin:28px 0 0;padding:0 0 0 22px;display:grid;gap:18px;position:relative}
+.sl::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:2px;background:var(--line);border-radius:2px}
+.sl::after{content:"";position:absolute;left:0;top:6px;width:2px;height:calc(var(--sp,0)*(100% - 12px));background:var(--ac);border-radius:2px}
+.sl li{opacity:.38;transition:opacity .4s,transform .5s var(--ease);transform:translateX(0)}
+.sl li.on{opacity:1;transform:translateX(6px)}
+.sl b{display:block;font-family:var(--display);font-size:21px;letter-spacing:-.02em;line-height:1.2}
+.sl b i{font-style:normal;font-family:var(--hand);color:var(--ac);font-size:1.3em;margin-right:8px}
+.sl .ds{display:block;color:var(--muted);font-size:15px;margin-top:4px;max-width:28em}
+.lnk{font-weight:600;color:var(--ac-ink);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:18px}
+.scene{position:relative;justify-self:center;width:min(100%,calc(100svh - 64px - 96px));aspect-ratio:1/1;container-type:size;border-radius:28px;background:var(--bg);overflow:hidden;isolation:isolate;box-shadow:0 50px 90px -50px rgba(10,16,32,.7)}
+.scene::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70cqw 60cqh at 50% 40%,rgba(76,111,255,.3),transparent 70%)}
+.paper{position:absolute;left:19%;top:6%;width:62%;height:88%;background:#fff;border-radius:2.2cqw;box-shadow:0 4cqw 8cqw -3cqw rgba(0,0,0,.55);transform-origin:50% 100%;will-change:transform}
+.paper .ph{position:absolute;left:8%;top:3.4%;right:8%;display:flex;justify-content:space-between;font:600 1.9cqw/1 var(--body);color:#8a8a92;letter-spacing:.04em}
+.paper .cm{position:absolute;width:3.4%;aspect-ratio:1;background:#121214}
+.bx{position:absolute;border:.22cqw solid #d6d0c3;border-radius:.8cqw}
+.bx small{position:absolute;left:6%;top:3%;font:600 1.5cqw/1 var(--body);color:#a39d90}
+.bx::after{content:"";position:absolute;left:8%;right:8%;bottom:24%;border-top:.18cqw dashed #e2dccf}
+.fl{position:absolute;left:0;top:0;font:700 6.6cqw/1 var(--hand);color:#121214;will-change:transform;opacity:0;white-space:nowrap}
+.phone{position:absolute;left:27%;top:7%;width:46%;height:86%;border-radius:5.5cqw;border:2.2cqw solid #05080f;box-shadow:0 0 0 .35cqw #2b3558,0 5cqw 10cqw -3cqw rgba(0,0,0,.7);opacity:0;will-change:transform}
+.phone .vf{position:absolute;inset:9%;}
+.phone .vf i{position:absolute;width:16%;aspect-ratio:1;border:.5cqw solid #fff;border-radius:.6cqw}
+.phone .vf i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}.phone .vf i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
+.phone .vf i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}.phone .vf i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+.phone .sh{position:absolute;left:50%;bottom:3%;width:13cqw;height:13cqw;margin-left:-6.5cqw;border-radius:50%;border:.7cqw solid #fff;background:rgba(255,255,255,.25)}
+.phone .nt{position:absolute;left:50%;top:1.6%;width:28%;height:3.6%;margin-left:-14%;border-radius:99px;background:#05080f}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:5}
+.file{position:absolute;left:8%;top:58%;width:84%;height:32%;border-radius:3.4cqw;background:rgba(255,255,255,.07);border:.25cqw solid rgba(255,255,255,.12);padding:4.4cqw;display:flex;flex-direction:column;justify-content:space-between;opacity:0;color:#fff}
+.file .t{display:flex;align-items:center;gap:3.4cqw}
+.file .ic{width:11cqw;height:11cqw;border-radius:2.4cqw;background:var(--ac);display:grid;place-items:center;font:700 5.6cqw/1 var(--hand);flex:0 0 auto}
+.file b{display:block;font:700 4.4cqw/1.1 var(--display);letter-spacing:-.02em}
+.file .t div span{display:block;font-size:2.7cqw;color:#a7aec6;margin-top:.8cqw}
+.file .pg{height:1.4cqw;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
+.file .pg i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--glow));border-radius:9px}
+.file .ch3{display:flex;gap:1.6cqw;align-items:center}
+.file .ch3 em{font:600 2.5cqw/1 var(--body);font-style:normal;padding:1.3cqw 2cqw;border-radius:1.4cqw;background:#2b3558;letter-spacing:.04em}
+.file .ch3 em:first-child{background:var(--ac)}
+.file .ch3 .st3{margin-left:auto;font:600 2.6cqw/1 var(--body);color:var(--glow)}
+@media (max-width:900px){
+  .story{height:300vh}
+  .pin .wrap{grid-template-columns:1fr;gap:16px;align-content:center}
+  .sl{margin-top:14px;padding-left:16px}.sl li:not(.on){display:none}.sl li.on{transform:none}
+  .stx .lnk{display:none}
+  .scene{width:min(100%,calc(100svh - 64px - 270px));border-radius:22px}
+}
 
 /* studio */
-.studio{position:relative;z-index:2;margin-top:-170px}
+section.s{padding-top:110px}
+.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 32px;margin-bottom:28px}
+.head p{margin:0;color:var(--muted);max-width:30em}
+.js .head h2 em,.js .stx h2 em{clip-path:inset(-10% 100% -20% 0);transition:clip-path 1.1s var(--ease) .15s}
+.js .on-v h2 em{clip-path:inset(-10% -6% -20% 0)}
 .sheet{background:#fff;border-radius:26px;border:1px solid var(--line);box-shadow:0 50px 100px -50px rgba(10,16,32,.55);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);overflow:hidden}
 .left{padding:26px 26px 22px;border-right:1px solid var(--line)}
 .right{padding:26px;background:#fbfaf7;display:flex;flex-direction:column;gap:18px;min-width:0}
@@ -98,7 +176,6 @@ h1 .h{display:block;font-family:var(--hand);font-weight:700;letter-spacing:0;col
 .hint{font-size:13.5px;color:var(--muted);margin:14px 0 0}
 .hint b{color:var(--ink)}
 @media (max-width:640px){.pad{width:calc(33.33% - 8px)}.pad canvas{width:100%;height:auto;aspect-ratio:4/5}.left,.right{padding:18px}}
-
 .live{flex:1;display:flex;flex-direction:column;min-height:0}
 .out{flex:1;min-height:220px;width:100%;border:1px dashed #d9d4c8;border-radius:16px;background:#fff;padding:18px 20px;font-size:clamp(56px,7vw,96px);line-height:1.1;resize:none;overflow:auto;color:var(--ink);font-family:var(--hand)}
 .out:focus{outline:2px solid var(--ac);outline-offset:1px;border-style:solid}
@@ -111,42 +188,48 @@ h1 .h{display:block;font-family:var(--hand);font-weight:700;letter-spacing:0;col
 .dl .btn[disabled]{opacity:.45;pointer-events:none}
 .note{font-size:13.5px;color:var(--muted);margin:0;padding:12px 14px;border-radius:12px;background:#f2efe8}
 @media (max-width:900px){.sheet{grid-template-columns:1fr}.left{border-right:0;border-bottom:1px solid var(--line)}}
-
-/* burst */
 .burst{position:fixed;left:0;top:0;pointer-events:none;z-index:50}
 .burst i{position:absolute;width:3px;height:16px;border-radius:3px;background:var(--ac);left:0;top:0;animation:bu .8s var(--ease) forwards}
 @keyframes bu{from{transform:translate(0,0) rotate(var(--a)) translateY(0);opacity:1}to{transform:translate(0,0) rotate(var(--a)) translateY(calc(var(--d)*-1));opacity:0}}
 
-/* sections */
-section.s{padding-top:96px}
-.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 32px;margin-bottom:28px}
-.head h2{font-family:var(--display);font-size:clamp(30px,3.8vw,48px);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin:0}
-.head h2 em{font-style:normal;font-family:var(--hand);font-weight:700;color:var(--ac);letter-spacing:0;font-size:1.2em}
-.head p{margin:0;color:var(--muted);max-width:30em}
-.steps{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px}
-.st{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
-.st .n{font-family:var(--hand);font-size:56px;font-weight:700;line-height:.8;color:var(--ac)}
-.st h3{font-family:var(--display);font-size:22px;letter-spacing:-.02em;line-height:1.15;margin:0}
-.st p{margin:0;color:var(--muted);font-size:15px}
-.st .shot{margin-top:6px;border-radius:12px;overflow:hidden;border:1px solid var(--line);aspect-ratio:1.414/1;background:#fff}
-.st .shot img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform 1.2s var(--ease)}
-.st:hover .shot img{transform:scale(1.06) translateY(-2%)}
-.st a.lnk{font-weight:600;color:var(--ac-ink);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px}
-.files{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
-.files span{font:600 12.5px/1 var(--body);padding:9px 12px;border-radius:10px;background:var(--bg);color:#fff;letter-spacing:.04em}
-.files span:nth-child(2){background:#2b3558}.files span:nth-child(3){background:var(--ac)}
-.phone{margin-top:auto;display:flex;gap:10px;align-items:flex-end}
-.phone .ph{width:84px;height:120px;border-radius:16px;background:var(--bg);padding:8px;display:grid;place-items:center;transform:rotate(-6deg);transition:transform .6s var(--ease)}
-.st:hover .phone .ph{transform:rotate(0deg) translateY(-6px)}
-.phone .ph span{width:100%;height:100%;border-radius:10px;background:#fcfbf8;display:grid;place-items:center;font-family:var(--hand);font-size:34px;font-weight:700}
-@media (max-width:900px){.steps{grid-template-columns:1fr}}
+/* ribbon: the visitor's own letters, huge, moving with the scroll */
+.ribbon{margin-top:120px;padding:40px 0;overflow:hidden}
+.band{background:var(--bg);transform:rotate(-2.2deg);margin:0 -4vw;padding:18px 0 10px;box-shadow:0 40px 80px -40px rgba(10,16,32,.7)}
+.rb{white-space:nowrap;font-family:var(--uh),var(--hand);font-weight:700;font-size:clamp(70px,12vw,176px);line-height:1.05;will-change:transform}
+.rb.r1{color:#f5f3ee}
+.rb.r2{color:transparent;-webkit-text-stroke:1.5px var(--glow)}
+.rb span{padding-right:.4em}
 
-.uses{display:flex;flex-wrap:wrap;gap:10px}
-.uses span{display:inline-flex;align-items:center;min-height:46px;padding:0 18px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:500;transition:transform .4s var(--ease),background .3s,color .3s}
-.uses span:hover{transform:translateY(-3px) rotate(-1.5deg);background:var(--ink);color:#fff}
+/* mockups: live text in the visitor's font */
+.mocks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;perspective:1100px}
+.mk2{container-type:inline-size;position:relative;border-radius:22px;aspect-ratio:4/5;padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s var(--ease),box-shadow .5s;box-shadow:0 30px 60px -36px rgba(10,16,32,.5)}
+.mk2:hover{box-shadow:0 40px 70px -34px rgba(10,16,32,.6)}
+.mk2 .hw{font-family:var(--uhm),var(--hand);font-weight:700;line-height:1;--k:min(1,7/var(--nl,6))}
+.mk2 .sm{font:600 clamp(9px,4.4cqi,11.5px)/1.3 var(--body);letter-spacing:.14em;text-transform:uppercase}
+.mk2 .tg2{position:absolute;left:14px;top:14px;font:600 11px/1 var(--body);letter-spacing:.06em;padding:6px 9px;border-radius:999px;background:rgba(18,18,20,.06);color:var(--muted);text-transform:uppercase}
+.m-inv{background:#fff;border:1px solid var(--line)}
+.m-inv::before{content:"";position:absolute;inset:14px;border:1px solid #d9d2c2;border-radius:12px}
+.m-inv .hw{font-size:calc(22cqi*var(--k));margin:14px 0 12px;color:var(--ink)}
+.m-inv .sm{color:#8a8172}
+.m-lab{background:#e9e4da}
+.m-lab .disc{width:84%;aspect-ratio:1;border-radius:50%;background:var(--bg);color:#f5f3ee;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;box-shadow:inset 0 0 0 6px var(--bg),inset 0 0 0 7px rgba(255,255,255,.25)}
+.m-lab .hw{font-size:calc(17cqi*var(--k));color:#f5f3ee;padding:0 10%}
+.m-lab .sm{color:var(--glow)}
+.m-lab .tg2{background:rgba(18,18,20,.08)}
+.m-post{background:var(--ac);color:#fff}
+.m-post .hw{font-size:calc(21cqi*var(--k))}
+.m-post .sm{color:rgba(255,255,255,.75);margin-top:14px}
+.m-post .tg2{background:rgba(255,255,255,.16);color:#fff}
+.m-note{background:#fffdf7 repeating-linear-gradient(transparent 0 33px,#e7e0cf 33px 34px);background-position:0 56px;align-items:flex-start;text-align:left;justify-content:flex-start;padding-top:62px}
+.m-note::after{content:"";position:absolute;left:34px;top:0;bottom:0;width:1px;background:rgba(224,69,123,.35)}
+.m-note .hw{font-size:calc(14cqi*min(1,9/var(--nl,6)));line-height:34px;color:#1c2b6b;padding-left:24px}
+.m-note .tg2{background:rgba(18,18,20,.06)}
+@media (max-width:980px){.mocks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.mocks{gap:12px}.mk2{padding:40px 14px 16px;border-radius:18px}.m-note{padding-top:56px}.m-note .hw{padding-left:14px}.m-note::after{left:22px}}
 
-.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:900px}
-.plan{border-radius:24px;padding:26px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;gap:14px;position:relative}
+/* prices, faq, contact */
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:900px;perspective:1100px}
+.plan{border-radius:24px;padding:26px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;gap:14px;position:relative;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s var(--ease)}
 .plan.top{background:var(--bg);color:#fff;border-color:transparent;box-shadow:0 30px 60px -30px rgba(10,16,32,.6)}
 .plan .tg{position:absolute;right:20px;top:20px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--ac);color:#fff;padding:5px 10px;border-radius:999px}
 .plan h3{font-family:var(--display);font-size:22px;margin:0;letter-spacing:-.02em}
@@ -159,7 +242,6 @@ section.s{padding-top:96px}
 .plan .btn{margin-top:auto}
 .plan:not(.top) .btn{background:var(--ink);color:#fff}
 @media (max-width:760px){.plans{grid-template-columns:1fr}}
-
 .faq{max-width:860px;display:grid;gap:10px}
 .faq details{background:#fff;border:1px solid var(--line);border-radius:16px;padding:0 20px}
 .faq summary{cursor:pointer;list-style:none;min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-weight:600}
@@ -167,12 +249,11 @@ section.s{padding-top:96px}
 .faq summary::after{content:"+";font-size:22px;color:var(--muted);transition:transform .3s var(--ease)}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq p{margin:0 0 18px;color:var(--muted)}
-
 .contact{margin-top:110px;background:var(--bg);color:#fff;position:relative;overflow:hidden;isolation:isolate}
 .contact::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(800px 500px at 85% 0%,rgba(76,111,255,.25),transparent 65%)}
 .contact .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;padding-top:80px;padding-bottom:80px;align-items:center}
 .contact h2{font-family:var(--display);font-size:clamp(32px,4.4vw,56px);font-weight:800;letter-spacing:-.035em;line-height:1;margin:0 0 18px}
-.contact h2 em{font-style:normal;font-family:var(--hand);font-weight:700;color:#9db0ff;letter-spacing:0;font-size:1.15em}
+.contact h2 em{font-style:normal;font-family:var(--hand);font-weight:700;color:var(--glow);letter-spacing:0;font-size:1.15em}
 .contact p{color:#c4c9da;margin:0;max-width:30em}
 .chs{display:grid;gap:10px}
 .ch{display:flex;align-items:center;gap:16px;min-height:72px;padding:12px 18px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid var(--line-d);text-decoration:none;transition:background .3s,transform .4s var(--ease)}
@@ -188,6 +269,7 @@ footer a{color:#c4c9da}
 @media (max-width:860px){.contact .wrap{grid-template-columns:1fr;padding-top:56px;padding-bottom:56px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 <header class="bar"><div class="wrap">
@@ -196,18 +278,53 @@ footer a{color:#c4c9da}
   <div class="lang" role="group" aria-label="Language / Язык"><span class="pill" aria-hidden="true"></span><button type="button" data-l="en" aria-pressed="true">EN</button><button type="button" data-l="ru" aria-pressed="false">RU</button></div>
 </div></header>
 
-<section class="hero"><div class="wrap">
-  <div>
-    <p class="eyebrow"><b data-t="new">New</b> <span data-t="eyebrow">Handwriting font</span></p>
-    <h1><span data-t="h1a">Your handwriting.</span><span class="h" data-t="h1b">A real font.</span></h1>
+<section class="hero" id="hero"><div class="wrap">
+  <p class="eyebrow"><b data-t="new">New</b> <span data-t="eyebrow">Handwriting font</span></p>
+  <h1 data-t="h1">Your handwriting, <span>as a real font.</span></h1>
+  <div class="stage" id="stageWrap">
+    <svg id="stage" viewBox="-40 -230 760 330" role="img" aria-label="Sander" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="nibf" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.6"/></filter>
+      </defs>
+      <g id="nm"></g>
+      <path id="swash" d="M0 0"/>
+      <circle id="nib" r="5" fill="#fff" filter="url(#nibf)" opacity="0"/>
+    </svg>
   </div>
-  <div class="side">
-    <p data-t="lede">Type in your own hand in Word, Canva, Figma or on your website. Draw a few letters below and download them as a font right now. The full version is made from one printed sheet.</p>
+  <div class="hbot">
+    <div>
+      <div class="namebox"><label for="nameIn" data-t="nameL">Write your name</label><input id="nameIn" type="text" maxlength="14" autocomplete="off" spellcheck="false" placeholder="Sander" data-t-ph="namePh"><span class="pen" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 20l4-1 11-11-3-3L5 16l-1 4zM14 6l3 3"/></svg></span></div>
+      <p class="hnote" data-t="hnote">A sample hand, written live. Your font will look like you.</p>
+    </div>
     <div class="cta"><a class="btn p" href="#try" data-t="ctaTry">Draw your letters</a><a class="btn g" href="#prices" data-t="ctaPrice">Order the full font</a></div>
   </div>
 </div></section>
 
-<section class="studio wrap" id="try" aria-label="Font studio" data-t-aria="studioL">
+<section class="story" id="how">
+  <div class="pin"><div class="wrap">
+    <div class="stx">
+      <p class="kick" data-t="stK">How the full font is made</p>
+      <h2 data-t="stH">From one sheet <em>to a real font</em></h2>
+      <ol class="sl" id="sl">
+        <li class="on"><b><i>1</i><span data-t="st1h">Print the sheet</span></b><span class="ds" data-t="st1p">Three A4 pages with a box for every letter, digit and sign. Print at 100%.</span></li>
+        <li><b><i>2</i><span data-t="st2h">Fill it in, take photos</span></b><span class="ds" data-t="st2p">One letter per box, on the line, with a black felt-tip pen. Photograph each page flat in daylight and send me the photos.</span></li>
+        <li><b><i>3</i><span data-t="st3h">Get your font</span></b><span class="ds" data-t="st3p">In two days you get the font files, a sample page and help installing them. Your signature can go on its own key.</span></li>
+      </ol>
+      <a class="lnk" href="handwriting-font-template.pdf" download data-t="st1a">Download the sheet (PDF) →</a>
+    </div>
+    <div class="scene" id="scene" aria-hidden="true">
+      <div class="paper" id="paper"><div class="ph"><span data-t="sheetHead">Handwriting font</span><span>1 / 3</span></div><i class="cm" style="left:3%;top:2%"></i><i class="cm" style="right:3%;top:2%"></i><i class="cm" style="left:3%;bottom:2%"></i><i class="cm" style="right:3%;bottom:2%"></i></div>
+      <div class="phone" id="phone"><span class="nt"></span><div class="vf"><i></i><i></i><i></i><i></i></div><span class="sh"></span></div>
+      <div class="file" id="file"><div class="t"><span class="ic">Aa</span><div><b>my-handwriting.otf</b><span data-t="fileMeta">Latin and Cyrillic · 166 signs</span></div></div><div class="pg"><i id="pg"></i></div><div class="ch3"><em>OTF</em><em>TTF</em><em>WOFF2</em><span class="st3" id="st3"></span></div></div>
+      <div class="flash" id="flash"></div>
+    </div>
+  </div></div>
+</section>
+
+<section class="s wrap" id="try" aria-label="Font studio" data-t-aria="studioL">
+  <div class="head"><h2 data-t="trH">Now draw <em>your own</em></h2><p data-t="trP">Draw a few letters with a mouse, finger or stylus. The page turns them into a real font file you can install.</p></div>
   <div class="sheet">
     <div class="left">
       <p class="step"><i>1</i><span data-t="s1">Draw each letter</span></p>
@@ -229,25 +346,23 @@ footer a{color:#c4c9da}
   </div>
 </section>
 
-<section class="s wrap" id="how">
-  <div class="head"><h2 data-t="howH">The full font in <em>three steps</em></h2><p data-t="howP">You need a printer, a black felt-tip pen and a phone. Nothing to install.</p></div>
-  <div class="steps">
-    <div class="st"><span class="n">1</span><h3 data-t="st1h">Print the sheet</h3><p data-t="st1p">Three A4 pages with a box for every letter, digit and sign. Print at 100%.</p><div class="shot"><img src="sheet.jpg" alt="First page of the handwriting template with boxes for capital letters" loading="lazy" data-t-alt="sheetAlt"></div><a class="lnk" href="handwriting-font-template.pdf" download data-t="st1a">Download the sheet (PDF) →</a></div>
-    <div class="st"><span class="n">2</span><h3 data-t="st2h">Fill it in, take photos</h3><p data-t="st2p">One letter per box, on the line. Photograph each page flat in daylight with the four corner marks visible, then send me the photos.</p><div class="phone" aria-hidden="true"><div class="ph"><span>Aa</span></div><div class="ph" style="transform:rotate(4deg)"><span>Яя</span></div></div></div>
-    <div class="st"><span class="n">3</span><h3 data-t="st3h">Get your font</h3><p data-t="st3p">In two days you get the font files, a sample page and help installing them. Your signature can go on its own key.</p><div class="files"><span>OTF</span><span>TTF</span><span>WOFF2</span></div></div>
-  </div>
-</section>
+<section class="ribbon" id="ribbon" aria-hidden="true"><div class="band"><div class="rb r1" id="rb1"></div><div class="rb r2" id="rb2"></div></div></section>
 
-<section class="s wrap">
-  <div class="head"><h2 data-t="useH">Where people <em>use it</em></h2></div>
-  <div class="uses"><span data-t="u1">Wedding invitations</span><span data-t="u2">Brand and packaging</span><span data-t="u3">Cards and gifts</span><span data-t="u4">Notes and planners</span><span data-t="u5">Your website</span><span data-t="u6">School and kids' books</span><span data-t="u7">Social posts</span><span data-t="u8">A parent's handwriting, kept</span></div>
+<section class="s wrap" style="padding-top:90px">
+  <div class="head"><h2 data-t="useH">Where your hand <em>goes</em></h2><p data-t="useP">The same font on an invitation, a label, a post and a note. Change the name at the top and watch.</p></div>
+  <div class="mocks">
+    <div class="mk2 m-inv tilt"><span class="tg2" data-t="m1t">Invitation</span><span class="sm" data-t="m1a">Save the date</span><span class="hw"><span class="nm">Sander</span></span><span class="sm">12 · 06 · 2027</span></div>
+    <div class="mk2 m-lab tilt"><span class="tg2" data-t="m2t">Packaging</span><div class="disc"><span class="sm" data-t="m2a">Small batch</span><span class="hw"><span class="nm">Sander</span></span><span class="sm" data-t="m2b">Fresh roast</span></div></div>
+    <div class="mk2 m-post tilt"><span class="tg2" data-t="m3t">Social post</span><span class="hw"><span data-t="m3a">Hello from</span> <span class="nm">Sander</span></span><span class="sm" data-t="m3b">New in the shop</span></div>
+    <div class="mk2 m-note tilt"><span class="tg2" data-t="m4t">Note</span><span class="hw"><span class="nm">Sander</span>,<br><span data-t="m4a">milk, flowers,<br>call mom ♡</span></span></div>
+  </div>
 </section>
 
 <section class="s wrap" id="prices">
   <div class="head"><h2 data-t="prH">Simple <em>prices</em></h2><p data-t="prP">One price, no subscription. You own the font and can use it anywhere.</p></div>
   <div class="plans">
-    <div class="plan"><h3 data-t="p1h">Personal</h3><div class="pr">$39<small data-t="once">once</small></div><ul><li data-t="p1a">One alphabet, Latin or Cyrillic</li><li data-t="p1b">Capitals, small letters, digits and punctuation</li><li data-t="p1c">OTF and TTF for Windows, Mac, Word and Canva</li><li data-t="p1d">One round of fixes</li></ul><a class="btn" href="https://t.me/sandersax" target="_blank" rel="noopener" data-t="p1btn">Order on Telegram</a></div>
-    <div class="plan top"><span class="tg" data-t="pop">Most chosen</span><h3 data-t="p2h">Full</h3><div class="pr">$69<small data-t="once">once</small></div><ul><li data-t="p2a">Latin and Cyrillic together</li><li data-t="p2b">Digits, punctuation and « » quotes</li><li data-t="p2c">Your signature on its own key</li><li data-t="p2d">Web font (WOFF2) with a sample page</li><li data-t="p2e">Two rounds of fixes</li></ul><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener" data-t="p2btn">Order on Telegram</a></div>
+    <div class="plan tilt"><h3 data-t="p1h">Personal</h3><div class="pr">$39<small data-t="once">once</small></div><ul><li data-t="p1a">One alphabet, Latin or Cyrillic</li><li data-t="p1b">Capitals, small letters, digits and punctuation</li><li data-t="p1c">OTF and TTF for Windows, Mac, Word and Canva</li><li data-t="p1d">One round of fixes</li></ul><a class="btn" href="https://t.me/sandersax" target="_blank" rel="noopener" data-t="p1btn">Order on Telegram</a></div>
+    <div class="plan top tilt"><span class="tg" data-t="pop">Most chosen</span><h3 data-t="p2h">Full</h3><div class="pr">$69<small data-t="once">once</small></div><ul><li data-t="p2a">Latin and Cyrillic together</li><li data-t="p2b">Digits, punctuation and « » quotes</li><li data-t="p2c">Your signature on its own key</li><li data-t="p2d">Web font (WOFF2) with a sample page</li><li data-t="p2e">Two rounds of fixes</li></ul><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener" data-t="p2btn">Order on Telegram</a></div>
   </div>
 </section>
 
@@ -274,19 +389,27 @@ footer a{color:#c4c9da}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/opentype.js/1.3.4/opentype.min.js"></script>
 <script>
 (function(){
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function $(s){return document.querySelector(s)}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+
 /* ---------- language ---------- */
 var T={en:{},ru:{
 navL:"Разделы",nTry:"Попробовать",nHow:"Как это работает",nPrice:"Цены",nContact:"Контакты",new:"Новое",eyebrow:"Шрифт из почерка",
-h1a:"Ваш почерк.",h1b:"Настоящий шрифт.",lede:"Пишите своей рукой в Word, Canva, Figma или на своём сайте. Нарисуйте несколько букв ниже и сразу скачайте их как шрифт. Полная версия делается по одному распечатанному листу.",
-ctaTry:"Нарисовать буквы",ctaPrice:"Заказать полный шрифт",studioL:"Студия шрифта",s1:"Нарисуйте каждую букву",lettersL:"Какие буквы рисовать",weightL:"Перо",
+h1:"Ваш почерк, <span>как настоящий шрифт.</span>",nameL:"Напишите имя",namePh:"Мария",hnote:"Пример почерка, пишется вживую. Ваш шрифт будет похож на вас.",
+ctaTry:"Нарисовать буквы",ctaPrice:"Заказать полный шрифт",
+stK:"Как делается полный шрифт",stH:"От одного листа <em>до настоящего шрифта</em>",
+st1h:"Распечатайте лист",st1p:"Три страницы A4, клетка для каждой буквы, цифры и знака. Печатайте в масштабе 100%.",
+st2h:"Заполните и сфотографируйте",st2p:"Одна буква в клетке, на линии, чёрным фломастером. Сфотографируйте каждую страницу ровно, при дневном свете, и пришлите фото.",
+st3h:"Получите шрифт",st3p:"Через два дня вы получите файлы шрифта, страницу с образцом и помощь с установкой. Подпись можно поставить на отдельную клавишу.",
+st1a:"Скачать лист (PDF) →",sheetHead:"Шрифт из почерка",fileMeta:"Латиница и кириллица · 166 знаков",
+studioL:"Студия шрифта",trH:"Теперь нарисуйте <em>свои</em>",trP:"Нарисуйте несколько букв мышью, пальцем или стилусом. Страница превратит их в настоящий файл шрифта, который можно установить.",
+s1:"Нарисуйте каждую букву",lettersL:"Какие буквы рисовать",weightL:"Перо",
 hint:"Сначала перо рисует пример. <b>Нажмите × и нарисуйте свою</b> мышью, пальцем или стилусом. Ставьте буквы на сплошную линию.",
 s2:"Пишите им",outL:"Напишите текст своим шрифтом",s3:"Заберите с собой",dl:"Скачать мой шрифт (.otf)",
 note:"В этом быстром шрифте только нарисованные буквы. Полный шрифт содержит все буквы, цифры и знаки на латинице и кириллице, с вашей настоящей ручки на бумаге.",
-howH:"Полный шрифт за <em>три шага</em>",howP:"Нужны принтер, чёрный фломастер и телефон. Ничего устанавливать не нужно.",
-st1h:"Распечатайте лист",st1p:"Три страницы A4, клетка для каждой буквы, цифры и знака. Печатайте в масштабе 100%.",st1a:"Скачать лист (PDF) →",sheetAlt:"Первая страница шаблона с клетками для заглавных букв",
-st2h:"Заполните и сфотографируйте",st2p:"Одна буква в клетке, на линии. Сфотографируйте каждую страницу ровно, при дневном свете, чтобы были видны четыре угловые метки, и пришлите фото.",
-st3h:"Получите шрифт",st3p:"Через два дня вы получите файлы шрифта, страницу с образцом и помощь с установкой. Подпись можно поставить на отдельную клавишу.",
-useH:"Где его <em>используют</em>",u1:"Свадебные приглашения",u2:"Бренд и упаковка",u3:"Открытки и подарки",u4:"Заметки и планеры",u5:"Ваш сайт",u6:"Школа и детские книги",u7:"Посты в соцсетях",u8:"Почерк родителей на память",
+useH:"Куда идёт <em>ваша рука</em>",useP:"Один шрифт на приглашении, этикетке, посте и записке. Поменяйте имя вверху и посмотрите.",
+m1t:"Приглашение",m1a:"Запомните дату",m2t:"Упаковка",m2a:"Малая партия",m2b:"Свежая обжарка",m3t:"Пост",m3a:"Привет от",m3b:"Новинка в магазине",m4t:"Записка",m4a:"молоко, цветы,<br>позвонить маме ♡",
 prH:"Простые <em>цены</em>",prP:"Одна оплата, без подписки. Шрифт ваш, используйте где угодно.",once:"один раз",
 p1h:"Личный",p1a:"Один алфавит, латиница или кириллица",p1b:"Заглавные, строчные, цифры и знаки",p1c:"OTF и TTF для Windows, Mac, Word и Canva",p1d:"Одна правка",p1btn:"Заказать в Telegram",
 pop:"Чаще выбирают",p2h:"Полный",p2a:"Латиница и кириллица вместе",p2b:"Цифры, знаки и кавычки « »",p2c:"Ваша подпись на отдельной клавише",p2d:"Веб-шрифт (WOFF2) со страницей образца",p2e:"Две правки",p2btn:"Заказать в Telegram",
@@ -297,37 +420,174 @@ q4:"Можно тайские буквы?",a4:"В стандартном лис�
 cH:"Пришлите фото, <em>получите шрифт</em>",cP:"Пишите в любой из этих каналов. Присылайте фото листа или сначала задайте вопрос. Обычно отвечаю в тот же день.",fAll:"Все работы"}};
 document.querySelectorAll("[data-t]").forEach(function(el){T.en[el.dataset.t]=el.innerHTML});
 document.querySelectorAll("[data-t-aria]").forEach(function(el){T.en[el.dataset.tAria]=el.getAttribute("aria-label")});
-document.querySelectorAll("[data-t-alt]").forEach(function(el){T.en[el.dataset.tAlt]=el.getAttribute("alt")});
+document.querySelectorAll("[data-t-ph]").forEach(function(el){T.en[el.dataset.tPh]=el.getAttribute("placeholder")});
 var LS=["en","ru"],TITLES={en:"Your handwriting as a font · SanderSax",ru:"Шрифт из вашего почерка · SanderSax"},MSG={en:"Hi! I want a font from my handwriting.",ru:"Здравствуйте! Хочу шрифт из своего почерка."},lang="en";
-var U={en:{sample:"sample",ready:function(n,k){return n+" letters · "+k+" KB"},none:"Draw at least one letter",undo:"Undo",clear:"Clear"},
-       ru:{sample:"пример",ready:function(n,k){return "букв: "+n+" · "+k+" КБ"},none:"Нарисуйте хотя бы одну букву",undo:"Отменить",clear:"Очистить"}};
+var U={en:{ready:function(n,k){return n+" letters · "+k+" KB"},none:"Draw at least one letter",undo:"Undo",clear:"Clear",building:"Building the font",done:"Ready to install"},
+       ru:{ready:function(n,k){return "букв: "+n+" · "+k+" КБ"},none:"Нарисуйте хотя бы одну букву",undo:"Отменить",clear:"Очистить",building:"Собираю шрифт",done:"Готов к установке"}};
+var NAMES={en:["Sander","Anna","Hello","Kenji","Мария"],ru:["Мария","Привет","Sander","Анна"]};
 function setLang(l){lang=l;document.documentElement.lang=l;
   document.querySelectorAll("[data-t]").forEach(function(el){var v=T[l][el.dataset.t];if(v!=null)el.innerHTML=v});
   document.querySelectorAll("[data-t-aria]").forEach(function(el){var v=T[l][el.dataset.tAria];if(v!=null)el.setAttribute("aria-label",v)});
-  document.querySelectorAll("[data-t-alt]").forEach(function(el){var v=T[l][el.dataset.tAlt];if(v!=null)el.setAttribute("alt",v)});
+  document.querySelectorAll("[data-t-ph]").forEach(function(el){var v=T[l][el.dataset.tPh];if(v!=null)el.setAttribute("placeholder",v)});
   document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.l===l))});
-  document.querySelector(".lang .pill").style.transform="translateX("+(LS.indexOf(l)*44)+"px)";
+  $(".lang .pill").style.transform="translateX("+(LS.indexOf(l)*44)+"px)";
   document.title=TITLES[l];
-  document.getElementById("cWa").href="https://wa.me/66961347329?text="+encodeURIComponent(MSG[l]);
-  document.getElementById("cMail").href="mailto:leshadqq@gmail.com?subject="+encodeURIComponent(l==="ru"?"Шрифт из почерка":"Handwriting font")+"&body="+encodeURIComponent(MSG[l]);
+  $("#cWa").href="https://wa.me/66961347329?text="+encodeURIComponent(MSG[l]);
+  $("#cMail").href="mailto:leshadqq@gmail.com?subject="+encodeURIComponent(l==="ru"?"Шрифт из почерка":"Handwriting font")+"&body="+encodeURIComponent(MSG[l]);
   try{localStorage.setItem("ak-lang",l)}catch(e){}
   if(window.__padsLabels)window.__padsLabels();updateMeta();
+  if(window.__hero)window.__hero.lang();
+  storyStatus=-1;
 }
 document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){setLang(b.dataset.l)})});
 
+/* ---------- hero: the pen writes a name, outline first, then ink ---------- */
+var hero=(function(){
+  var svg=$("#stage"),nm=$("#nm"),nib=$("#nib"),sw=$("#swash"),inp=$("#nameIn"),heroEl=$("#hero");
+  var NS="http://www.w3.org/2000/svg",SIZE=200,LAT=null,CYR=null,ok=false,touched=false,token=0,raf=0,cycleT=0,idx=0,items=[],gms=[];
+  var BASE="https://cdn.jsdelivr.net/npm/@fontsource/caveat@5.1.0/files/caveat-";
+  function load(sub){return fetch(BASE+sub+"-700-normal.woff").then(function(r){if(!r.ok)throw new Error(r.status);return r.arrayBuffer()}).then(function(b){return opentype.parse(b)})}
+  function glyph(ch){var g=LAT.charToGlyph(ch);if(g.index===0&&CYR){var g2=CYR.charToGlyph(ch);if(g2.index)return{g:g2,f:CYR}}return{g:g,f:LAT}}
+  function r1(v){return Math.round(v*10)/10}
+  function d(cs){return cs.map(function(c){
+    if(c.type==="M"||c.type==="L")return c.type+r1(c.x)+" "+r1(c.y);
+    if(c.type==="Q")return "Q"+r1(c.x1)+" "+r1(c.y1)+" "+r1(c.x)+" "+r1(c.y);
+    if(c.type==="C")return "C"+r1(c.x1)+" "+r1(c.y1)+" "+r1(c.x2)+" "+r1(c.y2)+" "+r1(c.x)+" "+r1(c.y);
+    return "Z"}).join("")}
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+  function names(){return NAMES[lang]}
+  function current(){return (inp.value.trim()||names()[idx%names().length]).slice(0,14)}
+  function setNames(t){document.querySelectorAll(".nm").forEach(function(s){s.textContent=t});document.querySelector(".mocks").style.setProperty("--nl",Math.max(4,Array.from(t).length));ribbon()}
+
+  function write(text){
+    var my=++token;cancelAnimationFrame(raf);clearTimeout(cycleT);
+    svg.setAttribute("aria-label",text);setNames(text);
+    nm.textContent="";items=[];gms=[];sw.style.opacity="0";
+    if(!ok){var t=el("text",{x:0,y:0,"font-family":"Caveat","font-weight":"700","font-size":SIZE,fill:"#f5f3ee"});t.textContent=text;nm.appendChild(t);fit(t.getBBox());return}
+    var x=0;
+    Array.from(text).forEach(function(ch){
+      var o=glyph(ch),sc=SIZE/o.f.unitsPerEm,p=o.g.getPath(x,0,SIZE),cs=p.commands;x+=o.g.advanceWidth*sc;
+      if(!cs.length)return;
+      var gm=el("g",{"class":"gm"}),g=el("g",{"class":"gl"});gm.appendChild(g);nm.appendChild(gm);gms.push(gm);
+      g.appendChild(el("path",{"class":"f",d:d(cs),filter:"url(#ink)"}));
+      var parts=[],cur=null;cs.forEach(function(c){if(c.type==="M"){cur=[];parts.push(cur)}if(cur)cur.push(c)});
+      var it={g:g,c:[],total:0,filled:false};
+      parts.forEach(function(pc){var pe=el("path",{"class":"c",d:d(pc)});g.appendChild(pe);var L=pe.getTotalLength()||1;pe.style.strokeDasharray=L;pe.style.strokeDashoffset=L;it.c.push({el:pe,L:L,at:it.total});it.total+=L});
+      items.push(it);
+    });
+    if(!items.length)return;
+    var bb=nm.getBBox();fit(bb);
+    // swash under the name
+    var y=SIZE*.3,x0=bb.x+bb.width*.04,x1=bb.x+bb.width*.97,w=x1-x0;
+    sw.setAttribute("d","M"+r1(x0)+" "+r1(y+6)+"C"+r1(x0+w*.3)+" "+r1(y-12)+" "+r1(x0+w*.62)+" "+r1(y+18)+" "+r1(x1)+" "+r1(y-10));
+    var SL=sw.getTotalLength();sw.style.transition="none";sw.style.strokeDasharray=SL;sw.style.strokeDashoffset=SL;
+    if(reduce){items.forEach(function(it){it.c.forEach(function(c){c.el.style.strokeDashoffset=0});it.g.classList.add("in")});sw.style.opacity="1";sw.style.strokeDashoffset=0;return}
+    var t=0;items.forEach(function(it){it.dur=140+it.total/2.9;it.start=t;t+=it.dur*.72});
+    var end=t+items[items.length-1].dur*.28,t0=performance.now();
+    (function step(now){
+      if(my!==token)return;var tt=now-t0,tip=null;
+      items.forEach(function(it){
+        var lp=clamp((tt-it.start)/it.dur,0,1),dr=lp*it.total;
+        it.c.forEach(function(c){var v=clamp(dr-c.at,0,c.L);c.el.style.strokeDashoffset=c.L-v;if(v>0&&v<c.L)tip=c.el.getPointAtLength(v)});
+        if(lp>=.86&&!it.filled){it.filled=true;it.g.classList.add("in")}
+      });
+      if(tip){nib.setAttribute("cx",tip.x);nib.setAttribute("cy",tip.y);nib.setAttribute("opacity","1")}else nib.setAttribute("opacity","0");
+      if(tt<end+60)raf=requestAnimationFrame(step);
+      else{nib.setAttribute("opacity","0");sw.style.opacity="1";sw.style.transition="";requestAnimationFrame(function(){sw.style.strokeDashoffset=0});
+        if(!touched)cycleT=setTimeout(function(){erase(function(){idx++;write(current())})},2800)}
+    })(t0);
+  }
+  function erase(cb){var my=token;sw.style.opacity="0";gms.forEach(function(gm,i){var g=gm.firstChild;g.style.transitionDelay=(i*45)+"ms";g.classList.add("out")});setTimeout(function(){if(my===token)cb()},700+gms.length*45)}
+  function fit(bb){var H=SIZE*1.5,ar=svg.clientWidth/Math.max(1,svg.clientHeight)||2.6,W=Math.max(bb.width+60,H*Math.min(2.6,ar)),cx=bb.x+bb.width/2;svg.setAttribute("viewBox",r1(cx-W/2)+" "+r1(-SIZE*1.05)+" "+r1(W)+" "+r1(H))}
+
+  // letters lean toward the pointer
+  var px=-1e4,py=-1e4,mr=0;
+  function mag(){mr=0;gms.forEach(function(gm){var r=gm.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dd=Math.hypot(px-cx,py-cy),f=Math.max(0,1-dd/260);
+    gm.style.transform=f>0?"translateY("+(-f*26).toFixed(1)+"px) rotate("+((px<cx?-1:1)*f*7).toFixed(1)+"deg) scale("+(1+f*.06).toFixed(3)+")":""})}
+  if(!reduce){heroEl.addEventListener("pointermove",function(e){px=e.clientX;py=e.clientY;if(!mr)mr=requestAnimationFrame(mag)});
+    heroEl.addEventListener("pointerleave",function(){px=py=-1e4;if(!mr)mr=requestAnimationFrame(mag)})}
+
+  var tm=0;inp.addEventListener("input",function(){touched=!!inp.value.trim();clearTimeout(tm);tm=setTimeout(function(){write(current())},360)});
+  function start(){write(current())}
+  var api={lang:function(){if(!touched){idx=0;if(ok||nm.childNodes.length)write(current())}else setNames(current())}};
+  if(window.opentype){Promise.all([load("latin"),load("cyrillic").catch(function(){return null})]).then(function(a){LAT=a[0];CYR=a[1];ok=true;start()}).catch(function(){ok=false;document.fonts.ready.then(start)})}
+  else document.fonts.ready.then(start);
+  return api;
+})();
+window.__hero=hero;
+
+/* ---------- story: sheet, photo, font, scrubbed by scroll ---------- */
+var storyEl=$("#how"),pin=storyEl.querySelector(".pin"),scene=$("#scene"),paper=$("#paper"),phone=$("#phone"),flash=$("#flash"),file=$("#file"),pg=$("#pg"),st3=$("#st3"),slEl=$("#sl");
+var steps=storyEl.querySelectorAll(".sl li"),storyStatus=-1;
+var LET=["A","B","C","D","E","F","Ж","Я","&","1","a","b","c","d","e","f","ж","я","?","2"],fl=[];
+LET.forEach(function(ch,i){var c=i%4,r=Math.floor(i/4);
+  var bx=document.createElement("div");bx.className="bx";bx.style.left=((5+13*c)/62*100)+"%";bx.style.top=((13+14*r)/88*100)+"%";bx.style.width=(12/62*100)+"%";bx.style.height=(13/88*100)+"%";
+  bx.innerHTML="<small>"+ch+"</small>";paper.appendChild(bx);
+  var s=document.createElement("span");s.className="fl";s.textContent=ch;scene.appendChild(s);
+  fl.push({el:s,bx:24+13*c+6,by:19+14*r+7.2,tx:9.5+(i%10)*9,ty:i<10?20:37,rot:((i*37)%9)-4});
+});
+function S(a,b,p){return clamp((p-a)/(b-a),0,1)}
+function E(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function mix(a,b,t){return Math.round(a+(b-a)*t)}
+function story(p){
+  var t0=E(S(0,.14,p)),t3=E(S(.62,.74,p));
+  paper.style.transform="translateY("+((1-t0)*70+t3*46).toFixed(2)+"cqh) rotate("+((1-t0)*-10+t3*9).toFixed(2)+"deg) scale("+(.86+.14*t0-t3*.1).toFixed(3)+")";
+  paper.style.opacity=(1-t3).toFixed(3);
+  fl.forEach(function(L,i){
+    var w=S(.15+i*.0085,.18+i*.0085,p),f=E(S(.63+i*.007,.81+i*.007,p));
+    var x=L.bx+(L.tx-L.bx)*f,y=L.by+(L.ty-L.by)*f-Math.sin(f*Math.PI)*14,sc=1+f*.18,rt=L.rot*(1-f)+Math.sin(f*Math.PI)*(i%2?12:-12);
+    L.el.style.transform="translate("+x.toFixed(2)+"cqw,"+y.toFixed(2)+"cqh) translate(-50%,-50%) rotate("+rt.toFixed(1)+"deg) scale("+sc.toFixed(3)+")";
+    L.el.style.opacity=w>0?1:0;L.el.style.clipPath=w<1?"inset(-20% "+((1-w)*100).toFixed(1)+"% -20% -20%)":"none";
+    var fc=Math.min(1,f*2.5);L.el.style.color="rgb("+mix(18,245,fc)+","+mix(18,243,fc)+","+mix(20,238,fc)+")";
+  });
+  var ti=E(S(.34,.46,p)),to=E(S(.56,.66,p));
+  phone.style.opacity=(p>.33&&p<.67)?1:0;
+  phone.style.transform="translateX("+((1-ti)*110-to*120).toFixed(2)+"cqw) rotate("+((1-ti)*12-to*10).toFixed(2)+"deg)";
+  flash.style.opacity=(p>.495&&p<.57)?(1-(p-.495)/.075).toFixed(3):0;
+  var t4=E(S(.8,.9,p)),b=S(.84,.97,p);
+  file.style.opacity=t4.toFixed(3);file.style.transform="translateY("+((1-t4)*18).toFixed(2)+"cqh)";
+  pg.style.width=(b*100).toFixed(1)+"%";
+  var stt=b>=1?1:0;if(stt!==storyStatus){storyStatus=stt;st3.textContent=stt?"✓ "+U[lang].done:U[lang].building+"…"}
+  var k=p<.33?0:p<.63?1:2;steps.forEach(function(li,i){li.classList.toggle("on",i===k)});
+  slEl.style.setProperty("--sp",p.toFixed(3));
+}
+
+/* ---------- ribbon of the visitor's own letters ---------- */
+var rb1=$("#rb1"),rb2=$("#rb2"),ribEl=$("#ribbon");
+function ribbon(){var a=(out.value.split("\n")[0]||"Sax").slice(0,24),b=document.querySelector(".nm").textContent||"Sander";
+  rb1.innerHTML=new Array(9).join("<span>"+esc(a)+"</span>");rb2.innerHTML=new Array(9).join("<span>"+esc(b)+"</span>")}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+var ticking=false;
+function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(function(){ticking=false;
+  var r=storyEl.getBoundingClientRect(),tot=storyEl.offsetHeight-pin.offsetHeight;
+  if(r.bottom>-200&&r.top<innerHeight+200)story(clamp((64-r.top)/Math.max(1,tot),0,1));
+  var rr=ribEl.getBoundingClientRect();if(rr.bottom>0&&rr.top<innerHeight){var v=(rr.top-innerHeight)*.45;rb1.style.transform="translateX("+v.toFixed(1)+"px)";rb2.style.transform="translateX("+(-v-innerWidth*.6).toFixed(1)+"px)"}
+})}
+addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);
+
+/* headings write themselves in when they come into view */
+var hio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on-v");hio.unobserve(e.target)}})},{threshold:.5});
+document.querySelectorAll(".head,.stx").forEach(function(h){hio.observe(h)});
+
+/* cards turn toward the pointer */
+if(!reduce&&matchMedia("(hover:hover)").matches)document.querySelectorAll(".tilt").forEach(function(c){
+  c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.setProperty("--ry",(x*10).toFixed(2)+"deg");c.style.setProperty("--rx",(-y*10).toFixed(2)+"deg")});
+  c.addEventListener("pointerleave",function(){c.style.setProperty("--ry","0deg");c.style.setProperty("--rx","0deg")});
+});
+
 /* ---------- studio ---------- */
-var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 var PW=160,PH=200,BASE=160,UPX=5,SIDE=60;          // pad px; font units = px*5, baseline 160px, cap line 20px, x-height 60px
 var store={};                                      // char -> {strokes:[[ [x,y],... ]], sample:bool}
-var padsEl=document.getElementById("pads"),lettersIn=document.getElementById("letters"),weightIn=document.getElementById("weight");
-var out=document.getElementById("out"),dlBtn=document.getElementById("dl"),meta=document.getElementById("meta");
+var padsEl=$("#pads"),lettersIn=$("#letters"),weightIn=$("#weight");
+var out=$("#out"),dlBtn=$("#dl"),meta=$("#meta");
 var pads=[],fontBuf=null,fontVer=0,curFace=null,glyphCount=0,outTouched=false;
 
 function chars(){var s=[];Array.from(lettersIn.value).forEach(function(c){if(c.trim()&&s.indexOf(c)<0&&s.length<14)s.push(c)});return s}
 function radius(){return +weightIn.value}           // stroke radius in font units
 
 function drawPad(p){
-  var c=p.cv,x=p.ctx,d=p.dpr;x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,PW,PH);
+  var x=p.ctx,d=p.dpr;x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,PW,PH);
   x.lineWidth=1;x.strokeStyle="#e4dfd3";x.setLineDash([4,4]);
   x.beginPath();x.moveTo(8,20.5);x.lineTo(PW-8,20.5);x.stroke();
   x.setLineDash([1.5,4]);x.beginPath();x.moveTo(8,60.5);x.lineTo(PW-8,60.5);x.stroke();
@@ -379,7 +639,8 @@ function bindDraw(p){
     if(!cur)return;var evs=e.getCoalescedEvents?e.getCoalescedEvents():[e];
     evs.forEach(function(ev){var q=pt(ev),l=cur[cur.length-1];if(Math.hypot(q[0]-l[0],q[1]-l[1])>1.2)cur.push(q)});drawPad(p);
   });
-  function end(){if(!cur)return;cur=null;p.el.classList.remove("act");drawPad(p);rebuild()}
+  function end(){if(!cur)return;cur=null;p.el.classList.remove("act");drawPad(p);rebuild();
+    if(!reduce&&p.el.animate)p.el.animate([{transform:"scale(.95)"},{transform:"scale(1.04)"},{transform:"scale(1)"}],{duration:420,easing:"cubic-bezier(.16,1,.3,1)"})}
   p.cv.addEventListener("pointerup",end);p.cv.addEventListener("pointercancel",end);
 }
 
@@ -414,23 +675,23 @@ function build(){
   var r=radius(),gl=[new opentype.Glyph({name:".notdef",unicode:0,advanceWidth:500,path:new opentype.Path()}),new opentype.Glyph({name:"space",unicode:32,advanceWidth:300,path:new opentype.Path()})];
   pads.forEach(function(p){var st=store[p.ch];if(st&&st.strokes.length)gl.push(glyphFor(p.ch,st,r))});
   glyphCount=gl.length-2;
-  if(!glyphCount){fontBuf=null;dlBtn.disabled=true;out.classList.remove("ready");updateMeta();return}
+  if(!glyphCount){fontBuf=null;dlBtn.disabled=true;out.classList.remove("ready");document.documentElement.style.setProperty("--uh",'"Caveat"');document.documentElement.style.setProperty("--uhm",'"Caveat"');updateMeta();return}
   var f=new opentype.Font({familyName:"My Handwriting",styleName:"Regular",unitsPerEm:1000,ascender:850,descender:-250,designer:"Made at sandersaxbuilds.github.io/selected-work/font/",glyphs:gl});
   fontBuf=f.toArrayBuffer();
   var fam="UH"+(++fontVer),face=new FontFace(fam,fontBuf);
   face.load().then(function(){
     document.fonts.add(face);if(curFace)document.fonts.delete(curFace);curFace=face;
-    document.documentElement.style.setProperty("--uh",'"'+fam+'"');out.classList.add("ready");dlBtn.disabled=false;updateMeta();
+    var own=pads.some(function(p){var st=store[p.ch];return st&&st.strokes.length&&!st.sample});document.documentElement.style.setProperty("--uh",'"'+fam+'"');document.documentElement.style.setProperty("--uhm",own?'"'+fam+'"':'"Caveat"');out.classList.add("ready");dlBtn.disabled=false;updateMeta();
   }).catch(function(e){meta.textContent=String(e).slice(0,80)});
 }
-function updateMeta(){meta.textContent=fontBuf?U[lang].ready(glyphCount,Math.max(1,Math.round(fontBuf.byteLength/1024))):U[lang].none;
-  var t=out.value.split("\n")[0]||lettersIn.value;document.querySelectorAll("#sizes .sz").forEach(function(s){s.textContent=(t+" ").repeat(6)})}
+function updateMeta(){if(!meta)return;meta.textContent=fontBuf?U[lang].ready(glyphCount,Math.max(1,Math.round(fontBuf.byteLength/1024))):U[lang].none;
+  var t=out.value.split("\n")[0]||lettersIn.value;document.querySelectorAll("#sizes .sz").forEach(function(s){s.textContent=(t+" ").repeat(6)});ribbon()}
 
 lettersIn.addEventListener("input",function(){buildPads();if(!outTouched)out.value=lettersIn.value;rebuild()});
 weightIn.addEventListener("input",function(){pads.forEach(drawPad);rebuild()});
 out.addEventListener("input",function(){outTouched=true;updateMeta()});
 
-dlBtn.addEventListener("click",function(e){
+dlBtn.addEventListener("click",function(){
   if(!fontBuf)return;var url=URL.createObjectURL(new Blob([fontBuf],{type:"font/otf"})),a=document.createElement("a");
   a.href=url;a.download="my-handwriting.otf";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},4000);
   if(reduce)return;var r=dlBtn.getBoundingClientRect(),b=document.createElement("div");b.className="burst";b.style.left=(r.left+r.width/2)+"px";b.style.top=(r.top+r.height/2)+"px";
@@ -465,9 +726,9 @@ function runDemo(){
 
 var q=new URLSearchParams(location.search).get("lang"),saved=null;try{saved=localStorage.getItem("ak-lang")}catch(e){}
 setLang(LS.indexOf(q)>=0?q:(LS.indexOf(saved)>=0?saved:"en"));
-buildPads();
+buildPads();ribbon();onScroll();
 var started=false,io=new IntersectionObserver(function(es){if(es[0].isIntersecting&&!started){started=true;io.disconnect();(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){pads.forEach(drawPad);setTimeout(runDemo,350)})}},{threshold:.25});
-io.observe(document.getElementById("try"));
+io.observe($("#try"));
 })();
 </script>
 </body>
