@@ -3,105 +3,455 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#e4e1da">
 <title>Work instruction extraction</title>
-<meta name="description" content="A Python parser that turns a Word work instruction written to a set template into JSON and CSV steps, keeps a reference to each source paragraph and refuses content it can't read reliably.">
+<meta name="description" content="A Python parser that turns a Word work instruction written to a set template into JSON and CSV steps, keeps a reference to each source paragraph and refuses content it can't read reliably. Edit a document in the browser and run the same rules on it.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='3' width='20' height='26' fill='%23fffefb' stroke='%231f3a5f' stroke-width='2'/%3E%3Cpath d='M10 10h12M10 15h12M10 20h7' stroke='%231f3a5f' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="study.css">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <style>
-.compare { display: grid; gap: 16px; align-items: stretch; }
-@media (min-width: 900px) { .compare { grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr); gap: 0; } }
-.doc, .result { min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
-.pane-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--surface-soft); }
-.pane-head h3 { font-size: 17px; }
-.pane-head span { color: var(--muted); font: 500 13px/1.6 var(--mono); }
-.doc ol { margin: 0; padding: 0; list-style: none; }
-.doc li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
-.doc li:last-child { border-bottom: 0; }
-.para-no { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--brand-soft); color: var(--deep); font: 600 13px/1 var(--mono); }
-.para-text { white-space: pre-line; overflow-wrap: anywhere; font-size: 15px; }
-.para-text b { font-weight: 600; color: var(--brand); }
-.arrow { display: none; }
-@media (min-width: 900px) { .arrow { display: grid; place-items: center; color: var(--line-strong); } .arrow svg { width: 28px; height: 28px; } }
-.result-body { padding: 18px; }
-.result-body h4 { font-size: 21px; }
-.ref { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; color: var(--muted); font-size: 13px; }
-.ref::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--brand); }
-.safety { margin-top: 14px; padding: 12px 14px; border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0; background: var(--warning-soft); white-space: pre-line; font-size: 15px; }
-.steps { margin: 16px 0 0; padding: 0; list-style: none; counter-reset: step; }
-.steps li { position: relative; padding: 14px 0 14px 44px; border-top: 1px solid var(--line); }
-.steps li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 14px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--deep); color: #fff; font: 600 14px/1 var(--mono); }
-.steps p { white-space: pre-line; font-size: 15px; }
+:root {
+  color-scheme: light;
+  --desk: #e4e1da; --desk-2: #d8d4cb; --paper: #fffefb; --ink: #1f3a5f; --text: #22262b; --muted: #5d6066;
+  --rule: #cdc8bd; --rule-2: #b5afa2; --red: #a8231a; --red-soft: #f7e6e3; --green: #2d6a3e; --green-soft: #e3efe5;
+  --hl: #fff3b0; --term: #16273d; --term-text: #e9ecef; --term-dim: #9fb0c4;
+  --serif: "Source Serif 4", Georgia, serif; --sans: "Source Sans 3", "Segoe UI", sans-serif; --mono: "Source Code Pro", Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--desk); color: var(--text); font: 400 17px/1.55 var(--sans); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; color: var(--ink); line-height: 1.2; margin: 0; }
+p { margin: 0; }
+a { color: var(--ink); text-underline-offset: 3px; }
+code { font: 400 0.9em/1 var(--mono); }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+.skip { position: absolute; left: 16px; top: -60px; background: var(--paper); padding: 10px 14px; z-index: 5; }
+.skip:focus { top: 12px; }
+[hidden] { display: none !important; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.bar { border-bottom: 1px solid var(--rule-2); }
+.bar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 56px; font-size: 15px; }
+.bar a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; text-decoration: none; }
+.bar a:hover { text-decoration: underline; }
+.bar svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+.bar span { color: var(--muted); }
+
+/* controlled document title block */
+.hero { padding: 40px 0 8px; }
+.tblock { background: var(--paper); border: 1.5px solid var(--ink); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); }
+.tblock .main { padding: 28px 30px 30px; border-right: 1.5px solid var(--ink); }
+.tblock .kind { font: 600 13px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--red); }
+.tblock h1 { font-size: clamp(30px, 4.2vw, 50px); margin: 12px 0 16px; max-width: 21ch; }
+.tblock .lede { max-width: 62ch; font-size: 18px; }
+.tblock .acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px 16px; border: 1.5px solid var(--ink); background: var(--paper); color: var(--ink); font: 600 15px/1.2 var(--sans); text-decoration: none; cursor: pointer; border-radius: 3px; }
+.btn:hover { background: #f1efe9; }
+.btn.solid { background: var(--ink); color: #fff; }
+.btn.solid:hover { background: #172d4a; }
+.btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; flex: none; }
+.btn small { font: 400 13px/1 var(--mono); opacity: .8; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.fields { margin: 0; display: grid; align-content: start; }
+.fields div { padding: 11px 18px; border-bottom: 1px solid var(--rule); }
+.fields div:last-child { border-bottom: 0; }
+.fields dt { font: 600 12px/1.3 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.fields dd { margin: 2px 0 0; font: 400 15px/1.4 var(--mono); color: var(--ink); overflow-wrap: anywhere; }
+
+section { padding: 56px 0 8px; }
+.shead { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 0 18px; margin-bottom: 22px; max-width: 900px; }
+.shead .no { font: 600 15px/1 var(--mono); color: var(--red); padding-top: 9px; border-top: 2px solid var(--red); }
+.shead h2 { font-size: clamp(25px, 3vw, 34px); padding-top: 2px; }
+.shead p { grid-column: 2; margin-top: 10px; max-width: 70ch; color: #3b3f45; }
+
+/* bench */
+.presets { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
+.presets .lab { font: 600 13px/1 var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-right: 4px; }
+.pill { min-height: 44px; padding: 6px 14px; border: 1px solid var(--rule-2); background: var(--paper); color: var(--text); font: 600 15px/1.2 var(--sans); cursor: pointer; border-radius: 3px; }
+.pill:hover { border-color: var(--ink); }
+.pill[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.bench { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+#paper { background: var(--paper); border: 1px solid var(--rule-2); box-shadow: 0 1px 0 var(--rule-2), 0 10px 24px -18px rgba(31, 58, 95, .5); min-width: 0; }
+.phead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 14px; padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.phead h3 { font-size: 18px; }
+.phead .meta { font: 400 13px/1.3 var(--mono); color: var(--muted); }
+.ptools { display: flex; flex-wrap: wrap; gap: 8px; }
+.ptools .btn { min-height: 40px; font-size: 14px; padding: 6px 12px; }
+.filebtn { position: relative; }
+.filebtn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+.filebtn:focus-within { outline: 3px solid var(--ink); outline-offset: 2px; }
+.inserts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 10px 16px; border-bottom: 1px solid var(--rule); background: #f8f6f1; font-size: 14px; }
+.inserts > span { color: var(--muted); margin-right: 4px; }
+.inserts b { color: var(--ink); font-weight: 600; }
+.inserts button { min-height: 36px; padding: 4px 10px; border: 1px dashed var(--rule-2); background: var(--paper); color: var(--text); font: 400 14px/1.2 var(--sans); cursor: pointer; border-radius: 3px; }
+.inserts button:hover { border-style: solid; border-color: var(--ink); }
+.hint { padding: 9px 16px 0; font-size: 13px; color: var(--muted); }
+.hint kbd { font: 400 12px/1 var(--mono); border: 1px solid var(--rule-2); border-bottom-width: 2px; padding: 2px 5px; border-radius: 3px; background: var(--paper); color: var(--text); }
+#doc, #fdoc { padding: 8px 0 18px; }
+.para, .fpara { display: grid; grid-template-columns: 44px minmax(0, 1fr) 112px; align-items: start; border-left: 3px solid transparent; transition: background-color .2s; }
+.pno { padding: 9px 8px 0 10px; text-align: right; font: 400 13px/1.6 var(--mono); color: var(--muted); }
+.pbody { min-width: 0; padding: 2px 0; }
+.para textarea { display: block; width: 100%; border: 0; resize: none; overflow: hidden; background: transparent; padding: 6px 8px; font: 400 17px/1.55 var(--serif); color: var(--text); border-radius: 2px; }
+.para textarea:focus { outline: none; background: #f4f1e8; box-shadow: inset 0 -2px 0 var(--ink); }
+.fpara p { padding: 6px 8px; font: 400 17px/1.55 var(--serif); white-space: pre-wrap; overflow-wrap: anywhere; }
+.read { padding: 10px 12px 0 6px; font: 400 12px/1.4 var(--mono); color: var(--muted); text-align: left; }
+.read[data-kind="title"], .read[data-kind="safety"] { color: var(--ink); }
+.read[data-kind="step"] { color: var(--green); }
+.read[data-kind="other"] { color: var(--red); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 8px; }
+.chips:empty { display: none; }
+.chip { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 2px 8px; border: 1px solid var(--red); background: var(--red-soft); color: var(--red); font: 600 12px/1 var(--mono); cursor: pointer; border-radius: 3px; }
+.chip svg { width: 11px; height: 11px; stroke: currentColor; stroke-width: 1.8; fill: none; }
+.tbl .pbody { padding: 6px 8px; }
+.fake-table { border: 1px solid var(--rule-2); width: min(240px, 100%); }
+.fake-table span { display: block; padding: 6px 10px; font: 400 15px/1.4 var(--serif); }
+.rm-table { margin: 10px 12px 0 6px; justify-self: start; }
+.para.hot, .fpara.hot { background: var(--hl); }
+.para.err, .fpara.err { border-left-color: var(--red); background: var(--red-soft); }
+.para.flash, .fpara.flash { background: var(--hl); }
+#paper[data-mode="file"] .edit-only { display: none; }
+#paper:not([data-mode="file"]) .file-only { display: none; }
+.fnote { padding: 10px 16px 0; font-size: 14px; color: var(--muted); }
+
+.res { min-width: 0; display: grid; gap: 14px; position: sticky; top: 14px; }
+.term { background: var(--term); color: var(--term-text); border-radius: 3px; font: 400 13.5px/1.6 var(--mono); }
+.term .th { display: flex; justify-content: space-between; gap: 10px; padding: 8px 14px; border-bottom: 1px solid #2c4160; color: var(--term-dim); font-size: 12px; }
+.term .th b { font-weight: 600; }
+.res[data-state="ok"] #exit { color: #8fd1a0; }
+.res[data-state="bad"] #exit { color: #f2a59d; }
+.term pre { margin: 0; padding: 12px 14px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; }
+.term .cmd { color: var(--term-dim); }
+.term .cmd b { color: var(--term-text); font-weight: 400; }
+.sheet { background: var(--paper); border: 1px solid var(--rule-2); padding: 18px 20px 20px; position: relative; }
+.sheet .lab { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.sheet .lab span { font: 600 12px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding-top: 6px; }
+#stamp { flex: none; padding: 5px 10px; border: 2px solid currentColor; outline: 1px solid currentColor; outline-offset: 2px; font: 600 13px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .04em; transform: rotate(-2deg); }
+.res[data-state="ok"] #stamp { color: var(--green); }
+.res[data-state="bad"] #stamp { color: var(--red); }
+#jump { margin-top: 12px; }
+#view { margin-top: 14px; }
+#view h3 { font-size: 22px; display: inline; margin-right: 6px; }
+.ref { display: inline-flex; align-items: center; min-height: 28px; padding: 0 6px; margin-left: 2px; border: 1px solid var(--rule-2); background: transparent; color: var(--muted); font: 400 12px/1 var(--mono); cursor: pointer; border-radius: 3px; vertical-align: 3px; }
+.ref:hover, .ref:focus-visible { background: var(--hl); color: var(--text); border-color: #d9c76a; }
+.safety { margin-top: 14px; padding: 10px 14px; border: 1px solid var(--red); border-left-width: 4px; }
+.safety b { display: block; font: 600 12px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--red); }
+.safety p { display: inline; white-space: pre-wrap; overflow-wrap: anywhere; font: 400 16px/1.5 var(--serif); }
+.steps { margin: 14px 0 0; padding: 0; list-style: none; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 34px minmax(0, 1fr); padding: 10px 0; border-top: 1px solid var(--rule); counter-increment: s; }
+.steps li::before { content: counter(s); font: 600 17px/1.5 var(--serif); color: var(--ink); }
+.steps p { display: inline; white-space: pre-wrap; overflow-wrap: anywhere; font: 400 16px/1.5 var(--serif); }
+.steps li > div { min-width: 0; }
+.files { background: var(--paper); border: 1px solid var(--rule-2); min-width: 0; }
+.ftabs { display: flex; flex-wrap: wrap; align-items: stretch; border-bottom: 1px solid var(--rule); }
+.ftabs [role="tab"] { min-height: 44px; padding: 8px 14px; border: 0; border-right: 1px solid var(--rule); background: transparent; font: 600 14px/1.2 var(--mono); color: var(--muted); cursor: pointer; }
+.ftabs [role="tab"] small { font-weight: 400; }
+.ftabs [role="tab"][aria-selected="true"] { color: var(--ink); background: var(--paper); box-shadow: inset 0 -3px 0 var(--ink); }
+.ftabs .btn { margin: 4px 6px 4px auto; min-height: 36px; font-size: 14px; padding: 4px 10px; }
+#file-out { margin: 0; padding: 12px 14px; max-height: 340px; overflow: auto; font: 400 13px/1.55 var(--mono); white-space: pre; }
+
+/* register */
+.reg-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 14px; }
+.reg-tools label { font-weight: 600; font-size: 15px; }
+.reg-tools input { min-height: 44px; width: min(340px, 100%); padding: 8px 12px; border: 1px solid var(--rule-2); background: var(--paper); font: 400 15px/1.2 var(--mono); border-radius: 3px; }
+.reg-tools output { font: 400 14px/1.2 var(--mono); color: var(--muted); }
+.register { background: var(--paper); border: 1px solid var(--rule-2); }
+.stage { display: grid; grid-template-columns: 220px minmax(0, 1fr); border-bottom: 1px solid var(--rule-2); }
+.stage:last-child { border-bottom: 0; }
+.stage > header { padding: 16px 18px; border-right: 1px solid var(--rule); background: #f8f6f1; }
+.stage > header h3 { font-size: 18px; }
+.stage > header p { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.stage ul { list-style: none; margin: 0; padding: 0; }
+.stage li { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding: 9px 16px; border-bottom: 1px solid #ebe7de; }
+.stage li:last-child { border-bottom: 0; }
+.stage li code { color: var(--red); font-size: 13.5px; overflow-wrap: anywhere; }
+.stage li span { font-size: 15px; }
+.try { min-height: 32px; padding: 2px 10px; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: 600 13px/1 var(--sans); cursor: pointer; border-radius: 3px; }
+.try:hover { background: var(--ink); color: #fff; }
+.stage.empty { display: none; }
+.stage li[hidden] { display: none; }
+.cli-only { font: 400 12px/1.2 var(--mono); color: var(--muted); }
+
+/* recorded */
+.rec { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; }
+figure { margin: 0; min-width: 0; background: var(--paper); border: 1px solid var(--rule-2); }
+figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 9px 14px; border-bottom: 1px solid var(--rule); font: 600 13px/1.4 var(--mono); color: var(--ink); }
+figcaption span + span { font-weight: 400; color: var(--muted); }
+figure pre { margin: 0; padding: 12px 14px; overflow: auto; max-height: 460px; font: 400 13px/1.55 var(--mono); }
+.parity { margin-top: 14px; padding: 10px 14px; border-left: 4px solid var(--green); background: var(--green-soft); font-size: 15px; max-width: 900px; }
+.parity[data-same="false"] { border-color: var(--red); background: var(--red-soft); }
+.code { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.code .notes { display: grid; gap: 14px; min-width: 0; }
+.code .notes > * { min-width: 0; }
+.code .notes p { max-width: 60ch; }
+.limits-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule-2); }
+.limits-list li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--rule-2); font-size: 15px; }
+.limits-list b { font: 600 14px/1.5 var(--mono); color: var(--ink); white-space: nowrap; }
+.term.static pre { white-space: pre; overflow: auto; }
+.term .ok { color: #8fd1a0; }
+
+.stops { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 28px; background: var(--paper); border: 1.5px solid var(--ink); padding: 26px 28px; }
+.stops h2 { font-size: 26px; margin-bottom: 10px; }
+.stops h3 { font-size: 19px; margin-bottom: 8px; }
+.stops ul { margin: 14px 0 0; padding-left: 20px; }
+.stops li + li { margin-top: 6px; }
+.stops p + p { margin-top: 10px; }
+footer { margin-top: 56px; border-top: 1px solid var(--rule-2); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 18px; padding: 20px 0 30px; font-size: 15px; color: var(--muted); }
+footer a { min-height: 44px; display: inline-flex; align-items: center; }
+
+@media (max-width: 1080px) {
+  .bench { grid-template-columns: minmax(0, 1fr); }
+  .res { position: static; }
+  .stage li { grid-template-columns: minmax(0, 1fr) auto; }
+  .stage li span { grid-column: 1; }
+  .stage li .try, .stage li .cli-only { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+}
+@media (max-width: 860px) {
+  .tblock { grid-template-columns: minmax(0, 1fr); }
+  .tblock .main { border-right: 0; border-bottom: 1.5px solid var(--ink); padding: 22px 18px 24px; }
+  .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fields div:nth-child(odd) { border-right: 1px solid var(--rule); }
+  .rec, .code, .stops { grid-template-columns: minmax(0, 1fr); }
+  .stage { grid-template-columns: minmax(0, 1fr); }
+  .stage > header { border-right: 0; border-bottom: 1px solid var(--rule); padding: 12px 16px; }
+  .stops { padding: 20px 18px; }
+}
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .hero { padding-top: 22px; }
+  .tblock .lede { font-size: 17px; }
+  .fields div { padding: 9px 12px; }
+  .fields dd { font-size: 14px; }
+  .shead { grid-template-columns: minmax(0, 1fr); }
+  .shead .no { justify-self: start; padding: 6px 0 0; margin-bottom: 8px; }
+  .shead p { grid-column: 1; }
+  section { padding-top: 44px; }
+  .para, .fpara { grid-template-columns: 30px minmax(0, 1fr); }
+  .pno { padding: 9px 2px 0 0; }
+  .read { grid-column: 2; padding: 0 8px 6px; }
+  .rm-table { grid-column: 2; margin: 0 8px 8px; }
+  .para textarea, .fpara p { font-size: 16px; }
+  .inserts button { min-height: 44px; }
+  .ptools .btn, .ftabs .btn, .try, .chip, .ref { min-height: 44px; }
+  .ref { min-width: 44px; justify-content: center; }
+  .phead, .inserts { padding-inline: 12px; }
+  .sheet { padding: 14px; }
+  .limits-list li { flex-direction: column; gap: 0; }
+  .presets .pill { flex: 1 1 auto; }
+  .hint { display: none; }
+}
+@media (max-width: 380px) {
+  .fields { grid-template-columns: minmax(0, 1fr); }
+  .fields div:nth-child(odd) { border-right: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
 </style>
 </head>
-<body class="study-orange">
-<a class="skip-link" href="#main">Skip to the study</a>
-<header class="site-bar">
+<body>
+<a class="skip" href="#main">Skip to the study</a>
+<header class="bar">
   <div class="wrap">
-    <a class="back-link" href="index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
-    <span class="site-owner">Alexandr Khrustalev</span>
+    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
+    <span>Alexandr Khrustalev</span>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero wrap" aria-labelledby="title">
-    <p class="kicker">Python document parsing</p>
-    <h1 id="title">Word procedures into steps you can trace back.</h1>
-    <p class="lede">Work instructions usually live in Word. This parser reads one written to a set template and writes the title, safety notes and steps to JSON and CSV. Every value keeps the number of the paragraph it came from and the hash of the source file. Anything outside the template stops the run instead of being guessed at.</p>
-    <div class="actions">
-      <a class="button button-primary" href="sop-parser-and-previews.zip" download><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download parser and tests <span class="file-size">14 KB</span></a>
-      <a class="button button-secondary" href="#extraction">See the extraction</a>
-    </div>
-    <dl class="facts">
-      <div class="fact"><dt>unit tests pass</dt><dd>28</dd></div>
-      <div class="fact"><dt>output formats, JSON and CSV</dt><dd>2</dd></div>
-      <div class="fact"><dt>source paragraph reference on every value</dt><dd>1:1</dd></div>
-      <div class="fact"><dt>existing outputs overwritten on a rerun</dt><dd>0</dd></div>
-    </dl>
-  </section>
-
-  <section class="section wrap" id="extraction" aria-labelledby="extraction-title">
-    <div class="section-head">
-      <p class="eyebrow">Recorded extraction</p>
-      <h2 id="extraction-title">The source and the result, side by side.</h2>
-      <p>A fictional two-step instruction. The numbers on the left are the parser's one-based paragraph references, not Word's line numbers.</p>
-    </div>
-    <div class="compare">
-      <div class="doc">
-        <div class="pane-head"><h3>Source paragraphs</h3><span>synthetic_sop.docx</span></div>
-        <ol>
-          <li><span class="para-no" aria-label="Paragraph 1">1</span><span class="para-text"><b>Work Instruction:</b> Review a sample café record</span></li>
-          <li><span class="para-no" aria-label="Paragraph 2">2</span><span class="para-text"><b>Safety Notes:</b> Synthetic example only.
-No equipment is involved.</span></li>
-          <li><span class="para-no" aria-label="Paragraph 3">3</span><span class="para-text"><b>Step 1:</b> Open the sample record.
-Check that the café record ID is present.</span></li>
-          <li><span class="para-no" aria-label="Paragraph 4">4</span><span class="para-text"><b>Step 2:</b> Mark the sample record Complete.</span></li>
-        </ol>
+  <div class="hero wrap">
+    <div class="tblock">
+      <div class="main">
+        <p class="kind">Study, Python document parsing</p>
+        <h1>Word work instructions, read to the paragraph.</h1>
+        <p class="lede">Work instructions usually live in Word. This parser reads one written to a set template and writes the title, safety notes and steps to JSON and CSV. Every value keeps the number of the paragraph it came from and the hash of the source file. Anything outside the template stops the run instead of being guessed at.</p>
+        <div class="acts">
+          <a class="btn solid" href="#bench">Edit a document and run it</a>
+          <a class="btn" href="sop-parser-and-previews.zip" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Parser and tests <small>14 KB</small></a>
+        </div>
       </div>
-      <div class="arrow" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      <div class="result">
-        <div class="pane-head"><h3>Extracted instruction</h3><span>parser 1.0.0</span></div>
-        <div class="result-body">
-          <h4>Review a sample café record</h4>
-          <span class="ref">From paragraph 1</span>
-          <p class="safety">Synthetic example only.
-No equipment is involved.</p>
-          <span class="ref">Safety notes from paragraph 2</span>
-          <ol class="steps">
-            <li><p>Open the sample record.
-Check that the café record ID is present.</p><span class="ref">From paragraph 3</span></li>
-            <li><p>Mark the sample record Complete.</p><span class="ref">From paragraph 4</span></li>
-          </ol>
+      <dl class="fields">
+        <div><dt>Parser</dt><dd>1.0.0</dd></div>
+        <div><dt>Schema</dt><dd>work-instruction-preview/1</dd></div>
+        <div><dt>Runtime</dt><dd>Python 3.12, standard library</dd></div>
+        <div><dt>Unit tests</dt><dd>28, all pass</dd></div>
+        <div><dt>Refusal codes</dt><dd>42</dd></div>
+        <div><dt>Outputs</dt><dd>JSON and CSV, never overwritten</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <section class="wrap" id="bench" aria-labelledby="bench-title">
+    <div class="shead">
+      <span class="no">01</span>
+      <h2 id="bench-title">Write the instruction, read what the parser reads.</h2>
+      <p>The page builds a real .docx from these paragraphs on every change and runs the parser's rules on it in your browser. Nothing is uploaded. Break the template on purpose, the result says where and why it stopped.</p>
+    </div>
+    <div class="presets" role="group" aria-label="Example documents">
+      <span class="lab">Load</span>
+      <button type="button" class="pill" data-preset="sample" aria-pressed="true">Café record</button>
+      <button type="button" class="pill" data-preset="ribbon" aria-pressed="false">Printer ribbon</button>
+      <button type="button" class="pill" data-preset="fixture" aria-pressed="false">Test fixture file</button>
+      <button type="button" class="pill" data-preset="gap" aria-pressed="false">Missing step</button>
+      <button type="button" class="pill" data-preset="loose" aria-pressed="false">Loose note</button>
+      <button type="button" class="pill" data-preset="formula" aria-pressed="false">Formula-like text</button>
+    </div>
+    <div class="bench">
+      <div id="paper" data-mode="edit">
+        <div class="phead">
+          <div>
+            <h3 class="edit-only">work_instruction.docx</h3>
+            <h3 class="file-only" id="file-name"></h3>
+            <span class="meta" id="src-size"></span>
+          </div>
+          <div class="ptools">
+            <label class="btn filebtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h6l2 2h8v10H4z"/></svg>Open a .docx<input type="file" id="open" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></label>
+            <button type="button" class="btn edit-only" id="docx-dl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Save as .docx</button>
+          </div>
+        </div>
+        <div class="inserts edit-only" id="inserts" role="group" aria-label="Insert Word content">
+          <span>Add to <b id="ins-target">the last paragraph</b></span>
+          <button type="button" data-insert="list">Word list</button>
+          <button type="button" data-insert="tracked">Tracked change</button>
+          <button type="button" data-insert="field">Date field</button>
+          <button type="button" data-insert="hidden">Hidden text</button>
+          <button type="button" data-insert="pagebreak">Page break</button>
+          <button type="button" data-insert="table">Table after it</button>
+        </div>
+        <p class="hint edit-only"><kbd>Enter</kbd> new paragraph, <kbd>Shift</kbd>+<kbd>Enter</kbd> line break inside one, <kbd>Backspace</kbd> at the start joins it to the one above.</p>
+        <div id="doc" class="edit-only"></div>
+        <div class="file-only">
+          <p class="fnote" id="file-note"></p>
+          <div class="ptools" style="padding: 10px 16px 0">
+            <button type="button" class="btn" id="copy-edit">Edit these paragraphs</button>
+            <button type="button" class="btn" id="back-edit">Back to the editor</button>
+          </div>
+          <div id="fdoc"></div>
+        </div>
+      </div>
+
+      <div class="res" id="res" data-state="ok">
+        <div class="term">
+          <div class="th"><span>shell</span><b id="exit">exit 0</b></div>
+          <pre><span class="cmd">$ python sop_to_work_instruction.py <b id="cmd-file">work_instruction.docx</b> --output-dir out</span>
+<span id="out-line"></span></pre>
+        </div>
+        <div class="sheet">
+          <div class="lab"><span>Extracted instruction</span><b id="stamp" role="status">Accepted</b></div>
+          <button type="button" class="btn" id="jump" hidden></button>
+          <div id="view"></div>
+        </div>
+        <div class="files" id="files">
+          <div class="ftabs" role="tablist" aria-label="Output files">
+            <button type="button" role="tab" id="tab-json" aria-selected="true" aria-controls="file-out">.json <small><span id="json-size"></span> B</small></button>
+            <button type="button" role="tab" id="tab-csv" aria-selected="false" aria-controls="file-out" tabindex="-1">.csv <small><span id="csv-size"></span> B</small></button>
+            <button type="button" class="btn" id="dl-file"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</button>
+          </div>
+          <pre id="file-out" role="tabpanel" tabindex="0" aria-labelledby="tab-json"></pre>
         </div>
       </div>
     </div>
-    <details class="more">
-      <summary>Open the recorded JSON</summary>
-      <figure class="code">
+  </section>
+
+  <section class="wrap" id="codes" aria-labelledby="codes-title">
+    <div class="shead">
+      <span class="no">02</span>
+      <h2 id="codes-title">Every reason it can refuse.</h2>
+      <p>A parser that skips what it doesn't understand hands someone an instruction with a missing step. This one stops with one of 42 codes, listed here by the stage that checks them. The run writes nothing on any of them.</p>
+    </div>
+    <div class="reg-tools">
+      <label for="find">Find a code</label>
+      <input id="find" type="search" placeholder="for example STEP or table" autocomplete="off" spellcheck="false">
+      <output id="find-count" for="find">42 codes</output>
+    </div>
+    <div class="register" id="register">
+      <div class="stage">
+        <header><h3>Input</h3><p>Before anything is opened</p></header>
+        <ul>
+          <li><code>INPUT_READ_FAILED</code><span>The source file can't be read.</span><em class="cli-only">CLI only</em></li>
+          <li><code>INPUT_SIZE_LIMIT</code><span>The file is larger than 8 MiB.</span><em class="cli-only">open a big file</em></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>ZIP package</h3><p>Checked from the directory, before a member is read</p></header>
+        <ul>
+          <li><code>ZIP_INVALID</code><span>Not a ZIP archive at all.</span><em class="cli-only">open a non-ZIP file</em></li>
+          <li><code>ZIP_MEMBER_COUNT_LIMIT</code><span>More than 256 members.</span></li>
+          <li><code>ZIP_DUPLICATE_MEMBER</code><span>The same member name appears twice.</span></li>
+          <li><code>ZIP_UNSAFE_MEMBER</code><span>A name with a backslash, a colon, a leading slash or a dot segment.</span></li>
+          <li><code>ZIP_ENCRYPTED_MEMBER</code><span>A member is encrypted.</span></li>
+          <li><code>ZIP_UNSUPPORTED_COMPRESSION</code><span>Anything other than stored or deflate.</span></li>
+          <li><code>ZIP_MEMBER_LIMIT</code><span>A member expands past 4 MiB, or past its own part limit.</span></li>
+          <li><code>ZIP_TOTAL_SIZE_LIMIT</code><span>All members together expand past 16 MiB.</span></li>
+          <li><code>ZIP_COMPRESSION_RATIO_LIMIT</code><span>A member expands more than 250 times its compressed size.</span></li>
+          <li><code>UNSUPPORTED_PACKAGE_CONTENT</code><span>Macros, ActiveX or embedded packages, by part name or content type.</span></li>
+          <li><code>ZIP_MEMBER_READ_FAILED</code><span>A required part fails to decompress or its checksum is wrong.</span></li>
+          <li><code>ZIP_SIZE_MISMATCH</code><span>A part's bytes don't match the size the directory declared.</span></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>Parts and XML</h3><p>The three parts the parser needs</p></header>
+        <ul>
+          <li><code>DOCX_MISSING_PART</code><span>No content types, root relationships or main document.</span></li>
+          <li><code>XML_UNSUPPORTED_ENCODING</code><span>A part is UTF-16, UTF-32 or not valid UTF-8.</span></li>
+          <li><code>XML_UNSAFE_DECLARATION</code><span>A DOCTYPE or ENTITY declaration.</span></li>
+          <li><code>XML_MALFORMED</code><span>A part is not well-formed XML.</span></li>
+          <li><code>DOCX_PART_ROOT</code><span>A part has the wrong root element.</span></li>
+          <li><code>DOCX_CONTENT_TYPE</code><span>No Word main document content type for word/document.xml.</span></li>
+          <li><code>DOCX_ROOT_RELATIONSHIP</code><span>Not exactly one main document relationship, or it points elsewhere.</span></li>
+          <li><code>DOCX_BODY_MISSING</code><span>The document has no body.</span></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>Word content</h3><p>Anywhere in the document</p></header>
+        <ul>
+          <li><code>UNSUPPORTED_TABLE</code><span>Any table.</span><button type="button" class="try" data-try="table">Try it</button></li>
+          <li><code>UNSUPPORTED_IMAGE</code><span>Drawings, pictures, objects, text boxes or a media part.</span></li>
+          <li><code>UNSUPPORTED_NUMBERING</code><span>Automatic Word numbering or lists.</span><button type="button" class="try" data-try="list">Try it</button></li>
+          <li><code>UNSUPPORTED_WORD_CONTENT</code><span>Fields, tracked changes, comments, links, symbols, content controls.</span></li>
+          <li><code>UNSUPPORTED_HIDDEN_TEXT</code><span>Text formatted as hidden.</span></li>
+          <li><code>UNSUPPORTED_BODY_CONTENT</code><span>Anything in the body other than paragraphs.</span></li>
+          <li><code>UNSUPPORTED_BREAK_TYPE</code><span>A page or column break inside a paragraph.</span><button type="button" class="try" data-try="break">Try it</button></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>Template</h3><p>Paragraph by paragraph</p></header>
+        <ul>
+          <li><code>TEMPLATE_MISSING_TITLE</code><span>The first non-empty paragraph isn't the title, or there is none.</span><button type="button" class="try" data-try="notitle">Try it</button></li>
+          <li><code>TEMPLATE_EMPTY_TITLE</code><span>The title label has no text.</span></li>
+          <li><code>TEMPLATE_MULTILINE_TITLE</code><span>The title has a line break.</span><button type="button" class="try" data-try="multititle">Try it</button></li>
+          <li><code>TEMPLATE_DUPLICATE_LABEL</code><span>A second title, safety notes or the same step number.</span><button type="button" class="try" data-try="dup">Try it</button></li>
+          <li><code>TEMPLATE_AMBIGUOUS_CONTENT</code><span>An unlabeled paragraph, or labels in the wrong order.</span><button type="button" class="try" data-try="late">Try it</button></li>
+          <li><code>TEMPLATE_EMPTY_SAFETY_NOTES</code><span>The safety notes label has no text.</span></li>
+          <li><code>TEMPLATE_STEP_NUMBER_LIMIT</code><span>A step number longer than nine digits.</span></li>
+          <li><code>TEMPLATE_EMPTY_STEP</code><span>A step label with no instruction.</span><button type="button" class="try" data-try="emptystep">Try it</button></li>
+          <li><code>TEMPLATE_NO_STEPS</code><span>A title and no steps.</span><button type="button" class="try" data-try="nosteps">Try it</button></li>
+          <li><code>TEMPLATE_STEP_SEQUENCE</code><span>Steps that don't start at 1 or skip a number.</span><button type="button" class="try" data-try="gap">Try it</button></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>Output</h3><p>Only after a clean parse</p></header>
+        <ul>
+          <li><code>OUTPUT_DIR_UNAVAILABLE</code><span>The output folder can't be created or isn't a folder.</span><em class="cli-only">CLI only</em></li>
+          <li><code>OUTPUT_EXISTS</code><span>Either preview file is already there. Both are left as they were.</span><em class="cli-only">CLI only</em></li>
+          <li><code>OUTPUT_WRITE_FAILED</code><span>Publishing failed. Any file already linked is removed again.</span><em class="cli-only">CLI only</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="rec-title">
+    <div class="shead">
+      <span class="no">03</span>
+      <h2 id="rec-title">The recorded run.</h2>
+      <p>The two files the Python tool wrote for the test fixture, a fictional two-step instruction. The paragraph numbers are the parser's one-based body paragraphs, not Word's line numbers. Both files are in the download.</p>
+    </div>
+    <div class="rec">
+      <figure>
         <figcaption><span>work_instruction_preview.json</span><span>860 bytes</span></figcaption>
-<pre tabindex="0" aria-label="Recorded JSON output">{
+<pre tabindex="0" aria-label="Recorded JSON output" id="rec-json">{
   "parser_version": "1.0.0",
   "safety_notes": {
     "source_paragraph_index": 2,
@@ -130,48 +480,33 @@ Check that the café record ID is present.</p><span class="ref">From paragraph 3
     "source_paragraph_index": 1,
     "text": "Review a sample café record"
   }
-}</pre>
+}
+</pre>
       </figure>
-    </details>
-    <details class="more">
-      <summary>Open the recorded CSV</summary>
-      <figure class="code">
+      <figure>
         <figcaption><span>work_instruction_preview.csv</span><span>552 bytes</span></figcaption>
-<pre tabindex="0" aria-label="Recorded CSV output">record_type,step_number,text,source_paragraph_index,source_sha256
+<pre tabindex="0" aria-label="Recorded CSV output" id="rec-csv">record_type,step_number,text,source_paragraph_index,source_sha256
 title,,Review a sample café record,1,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
 safety_notes,,"Synthetic example only.
 No equipment is involved.",2,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
 step,1,"Open the sample record.
 Check that the café record ID is present.",3,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
-step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267</pre>
+step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
+</pre>
       </figure>
-    </details>
-    <p class="note">Both files are in the download. Running the included generator again on 19 October 2026 produced a JSON file identical to the recorded one, byte for byte.</p>
+    </div>
+    <p class="parity" id="parity">Checking the bench against these files.</p>
   </section>
 
-  <section class="section wrap" aria-labelledby="refuse-title">
-    <div class="section-head">
-      <p class="eyebrow">Refusals</p>
-      <h2 id="refuse-title">When the input is wrong, nothing is written.</h2>
-      <p>A parser that skips what it doesn't understand hands someone an instruction with a missing step. This one stops and says why.</p>
+  <section class="wrap" aria-labelledby="code-title">
+    <div class="shead">
+      <span class="no">04</span>
+      <h2 id="code-title">Safe in a spreadsheet, exact in JSON.</h2>
     </div>
-    <div class="card-grid">
-      <div class="card"><span class="label">Step numbering</span><h3>No gaps, no repeats</h3><p>Steps must start at 1 and run in order. A document that jumps from Step 1 to Step 3 is rejected.</p><code class="tag">ERROR[TEMPLATE_STEP_SEQUENCE]: Expected Step 2, found Step 3.</code></div>
-      <div class="card"><span class="label">Unsupported content</span><h3>Tables and lists are refused</h3><p>Tables, images, automatic Word numbering, macros and embedded objects stop the run instead of being dropped quietly. So do unlabeled paragraphs.</p><code class="tag">ERROR[UNSUPPORTED_TABLE]: Tables are not supported by this preview.</code></div>
-      <div class="card"><span class="label">Existing files</span><h3>No overwrite on a rerun</h3><p>Writing to a folder that already has the outputs returns an error and leaves both files as they were. This is the actual message from the rerun.</p><code class="tag">ERROR[OUTPUT_EXISTS]: Refusing to overwrite existing output: work_instruction_preview.json, work_instruction_preview.csv.</code></div>
-    </div>
-  </section>
-
-  <section class="section wrap" aria-labelledby="code-title">
-    <div class="split">
-      <div class="section-head">
-        <p class="eyebrow">The code that matters</p>
-        <h2 id="code-title">Safe in a spreadsheet, exact in JSON.</h2>
-        <p>Step text that starts with <code>=</code>, <code>+</code>, <code>-</code> or <code>@</code> would run as a formula when the CSV opens in Excel. The CSV gets a leading apostrophe. The JSON keeps the original text, so nothing is lost.</p>
-        <p>The parser reads the DOCX package directly with the Python standard library and checks the ZIP before it opens anything: 8 MiB compressed, 4 MiB per member and 16 MiB expanded at most.</p>
-      </div>
-      <div class="stack">
-        <figure class="code">
+    <div class="code">
+      <div class="notes">
+        <p>Step text that starts with <code>=</code>, <code>+</code>, <code>-</code> or <code>@</code> would run as a formula when the CSV opens in Excel. The CSV gets a leading apostrophe. The JSON keeps the original text, so nothing is lost. Load "Formula-like text" on the bench and compare the two tabs.</p>
+        <figure>
           <figcaption><span>sop_to_work_instruction.py</span><span>lines 450 to 455</span></figcaption>
 <pre tabindex="0" aria-label="Excerpt: CSV formula guard">def _csv_safe_text(value: str) -&gt; str:
     """Keep formula-like source text literal when a CSV is opened as a spreadsheet."""
@@ -180,21 +515,32 @@ step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797f
         return "'" + value
     return value</pre>
         </figure>
-        <figure class="code">
-          <figcaption><span>Run the tests</span><span>Python 3.12, standard library only</span></figcaption>
-<pre tabindex="0" aria-label="Test command and result">python -m unittest tests.test_sop_to_work_instruction
-<span class="c">Ran 28 tests in 0.602s</span>
+      </div>
+      <div class="notes">
+        <p>The parser reads the package directly with the standard library and checks the ZIP directory before it decompresses anything.</p>
+        <ul class="limits-list">
+          <li>Source file <b>8 MiB</b></li>
+          <li>One member, expanded <b>4 MiB</b></li>
+          <li>All members, expanded <b>16 MiB</b></li>
+          <li>Members <b>256</b></li>
+          <li>Expansion ratio <b>250 to 1</b></li>
+        </ul>
+        <div class="term static">
+          <div class="th"><span>rerun on 24 October 2026</span><b>Python 3.12</b></div>
+<pre tabindex="0" aria-label="Test command and result"><span class="cmd">$ python -m unittest tests.test_sop_to_work_instruction</span>
+Ran 28 tests in 0.558s
 <span class="ok">OK</span></pre>
-        </figure>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section wrap" aria-labelledby="limits-title">
-    <div class="limits">
+  <section class="wrap" aria-labelledby="limits-title">
+    <div class="stops">
       <div>
         <h2 id="limits-title">Where this stops</h2>
-        <p>This is an extraction building block tested on a fictional document. It reads one labeled template, not any Word file. The test document is generated in code and hasn't been opened in Word itself.</p>
+        <p>This is an extraction building block tested on fictional documents. It reads one labeled template, not any Word file. The test document is generated in code and hasn't been opened in Word itself.</p>
+        <p>The bench runs a JavaScript port of the same rules. On 1,373 generated and damaged documents, plus 600 documents built by the editor, it gave the same files or the same refusal as the Python tool every time. The editor saves its .docx uncompressed, Word itself compresses.</p>
         <ul>
           <li>Supported: one title, optional safety notes before the steps, then consecutive steps of one paragraph each.</li>
           <li>Not supported: other layouts, tables, automatic lists, headers and footers.</li>
@@ -209,11 +555,29 @@ step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797f
   </section>
 </main>
 
-<footer class="site-foot">
+<footer>
   <div class="wrap">
-    <p>Independent study by Alexandr Khrustalev. The work instruction is fictional.</p>
+    <p>Independent study by Alexandr Khrustalev. The work instructions are fictional.</p>
     <a href="index.html">Back to selected work</a>
   </div>
 </footer>
+<script type="text/plain" id="fixture-docx">UEsDBBQAAAAIAAAAIVDXeYTq8QAAALgBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbH2QzU7DMBCE730Ky9cqccoBIZSkB36OwKE8wMreJFb9J69b2rdn00KREOVozXwz62nXB+/EHjPZGDq5qhspMOhobBg7+b55ru6koALBgIsBO3lEkut+0W6OCUkwHKiTUynpXinSE3qgOiYMrAwxeyj8zKNKoLcworppmlulYygYSlXmDNkvhGgfcYCdK+LpwMr5loyOpHg4e+e6TkJKzmoorKt9ML+Kqq+SmsmThyabaMkGqa6VzOL1jh/0lSfK1qB4g1xewLNRfcRslIl65xmu/0/649o4DFbjhZ/TUo4aiXh77+qL4sGG71+06jR8/wlQSwMEFAAAAAgAAAAhUCAbhuqyAAAALgEAAAsAAABfcmVscy8ucmVsc43Puw6CMBQG4J2naM4uBQdjDIXFmLAafICmPZRGeklbL7y9HRzEODie23fyN93TzOSOIWpnGdRlBQStcFJbxeAynDZ7IDFxK/nsLDJYMELXFs0ZZ57yTZy0jyQjNjKYUvIHSqOY0PBYOo82T0YXDE+5DIp6Lq5cId1W1Y6GTwPagpAVS3rJIPSyBjIsHv/h3ThqgUcnbgZt+vHlayPLPChMDB4uSCrf7TKzQHNKuorZvgBQSwMEFAAAAAgAAAAhUHWOcao+AQAAzAIAABEAAAB3b3JkL2RvY3VtZW50LnhtbKWSQU7DMBBFrzLynrjtAiGrSRdFSF1QEAWxNs60sZrYxp4mzZE4BxfDTlUBohKobL5l2Xr//9FMZ/umhhZ90NbkbJyNGKBRttRmk7Onx5uLKwaBpCllbQ3mrMfAZsW0E6VVuwYNQQSYILqcVUROcB5UhY0MmXVo4tva+kZSvPoN76wvnbcKQ4j8puaT0eiSN1IblpAvtuzT6ZL4JANdBCdVtHYeA/oWWfFs/RYWJpDfKYrBBTxgq7EDCUE2rkZQcv3+Bh5VdJzyCCqS+kHdnzxWco3Uw9ISBgGr3lCFpBXg/uBgTd1n39CxgOe/YZcW8HWn3TA6HUCb1tYtltmZKQkdjAXcxWFDTHjsf2h+Rr55hWobSZIG3Nc5wuI6JR7+GvpP4ImAW+m3PwPD3KYb4Wl6QEX3qQM/Lgv/XMTiA1BLAQIUABQAAAAIAAAAIVDXeYTq8QAAALgBAAATAAAAAAAAAAAAAACAAQAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAhQAFAAAAAgAAAAhUCAbhuqyAAAALgEAAAsAAAAAAAAAAAAAAIABIgEAAF9yZWxzLy5yZWxzUEsBAhQAFAAAAAgAAAAhUHWOcao+AQAAzAIAABEAAAAAAAAAAAAAAIAB/QEAAHdvcmQvZG9jdW1lbnQueG1sUEsFBgAAAAADAAMAuQAAAGoDAAAAAA==</script>
+<script type="module" src="sop-page.mjs"></script>
+<script type="module">
+const find = document.getElementById("find"), count = document.getElementById("find-count");
+find.addEventListener("input", () => {
+  const q = find.value.trim().toLowerCase().replace(/[\s_]+/g, " ");
+  let n = 0;
+  for (const stage of document.querySelectorAll(".stage")) {
+    let shown = 0;
+    for (const li of stage.querySelectorAll("li")) {
+      const hit = !q || li.textContent.toLowerCase().replace(/[\s_]+/g, " ").includes(q);
+      li.hidden = !hit; if (hit) shown++;
+    }
+    stage.classList.toggle("empty", shown === 0); n += shown;
+  }
+  count.textContent = n === 1 ? "1 code" : `${n} codes`;
+});
+</script>
 </body>
 </html>
