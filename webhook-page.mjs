@@ -114,6 +114,9 @@ function renderState() {
   const s = state(store);
   $("wh-count").textContent = s.event_count;
   $("wh-boot").textContent = boots;
+  $("cap-count").textContent = s.event_count;
+  $("cap-boot").textContent = boots;
+  $("cap-sent").textContent = sent;
   const ev = $("wh-events");
   ev.replaceChildren(...(s.events.length ? s.events.map(e => row([e.event_id, e.shipment, e.status, iso(e.event_at)])) : [empty("No receipts yet. Send the first delivery.", 4)]));
   const sh = $("wh-ships");
@@ -141,6 +144,56 @@ function log(entry) {
   }));
   $("wh-journal-empty").hidden = journal.length > 0;
 }
+// Capture: one frame per delivery on the Sender, Receiver and SQLite lifelines.
+let sent = 0, frames = 0;
+const STAGE_NAME = { size: "size", clock: "clock", hmac: "signature", schema: "schema", store: "store" };
+function msg(cls, text, i) {
+  const d = document.createElement("div");
+  d.className = "msg " + cls;
+  d.style.setProperty("--d", (i * 0.14).toFixed(2) + "s");
+  const lb = document.createElement("span"); lb.className = "lb"; lb.textContent = text;
+  const ln = document.createElement("span"); ln.className = "ln";
+  d.append(lb, ln);
+  return d;
+}
+function noteRow(text, i, stop) {
+  const d = document.createElement("div");
+  d.className = "msg";
+  d.style.setProperty("--d", (i * 0.14).toFixed(2) + "s");
+  if (stop) { const x = document.createElement("span"); x.className = "stopmark"; x.setAttribute("aria-hidden", "true"); d.append(x); }
+  const n = document.createElement("span"); n.className = stop ? "note" : "note sys"; n.textContent = text;
+  d.append(n);
+  return d;
+}
+const replyKind = res => res.status === 200 ? (res.code === "recorded" ? "c-ok" : "c-dup") : "c-bad";
+function frame(rows) {
+  const host = $("wh-seq-body");
+  $("wh-seq-empty").hidden = true;
+  const f = document.createElement("div");
+  f.className = "frame";
+  const tag = document.createElement("span"); tag.className = "frame-tag"; tag.textContent = "#" + (++frames) + " " + clock();
+  f.append(tag, ...rows);
+  host.append(f);
+  while (host.querySelectorAll(".frame").length > 40) host.querySelector(".frame").remove();
+  const box = $("wh-seq");
+  box.scrollTo({ top: box.scrollHeight, behavior: reduce.matches ? "auto" : "smooth" });
+}
+function capture(res, title, copies, bodyText) {
+  let id = "";
+  try { id = JSON.parse(bodyText).event_id || ""; } catch { id = ""; }
+  const rows = [msg("sr c-req", (copies > 1 ? copies + "x " : "") + "POST " + (id || title), 0)];
+  const last = res.trace[res.trace.length - 1];
+  if (res.status !== 200 && last && last.id !== "store") {
+    rows.push(noteRow("stopped at " + STAGE_NAME[last.id], 1, true));
+  } else {
+    const dbNote = res.code === "recorded" ? "new ID, insert, commit" : res.code === "duplicate" ? "digest already stored" : res.code === "event_id_conflict" ? "digest differs, rollback" : "lookup";
+    rows.push(msg("rd c-db", "BEGIN IMMEDIATE, lookup", 1));
+    rows.push(msg("rd back c-db", dbNote, 2));
+  }
+  rows.push(msg("sr back " + replyKind(res), copies > 1 ? title : res.status + " " + res.code, rows.length));
+  frame(rows);
+}
+
 const clock = () => new Date().toTimeString().slice(0, 8);
 const kindOf = res => res.status === 200 ? (res.code === "recorded" ? "ok" : "dup") : res.status === 0 ? "sys" : "bad";
 
@@ -150,7 +203,9 @@ async function send() {
     const title = label();
     const { body, ts, sig } = await buildRequest();
     const res = await deliver(body, ts, sig);
+    sent++;
     showResponse(res, title);
+    capture(res, title, 1, bodyEl.value);
     renderState();
     log({ time: clock(), status: res.status, code: res.code, label: title, kind: kindOf(res) });
     await showTrace(res.trace);
@@ -167,7 +222,9 @@ async function burst() {
     for (const r of all) count[r.code] = (count[r.code] || 0) + 1;
     const summary = Object.entries(count).map(([k, v]) => `${v} ${k}`).join(", ");
     const first = all.find(r => r.code === "recorded") || all[0];
+    sent += 24;
     showResponse(first, `24 copies at once: ${summary}`);
+    capture(first, summary, 24, bodyEl.value);
     $("wh-meaning").textContent = count.recorded === 1 ? "One copy was stored and 23 were acknowledged as duplicates. The check and the insert happen in one step, so no two copies can both see an empty table." : MEANING[first.code] || "";
     renderState();
     log({ time: clock(), status: first.status, code: summary, label: "24 copies of: " + title, kind: kindOf(first) });
@@ -178,6 +235,7 @@ async function burst() {
 function restart() {
   secret = newKey(); boots++;
   renderState();
+  frame([noteRow("restart, receipts kept, new key", 0, false)]);
   log({ time: clock(), status: "", code: "restart", label: "Service restarted. Receipts kept, new signing key.", kind: "sys" });
   preview();
 }
@@ -190,6 +248,7 @@ function wipe() {
   $("wh-for").textContent = "Database wiped";
   $("wh-json").textContent = "No receipts are stored. The next delivery is a first delivery.";
   $("wh-meaning").textContent = "";
+  frame([noteRow("database wiped", 0, false)]);
   log({ time: clock(), status: "", code: "wipe", label: "Database wiped.", kind: "sys" });
 }
 
@@ -202,6 +261,10 @@ $("wh-burst").addEventListener("click", burst);
 $("wh-restart").addEventListener("click", restart);
 $("wh-wipe").addEventListener("click", wipe);
 setInterval(() => { if (!running && document.visibilityState === "visible") preview(); }, 1000);
+$("story-replay").addEventListener("click", () => {
+  const body = document.querySelector("#story-seq .seq-body");
+  body.replaceWith(body.cloneNode(true));
+});
 setPreset("first");
 renderState();
 document.documentElement.dataset.bench = "ready";

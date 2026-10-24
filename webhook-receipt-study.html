@@ -3,225 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#e9eceb">
+<meta name="theme-color" content="#081214">
+<meta name="color-scheme" content="dark">
 <title>Webhook receipt study</title>
 <meta name="description" content="A small Python service that stores each signed webhook once, refuses a reused event ID with changed content and keeps the receipt and shipment state in one SQLite transaction. Try the receiver in the browser, then read the source, tests and recorded responses.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23123b3f'/%3E%3Cpath d='M7 16h8m3 0h7M15 11v10' stroke='%23e9eceb' stroke-width='3' fill='none'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23081214'/%3E%3Cpath d='M8 6v20M24 6v20M8 12h14M24 20H10' stroke='%236fd6cf' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --paper: #e9eceb; --panel: #f6f7f6; --ink: #121b1c; --muted: #4d5a5b; --rule: #c4cccb; --rule-2: #8e9a99;
-  --petrol: #123b3f; --petrol-2: #1d5156; --wire: #7fa7a6;
-  --ok: #17704a; --ok-soft: #dcefe4; --dup: #2c5683; --dup-soft: #dfe7f1; --bad: #b0281f; --bad-soft: #f6dfdc;
-  --sans: "IBM Plex Sans", system-ui, sans-serif; --cond: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif; --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
-  --ease: cubic-bezier(.2,.7,.2,1);
-}
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.6 var(--sans); }
-a { color: inherit; }
-:focus-visible { outline: 3px solid var(--dup); outline-offset: 2px; }
-.skip { position: absolute; left: 16px; top: -60px; background: var(--ink); color: #fff; padding: 10px 14px; z-index: 5; }
-.skip:focus { top: 8px; }
-.wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
-code, pre, kbd { font-family: var(--mono); }
-.bar { border-bottom: 1px solid var(--ink); }
-.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; }
-.bar a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; text-decoration: none; font-weight: 500; }
-.bar a svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; }
-.bar a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.bar .mark { font: 500 13px/1 var(--mono); color: var(--muted); }
-
-.hero { padding: 64px 0 48px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: end; border-bottom: 1px solid var(--rule-2); }
-.kicker { margin: 0 0 18px; font: 500 13px/1.4 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-h1, h2, h3 { font-family: var(--cond); font-weight: 700; letter-spacing: -.01em; margin: 0; }
-h1 { font-size: clamp(38px, 5.4vw, 74px); line-height: .98; max-width: 15ch; }
-.lede { margin: 24px 0 0; max-width: 60ch; font-size: 18px; color: #253233; }
-.hero-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: 600 15px/1 var(--sans); text-decoration: none; cursor: pointer; transition: background-color .15s var(--ease), color .15s var(--ease); }
-.btn:hover { background: var(--ink); color: var(--paper); }
-.btn.solid { background: var(--petrol); border-color: var(--petrol); color: #fff; }
-.btn.solid:hover { background: var(--ink); }
-.btn small { font: 500 12px/1 var(--mono); opacity: .8; }
-.btn svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; }
-.wire { margin: 0; background: var(--petrol); color: #dfe9e8; font: 400 13.5px/1.75 var(--mono); padding: 20px 22px; overflow-x: auto; }
-.wire .k { color: var(--wire); }
-.wire b { color: #fff; font-weight: 600; }
-.wire .note { display: block; margin-top: 10px; padding-top: 10px; border-top: 1px solid #2c6066; color: #a9c3c2; white-space: normal; font-size: 12.5px; line-height: 1.55; }
-
-.sec { padding: 72px 0; border-bottom: 1px solid var(--rule-2); }
-.sec-head { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 24px; margin-bottom: 32px; }
-.sec-head .num { font: 600 13px/2.4 var(--mono); color: var(--muted); }
-h2 { font-size: clamp(28px, 3.2vw, 42px); line-height: 1.05; }
-.sec-head p { margin: 14px 0 0; max-width: 66ch; color: #2a3637; }
-
-/* bench */
-.bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); border: 1px solid var(--ink); background: var(--panel); }
-.side { min-width: 0; }
-.side + .side { border-left: 1px solid var(--ink); }
-.side-h { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 16px; background: var(--petrol); color: #e6efee; font: 600 13px/1.4 var(--mono); }
-.side-h span:last-child { color: var(--wire); font-weight: 400; }
-.presets { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px 16px; border-bottom: 1px solid var(--rule); }
-.presets button { min-height: 36px; padding: 4px 10px; border: 1px solid var(--rule-2); background: #fff; color: var(--ink); font: 500 13px/1.25 var(--sans); cursor: pointer; text-align: left; transition: border-color .15s var(--ease), background-color .15s var(--ease); }
-.presets button:hover { border-color: var(--ink); }
-.presets button[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
-.req { padding: 14px 16px 16px; }
-.req-line { font: 600 13px/1.6 var(--mono); margin: 0 0 6px; }
-.hdrs { margin: 0 0 12px; font: 400 12.5px/1.6 var(--mono); }
-.hdrs div { display: grid; grid-template-columns: 196px minmax(0, 1fr); gap: 8px; padding: 3px 0; border-bottom: 1px dashed var(--rule); }
-.hdrs dt { color: var(--muted); }
-.hdrs dd { margin: 0; overflow-wrap: anywhere; }
-.hdrs .ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
-.hdrs select { min-height: 32px; max-width: 100%; border: 1px solid var(--rule-2); background: #fff; color: var(--ink); font: 500 12.5px/1.2 var(--sans); padding: 2px 6px; }
-label.body-l { display: flex; justify-content: space-between; gap: 12px; font: 600 12.5px/1.6 var(--mono); color: var(--muted); }
-label.body-l .over { color: var(--bad); }
-textarea { display: block; width: 100%; min-height: 168px; margin-top: 6px; padding: 12px; border: 1px solid var(--rule-2); background: #fff; color: var(--ink); font: 400 13.5px/1.6 var(--mono); resize: vertical; }
-textarea:focus-visible { outline-offset: -1px; }
-.send-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
-.send-row .hint { font: 400 12px/1.4 var(--mono); color: var(--muted); margin-left: auto; }
-.svc { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 16px; border-top: 1px solid var(--rule); font: 400 12.5px/1.5 var(--mono); color: var(--muted); }
-.svc .btn { min-height: 40px; padding: 0 12px; font-size: 13px; }
-.svc span { margin-right: auto; }
-
-.rail { list-style: none; margin: 0; padding: 16px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; border-bottom: 1px solid var(--rule); counter-reset: st; }
-.stage { position: relative; padding: 22px 6px 0 0; font: 600 12.5px/1.3 var(--mono); }
-.stage::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 2px; background: var(--rule); }
-.stage::after { content: ""; position: absolute; left: 0; top: 1px; width: 14px; height: 14px; border: 2px solid var(--rule-2); background: var(--panel); transition: background-color .12s var(--ease), border-color .12s var(--ease); }
-.stage small { display: block; margin-top: 2px; font-weight: 400; font-size: 11.5px; color: var(--muted); overflow-wrap: anywhere; }
-.stage[data-state="pass"]::before { background: var(--ok); }
-.stage[data-state="pass"]::after { background: var(--ok); border-color: var(--ok); }
-.stage[data-state="stop"]::after { background: var(--bad); border-color: var(--bad); }
-.stage[data-state="stop"] { color: var(--bad); }
-.stage[data-state="stop"] small { color: var(--bad); font-weight: 600; }
-
-.resp { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 16px; padding: 16px; border-bottom: 1px solid var(--rule); border-left: 6px solid var(--rule-2); }
-.resp[data-kind="ok"] { border-left-color: var(--ok); background: var(--ok-soft); }
-.resp[data-kind="dup"] { border-left-color: var(--dup); background: var(--dup-soft); }
-.resp[data-kind="bad"] { border-left-color: var(--bad); background: var(--bad-soft); }
-.resp .status { grid-row: span 3; font: 700 44px/1 var(--cond); min-width: 2.2ch; }
-.resp[data-kind="ok"] .status { color: var(--ok); }
-.resp[data-kind="dup"] .status { color: var(--dup); }
-.resp[data-kind="bad"] .status { color: var(--bad); }
-.resp .for { font: 500 12px/1.4 var(--mono); color: var(--muted); }
-.resp code { font-size: 13px; overflow-wrap: anywhere; }
-.resp p { margin: 0; font-size: 14.5px; line-height: 1.5; }
-
-.tables { display: grid; grid-template-columns: minmax(0, 1fr); }
-.tbl { min-width: 0; }
-.tbl { padding: 14px 16px 6px; }
-.tbl + .tbl { border-top: 1px solid var(--rule); }
-.tbl h3 { font: 600 12.5px/1.5 var(--mono); display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
-.tbl h3 span { color: var(--muted); font-weight: 400; }
-.tscroll { overflow-x: auto; max-height: 216px; overflow-y: auto; }
-table.st { width: 100%; border-collapse: collapse; font: 400 12.5px/1.45 var(--mono); }
-table.st th { text-align: left; font-weight: 500; color: var(--muted); padding: 4px 10px 4px 0; border-bottom: 1px solid var(--rule-2); white-space: nowrap; position: sticky; top: 0; background: var(--panel); }
-table.st td { padding: 5px 10px 5px 0; border-bottom: 1px dashed var(--rule); white-space: nowrap; }
-table.st td.empty { color: var(--muted); white-space: normal; font-family: var(--sans); font-size: 13.5px; }
-#wh-more { font: 400 12px/1.4 var(--mono); color: var(--muted); margin: 6px 0 4px; }
-
-.journal { border: 1px solid var(--ink); border-top: 0; background: var(--panel); }
-.journal .side-h { background: var(--ink); }
-#wh-journal { list-style: none; margin: 0; padding: 0 16px; max-height: 260px; overflow-y: auto; font: 400 12.5px/1.45 var(--mono); }
-#wh-journal li { display: grid; grid-template-columns: 72px 40px minmax(0, 1.1fr) minmax(0, 1.4fr); gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--rule); }
-#wh-journal time { color: var(--muted); }
-#wh-journal li[data-kind="ok"] b { color: var(--ok); }
-#wh-journal li[data-kind="dup"] b { color: var(--dup); }
-#wh-journal li[data-kind="bad"] b, #wh-journal li[data-kind="bad"] code { color: var(--bad); }
-#wh-journal li[data-kind="sys"] { color: var(--muted); }
-#wh-journal code, #wh-journal span { overflow-wrap: anywhere; }
-#wh-journal-empty { margin: 0; padding: 12px 16px 14px; color: var(--muted); font-size: 14px; }
-.bench-note { margin: 18px 0 0; max-width: 78ch; color: #2a3637; font-size: 15px; }
-
-/* recorded run */
-.log { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--ink); font-size: 14.5px; }
-.log caption { text-align: left; padding: 0 0 10px; font: 400 13px/1.5 var(--mono); color: var(--muted); }
-.log th, .log td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--rule); }
-.log thead th { font: 500 12.5px/1.4 var(--mono); color: var(--muted); border-bottom-color: var(--ink); white-space: nowrap; }
-.log tbody th { font-weight: 600; min-width: 170px; }
-.log tbody th span { display: block; font: 400 12.5px/1.5 var(--mono); color: var(--muted); }
-.log td code { font-size: 12.5px; overflow-wrap: anywhere; }
-.log .n { text-align: right; font-family: var(--mono); }
-.log .http { font: 700 15px/1.4 var(--mono); }
-.log .http.ok { color: var(--ok); } .log .http.warn { color: var(--bad); } .log .http.bad { color: var(--bad); }
-.log tr.restart > * { background: var(--dup-soft); border-top: 2px solid var(--dup); }
-.log tbody tr:last-child > * { border-bottom: 0; }
-
-/* code */
-.codegrid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
-figure.code { margin: 0; border: 1px solid var(--ink); background: #0f1e20; color: #d6e2e1; }
-figure.code figcaption { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 9px 14px; background: var(--petrol); font: 500 12.5px/1.5 var(--mono); color: #cfe0df; }
-figure.code pre { margin: 0; padding: 16px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
-figure.code .hl { color: #fff; background: #20474b; display: inline-block; min-width: 100%; }
-figure.code .c { color: #8fb0ae; } figure.code .okk { color: #7fd1a3; }
-.side-notes p { margin: 0 0 14px; font-size: 15px; }
-.side-notes p:last-child { margin-bottom: 0; }
-
-.shot { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: 24px; align-items: start; }
-.shot img { width: 100%; height: auto; border: 1px solid var(--ink); background: #fff; display: block; }
-.shot figcaption { font-size: 15px; color: #2a3637; }
-
-.stops { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; }
-.stops ul { margin: 14px 0 0; padding: 0; list-style: none; }
-.stops li { padding: 9px 0 9px 22px; border-bottom: 1px solid var(--rule); position: relative; }
-.stops li::before { content: ""; position: absolute; left: 0; top: 19px; width: 10px; height: 2px; background: var(--ink); }
-.stops h2 { font-size: 30px; } .stops h3 { font-size: 22px; }
-.stops p { margin: 12px 0 0; }
-.foot { padding: 28px 0 40px; font-size: 14px; color: var(--muted); }
-.foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-.foot a { min-height: 44px; display: inline-flex; align-items: center; }
-
-@media (max-width: 1080px) {
-  .bench { grid-template-columns: minmax(0, 1fr); }
-  .side + .side { border-left: 0; border-top: 1px solid var(--ink); }
-  .codegrid, .shot { grid-template-columns: minmax(0, 1fr); }
-  .shot img { max-width: 720px; }
-}
-@media (max-width: 860px) {
-  .hero { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-top: 44px; }
-  .sec { padding: 52px 0; }
-  .sec-head { grid-template-columns: 1fr; gap: 6px; }
-  .sec-head .num { line-height: 1.4; }
-  .stops { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-}
-@media (max-width: 640px) {
-  .bar .mark { display: none; }
-  .lede { font-size: 17px; }
-  .hdrs div { grid-template-columns: 1fr; gap: 2px; }
-  .presets button { min-height: 44px; }
-  .hdrs select { min-height: 44px; }
-  .send-row .btn { flex: 1 1 auto; }
-  .send-row .hint { display: none; }
-  .svc .btn { min-height: 44px; flex: 1 1 auto; }
-  .svc span { flex-basis: 100%; }
-  .rail { padding: 14px 12px; }
-  .stage { font-size: 11.5px; padding-right: 4px; }
-  .stage small { display: none; }
-  .side-h span + span { display: none; }
-  .resp .status { font-size: 36px; }
-  #wh-journal li { grid-template-columns: 64px 34px minmax(0, 1fr); }
-  #wh-journal li span { grid-column: 1 / -1; padding-left: 74px; margin-top: -4px; color: var(--muted); }
-  .log, .log tbody, .log tr, .log th, .log td { display: block; }
-  .log { border: 0; background: none; }
-  .log caption { display: block; }
-  .log thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .log tbody tr { margin-bottom: 10px; border: 1px solid var(--ink); background: var(--panel); }
-  .log tbody th { border-bottom: 1px solid var(--rule); }
-  .log td { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 10px; padding: 8px 14px; border-bottom: 0; }
-  .log td::before { content: attr(data-label); font: 500 12px/1.6 var(--mono); color: var(--muted); }
-  .log .n { text-align: left; }
-  .log tr.restart > * { border-top: 0; }
-}
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
-</style>
+<link rel="stylesheet" href="webhook-style.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to the study</a>
-<header class="bar">
+<header class="cap">
   <div class="wrap">
-    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
-    <span class="mark">receipt_store.py, Python 3.10+, standard library</span>
+    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg><span>Selected work</span></a>
+    <div class="meters" aria-label="Receiver in this tab">
+      <span>receipt_store.py</span>
+      <span>start <b id="cap-boot">1</b></span>
+      <span>deliveries <b id="cap-sent">0</b></span>
+      <span>stored <b id="cap-count">0</b></span>
+    </div>
   </div>
 </header>
 
@@ -229,31 +31,41 @@ figure.code .c { color: #8fb0ae; } figure.code .okk { color: #7fd1a3; }
   <section class="wrap hero" aria-labelledby="title">
     <div>
       <p class="kicker">Webhook receiver study, fictional shipments</p>
-      <h1 id="title">A retried webhook should never count twice.</h1>
+      <h1 id="title">A retried webhook should <em>never count twice.</em></h1>
       <p class="lede">Senders retry when a reply is slow or lost. This small Python service checks each signed delivery, stores every event ID once and refuses an old ID that comes back with different content. The receipt and the shipment update are saved in one SQLite transaction, so they can't drift apart.</p>
       <div class="hero-actions">
         <a class="btn solid" href="#bench">Try the receiver</a>
         <a class="btn" href="webhook-receipt-source.zip" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Source and tests <small>12 KB</small></a>
       </div>
     </div>
-    <pre class="wire" aria-label="What a delivery looks like"><b>POST</b> /webhook
-<span class="k">Content-Type:</span> application/json
-<span class="k">X-Delivery-Timestamp:</span> 1802822400
-<span class="k">X-Delivery-Signature:</span> hex HMAC-SHA256 of
-  "&lt;timestamp&gt;.&lt;exact body bytes&gt;"
-
-{"event_id": "evt_demo_001", "shipment": "DEMO_1042",
- "status": "in_transit", "event_time": "2026-10-18T00:00:00Z"}<span class="note">Ran 32 tests, OK. 24 copies of one event sent at once are stored once. Two receipts survive a restart.</span></pre>
+    <figure class="story" id="story" aria-labelledby="story-cap">
+      <figcaption class="story-h"><span id="story-cap"><b>Capture 01</b>, a lost reply and two retries</span><button type="button" class="replay" id="story-replay">Replay</button></figcaption>
+      <div class="seq" id="story-seq">
+        <div class="seq-heads" aria-hidden="true"><span>Sender</span><span>Receiver</span><span>SQLite</span></div>
+        <div class="seq-body"><i></i>
+          <div class="msg sr c-req" style="--d:.1s"><span class="lb">POST evt_demo_001, in_transit</span><span class="ln"></span></div>
+          <div class="msg rd c-db" style="--d:.45s"><span class="lb">BEGIN IMMEDIATE, insert</span><span class="ln"></span></div>
+          <div class="msg sr back dash c-ok" style="--d:.8s"><span class="lb">200 recorded, reply lost</span><span class="ln"></span></div>
+          <div class="msg sr c-req" style="--d:1.25s"><span class="lb">retry, same body</span><span class="ln"></span></div>
+          <div class="msg rd back c-db" style="--d:1.6s"><span class="lb">digest already stored</span><span class="ln"></span></div>
+          <div class="msg sr back c-dup" style="--d:1.95s"><span class="lb">200 duplicate</span><span class="ln"></span></div>
+          <div class="msg sr c-req" style="--d:2.4s"><span class="lb">same ID, delivered</span><span class="ln"></span></div>
+          <div class="msg rd back c-db" style="--d:2.75s"><span class="lb">digest differs</span><span class="ln"></span></div>
+          <div class="msg sr back c-bad" style="--d:3.1s"><span class="lb">409 event_id_conflict</span><span class="ln"></span></div>
+        </div>
+      </div>
+      <p class="story-foot">Result: <b>1 receipt</b>, shipment DEMO_1042 still in_transit. Ran 32 tests, OK. 24 copies sent at once are stored once.</p>
+    </figure>
   </section>
 
   <section class="sec" id="bench" aria-labelledby="bench-title">
     <div class="wrap">
       <div class="sec-head">
-        <span class="num">01 Receiver</span>
         <div>
+          <span class="layer">Layer 1, the receiver</span>
           <h2 id="bench-title">Send deliveries and watch where each one stops.</h2>
-          <p>This is the receiver's logic running in your browser, with the same checks in the same order and the same replies. Pick a delivery, edit the body or the headers, then send it. The database here lives in this tab. Restart keeps it, like the SQLite file does.</p>
         </div>
+        <p>This is the receiver's logic running in your browser, with the same checks in the same order and the same replies. Pick a delivery, edit the body or the headers, then send it. Every delivery is drawn on the capture below. The database here lives in this tab. Restart keeps it, like the SQLite file does.</p>
       </div>
 
       <div class="bench">
@@ -272,7 +84,7 @@ figure.code .c { color: #8fb0ae; } figure.code .okk { color: #7fd1a3; }
             <button type="button" data-preset="baddate" aria-pressed="false">30 February</button>
           </div>
           <div class="req">
-            <p class="req-line">POST /webhook HTTP/1.1</p>
+            <p class="req-line"><span>POST</span> /webhook HTTP/1.1</p>
             <dl class="hdrs">
               <div><dt>Content-Type</dt><dd>application/json</dd></div>
               <div><dt>X-Delivery-Timestamp</dt><dd class="ctl"><span id="wh-ts">0</span>
@@ -334,10 +146,19 @@ figure.code .c { color: #8fb0ae; } figure.code .okk { color: #7fd1a3; }
           </div>
         </div>
       </div>
-      <div class="journal">
-        <div class="side-h"><span>Response journal</span><span>newest first, clears on reload</span></div>
-        <p id="wh-journal-empty">Each reply lands here with its status and code.</p>
-        <ol id="wh-journal" aria-label="Response journal"></ol>
+      <div class="trace">
+        <div>
+          <div class="side-h"><span>Capture</span><span>every delivery in this tab, in order</span></div>
+          <div class="seq" id="wh-seq" tabindex="0" aria-label="Sequence of deliveries, drawn as they happen">
+            <div class="seq-heads" aria-hidden="true"><span>Sender</span><span>Receiver</span><span>SQLite</span></div>
+            <div class="seq-body" id="wh-seq-body"><i></i><p class="seq-empty" id="wh-seq-empty">Nothing captured yet. Send a delivery.</p></div>
+          </div>
+        </div>
+        <div>
+          <div class="side-h"><span>Response journal</span><span>newest first</span></div>
+          <p id="wh-journal-empty">Each reply lands here with its status and code.</p>
+          <ol id="wh-journal" aria-label="Response journal"></ol>
+        </div>
       </div>
       <p class="bench-note">How I know it matches: I generated 1,500 random delivery sequences, 6,692 deliveries in all, with valid and broken bodies, odd timestamps, wrong keys, restarts and repeats. I ran them through the real <code>ReceiptStore</code> on SQLite and through this page's code. Every reply and every stored state after each delivery was identical. One honest difference: the browser has one thread, so the 24 copies queue inside it, while the Python test sends them from 12 threads and relies on <code>BEGIN IMMEDIATE</code>.</p>
     </div>
@@ -346,11 +167,11 @@ figure.code .c { color: #8fb0ae; } figure.code .okk { color: #7fd1a3; }
   <section class="sec" id="responses" aria-labelledby="responses-title">
     <div class="wrap">
       <div class="sec-head">
-        <span class="num">02 Recorded run</span>
         <div>
+          <span class="layer">Layer 2, the recorded run</span>
           <h2 id="responses-title">The Python service, five deliveries and a restart.</h2>
-          <p>I started the service from the published ZIP with a new database and sent its five demo deliveries in order, reading the stored state after each one. Then I stopped it, started it again on the same database and replayed the first event.</p>
         </div>
+        <p>I started the service from the published ZIP with a new database and sent its five demo deliveries in order, reading the stored state after each one. Then I stopped it, started it again on the same database and replayed the first event.</p>
       </div>
       <table class="log">
         <caption>Replayed on 19 October 2026. Shipment DEMO_1042, fictional data.</caption>
@@ -370,11 +191,11 @@ figure.code .c { color: #8fb0ae; } figure.code .okk { color: #7fd1a3; }
   <section class="sec" aria-labelledby="code-title">
     <div class="wrap">
       <div class="sec-head">
-        <span class="num">03 Code</span>
         <div>
+          <span class="layer">Layer 3, the code</span>
           <h2 id="code-title">Decide inside the transaction.</h2>
-          <p>The duplicate check, the insert and the shipment update all run under <code>BEGIN IMMEDIATE</code>. Two copies arriving at once can't both see an empty table, which is what the 24-request concurrency test checks: one recorded, 23 duplicates.</p>
         </div>
+        <p>The duplicate check, the insert and the shipment update all run under <code>BEGIN IMMEDIATE</code>. Two copies arriving at once can't both see an empty table, which is what the 24-request concurrency test checks: one recorded, 23 duplicates.</p>
       </div>
       <div class="codegrid">
         <figure class="code">
@@ -418,11 +239,11 @@ python server.py --db runs/study.sqlite --port 8962</pre>
   <section class="sec" aria-labelledby="ui-title">
     <div class="wrap">
       <div class="sec-head">
-        <span class="num">04 Local page</span>
         <div>
+          <span class="layer">Layer 4, the local page</span>
           <h2 id="ui-title">The ZIP has its own test page.</h2>
-          <p>The Python process also serves a small page on loopback. Each button sends one fixed delivery and reads the stored events back.</p>
         </div>
+        <p>The Python process also serves a small page on loopback. Each button sends one fixed delivery and reads the stored events back.</p>
       </div>
       <figure class="shot">
         <img src="webhook-receipt-desktop.png" width="1265" height="1449" loading="lazy" decoding="async" alt="Local receipt test page after a restart. Two stored events, the demo shipment in transit, five delivery buttons and a response journal showing duplicate, conflict and bad-signature responses.">

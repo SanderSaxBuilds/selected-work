@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111111">
+  <meta name="theme-color" content="#d7d6d1">
   <title>Countback delivery receiving</title>
   <meta name="description" content="Count an inbound delivery by carton and loose unit, catch shortages, damage and extras, keep every correction and export the receipt.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23ffcc00'/%3E%3Cpath d='M4 8.5l8-4.5 8 4.5v7l-8 4.5-8-4.5zM4 8.5l8 4.5 8-4.5M12 13v7' fill='none' stroke='%23111' stroke-width='1.8'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="countback-style.css">
   <script type="module" src="countback-app.mjs"></script>
 </head>
@@ -24,17 +24,22 @@
 
   <main id="main" class="page">
     <section class="delivery" aria-labelledby="po-title">
-      <div>
+      <div class="delivery-info">
         <p class="delivery-label">Inbound delivery</p>
+
         <h1 id="po-title">PO-1048</h1>
         <p class="delivery-route" id="route">Northside Supply to Larch Street Café</p>
         <dl class="delivery-meta" id="delivery-meta"></dl>
       </div>
-      <div>
+      <div class="delivery-progress">
         <p class="progress-label"><span>Lines counted</span><strong id="progress-count">0 of 6</strong></p>
         <div class="progress-track" id="progress-track" aria-hidden="true"></div>
         <p class="progress-key"><span class="k-match">Matches</span><span class="k-flag">Needs a look</span><span class="k-open">Not counted</span></p>
       </div>
+      <figure class="pallet-wrap" aria-labelledby="pallet-cap">
+        <svg id="pallet" role="group" aria-label="The pallet, one stack of cartons per line. Choose a stack to count that line."></svg>
+        <figcaption class="pallet-cap"><span id="pallet-cap">Each stack is one line, each box one carton. Choose a stack to count it.</span><span class="pallet-legend" aria-hidden="true"><span class="lg-count">Counted</span><span class="lg-ghost">Expected</span><span class="lg-miss">Missing</span><span class="lg-extra">Extra</span><span class="lg-dmg">Damaged</span></span></figcaption>
+      </figure>
     </section>
 
     <div class="workspace">
