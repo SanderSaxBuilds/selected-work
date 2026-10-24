@@ -262,6 +262,11 @@ function render() {
   $("demo").disabled = demoRunning;
   $("stop-demo").hidden = !demoRunning;
   $("reset").disabled = demoRunning;
+  const next = rows.find(row => !row.checked);
+  $("hero-demo").disabled = demoRunning;
+  $("hero-count").disabled = demoRunning;
+  $("hero-count").textContent = next ? `Count ${next.name}` : "Recount a line";
+  $("hero-count").dataset.sku = (next || rows[0]).sku;
   $("draft-chip").textContent = complete ? "Ready to export" : "Draft";
   $("draft-chip").classList.toggle("is-ready", complete);
   $("review-note").textContent = complete
@@ -339,6 +344,13 @@ async function playWalkthrough() {
 }
 
 $("demo").addEventListener("click", playWalkthrough);
+// Hero shortcuts: start the walkthrough beside its readback, or count the next open line straight away.
+$("hero-demo").addEventListener("click", () => {
+  const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (matchMedia("(max-width: 860px)").matches) $("walkthrough-title").scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
+  playWalkthrough();
+});
+$("hero-count").addEventListener("click", () => openEdit($("hero-count").dataset.sku));
 $("stop-demo").addEventListener("click", () => {
   if (!demoRunning) return;
   runToken++;

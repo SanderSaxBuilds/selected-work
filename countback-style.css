@@ -55,6 +55,15 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .button-quiet { color: var(--ink); background: transparent; }
 .button-quiet:hover:not(:disabled) { background: rgba(0, 0, 0, .06); }
 .button svg { width: 20px; height: 20px; stroke-width: 2.4; }
+.button-door { color: var(--door-text); background: transparent; border-color: var(--door-dim); }
+.button-door:hover:not(:disabled) { border-color: var(--yellow); color: var(--yellow); }
+.button-door:focus-visible { box-shadow: 0 0 0 3px var(--door), 0 0 0 6px var(--yellow); }
+
+/* The promise and the two first moves, on the dock door */
+.delivery-promise { max-width: 36rem; margin-top: 22px; font-size: 17px; line-height: 1.5; color: var(--door-text); }
+.delivery-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.delivery-actions .button:disabled { opacity: .45; cursor: not-allowed; }
+@media (max-width: 420px) { .delivery-actions .button { flex: 1 1 100%; } }
 
 /* Header: the tablet's own bar, on the concrete */
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px max(16px, calc((100vw - 1360px) / 2)); background: var(--paper); color: var(--ink); border-bottom: 2px solid var(--ink); }
