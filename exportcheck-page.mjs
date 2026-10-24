@@ -55,7 +55,7 @@ function setHot(range) {
   state.hot = range;
   for (const i of mirror.children) i.classList.remove("hot");
   if (range) for (let n = range[0]; n <= range[1]; n++) mirror.children[n - 1]?.classList.add("hot");
-  for (const r of document.querySelectorAll(".rec")) r.classList.toggle("hot", !!range && +r.dataset.line === range[0]);
+  for (const r of document.querySelectorAll(".rec, .slot")) r.classList.toggle("hot", !!range && +r.dataset.line === range[0]);
 }
 
 function currentBytes() { return state.bytes || enc.encode(csv.value); }
@@ -130,6 +130,53 @@ function renderResult() {
   }
   renderLedger();
   renderOut();
+  renderSorter();
+  $("lv-name").textContent = state.name + (state.edited ? " (edited)" : "");
+  $("lv-code").textContent = String(code);
+  $("lv-code").style.background = CODE_BG[code];
+  for (const g of document.querySelectorAll("[data-gate]")) g.setAttribute("aria-current", String(!state.edited && g.dataset.gate === state.sampleKey));
+}
+
+// ---------- sorter: two trays, one chip per record ----------
+const SORT_MAX = 120;
+function renderSorter() {
+  const box = $("sorter");
+  const r = state.result, f = state.failure;
+  box.replaceChildren();
+  box.classList.toggle("stopped", !!f);
+  if (f) { box.append(el("p", "", "Stopped at the gate. No record reached either tray.")); return; }
+  const trays = [["ok", "clean.csv", r.records.filter((x) => !x.issues.length)], ["no", "row-errors.csv", r.records.filter((x) => x.issues.length)]];
+  for (const [cls, name, list] of trays) {
+    const tray = el("div", "tray " + cls);
+    const h = el("div", "tray-h");
+    h.append(el("span", "", name), el("b", "", list.length.toLocaleString("en-US")));
+    const slots = el("div", "slots");
+    if (!list.length) slots.append(el("span", "slot-none", cls === "ok" ? "No rows passed." : "No rows held back."));
+    list.slice(0, SORT_MAX).forEach((rec, i) => {
+      const s = el("button", "slot", "#" + rec.record + (rec.cells[0] ? " " + String(rec.cells[0]).slice(0, 14) : ""));
+      s.type = "button";
+      s.style.setProperty("--i", String(Math.min(i, 24)));
+      s.dataset.line = rec.line; s.dataset.end = rec.endLine;
+      s.setAttribute("aria-label", `Record ${rec.record}, ${cls === "ok" ? "accepted" : "rejected"}. Show its lines in the input.`);
+      slots.append(s);
+    });
+    if (list.length > SORT_MAX) slots.append(el("span", "slot-none", `and ${(list.length - SORT_MAX).toLocaleString("en-US")} more`));
+    tray.append(h, slots);
+    box.append(tray);
+  }
+}
+$("sorter").addEventListener("pointerover", (e) => { const s = e.target.closest(".slot"); if (s) setHot([+s.dataset.line, +s.dataset.end]); });
+$("sorter").addEventListener("pointerleave", () => setHot(null));
+$("sorter").addEventListener("click", (e) => { const s = e.target.closest(".slot"); if (s) jumpTo([+s.dataset.line, +s.dataset.end]); });
+
+// ---------- the four gates in the header run their sample ----------
+for (const g of document.querySelectorAll("[data-gate]")) {
+  g.addEventListener("click", () => {
+    const smooth = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    if (g.dataset.gate === "refusal") { $("refusal").scrollIntoView({ behavior: smooth, block: "start" }); return; }
+    document.querySelector(`[data-file="${g.dataset.gate}"]`).click();
+    $("bench-box").scrollIntoView({ behavior: smooth, block: "start" });
+  });
 }
 
 function cellsLine(cells, badCols, header) {
@@ -363,6 +410,10 @@ async function parity() {
     body.append(tr);
   }
   $("parity-table").dataset.allSame = String(allSame);
+  const v = $("parity-verdict");
+  v.dataset.ok = String(allSame);
+  v.querySelector("b").textContent = allSame ? "MATCH" : "DIFFERS";
+  v.querySelector("span").textContent = allSame ? "All three runs match the Python output, exit codes and every file byte for byte." : "At least one file differs from the recorded Python output.";
 }
 
 // ---------- refusal ----------

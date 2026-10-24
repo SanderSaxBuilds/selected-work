@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f1e6c8">
+  <meta name="theme-color" content="#0f1720">
   <meta name="description" content="Pack a project into a checked ZIP, compare versions and lock a separate encrypted copy with a passphrase. Runs in your browser.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <title>Archive Desk | Encrypted backup copies</title>
   <link rel="icon" href="archive-desk-protection-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700&family=Red+Hat+Text:wght@400;500;600;700&family=Red+Hat+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="archive-desk-style.css">
   <script type="module" src="archive-desk-protection-app.mjs"></script>
 </head>
@@ -69,6 +69,7 @@
               <div class="success-label"><span aria-hidden="true">✓</span>Created and checked</div>
               <p class="file-name" id="created-name"></p>
               <p id="created-size" class="muted"></p>
+              <div class="seal-glyph" id="created-seal" hidden></div>
               <button class="button primary full" id="download-backup" type="button">Download backup ZIP</button>
               <details class="hash-details"><summary>Archive SHA-256</summary><code id="created-hash"></code></details>
               <p class="small muted">Open the downloaded file in Verify to check the saved copy.</p>
@@ -97,6 +98,7 @@
           <div class="verify-alt"><button class="button secondary" id="verify-created" type="button" disabled>Check the backup made in this tab</button><span class="small muted">Quick check before you download. Only the saved file completes check 3.</span></div>
           <div id="verified-result" hidden>
             <div class="result-heading"><span class="result-check" aria-hidden="true">✓</span><div><h3>Every file matches the manifest.</h3><p id="verified-summary"></p></div></div>
+            <div class="seal-glyph in-panel" id="verified-seal" aria-live="polite" hidden></div>
             <dl class="archive-facts"><div><dt>Created</dt><dd id="verified-date"></dd></div><div><dt>Format</dt><dd>Archive Desk ZIP v1</dd></div><div><dt>Archive size</dt><dd id="verified-bytes"></dd></div></dl>
             <div class="table-wrap"><table><caption class="visually-hidden">Verified archive files</caption><thead><tr><th scope="col">Relative path</th><th scope="col">Size</th><th scope="col">SHA-256</th></tr></thead><tbody id="verified-rows"></tbody></table></div>
           </div>

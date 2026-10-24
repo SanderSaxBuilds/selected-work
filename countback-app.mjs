@@ -79,6 +79,82 @@ function renderDelivery(rows, totals) {
   }));
 }
 
+// The pallet: one isometric stack per line. Expected cartons are outlines, counted cartons are kraft,
+// a short line keeps red outlines where cartons are missing, extras are blue, damage marks the top carton red.
+const SVGNS = "http://www.w3.org/2000/svg";
+const S = 22, CH = 0.78, GAP = 1.75, CAP = 9;
+const iso = (x, y, z) => [(x - y) * S * 0.866, (x + y) * S * 0.5 - z * S];
+const pts = list => list.map(p => iso(...p).map(n => n.toFixed(1)).join(",")).join(" ");
+function svg(tag, attrs = {}) { const n = document.createElementNS(SVGNS, tag); for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v); return n; }
+function boxShape(x, y, z, w, d, h, cls) {
+  const g = svg("g", { class: cls });
+  const t = z + h;
+  g.append(
+    svg("polygon", { class: "l", points: pts([[x, y + d, z], [x + w, y + d, z], [x + w, y + d, t], [x, y + d, t]]) }),
+    svg("polygon", { class: "r", points: pts([[x + w, y, z], [x + w, y + d, z], [x + w, y + d, t], [x + w, y, t]]) }),
+    svg("polygon", { class: "t", points: pts([[x, y, t], [x + w, y, t], [x + w, y + d, t], [x, y + d, t]]) }),
+  );
+  return g;
+}
+let palletSku = null;
+function palletCaption(row) {
+  const cap = $("pallet-cap");
+  if (!row) { cap.textContent = "Each stack is one line, each box one carton. Choose a stack to count it."; return; }
+  const expected = Math.ceil(row.ordered / row.perCarton);
+  cap.replaceChildren(el("b", "", row.name), document.createTextNode(row.checked
+    ? `, ${plural(row.cartons, "carton", "cartons")} and ${row.loose} loose of ${expected} expected. ${rowExceptions(row).map(f => f.text).join(", ")}.`
+    : `, ${expected} cartons expected, not counted yet. Enter or click to count.`));
+}
+function renderPallet(rows) {
+  const host = $("pallet");
+  if (!host) return;
+  host.replaceChildren();
+  const cols = 3, rowsN = Math.ceil(rows.length / cols);
+  const spanX = (cols - 1) * GAP + 1, spanY = (rowsN - 1) * GAP + 1;
+  const base = svg("g", { class: "base" });
+  base.append(boxShape(-0.35, -0.35, -0.42, spanX + 0.7, spanY + 0.7, 0.42, "slab"));
+  host.append(base);
+  let tallest = 0;
+  const order3 = rows.map((row, i) => ({ row, gx: i % cols, gy: Math.floor(i / cols) }))
+    .sort((a, b) => (a.gx + a.gy) - (b.gx + b.gy) || a.gy - b.gy);
+  for (const { row, gx, gy } of order3) {
+    const x = gx * GAP, y = gy * GAP;
+    const expected = Math.ceil(row.ordered / row.perCarton);
+    const have = row.checked ? row.cartons + (row.loose > 0 ? 1 : 0) : 0;
+    const height = Math.min(CAP, Math.max(expected, have));
+    tallest = Math.max(tallest, height);
+    const g = svg("g", { class: "stack" + (row.sku === freshSku ? " is-fresh" : "") + (row.sku === palletSku ? " is-on" : ""), tabindex: demoRunning ? "-1" : "0", role: "button" });
+    g.setAttribute("aria-label", `${row.name}: ${row.checked ? `${row.received} ${row.unit} counted, ${rowExceptions(row).map(f => f.text).join(", ")}` : "not counted"}. ${row.checked ? "Recount" : "Count"} this line.`);
+    g.append(svg("polygon", { class: "hit", points: pts([[x - 0.1, y - 0.1, height * CH + 0.2], [x + 1.1, y - 0.1, height * CH + 0.2], [x + 1.1, y - 0.1, -0.1], [x + 1.1, y + 1.1, -0.1], [x - 0.1, y + 1.1, -0.1], [x - 0.1, y + 1.1, height * CH + 0.2]]) }));
+    for (let z = 0; z < height; z++) {
+      let cls = "ghost";
+      if (row.checked) cls = z < Math.min(have, expected) ? "counted" : z < expected ? "missing" : "extra";
+      if (row.checked && row.damaged > 0 && z === Math.min(have, expected) - 1) cls = "damaged";
+      const b = boxShape(x + 0.04, y + 0.04, z * CH, 0.92, 0.92, CH - 0.04, "box " + cls);
+      b.style.setProperty("--z", String(z));
+      if (cls === "counted" || cls === "extra") b.append(svg("polyline", { class: "tape", points: pts([[x + 0.5, y + 0.04, (z + 1) * CH], [x + 0.5, y + 0.96, (z + 1) * CH]]) }));
+      g.append(b);
+    }
+    if (Math.max(expected, have) > CAP) {
+      const [tx, ty] = iso(x + 0.5, y + 0.5, CAP * CH + 0.5);
+      g.append(Object.assign(svg("text", { class: "more", x: tx.toFixed(1), y: ty.toFixed(1), "text-anchor": "middle" }), { textContent: `+${Math.max(expected, have) - CAP}` }));
+    }
+    g.addEventListener("click", () => openEdit(row.sku));
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openEdit(row.sku); } });
+    const on = () => { palletSku = row.sku; for (const s of host.querySelectorAll(".stack")) s.classList.toggle("is-on", s === g); palletCaption(row); };
+    g.addEventListener("pointerenter", on);
+    g.addEventListener("focus", on);
+    host.append(g);
+  }
+  // Fixed frame for up to seven cartons, taller only when a stack needs it, so the pallet does not jump.
+  const top = Math.max(7, tallest) * CH + 0.6;
+  const xs = [iso(-0.35, spanY + 0.35, 0)[0], iso(spanX + 0.35, -0.35, 0)[0]];
+  const yTop = iso(-0.35, -0.35, top)[1], yBot = iso(spanX + 0.35, spanY + 0.35, -0.42)[1];
+  host.setAttribute("viewBox", `${(xs[0] - 4).toFixed(1)} ${(yTop - 4).toFixed(1)} ${(xs[1] - xs[0] + 8).toFixed(1)} ${(yBot - yTop + 8).toFixed(1)}`);
+  palletCaption(rows.find(r => r.sku === palletSku));
+}
+$("pallet")?.addEventListener("pointerleave", () => { palletSku = null; for (const s of $("pallet").querySelectorAll(".stack")) s.classList.remove("is-on"); palletCaption(null); });
+
 function renderTotals(totals) {
   const box = $("totals");
   const any = totals.checked > 0;
@@ -176,6 +252,7 @@ function render() {
   const totals = receiptTotals(rows);
   const complete = totals.checked === totals.lines;
   renderDelivery(rows, totals);
+  renderPallet(rows);
   renderTotals(totals);
   renderRows(rows);
   renderAttention(rows, totals);
@@ -280,6 +357,25 @@ $("reset").addEventListener("click", () => {
   saveDraft();
 });
 for (const id of ["cartons", "loose", "damaged"]) $(id).addEventListener("input", updateLiveTotal);
+// Glove steppers: big minus and plus buttons either side of each count.
+for (const id of ["cartons", "loose", "damaged"]) {
+  const input = $(id);
+  const name = input.parentElement.firstChild.textContent.trim().toLowerCase();
+  const wrap = el("div", "stepper");
+  const step = delta => {
+    const now = /^\d+$/.test(input.value.trim()) ? Number(input.value) : 0;
+    input.value = String(Math.min(10000, Math.max(0, now + delta)));
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  };
+  const minus = el("button", "", "−"), plus = el("button", "", "+");
+  minus.type = plus.type = "button";
+  minus.setAttribute("aria-label", `One fewer, ${name}`);
+  plus.setAttribute("aria-label", `One more, ${name}`);
+  minus.addEventListener("click", () => step(-1));
+  plus.addEventListener("click", () => step(1));
+  input.replaceWith(wrap);
+  wrap.append(minus, input, plus);
+}
 $("fill-order").addEventListener("click", () => {
   const row = order.items.find(item => item.sku === editSku);
   if (!row) return;

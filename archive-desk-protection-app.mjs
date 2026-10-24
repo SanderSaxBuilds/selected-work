@@ -12,6 +12,56 @@ const dateText = value => new Date(value).toLocaleString(undefined, { dateStyle:
 const hex = bytes => Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('')
 const hash = async bytes => hex(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)))
 
+// Tamper seal: a small glyph drawn from an archive's SHA-256 fingerprint.
+// Sixteen ticks take their length from the first sixteen hex digits, the core from the next eight bytes.
+// The same bytes always draw the same seal, so two copies can be compared at a glance.
+const SVG_NS = 'http://www.w3.org/2000/svg'
+function svgNode(name, attrs) {
+  const node = document.createElementNS(SVG_NS, name)
+  for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, String(value))
+  return node
+}
+function sealSvg(hex) {
+  const svg = svgNode('svg', { viewBox: '0 0 64 64', 'aria-hidden': 'true', focusable: 'false' })
+  svg.append(svgNode('circle', { class: 'ring', cx: 32, cy: 32, r: 30 }))
+  for (let i = 0; i < 16; i++) {
+    const angle = (i / 16) * Math.PI * 2 - Math.PI / 2
+    const outer = 19 + parseInt(hex[i] || '0', 16) * 0.62
+    svg.append(svgNode('line', { class: 'tick draw', pathLength: 1, x1: (32 + Math.cos(angle) * 18).toFixed(2), y1: (32 + Math.sin(angle) * 18).toFixed(2), x2: (32 + Math.cos(angle) * outer).toFixed(2), y2: (32 + Math.sin(angle) * outer).toFixed(2) }))
+  }
+  const points = []
+  for (let i = 0; i < 8; i++) {
+    const angle = (i / 8) * Math.PI * 2 - Math.PI / 2
+    const radius = 6 + (parseInt(hex.slice(16 + i * 2, 18 + i * 2) || '00', 16) / 255) * 9
+    points.push(`${(32 + Math.cos(angle) * radius).toFixed(2)},${(32 + Math.sin(angle) * radius).toFixed(2)}`)
+  }
+  svg.append(svgNode('polygon', { class: 'core', points: points.join(' ') }))
+  return svg
+}
+const sealCode = hex => `${hex.slice(0, 4)} ${hex.slice(4, 8)} ... ${hex.slice(-8, -4)} ${hex.slice(-4)}`
+function renderSeal(box, hex, title, note, variant = '') {
+  box.replaceChildren()
+  box.classList.remove('other')
+  if (!hex) { box.hidden = true; return }
+  const text = document.createElement('div')
+  const strong = document.createElement('strong')
+  strong.textContent = title
+  const code = document.createElement('span')
+  code.textContent = sealCode(hex)
+  const small = document.createElement('small')
+  small.textContent = note
+  text.append(strong, code, small)
+  box.append(sealSvg(hex), text)
+  if (variant) box.classList.add(variant)
+  box.hidden = false
+}
+function verifiedSeal(archive) {
+  const made = state.created?.hash
+  if (!made) renderSeal($('verified-seal'), archive.hash, 'Seal recorded', 'No backup was made in this tab, so there is nothing to match it against.')
+  else if (made === archive.hash) renderSeal($('verified-seal'), archive.hash, 'Seal matches', 'Byte for byte the same ZIP as the backup made in this tab.')
+  else renderSeal($('verified-seal'), archive.hash, 'Different seal', 'A different ZIP from the backup made in this tab. Its own files still pass their checks.', 'other')
+}
+
 function status(message, error = false) {
   $('status').textContent = message
   $('status-bar').classList.toggle('error', error)
@@ -252,6 +302,7 @@ $('build-archive').addEventListener('click', () => run('Creating the ZIP and che
   $('created-name').textContent = state.created.name
   $('created-size').textContent = `${countText(state.files.length)}, ${formatBytes(bytes.length)}`
   $('created-hash').textContent = state.created.hash
+  renderSeal($('created-seal'), state.created.hash, 'Seal drawn', 'Reopen the saved ZIP in Verify. An unchanged copy draws this same seal.')
   $('created-result').hidden = false
   $('check-created').classList.add('done')
   status('Backup created and checked. Download it, then open the saved ZIP in Verify.')
@@ -293,6 +344,7 @@ async function readArchive(file) {
 async function showVerified(name, load, saved) {
   state.verified = null
   $('verified-result').hidden = true
+  $('verified-seal').hidden = true
   $('verified-rows').replaceChildren()
   $('verify-file-name').textContent = name
   $('check-reopened').classList.remove('done')
@@ -302,6 +354,7 @@ async function showVerified(name, load, saved) {
   $('verified-date').textContent = dateText(archive.result.manifest.createdAt)
   $('verified-bytes').textContent = formatBytes(archive.bytes.length)
   for (const entry of archive.result.files) $('verified-rows').append(row([entry.path, formatBytes(entry.bytes), entry.sha256]))
+  verifiedSeal(archive)
   $('verified-result').hidden = false
   $('check-reopened').classList.toggle('done', saved && archive.hash === state.created?.hash)
   status(saved
