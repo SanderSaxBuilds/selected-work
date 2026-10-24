@@ -1,4 +1,4 @@
-/* Website check, paper and pen. Mounts into every [data-site-check] element and follows <html lang>.
+/* Website check, a printed inspection report. Mounts into every [data-site-check] element and follows <html lang>.
    data-offer="#prices" points the "see prices" link somewhere else, data-here marks the offer page itself. */
 (function(){
 "use strict";
@@ -15,7 +15,6 @@ var MAX={site:10,mobile:15,book:18,langs:12,maps:12,msgr:10,prices:13,speed:10};
 var AREAS=["site","mobile","book","langs","maps","msgr","prices","speed"];
 var W={spa:{book:1.4,prices:1.3,maps:1.2,msgr:1.1},tours:{langs:1.4,book:1.3,prices:1.2,msgr:1.1},rent:{msgr:1.4,prices:1.3,maps:1.2,book:1.1},cafe:{maps:1.4,mobile:1.2,msgr:1.2,prices:1.1},clinic:{book:1.4,langs:1.3,maps:1.2},other:{}};
 var LCODE=["EN","RU","TH","CN"],MNAME=["LINE","WhatsApp","Telegram"];
-var LET={ru:"абвгде",en:"abcdef",th:"กขคงจฉ"},ROM=["i.","ii.","iii."];
 var LOC={ru:"ru-RU",en:"en-GB",th:"th-TH"};
 
 var L={
@@ -133,21 +132,30 @@ ru:{kick:"Бесплатно · 2 минуты · без регистрации"
  sH:"Как ваш сайт работает на клиентов?",sP:"Короткие вопросы, ответ одним нажатием.",
  pts:["Оценка из 100 и баллы по частям сайта","Три главных исправления для вашего бизнеса","Примерно, сколько заявок уходит"],
  go:"Начать проверку",sN:"Ответы никуда не отправляются.",back:"Назад",next:"Дальше",areas:"Баллы по частям сайта",
- signedBy:"Проверил",signedSub:"SanderSax · сайты для бизнеса",offerHere:"Смотреть цены"},
+ signedBy:"Проверил",signedSub:"SanderSax · сайты для бизнеса",offerHere:"Смотреть цены",
+ fQ:"Вопросов",qRange:"7-9",bands:["Почти не работает","Теряет клиентов","Хорошая основа","Сильный сайт"],
+ tip:"Клавиши 1-9 выбирают ответ",pts1:["балл","балла","баллов"],planHint:"Включайте и выключайте исправления, чтобы увидеть, сколько баллов они добавят.",
+ planWith:"С включёнными исправлениями: <b>{p} из 100</b>",planNone:"Ни одно исправление не включено.",planLine:"С этими исправлениями: {p} из 100."},
 en:{kick:"Free · 2 minutes · no sign up",hA:"Check your website",hB:"in two minutes",
  p:"Answer a few quick questions. At the end you get a report: a score out of 100, points for each part of your site and the three fixes that matter most for your business.",
  sigS:"Send me a link and I will review your site myself.",rep:"Website check report",fBiz:"Business",fDate:"Date",blank:"from your answers",
  sH:"How well does your site work for customers?",sP:"Short questions, one tap each.",
  pts:["A score out of 100, with points for each part","The three fixes that matter most for you","A rough count of the bookings you may be missing"],
  go:"Start the check",sN:"Your answers are not sent anywhere.",back:"Back",next:"Next",areas:"Points by area",
- signedBy:"Checked by",signedSub:"SanderSax · websites for businesses",offerHere:"See prices"},
+ signedBy:"Checked by",signedSub:"SanderSax · websites for businesses",offerHere:"See prices",
+ fQ:"Questions",qRange:"7-9",bands:["Barely working","Losing customers","A good base","Strong"],
+ tip:"Keys 1-9 pick an answer",pts1:["point","points","points"],planHint:"Switch fixes on or off to see the points each one adds.",
+ planWith:"With the fixes switched on: <b>{p} out of 100</b>",planNone:"No fixes switched on.",planLine:"With these fixes: {p} out of 100."},
 th:{kick:"ฟรี · 2 นาที · ไม่ต้องสมัคร",hA:"เช็กเว็บไซต์ของคุณ",hB:"ใน 2 นาที",
  p:"ตอบคำถามสั้นๆ ไม่กี่ข้อ ตอนจบจะได้รายงาน มีคะแนนเต็ม 100 คะแนนของแต่ละส่วนของเว็บ และสามเรื่องที่ควรแก้ก่อนสำหรับธุรกิจของคุณ",
  sigS:"ส่งลิงก์มา ผมจะดูเว็บไซต์ของคุณเอง",rep:"รายงานเช็กเว็บไซต์",fBiz:"ธุรกิจ",fDate:"วันที่",blank:"ตามคำตอบของคุณ",
  sH:"เว็บไซต์ของคุณช่วยหาลูกค้าได้ดีแค่ไหน",sP:"คำถามสั้นๆ ตอบด้วยการแตะครั้งเดียว",
  pts:["คะแนนเต็ม 100 พร้อมคะแนนแต่ละส่วน","3 เรื่องที่ควรแก้ก่อนสำหรับธุรกิจของคุณ","ประมาณการลูกค้าที่อาจหลุดไป"],
  go:"เริ่มเช็กเลย",sN:"คำตอบของคุณไม่ถูกส่งไปที่ไหน",back:"ย้อนกลับ",next:"ถัดไป",areas:"คะแนนแต่ละส่วน",
- signedBy:"ตรวจโดย",signedSub:"SanderSax · เว็บไซต์สำหรับธุรกิจ",offerHere:"ดูราคา"}
+ signedBy:"ตรวจโดย",signedSub:"SanderSax · เว็บไซต์สำหรับธุรกิจ",offerHere:"ดูราคา",
+ fQ:"คำถาม",qRange:"7-9",bands:["แทบไม่ช่วย","ลูกค้าหลุด","พื้นฐานดี","แข็งแรง"],
+ tip:"กดปุ่ม 1-9 เพื่อเลือกคำตอบ",pts1:["คะแนน","คะแนน","คะแนน"],planHint:"เปิดหรือปิดแต่ละข้อ เพื่อดูว่าเพิ่มคะแนนได้เท่าไร",
+ planWith:"ถ้าแก้ข้อที่เปิดไว้: <b>{p} จาก 100</b>",planNone:"ยังไม่ได้เปิดข้อไหน",planLine:"ถ้าแก้ตามนี้: {p} จาก 100"}
 };
 
 var AR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -161,19 +169,22 @@ var IC={
  ck:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'
 };
 
-/* pen strokes: a small seeded wobble so each loop and tick looks drawn, but stays the same on every render */
-function rng(seed){var s=seed%2147483647;if(s<=0)s+=2147483646;return function(){s=s*16807%2147483647;return (s-1)/2147483646}}
-function n1(v){return Math.round(v*10)/10}
-function curve(p){var d="M"+n1(p[0][0])+" "+n1(p[0][1]);for(var i=0;i<p.length-1;i++){var a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||c;
-  d+="C"+n1(b[0]+(c[0]-a[0])/6)+" "+n1(b[1]+(c[1]-a[1])/6)+" "+n1(c[0]-(e[0]-b[0])/6)+" "+n1(c[1]-(e[1]-b[1])/6)+" "+n1(c[0])+" "+n1(c[1])}return d}
-function loop(w,h,seed,ox,oy){
-  var r=rng(seed*7919+13),cx=(ox||0)+w/2,cy=(oy||0)+h/2,rx=w/2,ry=h/2,a0=Math.PI*(.9+r()*.25),turn=Math.PI*2*1.12,n=28,p=[];
-  for(var i=0;i<=n;i++){var t=i/n,a=a0+turn*t,j=1+(r()-.5)*.05+(t>.82?(t-.82)*.35:0);p.push([cx+Math.cos(a)*rx*j,cy+Math.sin(a)*ry*j-t*h*.06])}
-  return curve(p);
+var CK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+/* which report rows a finding lifts */
+var LIFT={site:["site","mobile","speed"]};
+/* the gauge: 200 x 200, the arc starts at twelve o'clock */
+var GR=78;
+function gpos(p){var a=(p/100)*Math.PI*2-Math.PI/2;return [100+Math.cos(a)*GR,100+Math.sin(a)*GR]}
+function gauge(id){
+  var t="";
+  for(var i=0;i<50;i++){var v=i*2,mj=v===0||v===40||v===60||v===80,a=(v/100)*Math.PI*2-Math.PI/2,r1=mj?92:94,r2=mj?101:98;
+    t+='<line class="tk'+(mj?" mj":"")+'" x1="'+(100+Math.cos(a)*r1).toFixed(1)+'" y1="'+(100+Math.sin(a)*r1).toFixed(1)+'" x2="'+(100+Math.cos(a)*r2).toFixed(1)+'" y2="'+(100+Math.sin(a)*r2).toFixed(1)+'"/>'}
+  var c=' cx="100" cy="100" r="'+GR+'" pathLength="100" stroke-dasharray="100 100" transform="rotate(-90 100 100)"';
+  return '<svg viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="'+id+'-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6f8bff"/><stop offset="1" stop-color="#3451d1"/></linearGradient></defs>'+t+
+   '<circle class="tr" cx="100" cy="100" r="'+GR+'"/><circle class="gh" data-gh'+c+' stroke-dashoffset="100"/><circle class="ar" data-ar'+c+' stroke="url(#'+id+'-g)" stroke-dashoffset="100"/>'+
+   '<circle class="cap" data-cap cx="100" cy="'+(100-GR)+'" r="7"/></svg>';
 }
-function strike(seed){var r=rng(seed*31+7),y0=15+r()*3,y1=7+r()*3;return "M"+n1(2+r()*2)+" "+n1(y0)+"Q"+n1(10+r()*2)+" "+n1((y0+y1)/2-1.5)+" "+n1(17+r()*2)+" "+n1(y1)}
-function tick(seed){var r=rng(seed*17+3);return "M"+n1(5+r())+" "+n1(16+r())+"C"+n1(8)+" "+n1(18+r())+" "+n1(10)+" "+n1(21)+" "+n1(11+r())+" "+n1(22)+"C"+n1(14)+" "+n1(15+r()*2)+" "+n1(20)+" "+n1(7+r()*2)+" "+n1(27+r())+" "+n1(2+r())}
-function hash(s){var h=7;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h)+1}
+function band(n){return n>=80?3:n>=60?2:n>=40?1:0}
 
 function fmt(s,o){return s.replace(/\{(\w+)\}/g,function(m,k){return o[k]!=null?o[k]:m})}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]})}
@@ -184,30 +195,30 @@ function frame(cb){var fired=false;function run(){if(!fired){fired=true;cb(perfo
 
 var uid=0;
 function mount(root){
-  var id="sc"+(++uid),lang=pageLang(),ans={},step=-1,view="start",lock=false,R=null,P=new URLSearchParams(location.search);
+  var id="sc"+(++uid),lang=pageLang(),ans={},step=-1,view="start",lock=false,R=null,plan=null,P=new URLSearchParams(location.search);
   var offerHref=root.getAttribute("data-offer")||"../thailand/",here=root.hasAttribute("data-here");
   root.classList.add("sc");
   root.innerHTML=
    '<div class="sc-aside">'+
     '<span class="sc-kick">'+IC.ck+'<span data-u="kick"></span></span>'+
-    '<h2 class="sc-h" id="'+id+'-h"><span data-u="hA"></span> <em><span data-u="hB"></span><svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8C52 3 118 2 197 6"/></svg></em></h2>'+
+    '<h2 class="sc-h" id="'+id+'-h"><span data-u="hA"></span> <em data-u="hB"></em></h2>'+
     '<p class="sc-p" data-u="p"></p>'+
+    '<ul class="sc-key" aria-hidden="true">'+["0-39","40-59","60-79","80-100"].map(function(r,i){return '<li style="--c:'+["#e9b4ae","#c9d3ff","#8fa5ff","#86c9bd"][i]+'"><b>'+r+'</b><span data-band="'+i+'"></span></li>'}).join("")+'</ul>'+
     '<div class="sc-sig"><i class="sc-mk" aria-hidden="true"></i><div><b>Alexandr Khrustalev</b><small data-u="sigS"></small></div></div>'+
    '</div>'+
    '<div class="sc-sheet" tabindex="-1" role="region" aria-labelledby="'+id+'-h">'+
     '<div class="sc-top"><span class="sc-brand"><i class="sc-mk" aria-hidden="true"></i>[SANDERSAX]</span><small data-u="rep"></small></div>'+
     '<div class="sc-view" data-v="start">'+
-      '<div class="sc-f"><span data-u="fBiz"></span><span class="sc-blank" data-u="blank"></span></div>'+
-      '<div class="sc-f"><span data-u="fDate"></span><span class="sc-hand" data-date></span></div>'+
+      '<div class="sc-meta"><div><span data-u="fBiz"></span><b class="blank" data-biz></b></div><div><span data-u="fDate"></span><b data-date></b></div><div><span data-u="fQ"></span><b class="num" data-u="qRange"></b></div></div>'+
       '<h3 class="sc-st-h" data-u="sH"></h3><p class="sc-st-p" data-u="sP"></p>'+
-      '<ul class="sc-pts">'+ROM.map(function(r,i){return '<li><span class="sc-hand">'+r+'</span><span data-p="'+i+'"></span></li>'}).join("")+'</ul>'+
+      '<ul class="sc-pts">'+[0,1,2].map(function(i){return '<li><span>0'+(i+1)+'</span><span data-p="'+i+'"></span></li>'}).join("")+'</ul>'+
       '<button class="sc-go" type="button" data-go><span data-u="go"></span>'+AR+'</button>'+
       '<p class="sc-note" data-u="sN"></p>'+
     '</div>'+
     '<div class="sc-view" data-v="q" hidden>'+
-      '<div class="sc-steps"><span class="sc-qn"></span><span class="sc-nums" aria-hidden="true"></span></div>'+
+      '<div class="sc-steps"><span class="sc-qn"></span><span class="sc-bar" aria-hidden="true"></span></div>'+
       '<div class="sc-qb"><div class="sc-qtop"><h3 class="sc-qt" id="'+id+'-q" tabindex="-1"></h3><p class="sc-qh"></p></div><div class="sc-opts" role="group" aria-labelledby="'+id+'-q"></div></div>'+
-      '<div class="sc-foot"><button class="sc-back" type="button" data-back>'+BK+'<span data-u="back"></span></button><button class="sc-next hide" type="button" data-next disabled><span data-u="next"></span>'+AR+'</button></div>'+
+      '<div class="sc-foot"><button class="sc-back" type="button" data-back>'+BK+'<span data-u="back"></span></button><span class="sc-tip" data-u="tip" aria-hidden="true"></span><button class="sc-next hide" type="button" data-next disabled><span data-u="next"></span>'+AR+'</button></div>'+
     '</div>'+
     '<div class="sc-view" data-v="res" hidden></div>'+
     '<p class="sr" aria-live="polite" data-live></p>'+
@@ -225,34 +236,21 @@ function mount(root){
 
   /* questions */
   function renderQ(){
-    var A=active(),q=A[step],d=L[lang].q[q.id],sel=ans[q.id],u=U[lang];
+    var A=active(),q=A[step],d=L[lang].q[q.id],sel=ans[q.id];
     $(".sc-qn").textContent=fmt(L[lang].qn,{n:step+1,t:A.length});
-    $(".sc-nums").innerHTML=A.map(function(x,i){return '<span class="'+(i<step?(i===step-1?"done fresh":"done"):i===step?"now":"")+'">'+(i+1)+(i<step?'<svg viewBox="0 0 20 24"><path pathLength="1" d="'+strike(i+1)+'"/></svg>':"")+"</span>"}).join("");
+    $(".sc-bar").innerHTML=A.map(function(x,i){return '<i class="'+(i<step?"done":i===step?"now":"")+'"></i>'}).join("");
     $(".sc-qt").textContent=d[0];$(".sc-qh").textContent=d[1];
     opts.innerHTML="";
     d[2].forEach(function(lb,i){
       var b=document.createElement("button"),on=q.many?(sel||[]).indexOf(i)>=0:sel===i;
       b.type="button";b.className="sc-op";b.setAttribute("aria-pressed",String(on));
-      var h='<span class="sc-k" aria-hidden="true">'+LET[lang].charAt(i)+'</span><span class="sc-l">'+esc(lb)+"</span>";
+      var h='<span class="sc-k" aria-hidden="true">'+(i+1)+'</span><span class="sc-l">'+esc(lb)+"</span>";
       if(q.id==="langs")h+='<em class="sc-cd" aria-hidden="true">'+LCODE[i]+"</em>";
-      if(q.many)h+='<i class="sc-bx" aria-hidden="true"><svg viewBox="0 0 30 30"><path pathLength="1" d="'+tick(i+step*5)+'"/></svg></i>';
-      b.innerHTML=h;b.addEventListener("click",function(){pick(q,i,b)});opts.appendChild(b);
+      if(q.many)h+='<i class="sc-bx" aria-hidden="true">'+CK+'</i>';
+      b.innerHTML=h;b.addEventListener("click",function(){pick(q,i)});opts.appendChild(b);
     });
-    if(!q.many)loops();
     nx.classList.toggle("hide",!q.many);nx.disabled=!(q.many&&sel&&sel.length);
     live.textContent=$(".sc-qn").textContent+". "+d[0];
-  }
-  /* pen loops are sized to each label, so they are measured after layout */
-  function loops(){
-    [].forEach.call(opts.querySelectorAll(".sc-l"),function(l,i){
-      var old=l.querySelector("svg");if(old)old.remove();
-      var w=l.offsetWidth,h=l.offsetHeight;if(!w)return;
-      var px=Math.min(11,6+w*.03),py=8,W2=w+px*2,H2=h+py*2,s=document.createElementNS("http://www.w3.org/2000/svg","svg");
-      s.setAttribute("class","sc-loop");s.setAttribute("viewBox","0 0 "+n1(W2)+" "+n1(H2));s.setAttribute("aria-hidden","true");
-      s.style.cssText="left:"+(-px)+"px;top:"+(-py)+"px;width:"+W2+"px;height:"+H2+"px";
-      s.innerHTML='<path pathLength="1" d="'+loop(W2-6,H2-4,hash(lang+step+":"+i),3,2)+'"/>';
-      l.appendChild(s);
-    });
   }
   function pressAll(q){var sel=ans[q.id];[].forEach.call(opts.children,function(b,j){b.setAttribute("aria-pressed",String(q.many?(sel||[]).indexOf(j)>=0:sel===j))})}
   function pick(q,i){
@@ -265,8 +263,9 @@ function mount(root){
     }
     ans[q.id]=i;pressAll(q);
     if(q.id==="biz")setBiz();
-    if(q.id==="site"){if(i!==0){delete ans.mobile;delete ans.speed}$(".sc-qn").textContent=fmt(L[lang].qn,{n:step+1,t:active().length})}
-    lock=true;setTimeout(function(){lock=false;go(1)},reduce?120:620);
+    if(q.id==="site"){if(i!==0){delete ans.mobile;delete ans.speed}$(".sc-qn").textContent=fmt(L[lang].qn,{n:step+1,t:active().length});
+      $(".sc-bar").innerHTML=active().map(function(x,k){return '<i class="'+(k<step?"done":k===step?"now":"")+'"></i>'}).join("")}
+    lock=true;setTimeout(function(){lock=false;go(1)},reduce?120:520);
   }
   function go(dir){
     step+=dir;
@@ -278,7 +277,7 @@ function mount(root){
     setTimeout(function(){renderQ();qb.className="sc-qb "+(dir<0?"inL":"inR");focusQ();keepInView()},140);
   }
   function focusQ(){try{$(".sc-qt").focus({preventScroll:true})}catch(e){}}
-  function setBiz(){var f=$('[data-v="start"] .sc-f span:last-child');if(ans.biz==null){f.className="sc-blank";f.textContent=U[lang].blank}else{f.className="sc-hand";f.textContent=L[lang].q.biz[2][ans.biz]}}
+  function setBiz(){var f=$("[data-biz]");if(ans.biz==null){f.className="blank";f.textContent=U[lang].blank}else{f.className="";f.textContent=L[lang].q.biz[2][ans.biz]}}
 
   /* scoring */
   function compute(){
@@ -311,60 +310,87 @@ function mount(root){
     if(lang==="en")return fmt(d.loss,{r:r,u:esc(d.units[i])});
     return fmt(d.loss,{r:r,u:esc(d.units[i][0]),c:esc(d.units[i][1])});
   }
+  function chosen(){return R.fixes.filter(function(f){return plan[f.k]})}
+  function projected(){return Math.min(100,R.total+chosen().reduce(function(t,f){return t+f.g},0))}
   function summary(){
-    var d=L[lang],lines=[d.hello,fmt(d.resLine,{s:R.total}),""];
+    var d=L[lang],lines=[d.hello,fmt(d.resLine,{s:R.total}),""],ch=chosen();
     Q.forEach(function(q){var v=ans[q.id],lb=d.q[q.id][2],t;
       if(v==null||(Array.isArray(v)&&!v.length))t=q.own?d.notChecked:"-";
       else t=Array.isArray(v)?v.map(function(i){return lb[i]}).join(", "):lb[v];
       lines.push(d.short[q.id]+": "+t)});
-    if(R.fixes.length){lines.push("");lines.push(d.fixFirst);R.fixes.forEach(function(f,j){lines.push((j+1)+". "+fixTitle(f.k))})}
+    if(ch.length){lines.push("");lines.push(d.fixFirst);ch.forEach(function(f,j){lines.push((j+1)+". "+fixTitle(f.k)+" (+"+f.g+")")});lines.push(fmt(U[lang].planLine,{s:R.total,p:projected()}))}
     lines.push("");lines.push(d.want);
     return lines.join("\n");
   }
+  function ptsWord(n){var p=U[lang].pts1;return lang==="ru"?plural(n,p):(n===1?p[0]:p[1])}
 
   function showResult(anim){
-    var d=L[lang],u=U[lang],v,txt,el=$('[data-v="res"]');
-    R=compute();v=verdict(R.total);txt=summary();
-    var fx=R.fixes.length?R.fixes.map(function(f,j){return '<li><span class="sc-hand">'+(j+1)+'</span><div><b>'+esc(fixTitle(f.k))+'</b><p>'+esc(fixBody(f.k))+'</p></div><span class="sc-gain">+'+f.g+'</span></li>'}).join(""):'<li><span class="sc-ok">'+esc(d.allGood)+"</span></li>";
-    var ar=AREAS.map(function(k){var got=R.s[k];return '<li'+(got>=MAX[k]?' class="full"':"")+'><span>'+esc(d.short[k])+'</span><span class="sc-hand">'+got+'<small> / '+MAX[k]+"</small></span></li>"}).join("");
-    var wa="https://wa.me/"+CONTACT.whatsapp+"?text="+encodeURIComponent(txt);
+    var d=L[lang],u=U[lang],v,el=$('[data-v="res"]'),keep=plan;
+    R=compute();v=verdict(R.total);
+    plan={};R.fixes.forEach(function(f){plan[f.k]=keep&&keep[f.k]!=null?keep[f.k]:true});
+    var bi=band(R.total),cls=bi===0?" lo":bi===3?" hi":"";
+    var fx=R.fixes.length?R.fixes.map(function(f,j){return '<li><button class="sc-fi" type="button" data-k="'+f.k+'" aria-pressed="'+plan[f.k]+'"><span class="ix" aria-hidden="true">'+(j+1)+'</span><span><b>'+esc(fixTitle(f.k))+'</b><p>'+esc(fixBody(f.k))+'</p></span><span class="gn"><strong>+'+f.g+'</strong><small>'+esc(ptsWord(f.g))+'</small><i class="sw" aria-hidden="true"></i></span></button></li>'}).join(""):'<li><span class="sc-ok">'+esc(d.allGood)+"</span></li>";
+    var ar=AREAS.map(function(k){var got=R.s[k],r=got/MAX[k];return '<li data-a="'+k+'" class="'+(r>=1?"full":r<.34?"low":"")+'"><span>'+esc(d.short[k])+'</span><span class="pt">'+got+'<small> / '+MAX[k]+'</small></span><span class="mt" aria-hidden="true"><i style="--w:'+Math.round(r*100)+'%"></i></span></li>'}).join("");
     var tg="https://t.me/"+CONTACT.telegram;
-    var em="mailto:"+CONTACT.email+"?subject="+encodeURIComponent(fmt(d.subj,{s:R.total}))+"&body="+encodeURIComponent(txt);
     el.innerHTML='<div class="sc-rise">'+
-      '<div class="sc-f"><span>'+esc(u.fBiz)+'</span><span class="sc-hand">'+esc(d.q.biz[2][ans.biz||0])+'</span></div>'+
-      '<div class="sc-f"><span>'+esc(u.fDate)+'</span><span class="sc-hand">'+esc(today())+'</span></div>'+
-      '<div class="sc-score"><div class="sc-num"><svg viewBox="0 0 118 96" aria-hidden="true"><path pathLength="1" d="'+loop(108,84,R.total+3,5,6)+'"/></svg><b data-num>0</b><small>'+esc(d.of)+'</small></div>'+
-        '<div class="sc-verd"><h3 tabindex="-1" data-rh>'+esc(v[1])+'</h3><p>'+esc(v[2])+'</p></div></div>'+
-      '<div><p class="sc-lab">'+esc(u.areas)+'</p><ul class="sc-areas">'+ar+'</ul></div>'+
+      '<div class="sc-meta"><div><span>'+esc(u.fBiz)+'</span><b>'+esc(d.q.biz[2][ans.biz||0])+'</b></div><div><span>'+esc(u.fDate)+'</span><b>'+esc(today())+'</b></div><div><span>'+esc(u.fQ)+'</span><b class="num">'+active().length+'</b></div></div>'+
+      '<div class="sc-score"><div class="sc-g">'+gauge(id)+'<div class="sc-gc"><b data-num>0</b><small>'+esc(d.of)+'</small><span class="to" data-to></span></div></div>'+
+        '<div class="sc-verd"><span class="sc-band'+cls+'">'+esc(u.bands[bi])+'</span><h3 tabindex="-1" data-rh>'+esc(v[1])+'</h3><p>'+esc(v[2])+'</p>'+
+        '<div class="sc-scale" aria-hidden="true"><span class="mk" data-mk style="left:0"></span><span class="pk" data-pk style="left:0"></span><div class="seg">'+[0,1,2,3].map(function(i){return '<i class="'+(i===bi?"at"+cls:"")+'"></i>'}).join("")+'</div><div class="lb"><span>0</span><span>40</span><span>60</span><span>80</span></div></div></div></div>'+
+      '<div><p class="sc-lab"><span>'+esc(d.fixHead)+'</span></p><ol class="sc-fx">'+fx+'</ol>'+(R.fixes.length?'<p class="sc-plan" data-plan aria-live="polite"></p>':'')+'</div>'+
+      '<div><p class="sc-lab"><span>'+esc(u.areas)+'</span><em class="num">'+R.total+' / 100</em></p><ul class="sc-areas">'+ar+'</ul></div>'+
       '<div class="sc-loss"><p class="sc-lab">'+esc(d.lossLabel)+'</p><p>'+lossHTML(R.total)+'</p><small>'+esc(d.lossNote)+'</small></div>'+
-      '<div><p class="sc-lab">'+esc(d.fixHead)+'</p><ol class="sc-fx">'+fx+'</ol></div>'+
-      '<div class="sc-signed"><div><i class="sc-mk" aria-hidden="true"></i><span><small>'+esc(u.signedBy)+'</small><b>Alexandr Khrustalev</b><small>'+esc(u.signedSub)+'</small></span></div><span class="sc-hand">'+esc(today())+'</span></div>'+
+      '<div class="sc-signed"><div><i class="sc-mk" aria-hidden="true"></i><span><small>'+esc(u.signedBy)+'</small><b>Alexandr Khrustalev</b><small>'+esc(u.signedSub)+'</small></span></div><time>'+esc(today())+'</time></div>'+
       '<div class="sc-cta"><h3>'+esc(d.ctaH)+'</h3><p>'+esc(d.ctaP)+'</p>'+
         '<div class="sc-chs">'+
           '<div class="sc-row"><a class="sc-ch tg prim" data-tg href="'+tg+'" target="_blank" rel="noopener"><i class="sc-ic" aria-hidden="true">'+IC.tg+'</i><span><b>'+esc(d.tg)+'</b><small>'+esc(d.tgS)+'</small></span></a>'+
             '<button class="sc-cp" type="button" data-cp title="'+esc(d.copy)+'">'+IC.cp+'<span data-cpt>'+esc(d.copy)+'</span></button></div>'+
-          '<a class="sc-ch wa" href="'+esc(wa)+'" target="_blank" rel="noopener"><i class="sc-ic" aria-hidden="true">'+IC.wa+'</i><span><b>'+esc(d.wa)+'</b><small>'+esc(d.waS)+'</small></span></a>'+
-          '<a class="sc-ch em" href="'+esc(em)+'"><i class="sc-ic" aria-hidden="true">'+IC.em+'</i><span><b>'+esc(d.em)+'</b><small>'+esc(CONTACT.email)+'</small></span></a>'+
+          '<a class="sc-ch wa" data-wa target="_blank" rel="noopener"><i class="sc-ic" aria-hidden="true">'+IC.wa+'</i><span><b>'+esc(d.wa)+'</b><small>'+esc(d.waS)+'</small></span></a>'+
+          '<a class="sc-ch em" data-em><i class="sc-ic" aria-hidden="true">'+IC.em+'</i><span><b>'+esc(d.em)+'</b><small>'+esc(CONTACT.email)+'</small></span></a>'+
         '</div><p class="sc-cnote" data-cnote aria-live="polite">'+esc(d.tgHint)+'</p>'+
         '<div class="sc-more"><a href="'+esc(offerHref)+'">'+esc(here?u.offerHere:d.offer)+' →</a><button class="sc-again" type="button" data-again>'+IC.ag+esc(d.again)+'</button></div>'+
         '<p class="sc-price">'+esc(d.price)+'</p></div>'+
     '</div>';
     if(!anim)el.firstChild.classList.remove("sc-rise");
     show("res",false);
-    $("[data-cp]").addEventListener("click",function(){copy(txt,true)});
-    $("[data-tg]").addEventListener("click",function(){copy(txt,false)});
+    [].forEach.call(el.querySelectorAll(".sc-fi"),function(b){
+      var k=b.getAttribute("data-k");
+      b.addEventListener("click",function(){plan[k]=!plan[k];b.setAttribute("aria-pressed",String(plan[k]));update(true)});
+      function hit(on){(LIFT[k]||[k]).forEach(function(a){var li=el.querySelector('[data-a="'+a+'"]');if(li)li.classList.toggle("hit",on)})}
+      b.addEventListener("mouseenter",function(){hit(true)});b.addEventListener("mouseleave",function(){hit(false)});
+      b.addEventListener("focus",function(){hit(true)});b.addEventListener("blur",function(){hit(false)});
+    });
+    $("[data-cp]").addEventListener("click",function(){copy(summary(),true)});
+    $("[data-tg]").addEventListener("click",function(){copy(summary(),false)});
     $("[data-again]").addEventListener("click",restart);
     live.textContent=d.yours+": "+R.total+" "+d.of+". "+v[1];
-    var num=$("[data-num]"),box=$(".sc-num");
+    update(false);
+    var num=$("[data-num]");
     if(anim){keepInView();try{$("[data-rh]").focus({preventScroll:true})}catch(e){}
-      setTimeout(function(){box.classList.add("drawn");countUp(num,R.total)},reduce?0:420)}
-    else{num.textContent=R.total;box.classList.add("drawn")}
+      setTimeout(function(){fill(R.total,true)},reduce?0:380)}
+    else fill(R.total,false);
   }
-  function countUp(num,n){
-    if(reduce){num.textContent=n;return}
-    var t0=null,D=1100;
-    function f(t){if(!num.isConnected)return;if(t0==null)t0=t;var p=Math.min(1,(t-t0)/D);num.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)frame(f)}
-    frame(f);
+  /* projected score, plan line and message links follow the switched-on fixes */
+  function update(soft){
+    if(!R)return;
+    var u=U[lang],p=projected(),txt=summary(),gh=$("[data-gh]"),to=$("[data-to]"),pl=$("[data-plan]"),pk=$("[data-pk]");
+    if(gh)gh.setAttribute("stroke-dashoffset",String(100-p));
+    if(to){to.textContent=p>R.total?"→ "+p:"";to.classList.toggle("on",p>R.total)}
+    if(pk){pk.style.left=p+"%";pk.style.opacity=p>R.total?"":"0"}
+    if(pl)pl.innerHTML=(chosen().length?fmt(u.planWith,{p:p}):esc(u.planNone))+'<span>'+esc(u.planHint)+'</span>';
+    var d=L[lang];
+    $("[data-wa]").href="https://wa.me/"+CONTACT.whatsapp+"?text="+encodeURIComponent(txt);
+    $("[data-em]").href="mailto:"+CONTACT.email+"?subject="+encodeURIComponent(fmt(d.subj,{s:R.total}))+"&body="+encodeURIComponent(txt);
+  }
+  /* the arc, its cap and the number move together */
+  function fill(n,anim){
+    var num=$("[data-num]"),ar=$("[data-ar]"),cap=$("[data-cap]"),mk=$("[data-mk]"),lo=band(n)===0,areas=$(".sc-areas");
+    if(ar)ar.classList.toggle("lo",lo);if(cap)cap.classList.toggle("lo",lo);
+    function at(v){num.textContent=Math.round(v);ar.setAttribute("stroke-dashoffset",String(100-v));var q=gpos(v);cap.setAttribute("cx",q[0].toFixed(1));cap.setAttribute("cy",q[1].toFixed(1));mk.style.left=v+"%"}
+    if(!anim||reduce){at(n);if(areas)areas.classList.add("on");return}
+    var t0=null,D=1200;
+    function f(t){if(!num.isConnected)return;if(t0==null)t0=t;var p=Math.min(1,(t-t0)/D);at(n*(1-Math.pow(1-p,3)));if(p<1)frame(f)}
+    frame(f);setTimeout(function(){if(areas&&areas.isConnected)areas.classList.add("on")},500);
   }
   function copy(text,flag){
     var d=L[lang];
@@ -373,12 +399,13 @@ function mount(root){
     function fb(){try{var ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();var r=document.execCommand("copy");ta.remove();if(r)ok();else fail()}catch(e){fail()}}
     if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(text).then(ok,fb);else fb();
   }
-  function restart(){ans={};step=-1;R=null;lock=false;setBiz();show("start",true);try{sheet.focus({preventScroll:true})}catch(e){}keepInView()}
+  function restart(){ans={};step=-1;R=null;plan=null;lock=false;setBiz();show("start",true);try{sheet.focus({preventScroll:true})}catch(e){}keepInView()}
 
   function setLang(l){
     lang=l;var u=U[l];
     [].forEach.call(root.querySelectorAll("[data-u]"),function(el){var v=u[el.getAttribute("data-u")];if(v!=null)el.textContent=v});
     [].forEach.call(root.querySelectorAll("[data-p]"),function(el){el.textContent=u.pts[+el.getAttribute("data-p")]});
+    [].forEach.call(root.querySelectorAll("[data-band]"),function(el){el.textContent=u.bands[+el.getAttribute("data-band")]});
     $("[data-date]").textContent=today();setBiz();
     if(view==="q")renderQ();else if(view==="res")showResult(false);
   }
@@ -389,9 +416,9 @@ function mount(root){
   root.addEventListener("keydown",function(e){
     if(view!=="q"||e.altKey||e.ctrlKey||e.metaKey)return;
     if(/^[1-9]$/.test(e.key)){var b=opts.children[+e.key-1];if(b){b.click();b.focus()}}
+    /* on a pick-many question Enter moves on, Space still toggles the focused answer */
+    else if(e.key==="Enter"&&!nx.disabled&&!nx.classList.contains("hide")&&e.target!==nx&&!(e.target.closest&&e.target.closest("[data-back]"))){e.preventDefault();nx.click()}
   });
-  var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(view==="q"&&!active()[step].many)loops()},150)});
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(view==="q"&&!active()[step].many)loops()});
   new MutationObserver(function(){var l=pageLang();if(l!==lang)setLang(l)}).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
   setLang(lang);
 

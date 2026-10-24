@@ -1159,7 +1159,8 @@
       box.style.height = H + 'px';
     } else {
       vw = 390;
-      const fw = vw + 24, fh = 844 + 24;
+      // the frame has 11px of bezel each side, so the page inside is exactly vw wide
+      const fw = vw + 22, fh = 844 + 22;
       s = Math.min(1, W / fw, H / fh);
       device.style.width = fw + 'px';
       device.style.height = fh + 'px';
