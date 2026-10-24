@@ -1,114 +1,101 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Проверка сайта для бизнеса · SanderSax</title>
-<meta name="description" content="Бесплатная проверка сайта для бизнеса в Таиланде. Короткие вопросы, оценка из 100, баллы по частям сайта и три главных исправления для вашего типа бизнеса.">
-<meta property="og:title" content="Проверка сайта за 2 минуты">
-<meta property="og:description" content="Оценка из 100 и три главных исправления для спа, туров, проката, кафе и клиник в Таиланде. Бесплатно.">
-<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/thailand/og.png">
+<title>Website check · SanderSax</title>
+<meta name="description" content="Type any website address and get a real Lighthouse report in plain words: speed, ease of use, trust and Google basics, with the fixes that matter most. Free, no sign up.">
+<meta property="og:title" content="Website check, a real report in about thirty seconds">
+<meta property="og:description" content="Scores for speed, ease of use, trust and Google, with the fixes that matter most, written for business owners. Free.">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/check.jpg">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0a1020">
+<meta name="theme-color" content="#e4e5e0">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/sandersax-icon-32.png">
 <link rel="apple-touch-icon" href="../assets/sandersax-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="check.css?v=20261024a">
-<style>
-:root{
-  --bg:#0a1020;--bg-3:#1a2443;
-  --paper:#f5f3ee;--ink:#121214;--muted:#62626b;--line:#e3dfd6;--line-d:rgba(255,255,255,.1);
-  --accent:#4c6fff;--accent-ink:#3451d1;
-  --display:"Inter Tight","Noto Sans Thai",system-ui,sans-serif;
-  --body:Inter,"Noto Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --tex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .22 0 0 0 0 .2 0 0 0 0 .16 0 0 0 .9 -.32'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.2'/%3E%3C/svg%3E");
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:80px}
-body{margin:0;background:var(--tex) 0 0/220px,var(--paper);color:var(--ink);font:17px/1.6 var(--body);min-width:320px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-html[lang="th"] body{line-height:1.75}
-a{color:inherit}
-button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
-.wrap{width:100%;max-width:1180px;margin:0 auto;padding-left:20px;padding-right:20px}
-.skip{position:fixed;left:12px;top:12px;z-index:99;background:#fff;color:var(--ink);padding:12px 16px;border-radius:8px;font-weight:600;transform:translateY(-200%)}
-.skip:focus{transform:none}
-
-/* top bar, the same as the offer page */
-.bar{position:sticky;top:0;z-index:20;background:rgba(10,16,32,.86);color:#fff;-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line-d)}
-.bar .wrap{display:flex;align-items:center;gap:14px;min-height:64px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}
-.logo .mk{flex:0 0 auto;width:22px;height:36px;background:#f5f3ee;-webkit-mask:url(../assets/sandersax-mark.png) center/contain no-repeat;mask:url(../assets/sandersax-mark.png) center/contain no-repeat}
-.logo .wm{font-family:"Barlow Condensed",var(--display);font-weight:700;font-size:20px;letter-spacing:.06em;color:#f5f3ee}
-.nav{display:flex;gap:2px;margin-left:auto}
-.nav a{white-space:nowrap;padding:10px 11px;border-radius:8px;text-decoration:none;font-size:14px;color:#a7aec6;transition:color .2s}
-.nav a:hover{color:#fff}
-.lang{display:flex;background:var(--bg-3);border:1px solid var(--line-d);border-radius:10px;padding:3px;position:relative;flex:0 0 auto}
-.lang button{border:0;background:transparent;color:#99a1bb;min-width:44px;min-height:38px;border-radius:7px;font-weight:600;font-size:12px;letter-spacing:.04em;position:relative;z-index:1;transition:color .25s}
-.lang button[aria-pressed="true"]{color:#fff}
-.lang .pill{position:absolute;top:3px;bottom:3px;left:3px;width:44px;border-radius:7px;background:#2b3558;transition:transform .35s cubic-bezier(.16,1,.3,1)}
-@media (max-width:760px){.nav{display:none}.lang{margin-left:auto}}
-@media (max-width:359px){.logo .wm{display:none}}
-
-main{padding:72px 0 96px;position:relative}
-main::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(760px 520px at 6% 12%,rgba(76,111,255,.07),transparent 70%)}
-main .wrap{position:relative}
-@media (max-width:640px){main{padding:32px 0 56px}}
-footer{color:var(--muted);padding:24px 0 32px;font-size:14px;border-top:1px solid var(--line)}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
-footer nav{display:flex;gap:18px}
-footer a{color:var(--ink)}
-</style>
+<link rel="preconnect" href="https://api.microlink.io" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scan.css?v=20261024u">
 </head>
 <body>
-<a class="skip" href="#main" data-t="skip">Перейти к проверке</a>
-<header class="bar">
-  <div class="wrap">
-    <a class="logo" href="../thailand/" aria-label="SanderSax"><i class="mk" aria-hidden="true"></i><span class="wm" aria-hidden="true">[SANDERSAX]</span></a>
-    <nav class="nav" aria-label="Разделы" data-t-aria="navLabel">
-      <a href="../thailand/#prices" data-t="nPrice">Цены</a>
-      <a href="../thailand/#work" data-t="nWork">Работы</a>
-      <a href="../thailand/#contact" data-t="nContact">Контакты</a>
-    </nav>
-    <div class="lang" role="group" aria-label="Язык / Language / ภาษา">
-      <span class="pill" aria-hidden="true"></span>
-      <button type="button" data-l="ru" aria-pressed="true">RU</button>
-      <button type="button" data-l="en" aria-pressed="false">EN</button>
+<a class="skip" href="#probe" data-s="skip">Skip to the address field</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../" aria-label="SanderSax, all work"><i class="mk" aria-hidden="true"></i><span>SanderSax</span></a>
+    <span class="model" aria-hidden="true">WC-1</span>
+    <span class="top-name" data-s="kick">Website check</span>
+    <div class="langs" role="group" aria-label="Language / Язык / ภาษา">
+      <button type="button" data-l="en" aria-pressed="true">EN</button>
+      <button type="button" data-l="ru" aria-pressed="false">RU</button>
       <button type="button" data-l="th" aria-pressed="false">TH</button>
     </div>
   </div>
 </header>
 
 <main id="main">
-  <div class="wrap"><div data-site-check data-offer="../thailand/"></div></div>
+  <section class="intro wrap" aria-labelledby="h1">
+    <h1 id="h1"><span data-s="h1a">Measure any website</span> <em data-s="h1b">in about thirty seconds.</em></h1>
+    <p class="lead" data-s="lead"></p>
+  </section>
+
+  <section class="wrap" aria-label="Measuring instrument" data-s-aria="instr">
+    <div class="unit">
+      <div class="unit-plate" aria-hidden="true"><span>SANDERSAX · WC-1</span><span data-plate>LIGHTHOUSE 13</span></div>
+      <div class="glass" id="glass">
+        <div class="g-state" data-g="idle">
+          <p class="g-big" data-s="ready">Ready</p>
+          <p class="g-small" data-s="readyP"></p>
+          <p class="g-dev" data-gdev></p>
+        </div>
+        <div class="g-state" data-g="run" hidden>
+          <ol class="g-steps" data-steps></ol>
+          <div class="g-clock"><span data-s="elapsed">Elapsed</span><b data-clock>00.0</b><small data-gdev2></small></div>
+        </div>
+        <div class="g-state" data-g="done" hidden>
+          <div class="g-reads" data-reads></div>
+          <div class="g-row"><a class="g-go" href="#report" data-s="doneBtn">Read the report</a><span class="g-took" data-took></span></div>
+        </div>
+        <div class="g-state" data-g="err" hidden>
+          <p class="g-err" data-errmsg></p>
+          <p class="g-small" data-s="exampleNote"></p>
+        </div>
+        <div class="axis" aria-hidden="true">
+          <div class="axis-band"><span data-s="typical"></span></div>
+          <div class="axis-fill" data-fill></div>
+          <div class="axis-ticks" data-ticks></div>
+        </div>
+      </div>
+      <form class="deck" id="probe" novalidate>
+        <label class="field">
+          <span class="field-lab" data-s="fieldLabel">Website address</span>
+          <span class="field-box"><span class="field-pre" aria-hidden="true">https://</span><input type="text" name="url" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" enterkeyhint="go" aria-describedby="probe-err" data-url></span>
+        </label>
+        <div class="dev" role="radiogroup" aria-label="Device" data-s-aria="devLabel">
+          <span class="field-lab" aria-hidden="true" data-s="devLabel">Device</span>
+          <div class="dev-sw">
+            <button type="button" role="radio" aria-checked="true" data-dev="mobile"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/></svg><span data-s="phone">Phone</span></button>
+            <button type="button" role="radio" aria-checked="false" data-dev="desktop"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="1.6"/><path d="M8 20.5h8M12 16.5v4"/></svg><span data-s="desktop">Desktop</span></button>
+            <i class="dev-knob" aria-hidden="true"></i>
+          </div>
+        </div>
+        <button class="go" type="submit" data-go><span data-golab>Measure</span></button>
+        <p class="deck-err" id="probe-err" data-err aria-live="polite"></p>
+      </form>
+      <p class="sr" aria-live="polite" data-live></p>
+    </div>
+    <p class="privacy" data-s="privacy"></p>
+  </section>
+
+  <section class="wrap rep-wrap" id="report" tabindex="-1" aria-labelledby="rep-h">
+    <div class="rep" data-rep></div>
+  </section>
 </main>
 
-<footer><div class="wrap"><span>© 2026 Alexandr Khrustalev · SanderSax · <span data-t="fCity">Таиланд, работаю удалённо</span></span><nav aria-label="Ссылки" data-t-aria="footLabel"><a href="../thailand/" data-t="fOffer">Сайты для бизнеса</a><a href="../" data-t="fAll">Все работы</a></nav></div></footer>
+<footer class="foot"><div class="wrap foot-in"><span>© 2026 Alexandr Khrustalev · SanderSax · <span data-s="fCity">Thailand, working remotely</span></span><nav aria-label="Links" data-s-aria="footLabel"><a href="../thailand/" data-s="fOffer">Websites for businesses</a><a href="../" data-s="fAll">All work</a></nav></div></footer>
 
-<script>
-(function(){
-var T={ru:{},
-en:{skip:"Skip to the check",navLabel:"Sections",footLabel:"Links",nPrice:"Prices",nWork:"Work",nContact:"Contact",fCity:"Thailand, working remotely",fOffer:"Websites for businesses",fAll:"All work"},
-th:{skip:"ข้ามไปที่แบบเช็ก",navLabel:"หมวด",footLabel:"ลิงก์",nPrice:"ราคา",nWork:"ผลงาน",nContact:"ติดต่อ",fCity:"ประเทศไทย ทำงานออนไลน์",fOffer:"เว็บไซต์สำหรับธุรกิจ",fAll:"ผลงานทั้งหมด"}};
-document.querySelectorAll("[data-t]").forEach(function(el){T.ru[el.dataset.t]=el.innerHTML});
-document.querySelectorAll("[data-t-aria]").forEach(function(el){T.ru[el.dataset.tAria]=el.getAttribute("aria-label")});
-var LS=["ru","en","th"],TITLES={ru:"Проверка сайта для бизнеса · SanderSax",en:"Website check for businesses · SanderSax",th:"เช็กเว็บไซต์สำหรับธุรกิจ · SanderSax"};
-function setLang(l){
-  document.documentElement.lang=l;
-  document.querySelectorAll("[data-t]").forEach(function(el){var v=T[l][el.dataset.t];if(v!=null)el.innerHTML=v});
-  document.querySelectorAll("[data-t-aria]").forEach(function(el){var v=T[l][el.dataset.tAria];if(v!=null)el.setAttribute("aria-label",v)});
-  document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.l===l))});
-  document.querySelector(".lang .pill").style.transform="translateX("+(LS.indexOf(l)*44)+"px)";
-  document.title=TITLES[l];
-  try{localStorage.setItem("ak-lang",l)}catch(e){}
-}
-document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){setLang(b.dataset.l)})});
-var q=new URLSearchParams(location.search).get("lang"),saved=null;try{saved=localStorage.getItem("ak-lang")}catch(e){}
-setLang(LS.indexOf(q)>=0?q:(LS.indexOf(saved)>=0?saved:"ru"));
-})();
-</script>
-<script src="check.js?v=20261024a" defer></script>
+<script src="lh.js?v=20261024u"></script>
+<script src="sample.js?v=20261024u"></script>
+<script src="scan.js?v=20261024u" defer></script>
 </body>
 </html>
