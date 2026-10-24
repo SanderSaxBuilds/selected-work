@@ -3,70 +3,92 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f1f1ee">
-<title>Print plates study</title>
-<meta name="description" content="A poster pulled apart into its four print plates. Scroll to separate cyan, magenta, yellow and black, tilt the stack, switch plates off and knock the registration out. Plain HTML, CSS and SVG.">
+<meta name="theme-color" content="#e4e5e7">
+<title>Press proof</title>
+<meta name="description" content="A poster pulled apart into its four print plates. Separate cyan, magenta, yellow and black, knock the registration out, then put a loupe on the proof to see the halftone dots and how much ink lands on each spot.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* A print room: cool paper, press black, and the four process inks used only where they belong. */
+/* Press proof. A print shop's proofing table: cool grey board, white proof sheets with crop marks,
+   a control strip across the top, and the four process inks used only where ink would really be. */
 :root {
   color-scheme: light;
-  --paper: #f1f1ee; --sheet: #ffffff; --ink: #141414; --ink-2: #34343a; --muted: #5d5e63; --line: #d6d6d1;
+  --table: #e4e5e7; --sheet: #ffffff; --ink: #121214; --ink-2: #3a3b40; --muted: #5f6066; --line: #c9cacd; --rule: #121214;
   --c: #00a0dc; --m: #e4007f; --y: #ffe600; --k: #1d1b1c;
-  --c-ink: #006f99; --m-ink: #b0005f; --y-ink: #7a6a00;
-  --press: #222125;
-  --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink);
+  --c-ink: #006a92; --m-ink: #a8005b;
+  --booth: #232227;
   --sans: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --cx: 0px; --cy: 0px; --mx: 0px; --my: 0px;
 }
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; color: var(--ink); background: var(--paper); font: 400 17px/1.55 var(--sans); font-stretch: 100%; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-width: 320px; color: var(--ink); background: var(--table); font: 400 17px/1.55 var(--sans); }
 a { color: inherit; }
 button, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
-:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 [hidden] { display: none !important; }
-h1, h2, p { margin: 0; }
+h1, h2, h3, p { margin: 0; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .skip-link { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; background: var(--ink); color: #fff; }
 .skip-link:focus { top: 12px; }
-.wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.top { border-bottom: 1px solid var(--line); }
-.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 60px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+.mono { font-family: var(--mono); }
+
+/* Control strip: the patches a press operator reads with a densitometer */
+.strip { display: flex; height: 14px; }
+.strip i { flex: 1; }
+.top { background: var(--sheet); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 58px; }
 .back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; text-decoration: none; }
 .back svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; }
-.marks { display: inline-flex; gap: 5px; }
-.marks i { width: 14px; height: 14px; border-radius: 50%; }
-.marks i:nth-child(1) { background: var(--c); } .marks i:nth-child(2) { background: var(--m); } .marks i:nth-child(3) { background: var(--y); } .marks i:nth-child(4) { background: var(--k); }
+.job { font: 500 12.5px/1.3 var(--mono); color: var(--muted); letter-spacing: .04em; text-align: right; }
 
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 24px 64px; align-items: end; padding-top: 64px; padding-bottom: 40px; }
-.label { font: 500 13px/1.4 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-h1 { margin-top: 12px; font-size: clamp(44px, 7.4vw, 108px); font-weight: 800; font-stretch: 70%; line-height: .9; letter-spacing: -.02em; text-transform: uppercase; }
-h1 .k { display: inline-block; }
-.lede { color: var(--ink-2); font-size: 19px; }
+/* Sheet with crop marks */
+.sheet { position: relative; background: var(--sheet); box-shadow: 0 1px 0 rgba(0, 0, 0, .04), 0 18px 40px -26px rgba(0, 0, 0, .35); }
+.crop::before, .crop::after { content: ""; position: absolute; width: 22px; height: 22px; pointer-events: none; }
+.crop::before { left: -30px; top: -30px; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.crop::after { right: -30px; bottom: -30px; border-left: 1px solid var(--ink); border-top: 1px solid var(--ink); }
 
-.scrolly { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; padding-bottom: 64px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 32px 64px; align-items: end; padding-top: 72px; padding-bottom: 56px; }
+.label { font: 500 12.5px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { margin-top: 14px; font-size: clamp(48px, 8vw, 128px); font-weight: 800; font-stretch: 64%; line-height: .86; letter-spacing: -.015em; text-transform: uppercase; color: var(--ink);
+  text-shadow: var(--cx) var(--cy) 0 rgba(0, 160, 220, .9), var(--mx) var(--my) 0 rgba(228, 0, 127, .85); }
+.lede { margin-top: 22px; max-width: 54ch; color: var(--ink-2); font-size: 18px; }
+.ticket { padding: 18px 20px 20px; font: 400 13.5px/1.5 var(--mono); }
+.ticket h2 { font: 700 13px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
+.ticket dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 12px 0 0; }
+.ticket dt { color: var(--muted); }
+.ticket dd { margin: 0; }
+.ticket .inks { display: inline-flex; gap: 4px; vertical-align: -2px; }
+.ticket .inks i { width: 12px; height: 12px; }
+
+/* Booth with the separating stack */
+.scrolly { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 56px; padding-bottom: 72px; }
 .stage-col { position: sticky; top: 20px; align-self: start; }
-.stage { position: relative; height: min(640px, calc(100vh - 40px)); min-height: 460px; overflow: hidden; border-radius: 6px; background: radial-gradient(90% 70% at 50% 35%, #34323a 0%, var(--press) 70%); perspective: 1100px; }
+.stage { position: relative; height: min(660px, calc(100vh - 40px)); min-height: 460px; overflow: hidden; background: radial-gradient(80% 64% at 50% 34%, #3a3940 0%, var(--booth) 72%); perspective: 1100px; }
+.booth-head { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; gap: 10px; padding: 12px 16px; color: #b7b7bd; font: 500 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; pointer-events: none; }
 .scaler { position: absolute; inset: 0; transform-style: preserve-3d; }
 .composite, .assembly { position: absolute; top: 50%; left: 50%; width: 252px; height: 356px; }
-.composite { transform: translate(-50%, -50%); background: var(--sheet); box-shadow: 0 30px 50px -20px rgba(0, 0, 0, .6); transition: opacity .2s ease; }
-.composite svg { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: multiply; transition: transform .25s ease, opacity .2s ease; }
+.composite { transform: translate(-50%, -50%); background: var(--sheet); box-shadow: 0 30px 50px -20px rgba(0, 0, 0, .65); transition: opacity .2s ease; }
+.composite svg, .proof-art svg { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: multiply; transition: transform .25s ease, opacity .2s ease; }
 .assembly { transform-style: preserve-3d; transform: translate(-50%, -50%) rotateX(56deg) rotateZ(-32deg); transition: transform .18s ease-out, opacity .2s ease; }
-.plate { position: absolute; inset: 0; border: 1px solid rgba(255, 255, 255, .5); border-radius: 2px; background: rgba(255, 255, 255, .84); box-shadow: 0 18px 28px rgba(0, 0, 0, .3); transform: translateZ(var(--z, 0px)); transition: transform .2s ease-out, opacity .2s ease; }
+.plate { position: absolute; inset: 0; border: 1px solid rgba(255, 255, 255, .5); background: rgba(255, 255, 255, .82); box-shadow: 0 18px 28px rgba(0, 0, 0, .32); transform: translateZ(var(--z, 0px)); transition: transform .2s ease-out, opacity .2s ease; }
 .plate svg { width: 100%; height: 100%; display: block; }
-.plate b { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; font: 600 13px/1 var(--mono); }
-.plate.off, .composite svg.off { opacity: 0; }
-.stage-read { position: absolute; left: 14px; right: 14px; bottom: 12px; display: flex; justify-content: space-between; gap: 10px; color: #d9d9dd; font: 500 13px/1.4 var(--mono); pointer-events: none; }
+.plate b { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; min-width: 26px; height: 22px; padding: 0 6px; background: var(--ink); color: #fff; font: 600 12px/1 var(--mono); }
+.plate.off, .composite svg.off, .proof-art svg.off { opacity: 0; }
+.stage-read { position: absolute; left: 16px; right: 16px; bottom: 12px; display: flex; justify-content: space-between; gap: 10px; color: #d9d9dd; font: 500 12.5px/1.4 var(--mono); pointer-events: none; }
 .paused .plate, .paused .assembly { transition: none !important; }
 
 .steps { counter-reset: step; }
 .step { min-height: 78vh; padding: 48px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
 .step:first-child { border-top: 0; padding-top: 8px; min-height: 60vh; }
 .step:last-child { min-height: 0; }
-.step-no { font: 600 13px/1 var(--mono); color: var(--muted); }
-.step h2 { margin-top: 10px; font-size: clamp(28px, 3.2vw, 40px); font-weight: 800; font-stretch: 75%; line-height: 1; text-transform: uppercase; letter-spacing: -.01em; }
+.step-no { display: inline-flex; align-items: center; gap: 10px; font: 600 12.5px/1 var(--mono); color: var(--muted); letter-spacing: .06em; }
+.step-no::before { content: ""; width: 18px; height: 18px; border: 1px solid var(--ink); border-radius: 50%; background: linear-gradient(var(--ink), var(--ink)) center / 1px 100% no-repeat, linear-gradient(var(--ink), var(--ink)) center / 100% 1px no-repeat; }
+.step h2 { margin-top: 12px; font-size: clamp(30px, 3.4vw, 44px); font-weight: 800; font-stretch: 70%; line-height: .95; text-transform: uppercase; letter-spacing: -.01em; }
 .step p { margin-top: 12px; max-width: 44ch; color: var(--ink-2); }
 .note { color: var(--m-ink); font-size: 15px; }
 .slider { margin-top: 22px; max-width: 440px; }
@@ -74,45 +96,93 @@ h1 .k { display: inline-block; }
 .slider output { font: 500 15px/1.5 var(--mono); }
 .slider input { display: block; width: 100%; height: 44px; margin: 4px 0 0; accent-color: var(--ink); cursor: pointer; }
 .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 2px solid var(--ink); border-radius: 4px; background: var(--ink); color: #fff; font-weight: 700; font-stretch: 90%; letter-spacing: .02em; text-transform: uppercase; font-size: 15px; transition: transform .1s ease, background-color .15s ease; }
-.btn:hover { background: var(--ink-2); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 2px solid var(--ink); background: var(--ink); color: #fff; font-weight: 700; font-stretch: 88%; letter-spacing: .03em; text-transform: uppercase; font-size: 15px; transition: transform .1s ease, background-color .15s ease; }
+.btn:hover { background: var(--ink-2); border-color: var(--ink-2); }
 .btn:active { transform: translateY(1px); }
-.btn.ghost { background: transparent; color: var(--ink); }
-.btn.ghost:hover { background: rgba(20, 20, 20, .06); }
-.btn[aria-pressed="true"] { background: var(--sheet); color: var(--ink); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn.ghost:hover { background: rgba(18, 18, 20, .06); }
+.btn[aria-pressed="true"] { background: var(--sheet); color: var(--ink); border-color: var(--ink); }
 .plates { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
-.plate-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px 0 10px; border: 2px solid var(--ink); border-radius: 4px; background: var(--sheet); font-weight: 700; transition: background-color .15s ease, color .15s ease; }
-.plate-btn i { width: 24px; height: 24px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2); }
+.plate-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px 0 10px; border: 2px solid var(--ink); background: var(--sheet); font-weight: 700; transition: background-color .15s ease, color .15s ease; }
+.plate-btn i { width: 24px; height: 24px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2); }
 .plate-btn[data-p="c"] i { background: var(--c); } .plate-btn[data-p="m"] i { background: var(--m); } .plate-btn[data-p="y"] i { background: var(--y); } .plate-btn[data-p="k"] i { background: var(--k); }
 .plate-btn[aria-pressed="false"] { border-style: dashed; color: var(--muted); background: transparent; }
 .plate-btn[aria-pressed="false"] i { background: transparent !important; box-shadow: inset 0 0 0 2px var(--line); }
-.plate-btn:hover { background: #fff; }
 .live { min-height: 26px; margin-top: 14px; font-weight: 600; color: var(--ink-2); }
 .live.warn { color: var(--m-ink); }
 
-.built { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 56px; padding-top: 72px; padding-bottom: 72px; border-top: 2px solid var(--ink); }
-.built h2 { font-size: clamp(30px, 3.6vw, 48px); font-weight: 800; font-stretch: 72%; text-transform: uppercase; line-height: .95; }
+/* Proof desk: loupe and ink meter */
+.desk { padding-top: 80px; padding-bottom: 88px; border-top: 2px solid var(--rule); }
+.desk-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 64px; align-items: end; }
+.desk-head h2 { font-size: clamp(36px, 4.8vw, 68px); font-weight: 800; font-stretch: 64%; line-height: .9; text-transform: uppercase; letter-spacing: -.01em; }
+.desk-head p { color: var(--ink-2); max-width: 52ch; }
+.desk-body { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 56px; margin-top: 48px; align-items: start; }
+.proof { padding: 22px; }
+.proof-art { position: relative; width: 100%; aspect-ratio: 252 / 356; cursor: crosshair; touch-action: pan-y; }
+.proof-art:focus-visible { outline-offset: 6px; }
+.marker { position: absolute; left: 0; top: 0; width: 60px; height: 60px; margin: -30px 0 0 -30px; border: 1.5px solid var(--ink); border-radius: 50%; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .9), inset 0 0 0 1.5px rgba(255, 255, 255, .9); touch-action: none; cursor: grab; }
+.marker::before, .marker::after { content: ""; position: absolute; background: var(--ink); }
+.marker::before { left: 50%; top: -8px; bottom: -8px; width: 1px; }
+.marker::after { top: 50%; left: -8px; right: -8px; height: 1px; }
+.proof-cap { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; font: 500 12px/1.4 var(--mono); color: var(--muted); }
+.loupe-col { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 32px 44px; align-items: start; }
+.loupe-wrap { position: relative; width: min(340px, 100%); }
+.loupe { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; background: #fff; box-shadow: 0 0 0 10px #1a1a1d, 0 0 0 11px #4a4a50, 0 28px 50px -18px rgba(0, 0, 0, .55); }
+.loupe-read { margin-top: 26px; font: 500 12.5px/1.4 var(--mono); color: var(--muted); text-align: center; }
+.meter h3 { font: 700 13px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
+.bars { display: grid; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
+.bars li { display: grid; grid-template-columns: 76px minmax(0, 1fr) 46px; align-items: center; gap: 12px; font: 500 13.5px/1.2 var(--mono); }
+.bars .track { position: relative; height: 14px; background: #eeeff1; }
+.bars .fill { position: absolute; inset: 0 auto 0 0; width: 0; transition: width .2s ease; }
+.bars li[data-p="c"] .fill { background: var(--c); } .bars li[data-p="m"] .fill { background: var(--m); } .bars li[data-p="y"] .fill { background: var(--y); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); } .bars li[data-p="k"] .fill { background: var(--k); }
+.bars b { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bars li.off { color: var(--muted); text-decoration: line-through; }
+.total { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font: 500 13.5px/1.3 var(--mono); }
+.total b { font: 800 34px/1 var(--sans); font-stretch: 70%; font-variant-numeric: tabular-nums; }
+.verdict { margin-top: 10px; font-size: 15px; color: var(--ink-2); }
+.screen { margin: 28px 0 0; padding: 0; border: 0; }
+.screen legend { padding: 0; font: 700 13px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.screen-opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.screen-opts label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border: 2px solid var(--ink); background: var(--sheet); font-weight: 600; font-size: 15px; cursor: pointer; }
+.screen-opts input { width: 16px; height: 16px; margin: 0; accent-color: var(--ink); }
+.screen-opts label:has(input:checked) { background: var(--ink); color: #fff; }
+.screen-help { margin-top: 10px; font-size: 14.5px; color: var(--muted); }
+.loupe-fail { margin-top: 12px; font-size: 15px; color: var(--m-ink); }
+
+.built { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 56px; padding-top: 72px; padding-bottom: 72px; border-top: 2px solid var(--rule); }
+.built h2 { font-size: clamp(30px, 3.6vw, 48px); font-weight: 800; font-stretch: 68%; text-transform: uppercase; line-height: .95; }
 .built p { margin-top: 14px; color: var(--ink-2); }
 code { font: 500 .9em var(--mono); }
-pre { margin: 0; padding: 20px; overflow-x: auto; border-radius: 6px; background: var(--press); color: #e7e7ea; font: 400 14px/1.6 var(--mono); font-variant-ligatures: none; }
-.foot { border-top: 1px solid var(--line); }
+pre { margin: 0; padding: 20px; overflow-x: auto; background: var(--booth); color: #e7e7ea; font: 400 14px/1.6 var(--mono); font-variant-ligatures: none; }
+.foot { background: var(--sheet); border-top: 1px solid var(--line); }
 .foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding-top: 24px; padding-bottom: 36px; color: var(--muted); font-size: 15px; }
 .foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 600; }
 
+@media (max-width: 1100px) {
+  .loupe-col { grid-template-columns: 1fr; }
+  .loupe-wrap { margin: 0 auto; }
+}
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding-top: 40px; }
+  .hero { grid-template-columns: 1fr; padding-top: 44px; }
+  .ticket { max-width: 420px; }
   .scrolly { grid-template-columns: 1fr; gap: 0; }
-  .stage-col { top: 0; z-index: 5; padding: 8px 0 10px; margin: 0 -24px; padding-left: 24px; padding-right: 24px; background: var(--paper); }
+  .stage-col { top: 0; z-index: 5; padding: 8px 0 10px; margin: 0 -28px; padding-left: 28px; padding-right: 28px; background: var(--table); }
   .stage { height: 42vh; min-height: 270px; max-height: 380px; }
   .scaler { transform: scale(.68); }
   .step, .step:first-child { min-height: 0; padding: 36px 0; }
-  .built { grid-template-columns: 1fr; }
+  .desk-head, .desk-body, .built { grid-template-columns: 1fr; }
+  .desk-body { gap: 40px; }
+  .proof { max-width: 360px; margin: 0 auto; width: 100%; }
 }
 @media (max-width: 520px) {
   .wrap { padding-left: 16px; padding-right: 16px; }
   .stage-col { margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
   .scaler { transform: scale(.6); }
   .lede { font-size: 17px; }
+  .crop::before, .crop::after { display: none; }
+  .job { display: none; }
+  .bars li { grid-template-columns: 64px minmax(0, 1fr) 42px; gap: 8px; }
+  .loupe { box-shadow: 0 0 0 8px #1a1a1d, 0 0 0 9px #4a4a50, 0 20px 40px -18px rgba(0, 0, 0, .55); }
 }
 @media (min-width: 1800px) { body { zoom: 1.2; } }
 @media (min-width: 2300px) { body { zoom: 1.4; } }
@@ -121,25 +191,39 @@ pre { margin: 0; padding: 20px; overflow-x: auto; border-radius: 6px; background
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to the study</a>
+<div class="strip" aria-hidden="true">
+  <i style="background:#00a0dc"></i><i style="background:#e4007f"></i><i style="background:#ffe600"></i><i style="background:#1d1b1c"></i><i style="background:#2b3c8f"></i><i style="background:#e2252a"></i><i style="background:#00975f"></i><i style="background:#d8d8d8"></i><i style="background:#a9a9a9"></i><i style="background:#6e6e6e"></i><i style="background:#00a0dc"></i><i style="background:#e4007f"></i><i style="background:#ffe600"></i><i style="background:#1d1b1c"></i>
+</div>
 <header class="top">
   <div class="wrap">
     <a class="back" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
-    <span class="marks" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="job">Job 2610-07, proof 2 of 2</span>
   </div>
 </header>
 
 <main id="main">
   <section class="hero wrap" aria-labelledby="title">
     <div>
-      <p class="label">CSS and SVG interaction study</p>
-      <h1 id="title">Four plates, one poster.</h1>
+      <p class="label">Press proof, CSS, SVG and canvas</p>
+      <h1 id="title">Four plates,<br>one poster.</h1>
+      <p class="lede">A printed poster is four thin layers of ink: cyan, magenta, yellow and black. Pull the plates apart, tilt the stack, switch inks off, knock the registration out, then put a loupe on the proof and count the dots.</p>
     </div>
-    <p class="lede">A printed poster is four thin layers of ink: cyan, magenta, yellow and black. Scroll to pull the plates apart, tilt the stack with the pointer, switch plates off, and knock the registration out to see the colour fringes a press operator hunts for.</p>
+    <aside class="ticket sheet crop" aria-labelledby="ticket-title">
+      <h2 id="ticket-title">Job ticket</h2>
+      <dl>
+        <dt>Title</dt><dd>Low Tide poster</dd>
+        <dt>Size</dt><dd>A3, 297 x 420 mm</dd>
+        <dt>Stock</dt><dd>170 gsm uncoated</dd>
+        <dt>Inks</dt><dd><span class="inks" aria-hidden="true"><i style="background:var(--c)"></i><i style="background:var(--m)"></i><i style="background:var(--y)"></i><i style="background:var(--k)"></i></span> 4/0 process</dd>
+        <dt>Register</dt><dd id="ticket-reg">In register</dd>
+      </dl>
+    </aside>
   </section>
 
   <section class="wrap scrolly" aria-label="Poster plates">
     <div class="stage-col">
-      <div class="stage" id="stage" role="img" aria-label="A swim club poster drawn as four print plates. Their separation, visible plates and registration follow the controls beside it.">
+      <div class="stage" id="stage" role="img" aria-label="The Low Tide poster drawn as four print plates. Their separation, visible plates and registration follow the controls beside it.">
+        <div class="booth-head" aria-hidden="true"><span>Viewing booth, D50</span><span id="read-plates">C M Y K</span></div>
         <div class="scaler">
           <div class="composite" id="composite"></div>
           <div class="assembly" id="assembly"></div>
@@ -167,13 +251,13 @@ pre { margin: 0; padding: 20px; overflow-x: auto; border-radius: 6px; background
         <article class="step">
           <span class="step-no">02 / Tilt</span>
           <h2>Look along the stack</h2>
-          <p>Move the pointer across the poster. The angle follows within a small range and settles back when you leave. Each film carries only its own ink, so the red sun is magenta on one plate and yellow on another.</p>
+          <p>Move the pointer across the booth. The angle follows within a small range and settles back when you leave. Each film carries only its own ink, so the red sun is magenta on one plate and yellow on another.</p>
         </article>
       </div>
       <article class="step">
         <span class="step-no">03 / Plates</span>
         <h2>Switch inks off</h2>
-        <p>Take a plate away and see what it was doing. Without yellow the sun turns pink, without cyan the sea goes purple and the sky disappears.</p>
+        <p>Take a plate away and see what it was doing. Without yellow the sun turns pink, without cyan the sea goes purple and the sky disappears. The proof desk further down follows these switches too.</p>
         <div class="plates" role="group" aria-label="Plates">
           <button type="button" class="plate-btn" data-p="c" aria-pressed="true"><i></i>Cyan</button>
           <button type="button" class="plate-btn" data-p="m" aria-pressed="true"><i></i>Magenta</button>
@@ -184,7 +268,7 @@ pre { margin: 0; padding: 20px; overflow-x: auto; border-radius: 6px; background
       <article class="step" id="reg-step" aria-labelledby="reg-title">
         <span class="step-no">04 / Registration</span>
         <h2 id="reg-title">Knock it out of register</h2>
-        <p>On press, each plate has to land on the same spot. The plates settle back into one sheet here. Drag the slider and the cyan and magenta plates drift, which shows up first as coloured edges on the sun and at the crosshair marks in the corners.</p>
+        <p>On press, each plate has to land on the same spot. The plates settle back into one sheet here. Drag the slider and the cyan and magenta plates drift, which shows up first as coloured edges on the sun, the corner marks and the headline at the top of this page.</p>
         <div class="slider">
           <label for="reg">Plates off by <output id="reg-out" for="reg">0.0 mm</output></label>
           <input id="reg" type="range" min="0" max="12" step="1" value="0" aria-describedby="reg-help">
@@ -196,18 +280,64 @@ pre { margin: 0; padding: 20px; overflow-x: auto; border-radius: 6px; background
     </div>
   </section>
 
+  <section class="desk wrap" aria-labelledby="desk-title">
+    <div class="desk-head">
+      <div>
+        <p class="label">05 / Proof desk</p>
+        <h2 id="desk-title" style="margin-top:12px">Put a loupe on it</h2>
+      </div>
+      <p>Up close, a printed colour is not a colour at all. Each ink is a field of dots set at its own angle, and the dots grow where the ink gets heavier. Drag the ring over the proof, or focus the proof and use the arrow keys.</p>
+    </div>
+    <div class="desk-body">
+      <div class="proof sheet crop">
+        <div class="proof-art" id="proof" tabindex="0" role="group" aria-label="Proof of the poster. Use the arrow keys to move the loupe, hold Shift for bigger steps." aria-describedby="loupe-read">
+          <div class="marker" id="marker" aria-hidden="true"></div>
+        </div>
+        <div class="proof-cap"><span>Proof, 1:1.2</span><span id="proof-pos">x 148 mm, y 160 mm</span></div>
+      </div>
+      <div class="loupe-col">
+        <div class="loupe-wrap">
+          <canvas class="loupe" id="loupe" width="340" height="340" role="img" aria-label="Magnified halftone dots under the loupe"></canvas>
+          <p class="loupe-read" id="loupe-read">Loupe, 33 mm of the sheet across</p>
+          <p class="loupe-fail" id="loupe-fail" hidden>This browser would not let the page read its own drawing, so the loupe is off. Everything else still works.</p>
+        </div>
+        <div class="meter">
+          <h3>Ink under the loupe</h3>
+          <ul class="bars" id="bars">
+            <li data-p="c"><span>Cyan</span><span class="track"><span class="fill"></span></span><b>0%</b></li>
+            <li data-p="m"><span>Magenta</span><span class="track"><span class="fill"></span></span><b>0%</b></li>
+            <li data-p="y"><span>Yellow</span><span class="track"><span class="fill"></span></span><b>0%</b></li>
+            <li data-p="k"><span>Black</span><span class="track"><span class="fill"></span></span><b>0%</b></li>
+          </ul>
+          <div class="total"><span>Total ink here</span><b id="tac">0%</b></div>
+          <p class="verdict" id="verdict">Move the loupe to read the ink.</p>
+          <div class="total"><span>Heaviest spot on the sheet</span><b id="tac-max">0%</b></div>
+          <fieldset class="screen">
+            <legend>Halftone screen</legend>
+            <div class="screen-opts">
+              <label><input type="radio" name="screen" value="4.6">Newsprint</label>
+              <label><input type="radio" name="screen" value="3.5" checked>Uncoated</label>
+              <label><input type="radio" name="screen" value="2.4">Coated</label>
+            </div>
+            <p class="screen-help">Coarse to fine. The dot size is exaggerated so the pattern stays readable on a screen.</p>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="built wrap" aria-labelledby="built-title">
     <div>
-      <h2 id="built-title">Four SVG files and one variable</h2>
+      <h2 id="built-title">Four SVG files, one variable, one canvas</h2>
       <p>Each plate is a small SVG drawn in a single ink. Flat, they sit on a white sheet with <code>mix-blend-mode: multiply</code>, which is how inks mix on paper. Separated, the same drawings move onto films in a 3D stack, spaced by a CSS custom property fed into <code>translateZ</code>.</p>
-      <p>Scroll updates run once per animation frame. Touching a slider or button hands control to you until you scroll again. No canvas, no libraries.</p>
+      <p>For the loupe, each plate is drawn once more in plain black on a hidden canvas and read back as a map of ink density. The loupe turns that map into round dots at the classic screen angles, cyan at 15 degrees, magenta at 75, yellow at 0 and black at 45, and multiplies them together. No libraries.</p>
     </div>
-    <pre tabindex="0" aria-label="Excerpt: setDepth function">function setDepth(raw) {
-  const n = clamp(Math.round(raw), 0, 100);
-  plates.forEach((p, i) =&gt;
-    p.style.setProperty('--z', (i - 1.5) * (4 + n * 1.1) + 'px'));
-  composite.style.opacity = Math.max(0, 1 - n / 12);
-  assembly.style.opacity = Math.min(1, n / 8);
+    <pre tabindex="0" aria-label="Excerpt: drawing one ink's dots">for (const [p, angle] of SCREENS) {
+  const d = density[p];                  // 0 to 1, from the plate drawing
+  forEachCell(angle, cell, (x, y) =&gt; {
+    const r = cell * Math.sqrt(d(x, y) / Math.PI);
+    if (r &gt; .15) dot(x, y, r, INK[p]);   // multiplied onto white paper
+  });
 }</pre>
   </section>
 </main>
@@ -223,27 +353,34 @@ pre { margin: 0; padding: 20px; overflow-x: auto; border-radius: 6px; background
 'use strict';
 const INK = { c: '#00a0dc', m: '#e4007f', y: '#ffe600', k: '#1d1b1c' };
 const ORDER = ['y', 'm', 'c', 'k'];
+const W = 252, H = 356, HORIZON = 236;
+const SEA = 'M0 236 C 40 230, 70 244, 110 236 S 180 228, 220 238 S 252 234, 252 234 V 318 H 0 Z';
+let uid = 0;
 const reg = ink => [[16, 16], [236, 16], [16, 340], [236, 340]].map(([x, y]) => `<g stroke="${ink}" stroke-width="1" fill="none"><circle cx="${x}" cy="${y}" r="6"/><path d="M${x - 10} ${y}h20M${x} ${y - 10}v20"/></g>`).join('');
-const SEA = 'M0 238 C 40 226, 70 250, 110 238 S 180 226, 220 240 S 252 236, 252 236 V 318 H 0 Z';
-const ART = {
-  c: `<rect x="0" y="0" width="252" height="244" fill="${INK.c}" opacity=".28"/><path d="${SEA}" fill="${INK.c}"/><g stroke="${INK.c}" stroke-width="3" fill="none" opacity=".9"><path d="M20 274c20-8 34 8 54 0s34 8 54 0"/><path d="M110 296c20-8 34 8 54 0s34 8 54 0"/></g>`,
-  m: `<circle cx="168" cy="160" r="58" fill="${INK.m}"/><path d="${SEA}" fill="${INK.m}" opacity=".45"/>`,
-  y: `<circle cx="168" cy="160" r="58" fill="${INK.y}"/><rect x="0" y="318" width="252" height="38" fill="${INK.y}"/><rect x="0" y="0" width="252" height="244" fill="${INK.y}" opacity=".12"/>`,
-  k: `<text x="20" y="82" fill="${INK.k}" font-family="Archivo, Arial Narrow, sans-serif" font-weight="800" font-size="62" font-stretch="62%" letter-spacing="-1">LOW</text><text x="20" y="138" fill="${INK.k}" font-family="Archivo, Arial Narrow, sans-serif" font-weight="800" font-size="62" font-stretch="62%" letter-spacing="-1">TIDE</text><text x="20" y="160" fill="${INK.k}" font-family="JetBrains Mono, monospace" font-size="9.5">OPEN WATER SWIM</text><text x="36" y="341" fill="${INK.k}" font-family="JetBrains Mono, monospace" font-size="9.5">HARBOUR STEPS, SAT 06:30</text><path d="M120 252c6-6 12-6 18 0" stroke="${INK.k}" stroke-width="3" fill="none"/><circle cx="114" cy="250" r="4" fill="${INK.k}"/>`
-};
-const svg = p => `<svg viewBox="0 0 252 356" aria-hidden="true">${ART[p]}${reg(INK[p])}</svg>`;
+const waves = '<g stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M18 262c16-6 28 6 44 0s28 6 44 0"/><path d="M128 276c16-6 28 6 44 0s28 6 44 0"/><path d="M40 298c16-6 28 6 44 0s28 6 44 0"/><path d="M150 306c12-5 22 5 34 0"/></g>';
+function art(p, ink) {
+  const u = 'a' + (++uid);
+  const sunClip = `<clipPath id="${u}k"><rect width="${W}" height="${HORIZON + 1}"/></clipPath>`;
+  if (p === 'c') return `<defs><linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${ink}" stop-opacity=".66"/><stop offset=".72" stop-color="${ink}" stop-opacity=".16"/><stop offset="1" stop-color="${ink}" stop-opacity=".04"/></linearGradient><linearGradient id="${u}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${ink}" stop-opacity=".7"/><stop offset="1" stop-color="${ink}"/></linearGradient></defs><rect width="${W}" height="${HORIZON + 4}" fill="url(#${u}g)"/><path d="${SEA}" fill="url(#${u}s)"/>${waves}`;
+  if (p === 'm') return `<defs>${sunClip}<linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stop-color="${ink}" stop-opacity="0"/><stop offset="1" stop-color="${ink}" stop-opacity=".34"/></linearGradient></defs><rect width="${W}" height="${HORIZON + 4}" fill="url(#${u}g)"/><circle cx="172" cy="178" r="50" fill="${ink}" clip-path="url(#${u}k)"/><path d="${SEA}" fill="${ink}" opacity=".32"/>${waves}<g fill="${ink}" opacity=".7"><rect x="146" y="244" width="52" height="3"/><rect x="154" y="252" width="36" height="3"/><rect x="162" y="260" width="20" height="3"/></g>`;
+  if (p === 'y') return `<defs>${sunClip}<linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset=".5" stop-color="${ink}" stop-opacity="0"/><stop offset="1" stop-color="${ink}" stop-opacity=".12"/></linearGradient></defs><rect width="${W}" height="${HORIZON + 4}" fill="url(#${u}g)"/><circle cx="172" cy="178" r="50" fill="${ink}" clip-path="url(#${u}k)"/><g fill="${ink}"><rect x="146" y="244" width="52" height="3"/><rect x="154" y="252" width="36" height="3"/><rect x="162" y="260" width="20" height="3"/></g><rect x="0" y="318" width="${W}" height="38" fill="${ink}" opacity=".85"/>`;
+  return `<g fill="${ink}" font-family="Archivo, Arial Narrow, sans-serif" font-weight="800" font-stretch="62%" letter-spacing="-1"><text x="20" y="80" font-size="64">LOW</text><text x="20" y="136" font-size="64">TIDE</text></g><g fill="${ink}" font-family="JetBrains Mono, monospace" font-size="9"><text x="21" y="156">OPEN WATER SWIM, NO. 07</text><text x="36" y="341">HARBOUR STEPS, SAT 06:30</text></g><path d="M126 268c7-7 15-7 22 0" stroke="${ink}" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="119" cy="267" r="4.2" fill="${ink}"/><path d="M20 168h80" stroke="${ink}" stroke-width="1.5"/>`;
+}
+const svg = (p, ink = INK[p]) => `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true">${art(p, ink)}${reg(ink)}</svg>`;
 const $ = s => document.querySelector(s);
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-const composite = $('#composite'), assembly = $('#assembly'), stage = $('#stage');
-composite.innerHTML = ORDER.map(svg).join('');
+const composite = $('#composite'), assembly = $('#assembly'), stage = $('#stage'), proof = $('#proof');
+composite.innerHTML = ORDER.map(p => svg(p)).join('');
 assembly.innerHTML = ORDER.map(p => `<div class="plate" data-p="${p}">${svg(p)}<b>${p.toUpperCase()}</b></div>`).join('');
+proof.insertAdjacentHTML('afterbegin', ORDER.map(p => svg(p)).join(''));
 const plates = [...assembly.querySelectorAll('.plate')];
 const flat = [...composite.querySelectorAll('svg')];
+const proofFlat = [...proof.querySelectorAll('svg')];
 const depth = $('#depth'), regIn = $('#reg'), status = $('#status');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const BASE = 'translate(-50%, -50%) rotateX(56deg) rotateZ(-32deg)';
 const NAMES = { c: 'Cyan', m: 'Magenta', y: 'Yellow', k: 'Black' };
-let paused = false, manual = false, frame = 0;
+let paused = false, manual = false, frame = 0, shift = { c: [0, 0], m: [0, 0], y: [0, 0], k: [0, 0] };
 const on = { c: true, m: true, y: true, k: true };
 
 function setDepth(raw, announce) {
@@ -263,16 +400,29 @@ function setReg(raw, announce) {
   const mm = (n * 420 / 252 / 2).toFixed(1);
   $('#reg-out').value = mm + ' mm';
   $('#read-reg').textContent = n ? `Off by ${mm} mm` : 'In register';
-  const shift = { c: [n / 2, -n / 4], m: [-n / 3, n / 2], y: [0, 0], k: [0, 0] };
-  flat.forEach((s, i) => { const [x, y] = shift[ORDER[i]]; s.style.transform = `translate(${x}px, ${y}px)`; });
-  plates.forEach((p, i) => { const [x, y] = shift[ORDER[i]]; p.querySelector('svg').style.transform = `translate(${x}px, ${y}px)`; });
+  $('#ticket-reg').textContent = n ? `Off by ${mm} mm, reject` : 'In register';
+  shift = { c: [n / 2, -n / 4], m: [-n / 3, n / 2], y: [0, 0], k: [0, 0] };
+  const move = (s, i) => { const [x, y] = shift[ORDER[i]]; s.style.transform = `translate(${x}px, ${y}px)`; };
+  flat.forEach(move);
+  proofFlat.forEach((s, i) => { const [x, y] = shift[ORDER[i]], k = proof.clientWidth / W; s.style.transform = `translate(${x * k}px, ${y * k}px)`; });
+  plates.forEach((p, i) => move(p.querySelector('svg'), i));
+  const root = document.documentElement.style, f = 1.6;
+  root.setProperty('--cx', shift.c[0] * f + 'px'); root.setProperty('--cy', shift.c[1] * f + 'px');
+  root.setProperty('--mx', shift.m[0] * f + 'px'); root.setProperty('--my', shift.m[1] * f + 'px');
+  drawLoupe();
   if (announce) say(n ? `Cyan and magenta are ${mm} mm out of register. Look for coloured edges on the sun and the corner marks.` : 'Back in register.', n >= 6);
 }
-function setPlate(p, val) {
+function setPlate(p, val, quiet) {
   on[p] = val;
   document.querySelector(`.plate-btn[data-p="${p}"]`).setAttribute('aria-pressed', String(val));
-  flat[ORDER.indexOf(p)].classList.toggle('off', !val);
-  plates[ORDER.indexOf(p)].classList.toggle('off', !val);
+  const i = ORDER.indexOf(p);
+  flat[i].classList.toggle('off', !val);
+  plates[i].classList.toggle('off', !val);
+  proofFlat[i].classList.toggle('off', !val);
+  document.querySelector(`#bars li[data-p="${p}"]`).classList.toggle('off', !val);
+  $('#read-plates').textContent = ['c', 'm', 'y', 'k'].filter(k => on[k]).map(k => k.toUpperCase()).join(' ') || 'No plates';
+  updateMax(); drawLoupe();
+  if (quiet) return;
   const left = Object.keys(on).filter(k => on[k]);
   say(left.length ? `${NAMES[p]} ${val ? 'back on' : 'off'}. Printing with ${left.map(k => NAMES[k].toLowerCase()).join(', ')}.` : 'All plates off. That is a blank sheet.');
 }
@@ -286,6 +436,136 @@ function fromScroll() {
   setDepth(up * (1 - back) * 100, false);
 }
 
+/* Proof desk: density maps, loupe and ink meter */
+const S = 2, MW = W * S, MH = H * S;
+const SCREENS = [['y', 0], ['m', 75], ['c', 15], ['k', 45]];
+const density = {};
+let maps = false, cell = 3.5, spot = { x: 172, y: 200 };
+const loupe = $('#loupe'), lctx = loupe.getContext('2d');
+const VIEW = 28; // poster units across the loupe
+function loadMap(p) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const cv = document.createElement('canvas'); cv.width = MW; cv.height = MH;
+        const x = cv.getContext('2d', { willReadFrequently: true });
+        x.fillStyle = '#fff'; x.fillRect(0, 0, MW, MH); x.drawImage(img, 0, 0, MW, MH);
+        const px = x.getImageData(0, 0, MW, MH).data, d = new Float32Array(MW * MH);
+        for (let i = 0; i < d.length; i++) d[i] = 1 - px[i * 4] / 255;
+        density[p] = d; resolve();
+      } catch (e) { reject(e); }
+    };
+    img.onerror = () => reject(new Error('plate image failed'));
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg(p, '#000').replace('<svg ', `<svg xmlns="http://www.w3.org/2000/svg" width="${MW}" height="${MH}" `));
+  });
+}
+function at(p, x, y) {
+  const [sx, sy] = shift[p];
+  const i = Math.round((x - sx) * S), j = Math.round((y - sy) * S);
+  if (i < 0 || j < 0 || i >= MW || j >= MH) return 0;
+  return density[p][j * MW + i];
+}
+function mean(p, x, y, r) {
+  let s = 0, n = 0;
+  for (let dy = -r; dy <= r; dy += .5) for (let dx = -r; dx <= r; dx += .5) { if (dx * dx + dy * dy > r * r) continue; s += at(p, x + dx, y + dy); n++; }
+  return n ? s / n : 0;
+}
+function drawLoupe() {
+  if (!maps) return;
+  const css = loupe.clientWidth || 340, dpr = Math.min(devicePixelRatio || 1, 2), size = Math.round(css * dpr);
+  if (loupe.width !== size) { loupe.width = size; loupe.height = size; }
+  const z = size / VIEW, half = VIEW / 2;
+  lctx.globalCompositeOperation = 'source-over';
+  lctx.fillStyle = '#fbfbf8'; lctx.fillRect(0, 0, size, size);
+  lctx.globalCompositeOperation = 'multiply';
+  for (const [p, deg] of SCREENS) {
+    if (!on[p]) continue;
+    const a = deg * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a);
+    const uc = spot.x * ca + spot.y * sa, vc = -spot.x * sa + spot.y * ca, reach = half * 1.5 + cell;
+    lctx.fillStyle = INK[p];
+    lctx.beginPath();
+    for (let iu = Math.floor((uc - reach) / cell); iu <= Math.ceil((uc + reach) / cell); iu++) {
+      for (let iv = Math.floor((vc - reach) / cell); iv <= Math.ceil((vc + reach) / cell); iv++) {
+        const u = (iu + .5) * cell, v = (iv + .5) * cell;
+        const x = u * ca - v * sa, y = u * sa + v * ca;
+        const d = at(p, x, y);
+        // area-true dots up to 60%, then they swell until the cells close up into solid ink
+        const r = cell * (d < .6 ? Math.sqrt(d / Math.PI) : .437 + (d - .6) / .4 * .29);
+        if (r * z < .6) continue;
+        const lx = (x - spot.x + half) * z, ly = (y - spot.y + half) * z;
+        lctx.moveTo(lx + r * z, ly); lctx.arc(lx, ly, r * z, 0, Math.PI * 2);
+      }
+    }
+    lctx.fill();
+  }
+  lctx.globalCompositeOperation = 'source-over';
+  const g = lctx.createRadialGradient(size / 2, size / 2, size * .36, size / 2, size / 2, size * .5);
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.22)');
+  lctx.fillStyle = g; lctx.fillRect(0, 0, size, size);
+  meter();
+}
+function meter() {
+  let total = 0;
+  for (const p of ['c', 'm', 'y', 'k']) {
+    const v = on[p] ? Math.round(mean(p, spot.x, spot.y, 3) * 100) : 0;
+    total += v;
+    const li = document.querySelector(`#bars li[data-p="${p}"]`);
+    li.querySelector('.fill').style.width = v + '%';
+    li.querySelector('b').textContent = v + '%';
+  }
+  $('#tac').textContent = total + '%';
+  $('#verdict').textContent = total === 0 ? 'Bare paper here.' : total < 120 ? 'A light area, it will dry fast.' : total < 220 ? 'A rich area, still easy on uncoated stock.' : total <= 260 ? 'Heavy. This is near the limit for uncoated paper.' : 'Over the limit for uncoated paper, it may smudge.';
+  const mmx = Math.round(spot.x / W * 297), mmy = Math.round(spot.y / H * 420);
+  $('#proof-pos').textContent = `x ${mmx} mm, y ${mmy} mm`;
+  canvasLabel(total, mmx, mmy);
+}
+function canvasLabel(total, mmx, mmy) {
+  loupe.setAttribute('aria-label', `Magnified halftone dots at ${mmx} by ${mmy} mm, ${total}% total ink.`);
+}
+function updateMax() {
+  if (!maps) return;
+  let max = 0;
+  // registration marks carry every ink by design, so the corners are left out
+  for (let j = 0; j < MH; j += 2) for (let i = 0; i < MW; i += 2) {
+    if ((i < 30 * S || i > (W - 30) * S) && (j < 30 * S || j > (H - 30) * S)) continue;
+    const k = j * MW + i;
+    const t = (on.c ? density.c[k] : 0) + (on.m ? density.m[k] : 0) + (on.y ? density.y[k] : 0) + (on.k ? density.k[k] : 0);
+    if (t > max) max = t;
+  }
+  $('#tac-max').textContent = Math.round(max * 100) + '%';
+}
+const marker = $('#marker');
+function placeMarker() {
+  const k = proof.clientWidth / W;
+  marker.style.width = marker.style.height = VIEW * k + 'px';
+  marker.style.margin = `${-VIEW * k / 2}px 0 0 ${-VIEW * k / 2}px`;
+  marker.style.transform = `translate(${spot.x * k}px, ${spot.y * k}px)`;
+}
+function moveSpot(x, y) {
+  spot = { x: clamp(x, VIEW / 2, W - VIEW / 2), y: clamp(y, VIEW / 2, H - VIEW / 2) };
+  placeMarker(); drawLoupe();
+}
+let dragging = false, sayTimer = 0;
+const toPoster = e => { const r = proof.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * W, (e.clientY - r.top) / r.height * H]; };
+proof.addEventListener('pointerdown', e => { dragging = true; moveSpot(...toPoster(e)); try { proof.setPointerCapture(e.pointerId); } catch (err) { /* already released */ } });
+proof.addEventListener('pointermove', e => { if (dragging || e.pointerType === 'mouse') moveSpot(...toPoster(e)); });
+for (const t of ['pointerup', 'pointercancel', 'lostpointercapture']) proof.addEventListener(t, () => { dragging = false; });
+proof.addEventListener('keydown', e => {
+  const step = e.shiftKey ? 12 : 3;
+  const d = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key];
+  if (!d) return;
+  e.preventDefault();
+  moveSpot(spot.x + d[0], spot.y + d[1]);
+  clearTimeout(sayTimer);
+  sayTimer = setTimeout(() => say(`Loupe at ${$('#proof-pos').textContent}. ${$('#tac').textContent} total ink. ${$('#verdict').textContent}`), 450);
+});
+document.querySelectorAll('input[name="screen"]').forEach(r => r.addEventListener('change', () => { cell = Number(r.value); drawLoupe(); }));
+new ResizeObserver(() => { placeMarker(); setReg(regIn.value, false); }).observe(proof);
+document.fonts.ready.then(() => Promise.all(['c', 'm', 'y', 'k'].map(loadMap))).then(() => {
+  maps = true; proof.dataset.ready = '1'; updateMax(); drawLoupe();
+}).catch(err => { $('#loupe-fail').hidden = false; proof.dataset.ready = 'failed'; proof.dataset.error = String(err && err.message); });
+
 depth.addEventListener('input', () => { manual = true; setDepth(depth.value, false); });
 depth.addEventListener('change', () => setDepth(depth.value, true));
 regIn.addEventListener('input', () => { if (Number(depth.value) > 0) { manual = true; setDepth(0, false); } setReg(regIn.value, false); });
@@ -293,7 +573,7 @@ regIn.addEventListener('change', () => setReg(regIn.value, true));
 $('#separate').addEventListener('click', () => { manual = true; setDepth(Number(depth.value) >= 50 ? 0 : 100, true); });
 document.querySelectorAll('.plate-btn').forEach(b => b.addEventListener('click', () => setPlate(b.dataset.p, b.getAttribute('aria-pressed') !== 'true')));
 $('#reset').addEventListener('click', () => {
-  manual = true; ORDER.forEach(p => { on[p] = true; document.querySelector(`.plate-btn[data-p="${p}"]`).setAttribute('aria-pressed', 'true'); }); flat.concat(plates).forEach(e => e.classList.remove('off'));
+  manual = true; ORDER.forEach(p => setPlate(p, true, true));
   setDepth(0, false); setReg(0, false); resetAngle(); say('Reset. One sheet, all four plates, in register.');
 });
 $('#motion').addEventListener('click', e => {
@@ -314,8 +594,8 @@ stage.addEventListener('pointermove', e => {
 stage.addEventListener('pointerleave', resetAngle);
 const release = () => { manual = false; };
 addEventListener('wheel', release, { passive: true });
-addEventListener('touchmove', e => { if (!(e.target.closest && e.target.closest('input'))) release(); }, { passive: true });
-addEventListener('keydown', e => { if (['PageDown', 'PageUp', 'Home', 'End', ' ', 'ArrowDown', 'ArrowUp'].includes(e.key) && !['INPUT', 'BUTTON'].includes(e.target.tagName)) manual = false; });
+addEventListener('touchmove', e => { if (!(e.target.closest && e.target.closest('input, .proof-art'))) release(); }, { passive: true });
+addEventListener('keydown', e => { if (['PageDown', 'PageUp', 'Home', 'End', ' ', 'ArrowDown', 'ArrowUp'].includes(e.key) && !['INPUT', 'BUTTON'].includes(e.target.tagName) && e.target !== proof) manual = false; });
 addEventListener('scroll', () => {
   if (frame || !scrollDriven()) return;
   frame = requestAnimationFrame(() => { frame = 0; if (scrollDriven()) fromScroll(); });
@@ -323,7 +603,7 @@ addEventListener('scroll', () => {
 const syncReduced = () => { $('#reduced-note').hidden = !reduced.matches; };
 reduced.addEventListener('change', syncReduced);
 syncReduced();
-resetAngle(); setDepth(0, false); setReg(0, false);
+resetAngle(); setDepth(0, false); setReg(0, false); placeMarker();
 if (scrollDriven()) fromScroll();
 </script>
 </body>

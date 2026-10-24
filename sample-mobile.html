@@ -3,29 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#e7e4dc">
+<meta name="theme-color" content="#0d2a22">
 <title>Clearline expense review</title>
 <meta name="description" content="A phone-first expense review app for a small team. Swipe a receipt right to approve it or left to send it back with a reason, with policy checks, budget impact and undo on every card.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Martian+Mono:wdth,wght@75..112.5,400..600&display=swap" rel="stylesheet">
 <style>
-/* Clearline. Receipts on a stone desk: thermal paper, carbon ink, a ledger green for approve and a stamp red for send back. */
+/* Clearline. A finance room after hours: deep bottle green around a bright paper app, Manrope for people,
+   Martian Mono for money, mint for approved and a brick red for sent back. */
 :root {
   color-scheme: light;
-  --stone: #e7e4dc; --stone-deep: #d9d5ca; --ink: #151718; --ink-2: #2b2e2f; --muted: #5b605e; --faint: #8a8e8b;
-  --app: #f4f2ed; --paper: #fffefa; --line: #dedad1; --line-strong: #c4bfb3;
-  --green: #136148; --green-deep: #0c4835; --green-soft: #e0eee7;
+  --env: #0d2a22; --env-2: #12372d; --env-3: #184437; --env-ink: #e9f2ec; --env-muted: #a3bdb1; --env-line: rgba(233, 242, 236, .14); --mint: #93e0b8;
+  --ink: #12201b; --ink-2: #29352f; --muted: #56635c; --faint: #85918a;
+  --app: #f2f4f0; --paper: #fdfdfb; --line: #dde2dc; --line-strong: #bfc8c0;
+  --green: #0f6b4c; --green-deep: #0a5038; --green-soft: #dcefe4;
   --red: #a8322a; --red-deep: #85251f; --red-soft: #f6e2de;
-  --amber-ink: #6f4f00; --amber-soft: #f4e8c6; --amber-line: #dcc68a;
+  --amber-ink: #5f4a00; --amber-soft: #f1ead0; --amber-line: #d4c27d;
   --focus: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink);
-  --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "Martian Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
   --ease: cubic-bezier(.25, .8, .3, 1);
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; min-width: 320px; color: var(--ink); font: 400 16px/1.5 var(--sans); background: var(--stone) radial-gradient(120% 70% at 78% 0%, #f1eee7 0%, rgba(241, 238, 231, 0) 60%) no-repeat; background-attachment: fixed; }
+body { margin: 0; min-width: 320px; color: var(--env-ink); font: 400 16px/1.5 var(--sans); font-stretch: 87.5%; background: var(--env) radial-gradient(90% 60% at 50% 0%, #17463a 0%, rgba(23, 70, 58, 0) 70%) no-repeat; }
 button, input, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: none; box-shadow: var(--focus); }
@@ -36,32 +38,61 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; padding: 0 6px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 5px; background: var(--paper); font: 500 12px/1 var(--mono); }
 
-/* Page */
-.page { display: grid; grid-template-areas: "intro" "app" "notes" "about"; gap: 28px; max-width: 1180px; margin: 0 auto; padding: 8px 16px 48px; }
+/* Page: summary, phone, team feed */
+.page { display: grid; grid-template-areas: "intro" "app" "summary" "notes" "about"; gap: 36px; max-width: 1440px; margin: 0 auto; padding: 8px 16px 48px; }
 .intro { grid-area: intro; }
-.app-wrap { grid-area: app; }
+.app-wrap { grid-area: app; color: var(--ink); }
+.summary { grid-area: summary; }
 .notes { grid-area: notes; }
 .about { grid-area: about; }
 @media (min-width: 960px) {
-  .page { grid-template-columns: minmax(0, 1fr) 404px; grid-template-areas: "intro app" "notes app" "about app"; grid-template-rows: auto auto 1fr; column-gap: clamp(48px, 7vw, 120px); row-gap: 28px; padding: 40px 32px 56px; align-items: start; }
+  .page { grid-template-columns: minmax(0, 1fr) 404px; grid-template-areas: "intro app" "summary app" "notes app" "about app"; grid-template-rows: auto auto auto 1fr; column-gap: clamp(48px, 6vw, 96px); row-gap: 40px; padding: 40px 32px 64px; align-items: start; }
   .app-wrap { position: sticky; top: 24px; }
 }
-.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--muted); font-weight: 600; font-size: 15px; text-decoration: none; }
-.back:hover { color: var(--ink); }
+@media (min-width: 1240px) {
+  .page { grid-template-columns: minmax(0, 1fr) 404px minmax(0, .82fr); grid-template-areas: "intro app notes" "summary app notes" "about app notes"; grid-template-rows: auto auto 1fr; column-gap: clamp(40px, 4.5vw, 80px); }
+  .notes { position: sticky; top: 24px; padding-top: 74px; }
+}
+.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--env-muted); font-weight: 600; font-size: 15px; text-decoration: none; }
+.back:hover { color: var(--env-ink); }
 .back svg { width: 16px; height: 16px; stroke-width: 2.2; }
-.eyebrow { margin-top: 18px; font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.intro h1 { margin-top: 12px; max-width: 15ch; font-size: clamp(36px, 5.2vw, 64px); font-weight: 800; line-height: .98; letter-spacing: -.04em; }
-.intro h1 em { font-style: normal; color: var(--green); }
-.lede { margin-top: 18px; max-width: 46ch; color: var(--ink-2); font-size: 18px; line-height: 1.55; }
-.keys { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 22px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 14px; }
+.eyebrow { margin-top: 18px; font: 500 11.5px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--env-muted); }
+.intro h1 { margin-top: 14px; max-width: 13ch; font-size: clamp(38px, 4.6vw, 66px); font-weight: 800; line-height: 1; letter-spacing: -.045em; }
+.intro h1 em { font-style: normal; color: var(--mint); }
+.lede { margin-top: 20px; max-width: 46ch; color: #c9d9d0; font-size: 18px; line-height: 1.6; }
+.keys { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 24px 0 0; padding: 0; list-style: none; color: var(--env-muted); font-size: 14px; }
 .keys li { display: inline-flex; align-items: center; gap: 8px; }
+.keys kbd { border-color: rgba(233, 242, 236, .3); background: var(--env-2); color: var(--env-ink); }
 @media (max-width: 959px) { .keys { display: none; } .lede { font-size: 17px; } }
 
-.notes h2, .about h2 { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+/* Month summary beside the phone */
+.summary { padding: 22px 22px 18px; border: 1px solid var(--env-line); border-radius: 18px; background: var(--env-2); }
+.summary h2, .notes h2, .about h2 { font: 500 11.5px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--env-muted); }
+.sum-figs { display: grid; margin: 10px 0 0; }
+.sum-figs div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 7px 0; }
+.sum-figs dt { font-size: 14.5px; color: var(--env-muted); }
+.sum-figs dd { margin: 0; font: 500 18px/1.2 var(--mono); letter-spacing: -.02em; white-space: nowrap; }
+.sum-figs .ok dd { color: var(--mint); }
+.sum-figs .back dd { color: #f2a59d; }
+.sum-bar { display: flex; height: 8px; margin-top: 14px; border-radius: 4px; overflow: hidden; background: var(--env-3); }
+.sum-bar i { display: block; height: 100%; transition: width .5s var(--ease); }
+.sum-bar .ok { background: var(--mint); }
+.sum-bar .wait { background: #d9cf98; }
+.sum-bar .back { background: #e2786d; }
+.people { margin: 18px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--env-line); }
+.person { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 8px 4px; border: 0; border-bottom: 1px solid var(--env-line); background: none; color: var(--env-ink); text-align: left; transition: background-color .15s ease; }
+.person:hover { background: rgba(233, 242, 236, .05); }
+.person .who { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--env-3); font: 600 11px/1 var(--mono); }
+.person b { display: block; font-weight: 700; }
+.person small { display: block; color: var(--env-muted); font-size: 13px; }
+.person .amt { font: 500 13.5px/1.2 var(--mono); text-align: right; }
+.person .amt em { display: block; margin-top: 2px; font: 600 12px/1.2 var(--sans); font-style: normal; color: var(--mint); }
+.sum-help { margin-top: 10px; font-size: 13px; color: var(--env-muted); }
+
 .notes-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; max-width: 520px; }
-.note-list { display: grid; gap: 10px; max-width: 520px; margin: 12px 0 0; padding: 0; list-style: none; }
-.note-empty { max-width: 520px; margin-top: 12px; padding: 16px 18px; border: 1px dashed var(--line-strong); border-radius: 12px; color: var(--muted); font-size: 15px; }
-.note { display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 14px 16px; border-radius: 12px; background: var(--paper); box-shadow: 0 1px 0 var(--line), 0 10px 24px -18px rgba(21, 23, 24, .5); animation: note-in .45s var(--ease); }
+.note-list { display: grid; gap: 10px; max-width: 520px; margin: 12px 0 0; padding: 0; list-style: none; color: var(--ink); }
+.note-empty { max-width: 520px; margin-top: 12px; padding: 16px 18px; border: 1px dashed rgba(233, 242, 236, .28); border-radius: 14px; color: var(--env-muted); font-size: 15px; }
+.note { display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 14px 16px; border-radius: 14px; background: var(--paper); box-shadow: 0 14px 30px -20px rgba(0, 0, 0, .7); animation: note-in .45s var(--ease); }
 .note .who { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: var(--paper); font: 600 13px/1 var(--mono); }
 .note.is-back .who { background: var(--red); }
 .note.is-ok .who { background: var(--green); }
@@ -69,12 +100,13 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 .note-top b { color: var(--ink); font-weight: 700; }
 .note p { margin-top: 3px; font-size: 15px; line-height: 1.45; }
 @keyframes note-in { from { opacity: 0; transform: translateY(-8px); } }
-.about { max-width: 520px; color: var(--muted); font-size: 14px; }
+.about { max-width: 520px; color: var(--env-muted); font-size: 14px; }
 .about p { margin-top: 8px; }
-.about .text-btn { margin-top: 6px; }
+.about .text-btn { margin-top: 6px; color: var(--env-ink); text-decoration-color: rgba(233, 242, 236, .4); }
+.about .text-btn:hover { text-decoration-color: var(--env-ink); }
 
 /* Device */
-.device { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 404px; height: min(840px, calc(100vh - 48px)); min-height: 660px; margin: 0 auto; overflow: hidden; border: 10px solid var(--ink); border-radius: 46px; background: var(--app); box-shadow: 0 40px 70px -40px rgba(21, 23, 24, .55), 0 0 0 1px #000; isolation: isolate; }
+.device { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 404px; height: min(840px, calc(100vh - 48px)); min-height: 660px; margin: 0 auto; overflow: hidden; border: 10px solid #06140f; border-radius: 46px; background: var(--app); box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .8), 0 0 0 1px rgba(233, 242, 236, .12); isolation: isolate; }
 .viewport { position: relative; flex: 1; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
 .viewport::-webkit-scrollbar { display: none; }
 .app-bar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 18px 10px; background: var(--app); }
@@ -297,6 +329,7 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 @media (max-width: 520px) {
   .page { padding-left: 0; padding-right: 0; gap: 22px; }
   .intro, .notes, .about { padding: 0 16px; }
+  .summary { margin: 0 16px; }
   .device { max-width: none; height: auto; min-height: 0; overflow: visible; border: 0; border-radius: 0; box-shadow: 0 -1px 0 var(--line-strong); }
   .viewport { overflow: visible; }
   .app-bar { position: static; }
@@ -427,8 +460,19 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
     </article>
   </div>
 
-  <section class="notes" aria-labelledby="notes-title">
-    <div class="notes-head"><h2 id="notes-title">What the team receives</h2><span class="mono" id="notes-count" style="font-size:12px;color:var(--muted)"></span></div>
+  <section class="summary" aria-labelledby="sum-title">
+    <h2 id="sum-title">October so far</h2>
+    <dl class="sum-figs">
+      <div class="ok"><dt>Approved</dt><dd id="s-ok"></dd></div>
+      <div class="wait"><dt>Waiting</dt><dd id="s-wait"></dd></div>
+      <div class="back"><dt>Sent back</dt><dd id="s-back"></dd></div>
+    </dl>
+    <div class="sum-bar" id="sum-bar" role="img"><i class="ok" id="sb-ok"></i><i class="wait" id="sb-wait"></i><i class="back" id="sb-back"></i></div>
+    <ul class="people" id="people" aria-label="Spend by teammate"></ul>
+    <p class="sum-help">Pick a teammate to open their expenses in the ledger.</p>
+  </section>
+
+  <section class="notes" aria-labelledby="notes-title">    <div class="notes-head"><h2 id="notes-title">What the team receives</h2><span class="mono" id="notes-count" style="font-size:12px;color:var(--muted)"></span></div>
     <p class="note-empty" id="note-empty">Nothing yet. Each decision you make in the app appears here as the note the teammate gets.</p>
     <ul class="note-list" id="note-list" aria-live="polite"></ul>
   </section>
@@ -550,6 +594,7 @@ function render() {
   renderLedger();
   renderBudget(pend);
   renderNotes();
+  renderSummary();
   $('undo').hidden = !history.length;
 }
 
@@ -652,6 +697,26 @@ function renderBudget(pend) {
     else if (r.wt) note = `${money(r.wt)} waiting. ${money((cents(r.lim) - cents(r.ap) - cents(r.wt)) / 100)} left after that.`;
     else note = `${money((cents(r.lim) - cents(r.ap)) / 100)} left.`;
     li.append(t, bar, el('p', 'cat-note', note)); return li;
+  }));
+}
+
+function renderSummary() {
+  const by = s => sumOf(items.filter(i => i.status === s));
+  const ok = by('approved'), wait = by('pending'), back = by('back'), all = ok + wait + back || 1;
+  $('s-ok').textContent = money(ok); $('s-wait').textContent = money(wait); $('s-back').textContent = money(back);
+  $('sb-ok').style.width = ok / all * 100 + '%'; $('sb-wait').style.width = wait / all * 100 + '%'; $('sb-back').style.width = back / all * 100 + '%';
+  $('sum-bar').setAttribute('aria-label', `${money(ok)} approved, ${money(wait)} waiting, ${money(back)} sent back`);
+  const names = [...new Set(items.map(i => i.by))];
+  const rows = names.map(n => { const mine = items.filter(i => i.by === n); return { n, total: sumOf(mine), waiting: mine.filter(i => i.status === 'pending').length, count: mine.length }; }).sort((a, b) => b.total - a.total);
+  $('people').replaceChildren(...rows.map(r => {
+    const li = el('li'); const b = el('button', 'person'); b.type = 'button';
+    b.setAttribute('aria-label', `${r.n}, ${money(r.total)} across ${r.count} expenses${r.waiting ? `, ${r.waiting} waiting` : ''}. Open in the ledger.`);
+    const who = el('span', 'who', initials(r.n)); who.setAttribute('aria-hidden', 'true');
+    const mid = el('span'); mid.append(el('b', null, r.n), el('small', null, `${r.count} ${r.count === 1 ? 'expense' : 'expenses'}`));
+    const amt = el('span', 'amt', money(r.total)); if (r.waiting) amt.append(el('em', null, `${r.waiting} waiting`));
+    b.append(who, mid, amt);
+    b.addEventListener('click', () => { closeSheet(false); $('search').value = r.n; setFilter('all'); go('ledger'); if (innerWidth < 960) $('device').scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' }); });
+    li.append(b); return li;
   }));
 }
 
