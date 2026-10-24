@@ -20,9 +20,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Barlow+Condensed:wght@700&display=swap">
 <script>
-/* decide the mode before first paint: depth journey, or the flat list for reduced motion and for visitors who chose it */
-(function(){var flat=false;try{flat=localStorage.getItem("ss-view")==="flat"}catch(e){}
-if(!flat&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("depth")})();
+/* the depth journey, unless the visitor's system asks for reduced motion, then a plain stacked list */
+(function(){try{localStorage.removeItem("ss-view")}catch(e){}
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("depth")})();
 </script>
 <style>
 @property --c{syntax:"<color>";inherits:true;initial-value:#6c86ff}
@@ -60,18 +60,17 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 .top nav{display:flex;gap:2px;margin-left:auto}
 .top nav a{padding:10px 12px;border-radius:999px;text-decoration:none;font-size:14px;color:var(--soft);transition:color .2s}
 .top nav a:hover{color:#fff}
-.view{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--soft);transition:border-color .3s,color .3s}
-.view:hover{color:#fff;border-color:rgba(255,255,255,.25)}
-.view i{display:inline-block;width:14px;height:14px;border:1.5px solid currentColor;border-radius:3px;transform:perspective(40px) rotateY(-28deg);transition:transform .5s var(--ease)}
-html:not(.depth) .view i{transform:none}
 .msg{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border-radius:999px;background:#eef0f6;color:#06070b;font-weight:600;font-size:14px;text-decoration:none;transition:transform .3s var(--ease)}
 .msg:hover{transform:translateY(-1px)}
-@media (max-width:900px){.top nav{display:none}.view{margin-left:auto}}
-@media (max-width:420px){.top{padding:0 16px;gap:8px}.logo .wm{display:none}.view{padding:0 12px}.msg{padding:0 14px}}
+@media (max-width:900px){.top nav{display:none}.msg{margin-left:auto}}
+@media (max-width:420px){.top{padding:0 16px;gap:8px}.msg{padding:0 14px}}
 
 /* ---------- stations, shared ---------- */
 .space{position:relative;z-index:1}
-.card{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);background:var(--panel);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 50px 120px -50px rgba(0,0,0,.9)}
+.card{position:relative;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);background:var(--panel);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 50px 120px -50px rgba(0,0,0,.9);transition:border-color .8s,box-shadow .8s}
+/* a soft light that follows the pointer across the card */
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .5s;background:radial-gradient(520px circle at var(--mx,50%) var(--my,40%),rgba(255,255,255,.075),transparent 46%)}
+.card:hover::after{opacity:1}
 .card[data-side="r"] .im{order:2}
 .im{position:relative;display:block;min-height:100%;aspect-ratio:16/10;overflow:hidden;background:var(--panel-2)}
 .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform 1.2s var(--ease)}
@@ -150,6 +149,32 @@ html.depth .intro{width:min(1100px,92vw)}
 html.depth .end{width:min(1080px,90vw)}
 html.depth .runway{display:block}
 .runway{display:none}
+html.depth .space{transform-origin:50% 52%}
+
+/* dust in the world, it only moves when you do */
+.dust{display:none;position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
+html.depth .dust{display:block}
+
+/* outlined stop numbers floating behind each card, and a gate at every chapter */
+.gn,.gate{display:none;pointer-events:none}
+html.depth .gn,html.depth .gate{display:block;position:absolute;left:50%;top:52%;visibility:hidden;will-change:transform,opacity}
+.gn{font:500 230px/.8 var(--mono);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.2px color-mix(in srgb,var(--cc) 60%,transparent);white-space:nowrap}
+.gate{border:1.5px solid color-mix(in srgb,var(--cc) 55%,transparent);border-radius:72px;box-shadow:inset 0 0 90px -20px color-mix(in srgb,var(--cc) 45%,transparent),0 0 90px -30px color-mix(in srgb,var(--cc) 45%,transparent)}
+
+/* a card wakes up when you reach it */
+html.depth .card .meta,html.depth .card p,html.depth .card .links{transition:opacity .7s var(--ease),transform .9s var(--ease)}
+html.depth .card:not(.on) .meta,html.depth .card:not(.on) p,html.depth .card:not(.on) .links{opacity:.16;transform:translateY(12px)}
+html.depth .card.on p{transition-delay:.07s}
+html.depth .card.on p+p{transition-delay:.12s}
+html.depth .card.on .links{transition-delay:.17s}
+html.depth .card.on{border-color:color-mix(in srgb,var(--cc) 34%,var(--line));box-shadow:0 50px 120px -50px rgba(0,0,0,.9),0 0 0 1px color-mix(in srgb,var(--cc) 10%,transparent),0 30px 90px -40px color-mix(in srgb,var(--cc) 40%,transparent)}
+html.depth .im img{transition:none;transform-origin:0 0;transform:translate3d(var(--px,0px),var(--py,0px),0) scale(1.07)}
+html.depth .card:hover .im img{transform:translate3d(var(--px,0px),var(--py,0px),0) scale(1.07)}
+
+/* the headline parts as you fly through it */
+.intro .l1,.intro .l2{display:inline-block;will-change:transform}
+html.depth .intro .l1{transform:translateX(calc(var(--pass,0)*-34vw))}
+html.depth .intro .l2{transform:translateX(calc(var(--pass,0)*34vw))}
 .hud,.hint{display:none}
 html.depth .hud{display:flex}
 html.depth .hint{display:block}
@@ -163,6 +188,9 @@ html.depth .hint{display:block}
 .hud button.go:hover{color:var(--text)}
 .hud button.go[aria-current="true"]{color:var(--text)}
 .hud button.go[aria-current="true"]::before{width:34px;opacity:1;background:var(--c)}
+.hud .bar{position:relative;width:150px;height:2px;margin:-2px 0 16px;background:rgba(255,255,255,.1);border-radius:2px}
+.hud .bar i{position:absolute;inset:0;border-radius:2px;background:var(--c);transform-origin:left;transform:scaleX(var(--p,0));transition:background 1.4s}
+.hud .bar s{position:absolute;top:-3px;width:1px;height:8px;background:rgba(255,255,255,.28)}
 .hud .pn{display:flex;gap:6px;margin-top:14px}
 .hud .pn button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--soft);transition:border-color .3s,color .3s}
 .hud .pn button:hover{border-color:rgba(255,255,255,.3);color:#fff}
@@ -172,6 +200,7 @@ html.depth .hint{display:block}
   .hud{left:auto;right:16px;top:auto;bottom:16px;transform:none;flex-direction:row;align-items:center;gap:10px;padding:6px 6px 6px 16px;border-radius:999px;background:rgba(13,15,23,.88);border:1px solid var(--line)}
   .hud .ct{margin:0;white-space:nowrap}
   .hud .chs-l{display:none}
+  .hud .bar{width:64px;margin:0}
   .hud .pn{margin:0}
   .hint{left:20px;bottom:30px;transform:none}
 }
@@ -196,9 +225,11 @@ html.depth .hint{display:block}
   html.depth .ch{min-height:58px;padding:8px 14px}
   html.depth .ch .ic{width:38px;height:38px}
   html.depth .lede{font-size:15px;margin-bottom:24px}
+  .gn{font-size:140px}
+  .gate{border-radius:48px}
 }
 
-/* ---------- flat mode ---------- */
+/* ---------- reduced motion: a plain stacked list ---------- */
 html:not(.depth) .space{max-width:1120px;margin:0 auto;padding:120px 24px 40px;display:grid;gap:28px}
 html:not(.depth) .intro{padding:60px 0 40px}
 html:not(.depth) .cw{text-align:left;margin-top:40px}
@@ -211,17 +242,17 @@ html:not(.depth) .cw span{font-size:clamp(64px,9vw,120px)}
 <body data-ch="a">
 <a class="skip" href="#all">Skip to the work</a>
 <div class="atmo" aria-hidden="true"></div>
+<canvas class="dust" id="dust" aria-hidden="true"></canvas>
 <header class="top">
   <a class="logo" href="./" aria-label="SanderSax, home"><i class="mk" aria-hidden="true"></i><span class="wm" aria-hidden="true">[SANDERSAX]</span></a>
   <nav aria-label="Sections"><a href="#all">Work</a><a href="thailand/">Websites in Thailand</a><a href="font/">Handwriting font</a><a href="#contact">Contact</a></nav>
-  <button class="view" id="view" type="button"><i aria-hidden="true"></i><span>Flat view</span></button>
   <a class="msg" href="https://t.me/sandersax" target="_blank" rel="noopener">Message me</a>
 </header>
 
 <main class="space" id="space">
 <section class="st intro" data-ch="a" id="top">
   <p class="eyebrow"><b>Alexandr Khrustalev</b> · SanderSax · Thailand, UTC+7 · EN / RU</p>
-  <h1>I build websites<br>that do <em>real work.</em></h1>
+  <h1><span class="l1">I build websites</span><br><span class="l2">that do <em>real work.</em></span></h1>
   <p class="lede">Business sites in English, Russian and Thai, CSV reports you can check line by line, and the small connections between systems. Twenty-seven stops ahead. Every one opens as a working demo or a file you can download.</p>
   <div class="cta">
     <a class="btn p" href="#all" data-go="1"><span aria-hidden="true">↓</span>Fly in</a>
@@ -287,80 +318,159 @@ html:not(.depth) .cw span{font-size:clamp(64px,9vw,120px)}
 <div class="shade" aria-hidden="true"></div>
 <nav class="hud" id="hud" aria-label="Route">
   <div class="ct" id="ct"><b>00</b> / 29</div>
+  <div class="bar" id="bar" aria-hidden="true"><i></i></div>
   <div class="chs-l" id="chl"></div>
   <div class="pn"><button type="button" id="prev" aria-label="Previous stop">↑</button><button type="button" id="next" aria-label="Next stop">↓</button></div>
 </nav>
-<p class="hint" id="hint" aria-hidden="true">Scroll to move forward</p>
+<p class="hint" id="hint" aria-hidden="true">Scroll or press ↓ to fly forward</p>
 
 <script>
 (function(){
-var root=document.documentElement,body=document.body,space=document.getElementById("space"),runway=document.getElementById("runway");
+var root=document.documentElement;
+if(!root.classList.contains("depth"))return; /* reduced motion: the stacked list needs no script */
+var body=document.body,space=document.getElementById("space"),runway=document.getElementById("runway");
 var sts=[].slice.call(space.querySelectorAll(".st")),cws=[].slice.call(space.querySelectorAll(".cw"));
-var N=sts.length,ct=document.getElementById("ct"),chl=document.getElementById("chl"),hint=document.getElementById("hint");
-var viewBtn=document.getElementById("view"),fine=matchMedia("(hover: hover) and (pointer: fine)").matches;
+var N=sts.length,ct=document.getElementById("ct"),chl=document.getElementById("chl"),hint=document.getElementById("hint"),bar=document.getElementById("bar");
+var dust=document.getElementById("dust"),dc=dust.getContext("2d"),fine=matchMedia("(hover: hover) and (pointer: fine)").matches;
 var NAMES={a:"Start",n:"New",w:"Websites",d:"Data",i:"Systems",b:"Documents",r:"Research",e:"Contact"};
-var GAP=1700,P,SEG,AX,AY,pos=[],cpos=[],cam={x:0,y:0,z:0},tgt={x:0,y:0,z:0},raf=0,cur=-1,look={x:0,y:0};
-function depth(){return root.classList.contains("depth")}
+var GAP=1700,P,PE,SEG,AX,AY,mob,pos=[],cpos=[],gpos=[],npos=[],pts=[];
+var cam={x:0,y:0,z:0},tgt={x:0,y:0,z:0},raf=0,cur=-1,look={x:0,y:0},vel=0,roll=0;
 function pad(n){return(n<10?"0":"")+n}
+function clamp(v,a,b){return v<a?a:v>b?b:v}
+function seeded(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 
-/* chapter buttons: jump to the first stop of each chapter */
+/* chapter buttons, and their marks on the progress rail */
 var chapters=[];sts.forEach(function(s,i){var c=s.dataset.ch;if(!chapters.length||chapters[chapters.length-1].c!==c)chapters.push({c:c,i:i})});
 chapters.forEach(function(ch){var b=document.createElement("button");b.type="button";b.className="go";b.textContent=NAMES[ch.c];b.dataset.c=ch.c;
-  b.addEventListener("click",function(){goTo(ch.i)});chl.appendChild(b)});
+  b.addEventListener("click",function(){goTo(ch.i)});chl.appendChild(b);
+  if(ch.i>0&&ch.i<N-1){var m=document.createElement("s");m.style.left=(ch.i/(N-1)*100).toFixed(2)+"%";bar.appendChild(m)}});
 var chBtns=[].slice.call(chl.children);
 
+/* outlined stop numbers behind the cards, and a gate you pass through at each chapter */
+var gns=sts.map(function(s,i){if(!s.classList.contains("card"))return null;var g=document.createElement("div");g.className="gn";g.dataset.ch=s.dataset.ch;g.setAttribute("aria-hidden","true");g._f=.6;g.textContent=pad(i);space.appendChild(g);return g});
+var gates=cws.map(function(c){var g=document.createElement("div");g.className="gate";g._f=.36;g.dataset.ch=c.dataset.ch;g.setAttribute("aria-hidden","true");space.appendChild(g);return g});
+
 function layout(){
-  var vw=innerWidth,vh=innerHeight,mob=vw<760;
-  P=mob?820:1000;SEG=Math.round(vh*(mob?.9:1));AX=mob?150:Math.min(560,vw*.36);AY=mob?70:110;
+  var vw=innerWidth,vh=innerHeight;mob=vw<760;
+  P=PE=mob?820:1000;SEG=Math.round(vh*(mob?.9:1));AX=mob?150:Math.min(560,vw*.36);AY=mob?70:110;
   space.style.perspective=P+"px";
   var w=Math.min(1080,vw*.84,(vh-150)*2.55);if(mob)w=Math.min(vw-28,460);
   space.style.setProperty("--w",Math.round(w)+"px");
   pos=sts.map(function(s,i){var ends=i===0||i===N-1;return{x:ends?0:(i%2?AX:-AX),y:ends?0:Math.round(Math.sin(i*1.9)*AY),z:i*GAP}});
-  cpos=cws.map(function(c){var f=sts.indexOf(c.nextElementSibling),a=pos[f-1],b=pos[f];return{x:(a.x+b.x)/2,y:(a.y+b.y)/2-(mob?40:60),z:(a.z+b.z)/2,f:f}});
-  runway.style.height=depth()?((N-1)*SEG+vh)+"px":"0px";
+  cpos=cws.map(function(c){var f=sts.indexOf(c.nextElementSibling),a=pos[f-1],b=pos[f];return{x:(a.x+b.x)/2,y:(a.y+b.y)/2-(mob?40:60),z:(a.z+b.z)/2}});
+  gpos=cpos.map(function(c){return{x:c.x,y:c.y+(mob?40:60),z:c.z+GAP*.16}});
+  npos=pos.map(function(p){var side=p.x<0?-1:1;return{x:p.x+side*w*(mob?.18:.4),y:p.y-w*(mob?.72:.3),z:p.z+(mob?280:460)}});
+  gates.forEach(function(g){g.style.width=Math.round(vw*2.1)+"px";g.style.height=Math.round(vh*1.75)+"px"});
+  var dpr=Math.min(2,devicePixelRatio||1);dust.width=Math.round(vw*dpr);dust.height=Math.round(vh*dpr);dc.setTransform(dpr,0,0,dpr,0,0);
+  var rnd=seeded(7),n=mob?90:210,span=(N+1)*GAP;pts=[];
+  for(var k=0;k<n;k++){var x=(rnd()*2-1)*vw*1.5,y=(rnd()*2-1)*vh*1.25;
+    if(Math.abs(x)<vw*.32&&Math.abs(y)<vh*.32)x+=x<0?-vw*.32:vw*.32;
+    pts.push({x:x,y:y,z:-GAP+rnd()*span,r:.5+rnd()*.9})}
+  runway.style.height=((N-1)*SEG+vh)+"px";
 }
-function ease(t){t=Math.max(0,Math.min(1,(t-.14)/.72));return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function ease(t){t=clamp((t-.14)/.72,0,1);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
 function target(){
   if(!(SEG>0)||innerHeight<2)layout();
-  var s=SEG>0?Math.max(0,Math.min(N-1,scrollY/SEG)):0,i=Math.min(N-2,Math.floor(s)),e=ease(s-i),a=pos[i],b=pos[i+1];
+  var s=SEG>0?clamp(scrollY/SEG,0,N-1):0,i=Math.min(N-2,Math.floor(s)),e=ease(s-i),a=pos[i],b=pos[i+1];
   tgt.x=a.x+(b.x-a.x)*e;tgt.y=a.y+(b.y-a.y)*e;tgt.z=a.z+(b.z-a.z)*e;
 }
-function place(el,p,isWord){
+/* kind 0 a stop, 1 a chapter word, 2 decoration */
+function place(el,p,kind,i){
   var d=p.z-cam.z,o;
-  if(isWord){o=Math.max(0,Math.min(1,1-d/(GAP*.8)))*.9;if(d<0)o*=Math.max(0,1+d/(P*.55))}
-  else{var far=GAP*3.3;o=d>far?0:Math.min(1,(far-d)/(GAP*1.1));o*=1-Math.max(0,Math.min(1,d/far))*.55;if(d<0)o*=Math.max(0,1+d/(P*.42))}
-  if(o<=.005||d<-P*.8){if(el.style.visibility!=="hidden")el.style.visibility="hidden";return}
+  if(kind===1){o=clamp(1-d/(GAP*.8),0,1)*.9;if(d<0)o*=Math.max(0,1+d/(P*.55))}
+  else{var far=GAP*3.3;o=d>far?0:Math.min(1,(far-d)/(GAP*1.1));o*=1-clamp(d/far,0,1)*.55;if(d<0)o*=Math.max(0,1+d/(P*(kind===2?.7:.42)));if(kind===2)o*=el._f}
+  if(o<=.005||d<-P*.8){if(el.style.visibility!=="hidden")el.style.visibility="hidden";if(el._on){el._on=false;el.classList.remove("on")}return false}
   el.style.visibility="visible";el.style.opacity=o.toFixed(3);
   el.style.zIndex=String(Math.round(20000-d/4));
-  el.style.pointerEvents=!isWord&&Math.abs(d)<GAP*.3?"auto":"none";
-  el.style.transform="translate(-50%,-50%) translate3d("+(p.x-cam.x).toFixed(1)+"px,"+(p.y-cam.y).toFixed(1)+"px,"+(-d).toFixed(1)+"px)";
+  var X=p.x-cam.x,Y=p.y-cam.y,rot="",busy=false;
+  if(kind===0&&el._card){
+    /* cards turn to face you on the way in, and lean a little toward the pointer once you arrive */
+    el._rx+=(el._trx-el._rx)*.14;el._ry+=(el._try-el._ry)*.14;
+    busy=Math.abs(el._trx-el._rx)>.02||Math.abs(el._try-el._ry)>.02;
+    rot=" rotateY("+(-X/AX*11+el._ry).toFixed(2)+"deg) rotateX("+(Y/AY*3+el._rx).toFixed(2)+"deg)";
+    var on=Math.abs(d)<GAP*.32;if(on!==!!el._on){el._on=on;el.classList.toggle("on",on)}
+    if(d<GAP*2){el.style.setProperty("--px",(-Math.abs(X)/AX*24).toFixed(1)+"px");el.style.setProperty("--py",(-Math.abs(Y)/AY*10).toFixed(1)+"px")}
+  }
+  if(i===0)el.style.setProperty("--pass",clamp(-d/(P*.5),0,1).toFixed(3));
+  el.style.pointerEvents=kind===0&&Math.abs(d)<GAP*.3?"auto":"none";
+  el.style.transform="translate(-50%,-50%) translate3d("+X.toFixed(1)+"px,"+Y.toFixed(1)+"px,"+(-d).toFixed(1)+"px)"+rot;
+  return busy;
 }
-function render(){
-  sts.forEach(function(s,i){place(s,pos[i],false)});
-  cws.forEach(function(c,i){place(c,cpos[i],true)});
+function drawDust(dz,dx){
+  var vw=innerWidth,vh=innerHeight;dc.clearRect(0,0,vw,vh);
+  var ox=vw*(50+look.x*3)/100,oy=vh*(52+look.y*3)/100,cx=vw/2,cy=vh*.52,streak=Math.abs(dz)>1.2;
+  dc.lineCap="round";
+  for(var k=0;k<pts.length;k++){
+    var q=pts[k],d=q.z-cam.z;if(d<-P*.7||d>GAP*4.2)continue;
+    var s=PE/(PE+d),sx=ox+(cx+q.x-cam.x-ox)*s,sy=oy+(cy+q.y-cam.y-oy)*s;
+    if(sx<-60||sx>vw+60||sy<-60||sy>vh+60)continue;
+    var a=Math.min(1,(GAP*4.2-d)/(GAP*1.6));if(d<0)a*=Math.max(0,1+d/(P*.7));a*=.6;if(a<.01)continue;
+    var r=Math.max(.5,q.r*1.7*s);
+    dc.fillStyle=dc.strokeStyle="rgba(214,222,255,"+a.toFixed(3)+")";
+    if(streak){
+      var d0=d+dz*2.6,s0=PE/(PE+d0);
+      if(s0>0){dc.lineWidth=r*2;dc.beginPath();dc.moveTo(ox+(cx+q.x-cam.x+dx*2.6-ox)*s0,oy+(cy+q.y-cam.y-oy)*s0);dc.lineTo(sx,sy);dc.stroke();continue}
+    }
+    dc.beginPath();dc.arc(sx,sy,r,0,6.2832);dc.fill();
+  }
+}
+function render(dz,dx){
+  /* speed widens the view a touch and the route banks into its turns */
+  PE=P*(1-Math.min(.16,Math.abs(vel)/700));
+  roll+=(clamp(-dx*.05,-2.4,2.4)-roll)*.18;if(Math.abs(roll)<.005)roll=0;
+  space.style.perspective=PE.toFixed(0)+"px";
   space.style.perspectiveOrigin=(50+look.x*3).toFixed(2)+"% "+(52+look.y*3).toFixed(2)+"%";
-  var k=Math.max(0,Math.min(N-1,Math.round(cam.z/GAP)));
+  var rt=roll?"rotate("+roll.toFixed(3)+"deg)":"";space.style.transform=rt;dust.style.transform=rt;
+  var busy=false;
+  sts.forEach(function(s,i){if(place(s,pos[i],0,i))busy=true});
+  cws.forEach(function(c,i){place(c,cpos[i],1)});
+  gates.forEach(function(g,i){place(g,gpos[i],2)});
+  gns.forEach(function(g,i){if(g)place(g,npos[i],2)});
+  drawDust(dz,dx);
+  bar.style.setProperty("--p",(cam.z/((N-1)*GAP)).toFixed(4));
+  var k=clamp(Math.round(cam.z/GAP),0,N-1);
   if(k!==cur){cur=k;var c=sts[k].dataset.ch;body.dataset.ch=c;ct.innerHTML="<b>"+pad(k)+"</b> / "+pad(N-1)+" · "+NAMES[c];
     chBtns.forEach(function(b){b.setAttribute("aria-current",String(b.dataset.c===c))})}
+  return busy;
 }
 function tick(){
-  raf=0;var k=.12;
+  raf=0;var k=.12,px=cam.x,pz=cam.z;
   cam.x+=(tgt.x-cam.x)*k;cam.y+=(tgt.y-cam.y)*k;cam.z+=(tgt.z-cam.z)*k;
-  if(Math.abs(tgt.z-cam.z)<.5&&Math.abs(tgt.x-cam.x)<.5){cam.x=tgt.x;cam.y=tgt.y;cam.z=tgt.z}else raf=requestAnimationFrame(tick);
-  render();
+  var settled=Math.abs(tgt.z-cam.z)<.5&&Math.abs(tgt.x-cam.x)<.5&&Math.abs(tgt.y-cam.y)<.5;
+  if(settled){cam.x=tgt.x;cam.y=tgt.y;cam.z=tgt.z}
+  var dz=cam.z-pz,dx=cam.x-px;vel+=(dz-vel)*.25;if(Math.abs(vel)<.02)vel=0;
+  var busy=render(dz,dx);
+  if(!settled||busy||vel||roll)raf=requestAnimationFrame(tick);
 }
 function kick(){if(!raf)raf=requestAnimationFrame(tick)}
-function snap(){target();cam.x=tgt.x;cam.y=tgt.y;cam.z=tgt.z;render()}
-function goTo(i,instant){
-  i=Math.max(0,Math.min(N-1,i));
-  if(depth())scrollTo({top:i*SEG,behavior:instant?"auto":"smooth"});
-  else sts[i].scrollIntoView({behavior:instant?"auto":"smooth",block:"start"});
-}
-addEventListener("scroll",function(){if(!depth())return;target();kick();if(scrollY>40)hint.classList.add("gone")},{passive:true});
-addEventListener("resize",function(){if(!depth())return;var k=SEG>0?scrollY/SEG:0;layout();scrollTo(0,k*SEG);snap()});
-if(fine)addEventListener("pointermove",function(e){if(!depth())return;look.x=e.clientX/innerWidth*2-1;look.y=e.clientY/innerHeight*2-1;kick()},{passive:true});
+function snap(){target();cam.x=tgt.x;cam.y=tgt.y;cam.z=tgt.z;vel=0;roll=0;render(0,0)}
+function goTo(i,instant){i=clamp(i,0,N-1);scrollTo({top:i*SEG,behavior:instant?"auto":"smooth"})}
+
+sts.forEach(function(s){
+  if(!s.classList.contains("card"))return;
+  s._card=true;s._rx=s._ry=s._trx=s._try=0;
+  if(!fine)return;
+  s.addEventListener("pointermove",function(e){if(!s._on)return;var r=s.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    s._try=(x-.5)*6;s._trx=(.5-y)*4.5;s.style.setProperty("--mx",(x*100).toFixed(1)+"%");s.style.setProperty("--my",(y*100).toFixed(1)+"%");kick()});
+  s.addEventListener("pointerleave",function(){s._trx=s._try=0;kick()});
+});
+
+addEventListener("scroll",function(){target();kick();if(scrollY>40)hint.classList.add("gone")},{passive:true});
+addEventListener("resize",function(){var k=SEG>0?scrollY/SEG:0;layout();scrollTo(0,k*SEG);snap()});
+if(fine)addEventListener("pointermove",function(e){look.x=e.clientX/innerWidth*2-1;look.y=e.clientY/innerHeight*2-1;kick()},{passive:true});
 document.getElementById("prev").addEventListener("click",function(){goTo(Math.round(scrollY/SEG)-1)});
 document.getElementById("next").addEventListener("click",function(){goTo(Math.round(scrollY/SEG)+1)});
+
+/* keys fly stop by stop */
+addEventListener("keydown",function(e){
+  if(e.altKey||e.ctrlKey||e.metaKey)return;var t=e.target,k=e.key,i=Math.round(scrollY/SEG);
+  if(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))return;
+  if(k===" "&&t&&t.closest&&t.closest("a,button"))return;
+  if(k==="ArrowDown"||k==="ArrowRight"||k==="PageDown"||(k===" "&&!e.shiftKey))i++;
+  else if(k==="ArrowUp"||k==="ArrowLeft"||k==="PageUp"||(k===" "&&e.shiftKey))i--;
+  else if(k==="Home")i=0;else if(k==="End")i=N-1;else return;
+  e.preventDefault();hint.classList.add("gone");goTo(i);
+});
 
 /* links inside the page move along the route */
 document.addEventListener("click",function(e){
@@ -369,30 +479,14 @@ document.addEventListener("click",function(e){
   e.preventDefault();goTo(sts.indexOf(st));
 });
 /* keyboard focus brings its stop in front of you */
-space.addEventListener("focusin",function(e){if(!depth())return;var st=e.target.closest(".st");if(!st)return;var i=sts.indexOf(st);
+space.addEventListener("focusin",function(e){var st=e.target.closest(".st");if(!st)return;var i=sts.indexOf(st);
   space.scrollTop=0;space.scrollLeft=0;if(Math.abs(scrollY-i*SEG)>4){scrollTo(0,i*SEG);snap()}});
 
-/* depth or flat */
-function setView(flat,keep){
-  var i=cur<0?0:cur;
-  if(!depth()){var y=innerHeight*.3;sts.some(function(s,k){if(s.getBoundingClientRect().bottom>y){i=k;return true}})}
-  root.classList.toggle("depth",!flat);
-  try{localStorage.setItem("ss-view",flat?"flat":"depth")}catch(e){}
-  viewBtn.querySelector("span").textContent=flat?"Depth view":"Flat view";
-  sts.concat(cws).forEach(function(el){if(flat){el.style.cssText=""}});
-  layout();
-  if(!flat){scrollTo(0,i*SEG);snap()}else if(!keep)sts[i].scrollIntoView({block:"start"});
-}
-viewBtn.addEventListener("click",function(){setView(depth())});
-
 layout();
-if(!depth())viewBtn.querySelector("span").textContent="Depth view";
-else{
-  var h=location.hash&&document.getElementById(location.hash.slice(1));
-  var st=h&&(h.closest(".st")||(h.classList.contains("cw")?h.nextElementSibling:null));
-  if(st){history.scrollRestoration="manual";scrollTo(0,sts.indexOf(st)*SEG)}
-  snap();
-}
+var h=location.hash&&document.getElementById(location.hash.slice(1));
+var st=h&&(h.closest(".st")||(h.classList.contains("cw")?h.nextElementSibling:null));
+if(st){history.scrollRestoration="manual";scrollTo(0,sts.indexOf(st)*SEG)}
+snap();
 })();
 </script>
 </body>
