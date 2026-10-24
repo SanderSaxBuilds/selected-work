@@ -67,13 +67,19 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 
 /* ---------- stations, shared ---------- */
 .space{position:relative;z-index:1}
-.card{position:relative;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);background:var(--panel);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 50px 120px -50px rgba(0,0,0,.9);transition:border-color .8s,box-shadow .8s}
+.card{position:relative;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);background:linear-gradient(180deg,#121521,var(--panel) 40%);border:1px solid var(--line);border-radius:24px;box-shadow:0 50px 120px -50px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .8s,box-shadow .8s}
+/* each sheet carries a divider tab, set further along the folio for every chapter */
+.tab{position:absolute;bottom:100%;left:calc(26px + var(--ti,0) * (100% - 190px) / 6);display:flex;align-items:center;gap:9px;height:30px;padding:0 14px 0 12px;margin-bottom:-1px;border:1px solid var(--line);border-bottom:0;border-radius:11px 11px 0 0;background:#121521;font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;pointer-events:none;filter:brightness(calc(1 - var(--dim,0)));transition:color .6s,border-color .8s}
+.tab::before{content:"";width:12px;height:2px;border-radius:2px;background:var(--cc);opacity:.75}
+.card.on .tab,.end.on .tab{color:var(--text);border-color:color-mix(in srgb,var(--cc) 34%,var(--line))}
 /* a soft light that follows the pointer across the card */
 .card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .5s;background:radial-gradient(520px circle at var(--mx,50%) var(--my,40%),rgba(255,255,255,.075),transparent 46%)}
 .card:hover::after{opacity:1}
 .card[data-side="r"] .im{order:2}
 .card>span[id]{position:absolute;top:0;left:0}
-.im{position:relative;display:block;text-decoration:none;color:inherit;min-height:100%;aspect-ratio:16/10;overflow:hidden;background:var(--panel-2)}
+/* the work sits mounted on the sheet like a print, with a margin of board around it */
+.im{position:relative;display:block;text-decoration:none;color:inherit;margin:12px 0 12px 12px;aspect-ratio:16/10;overflow:hidden;border-radius:14px;background:var(--panel-2);box-shadow:0 0 0 1px rgba(255,255,255,.07),0 18px 40px -22px rgba(0,0,0,.9)}
+.card[data-side="r"] .im{margin:12px 12px 12px 0}
 .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform 1.2s var(--ease)}
 .card:hover .im img{transform:scale(1.035)}
 .tx{display:flex;flex-direction:column;padding:28px 30px 26px;min-width:0}
@@ -107,8 +113,11 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 /* opening and closing stations */
 .intro{text-align:center;position:relative;isolation:isolate}
 html.depth .intro::before{content:"";position:absolute;inset:-18% -12%;z-index:-1;background:radial-gradient(closest-side,rgba(6,7,11,.94) 55%,rgba(6,7,11,0));pointer-events:none}
-.eyebrow{font:500 12px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 26px}
-.eyebrow b{color:var(--text);font-weight:500}
+/* the name label on the front of the folio */
+.plate{display:inline-grid;justify-items:center;gap:7px;margin:0 0 30px;padding:16px 30px 15px;border:1px solid rgba(255,255,255,.16);border-radius:6px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));box-shadow:inset 0 0 0 4px rgba(6,7,11,.6),inset 0 0 0 5px rgba(255,255,255,.07),0 20px 50px -30px rgba(0,0,0,.9)}
+.plate b{font:italic 400 clamp(30px,3.4vw,44px)/1 var(--serif);letter-spacing:-.005em;color:#f4f1ea}
+.plate .pk,.plate .ps{font:500 10.5px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.plate .pk{color:var(--c);transition:color 1.4s}
 h1{font:700 clamp(44px,7.4vw,112px)/.95 var(--display);letter-spacing:-.045em;margin:0 0 26px}
 h1 em,.end h2 em{font:italic 400 1.08em/1 var(--serif);letter-spacing:-.01em;color:var(--c);transition:color 1.4s}
 .lede{max-width:36em;margin:0 auto 34px;color:var(--soft);font-size:clamp(16px,1.4vw,19px)}
@@ -218,7 +227,8 @@ html.depth .hud{display:flex}
 @media (max-width:760px){
   .card{grid-template-columns:1fr}
   .card[data-side="r"] .im{order:0}
-  .im{min-height:0}
+  .im,.card[data-side="r"] .im{margin:10px 10px 0;border-radius:12px}
+  .tab{left:calc(18px + var(--ti,0) * (100% - 150px) / 6);height:26px;padding:0 10px;font-size:9.5px;gap:7px}
   .tx{padding:18px 18px 18px}
   .card h3{font-size:21px}
   .card p{font-size:14px;line-height:1.5}
@@ -259,9 +269,9 @@ html:not(.depth) .cw span{font-size:clamp(64px,9vw,120px)}
 
 <main class="space" id="space">
 <section class="st intro" data-ch="a" id="top">
-  <p class="eyebrow"><b>Alexandr Khrustalev</b> · SanderSax · Thailand, UTC+7 · EN / RU</p>
+  <p class="plate"><span class="pk">Portfolio · 2026 · 28 projects</span><b>Alexandr Khrustalev</b><span class="ps">SanderSax · Thailand, UTC+7 · English and Russian</span></p>
   <h1><span class="l1">I build websites</span><br><span class="l2">that do <em>real work.</em></span></h1>
-  <p class="lede">Business sites in English, Russian and Thai, CSV reports you can check line by line, and the small connections between systems. Twenty-seven stops ahead. Every one opens as a working demo or a file you can download.</p>
+  <p class="lede">Business sites in English, Russian and Thai, CSV reports you can check line by line, and the small connections between systems. Twenty-eight projects ahead. Every one opens as a working demo or a file you can download.</p>
   <div class="cta">
     <a class="btn p" href="#all" data-go="1"><span aria-hidden="true">↓</span>Fly in</a>
     <a class="btn" href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp</a>
@@ -332,6 +342,12 @@ html:not(.depth) .cw span{font-size:clamp(64px,9vw,120px)}
 </nav>
 
 <script>
+/* divider tabs, one per sheet, placed along the edge by chapter */
+[].forEach.call(document.querySelectorAll(".card,.end"),function(el){var c=el.dataset.ch,o="nwdibre".indexOf(c);if(o<0)return;
+  var t=document.createElement("i");t.className="tab";t.setAttribute("aria-hidden","true");t.style.setProperty("--ti",o);
+  t.textContent={n:"New",w:"Websites",d:"Data",i:"Systems",b:"Documents",r:"Research",e:"Contact"}[c];el.insertBefore(t,el.firstChild)});
+</script>
+<script>
 (function(){
 var root=document.documentElement;
 if(!root.classList.contains("depth"))return; /* reduced motion: the stacked list needs no script */
@@ -394,7 +410,7 @@ function place(st,i){
     var p=-k;z=p*760;y=p*80;o=clamp(1-p*1.7,0,1);dim=0;rx-=p*7;
   }
   e.style.opacity=o.toFixed(3);e.style.setProperty("--dim",dim.toFixed(3));
-  var cp=cut>0?"inset(0 0 "+cut.toFixed(1)+"px 0 round 24px)":"";if(e._cp!==cp){e._cp=cp;e.style.clipPath=cp}
+  var cp=cut>0?"inset(-48px 0 "+cut.toFixed(1)+"px 0 round 24px)":"";if(e._cp!==cp){e._cp=cp;e.style.clipPath=cp}
   e.style.zIndex=String(1000-Math.round(k*20));
   e.style.transform="translate(-50%,-50%) translate3d(0,"+y.toFixed(1)+"px,"+z.toFixed(1)+"px) rotateX("+rx.toFixed(2)+"deg) rotateY("+ry.toFixed(2)+"deg)";
   var on=Math.abs(k)<.35;if(on!==!!e._on){e._on=on;e.classList.toggle("on",on)}
