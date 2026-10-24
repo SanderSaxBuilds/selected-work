@@ -38,44 +38,68 @@
             <a class="button primary" href="#collection">Browse the tools</a>
             <a class="button secondary" href="#how">How it works</a>
           </div>
-          <dl class="hero-facts">
-            <div><dt>Tools</dt><dd>4</dd></div>
-            <div><dt>Prices from</dt><dd>$12</dd></div>
-            <div><dt>Samples</dt><dd>Free</dd></div>
-          </dl>
+          <p class="hero-note">Four tools, from $12. Every one has a free sample, and every one runs on your own computer.</p>
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="art-frame">
-            <div class="sheet sheet-quote">
-              <div class="sheet-top"><b>QuoteCheck</b><span class="num">Q-0042</span></div>
-              <p class="sheet-kicker">Project estimate</p>
-              <p class="sheet-title">Studio site refresh</p>
-              <div class="sheet-line"><span>Design and build</span><span class="num">40 h</span><b class="num">$1,400</b></div>
-              <div class="sheet-line"><span>Revision allowance</span><span class="num">8 h</span><b class="num">$280</b></div>
-              <div class="sheet-total"><span>Estimate</span><strong class="num">$1,680</strong></div>
+        <div class="bench" aria-labelledby="bench-title">
+          <div class="bench-head">
+            <h2 id="bench-title" class="bench-title">Try two of them on the bench</h2>
+            <div class="bench-tabs" role="tablist" aria-label="Tool to try">
+              <button type="button" role="tab" id="bench-tab-quote" aria-controls="bench-quote" aria-selected="true">QuoteCheck</button>
+              <button type="button" role="tab" id="bench-tab-csv" aria-controls="bench-csv" aria-selected="false" tabindex="-1">ExportCheck</button>
             </div>
-            <div class="sheet sheet-check">
-              <span class="file-tab">Handoff Desk</span>
-              <p class="sheet-title">Ready for the next person.</p>
-              <p class="tick"><i></i>Files named and checked</p>
-              <p class="tick"><i></i>Decisions written down</p>
-              <p class="tick"><i></i>Next steps agreed</p>
-            </div>
-            <div class="sheet sheet-csv">
-              <div class="sheet-top"><b>ExportCheck</b><span class="num">clients.csv</span></div>
-              <div class="csv-mini"><span class="num">001</span><span>Ready</span><span class="num">002</span><span class="flag">Missing email</span><span class="num">003</span><span>Ready</span></div>
-            </div>
-            <svg class="art-star" viewBox="0 0 64 64"><path d="M32 8v48M8 32h48M15 15l34 34M15 49l34-34"/></svg>
           </div>
+
+          <div class="bench-sheet" id="bench-quote" role="tabpanel" aria-labelledby="bench-tab-quote">
+            <div class="sheet-top"><b>Studio site refresh</b><span class="num" id="q-code">Version A</span></div>
+            <div class="q-row">
+              <label for="q-build">Design and build</label>
+              <input type="range" id="q-build" min="8" max="80" step="1" value="40">
+              <output class="num" for="q-build" id="q-build-out">40 h</output>
+            </div>
+            <div class="q-row">
+              <label for="q-rev">Revision allowance</label>
+              <input type="range" id="q-rev" min="0" max="24" step="1" value="8">
+              <output class="num" for="q-rev" id="q-rev-out">8 h</output>
+            </div>
+            <div class="q-row">
+              <label for="q-rate">Hourly rate</label>
+              <input type="range" id="q-rate" min="20" max="120" step="1" value="35">
+              <output class="num" for="q-rate" id="q-rate-out">$35</output>
+            </div>
+            <dl class="q-math">
+              <div><dt>Estimate you send</dt><dd class="num" id="q-total">$1,680</dd></div>
+              <div><dt>Payment fee, 3%</dt><dd class="num" id="q-fee">-$50.40</dd></div>
+              <div><dt>Software and stock</dt><dd class="num">-$40</dd></div>
+            </dl>
+            <div class="q-keep" aria-live="polite">
+              <p><span>You keep</span><strong class="num" id="q-keep">$1,589.60</strong></p>
+              <p class="q-hour"><span class="num" id="q-hour">$33.12</span> an hour</p>
+            </div>
+            <div class="q-versions">
+              <button type="button" class="button secondary small" id="q-pin">Pin this version</button>
+              <ol id="q-pins" class="q-pins" aria-label="Pinned versions"></ol>
+            </div>
+          </div>
+
+          <div class="bench-sheet" id="bench-csv" role="tabpanel" aria-labelledby="bench-tab-csv" hidden>
+            <div class="sheet-top"><b>clients.csv</b><span class="num" id="csv-summary" aria-live="polite">1 ready, 2 to fix</span></div>
+            <p class="csv-hint">Rule: every row needs a valid email. Fix the two rows that would break the export.</p>
+            <table class="csv-table">
+              <thead><tr><th scope="col">Row</th><th scope="col">Email</th><th scope="col">Status</th></tr></thead>
+              <tbody>
+                <tr><td class="num">001</td><td><input aria-label="Email for row 001" value="alex@example.com" data-csv spellcheck="false" autocomplete="off"></td><td data-status></td></tr>
+                <tr><td class="num">002</td><td><input aria-label="Email for row 002" value="" placeholder="missing" data-csv spellcheck="false" autocomplete="off"></td><td data-status></td></tr>
+                <tr><td class="num">003</td><td><input aria-label="Email for row 003" value="taylor@example" data-csv spellcheck="false" autocomplete="off"></td><td data-status></td></tr>
+              </tbody>
+            </table>
+            <div class="csv-foot">
+              <button type="button" class="button primary small" id="csv-download" disabled>Download clean CSV</button>
+              <span class="csv-stamp" id="csv-stamp" aria-hidden="true">Ready to ship</span>
+            </div>
+          </div>
+          <p class="bench-note">A taste of each tool, worked in this page. The full apps do more, and nothing here leaves your browser.</p>
         </div>
       </section>
-
-      <section class="facts wrap" aria-label="Why Toolroom">
-        <div><h2>Runs on your computer</h2><p>Each tool opens in your browser from a small local server. Your files stay on your machine.</p></div>
-        <div><h2>Try before you buy</h2><p>Every tool has a free sample file you can download right now.</p></div>
-        <div><h2>Plain exports</h2><p>JSON, CSV and TXT files that open in any editor or spreadsheet.</p></div>
-      </section>
-
       <section class="collection wrap" id="collection" aria-labelledby="collection-heading">
         <div class="section-head">
           <div><p class="eyebrow">The collection</p><h2 id="collection-heading">One job per tool.</h2></div>
@@ -113,6 +137,7 @@
         <div><p class="eyebrow">Questions</p><h2 id="faq-title">Good to know.</h2></div>
         <div class="faq-list">
           <details><summary>Can I buy these tools here?</summary><p>No. This storefront runs a demo checkout that saves a test order in your browser. No payment is taken, no license is issued and no email is sent.</p></details>
+          <details><summary>Do the tools need an internet connection?</summary><p>No. Each tool opens in your browser from a small local server on your own computer, so your quotes, CSV files and project notes stay on your machine. Exports are plain JSON, CSV and TXT files.</p></details>
           <details><summary>What do I download?</summary><p>Each tool has a small sample file, either CSV or plain text, that shows the kind of output it produces. Full product archives are not served from this page.</p></details>
           <details><summary>Where does my library live?</summary><p>In this browser on this device, when browser storage is available. Backup creates a portable JSON file, and restoring checks the file before anything changes. Private windows and cleared site data remove the local library.</p></details>
           <details><summary>Is this connected to Etsy or another shop?</summary><p>No. Nothing here connects to Etsy, Payhip or a payment provider. A live store would need its own checkout and delivery service.</p></details>

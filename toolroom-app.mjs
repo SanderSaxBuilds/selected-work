@@ -366,3 +366,129 @@ window.addEventListener('storage', event => {
 })
 render()
 route()
+
+// The bench: a working taste of QuoteCheck and ExportCheck in the hero.
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)')
+const dollars = (value, digits = 2) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: digits, maximumFractionDigits: digits }).format(value)
+const benchTabs = [...document.querySelectorAll('.bench-tabs [role="tab"]')]
+function selectBenchTab(tab, focus) {
+  benchTabs.forEach(item => {
+    const on = item === tab
+    item.setAttribute('aria-selected', String(on))
+    item.tabIndex = on ? 0 : -1
+    document.getElementById(item.getAttribute('aria-controls')).hidden = !on
+  })
+  if (focus) tab.focus()
+}
+benchTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectBenchTab(tab))
+  tab.addEventListener('keydown', event => {
+    const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0
+    if (!step) return
+    event.preventDefault()
+    selectBenchTab(benchTabs[(index + step + benchTabs.length) % benchTabs.length], true)
+  })
+})
+
+const quote = { build: $('#q-build'), rev: $('#q-rev'), rate: $('#q-rate') }
+const pins = []
+const FEE = 0.03, COSTS = 40
+function quoteNumbers() {
+  const build = Number(quote.build.value), rev = Number(quote.rev.value), rate = Number(quote.rate.value)
+  const total = (build + rev) * rate
+  const fee = Math.round(total * FEE * 100) / 100
+  const keep = total - fee - COSTS
+  return { build, rev, rate, total, fee, keep, hour: keep / (build + rev) }
+}
+function renderQuote() {
+  const q = quoteNumbers()
+  for (const [key, input] of Object.entries(quote)) input.style.setProperty('--fill', `${(input.value - input.min) / (input.max - input.min) * 100}%`)
+  $('#q-build-out').textContent = `${q.build} h`
+  $('#q-rev-out').textContent = `${q.rev} h`
+  $('#q-rate-out').textContent = `$${q.rate}`
+  $('#q-total').textContent = dollars(q.total, 0)
+  $('#q-fee').textContent = '-' + dollars(q.fee)
+  $('#q-keep').textContent = dollars(q.keep)
+  $('#q-hour').textContent = dollars(q.hour)
+  // Flag a quote that pays less per hour than the rate after fees by more than a fifth.
+  $('#q-hour').parentElement.classList.toggle('low', q.hour < q.rate * 0.8)
+  const match = pins.findIndex(pin => pin.build === q.build && pin.rev === q.rev && pin.rate === q.rate)
+  $('#q-code').textContent = match >= 0 ? `Version ${'ABC'[match]}` : 'Working copy'
+  document.querySelectorAll('#q-pins button').forEach((button, index) => button.setAttribute('aria-current', String(index === match)))
+  const pin = $('#q-pin')
+  pin.disabled = match >= 0 || pins.length >= 3
+  pin.textContent = pins.length >= 3 && match < 0 ? 'Three versions pinned' : match >= 0 ? 'Pinned' : 'Pin this version'
+}
+function renderPins() {
+  $('#q-pins').innerHTML = pins.map((pin, index) => `<li><button type="button" data-pin="${index}" aria-label="Load version ${'ABC'[index]}, ${dollars(pin.total, 0)}, ${dollars(pin.hour)} an hour"><b>${'ABC'[index]}</b><span class="num">${dollars(pin.total, 0)}, ${dollars(pin.hour)}/h</span></button></li>`).join('') + (pins.length ? '<li><button type="button" data-pin-clear aria-label="Clear pinned versions"><b>Clear</b><span>all</span></button></li>' : '')
+}
+if (quote.build) {
+  Object.values(quote).forEach(input => input.addEventListener('input', renderQuote))
+  $('#q-pin').addEventListener('click', () => {
+    if (pins.length >= 3) return
+    pins.push(quoteNumbers())
+    renderPins()
+    renderQuote()
+    notify(`Version ${'ABC'[pins.length - 1]} pinned. Move the sliders to compare.`)
+  })
+  $('#q-pins').addEventListener('click', event => {
+    if (event.target.closest('[data-pin-clear]')) { pins.length = 0; renderPins(); renderQuote(); $('#q-pin').focus(); return }
+    const button = event.target.closest('[data-pin]')
+    if (!button) return
+    const pin = pins[Number(button.dataset.pin)]
+    quote.build.value = pin.build; quote.rev.value = pin.rev; quote.rate.value = pin.rate
+    renderQuote()
+  })
+  renderQuote()
+}
+
+const emailPattern = /^[^\s@,;"]+@[^\s@,;"]+\.[a-z]{2,}$/i
+const csvInputs = [...document.querySelectorAll('[data-csv]')]
+let csvWasClean = false
+function renderCsv(changed) {
+  let ready = 0
+  csvInputs.forEach(input => {
+    const row = input.closest('tr')
+    const value = input.value.trim()
+    const ok = emailPattern.test(value)
+    const wasBad = row.classList.contains('bad')
+    row.classList.toggle('bad', !ok)
+    if (ok && wasBad && input === changed) { row.classList.remove('fixed'); void row.offsetWidth; row.classList.add('fixed') }
+    row.querySelector('[data-status]').textContent = ok ? 'Ready' : value ? 'Check email' : 'Missing email'
+    input.setAttribute('aria-invalid', String(!ok))
+    if (ok) ready++
+  })
+  const fix = csvInputs.length - ready
+  $('#csv-summary').textContent = fix ? `${ready} ready, ${fix} to fix` : `${ready} ready, nothing to fix`
+  $('#csv-download').disabled = fix > 0
+  $('#csv-stamp').classList.toggle('on', fix === 0)
+  if (fix === 0 && !csvWasClean && changed) notify('Every row passes. The clean CSV is ready to download.')
+  csvWasClean = fix === 0
+}
+if (csvInputs.length) {
+  csvInputs.forEach(input => input.addEventListener('input', () => renderCsv(input)))
+  $('#csv-download').addEventListener('click', () => {
+    const rows = csvInputs.map((input, index) => `${String(index + 1).padStart(3, '0')},${input.value.trim()},Ready`)
+    download('clients_clean.csv', `Row,Email,Status\r\n${rows.join('\r\n')}\r\n`, 'text/csv;charset=utf-8')
+    notify('clients_clean.csv downloaded.')
+  })
+  renderCsv()
+}
+
+// Product art leans toward the pointer, a small reward for looking closer.
+const finePointer = matchMedia('(hover: hover) and (pointer: fine)')
+$('#product-grid').addEventListener('pointermove', event => {
+  if (reduceMotion.matches || !finePointer.matches) return
+  const art = event.target.closest('.product-art')
+  if (!art) return
+  const rect = art.getBoundingClientRect()
+  const x = (event.clientX - rect.left) / rect.width - 0.5
+  const y = (event.clientY - rect.top) / rect.height - 0.5
+  const piece = art.querySelector('.preview-window, .bundle-files')
+  const base = art.classList.contains('data') ? 2 : art.classList.contains('projects') ? -1.5 : art.classList.contains('bundles') ? 0 : -2
+  piece.style.transform = `perspective(900px) rotate(${(base + x * 2).toFixed(2)}deg) rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 8).toFixed(2)}deg) translate(${(x * 6).toFixed(1)}px, ${(y * 6).toFixed(1)}px)`
+})
+$('#product-grid').addEventListener('pointerout', event => {
+  const art = event.target.closest('.product-art')
+  if (art && !art.contains(event.relatedTarget)) art.querySelector('.preview-window, .bundle-files').style.transform = ''
+})
