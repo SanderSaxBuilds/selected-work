@@ -12,6 +12,8 @@
   const SAMPLE_HANDLE = { whatsapp: '66000000000', line: '@sample.shop', telegram: 'sample_shop' };
   const SWATCHES = ['#1f5c46', '#0e7490', '#15803d', '#2f4b8a', '#7a5534', '#8a4b2e', '#8b3a7e', '#44403c'];
   const KIT_FILES = ['site.html', 'site.css', 'site.js'];
+  const MIN_W = 320, MAX_W = 1440, SNAPS = [390, 768, 1024, 1280];
+  const PRESET_W = { desktop: 1280, tablet: 768 };
 
   /* ---------- icons ---------- */
   const ICON = {
@@ -91,7 +93,7 @@
       if (!host || calm.matches || !host.animate) return;
       const r = btn.getBoundingClientRect();
       const x0 = r.left + r.width / 2, y0 = r.top + r.height / 2;
-      const cols = [cfg.accent || '#4c6fff', '#4c6fff', '#ffffff', '#8fe0b4', '#f5f3ee'];
+      const cols = [cfg.accent || '#8b7bff', '#8b7bff', '#ffffff', '#c9f25c', '#2b2d33'];
       host.textContent = '';
       for (let i = 0; i < 26; i++) {
         const s = document.createElement('i');
@@ -145,7 +147,7 @@
       faqQ: 'Question', faqA: 'Answer', addFaq: 'Add question', faqEmptyT: 'No questions yet', faqEmptyP: 'Short answers to what people ask in chat save time every day.',
       foot1: 'This site builder is a personal freelance project by Alexandr Khrustalev. The downloaded site is plain HTML, CSS and JavaScript that any static host can serve.',
       kitDemo: 'Open the kit demo', readme: 'Read the guide', reset: 'Start over', resetDone: 'Started over with the spa sample',
-      pvTitle: 'Preview', pvSize: 'Preview size', desktop: 'Desktop', phone: 'Phone', pvLive: 'Preview', pvUpdated: 'Updated', pvWaiting: 'Updating', pvFrame: 'Site preview',
+      pvTitle: 'Preview', pvSize: 'Preview size', desktop: 'Desktop', tablet: 'Tablet', phone: 'Phone', pvWidth: 'Preview width, drag or use the arrow keys', pvBoard: 'Artboard', pvLive: 'Preview', pvUpdated: 'Updated', pvWaiting: 'Updating', pvFrame: 'Site preview',
       pvErrT: 'The preview could not start', pvErrP: 'Open the studio from a web server, for example GitHub Pages or a local static server, not straight from a file on disk.', retry: 'Try again',
       ready: 'Ready to download', readyP: 'Everything a working site needs is filled in.', issuesN: '{n} things to check', issue1: '1 thing to check',
       missingLang: '{lang}: {n} texts show English for now',
@@ -192,7 +194,7 @@
       faqQ: 'Вопрос', faqA: 'Ответ', addFaq: 'Добавить вопрос', faqEmptyT: 'Вопросов пока нет', faqEmptyP: 'Короткие ответы на то, что спрашивают в чате, экономят время каждый день.',
       foot1: 'Этот конструктор сайтов Александр Хрусталёв сделал как личный фриланс-проект. Скачанный сайт состоит из обычных HTML, CSS и JavaScript и работает на любом статическом хостинге.',
       kitDemo: 'Открыть демо шаблона', readme: 'Инструкция', reset: 'Начать заново', resetDone: 'Начали заново с примера спа',
-      pvTitle: 'Предпросмотр', pvSize: 'Размер предпросмотра', desktop: 'Компьютер', phone: 'Телефон', pvLive: 'Предпросмотр', pvUpdated: 'Обновлено', pvWaiting: 'Обновляем', pvFrame: 'Предпросмотр сайта',
+      pvTitle: 'Предпросмотр', pvSize: 'Размер предпросмотра', desktop: 'Компьютер', tablet: 'Планшет', phone: 'Телефон', pvWidth: 'Ширина предпросмотра, тяните или нажимайте стрелки', pvBoard: 'Макет', pvLive: 'Предпросмотр', pvUpdated: 'Обновлено', pvWaiting: 'Обновляем', pvFrame: 'Предпросмотр сайта',
       pvErrT: 'Предпросмотр не запустился', pvErrP: 'Откройте студию через веб-сервер, например GitHub Pages или локальный статический сервер, а не как файл с диска.', retry: 'Повторить',
       ready: 'Можно скачивать', readyP: 'Всё, что нужно для работающего сайта, заполнено.', issuesN: 'Нужно проверить: {n}', issue1: 'Нужно проверить: 1',
       missingLang: '{lang}: без перевода {n}',
@@ -462,7 +464,7 @@
   }
 
   let cfg;
-  const ui = { lang: 'en', edit: 'en', device: 'desktop', view: 'edit', handles: {}, mem: {} };
+  const ui = { lang: 'en', edit: 'en', device: 'desktop', width: 1024, view: 'edit', handles: {}, mem: {} };
   let restored = false;
   (function load() {
     let saved = null;
@@ -473,7 +475,8 @@
         const u = saved.ui || {};
         if (UI[u.lang]) ui.lang = u.lang;
         if (LANGS.includes(u.edit)) ui.edit = u.edit;
-        if (u.device === 'desktop' || u.device === 'phone') ui.device = u.device;
+        if (['desktop', 'tablet', 'phone', 'custom'].includes(u.device)) ui.device = u.device;
+        if (Number.isFinite(u.width)) ui.width = Math.max(MIN_W, Math.min(MAX_W, Math.round(u.width)));
         if (u.handles && typeof u.handles === 'object') ui.handles = u.handles;
         restored = true;
         return;
@@ -487,7 +490,7 @@
 
   function save() {
     try {
-      localStorage.setItem(STORE, JSON.stringify({ v: 1, cfg, ui: { lang: ui.lang, edit: ui.edit, device: ui.device, handles: ui.handles } }));
+      localStorage.setItem(STORE, JSON.stringify({ v: 1, cfg, ui: { lang: ui.lang, edit: ui.edit, device: ui.device, width: ui.width, handles: ui.handles } }));
     } catch (e) { /* private mode or storage full, the studio still works */ }
   }
 
@@ -1016,7 +1019,7 @@
     applyUi();
     save();
   }));
-  $$('[data-dev]').forEach(b => b.addEventListener('click', () => { ui.device = b.dataset.dev; layout(); save(); }));
+  $$('#devSeg [data-dev]').forEach(b => b.addEventListener('click', () => { ui.device = b.dataset.dev; layout(); save(); }));
   $('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-view]'); if (b) setView(b.dataset.view); });
   $('#tabs').addEventListener('keydown', e => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -1138,14 +1141,15 @@
   }
 
   function layout() {
-    $$('[data-dev]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.dev === ui.device)));
+    $$('#devSeg [data-dev]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.dev === ui.device)));
     const r = stage.getBoundingClientRect();
     if (!r.width || !r.height) return;
     const pad = r.width < 600 ? 12 : 28;
     const W = Math.max(0, r.width - pad * 2), H = Math.max(0, r.height - pad * 2);
     let vw, s, kind = ui.device;
-    if (kind === 'desktop') {
-      vw = 1280;
+    if (kind !== 'phone') {
+      vw = PRESET_W[kind] || ui.width;
+      kind = vw >= 600 ? 'desktop' : 'bare';
       s = Math.min(1, W / vw);
       device.style.width = vw + 'px';
       device.style.height = H / s + 'px';
@@ -1170,9 +1174,69 @@
     device.dataset.dev = kind;
     device.style.transform = s === 1 ? 'none' : `scale(${s})`;
     $('#pvMeta').textContent = vw + ' px · ' + Math.round(s * 100) + '%';
+    const grip = $('#pvGrip');
+    if (grip) {
+      grip.hidden = ui.device === 'phone';
+      grip.setAttribute('aria-valuenow', String(vw));
+      grip.setAttribute('aria-valuetext', vw + ' px');
+      grip.setAttribute('aria-label', T('pvWidth'));
+    }
+    const board = $('#pvBoard');
+    if (board) board.innerHTML = `<b>${esc(T('pvBoard'))}</b> <span class="pb-name">${esc(slug())}</span> <span class="pb-size">${vw} × ${Math.round(ui.device === 'phone' ? 844 : H / s)}</span>`;
     $('#pvUrl').textContent = slug() + '.com';
   }
   new ResizeObserver(() => layout()).observe(stage);
+
+  /* ---------- artboard width: drag the edge or use the arrow keys, it snaps to common screens ---------- */
+  (() => {
+    const grip = $('#pvGrip');
+    if (!grip) return;
+    const current = () => PRESET_W[ui.device] || ui.width;
+    const setWidth = (w, snap) => {
+      w = Math.max(MIN_W, Math.min(MAX_W, Math.round(w)));
+      if (snap) { const near = SNAPS.find(v => Math.abs(v - w) <= 14); if (near) w = near; }
+      ui.width = w;
+      ui.device = w === 1280 ? 'desktop' : w === 768 ? 'tablet' : 'custom';
+      layout();
+    };
+    let drag = null;
+    grip.addEventListener('pointerdown', e => {
+      if (e.button !== 0) return;
+      const r = stage.getBoundingClientRect();
+      const vw = current();
+      const W = Math.max(1, r.width - (r.width < 600 ? 24 : 56));
+      drag = { x0: e.clientX, w0: vw, k: vw > W ? vw / W : 1, pid: e.pointerId };
+      grip.setPointerCapture(e.pointerId);
+      stage.classList.add('is-sizing');
+      e.preventDefault();
+    });
+    grip.addEventListener('pointermove', e => {
+      if (!drag || e.pointerId !== drag.pid) return;
+      // the board stays centred, so its edge moves half as far as the width changes
+      setWidth(drag.w0 + (e.clientX - drag.x0) * 2 * drag.k, true);
+    });
+    const end = e => {
+      if (!drag || e.pointerId !== drag.pid) return;
+      drag = null;
+      stage.classList.remove('is-sizing');
+      save();
+    };
+    grip.addEventListener('pointerup', end);
+    grip.addEventListener('pointercancel', end);
+    grip.addEventListener('keydown', e => {
+      const step = e.shiftKey ? 100 : 10;
+      let w = current();
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') w += step;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') w -= step;
+      else if (e.key === 'Home') w = MIN_W;
+      else if (e.key === 'End') w = MAX_W;
+      else return;
+      e.preventDefault();
+      setWidth(w, false);
+      save();
+    });
+    grip.addEventListener('dblclick', () => { ui.device = 'desktop'; layout(); save(); });
+  })();
 
   /* ---------- section bar ---------- */
   let jumpObs = null;

@@ -4,40 +4,54 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
+<meta name="theme-color" content="#e9ebf1">
 <title>Inkpost email templates</title>
-<meta name="description" content="Four responsive HTML emails for a fictional coffee roaster, with Outlook fallbacks, fluid hybrid columns, dark mode and plain text versions.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23b0136a'/%3E%3Cpath d='M7 10h18v13H7z' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3Cpath d='M7 10l9 7 9-7' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3C/svg%3E">
+<meta name="description" content="An email design studio for four responsive HTML emails for a fictional coffee roaster, with Outlook fallbacks, fluid hybrid columns, dark mode and plain text versions, previewed in webmail and phone mail frames.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233341d6'/%3E%3Cpath d='M7 10.5h18v12H7z' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cpath d='M7 11l9 7 9-7' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif&amp;display=swap">
-<link rel="stylesheet" href="preview.css">
-<script type="module" src="preview.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&amp;family=Fragment+Mono&amp;display=swap">
+<link rel="stylesheet" href="preview.css?v=20261024u">
+<script type="module" src="preview.js?v=20261024u"></script>
 </head>
 <body>
 <a class="skip" href="#viewer">Skip to the preview</a>
-<header class="masthead">
-<div class="wrap topbar">
+<header class="appbar">
+<div class="appbar-in">
+<p class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4z"/><path d="M4 7.5l8 6 8-6"/></svg></span><span class="logo-w">Inkpost</span><span class="logo-t">Email studio</span></p>
+<nav class="appnav" aria-label="Links">
 <a class="quiet" href="../">Selected work</a>
 <a class="quiet" href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source on GitHub</a>
-</div>
-<div class="wrap intro">
-<h1>Inkpost</h1>
-<p class="lede">Four HTML emails for Kettlewick Coffee Roasters, a fictional roaster, built from one shared layout by a small Node script with its own CSS inliner. Each one carries Outlook fallbacks, stacks on phones and has a dark mode.</p>
+</nav>
 </div>
 </header>
-<main id="viewer" class="wrap" tabindex="-1">
-<div class="controls">
-<div class="tabs" role="tablist" aria-label="Emails">
-<button type="button" role="tab" id="tab-welcome" aria-controls="panel-welcome" aria-selected="true" tabindex="0" data-id="welcome"><span class="tab-name">Welcome</span> <span class="tab-size">19.2 KB</span></button>
-<button type="button" role="tab" id="tab-order-confirmation" aria-controls="panel-order-confirmation" aria-selected="false" tabindex="-1" data-id="order-confirmation"><span class="tab-name">Order confirmation</span> <span class="tab-size">22.7 KB</span></button>
-<button type="button" role="tab" id="tab-shipping-update" aria-controls="panel-shipping-update" aria-selected="false" tabindex="-1" data-id="shipping-update"><span class="tab-name">Shipping update</span> <span class="tab-size">21.0 KB</span></button>
-<button type="button" role="tab" id="tab-newsletter" aria-controls="panel-newsletter" aria-selected="false" tabindex="-1" data-id="newsletter"><span class="tab-name">Newsletter</span> <span class="tab-size">28.8 KB</span></button>
+<main id="viewer" class="studio" tabindex="-1">
+<aside class="inbox" aria-labelledby="inbox-h">
+<div class="intro">
+<h1>Four emails, one layout</h1>
+<p class="lede">Built for Kettlewick Coffee Roasters, a fictional roaster, by a small Node script with its own CSS inliner. Each one carries Outlook fallbacks, stacks on phones and has a dark mode. Pick an email, then look at it in a webmail window or on a phone.</p>
 </div>
+<h2 class="inbox-h" id="inbox-h">Inbox <span class="num">4</span></h2>
+<div class="tabs" role="tablist" aria-label="Emails" aria-orientation="vertical">
+<button type="button" role="tab" id="tab-welcome" aria-controls="panel-welcome" aria-selected="true" tabindex="0" data-id="welcome"><span class="av" aria-hidden="true">K</span><span class="mail"><span class="mail-top"><span class="from">Kettlewick</span><span class="tab-size">19.2 KB</span></span><span class="subj">Welcome to Kettlewick</span><span class="pre">Your code for 15% off the first bag, and what to expect from us.</span><span class="tab-name">Welcome</span></span></button>
+<button type="button" role="tab" id="tab-order-confirmation" aria-controls="panel-order-confirmation" aria-selected="false" tabindex="-1" data-id="order-confirmation"><span class="av" aria-hidden="true">K</span><span class="mail"><span class="mail-top"><span class="from">Kettlewick</span><span class="tab-size">22.7 KB</span></span><span class="subj">Order KW-20418 is confirmed</span><span class="pre">Thanks, Jamie. We roast your coffee on Tuesday and post it on Wednesday morning.</span><span class="tab-name">Order confirmation</span></span></button>
+<button type="button" role="tab" id="tab-shipping-update" aria-controls="panel-shipping-update" aria-selected="false" tabindex="-1" data-id="shipping-update"><span class="av" aria-hidden="true">K</span><span class="mail"><span class="mail-top"><span class="from">Kettlewick</span><span class="tab-size">21.0 KB</span></span><span class="subj">Your coffee is on its way</span><span class="pre">Order KW-20418 left the roastery today. Harbour Post expects to deliver it on Friday 23 October.</span><span class="tab-name">Shipping update</span></span></button>
+<button type="button" role="tab" id="tab-newsletter" aria-controls="panel-newsletter" aria-selected="false" tabindex="-1" data-id="newsletter"><span class="av" aria-hidden="true">K</span><span class="mail"><span class="mail-top"><span class="from">Kettlewick</span><span class="tab-size">28.8 KB</span></span><span class="subj">Roast notes: a Kenya and a Guatemala for November</span><span class="pre">Two new coffees, the brew ratio we use on the bar and a free cupping on Saturday 14 November.</span><span class="tab-name">Newsletter</span></span></button>
+</div>
+</aside>
+<section class="desk" aria-label="Preview">
+<div class="controls">
+<fieldset class="seg seg-client">
+<legend>Client</legend>
+<label><input type="radio" name="client" value="none"><span>Canvas</span></label>
+<label><input type="radio" name="client" value="web" checked><span>Webmail</span></label>
+<label><input type="radio" name="client" value="phone"><span>Phone mail</span></label>
+</fieldset>
 <div class="toggles">
 <fieldset class="seg">
 <legend>Width</legend>
-<label><input type="radio" name="width" value="375"><span>Phone 375</span></label>
-<label><input type="radio" name="width" value="680" checked><span>Desktop 680</span></label>
+<label><input type="radio" name="width" value="375"><span>375</span></label>
+<label><input type="radio" name="width" value="680" checked><span>680</span></label>
 </fieldset>
 <fieldset class="seg">
 <legend>Mode</legend>
@@ -48,16 +62,27 @@
 </div>
 <section class="panel" role="tabpanel" id="panel-welcome" aria-labelledby="tab-welcome" data-id="welcome">
 <div class="stage">
+<div class="client" data-client="web" data-theme="light">
+<div class="cl-bar" aria-hidden="true"><span class="cl-time">9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span><span class="cl-dots"><i></i><i></i><i></i></span></div>
+<div class="cl-head">
+<p class="cl-subj">Welcome to Kettlewick</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
 <div class="frame-box"><iframe title="Welcome email" data-src="dist/welcome.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+</div>
+</div>
 <p class="scale-note" aria-live="polite"></p>
 </div>
 <div class="details">
+<p class="d-k">Email 1 of 4</p>
 <h2>Welcome</h2>
 <p class="summary">Sent once, straight after someone joins the list.</p>
 <dl class="meta">
 <div><dt>Subject</dt><dd>Welcome to Kettlewick</dd></div>
 <div><dt>Preview text</dt><dd>Your code for 15% off the first bag, and what to expect from us.</dd></div>
-<div><dt>Built size</dt><dd><span class="num">19.2 KB</span> of the 102 KB where Gmail starts clipping</dd></div>
+<div><dt>Built size</dt><dd><span class="num">19.2 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(19.2 / 102 * 100%)"></i></span></dd></div>
 </dl>
 <h3>What it handles</h3>
 <ul class="checks">
@@ -82,16 +107,27 @@
 </section>
 <section class="panel" role="tabpanel" id="panel-order-confirmation" aria-labelledby="tab-order-confirmation" data-id="order-confirmation">
 <div class="stage">
+<div class="client" data-client="web" data-theme="light">
+<div class="cl-bar" aria-hidden="true"><span class="cl-time">9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span><span class="cl-dots"><i></i><i></i><i></i></span></div>
+<div class="cl-head">
+<p class="cl-subj">Order KW-20418 is confirmed</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
 <div class="frame-box"><iframe title="Order confirmation email" data-src="dist/order-confirmation.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+</div>
+</div>
 <p class="scale-note" aria-live="polite"></p>
 </div>
 <div class="details">
+<p class="d-k">Email 2 of 4</p>
 <h2>Order confirmation</h2>
 <p class="summary">Sent when an order is paid. Lists the items, the totals and where the order is going.</p>
 <dl class="meta">
 <div><dt>Subject</dt><dd>Order KW-20418 is confirmed</dd></div>
 <div><dt>Preview text</dt><dd>Thanks, Jamie. We roast your coffee on Tuesday and post it on Wednesday morning.</dd></div>
-<div><dt>Built size</dt><dd><span class="num">22.7 KB</span> of the 102 KB where Gmail starts clipping</dd></div>
+<div><dt>Built size</dt><dd><span class="num">22.7 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(22.7 / 102 * 100%)"></i></span></dd></div>
 </dl>
 <h3>What it handles</h3>
 <ul class="checks">
@@ -116,16 +152,27 @@
 </section>
 <section class="panel" role="tabpanel" id="panel-shipping-update" aria-labelledby="tab-shipping-update" data-id="shipping-update">
 <div class="stage">
+<div class="client" data-client="web" data-theme="light">
+<div class="cl-bar" aria-hidden="true"><span class="cl-time">9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span><span class="cl-dots"><i></i><i></i><i></i></span></div>
+<div class="cl-head">
+<p class="cl-subj">Your coffee is on its way</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
 <div class="frame-box"><iframe title="Shipping update email" data-src="dist/shipping-update.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+</div>
+</div>
 <p class="scale-note" aria-live="polite"></p>
 </div>
 <div class="details">
+<p class="d-k">Email 3 of 4</p>
 <h2>Shipping update</h2>
 <p class="summary">Sent when the parcel is handed to the carrier, with tracking and a delivery estimate.</p>
 <dl class="meta">
 <div><dt>Subject</dt><dd>Your coffee is on its way</dd></div>
 <div><dt>Preview text</dt><dd>Order KW-20418 left the roastery today. Harbour Post expects to deliver it on Friday 23 October.</dd></div>
-<div><dt>Built size</dt><dd><span class="num">21.0 KB</span> of the 102 KB where Gmail starts clipping</dd></div>
+<div><dt>Built size</dt><dd><span class="num">21.0 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(21.0 / 102 * 100%)"></i></span></dd></div>
 </dl>
 <h3>What it handles</h3>
 <ul class="checks">
@@ -149,16 +196,27 @@
 </section>
 <section class="panel" role="tabpanel" id="panel-newsletter" aria-labelledby="tab-newsletter" data-id="newsletter">
 <div class="stage">
+<div class="client" data-client="web" data-theme="light">
+<div class="cl-bar" aria-hidden="true"><span class="cl-time">9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span><span class="cl-dots"><i></i><i></i><i></i></span></div>
+<div class="cl-head">
+<p class="cl-subj">Roast notes: a Kenya and a Guatemala for November</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
 <div class="frame-box"><iframe title="Newsletter email" data-src="dist/newsletter.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+</div>
+</div>
 <p class="scale-note" aria-live="polite"></p>
 </div>
 <div class="details">
+<p class="d-k">Email 4 of 4</p>
 <h2>Newsletter</h2>
 <p class="summary">Roast notes, the monthly email. A hero, a product grid, a brew tip and an event.</p>
 <dl class="meta">
 <div><dt>Subject</dt><dd>Roast notes: a Kenya and a Guatemala for November</dd></div>
 <div><dt>Preview text</dt><dd>Two new coffees, the brew ratio we use on the bar and a free cupping on Saturday 14 November.</dd></div>
-<div><dt>Built size</dt><dd><span class="num">28.8 KB</span> of the 102 KB where Gmail starts clipping</dd></div>
+<div><dt>Built size</dt><dd><span class="num">28.8 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(28.8 / 102 * 100%)"></i></span></dd></div>
 </dl>
 <h3>What it handles</h3>
 <ul class="checks">
@@ -181,9 +239,10 @@
 <pre tabindex="0" aria-label="Built HTML of the Newsletter email"><code></code></pre>
 </div>
 </section>
+</section>
 </main>
-<footer class="wrap foot">
-<p>Kettlewick Coffee Roasters is a fictional business. Its people, orders and prices are sample content made for this portfolio piece, not client work. Rendering was checked in Chromium only. Outlook, Gmail and Apple Mail were not opened, so the Outlook code is checked by tests on its structure.</p>
+<footer class="foot">
+<p>Kettlewick Coffee Roasters is a fictional business. Its people, orders and prices are sample content made for this portfolio piece, not client work. The webmail and phone frames are drawings around the real built email, not screenshots of a mail app. Rendering was checked in Chromium only. Outlook, Gmail and Apple Mail were not opened, so the Outlook code is checked by tests on its structure.</p>
 <p><a class="quiet" href="../">Back to selected work</a></p>
 </footer>
 </body>

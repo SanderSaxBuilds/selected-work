@@ -40,7 +40,7 @@ The source is one shared layout, three partials, four templates, one JSON data f
 
 ## The preview page
 
-`index.html` shows each email in a frame with a Phone 375 or Desktop 680 width toggle and a Light or Dark toggle. The dark toggle switches the email's own dark mode rules on and off, whatever the system setting is. Each email has a short list of what it handles, its subject and preview text, its built size, a View source button and downloads for the HTML and plain text versions. On a narrow screen the desktop width is scaled down to fit and the page says so.
+`index.html` is laid out like an email design studio. The emails sit in an inbox list with sender, subject and preview text, and each one can be shown on a bare canvas, in a drawn webmail window or in a drawn phone mail app, with a 375 or 680 width toggle and a Light or Dark toggle. The frames are drawings around the real built email, not screenshots of any mail app. The dark toggle switches the email's own dark mode rules on and off, whatever the system setting is. Each email has a short list of what it handles, its subject and preview text, its built size, a View source button and downloads for the HTML and plain text versions. On a narrow screen the desktop width is scaled down to fit and the page says so.
 
 ## Files
 
@@ -91,7 +91,7 @@ The browser checks drive headless Brave from its default Windows path. Set `BRAV
 
 The emails use the Kettlewick palette: oat page `#f4ece1`, cream card `#fffdf9`, cherry `#a3213a`, roast ink `#2a1b17` and a blush tint `#f8e3dc`. In dark mode the page turns to `#17110f`, the card to `#221a17` and the cherry text to a soft pink `#f6a5b0` so it keeps its contrast. The illustrations are flat drawings of bags, cups and a pour-over in the same colours.
 
-The preview page has its own look so it does not compete with the emails: lavender paper `#efedf4`, ink `#1c1a26` and magenta `#b0136a`, with Instrument Serif headings, Instrument Sans text and 2 pixel corners.
+The preview page has its own look so it does not compete with the emails: a cool grey desk `#e9ebf1`, white app windows, ink `#12141c` and ultramarine `#3341d6`, with Schibsted Grotesk text and Fragment Mono labels.
 
 ## Limits
 

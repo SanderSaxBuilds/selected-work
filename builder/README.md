@@ -32,7 +32,7 @@ No build step, no npm packages and no external scripts. The only outside request
 6. Set weekly hours and the time slot length. The widget only offers start times where the service ends before closing.
 7. Pick the booking channel and enter the handle. The studio shows the exact link the site will open.
 8. Add the address, area and a Google Maps share link, then the questions.
-9. Watch the preview on the right in Desktop or Phone size. On a phone, switch between Edit and Preview with the tabs.
+9. Watch the live preview on the artboard beside the inspector in Desktop, Tablet or Phone size. Drag the handle on the right edge of the artboard, or focus it and use the arrow keys, to try any width from 320 to 1440 pixels. It snaps to common widths and a double click returns it to desktop. On a phone, switch between Edit and Preview with the tabs.
 10. Press Download site. The zip holds index.html, site.css, site.js, config.js and a README.md written for that business. Copy config puts config.js on the clipboard instead.
 
 The draft is saved in the browser on this device, so a reload keeps your work. Start over at the bottom of the panel brings back the spa sample.
