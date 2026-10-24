@@ -4,256 +4,312 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your handwriting as a font · SanderSax</title>
-<meta name="description" content="Turn your handwriting into a real font you can type with. Type a name and a pen writes it, draw a few letters right in the page and download them as a font, or order the full font from one printed sheet.">
+<meta name="description" content="Turn your handwriting into a real font you can type with. Type a name and the machine writes it, reads the strokes and builds a font. Draw a few letters right in the page and download them as a font, or order the full font from one printed sheet.">
 <meta property="og:title" content="Your handwriting, as a real font">
-<meta property="og:description" content="A pen writes your name live. Draw letters in the browser and download a working font in seconds. The full version is made from one printed sheet.">
+<meta property="og:description" content="A pen writes your name, the machine reads it and builds the letters into a font file. Draw letters in the browser and download a working font in seconds.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0b0b0c">
+<meta name="theme-color" content="#0a0a0b">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/sandersax-icon-32.png">
 <link rel="apple-touch-icon" href="../assets/sandersax-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=Roboto+Flex:opsz,wdth,wght@8..144,100..151,400..700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..800&family=Martian+Mono:wdth,wght@75..112.5,400..600&family=Handjet:wght@300..600&family=IBM+Plex+Sans:wght@400;500;600&family=Caveat:wght@500;700&display=swap">
 <style>
 :root{
-  --desk:#0b0b0c;--slate:#141518;--slate-2:#18191c;--slate-3:#202125;--deep:#08080a;
-  --tx:#d8d6d0;--hi:#f2f0ea;--muted:#8b8d92;--muted-2:#5f6167;
-  --line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.14);--line-3:rgba(255,255,255,.28);
-  --ink:#f1eee6;--glow:#c6d2ff;--ink-rgb:241,238,230;--glow-rgb:198,210,255;
-  --paper:#ecebe5;--dink:#17181d;
-  --display:"Archivo","Roboto Flex",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;
+  --desk:#0a0a0b;--win:#141416;--win-2:#19191c;--win-3:#212125;--deep:#070708;--face:#e7e6e1;
+  --tx:#d4d3ce;--hi:#f1f0eb;--muted:#8a8b90;--muted-2:#5b5c61;
+  --line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.13);--line-3:rgba(255,255,255,.26);
+  --bev:inset 1px 1px 0 rgba(255,255,255,.09),inset -1px -1px 0 rgba(0,0,0,.55);
+  --sunk:inset 1px 1px 0 rgba(0,0,0,.7),inset -1px -1px 0 rgba(255,255,255,.07);
+  --ink:#eeede8;--ink-rgb:238,237,232;--sig:#f0414e;
+  --paper:#e9e8e2;--dink:#16171a;
+  --display:"Tektur","IBM Plex Sans",system-ui,sans-serif;--sys:"Martian Mono",ui-monospace,monospace;--led:"Handjet","Martian Mono",monospace;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --hand:Caveat,"Segoe Print",cursive;
-  --uh:"Caveat";--uhm:"Caveat";--nl:6;
+  --uh:"Caveat";--uhm:"Caveat";--nl:6;--bh:52px;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:80px;background:var(--desk)}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:72px;background:var(--desk)}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-body{margin:0;background:var(--desk);color:var(--tx);font:16px/1.6 var(--body);min-width:320px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{margin:0;background:radial-gradient(120% 70% at 50% -8%,#19191c 0,#0e0e10 42%,var(--desk) 70%) no-repeat,var(--desk);color:var(--tx);font:16px/1.6 var(--body);min-width:320px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 section,footer{position:relative;overflow-x:clip}
 a{color:inherit}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 ::selection{background:var(--hi);color:var(--desk)}
-:focus-visible{outline:1px solid var(--hi);outline-offset:3px}
-.wrap{width:100%;max-width:1200px;margin:0 auto;padding-left:24px;padding-right:24px}
+:focus-visible{outline:1px dashed var(--hi);outline-offset:3px}
+.wrap{width:100%;max-width:1240px;margin:0 auto;padding-left:24px;padding-right:24px}
+@media (min-width:1800px){.wrap{max-width:1480px}}
 @media (max-width:640px){.wrap{padding-left:16px;padding-right:16px}}
-h1,.stx h2,.head h2,.sl b,.plan h3,.plan .pr,.contact h2{font-variation-settings:"wdth" 110}
-html[lang=ru] :is(h1,.stx h2,.head h2,.sl b,.plan h3,.plan .pr,.contact h2){font-variation-settings:"wdth" 122}
-/* light that hugs the letters, never a background */
-.lit{color:var(--ink);text-shadow:0 0 .03em rgba(var(--glow-rgb),.9),0 0 .14em rgba(var(--glow-rgb),.42),0 0 .42em rgba(var(--glow-rgb),.16)}
+.sys{font-family:var(--sys);font-variation-settings:"wdth" 87}
+.lit{color:var(--ink)}
 
-/* bar */
-.bar{position:sticky;top:0;z-index:30;background:rgba(11,11,12,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.bar .wrap{display:flex;align-items:center;gap:14px;min-height:64px;padding-top:4px;padding-bottom:4px}
+/* system menu bar */
+.bar{position:sticky;top:0;z-index:30;background:linear-gradient(#1c1c1f,#141416);border-bottom:1px solid #000;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 1px 0 rgba(255,255,255,.03)}
+.bar .wrap{display:flex;align-items:center;gap:14px;height:var(--bh)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap;min-height:44px}
-.logo .mk{width:20px;height:32px;background:var(--hi);-webkit-mask:url(../assets/sandersax-mark.png) center/contain no-repeat;mask:url(../assets/sandersax-mark.png) center/contain no-repeat}
-.logo .lw{font:600 13px/1 var(--display);font-stretch:125%;letter-spacing:.2em;color:var(--hi)}
-.nav{display:flex;gap:2px;margin-left:auto}
-.nav a{white-space:nowrap;padding:16px 11px;text-decoration:none;font:500 11.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:color .2s}
-.nav a:hover{color:var(--hi)}
-.lang{display:flex;border:1px solid var(--line-2);border-radius:8px;padding:3px;position:relative;flex:0 0 auto}
-.lang button{border:0;background:transparent;color:var(--muted);min-width:44px;min-height:44px;border-radius:6px;font:600 11.5px/1 var(--mono);letter-spacing:.12em;position:relative;z-index:1;transition:color .25s}
+.logo .mk{width:18px;height:28px;background:var(--hi);-webkit-mask:url(../assets/sandersax-mark.png) center/contain no-repeat;mask:url(../assets/sandersax-mark.png) center/contain no-repeat}
+.logo .lw{font:600 14px/1 var(--display);letter-spacing:.16em;color:var(--hi)}
+.nav{display:flex;margin-left:auto;align-self:stretch}
+.nav a{display:flex;align-items:center;white-space:nowrap;padding:0 13px;text-decoration:none;font:500 11px/1 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);transition:color .15s,background .15s}
+.nav a:hover{background:var(--hi);color:var(--desk)}
+.clk{font:500 22px/1 var(--led);letter-spacing:.06em;color:var(--tx);padding:0 4px 0 12px;border-left:1px solid var(--line-2);margin-left:4px;font-variant-numeric:tabular-nums}
+.lang{display:flex;padding:2px;background:var(--deep);box-shadow:var(--sunk);border:1px solid #000;flex:0 0 auto}
+.lang button{border:0;background:transparent;color:var(--muted);min-width:44px;min-height:40px;font:600 11px/1 var(--sys);letter-spacing:.08em;transition:color .15s}
 .lang button:hover{color:var(--hi)}
-.lang button[aria-pressed="true"]{color:var(--desk)}
-.lang .pill{position:absolute;top:3px;bottom:3px;left:3px;width:44px;border-radius:6px;background:var(--hi);transition:transform .35s var(--ease)}
-@media (max-width:860px){.nav{display:none}.lang{margin-left:auto}}
+.lang button[aria-pressed="true"]{background:var(--face);color:var(--desk);box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #8f8f8b}
+@media (max-width:900px){.nav{display:none}.clk{margin-left:auto;border-left:0}}
 @media (max-width:359px){.logo .lw{display:none}}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 24px;border-radius:8px;text-decoration:none;font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;border:1px solid transparent;transition:background .25s,color .25s,border-color .25s,box-shadow .4s,transform .15s;white-space:nowrap}
-.btn svg{width:18px;height:18px;flex:0 0 auto}
-.btn.p,.btn.k{background:var(--hi);color:var(--desk)}
-.btn.p:hover,.btn.k:hover{background:#fff;box-shadow:0 10px 36px -14px rgba(var(--glow-rgb),.75)}
-.btn.g,.plan:not(.top) .btn{background:transparent;color:var(--tx);border-color:var(--line-2)}
-.btn.g:hover,.plan:not(.top) .btn:hover{border-color:var(--hi);color:var(--hi)}
-.btn:active{transform:scale(.985)}
+/* windows */
+.win{background:var(--win);border:1px solid #000;box-shadow:var(--bev),0 50px 100px -50px #000;border-radius:2px;min-width:0}
+.tt{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;height:30px;padding:0 40px;background:linear-gradient(#26262a,#1b1b1e);border-bottom:1px solid #000;box-shadow:inset 0 1px 0 rgba(255,255,255,.09);font:500 10.5px/1 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.1em;text-transform:uppercase;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt::before,.tt::after{content:"";position:absolute;top:8px;width:12px;height:12px;border:1px solid #000;background:#2c2c31;box-shadow:inset 1px 1px 0 rgba(255,255,255,.14)}
+.tt::before{left:9px}.tt::after{right:9px}
+.tt span{overflow:hidden;text-overflow:ellipsis}
 
-/* hero: a notebook on a screen, a pen writes the name */
-.hero{padding:34px 0 40px}
-.hg{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);column-gap:56px;grid-template-areas:"hh side" "slate slate" "note note";align-items:end}
-.hh{grid-area:hh;margin-bottom:24px}.hside{grid-area:side;margin-bottom:24px}.slate{grid-area:slate}.hnote{grid-area:note}
-.eyebrow{font:500 11px/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
-h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,4.6vw,64px);line-height:1;letter-spacing:-.025em;margin:0;color:var(--hi)}
+/* buttons, raised then pressed */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;text-decoration:none;font:600 11.5px/1 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.08em;text-transform:uppercase;border:1px solid #000;border-radius:2px;white-space:nowrap;transition:background .15s,color .15s}
+.btn svg{width:17px;height:17px;flex:0 0 auto}
+.btn.p,.btn.k{background:var(--face);color:var(--desk);box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #8f8f8b,0 1px 0 rgba(255,255,255,.04)}
+.btn.p:hover,.btn.k:hover{background:#fff}
+.btn.g,.plan:not(.top) .btn{background:var(--win-3);color:var(--hi);box-shadow:var(--bev)}
+.btn.g:hover,.plan:not(.top) .btn:hover{background:#2a2a2f}
+.btn:active{transform:translateY(1px);box-shadow:inset -1px -1px 0 rgba(255,255,255,.1),inset 1px 1px 0 rgba(0,0,0,.6)}
+
+/* hero */
+.hero{padding:40px 0 30px}
+.hrow{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px 56px;align-items:end;margin-bottom:28px}
+.eyebrow{display:flex;align-items:center;gap:10px;font:500 10.5px/1.4 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+.eyebrow::before{content:"";width:8px;height:8px;background:var(--sig);flex:0 0 auto}
+h1{font-family:var(--display);font-weight:600;font-variation-settings:"wdth" 88;font-size:clamp(34px,5vw,72px);line-height:.98;letter-spacing:-.01em;margin:0;color:var(--hi);text-transform:uppercase}
 h1 span{color:var(--muted)}
 .hside p{margin:0 0 18px;color:var(--muted);max-width:32em;font-size:15.5px}
 .cta{display:flex;flex-wrap:wrap;gap:10px}
-@media (max-width:860px){.hg{grid-template-columns:minmax(0,1fr);grid-template-areas:"hh" "side" "slate" "note"}.hh{margin-bottom:14px}}
+@media (max-width:860px){.hrow{grid-template-columns:minmax(0,1fr);margin-bottom:22px}}
 
-.slate{border:1px solid var(--line-2);border-radius:12px;background:var(--slate);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 60px 120px -60px rgba(0,0,0,.95);overflow:hidden}
-.tbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--slate-2)}
-.namebox{flex:1 1 300px;display:flex;align-items:center;gap:10px;min-height:50px;border:1px solid var(--line-2);border-radius:8px;padding:0 3px 0 14px;background:var(--deep);transition:border-color .25s;min-width:0}
-.namebox:hover,.namebox:focus-within{border-color:var(--line-3)}
-.namebox label{font:500 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-.namebox input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:500 18px var(--mono);color:var(--hi);caret-color:var(--ink);min-height:44px;padding:0;letter-spacing:.03em}
+.tbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;padding:10px;border-bottom:1px solid #000;background:var(--win-2)}
+.namebox{flex:1 1 300px;display:flex;align-items:center;gap:10px;min-height:48px;background:var(--deep);border:1px solid #000;box-shadow:var(--sunk);padding:0 3px 0 12px;min-width:0}
+.namebox label{font:500 10px/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.namebox label::after{content:">";margin-left:8px;color:var(--muted-2)}
+.namebox input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:500 17px var(--sys);font-variation-settings:"wdth" 87;color:var(--hi);caret-color:var(--hi);min-height:44px;padding:0}
 .namebox input::placeholder{color:var(--muted-2)}
-.ib{width:44px;height:44px;flex:0 0 auto;border:0;border-radius:6px;background:transparent;color:var(--muted);display:grid;place-items:center;transition:background .2s,color .2s}
-.ib:hover{background:rgba(255,255,255,.07);color:var(--hi)}
-.ib svg{width:18px;height:18px}
-.ib:active svg{transform:rotate(-40deg);transition:transform .2s}
+.ib{width:44px;height:40px;flex:0 0 auto;border:1px solid #000;background:var(--win-3);box-shadow:var(--bev);color:var(--tx);display:grid;place-items:center}
+.ib:hover{color:var(--hi);background:#2a2a2f}
+.ib:active{box-shadow:inset 1px 1px 0 rgba(0,0,0,.6)}
+.ib svg{width:17px;height:17px}
 .tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.seg{display:flex;align-items:center;gap:2px;padding:2px;border:1px solid var(--line);border-radius:8px}
-.seg .lbl{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);padding:0 8px 0 8px}
-.sw,.nb{width:44px;height:44px;border:0;background:transparent;border-radius:6px;display:grid;place-items:center;transition:background .2s;color:var(--muted)}
-.sw:hover,.nb:hover{background:rgba(255,255,255,.06);color:var(--hi)}
-.sw i{width:14px;height:14px;border-radius:50%;background:var(--c);box-shadow:0 0 8px -1px var(--c);transition:transform .25s var(--ease)}
-.sw[aria-checked=true],.nb[aria-checked=true]{background:rgba(255,255,255,.09);color:var(--hi)}
-.sw[aria-checked=true] i{transform:scale(1.2);box-shadow:0 0 0 2px var(--slate-2),0 0 0 3px var(--hi),0 0 10px var(--c)}
-.nb i{display:block;width:20px;height:var(--h);border-radius:3px;background:currentColor}
-.page{position:relative;height:clamp(300px,54vh,540px);background-color:var(--slate);
-  background-image:linear-gradient(to right,transparent calc(var(--mx,64px) - 1px),rgba(232,150,170,.16) calc(var(--mx,64px) - 1px),rgba(232,150,170,.16) var(--mx,64px),transparent var(--mx,64px)),repeating-linear-gradient(to bottom,transparent 0,transparent calc(var(--rule,48px) - 1px),rgba(255,255,255,.055) calc(var(--rule,48px) - 1px),rgba(255,255,255,.055) var(--rule,48px));
-  background-position:0 0,0 var(--roff,0px);overflow:hidden}
+.seg{display:flex;align-items:center;gap:0;border:1px solid #000;background:var(--deep);box-shadow:var(--sunk);padding:2px}
+.seg .lbl{font:500 10px/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 10px 0 8px}
+.nb{width:44px;height:40px;border:0;background:transparent;display:grid;place-items:center;color:var(--muted)}
+.nb:hover{color:var(--hi)}
+.nb[aria-checked=true]{background:var(--win-3);color:var(--hi);box-shadow:var(--bev)}
+.nb i{display:block;width:20px;height:var(--h);background:currentColor}
+
+.station{overflow:hidden}
+.desk2{display:grid;grid-template-columns:minmax(0,1fr) 300px}
+.page{position:relative;height:clamp(300px,52vh,520px);background:radial-gradient(130% 120% at 50% 40%,#131315 0,#0d0d0f 60%,#09090a 100%);box-shadow:inset 0 0 0 1px #000,inset 0 0 60px rgba(0,0,0,.55);overflow:hidden}
 .page .layer{position:absolute;inset:0;transition:opacity .45s ease,transform .45s var(--ease)}
 .page .layer.turn{opacity:0;transform:translateY(-14px)}
 .page canvas{position:absolute;left:0;top:0;width:100%;height:100%}
-.page canvas.glow{filter:blur(var(--gb,6px));opacity:.8;transition:opacity 1.8s ease}
-.page.dry canvas.glow{opacity:.5}
-.page canvas.ink{filter:drop-shadow(0 0 .7px rgba(var(--ink-rgb),.75)) drop-shadow(0 0 3px rgba(var(--glow-rgb),.45))}
-.ph,.pf{position:absolute;left:calc(var(--mx,64px) + 14px);right:16px;display:flex;justify-content:space-between;gap:12px;font:500 10.5px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);pointer-events:none;white-space:nowrap}
-.ph{top:14px}.pf{bottom:12px}
-.pf b{font-weight:500;color:var(--muted);transition:color .5s}
-.pf b.ok{color:var(--ink)}
-.pf .r{display:flex;gap:16px}
+.page canvas.glow{filter:blur(var(--gb,6px));opacity:.09}
+.ml{position:absolute;left:0;right:0;top:var(--y,50%);height:0;border-top:1px dashed rgba(255,255,255,.1);opacity:0;transition:opacity .5s,top .5s var(--ease);pointer-events:none}
+.ml.b{border-top-style:solid;border-top-color:rgba(255,255,255,.2)}
+.ml span{position:absolute;left:10px;top:0;transform:translateY(-50%);padding:0 6px 0 0;background:#0f0f11;font:500 9.5px/1 var(--sys);font-variation-settings:"wdth" 80;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
+.ml.b span{color:var(--muted)}
+.page.metric .ml{opacity:1}
+.ph,.pf{position:absolute;left:14px;right:14px;display:flex;justify-content:space-between;gap:12px;font:500 10px/1.3 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);pointer-events:none;white-space:nowrap}
+.ph{top:12px}.pf{bottom:10px}
+.pf b{font-weight:500;color:var(--muted)}
+.pf b.ok{color:var(--hi)}
+.pf b.ok::before{content:"";display:inline-block;width:7px;height:7px;background:var(--hi);margin-right:8px;vertical-align:.05em}
 .penw{position:absolute;left:0;top:0;width:0;height:0;opacity:0;pointer-events:none;z-index:3;transition:opacity .35s}
 .penw.away{transition:opacity .6s ease .1s,transform .7s var(--ease)}
 .penw svg{position:absolute;left:0;top:calc(var(--pl,220px)*-11/240);width:var(--pl,220px);height:calc(var(--pl,220px)*22/240);transform-origin:0 50%;transform:rotate(-52deg);overflow:visible}
-.hnote{font-size:13px;color:var(--muted);margin:12px 0 0}
+.sweep{position:absolute;top:0;bottom:0;left:0;width:2px;background:var(--hi);opacity:0;pointer-events:none;z-index:2;box-shadow:0 0 14px rgba(255,255,255,.35)}
+.sweep::before{content:"";position:absolute;right:2px;top:0;bottom:0;width:120px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06))}
+.sweep span{position:absolute;top:34px;left:10px;font:500 9.5px/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--hi);white-space:nowrap;background:#0d0d0f;padding:3px 5px;border:1px solid var(--line-2)}
+.sweep.go{animation:sweep var(--sd,1s) linear forwards}
+@keyframes sweep{0%{left:0;opacity:1}96%{opacity:1}100%{left:calc(100% - 2px);opacity:0}}
+
+/* the machine reads, traces, builds and exports */
+.proc{background:var(--win-2);border-left:1px solid #000;box-shadow:inset 1px 0 0 rgba(255,255,255,.05);display:flex;flex-direction:column;min-width:0}
+.proc h2{margin:0;padding:12px 14px 10px;font:500 10.5px/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.proc h2 b{font-weight:500;color:var(--tx)}
+.stg{list-style:none;margin:0;padding:6px 14px 4px;display:grid}
+.stg li{display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:center;column-gap:8px;padding:8px 0 9px;border-bottom:1px solid var(--line);color:var(--muted-2)}
+.stg .n{font:500 10px/1 var(--sys);letter-spacing:.04em;position:relative}
+.stg .l{font:500 11px/1.2 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stg .v{font:500 19px/1 var(--led);letter-spacing:.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stg .pb{grid-column:2/4;height:9px;margin-top:7px;background:var(--deep);box-shadow:var(--sunk);border:1px solid #000;padding:1px;overflow:hidden}
+.stg .pb i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--tx) 0 6px,transparent 6px 8px)}
+.stg li.run,.stg li.ok{color:var(--tx)}
+.stg li.run .n::before{content:"";position:absolute;left:-9px;top:1px;width:5px;height:8px;background:var(--sig)}
+.stg li.ok .v{color:var(--hi)}
+.stg li.ok .pb i{background:repeating-linear-gradient(90deg,var(--hi) 0 6px,transparent 6px 8px)}
+.cells{flex:1;display:flex;flex-wrap:wrap;gap:5px;padding:14px;min-height:76px;align-content:center;font-family:var(--hand)}
+.gc{width:40px;height:56px;background:var(--deep);border:1px solid #000;box-shadow:var(--sunk);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:3px 0 3px;opacity:.12;transition:opacity .25s,background .25s}
+.gc b{font-weight:700;font-size:32px;line-height:40px;color:var(--ink)}
+.gc i{font:500 7.5px/1 var(--sys);font-style:normal;letter-spacing:.04em;color:var(--muted-2)}
+.gc.on{opacity:1}
+.fileo{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid #000;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);min-width:0}
+.fileo .fi{width:34px;height:40px;flex:0 0 auto;background:var(--face);color:var(--desk);display:grid;place-items:end center;padding-bottom:4px;font:700 17px/1 var(--hand);clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%);opacity:.25;transition:opacity .4s}
+.fileo.ok .fi{opacity:1}
+.fileo div{min-width:0;flex:1}
+.fileo b{display:block;font:500 12px/1.3 var(--sys);font-variation-settings:"wdth" 80;color:var(--hi);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fileo a{font:500 10.5px/1 var(--sys);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;min-height:28px;border-bottom:1px solid var(--line-2)}
+.fileo a:hover{color:var(--hi);border-bottom-color:var(--hi)}
+.hnote{font:500 10.5px/1.5 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2);margin:12px 0 0}
+@media (max-width:980px){
+  .desk2{grid-template-columns:minmax(0,1fr)}
+  .proc{border-left:0;border-top:1px solid #000}
+  .stg{grid-template-columns:1fr 1fr;column-gap:18px}
+  .cells{min-height:0}
+}
 @media (max-width:640px){
-  .hero{padding-top:24px}
-  .hg{grid-template-areas:"hh" "slate" "side"}.hh{margin-bottom:18px}.hside{margin:20px 0 0}.hnote{display:none}
-  .slate{margin:0 -16px;border-radius:0;border-left:0;border-right:0}
+  .hero{padding-top:26px}
+  .station{margin:0 -16px;border-left:0;border-right:0}
   .namebox{flex-basis:100%}
-  .tools{width:100%;justify-content:space-between}
-  .seg .lbl{display:none}
-  .page{height:clamp(240px,40vh,330px)}
-  .pf .r .x{display:none}
+  .tools{width:100%}
+  .seg{flex:1;justify-content:space-between}
+  .page{height:clamp(240px,40vh,320px)}
+  .stg{column-gap:12px;padding-top:2px}
+  .stg li{grid-template-columns:18px minmax(0,1fr);padding:8px 0 9px;row-gap:3px}
+  .stg .l{font-size:10px}
+  .stg .v{grid-column:2;font-size:17px}
+  .stg .pb{grid-column:2;margin-top:4px}
+  .stg li.run .n::before{left:-7px}
+  .hero .wrap{display:flex;flex-direction:column}
+  .hrow{display:contents}.hh{order:1;margin-bottom:20px}.station{order:2}.hside{order:3;margin-top:22px}.hnote{display:none}
+  .gc{width:36px;height:48px}.gc b{font-size:28px;line-height:34px}.cells{min-height:0}
   .hero .cta .btn{flex:1 1 auto}
+  .ml span{font-size:8.5px;left:6px}
 }
 
 /* story: paper to font, driven by scroll */
-.story{position:relative;height:340vh;border-top:1px solid var(--line)}
-.pin{position:sticky;top:64px;height:calc(100svh - 64px);display:flex;align-items:center;overflow:hidden}
+.story{position:relative;height:340vh;border-top:1px solid #000;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.pin{position:sticky;top:var(--bh);height:calc(100svh - var(--bh));display:flex;align-items:center;overflow:hidden}
 .pin .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;align-items:center}
-.kick{display:flex;align-items:center;gap:12px;font:500 11px/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
-.kick::before{content:"";width:22px;height:1px;background:var(--line-3)}
-.stx h2,.head h2{font-family:var(--display);font-size:clamp(28px,3.4vw,46px);font-weight:600;letter-spacing:-.02em;line-height:1.06;margin:0;color:var(--tx)}
-.stx h2 em,.head h2 em{font-style:normal;color:var(--hi);padding-bottom:.06em;background:linear-gradient(90deg,rgba(var(--ink-rgb),.9),rgba(var(--glow-rgb),.9)) no-repeat 0 100%/100% 1px}
+.kick{display:flex;align-items:center;gap:12px;font:500 10.5px/1.4 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+.kick b{font-weight:500;color:var(--desk);background:var(--face);padding:3px 6px}
+.stx h2,.head h2{font-family:var(--display);font-variation-settings:"wdth" 88;font-size:clamp(28px,3.5vw,48px);font-weight:600;letter-spacing:-.005em;line-height:1.02;margin:0;color:var(--tx);text-transform:uppercase}
+.stx h2 em,.head h2 em{font-style:normal;color:var(--hi);padding-bottom:.04em;background:linear-gradient(var(--hi),var(--hi)) no-repeat 0 100%/100% 2px}
 .sl{list-style:none;margin:30px 0 0;padding:0 0 0 22px;display:grid;gap:18px;position:relative}
-.sl::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--line-2)}
-.sl::after{content:"";position:absolute;left:0;top:6px;width:1px;height:calc(var(--sp,0)*(100% - 12px));background:var(--ink);box-shadow:0 0 6px rgba(var(--glow-rgb),.7)}
+.sl::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--deep);box-shadow:var(--sunk)}
+.sl::after{content:"";position:absolute;left:1px;top:6px;width:1px;height:calc(var(--sp,0)*(100% - 12px));background:var(--hi)}
 .sl li{opacity:.34;transition:opacity .4s,transform .5s var(--ease)}
 .sl li.on{opacity:1;transform:translateX(6px)}
-.sl b{display:block;font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.005em;line-height:1.25;color:var(--hi)}
-.sl b i{font:500 .62em/1 var(--mono);font-style:normal;color:var(--muted);letter-spacing:.1em;margin-right:12px;vertical-align:.25em}
+.sl b{display:block;font:600 19px/1.25 var(--display);font-variation-settings:"wdth" 92;color:var(--hi)}
+.sl b i{font:500 .58em/1 var(--sys);font-style:normal;color:var(--muted);letter-spacing:.06em;margin-right:12px;vertical-align:.25em}
+.sl li.on b i{color:var(--desk);background:var(--face);padding:2px 5px}
 .sl .ds{display:block;color:var(--muted);font-size:15px;margin-top:4px;max-width:28em}
-.lnk{font:500 11.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--hi);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:18px;border-bottom:1px solid var(--line-2);transition:border-color .25s}
+.lnk{font:500 11px/1 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.08em;text-transform:uppercase;color:var(--hi);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:18px;border-bottom:1px solid var(--line-2)}
 .lnk:hover{border-bottom-color:var(--hi)}
-.scene{position:relative;justify-self:center;width:min(100%,calc(100svh - 64px - 96px));aspect-ratio:1/1;container-type:size;border-radius:10px;background:var(--slate);border:1px solid var(--line);overflow:hidden;isolation:isolate;box-shadow:0 50px 90px -50px rgba(0,0,0,.9)}
-.paper{position:absolute;left:19%;top:6%;width:62%;height:88%;background:#efeeea;border-radius:.6cqw;box-shadow:0 4cqw 8cqw -3cqw rgba(0,0,0,.7);transform-origin:50% 100%;will-change:transform}
-.paper .ph2{position:absolute;left:9%;top:3.4%;right:9%;display:flex;justify-content:space-between;font:500 1.8cqw/1 var(--mono);color:#80848c;letter-spacing:.08em;text-transform:uppercase}
+.sw2{justify-self:center;width:min(100%,calc(100svh - var(--bh) - 120px))}
+.scene{position:relative;width:100%;aspect-ratio:1/1;container-type:size;background:radial-gradient(120% 120% at 50% 35%,#18181b,#0d0d0f 70%);overflow:hidden;isolation:isolate}
+.paper{position:absolute;left:19%;top:6%;width:62%;height:88%;background:#edece7;border-radius:.3cqw;box-shadow:0 4cqw 8cqw -3cqw rgba(0,0,0,.7);transform-origin:50% 100%;will-change:transform}
+.paper .ph2{position:absolute;left:9%;top:3.4%;right:9%;display:flex;justify-content:space-between;font:500 1.8cqw/1 var(--sys);color:#80848c;letter-spacing:.06em;text-transform:uppercase}
 .paper .cm{position:absolute;width:3.4%;aspect-ratio:1;background:#0a0a0c}
-.bx{position:absolute;border:.22cqw solid #d3d3d0;border-radius:.3cqw}
-.bx small{position:absolute;left:6%;top:3%;font:500 1.5cqw/1 var(--mono);color:#9a9ca2}
+.bx{position:absolute;border:.22cqw solid #d3d3d0}
+.bx small{position:absolute;left:6%;top:3%;font:500 1.5cqw/1 var(--sys);color:#9a9ca2}
 .bx::after{content:"";position:absolute;left:8%;right:8%;bottom:24%;border-top:.18cqw dashed #deded9}
-.fl{position:absolute;left:0;top:0;font:700 6.6cqw/1 var(--hand);color:#121214;will-change:transform;opacity:0;white-space:nowrap;transition:text-shadow .6s}
-.fl.m{text-shadow:0 0 .04em rgba(var(--glow-rgb),.9),0 0 .3em rgba(var(--glow-rgb),.35)}
+.fl{position:absolute;left:0;top:0;font:700 6.6cqw/1 var(--hand);color:#121214;will-change:transform;opacity:0;white-space:nowrap}
+.fl.m{text-decoration:underline;text-decoration-thickness:.12cqw;text-underline-offset:.25em;text-decoration-color:rgba(255,255,255,.35)}
 .phone{position:absolute;left:27%;top:7%;width:46%;height:86%;border-radius:5.5cqw;border:2.2cqw solid #040405;box-shadow:0 0 0 .3cqw #2a2b31,0 5cqw 10cqw -3cqw rgba(0,0,0,.8);opacity:0;will-change:transform}
 .phone .vf{position:absolute;inset:9%}
-.phone .vf i{position:absolute;width:16%;aspect-ratio:1;border:.4cqw solid #fff;border-radius:.4cqw}
+.phone .vf i{position:absolute;width:16%;aspect-ratio:1;border:.4cqw solid #fff}
 .phone .vf i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}.phone .vf i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
 .phone .vf i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}.phone .vf i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
 .phone .sh{position:absolute;left:50%;bottom:3%;width:13cqw;height:13cqw;margin-left:-6.5cqw;border-radius:50%;border:.7cqw solid #fff;background:rgba(255,255,255,.15)}
 .phone .nt{position:absolute;left:50%;top:1.6%;width:28%;height:3.6%;margin-left:-14%;border-radius:99px;background:#040405}
 .flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:5}
-.file{position:absolute;left:8%;top:58%;width:84%;height:32%;border-radius:1.4cqw;background:var(--slate-2);border:1px solid var(--line-2);padding:4.4cqw;display:flex;flex-direction:column;justify-content:space-between;opacity:0;color:var(--hi)}
+.file{position:absolute;left:8%;top:57%;width:84%;height:35%;background:var(--win);border:1px solid #000;box-shadow:var(--bev),0 3cqw 6cqw -2cqw #000;display:flex;flex-direction:column;opacity:0;color:var(--hi)}
+.file .ft{height:6.4cqw;display:flex;align-items:center;justify-content:center;background:linear-gradient(#26262a,#1b1b1e);border-bottom:1px solid #000;font:500 2.2cqw/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--tx)}
+.file .fb{flex:1;padding:3.4cqw 4cqw;display:flex;flex-direction:column;justify-content:space-between}
 .file .t{display:flex;align-items:center;gap:3.4cqw}
-.file .ic{width:11cqw;height:11cqw;border-radius:1cqw;background:var(--hi);color:var(--desk);display:grid;place-items:center;font:700 5.6cqw/1 var(--hand);flex:0 0 auto}
-.file b{display:block;font:500 4cqw/1.1 var(--mono);letter-spacing:-.01em}
-.file .t div span{display:block;font-size:2.7cqw;color:var(--muted);margin-top:.8cqw}
-.file .pg{height:.9cqw;background:rgba(255,255,255,.07);overflow:hidden;border-radius:1cqw}
-.file .pg i{display:block;height:100%;width:0;background:var(--ink);box-shadow:0 0 2cqw rgba(var(--glow-rgb),.8)}
+.file .ic{width:8.4cqw;height:10cqw;background:var(--face);color:var(--desk);display:grid;place-items:end center;padding-bottom:1cqw;font:700 4.6cqw/1 var(--hand);flex:0 0 auto;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)}
+.file b{display:block;font:500 3.6cqw/1.1 var(--sys);font-variation-settings:"wdth" 80}
+.file .t div span{display:block;font:500 2.4cqw/1.3 var(--sys);color:var(--muted);margin-top:.8cqw}
+.file .pg{height:2.6cqw;background:var(--deep);border:1px solid #000;box-shadow:var(--sunk);padding:.3cqw;overflow:hidden}
+.file .pg i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--hi) 0 1.6cqw,transparent 1.6cqw 2.1cqw)}
 .file .ch3{display:flex;gap:1.6cqw;align-items:center}
-.file .ch3 em{font:500 2.3cqw/1 var(--mono);font-style:normal;padding:1.3cqw 2.2cqw;border:1px solid var(--line-2);border-radius:.8cqw;letter-spacing:.1em}
-.file .ch3 em:first-child{background:var(--hi);color:var(--desk);border-color:var(--hi)}
-.file .ch3 .st3{margin-left:auto;font:500 2.3cqw/1 var(--mono);letter-spacing:.08em;color:var(--ink)}
+.file .ch3 em{font:500 2.2cqw/1 var(--sys);font-style:normal;padding:1.2cqw 2cqw;border:1px solid #000;background:var(--win-3);box-shadow:var(--bev);letter-spacing:.06em}
+.file .ch3 em:first-child{background:var(--face);color:var(--desk);box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #8f8f8b}
+.file .ch3 .st3{margin-left:auto;font:500 3.4cqw/1 var(--led);letter-spacing:.04em;color:var(--hi)}
 .scan{position:absolute;left:0;top:5%;height:47%;width:0;opacity:0;z-index:4;pointer-events:none}
-.scan::before{content:"";position:absolute;top:0;bottom:0;left:-.15cqw;width:.3cqw;background:var(--ink);box-shadow:0 0 2.4cqw rgba(var(--glow-rgb),.9)}
-.scan span{position:absolute;top:-.4cqw;left:1.6cqw;font:500 2cqw/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--hi);white-space:nowrap}
+.scan::before{content:"";position:absolute;top:0;bottom:0;left:-.15cqw;width:.3cqw;background:var(--hi);box-shadow:0 0 2cqw rgba(255,255,255,.35)}
+.scan span{position:absolute;top:-.4cqw;left:1.6cqw;font:500 2cqw/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--hi);white-space:nowrap;background:#0d0d0f;padding:.5cqw .8cqw;border:1px solid var(--line-2)}
 .scan.lf span{left:auto;right:1.6cqw}
 @media (max-width:900px){
   .story{height:300vh}
   .pin .wrap{grid-template-columns:1fr;gap:16px;align-content:center}
   .sl{margin-top:14px;padding-left:16px;grid-template-areas:"s"}.sl li{grid-area:s}.sl li:not(.on){opacity:0;visibility:hidden}.sl li.on{transform:none}
   .stx .lnk{display:none}
-  .scene{width:min(100%,calc(100svh - 64px - 270px))}
+  .sw2{width:min(100%,calc(100svh - var(--bh) - 300px))}
 }
 
 /* studio */
 section.s{padding-top:110px}
 .head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 32px;margin-bottom:28px}
 .head p{margin:0;color:var(--muted);max-width:32em}
-.js .head h2 em,.js .stx h2 em{background-size:0% 1px;transition:background-size 1.1s var(--ease) .2s}
-.js .on-v h2 em{background-size:100% 1px}
-.sheet{background:var(--slate);border-radius:12px;border:1px solid var(--line-2);box-shadow:0 50px 100px -60px rgba(0,0,0,.95);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);overflow:hidden}
-.left{padding:26px 26px 22px;border-right:1px solid var(--line)}
-.right{padding:26px;background:var(--slate-2);display:flex;flex-direction:column;gap:18px;min-width:0}
-.step{display:flex;align-items:center;gap:12px;font:500 11px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
-.step i{font-style:normal;width:24px;height:24px;display:grid;place-items:center;border:1px solid var(--line-3);border-radius:50%;color:var(--hi);font-size:11px;letter-spacing:0}
+.js .head h2 em,.js .stx h2 em{background-size:0% 2px;transition:background-size 1.1s var(--ease) .2s}
+.js .on-v h2 em{background-size:100% 2px}
+.sheet{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.left{padding:22px 22px 20px;border-right:1px solid #000;box-shadow:1px 0 0 rgba(255,255,255,.05)}
+.right{padding:22px;background:var(--win-2);display:flex;flex-direction:column;gap:18px;min-width:0}
+.step{display:flex;align-items:center;gap:12px;font:500 10.5px/1.2 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.step i{font-style:normal;min-width:22px;height:22px;display:grid;place-items:center;background:var(--face);color:var(--desk);font-size:10.5px;letter-spacing:0}
 .row{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:18px}
 .fld{display:flex;flex-direction:column;gap:6px;flex:1 1 180px;min-width:0}
-.fld label{font:500 10.5px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.fld input[type=text]{min-height:48px;border:1px solid var(--line-2);border-radius:8px;padding:0 14px;font:500 18px var(--mono);background:var(--deep);color:var(--hi);caret-color:var(--ink);letter-spacing:.04em;transition:border-color .25s}
-.fld input[type=text]:hover{border-color:var(--line-3)}
-.fld input[type=text]:focus{outline:1px solid var(--hi);outline-offset:1px}
+.fld label{font:500 10px/1.2 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fld input[type=text]{min-height:46px;border:1px solid #000;box-shadow:var(--sunk);border-radius:0;padding:0 12px;font:500 17px var(--sys);font-variation-settings:"wdth" 87;background:var(--deep);color:var(--hi);caret-color:var(--hi)}
+.fld input[type=text]:focus{outline:1px dashed var(--hi);outline-offset:2px}
 .wt{flex:0 1 200px}
-.wt input{accent-color:var(--ink);width:100%;min-height:48px}
-.pads{display:flex;flex-wrap:wrap;gap:12px}
+.wt input{accent-color:#c9c8c3;width:100%;min-height:46px}
+.pads{display:flex;flex-wrap:wrap;gap:10px}
 .pad{position:relative;width:140px;flex:0 0 auto}
-.pad canvas{display:block;width:140px;height:175px;border-radius:8px;border:1px solid var(--line);background:var(--deep);touch-action:none;cursor:crosshair;transition:border-color .2s,box-shadow .3s}
-.pad canvas:hover{border-color:var(--line-2)}
-.pad.act canvas{border-color:var(--line-3);box-shadow:0 0 30px -10px rgba(var(--glow-rgb),.55)}
-.pad .lb{position:absolute;left:10px;top:7px;font:500 11.5px/1 var(--mono);color:var(--muted);pointer-events:none}
+.pad canvas{display:block;width:140px;height:175px;border:1px solid #000;box-shadow:var(--sunk);background:var(--deep);touch-action:none;cursor:crosshair}
+.pad.act canvas{outline:1px solid var(--hi);outline-offset:-1px}
+.pad .lb{position:absolute;right:8px;bottom:8px;font:500 9.5px/1 var(--sys);color:var(--muted);pointer-events:none;letter-spacing:.04em}
 .pad .tl{position:absolute;right:4px;top:4px;display:flex;gap:2px;opacity:0;transition:opacity .2s}
 .pad:hover .tl,.pad:focus-within .tl,.pad.done .tl{opacity:1}
-.pad .tl button{width:32px;height:32px;border-radius:6px;border:0;background:rgba(255,255,255,.06);font-size:15px;line-height:1;color:var(--muted);transition:background .2s,color .2s}
-.pad .tl button:hover{background:rgba(255,255,255,.14);color:var(--hi)}
-.pad.done::after{content:"ok";position:absolute;left:10px;bottom:8px;font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.pad .tl button{width:32px;height:32px;border:1px solid #000;background:var(--win-3);box-shadow:var(--bev);font-size:15px;line-height:1;color:var(--tx)}
+.pad .tl button:hover{color:var(--hi);background:#2a2a2f}
+.pad.done::after{content:"OK";position:absolute;left:8px;bottom:8px;font:500 9.5px/1 var(--sys);letter-spacing:.08em;color:var(--desk);background:var(--face);padding:2px 4px}
 @media (hover:none){.pad .tl{opacity:1}.pad .tl button{width:40px;height:40px}}
 .hint{font-size:13.5px;color:var(--muted);margin:14px 0 0}
 .hint b{color:var(--tx)}
-@media (max-width:640px){.pad{width:calc(33.33% - 8px)}.pad canvas{width:100%;height:auto;aspect-ratio:4/5}.left,.right{padding:18px}
-  .pad .tl{position:static;opacity:1;margin-top:6px;gap:4px}.pad .tl button{flex:1 1 0;width:auto;min-width:0;height:44px}.pad.done::after{bottom:58px}}
+@media (max-width:640px){.pad{width:calc(33.33% - 7px)}.pad canvas{width:100%;height:auto;aspect-ratio:4/5}.left,.right{padding:16px}
+  .pad .tl{position:static;opacity:1;margin-top:6px;gap:4px}.pad .tl button{flex:1 1 0;width:auto;min-width:0;height:44px}.pad.done::after{bottom:58px}.pad .lb{bottom:58px;right:6px;font-size:8.5px}}
 .live{flex:1;display:flex;flex-direction:column;min-height:0;position:relative}
-.out{flex:1;min-height:220px;width:100%;border:1px solid var(--line-2);border-radius:8px;background:var(--deep);padding:14px 20px;font-size:clamp(56px,7vw,96px);line-height:1.1;resize:none;overflow:auto;caret-color:var(--ink);font-family:var(--hand);transition:border-color .25s;
-  background-image:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.1em - 1px),rgba(255,255,255,.06) calc(1.1em - 1px),rgba(255,255,255,.06) 1.1em);background-position:0 calc(14px - .14em);background-attachment:local}
-.out:hover{border-color:var(--line-3)}
-.out:focus{outline:1px solid var(--hi);outline-offset:1px}
+.out{flex:1;min-height:220px;width:100%;border:1px solid #000;box-shadow:var(--sunk);border-radius:0;background:var(--deep);padding:14px 18px;font-size:clamp(56px,7vw,96px);line-height:1.1;resize:none;overflow:auto;caret-color:var(--hi);font-family:var(--hand)}
+.out:focus{outline:1px dashed var(--hi);outline-offset:2px}
 .out.ready{font-family:var(--uh),"UHB",sans-serif}
 .sizes{display:grid;gap:4px;padding:2px 2px 0;color:var(--tx);overflow:hidden}
 .sizes div{white-space:nowrap;overflow:hidden;text-overflow:clip;font-family:var(--uh),"UHB",sans-serif;line-height:1.15}
-.sizes small{font:500 10.5px/1 var(--mono);color:var(--muted-2);letter-spacing:.08em;margin-right:12px;display:inline-block;width:34px}
+.sizes small{font:500 9.5px/1 var(--sys);color:var(--muted-2);letter-spacing:.04em;margin-right:12px;display:inline-block;width:34px}
 .dl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.dl .meta{font:500 11.5px/1.4 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.dl .meta{font:500 18px/1.2 var(--led);letter-spacing:.04em;color:var(--tx)}
 .dl .btn[disabled]{opacity:.35;pointer-events:none}
-.note{font-size:13.5px;color:var(--muted);margin:0;padding:12px 14px;background:rgba(255,255,255,.025);border-left:1px solid var(--line-3)}
-@media (max-width:900px){.sheet{grid-template-columns:1fr}.left{border-right:0;border-bottom:1px solid var(--line)}}
+.note{font-size:13.5px;color:var(--muted);margin:0;padding:12px 14px;background:var(--deep);border:1px solid #000;box-shadow:var(--sunk)}
+@media (max-width:900px){.sheet{grid-template-columns:1fr}.left{border-right:0;border-bottom:1px solid #000}}
+@media (max-width:640px){#try .win{margin:0 -16px;border-left:0;border-right:0}}
 .burst{position:fixed;left:0;top:0;pointer-events:none;z-index:50}
-.burst i{position:absolute;width:2px;height:16px;border-radius:2px;background:var(--ink);box-shadow:0 0 6px rgba(var(--glow-rgb),.9);left:0;top:0;animation:bu .8s var(--ease) forwards}
+.burst i{position:absolute;width:2px;height:14px;background:var(--hi);left:0;top:0;animation:bu .7s var(--ease) forwards}
 @keyframes bu{from{transform:rotate(var(--a)) translateY(0);opacity:1}to{transform:rotate(var(--a)) translateY(calc(var(--d)*-1));opacity:0}}
 
 /* examples: the visitor's letters on screens and on things */
 .exg{margin-top:30px}
 .exg+.exg{margin-top:46px}
 .exg-h{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px 24px;border-top:1px solid var(--line-2);padding-top:14px;margin-bottom:16px}
-.exg-h h3{margin:0;font:600 12px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--hi)}
-.exg-h h3 i{font-style:normal;color:var(--muted-2);margin-right:12px}
+.exg-h h3{margin:0;font:500 11.5px/1.3 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--hi)}
+.exg-h h3 i{font-style:normal;color:var(--desk);background:var(--face);padding:2px 6px;margin-right:12px}
 .exg-h p{margin:0;color:var(--muted);font-size:14px}
 .exs{display:grid;gap:14px}
-.ex{position:relative;margin:0;border:1px solid var(--line);border-radius:10px;background:var(--slate);overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:border-color .3s}
-.ex:hover{border-color:var(--line-2)}
-.exv{flex:1;display:grid;place-items:center;padding:22px;min-height:0;container-type:inline-size;perspective:900px}
-.ex figcaption{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-top:1px solid var(--line);font:500 10.5px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.ex figcaption i{font-style:normal;color:var(--muted-2)}
+.ex{position:relative;margin:0;display:flex;flex-direction:column;min-width:0}
+.ex .tt{order:-1}
+.exv{flex:1;display:grid;place-items:center;padding:22px;min-height:0;container-type:inline-size;perspective:900px;background:radial-gradient(120% 100% at 50% 30%,#18181b,#111113 70%)}
 .hw{font-family:var(--uhm),var(--hand);font-weight:700;line-height:1;--k:min(1,calc(7 / var(--nl)))}
 .obj{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) rotate(var(--rz,0deg));transition:transform .6s var(--ease)}
 .exs.d{grid-template-columns:minmax(0,3fr) minmax(0,5fr) minmax(0,4fr);grid-template-areas:"app mail post" "app msg post"}
@@ -262,83 +318,83 @@ section.s{padding-top:110px}
 .x-card{grid-area:card}.x-label{grid-area:label}.x-pack{grid-area:pack}.x-sign{grid-area:sign}.x-note{grid-area:note}
 /* app */
 .ph3{width:min(100%,232px);aspect-ratio:9/17.5;border-radius:30px;border:6px solid #050506;box-shadow:0 0 0 1px #2c2d32,0 30px 60px -30px #000;background:#0e0f12;padding:14px 16px;display:flex;flex-direction:column;container-type:inline-size;text-align:left}
-.ph3 .sb{display:flex;justify-content:space-between;font:600 10px/1 var(--mono);color:var(--tx);margin:0 4px 16px}
+.ph3 .sb{display:flex;justify-content:space-between;font:600 10px/1 var(--sys);color:var(--tx);margin:0 4px 16px}
 .ph3 .sb span:last-child{width:22px;height:9px;border:1px solid var(--muted);border-radius:2px;position:relative}
 .ph3 .sb span:last-child::after{content:"";position:absolute;inset:1px 5px 1px 1px;background:var(--tx);border-radius:1px}
-.ph3 .ak{font:500 9.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin:0 0 8px}
+.ph3 .ak{font:500 9px/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);margin:0 0 8px}
 .ph3 .ag{margin:0;font-size:12.5px;color:var(--muted)}
 .ph3 .an{display:block;font-size:calc(26cqi*var(--k));margin:4px 0 14px;white-space:nowrap}
 .ph3 ul{list-style:none;margin:0;padding:0;display:grid;gap:0}
 .ph3 li{display:flex;align-items:center;gap:9px;padding:9px 0;border-top:1px solid var(--line);font-size:calc(10.5cqi);font-family:var(--uhm),var(--hand);font-weight:700;color:var(--tx);line-height:1.1}
 .ph3 li i{width:12px;height:12px;border-radius:50%;border:1px solid var(--line-3);flex:0 0 auto}
-.ph3 li i.on{background:var(--ink);border-color:var(--ink);box-shadow:0 0 8px rgba(var(--glow-rgb),.8)}
+.ph3 li i.on{background:var(--ink);border-color:var(--ink)}
 .ph3 li.dn{color:var(--muted-2);text-decoration:line-through;text-decoration-thickness:1px}
-.ph3 .nt2{margin-top:14px;padding:10px 11px;border-radius:10px;background:var(--slate-2);border:1px solid var(--line);display:grid;gap:5px}
-.ph3 .nt2 small{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
+.ph3 .nt2{margin-top:14px;padding:10px 11px;border-radius:10px;background:var(--win-2);border:1px solid var(--line);display:grid;gap:5px}
+.ph3 .nt2 small{font:500 8.5px/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2)}
 .ph3 .nt2 .hw{font-size:11cqi;color:var(--tx);line-height:1.1}
 .ph3 .tb{margin-top:auto;display:flex;justify-content:space-around;padding-top:10px;border-top:1px solid var(--line)}
 .ph3 .tb b{width:18px;height:3px;border-radius:2px;background:var(--line-2)}
 .ph3 .tb b.on{background:var(--hi)}
 /* mail */
-.mail{width:100%;max-width:520px;border:1px solid var(--line-2);border-radius:8px;background:var(--deep);text-align:left;overflow:hidden}
-.mail .mh{display:grid;font:500 11px/1.4 var(--mono);color:var(--tx);border-bottom:1px solid var(--line)}
+.mail{width:100%;max-width:520px;border:1px solid #000;background:var(--deep);text-align:left;overflow:hidden;box-shadow:var(--bev)}
+.mail .mh{display:grid;font:500 10.5px/1.4 var(--sys);font-variation-settings:"wdth" 87;color:var(--tx);border-bottom:1px solid var(--line)}
 .mail .mh span{padding:7px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mail .mh span+span{border-top:1px solid var(--line)}
 .mail .mh i{font-style:normal;color:var(--muted-2);display:inline-block;min-width:64px}
 .mail .mb{padding:14px 14px 16px;font-size:13.5px;color:var(--muted)}
 .mail .mb p{margin:0 0 8px}
 .mail .sg{display:block;font-size:min(44px,calc(11cqi*var(--k)));margin:6px 0 10px;white-space:nowrap}
-.mail .sl2{font:500 11px/1.4 var(--mono);color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin:0}
+.mail .sl2{font:500 10.5px/1.4 var(--sys);color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin:0}
 .mail .sl2 b{color:var(--hi);font-weight:500}
 /* message */
 .chat{width:100%;max-width:520px;display:flex;flex-direction:column;gap:8px;text-align:left}
 .chat .ct{display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:4px}
-.av{width:30px;height:30px;border-radius:50%;background:var(--slate-3);border:1px solid var(--line-2);display:grid;place-items:center;font:600 12px/1 var(--body);color:var(--tx);flex:0 0 auto}
+.av{width:30px;height:30px;border-radius:50%;background:var(--win-3);border:1px solid var(--line-2);display:grid;place-items:center;font:600 12px/1 var(--body);color:var(--tx);flex:0 0 auto}
 .chat .ct b{display:block;font-size:13.5px;font-weight:500;color:var(--hi);line-height:1.2}
-.chat .ct span{font:500 10.5px/1 var(--mono);color:var(--muted-2)}
+.chat .ct span{font:500 10px/1 var(--sys);color:var(--muted-2)}
 .bub{margin:0;max-width:82%;padding:8px 12px;border-radius:14px;font-size:13.5px;line-height:1.35}
-.bub.bi{background:var(--slate-3);color:var(--tx);border-bottom-left-radius:4px}
+.bub.bi{background:var(--win-3);color:var(--tx);border-bottom-left-radius:4px}
 .bub.bo{align-self:flex-end;background:var(--paper);color:var(--dink);border-bottom-right-radius:4px;font-size:min(30px,calc(6.4cqi));line-height:1.05;padding:8px 14px 9px}
 /* post */
-.post{width:min(100%,330px);border:1px solid var(--line-2);border-radius:10px;background:var(--deep);overflow:hidden;text-align:left;container-type:inline-size}
+.post{width:min(100%,330px);border:1px solid #000;border-radius:8px;background:var(--deep);overflow:hidden;text-align:left;container-type:inline-size}
 .post .pt{display:flex;align-items:center;gap:9px;padding:9px 11px;font-size:12.5px;color:var(--muted);min-width:0}
 .post .pt b{color:var(--hi);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:50%}
 .post .pt .av{width:24px;height:24px;font-size:10px}
 .post .pi{aspect-ratio:1/1;background:#060607;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:0 8%}
 .post .pi .hw{font-size:calc(30cqi*var(--k));white-space:nowrap}
-.post .pi small{font:500 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.post .pi small{font:500 9.5px/1 var(--sys);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .post .pa{display:flex;gap:14px;padding:9px 11px 4px;color:var(--tx)}
 .post .pa svg{width:19px;height:19px}
 .post .px{margin:0;padding:0 11px 11px;font-size:12.5px;color:var(--muted)}
 .post .px b{color:var(--hi);font-weight:500}
 /* card */
-.card{width:min(88%,330px);aspect-ratio:7/5;background:var(--paper);border-radius:3px;--rz:-3deg;box-shadow:0 26px 40px -20px rgba(0,0,0,.9),0 0 0 1px rgba(0,0,0,.2);display:flex;flex-direction:column;justify-content:center;gap:6%;padding:8% 9%;color:var(--dink);container-type:inline-size;text-align:left}
+.card{width:min(88%,330px);aspect-ratio:7/5;background:var(--paper);border-radius:2px;--rz:-3deg;box-shadow:0 26px 40px -20px rgba(0,0,0,.9),0 0 0 1px rgba(0,0,0,.2);display:flex;flex-direction:column;justify-content:center;gap:6%;padding:8% 9%;color:var(--dink);container-type:inline-size;text-align:left}
 .card .c1{font-size:10cqi}
 .card .c2{font-size:calc(19cqi*var(--k));align-self:flex-end;white-space:nowrap}
-.card small{font:500 2.9cqi/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#7b7d84}
+.card small{font:500 2.8cqi/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:#7b7d84}
 /* label on a jar */
 .jar{position:relative;width:min(70%,200px);aspect-ratio:3/4.1;container-type:inline-size}
 .jar::before{content:"";position:absolute;left:12%;right:12%;top:0;height:13%;border-radius:4px 4px 2px 2px;background:linear-gradient(90deg,#1b1c1f,#3a3b40 30%,#202125 60%,#141517);box-shadow:inset 0 -2px 0 rgba(0,0,0,.5)}
-.jar .gl{position:absolute;left:4%;right:4%;top:11%;bottom:0;border-radius:12% 12% 9% 9%/8% 8% 6% 6%;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.16) 14%,rgba(255,255,255,.03) 30%,rgba(0,0,0,.25) 82%,rgba(255,255,255,.08)),#1d1916;box-shadow:0 26px 40px -22px #000,inset 0 0 0 1px rgba(255,255,255,.08)}
+.jar .gl{position:absolute;left:4%;right:4%;top:11%;bottom:0;border-radius:12% 12% 9% 9%/8% 8% 6% 6%;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.16) 14%,rgba(255,255,255,.03) 30%,rgba(0,0,0,.25) 82%,rgba(255,255,255,.08)),#1a1a1a;box-shadow:0 26px 40px -22px #000,inset 0 0 0 1px rgba(255,255,255,.08)}
 .jar .lb2{position:absolute;left:4%;right:4%;top:34%;height:44%;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5%;color:var(--dink);text-align:center;box-shadow:inset 10px 0 14px -10px rgba(0,0,0,.35),inset -14px 0 16px -10px rgba(0,0,0,.45)}
-.jar .lb2 small{font:500 5.2cqi/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#6f7178}
+.jar .lb2 small{font:500 5cqi/1 var(--sys);letter-spacing:.08em;text-transform:uppercase;color:#6f7178}
 .jar .lb2 .hw{font-size:calc(20cqi*var(--k));white-space:nowrap}
 /* packaging */
 .bag{position:relative;width:min(64%,250px);aspect-ratio:3/4.2;border-radius:6px 6px 8px 8px;background:linear-gradient(100deg,#1c1d20,#0e0e10 55%,#18191c);box-shadow:0 30px 50px -24px #000,inset 0 0 0 1px rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5%;text-align:center;container-type:inline-size;--rz:2deg}
 .bag::before{content:"";position:absolute;left:0;right:0;top:0;height:9%;border-radius:6px 6px 0 0;background:repeating-linear-gradient(90deg,#26272b 0 2px,#1a1b1e 2px 5px);border-bottom:1px solid rgba(255,255,255,.08)}
-.bag small{font:500 4.4cqi/1.3 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.bag small{font:500 4.2cqi/1.3 var(--sys);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .bag .hw{font-size:calc(25cqi*var(--k));white-space:nowrap;padding:0 6%}
 .bag .rl{width:30%;height:1px;background:var(--line-3)}
 /* sign */
 .sign{position:relative;width:min(92%,380px);padding-top:16%;container-type:inline-size}
 .sign::before,.sign::after{content:"";position:absolute;top:0;height:16%;width:1px;background:linear-gradient(var(--line),var(--line-3))}
 .sign::before{left:16%}.sign::after{right:16%}
-.sign .bd{aspect-ratio:2.1/1;border-radius:6px;background:#0d0e10;box-shadow:0 26px 44px -24px #000,inset 0 0 0 1px rgba(255,255,255,.09),inset 0 0 0 7px #0d0e10,inset 0 0 0 8px rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3%}
-.sign small{font:500 3.6cqi/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.sign .bd{aspect-ratio:2.1/1;border-radius:4px;background:#0d0e10;box-shadow:0 26px 44px -24px #000,inset 0 0 0 1px rgba(255,255,255,.09),inset 0 0 0 7px #0d0e10,inset 0 0 0 8px rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3%}
+.sign small{font:500 3.4cqi/1 var(--sys);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .sign .hw{font-size:calc(17cqi*var(--k));white-space:nowrap}
 /* notebook page */
 .npg{position:relative;width:min(86%,260px);aspect-ratio:4/5;background-color:var(--paper);--rz:2.5deg;container-type:inline-size;border-radius:2px 6px 6px 2px;box-shadow:0 26px 40px -20px rgba(0,0,0,.9);
-  background-image:linear-gradient(to right,transparent 14cqi,rgba(214,96,120,.4) 14cqi,rgba(214,96,120,.4) calc(14cqi + 1px),transparent calc(14cqi + 1px)),repeating-linear-gradient(to bottom,transparent 0,transparent calc(11cqi - 1px),rgba(70,90,140,.22) calc(11cqi - 1px),rgba(70,90,140,.22) 11cqi);background-position:0 0,0 4cqi;padding:12cqi 6cqi 0 18cqi;color:var(--dink);text-align:left}
+  background-image:linear-gradient(to right,transparent 14cqi,rgba(0,0,0,.22) 14cqi,rgba(0,0,0,.22) calc(14cqi + 1px),transparent calc(14cqi + 1px)),repeating-linear-gradient(to bottom,transparent 0,transparent calc(11cqi - 1px),rgba(0,0,0,.12) calc(11cqi - 1px),rgba(0,0,0,.12) 11cqi);background-position:0 0,0 4cqi;padding:12cqi 6cqi 0 18cqi;color:var(--dink);text-align:left}
 .npg .hw{display:block;font-size:min(9cqi,calc(12cqi*var(--k)));line-height:11cqi;white-space:nowrap}
 .npg .hw2{font-size:9cqi}
 @media (max-width:980px){
@@ -353,46 +409,48 @@ section.s{padding-top:110px}
 }
 
 /* prices, faq, contact */
-.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:900px}
-.plan{border-radius:10px;padding:28px;background:var(--slate);border:1px solid var(--line-2);display:flex;flex-direction:column;gap:14px;position:relative;transition:border-color .4s}
-.plan:hover{border-color:var(--line-3)}
-.plan.top{border-color:rgba(var(--ink-rgb),.45);box-shadow:0 40px 90px -60px rgba(var(--glow-rgb),.5)}
-.plan .tg{position:absolute;right:20px;top:20px;font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line-3);color:var(--hi);padding:6px 9px;border-radius:6px}
-.plan h3{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:uppercase;margin:0;color:var(--muted)}
-.plan .pr{font-family:var(--display);font-size:56px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--hi)}
-.plan .pr small{font:500 11px var(--mono);color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-left:10px}
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:920px}
+.plan{display:flex;flex-direction:column}
+.plan .pb2{position:relative;padding:24px;display:flex;flex-direction:column;gap:14px;flex:1}
+.plan.top{box-shadow:var(--bev),0 0 0 1px var(--line-3),0 50px 100px -50px #000}
+.plan .tg{position:absolute;right:20px;top:22px;font:500 10px/1 var(--sys);letter-spacing:.08em;text-transform:uppercase;background:var(--face);color:var(--desk);padding:5px 8px}
+.plan h3{margin:0;font:500 11px/1 var(--sys);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.plan .pr{font:500 76px/.8 var(--led);letter-spacing:.01em;color:var(--hi)}
+.plan .pr small{font:500 10.5px var(--sys);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-left:10px}
 .plan ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px;color:var(--tx)}
 .plan li{display:flex;gap:12px}
-.plan li::before{content:"";flex:0 0 auto;width:12px;height:1px;margin-top:.8em;background:var(--line-3)}
+.plan li::before{content:"";flex:0 0 auto;width:6px;height:6px;margin-top:.62em;background:var(--muted)}
 .plan .btn{margin-top:auto}
 @media (max-width:760px){.plans{grid-template-columns:1fr}}
 .faq{max-width:860px;display:grid;border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line);padding:0 4px;transition:border-color .3s}
+.faq details{border-bottom:1px solid var(--line);padding:0 4px}
 .faq details[open]{border-bottom-color:var(--line-2)}
 .faq summary{cursor:pointer;list-style:none;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-weight:500;color:var(--hi)}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font:400 22px/1 var(--mono);color:var(--muted);transition:transform .3s var(--ease)}
-.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary::after{content:"+";flex:0 0 auto;width:24px;height:24px;display:grid;place-items:center;font:500 14px/1 var(--sys);color:var(--tx);border:1px solid #000;background:var(--win-3);box-shadow:var(--bev)}
+.faq details[open] summary::after{content:"-";background:var(--face);color:var(--desk);box-shadow:none}
 .faq p{margin:0 0 20px;color:var(--muted)}
-.contact{margin-top:110px;background:var(--deep);border-top:1px solid var(--line);position:relative;overflow:hidden;isolation:isolate}
+.contact{margin-top:110px;background:var(--deep);border-top:1px solid #000;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);position:relative;overflow:hidden;isolation:isolate}
 .contact .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;padding-top:80px;padding-bottom:80px;align-items:center}
-.contact h2{font-family:var(--display);font-size:clamp(28px,3.8vw,48px);font-weight:600;letter-spacing:-.02em;line-height:1.05;margin:0 0 18px;color:var(--hi)}
+.contact h2{font-family:var(--display);font-variation-settings:"wdth" 88;font-size:clamp(28px,3.8vw,50px);font-weight:600;line-height:1.02;margin:0 0 18px;color:var(--hi);text-transform:uppercase}
 .contact h2 em{font-style:normal;color:var(--muted)}
 .contact p{color:var(--muted);margin:0;max-width:30em}
-.chs{display:grid;border-top:1px solid var(--line)}
-.ch{display:flex;align-items:center;gap:16px;min-height:76px;padding:12px 6px;border-bottom:1px solid var(--line);text-decoration:none;transition:background .3s,padding .4s var(--ease)}
-.ch:hover{background:rgba(255,255,255,.025);padding-left:14px}
-.ch .ic{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
-.ch .ic svg{width:20px;height:20px}
+.chs{display:grid}
+.ch{display:flex;align-items:center;gap:16px;min-height:72px;padding:12px 14px;text-decoration:none;border-bottom:1px solid #000;box-shadow:inset 0 -1px 0 rgba(255,255,255,.04);transition:background .15s}
+.ch:last-child{border-bottom:0}
+.ch:hover{background:var(--hi);color:var(--desk)}
+.ch .ic{width:38px;height:38px;display:grid;place-items:center;flex:0 0 auto;background:var(--win-3);border:1px solid #000;box-shadow:var(--bev)}
+.ch .ic svg{width:19px;height:19px}
 .ch b{display:block;font-size:16px;font-weight:500;color:var(--hi)}
-.ch span{font:500 12.5px/1.4 var(--mono);color:var(--muted)}
-.ch .ar{margin-left:auto;color:var(--muted);transition:transform .3s var(--ease),color .3s}
-.ch:hover .ar{transform:translateX(3px);color:var(--hi)}
-footer{background:var(--deep);color:var(--muted-2);font:500 11.5px/1.5 var(--mono);letter-spacing:.06em;border-top:1px solid var(--line)}
+.ch span{font:500 12px/1.4 var(--sys);font-variation-settings:"wdth" 87;color:var(--muted)}
+.ch:hover b,.ch:hover span{color:var(--desk)}
+.ch .ar{margin-left:auto;color:var(--muted)}
+.ch:hover .ar{color:var(--desk)}
+footer{background:var(--deep);color:var(--muted-2);font:500 11px/1.5 var(--sys);font-variation-settings:"wdth" 87;letter-spacing:.04em;border-top:1px solid var(--line)}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:18px;padding-bottom:24px}
 footer a{color:var(--tx);display:inline-flex;align-items:center;min-height:44px}footer a:hover{color:var(--hi)}
 @media (max-width:860px){.contact .wrap{grid-template-columns:1fr;padding-top:56px;padding-bottom:56px}}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.sweep{display:none}}
 </style>
 <script>document.documentElement.classList.add("js")</script>
 </head>
@@ -400,34 +458,48 @@ footer a{color:var(--tx);display:inline-flex;align-items:center;min-height:44px}
 <header class="bar"><div class="wrap">
   <a class="logo" href="../" aria-label="SanderSax"><i class="mk" aria-hidden="true"></i><span class="lw" aria-hidden="true">SANDERSAX</span></a>
   <nav class="nav" aria-label="Sections" data-t-aria="navL"><a href="#try" data-t="nTry">Try it</a><a href="#how" data-t="nHow">How it works</a><a href="#uses" data-t="nUse">Examples</a><a href="#prices" data-t="nPrice">Prices</a><a href="#contact" data-t="nContact">Contact</a></nav>
-  <div class="lang" role="group" aria-label="Language / Язык"><span class="pill" aria-hidden="true"></span><button type="button" data-l="en" aria-pressed="true">EN</button><button type="button" data-l="ru" aria-pressed="false">RU</button></div>
+  <span class="clk" id="clk" aria-hidden="true">00:00</span>
+  <div class="lang" role="group" aria-label="Language / Язык"><button type="button" data-l="en" aria-pressed="true">EN</button><button type="button" data-l="ru" aria-pressed="false">RU</button></div>
 </div></header>
 
-<section class="hero" id="hero"><div class="wrap hg">
-  <div class="hh"><p class="eyebrow" data-t="eyebrow">Handwriting font · Latin and Cyrillic</p><h1 data-t="h1">Your handwriting,<br><span>as a real font.</span></h1></div>
-  <div class="hside"><p data-t="hside">Type a name and a pen writes it on the page. Your own font is made from one sheet you fill in by hand, and then the pen writes like you.</p>
-    <div class="cta"><a class="btn p" href="#try" data-t="ctaTry">Draw your letters</a><a class="btn g" href="#prices" data-t="ctaPrice">Order the full font</a></div></div>
-  <div class="slate">
+<section class="hero" id="hero"><div class="wrap">
+  <div class="hrow">
+    <div class="hh"><p class="eyebrow" data-t="eyebrow">Handwriting font · Latin and Cyrillic</p><h1 data-t="h1">Your handwriting,<br><span>as a real font.</span></h1></div>
+    <div class="hside"><p data-t="hside">Type a name. A pen writes it, then the machine reads the strokes and builds them into a font file. Your own font is made from one sheet you fill in by hand.</p>
+      <div class="cta"><a class="btn p" href="#try" data-t="ctaTry">Draw your letters</a><a class="btn g" href="#prices" data-t="ctaPrice">Order the full font</a></div></div>
+  </div>
+  <div class="win station">
+    <div class="tt"><span data-t="winT">Handwriting to font</span></div>
     <div class="tbar">
-      <div class="namebox"><label for="nameIn" data-t="nameL">Write</label><input id="nameIn" type="text" maxlength="14" autocomplete="off" spellcheck="false" placeholder="Sander" data-t-ph="namePh"><button type="button" class="ib" id="replay" aria-label="Write it again" data-t-aria="replayL"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></svg></button></div>
+      <div class="namebox"><label for="nameIn" data-t="nameL">Name</label><input id="nameIn" type="text" maxlength="14" autocomplete="off" spellcheck="false" placeholder="Sander" data-t-ph="namePh"><button type="button" class="ib" id="replay" aria-label="Write it again" data-t-aria="replayL"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></svg></button></div>
       <div class="tools">
-        <div class="seg" role="radiogroup" aria-label="Ink" data-t-aria="inkL"><span class="lbl" aria-hidden="true" data-t="inkT">Ink</span>
-          <button type="button" class="sw" role="radio" aria-checked="true" data-ink="pearl" aria-label="Pearl" data-t-aria="inkP" style="--c:#f1eee6"><i></i></button>
-          <button type="button" class="sw" role="radio" aria-checked="false" data-ink="blue" aria-label="Blue" data-t-aria="inkB" style="--c:#a9bcff"><i></i></button>
-          <button type="button" class="sw" role="radio" aria-checked="false" data-ink="violet" aria-label="Violet" data-t-aria="inkV" style="--c:#d0bdff"><i></i></button>
-        </div>
-        <div class="seg" role="radiogroup" aria-label="Nib" data-t-aria="nibL"><span class="lbl" aria-hidden="true" data-t="nibT">Nib</span>
+        <div class="seg" role="radiogroup" aria-label="Pen weight" data-t-aria="nibL"><span class="lbl" aria-hidden="true" data-t="nibT">Weight</span>
           <button type="button" class="nb" role="radio" aria-checked="false" data-nib=".042" aria-label="Fine" data-t-aria="nibF" style="--h:2px"><i></i></button>
           <button type="button" class="nb" role="radio" aria-checked="true" data-nib=".062" aria-label="Medium" data-t-aria="nibM" style="--h:4px"><i></i></button>
           <button type="button" class="nb" role="radio" aria-checked="false" data-nib=".088" aria-label="Broad" data-t-aria="nibB" style="--h:6px"><i></i></button>
         </div>
       </div>
     </div>
-    <div class="page" id="page" role="img" aria-label="Sander">
-      <div class="layer" id="layer"><canvas class="glow" id="cGlow"></canvas><canvas class="ink" id="cInk"></canvas></div>
-      <div class="ph" aria-hidden="true"><span id="pDate"></span><span id="pNo">Page 01</span></div>
-      <div class="pf" aria-live="polite"><b id="pSt">Writing</b><span class="r"><span class="x" id="pStr"></span><span id="pHand">Sample hand</span></span></div>
-      <div class="penw" id="pen" aria-hidden="true"><svg viewBox="0 0 240 22"><defs><linearGradient id="pnM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c4c7cc"/><stop offset=".5" stop-color="#7e8188"/><stop offset="1" stop-color="#46484d"/></linearGradient><linearGradient id="pnB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b4b7bd"/><stop offset=".28" stop-color="#6b6e75"/><stop offset=".7" stop-color="#34363b"/><stop offset="1" stop-color="#1a1b1e"/></linearGradient></defs><path d="M0 11 24 6.2H32V15.8H24Z" fill="url(#pnM)"/><path d="M2.5 11H19" stroke="#2b2c31" stroke-width=".7"/><circle cx="19.5" cy="11" r="1.1" fill="#2b2c31"/><path d="M0 11 4.5 10V12Z" style="fill:var(--ink)"/><rect x="32" y="5" width="34" height="12" rx="2" fill="#26272c"/><rect x="66" y="4.2" width="5" height="13.6" fill="url(#pnM)"/><rect x="71" y="4" width="148" height="14" rx="3" fill="url(#pnB)"/><rect x="150" y="1.6" width="58" height="3.2" rx="1.6" fill="url(#pnM)"/><rect x="217" y="4.6" width="21" height="12.8" rx="5" fill="url(#pnM)"/></svg></div>
+    <div class="desk2">
+      <div class="page" id="page" role="img" aria-label="Sander">
+        <div class="ml" id="mCap"><span data-t="mCap">Cap</span></div><div class="ml" id="mX"><span data-t="mX">x-height</span></div><div class="ml b" id="mBase"><span data-t="mBase">Base</span></div><div class="ml" id="mDesc"><span data-t="mDesc">Desc</span></div>
+        <div class="layer" id="layer"><canvas class="glow" id="cGlow"></canvas><canvas class="ink" id="cInk"></canvas></div>
+        <div class="ph" aria-hidden="true"><span id="pNo">Scan 01</span><span id="pDate"></span></div>
+        <div class="pf" aria-live="polite"><b id="pSt">Writing</b><span id="pHand">Sample hand</span></div>
+        <div class="sweep" id="sweep" aria-hidden="true"><span data-t="swT">Reading</span></div>
+        <div class="penw" id="pen" aria-hidden="true"><svg viewBox="0 0 240 22"><defs><linearGradient id="pnM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c4c7cc"/><stop offset=".5" stop-color="#7e8188"/><stop offset="1" stop-color="#46484d"/></linearGradient><linearGradient id="pnB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b4b7bd"/><stop offset=".28" stop-color="#6b6e75"/><stop offset=".7" stop-color="#34363b"/><stop offset="1" stop-color="#1a1b1e"/></linearGradient></defs><path d="M0 11 24 6.2H32V15.8H24Z" fill="url(#pnM)"/><path d="M2.5 11H19" stroke="#2b2c31" stroke-width=".7"/><circle cx="19.5" cy="11" r="1.1" fill="#2b2c31"/><path d="M0 11 4.5 10V12Z" style="fill:var(--ink)"/><rect x="32" y="5" width="34" height="12" rx="2" fill="#26272c"/><rect x="66" y="4.2" width="5" height="13.6" fill="url(#pnM)"/><rect x="71" y="4" width="148" height="14" rx="3" fill="url(#pnB)"/><rect x="150" y="1.6" width="58" height="3.2" rx="1.6" fill="url(#pnM)"/><rect x="217" y="4.6" width="21" height="12.8" rx="5" fill="url(#pnM)"/></svg></div>
+      </div>
+      <aside class="proc" aria-label="Process" data-t-aria="procL">
+        <h2><span data-t="procT">Process</span><b id="procS">-</b></h2>
+        <ol class="stg" id="stg">
+          <li><span class="n">01</span><span class="l" data-t="pr1">Read the scan</span><span class="v">-</span><span class="pb"><i></i></span></li>
+          <li><span class="n">02</span><span class="l" data-t="pr2">Trace strokes</span><span class="v">-</span><span class="pb"><i></i></span></li>
+          <li><span class="n">03</span><span class="l" data-t="pr3">Build glyphs</span><span class="v">-</span><span class="pb"><i></i></span></li>
+          <li><span class="n">04</span><span class="l" data-t="pr4">Export font</span><span class="v">-</span><span class="pb"><i></i></span></li>
+        </ol>
+        <div class="cells" id="cells" aria-hidden="true"></div>
+        <div class="fileo" id="fileo"><span class="fi" aria-hidden="true">Aa</span><div><b id="fname">-</b><a href="#try" data-t="procGo">Draw your own letters →</a></div></div>
+      </aside>
     </div>
   </div>
   <p class="hnote" data-t="hnote">A sample hand, written live. Your font will look like you.</p>
@@ -436,7 +508,7 @@ footer a{color:var(--tx);display:inline-flex;align-items:center;min-height:44px}
 <section class="story" id="how">
   <div class="pin"><div class="wrap">
     <div class="stx">
-      <p class="kick" data-t="stK">How the full font is made</p>
+      <p class="kick"><b>02</b><span data-t="stK">How the full font is made</span></p>
       <h2 data-t="stH">From one sheet to <em>a real font</em></h2>
       <ol class="sl" id="sl">
         <li class="on"><b><i>01</i><span data-t="st1h">Print the sheet</span></b><span class="ds" data-t="st1p">Three A4 pages with a box for every letter, digit and sign. Print at 100%.</span></li>
@@ -445,67 +517,73 @@ footer a{color:var(--tx);display:inline-flex;align-items:center;min-height:44px}
       </ol>
       <a class="lnk" href="handwriting-font-template.pdf" download data-t="st1a">Download the sheet (PDF) →</a>
     </div>
-    <div class="scene" id="scene" aria-hidden="true">
-      <div class="paper" id="paper"><div class="ph2"><span data-t="sheetHead">Handwriting font</span><span>1 / 3</span></div><i class="cm" style="left:3%;top:2%"></i><i class="cm" style="right:3%;top:2%"></i><i class="cm" style="left:3%;bottom:2%"></i><i class="cm" style="right:3%;bottom:2%"></i></div>
-      <div class="phone" id="phone"><span class="nt"></span><div class="vf"><i></i><i></i><i></i><i></i></div><span class="sh"></span></div>
-      <div class="file" id="file"><div class="t"><span class="ic">Aa</span><div><b>my-handwriting.otf</b><span data-t="fileMeta">Latin and Cyrillic · 166 signs</span></div></div><div class="pg"><i id="pg"></i></div><div class="ch3"><em>OTF</em><em>TTF</em><em>WOFF2</em><span class="st3" id="st3"></span></div></div>
-      <div class="scan" id="scan"><span data-t="scanT">Making the font</span></div>
-      <div class="flash" id="flash"></div>
+    <div class="win sw2" aria-hidden="true">
+      <div class="tt"><span data-t="scT">Sheet to font</span></div>
+      <div class="scene" id="scene">
+        <div class="paper" id="paper"><div class="ph2"><span data-t="sheetHead">Handwriting font</span><span>1 / 3</span></div><i class="cm" style="left:3%;top:2%"></i><i class="cm" style="right:3%;top:2%"></i><i class="cm" style="left:3%;bottom:2%"></i><i class="cm" style="right:3%;bottom:2%"></i></div>
+        <div class="phone" id="phone"><span class="nt"></span><div class="vf"><i></i><i></i><i></i><i></i></div><span class="sh"></span></div>
+        <div class="file" id="file"><div class="ft" data-t="saveT">Save font</div><div class="fb"><div class="t"><span class="ic">Aa</span><div><b>my-handwriting.otf</b><span data-t="fileMeta">Latin and Cyrillic · 166 signs</span></div></div><div class="pg"><i id="pg"></i></div><div class="ch3"><em>OTF</em><em>TTF</em><em>WOFF2</em><span class="st3" id="st3"></span></div></div></div>
+        <div class="scan" id="scan"><span data-t="scanT">Making the font</span></div>
+        <div class="flash" id="flash"></div>
+      </div>
     </div>
   </div></div>
 </section>
 
 <section class="s wrap" id="try" aria-label="Font studio" data-t-aria="studioL">
-  <div class="head"><h2 data-t="trH">Now draw <em>your own</em></h2><p data-t="trP">Draw a few letters with a mouse, finger or stylus. The page turns them into a real font file you can install, and the pen at the top starts writing with them.</p></div>
-  <div class="sheet">
-    <div class="left">
-      <p class="step"><i>1</i><span data-t="s1">Draw each letter</span></p>
-      <div class="row">
-        <div class="fld"><label for="letters" data-t="lettersL">Letters to draw</label><input type="text" id="letters" value="Sax" maxlength="40" autocomplete="off" spellcheck="false"></div>
-        <div class="fld wt"><label for="weight" data-t="weightL">Pen</label><input type="range" id="weight" min="14" max="64" value="30"></div>
+  <div class="head"><div><p class="kick"><b>03</b><span data-t="kTry">Font studio</span></p><h2 data-t="trH">Now draw <em>your own</em></h2></div><p data-t="trP">Draw a few letters with a mouse, finger or stylus. The page turns them into a real font file you can install, and the pen at the top starts writing with them.</p></div>
+  <div class="win">
+    <div class="tt"><span data-t="stuT">Font studio · my-handwriting.otf</span></div>
+    <div class="sheet">
+      <div class="left">
+        <p class="step"><i>1</i><span data-t="s1">Draw each letter</span></p>
+        <div class="row">
+          <div class="fld"><label for="letters" data-t="lettersL">Letters to draw</label><input type="text" id="letters" value="Sax" maxlength="40" autocomplete="off" spellcheck="false"></div>
+          <div class="fld wt"><label for="weight" data-t="weightL">Pen</label><input type="range" id="weight" min="14" max="64" value="30"></div>
+        </div>
+        <div class="pads" id="pads"></div>
+        <p class="hint" id="hint" data-t="hint">The pen draws a sample first. <b>Press × and draw your own</b> with a mouse, finger or stylus. Sit the letters on the solid line.</p>
       </div>
-      <div class="pads" id="pads"></div>
-      <p class="hint" id="hint" data-t="hint">The pen draws a sample first. <b>Press × and draw your own</b> with a mouse, finger or stylus. Sit the letters on the solid line.</p>
-    </div>
-    <div class="right">
-      <p class="step" style="margin:0"><i>2</i><span data-t="s2">Type with it</span></p>
-      <div class="live" id="live"><textarea class="out lit" id="out" rows="2" spellcheck="false" aria-label="Type with your font" data-t-aria="outL">Sax</textarea></div>
-      <div class="sizes" id="sizes" aria-hidden="true"><div style="font-size:40px"><small>40</small><span class="sz"></span></div><div style="font-size:24px"><small>24</small><span class="sz"></span></div><div style="font-size:15px"><small>15</small><span class="sz"></span></div></div>
-      <p class="step" style="margin:6px 0 0"><i>3</i><span data-t="s3">Take it with you</span></p>
-      <div class="dl"><button type="button" class="btn k" id="dl" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg><span data-t="dl">Download my font (.otf)</span></button><span class="meta" id="meta"></span></div>
-      <p class="note" data-t="note">This quick font has only the letters you drew. The full font has every letter, digit and sign in Latin and Cyrillic, made from your real pen on paper.</p>
+      <div class="right">
+        <p class="step" style="margin:0"><i>2</i><span data-t="s2">Type with it</span></p>
+        <div class="live" id="live"><textarea class="out lit" id="out" rows="2" spellcheck="false" aria-label="Type with your font" data-t-aria="outL">Sax</textarea></div>
+        <div class="sizes" id="sizes" aria-hidden="true"><div style="font-size:40px"><small>40 PT</small><span class="sz"></span></div><div style="font-size:24px"><small>24 PT</small><span class="sz"></span></div><div style="font-size:15px"><small>15 PT</small><span class="sz"></span></div></div>
+        <p class="step" style="margin:6px 0 0"><i>3</i><span data-t="s3">Take it with you</span></p>
+        <div class="dl"><button type="button" class="btn k" id="dl" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg><span data-t="dl">Download my font (.otf)</span></button><span class="meta" id="meta"></span></div>
+        <p class="note" data-t="note">This quick font has only the letters you drew. The full font has every letter, digit and sign in Latin and Cyrillic, made from your real pen on paper.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="s wrap" id="uses">
-  <div class="head"><h2 data-t="useH">Where your hand <em>goes</em></h2><p data-t="useP">Every example uses the name you typed at the top. Draw letters in the studio and they take the place of the sample hand.</p></div>
+  <div class="head"><div><p class="kick"><b>04</b><span data-t="kUse">Examples</span></p><h2 data-t="useH">Where your hand <em>goes</em></h2></div><p data-t="useP">Every example uses the name you typed at the top. Draw letters in the studio and they take the place of the sample hand.</p></div>
   <div class="exg">
     <div class="exg-h"><h3><i>A</i><span data-t="g1">On screens</span></h3><p data-t="g1p">An app, a message, an email and a post.</p></div>
     <div class="exs d">
-      <figure class="ex x-app"><div class="exv"><div class="ph3"><div class="sb"><span>9:41</span><span></span></div><p class="ak" data-t="eA0">Journal</p><p class="ag" data-t="eA1">Good morning,</p><span class="hw lit an nm">Sander</span><ul><li class="dn"><i class="on"></i><span data-t="eA2">Call the printer</span></li><li><i></i><span data-t="eA3">Send the sheet photos</span></li><li><i></i><span data-t="eA4">Pick up the frames</span></li></ul><div class="nt2"><small data-t="eA5">Note</small><span class="hw" data-t="eA6">Gold foil on the label?</span></div><div class="tb"><b></b><b class="on"></b><b></b></div></div></div><figcaption><span data-t="c1">App screen</span><i>01</i></figcaption></figure>
-      <figure class="ex x-mail"><div class="exv"><div class="mail"><div class="mh"><span><i data-t="eE0">To</i>studio@example.com</span><span><i data-t="eE1">Subject</i><span data-t="eE2">Proof for the label</span></span></div><div class="mb"><p data-t="eE3">Hi, the proof is attached. Two small fixes and it is ready to print.</p><p data-t="eE4">Best,</p><span class="hw lit sg nm">Sander</span><p class="sl2"><b class="nm">Sander</b> · <span data-t="eE5">Studio, Bangkok</span></p></div></div></div><figcaption><span data-t="c2">Email signature</span><i>02</i></figcaption></figure>
-      <figure class="ex x-msg"><div class="exv"><div class="chat"><div class="ct"><span class="av" data-t="eM0i">A</span><div><b data-t="eM0">Anna</b><span data-t="eM0s">last seen recently</span></div></div><p class="bub bi" data-t="eM1">Did the cards arrive?</p><p class="bub bo hw"><span data-t="eM2">Yes, all signed.</span> <span class="nm">Sander</span></p><p class="bub bi" data-t="eM3">They look written by hand. Love it.</p></div></div><figcaption><span data-t="c3">Message</span><i>03</i></figcaption></figure>
-      <figure class="ex x-post"><div class="exv"><div class="post"><div class="pt"><span class="av nm1">S</span><b class="nm">Sander</b><span>· <span data-t="eP0">Bangkok</span></span></div><div class="pi"><span class="hw lit nm">Sander</span><small data-t="eP1">New in the shop</small></div><div class="pa" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 5h16v11H9l-5 4z"/></svg><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M21 4 3 11l7 2 2 7z"/></svg></div><p class="px"><b class="nm">Sander</b> <span data-t="eP2">Every label is now in my own hand.</span></p></div></div><figcaption><span data-t="c4">Social post</span><i>04</i></figcaption></figure>
+      <figure class="ex win x-app"><div class="exv"><div class="ph3"><div class="sb"><span>9:41</span><span></span></div><p class="ak" data-t="eA0">Journal</p><p class="ag" data-t="eA1">Good morning,</p><span class="hw lit an nm">Sander</span><ul><li class="dn"><i class="on"></i><span data-t="eA2">Call the printer</span></li><li><i></i><span data-t="eA3">Send the sheet photos</span></li><li><i></i><span data-t="eA4">Pick up the frames</span></li></ul><div class="nt2"><small data-t="eA5">Note</small><span class="hw" data-t="eA6">Gold foil on the label?</span></div><div class="tb"><b></b><b class="on"></b><b></b></div></div></div><figcaption class="tt"><span><span data-t="c1">App screen</span> · 01</span></figcaption></figure>
+      <figure class="ex win x-mail"><div class="exv"><div class="mail"><div class="mh"><span><i data-t="eE0">To</i>studio@example.com</span><span><i data-t="eE1">Subject</i><span data-t="eE2">Proof for the label</span></span></div><div class="mb"><p data-t="eE3">Hi, the proof is attached. Two small fixes and it is ready to print.</p><p data-t="eE4">Best,</p><span class="hw lit sg nm">Sander</span><p class="sl2"><b class="nm">Sander</b> · <span data-t="eE5">Studio, Bangkok</span></p></div></div></div><figcaption class="tt"><span><span data-t="c2">Email signature</span> · 02</span></figcaption></figure>
+      <figure class="ex win x-msg"><div class="exv"><div class="chat"><div class="ct"><span class="av" data-t="eM0i">A</span><div><b data-t="eM0">Anna</b><span data-t="eM0s">last seen recently</span></div></div><p class="bub bi" data-t="eM1">Did the cards arrive?</p><p class="bub bo hw"><span data-t="eM2">Yes, all signed.</span> <span class="nm">Sander</span></p><p class="bub bi" data-t="eM3">They look written by hand. Love it.</p></div></div><figcaption class="tt"><span><span data-t="c3">Message</span> · 03</span></figcaption></figure>
+      <figure class="ex win x-post"><div class="exv"><div class="post"><div class="pt"><span class="av nm1">S</span><b class="nm">Sander</b><span>· <span data-t="eP0">Bangkok</span></span></div><div class="pi"><span class="hw lit nm">Sander</span><small data-t="eP1">New in the shop</small></div><div class="pa" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 5h16v11H9l-5 4z"/></svg><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M21 4 3 11l7 2 2 7z"/></svg></div><p class="px"><b class="nm">Sander</b> <span data-t="eP2">Every label is now in my own hand.</span></p></div></div><figcaption class="tt"><span><span data-t="c4">Social post</span> · 04</span></figcaption></figure>
     </div>
   </div>
   <div class="exg">
     <div class="exg-h"><h3><i>B</i><span data-t="g2">In the world</span></h3><p data-t="g2p">A card, a label, packaging, a sign and a page.</p></div>
     <div class="exs r">
-      <figure class="ex x-card"><div class="exv"><div class="obj card tilt"><small data-t="eC0">With thanks</small><span class="hw c1" data-t="eC1">Thank you for coming!</span><span class="hw c2 nm">Sander</span></div></div><figcaption><span data-t="c5">Card</span><i>05</i></figcaption></figure>
-      <figure class="ex x-label"><div class="exv"><div class="obj jar tilt"><div class="gl"></div><div class="lb2"><small data-t="eL0">Wild honey</small><span class="hw nm">Sander</span><small data-t="eL1">250 g · 2026</small></div></div></div><figcaption><span data-t="c6">Label</span><i>06</i></figcaption></figure>
-      <figure class="ex x-pack"><div class="exv"><div class="obj bag tilt"><small data-t="eK0">Fresh roast</small><span class="rl"></span><span class="hw lit nm">Sander</span><span class="rl"></span><small data-t="eK1">Small batch · 250 g</small></div></div><figcaption><span data-t="c7">Packaging</span><i>07</i></figcaption></figure>
-      <figure class="ex x-sign"><div class="exv"><div class="obj sign tilt"><div class="bd"><small data-t="eS0">Studio</small><span class="hw lit nm">Sander</span><small data-t="eS1">Open daily</small></div></div></div><figcaption><span data-t="c8">Sign</span><i>08</i></figcaption></figure>
-      <figure class="ex x-note"><div class="exv"><div class="obj npg tilt"><span class="hw"><span class="nm">Sander</span>,</span><span class="hw hw2" data-t="eN1">milk, flowers,</span><span class="hw hw2" data-t="eN2">call mom ♡</span></div></div><figcaption><span data-t="c9">Notebook page</span><i>09</i></figcaption></figure>
+      <figure class="ex win x-card"><div class="exv"><div class="obj card tilt"><small data-t="eC0">With thanks</small><span class="hw c1" data-t="eC1">Thank you for coming!</span><span class="hw c2 nm">Sander</span></div></div><figcaption class="tt"><span><span data-t="c5">Card</span> · 05</span></figcaption></figure>
+      <figure class="ex win x-label"><div class="exv"><div class="obj jar tilt"><div class="gl"></div><div class="lb2"><small data-t="eL0">Wild honey</small><span class="hw nm">Sander</span><small data-t="eL1">250 g · 2026</small></div></div></div><figcaption class="tt"><span><span data-t="c6">Label</span> · 06</span></figcaption></figure>
+      <figure class="ex win x-pack"><div class="exv"><div class="obj bag tilt"><small data-t="eK0">Fresh roast</small><span class="rl"></span><span class="hw lit nm">Sander</span><span class="rl"></span><small data-t="eK1">Small batch · 250 g</small></div></div><figcaption class="tt"><span><span data-t="c7">Packaging</span> · 07</span></figcaption></figure>
+      <figure class="ex win x-sign"><div class="exv"><div class="obj sign tilt"><div class="bd"><small data-t="eS0">Studio</small><span class="hw lit nm">Sander</span><small data-t="eS1">Open daily</small></div></div></div><figcaption class="tt"><span><span data-t="c8">Sign</span> · 08</span></figcaption></figure>
+      <figure class="ex win x-note"><div class="exv"><div class="obj npg tilt"><span class="hw"><span class="nm">Sander</span>,</span><span class="hw hw2" data-t="eN1">milk, flowers,</span><span class="hw hw2" data-t="eN2">call mom ♡</span></div></div><figcaption class="tt"><span><span data-t="c9">Notebook page</span> · 09</span></figcaption></figure>
     </div>
   </div>
 </section>
 
 <section class="s wrap" id="prices">
-  <div class="head"><h2 data-t="prH">Simple <em>prices</em></h2><p data-t="prP">One price, no subscription. You own the font and can use it anywhere.</p></div>
+  <div class="head"><div><p class="kick"><b>05</b><span data-t="kPr">Prices</span></p><h2 data-t="prH">Simple <em>prices</em></h2></div><p data-t="prP">One price, no subscription. You own the font and can use it anywhere.</p></div>
   <div class="plans">
-    <div class="plan"><h3 data-t="p1h">Personal</h3><div class="pr">$39<small data-t="once">once</small></div><ul><li data-t="p1a">One alphabet, Latin or Cyrillic</li><li data-t="p1b">Capitals, small letters, digits and punctuation</li><li data-t="p1c">OTF and TTF for Windows, Mac, Word and Canva</li><li data-t="p1d">One round of fixes</li></ul><a class="btn" href="https://t.me/sandersax" target="_blank" rel="noopener" data-t="p1btn">Order on Telegram</a></div>
-    <div class="plan top"><span class="tg" data-t="pop">Most chosen</span><h3 data-t="p2h">Full</h3><div class="pr">$69<small data-t="once">once</small></div><ul><li data-t="p2a">Latin and Cyrillic together</li><li data-t="p2b">Digits, punctuation and « » quotes</li><li data-t="p2c">Your signature on its own key</li><li data-t="p2d">Web font (WOFF2) with a sample page</li><li data-t="p2e">Two rounds of fixes</li></ul><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener" data-t="p2btn">Order on Telegram</a></div>
+    <div class="plan win"><div class="tt"><span>personal.otf</span></div><div class="pb2"><h3 data-t="p1h">Personal</h3><div class="pr">$39<small data-t="once">once</small></div><ul><li data-t="p1a">One alphabet, Latin or Cyrillic</li><li data-t="p1b">Capitals, small letters, digits and punctuation</li><li data-t="p1c">OTF and TTF for Windows, Mac, Word and Canva</li><li data-t="p1d">One round of fixes</li></ul><a class="btn" href="https://t.me/sandersax" target="_blank" rel="noopener" data-t="p1btn">Order on Telegram</a></div></div>
+    <div class="plan win top"><div class="tt"><span>full.otf</span></div><div class="pb2"><span class="tg" data-t="pop">Most chosen</span><h3 data-t="p2h">Full</h3><div class="pr">$69<small data-t="once">once</small></div><ul><li data-t="p2a">Latin and Cyrillic together</li><li data-t="p2b">Digits, punctuation and « » quotes</li><li data-t="p2c">Your signature on its own key</li><li data-t="p2d">Web font (WOFF2) with a sample page</li><li data-t="p2e">Two rounds of fixes</li></ul><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener" data-t="p2btn">Order on Telegram</a></div></div>
   </div>
 </section>
 
@@ -521,10 +599,10 @@ footer a{color:var(--tx);display:inline-flex;align-items:center;min-height:44px}
 
 <section class="contact" id="contact"><div class="wrap">
   <div><h2 data-t="cH">Send the photos, <em>get your font</em></h2><p data-t="cP">Message me in any of these. Send the sheet photos or ask a question first. I usually reply the same day.</p></div>
-  <div class="chs">
-    <a class="ch" id="cTg" href="https://t.me/sandersax" target="_blank" rel="noopener"><span class="ic" style="background:#229ed9"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5Z"/></svg></span><div><b>Telegram</b><span>@sandersax</span></div><span class="ar" aria-hidden="true">→</span></a>
-    <a class="ch" id="cWa" href="https://wa.me/66961347329" target="_blank" rel="noopener"><span class="ic" style="background:#25d366"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.7-.6 13.5 13.5 0 0 1-5.2-4.6c-.4-.5-1-1.5-1-2.8s.7-2 1-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.3Z"/></svg></span><div><b>WhatsApp</b><span>+66 96 134 7329</span></div><span class="ar" aria-hidden="true">→</span></a>
-    <a class="ch" id="cMail" href="mailto:leshadqq@gmail.com"><span class="ic" style="background:#16171c;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg></span><div><b>Email</b><span>leshadqq@gmail.com</span></div><span class="ar" aria-hidden="true">→</span></a>
+  <div class="win chs">
+    <a class="ch" id="cTg" href="https://t.me/sandersax" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e7e6e1" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5Z"/></svg></span><div><b>Telegram</b><span>@sandersax</span></div><span class="ar" aria-hidden="true">→</span></a>
+    <a class="ch" id="cWa" href="https://wa.me/66961347329" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e7e6e1" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.7-.6 13.5 13.5 0 0 1-5.2-4.6c-.4-.5-1-1.5-1-2.8s.7-2 1-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.3Z"/></svg></span><div><b>WhatsApp</b><span>+66 96 134 7329</span></div><span class="ar" aria-hidden="true">→</span></a>
+    <a class="ch" id="cMail" href="mailto:leshadqq@gmail.com"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#e7e6e1" stroke-width="2" stroke-linejoin="miter" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg></span><div><b>Email</b><span>leshadqq@gmail.com</span></div><span class="ar" aria-hidden="true">→</span></a>
   </div>
 </div></section>
 <footer><div class="wrap"><span>© 2026 Alexandr Khrustalev · SanderSax</span><a href="../" data-t="fAll">All work</a></div></footer>
@@ -536,25 +614,28 @@ var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function $(s){return document.querySelector(s)}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
 function pad2(n){return (n<10?"0":"")+n}
+var BH=52;
 
 /* ---------- language ---------- */
 var T={en:{},ru:{
 navL:"Разделы",nTry:"Попробовать",nHow:"Как это работает",nUse:"Примеры",nPrice:"Цены",nContact:"Контакты",eyebrow:"Шрифт из почерка · латиница и кириллица",
-h1:"Ваш почерк,<br><span>как настоящий шрифт.</span>",hside:"Напишите имя, и перо выведет его на странице. Ваш собственный шрифт делается из одного листа, заполненного от руки, и тогда перо пишет как вы.",
-nameL:"Имя",namePh:"Мария",replayL:"Написать ещё раз",inkL:"Чернила",inkT:"Чернила",inkP:"Жемчужные",inkB:"Синие",inkV:"Фиолетовые",nibL:"Перо",nibT:"Перо",nibF:"Тонкое",nibM:"Среднее",nibB:"Широкое",
+h1:"Ваш почерк,<br><span>как настоящий шрифт.</span>",hside:"Напишите имя. Перо выведет его, а машина прочитает штрихи и соберёт из них файл шрифта. Ваш собственный шрифт делается из одного листа, заполненного от руки.",
+winT:"Почерк в шрифт",nameL:"Имя",namePh:"Мария",replayL:"Написать ещё раз",nibL:"Толщина пера",nibT:"Толщина",nibF:"Тонкое",nibM:"Среднее",nibB:"Широкое",
+mCap:"Загл.",mX:"Строчн.",mBase:"Линия",mDesc:"Низ",swT:"Чтение",
+procL:"Процесс",procT:"Процесс",pr1:"Чтение скана",pr2:"Штрихи",pr3:"Сборка знаков",pr4:"Экспорт шрифта",procGo:"Нарисовать свои буквы →",
 hnote:"Пример почерка, пишется вживую. Ваш шрифт будет похож на вас.",
 ctaTry:"Нарисовать буквы",ctaPrice:"Заказать полный шрифт",
 stK:"Как делается полный шрифт",stH:"От одного листа до <em>настоящего шрифта</em>",
 st1h:"Распечатайте лист",st1p:"Три страницы A4, клетка для каждой буквы, цифры и знака. Печатайте в масштабе 100%.",
 st2h:"Заполните и сфотографируйте",st2p:"Одна буква в клетке, на линии, чёрным фломастером. Сфотографируйте каждую страницу ровно, при дневном свете, и пришлите фото.",
 st3h:"Получите шрифт",st3p:"Через два дня вы получите файлы шрифта, страницу с образцом и помощь с установкой. Подпись можно поставить на отдельную клавишу.",
-st1a:"Скачать лист (PDF) →",sheetHead:"Шрифт из почерка",fileMeta:"Латиница и кириллица · 166 знаков",
-studioL:"Студия шрифта",trH:"Теперь нарисуйте <em>свои</em>",trP:"Нарисуйте несколько букв мышью, пальцем или стилусом. Страница превратит их в настоящий файл шрифта, который можно установить, и перо вверху начнёт писать ими.",
+st1a:"Скачать лист (PDF) →",scT:"Лист в шрифт",sheetHead:"Шрифт из почерка",saveT:"Сохранить шрифт",fileMeta:"Латиница и кириллица · 166 знаков",
+studioL:"Студия шрифта",kTry:"Студия шрифта",stuT:"Студия шрифта · my-handwriting.otf",trH:"Теперь нарисуйте <em>свои</em>",trP:"Нарисуйте несколько букв мышью, пальцем или стилусом. Страница превратит их в настоящий файл шрифта, который можно установить, и перо вверху начнёт писать ими.",
 s1:"Нарисуйте каждую букву",lettersL:"Какие буквы рисовать",weightL:"Перо",
 hint:"Сначала перо рисует пример. <b>Нажмите × и нарисуйте свою</b> мышью, пальцем или стилусом. Ставьте буквы на сплошную линию.",
 s2:"Пишите им",outL:"Напишите текст своим шрифтом",s3:"Заберите с собой",dl:"Скачать мой шрифт (.otf)",
 note:"В этом быстром шрифте только нарисованные буквы. Полный шрифт содержит все буквы, цифры и знаки на латинице и кириллице, с вашей настоящей ручки на бумаге.",
-useH:"Куда идёт <em>ваша рука</em>",useP:"Во всех примерах имя, которое вы написали вверху. Нарисуйте буквы в студии, и они заменят образец почерка.",
+kUse:"Примеры",useH:"Куда идёт <em>ваша рука</em>",useP:"Во всех примерах имя, которое вы написали вверху. Нарисуйте буквы в студии, и они заменят образец почерка.",
 g1:"На экранах",g1p:"Приложение, сообщение, письмо и пост.",g2:"В жизни",g2p:"Открытка, этикетка, упаковка, вывеска и страница.",
 eA0:"Дневник",eA1:"Доброе утро,",eA2:"Позвонить в типографию",eA3:"Отправить фото листа",eA4:"Забрать рамки",eA5:"Заметка",eA6:"Золотое тиснение на этикетке?",c1:"Экран приложения",
 eE0:"Кому",eE1:"Тема",eE2:"Макет этикетки",eE3:"Здравствуйте, макет во вложении. Две небольшие правки, и можно печатать.",eE4:"С уважением,",eE5:"Студия, Бангкок",c2:"Подпись в письме",
@@ -563,7 +644,7 @@ eP0:"Бангкок",eP1:"Новинка в магазине",eP2:"Теперь 
 eC0:"С благодарностью",eC1:"Спасибо, что пришли!",c5:"Открытка",eL0:"Дикий мёд",eL1:"250 г · 2026",c6:"Этикетка",
 eK0:"Свежая обжарка",eK1:"Малая партия · 250 г",c7:"Упаковка",eS0:"Студия",eS1:"Открыто каждый день",c8:"Вывеска",
 eN1:"молоко, цветы,",eN2:"позвонить маме ♡",c9:"Страница блокнота",
-prH:"Простые <em>цены</em>",prP:"Одна оплата, без подписки. Шрифт ваш, используйте где угодно.",once:"один раз",
+kPr:"Цены",prH:"Простые <em>цены</em>",prP:"Одна оплата, без подписки. Шрифт ваш, используйте где угодно.",once:"один раз",
 p1h:"Личный",p1a:"Один алфавит, латиница или кириллица",p1b:"Заглавные, строчные, цифры и знаки",p1c:"OTF и TTF для Windows, Mac, Word и Canva",p1d:"Одна правка",p1btn:"Заказать в Telegram",
 pop:"Чаще выбирают",p2h:"Полный",p2a:"Латиница и кириллица вместе",p2b:"Цифры, знаки и кавычки « »",p2c:"Ваша подпись на отдельной клавише",p2d:"Веб-шрифт (WOFF2) со страницей образца",p2e:"Две правки",p2btn:"Заказать в Telegram",
 faqH:"Вопросы",q1:"Это настоящий шрифт или картинка?",a1:"Настоящий файл шрифта. Его устанавливают как любой другой шрифт и печатают им. Даже быстрый шрифт с этой страницы это настоящий OTF.",
@@ -576,36 +657,31 @@ document.querySelectorAll("[data-t]").forEach(function(el){T.en[el.dataset.t]=el
 document.querySelectorAll("[data-t-aria]").forEach(function(el){T.en[el.dataset.tAria]=el.getAttribute("aria-label")});
 document.querySelectorAll("[data-t-ph]").forEach(function(el){T.en[el.dataset.tPh]=el.getAttribute("placeholder")});
 var LS=["en","ru"],TITLES={en:"Your handwriting as a font · SanderSax",ru:"Шрифт из вашего почерка · SanderSax"},MSG={en:"Hi! I want a font from my handwriting.",ru:"Здравствуйте! Хочу шрифт из своего почерка."},lang="en";
-var U={en:{ready:function(n,k){return n+" letters · "+k+" KB"},none:"Draw at least one letter",undo:"Undo",clear:"Clear",building:"Building the font",done:"Ready to install",writing:"Writing",signed:"Signed",page:"Page",strokes:"strokes",sample:"Sample hand",own:"Your letters",box:"Drawing box for ",locale:"en-GB"},
-       ru:{ready:function(n,k){return "букв: "+n+" · "+k+" КБ"},none:"Нарисуйте хотя бы одну букву",undo:"Отменить",clear:"Очистить",building:"Собираю шрифт",done:"Готов к установке",writing:"Пишется",signed:"Подписано",page:"Стр.",strokes:"штрихов",sample:"Образец почерка",own:"Ваши буквы",box:"Поле для буквы ",locale:"ru-RU"}};
+var U={en:{ready:function(n,k){return n+" letters · "+k+" KB"},none:"Draw at least one letter",undo:"Undo",clear:"Clear",building:"Building the font",done:"Ready to install",writing:"Writing",signed:"Signed",page:"Scan",strokes:"strokes",glyphs:"glyphs",idle:"Input",run:"Running",ok:"Ready",sample:"Sample hand",own:"Your letters",box:"Drawing box for ",locale:"en-GB"},
+       ru:{ready:function(n,k){return "букв: "+n+" · "+k+" КБ"},none:"Нарисуйте хотя бы одну букву",undo:"Отменить",clear:"Очистить",building:"Собираю шрифт",done:"Готов к установке",writing:"Пишется",signed:"Подписано",page:"Скан",strokes:"штрих.",glyphs:"знаков",idle:"Ввод",run:"Работает",ok:"Готово",sample:"Образец почерка",own:"Ваши буквы",box:"Поле для буквы ",locale:"ru-RU"}};
 var NAMES={en:["Sander","Anna","Kenji","Мария","Lucas"],ru:["Мария","Анна","Sander","Олег"]};
 function setLang(l){lang=l;document.documentElement.lang=l;
   document.querySelectorAll("[data-t]").forEach(function(el){var v=T[l][el.dataset.t];if(v!=null)el.innerHTML=v});
   document.querySelectorAll("[data-t-aria]").forEach(function(el){var v=T[l][el.dataset.tAria];if(v!=null)el.setAttribute("aria-label",v)});
   document.querySelectorAll("[data-t-ph]").forEach(function(el){var v=T[l][el.dataset.tPh];if(v!=null)el.setAttribute("placeholder",v)});
   document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.l===l))});
-  $(".lang .pill").style.transform="translateX("+(LS.indexOf(l)*44)+"px)";
   document.title=TITLES[l];
   $("#cWa").href="https://wa.me/66961347329?text="+encodeURIComponent(MSG[l]);
   $("#cMail").href="mailto:leshadqq@gmail.com?subject="+encodeURIComponent(l==="ru"?"Шрифт из почерка":"Handwriting font")+"&body="+encodeURIComponent(MSG[l]);
   try{localStorage.setItem("ak-lang",l)}catch(e){}
   if(window.__padsLabels)window.__padsLabels();updateMeta();
+  if(window.__proc)window.__proc.relabel();
   if(window.__hero)window.__hero.lang();
   storyStatus=-1;onScroll();
 }
 document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){setLang(b.dataset.l)})});
 
-/* ---------- ink ---------- */
-var INKS={pearl:{ink:"#f1eee6",glow:"#c6d2ff"},blue:{ink:"#a9bcff",glow:"#5f80ff"},violet:{ink:"#d0bdff",glow:"#8f6cff"}},inkName="pearl",INK=INKS.pearl;
+/* ---------- system clock in the menu bar ---------- */
+(function(){var c=$("#clk");function tick(){var d=new Date();c.textContent=pad2(d.getHours())+":"+pad2(d.getMinutes())}tick();setInterval(tick,15000)})();
+
+/* ---------- ink: plain system ink, one colour ---------- */
+var INK={ink:"#eeede8",glow:"#ffffff"};
 function rgb(h){var n=parseInt(h.slice(1),16);return [n>>16&255,n>>8&255,n&255]}
-function setInk(n,quiet){if(!INKS[n])n="pearl";inkName=n;INK=INKS[n];var r=document.documentElement.style;
-  r.setProperty("--ink",INK.ink);r.setProperty("--glow",INK.glow);r.setProperty("--ink-rgb",rgb(INK.ink).join(","));r.setProperty("--glow-rgb",rgb(INK.glow).join(","));
-  document.querySelectorAll(".sw").forEach(function(b){b.setAttribute("aria-checked",String(b.dataset.ink===n))});
-  if(!quiet){try{localStorage.setItem("hw-ink",n)}catch(e){}}
-  if(window.__hero)window.__hero.recolor();
-  if(window.__pads)window.__pads();
-  storyStatus=-1;onScroll();
-}
 
 /* ---------- skeleton: the centre line of each letter, so a pen can follow it ---------- */
 function thin(B,w,h){var del=[],ch=true;
@@ -667,8 +743,35 @@ function fitNames(){document.querySelectorAll(FIT).forEach(function(e){e.style.f
 var fitT=0;function fitSoon(){clearTimeout(fitT);fitT=setTimeout(fitNames,120)}
 addEventListener("resize",fitSoon);if(document.fonts){document.fonts.addEventListener&&document.fonts.addEventListener("loadingdone",fitSoon);document.fonts.ready.then(fitSoon)}
 
-/* ---------- hero: a pen writes on a notebook page, the ink gives the light ---------- */var hero=(function(){
-  var page=$("#page"),lay=$("#layer"),cG=$("#cGlow"),cI=$("#cInk"),penW=$("#pen"),penS=penW.querySelector("svg"),inp=$("#nameIn"),pSt=$("#pSt"),pNo=$("#pNo"),pDate=$("#pDate"),pStr=$("#pStr"),pHand=$("#pHand");
+/* ---------- process panel: read, trace, build, export ---------- */
+var proc=(function(){
+  var lis=[].slice.call(document.querySelectorAll("#stg li")),vals=lis.map(function(l){return l.querySelector(".v")}),bars=lis.map(function(l){return l.querySelector(".pb i")});
+  var cells=$("#cells"),fname=$("#fname"),fileo=$("#fileo"),sweep=$("#sweep"),stat=$("#procS"),tk=0,tm=[],last=null,state="idle";
+  function st(k){state=k;stat.textContent=U[lang][k]}
+  function reset(){tk++;tm.forEach(clearTimeout);tm=[];lis.forEach(function(l,i){l.className="";vals[i].textContent="-";bars[i].style.width="0%"});
+    cells.innerHTML="";fname.textContent="-";fileo.classList.remove("ok");sweep.classList.remove("go");st("idle")}
+  function tween(ms,fn,done){var my=tk,t0=performance.now();(function f(n){if(my!==tk)return;var u=Math.min(1,Math.max(0,(n-t0)/ms));fn(u);if(u<1)requestAnimationFrame(f);else if(done)done()})(t0)}
+  function ok(i){lis[i].className="ok";bars[i].style.width="100%"}
+  function final(o){vals[0].textContent="100%";vals[1].textContent=o.strokes+" "+U[lang].strokes;vals[2].textContent=o.chars.length+" "+U[lang].glyphs;vals[3].textContent="OTF";
+    lis.forEach(function(l,i){ok(i)});cells.querySelectorAll(".gc").forEach(function(c){c.classList.add("on")});fname.textContent=o.file;fileo.classList.add("ok");st("ok")}
+  function fill(o){cells.style.fontFamily=o.font;cells.innerHTML=o.chars.map(function(c){return '<span class="gc"><b></b><i>'+c.codePointAt(0).toString(16).toUpperCase().padStart(4,"0")+'</i></span>'}).join("");
+    cells.querySelectorAll(".gc b").forEach(function(b,i){b.textContent=o.chars[i]})}
+  function run(o,instant,cb){reset();last=o;fill(o);
+    if(instant||reduce){final(o);if(cb)cb();return}
+    var my=tk,page=$("#page");st("run");lis[0].className="run";
+    sweep.style.setProperty("--sd","1100ms");void sweep.offsetWidth;sweep.classList.add("go");
+    tween(1100,function(u){bars[0].style.width=(u*100)+"%";vals[0].textContent=Math.round(u*100)+"%"},function(){ok(0);lis[1].className="run";
+      tween(650,function(u){bars[1].style.width=(u*100)+"%";vals[1].textContent=Math.round(u*o.strokes)+" "+U[lang].strokes},function(){ok(1);lis[2].className="run";
+        var gs=cells.querySelectorAll(".gc"),n=gs.length;
+        tween(Math.max(300,n*110),function(u){var k=Math.min(n,Math.ceil(u*n));for(var i=0;i<k;i++)gs[i].classList.add("on");bars[2].style.width=(u*100)+"%";vals[2].textContent=k+" "+U[lang].glyphs},function(){ok(2);lis[3].className="run";
+          tween(800,function(u){bars[3].style.width=(u*100)+"%";vals[3].textContent=Math.round(u*100)+"%"},function(){if(my!==tk)return;final(o);if(cb)cb()})})})})}
+  return {run:run,reset:reset,relabel:function(){if(state==="ok"&&last)final(last);else st(state)}};
+})();
+window.__proc=proc;
+
+/* ---------- hero: a pen writes on the scan bed, the machine reads it ---------- */var hero=(function(){
+  var page=$("#page"),lay=$("#layer"),cG=$("#cGlow"),cI=$("#cInk"),penW=$("#pen"),penS=penW.querySelector("svg"),inp=$("#nameIn"),pSt=$("#pSt"),pNo=$("#pNo"),pDate=$("#pDate"),pHand=$("#pHand");
+  var mC=$("#mCap"),mX=$("#mX"),mB=$("#mBase"),mD=$("#mDesc");
   var gx=cG.getContext("2d"),ix=cI.getContext("2d"),work=document.createElement("canvas"),wx=work.getContext("2d",{willReadFrequently:true});
   var WFS=150,GS=.5,W=0,H=0,dpr=1,fs=100,S=[],tl=[],token=0,raf=0,cycleT=0,idx=0,touched=false,pageNo=1,vis=true,pendingTurn=false,state="idle",nibK=.062,cur="",si=0,pi=0,own=null,ownT=0,signedAt="";
   function names(){return NAMES[lang]}
@@ -680,9 +783,8 @@ addEventListener("resize",fitSoon);if(document.fonts){document.fonts.addEventLis
     cI.width=Math.round(W*dpr);cI.height=Math.round(H*dpr);cG.width=Math.round(W*GS);cG.height=Math.round(H*GS);
     ix.setTransform(dpr,0,0,dpr,0,0);gx.setTransform(GS,0,0,GS,0,0);ix.lineCap=gx.lineCap="round";ix.lineJoin=gx.lineJoin="round";colors()}
   function colors(){ix.strokeStyle=ix.fillStyle=INK.ink;gx.strokeStyle=gx.fillStyle=INK.glow}
-  function geo(){var mx=W<520?30:Math.round(Math.min(72,W*.06)),rule=Math.round(clamp(H/7.2,28,60)),top=42,bot=38,base=Math.round(top+(H-top-bot)*.7);
-    page.style.setProperty("--mx",mx+"px");page.style.setProperty("--rule",rule+"px");page.style.setProperty("--roff",(base%rule)+"px");
-    return {mx:mx,rule:rule,base:base,top:top,bot:bot,padL:mx+Math.max(12,W*.03),padR:Math.max(16,W*.05)}}
+  function geo(){var lab=W<520?62:86,top=40,bot=36,base=Math.round(top+(H-top-bot)*.7);
+    return {base:base,top:top,bot:bot,padL:lab+Math.max(10,W*.025),padR:Math.max(16,W*.05)}}
   function skel(text){
     wx.font="500 "+WFS+"px "+hand();var tw=Math.ceil(wx.measureText(text).width),ww=Math.min(5000,tw+Math.round(WFS*.7)),wh=Math.round(WFS*1.75);
     work.width=ww;work.height=wh;wx.font="500 "+WFS+"px "+hand();wx.fillStyle="#000";wx.textBaseline="alphabetic";
@@ -698,11 +800,16 @@ addEventListener("resize",fitSoon);if(document.fonts){document.fonts.addEventLis
     return {p:o,s:s,L:acc,dy:dy,dot:dot||acc<fs*.025,seed:n*1.7+.3,w:[]}}
   function widths(){var base=nibK*fs;S.forEach(function(st){st.w=st.p.map(function(p,i){var s=st.s[i],a=Math.min(1,s/(fs*.09)),b=Math.min(1,(st.L-s)/(fs*.15));
     return Math.max(.7,base*(.5+.5*Math.pow(a,.6))*(.38+.62*Math.pow(b,.7))*(1+.1*Math.sin(s/(fs*.4)+st.seed)+.05*Math.sin(s/(fs*.12)+st.seed*3))*(1+.16*st.dy[i]))})})}
+  /* metric lines measured from the real hand, like a font editor */
+  function metrics(g){wx.font="500 "+WFS+"px "+hand();var sc=fs/WFS;
+    function asc(c){var m=wx.measureText(c);return m.actualBoundingBoxAscent||0}
+    var cap=asc("H")*sc,xh=(asc("a")+asc("n")+asc("e")+asc("u"))/4*sc,de=(wx.measureText("p").actualBoundingBoxDescent||WFS*.25)*sc,b=Math.round(g.base-fs*.03);
+    mC.style.setProperty("--y",Math.round(b-cap)+"px");mX.style.setProperty("--y",Math.round(b-xh)+"px");mB.style.setProperty("--y",b+"px");mD.style.setProperty("--y",Math.round(b+de)+"px");page.classList.add("metric")}
   function prep(text){var g=geo();wx.font="500 "+WFS+"px "+hand();var tw=wx.measureText(text).width||WFS;
     var avail=W-g.padL-g.padR,fsH=Math.min((g.base-g.top-4)/.92,(H-g.base-4)/.4);fs=Math.max(16,Math.min(fsH,avail/(tw/WFS)*.97,300));
     var k=skel(text),sc=fs/WFS,ox=g.padL+Math.max(0,avail-k.tw*sc)*.14;
     S=k.paths.map(function(pp,n){return mk(pp.pts.map(function(q){return [ox+(q[0]-k.bx)*sc,g.base+(q[1]-k.by)*sc]}),pp.dot,n)}).filter(function(st){return st.p.length});
-    penW.style.setProperty("--pl",Math.round(clamp(fs*1.6,120,290))+"px");page.style.setProperty("--gb",Math.round(clamp(fs*.035,3,8))+"px");page.style.setProperty("--roff",((Math.round(g.base-fs*.065)%g.rule)+g.rule)%g.rule+"px");widths()}
+    penW.style.setProperty("--pl",Math.round(clamp(fs*1.6,120,290))+"px");page.style.setProperty("--gb",Math.round(clamp(fs*.03,3,7))+"px");metrics(g);widths()}
   function seg(st,i){var a=st.p[i-1],b=st.p[i],w=st.w[i];
     ix.lineWidth=w;ix.beginPath();ix.moveTo(a[0],a[1]);ix.lineTo(b[0],b[1]);ix.stroke();
     gx.lineWidth=w*1.3+fs*.012;gx.beginPath();gx.moveTo(a[0],a[1]);gx.lineTo(b[0],b[1]);gx.stroke()}
@@ -728,20 +835,24 @@ addEventListener("resize",fitSoon);if(document.fonts){document.fonts.addEventLis
   function ease(u){return .78*u+.22*(u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2)}
   function status(k){state=k;if(k==="writing"){pSt.textContent=U[lang].writing+"…";pSt.classList.remove("ok")}
     else{pSt.textContent=U[lang].signed+" "+signedAt;pSt.classList.add("ok")}}
-  function labels(){pDate.textContent=new Date().toLocaleDateString(U[lang].locale,{weekday:"short",day:"numeric",month:"short"});pNo.textContent=U[lang].page+" "+pad2(pageNo);
-    pStr.textContent=S.length?S.length+" "+U[lang].strokes:"";pHand.textContent=own?U[lang].own:U[lang].sample;if(state==="writing"||state==="done")status(state)}
-  function finish(){si=S.length;pi=0;var d=new Date();signedAt=pad2(d.getHours())+":"+pad2(d.getMinutes());status("done");page.classList.add("dry");
-    if(!reduce&&!touched){clearTimeout(cycleT);cycleT=setTimeout(turn,5400)}}
+  function labels(){pDate.textContent=new Date().toLocaleDateString(U[lang].locale,{day:"2-digit",month:"short",year:"numeric"});pNo.textContent=U[lang].page+" "+pad2(pageNo);
+    pHand.textContent=own?U[lang].own:U[lang].sample;if(state==="writing"||state==="done")status(state)}
+  function uniq(t){var o=[];Array.from(t).forEach(function(c){if(c.trim()&&o.indexOf(c)<0)o.push(c)});return o}
+  function slug(t){return (t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu,"-").replace(/^-+|-+$/g,"")||"hand")+"-hand.otf"}
+  function finish(instant){si=S.length;pi=0;var d=new Date();signedAt=pad2(d.getHours())+":"+pad2(d.getMinutes());status("done");
+    var my=token;
+    proc.run({strokes:S.length,chars:uniq(cur),file:slug(cur),font:hand()},instant,function(){if(my!==token)return;
+      if(!reduce&&!touched){clearTimeout(cycleT);cycleT=setTimeout(turn,4600)}})}
   function away(){var m=/translate\(([-\d.]+)px,([-\d.]+)px\)/.exec(penW.style.transform||"");penW.classList.add("away");
     if(m)penW.style.transform="translate("+(+m[1]+fs*.5).toFixed(1)+"px,"+(+m[2]-fs*.35).toFixed(1)+"px)";penW.style.opacity=0}
-  function write(text,anim){var my=++token;cancelAnimationFrame(raf);clearTimeout(cycleT);cur=text;
+  function write(text,anim){var my=++token;cancelAnimationFrame(raf);clearTimeout(cycleT);cur=text;proc.reset();
     page.setAttribute("aria-label",text);setNames(text);
-    function go(){if(my!==token)return;if(!W)size();prep(text);clear();colors();si=0;pi=0;lay.classList.remove("turn");page.classList.remove("dry");labels();
-      if(reduce||anim===false||!S.length){adv(S.length,0);penW.style.opacity=0;finish();labels();return}
+    function go(){if(my!==token)return;if(!W)size();prep(text);clear();colors();si=0;pi=0;lay.classList.remove("turn");labels();
+      if(reduce||anim===false||!S.length){adv(S.length,0);penW.style.opacity=0;finish(true);labels();return}
       var T0=performance.now(),TT=plan();status("writing");penW.classList.remove("away");lastX=tl[0].a[0];penAt(tl[0].a[0],tl[0].a[1],1);penW.style.opacity=1;
       (function frame(now){if(my!==token)return;var t=now-T0,e=null;
         for(var q=0;q<tl.length;q++)if(t<tl[q].t1){e=tl[q];break}
-        if(!e){adv(S.length,0);away();finish();labels();return}
+        if(!e){adv(S.length,0);away();finish(false);labels();return}
         var u=clamp((t-e.t0)/(e.t1-e.t0),0,1);
         if(e.k===0){adv(e.n,0);var uu=u*u*(3-2*u);penAt(e.a[0]+(e.b[0]-e.a[0])*uu,e.a[1]+(e.b[1]-e.a[1])*uu,Math.sin(Math.PI*u)*(e.n?1:1-u))}
         else{var st=S[e.n];if(st.dot){adv(e.n,1);var p0=st.p[0];penAt(p0[0],p0[1],0)}
@@ -753,12 +864,11 @@ addEventListener("resize",fitSoon);if(document.fonts){document.fonts.addEventLis
     setTimeout(function(){if(my!==token)return;idx++;pageNo++;write(current())},460)}
   if("IntersectionObserver" in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting;if(vis&&pendingTurn&&state==="done"){pendingTurn=false;turn()}},{threshold:.2}).observe(page);
   document.addEventListener("visibilitychange",function(){if(!document.hidden&&pendingTurn&&vis&&state==="done"){pendingTurn=false;turn()}});
-  var rt=0,lw=0;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){var r=page.getBoundingClientRect();if(Math.abs(r.width-W)<1&&Math.abs(r.height-H)<1)return;
+  var rt=0;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){var r=page.getBoundingClientRect();if(Math.abs(r.width-W)<1&&Math.abs(r.height-H)<1)return;
     size();if(state==="done"||reduce)write(cur,false);else write(cur)},160)});
   var tm=0;inp.addEventListener("input",function(){touched=!!inp.value.trim();clearTimeout(tm);clearTimeout(cycleT);tm=setTimeout(function(){write(current())},380)});
   inp.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();clearTimeout(tm);write(current())}});
   $("#replay").addEventListener("click",function(){write(current())});
-  document.querySelectorAll(".sw").forEach(function(b){b.addEventListener("click",function(){setInk(b.dataset.ink)});b.addEventListener("keydown",radioKeys)});
   document.querySelectorAll(".nb").forEach(function(b){b.addEventListener("click",function(){setNib(b)});b.addEventListener("keydown",radioKeys)});
   function setNib(b,quiet){nibK=+b.dataset.nib||.062;document.querySelectorAll(".nb").forEach(function(x){x.setAttribute("aria-checked",String(x===b))});
     if(!quiet){try{localStorage.setItem("hw-nib",b.dataset.nib)}catch(e){}}if(S.length){widths();redraw()}}
@@ -771,7 +881,6 @@ addEventListener("resize",fitSoon);if(document.fonts){document.fonts.addEventLis
   return {
     start:function(){size();write(current())},
     lang:function(){labels();if(!touched){idx=0;if(state!=="idle")write(current())}else setNames(current())},
-    recolor:function(){if(S.length)redraw()},
     own:function(f){if(f===own)return;own=f;clearTimeout(ownT);ownT=setTimeout(function(){if(state==="done")write(cur,false);else labels()},500)}
   };
 })();
@@ -810,16 +919,15 @@ function story(p){
   fl.forEach(function(L){L.el.classList.toggle("m",b>0&&L.tx<sx)});
   file.style.opacity=t4.toFixed(3);file.style.transform="translateY("+((1-t4)*18).toFixed(2)+"cqh)";
   pg.style.width=(b*100).toFixed(1)+"%";
-  var stt=b>=1?1:0;if(stt!==storyStatus){storyStatus=stt;st3.textContent=stt?"✓ "+U[lang].done:U[lang].building+"…"}
+  var stt=b>=1?1:0;if(stt!==storyStatus){storyStatus=stt;st3.textContent=stt?"OK · "+U[lang].done:U[lang].building+"…"}
   var k=p<.33?0:p<.63?1:2;steps.forEach(function(li,i){li.classList.toggle("on",i===k)});
   slEl.style.setProperty("--sp",p.toFixed(3));
 }
-function esc(s){return s.replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 
 var ticking=false;
 function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(function(){ticking=false;
   var r=storyEl.getBoundingClientRect(),tot=storyEl.offsetHeight-pin.offsetHeight;
-  if(r.bottom>-200&&r.top<innerHeight+200)story(clamp((64-r.top)/Math.max(1,tot),0,1));
+  if(r.bottom>-200&&r.top<innerHeight+200)story(clamp((BH-r.top)/Math.max(1,tot),0,1));
 })}
 addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);
 
@@ -849,17 +957,16 @@ function drawPad(p){
   x.lineWidth=1;x.strokeStyle="rgba(255,255,255,.12)";x.setLineDash([4,4]);
   x.beginPath();x.moveTo(8,20.5);x.lineTo(PW-8,20.5);x.stroke();
   x.setLineDash([1.5,4]);x.beginPath();x.moveTo(8,60.5);x.lineTo(PW-8,60.5);x.stroke();
-  x.setLineDash([]);x.strokeStyle="rgba(255,255,255,.34)";x.beginPath();x.moveTo(8,BASE+.5);x.lineTo(PW-8,BASE+.5);x.stroke();
+  x.setLineDash([]);x.strokeStyle="rgba(255,255,255,.3)";x.beginPath();x.moveTo(8,BASE+.5);x.lineTo(PW-8,BASE+.5);x.stroke();
   var st=store[p.ch];
   if(!st||!st.strokes.length){x.fillStyle="rgba(255,255,255,.05)";x.font="700 130px Caveat, cursive";x.textAlign="center";x.textBaseline="alphabetic";x.fillText(p.ch,PW/2,BASE-2)}
-  if(st){x.strokeStyle=st.sample?"#8f9198":INK.ink;x.fillStyle=x.strokeStyle;x.lineCap="round";x.lineJoin="round";x.lineWidth=radius()*2/UPX;
-    if(!st.sample){x.shadowColor=INK.glow;x.shadowBlur=9*d}
+  if(st){x.strokeStyle=st.sample?"#7f8187":INK.ink;x.fillStyle=x.strokeStyle;x.lineCap="round";x.lineJoin="round";x.lineWidth=radius()*2/UPX;
     st.strokes.forEach(function(s){
       if(s.length===1){x.beginPath();x.arc(s[0][0],s[0][1],x.lineWidth/2,0,7);x.fill();return}
       x.beginPath();x.moveTo(s[0][0],s[0][1]);
       for(var i=1;i<s.length-1;i++){var mx=(s[i][0]+s[i+1][0])/2,my=(s[i][1]+s[i+1][1])/2;x.quadraticCurveTo(s[i][0],s[i][1],mx,my)}
       x.lineTo(s[s.length-1][0],s[s.length-1][1]);x.stroke();
-    });x.shadowBlur=0}
+    })}
   p.el.classList.toggle("done",!!(st&&st.strokes.length&&!st.sample));
 }
 window.__pads=function(){pads.forEach(drawPad)};
@@ -871,7 +978,7 @@ function buildPads(){
     var cv=document.createElement("canvas"),d=Math.min(3,window.devicePixelRatio||1);cv.width=PW*d;cv.height=PH*d;
     cv.setAttribute("role","img");
     el.appendChild(cv);
-    var lb=document.createElement("span");lb.className="lb";lb.textContent=ch;el.appendChild(lb);
+    var lb=document.createElement("span");lb.className="lb";lb.textContent="U+"+ch.codePointAt(0).toString(16).toUpperCase().padStart(4,"0")+"  "+ch;el.appendChild(lb);
     var tl=document.createElement("div");tl.className="tl";
     var bu=document.createElement("button");bu.type="button";bu.textContent="↶";
     var bc=document.createElement("button");bc.type="button";bc.textContent="×";
@@ -900,7 +1007,7 @@ function bindDraw(p){
     evs.forEach(function(ev){var q=pt(ev),l=cur[cur.length-1];if(Math.hypot(q[0]-l[0],q[1]-l[1])>1.2)cur.push(q)});drawPad(p);
   });
   function end(){if(!cur)return;cur=null;p.el.classList.remove("act");drawPad(p);rebuild();
-    if(!reduce&&p.el.animate)p.el.animate([{transform:"scale(.95)"},{transform:"scale(1.04)"},{transform:"scale(1)"}],{duration:420,easing:"cubic-bezier(.16,1,.3,1)"})}
+    if(!reduce&&p.el.animate)p.el.animate([{transform:"scale(.96)"},{transform:"scale(1.03)"},{transform:"scale(1)"}],{duration:380,easing:"cubic-bezier(.16,1,.3,1)"})}
   p.cv.addEventListener("pointerup",end);p.cv.addEventListener("pointercancel",end);p.cv.addEventListener("lostpointercapture",end);
 }
 
@@ -969,8 +1076,8 @@ dlBtn.addEventListener("click",function(){
   if(!fontBuf)return;var url=URL.createObjectURL(new Blob([fontBuf],{type:"font/otf"})),a=document.createElement("a");
   a.href=url;a.download="my-handwriting.otf";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},4000);
   if(reduce)return;var r=dlBtn.getBoundingClientRect(),b=document.createElement("div");b.className="burst";b.style.left=(r.left+r.width/2)+"px";b.style.top=(r.top+r.height/2)+"px";
-  for(var i=0;i<14;i++){var s=document.createElement("i");s.style.setProperty("--a",(i/14*360)+"deg");s.style.setProperty("--d",(46+Math.random()*30)+"px");b.appendChild(s)}
-  document.body.appendChild(b);setTimeout(function(){b.remove()},900);
+  for(var i=0;i<12;i++){var s=document.createElement("i");s.style.setProperty("--a",(i/12*360)+"deg");s.style.setProperty("--d",(44+(i%3)*12)+"px");b.appendChild(s)}
+  document.body.appendChild(b);setTimeout(function(){b.remove()},800);
 });
 
 /* the pen draws a sample "Sax" so the font is alive before anyone touches it */
@@ -1001,8 +1108,6 @@ function runDemo(){
 }
 
 var q=new URLSearchParams(location.search),ql=q.get("lang"),saved=null;try{saved=localStorage.getItem("ak-lang")}catch(e){}
-var si0=null;try{si0=localStorage.getItem("hw-ink")}catch(e){}
-setInk(INKS[q.get("ink")]?q.get("ink"):(INKS[si0]?si0:"pearl"),true);
 setLang(LS.indexOf(ql)>=0?ql:(LS.indexOf(saved)>=0?saved:"en"));
 var qn=q.get("name");if(qn){$("#nameIn").value=qn.slice(0,14)}
 buildPads();onScroll();
