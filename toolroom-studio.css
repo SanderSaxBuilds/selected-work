@@ -219,7 +219,7 @@ input[type="file"]::file-selector-button { min-height: 40px; margin-right: 12px;
 .listing-backup summary { display: flex; align-items: center; min-height: 48px; font-weight: 700; cursor: pointer; }
 .listing-backup > p { margin: 4px 0 14px; color: var(--muted); font-size: 15px; }
 
-.toast { position: fixed; left: 50%; bottom: 24px; z-index: 400; max-width: calc(100% - 32px); padding: 12px 20px; border: 2px solid var(--kraft); background: var(--ink); color: var(--kraft); box-shadow: 4px 4px 0 var(--red); font-size: 15px; font-weight: 600; opacity: 0; pointer-events: none; transform: translate(-50%, 12px); transition: opacity .18s ease-out, transform .18s ease-out; }
+.toast { position: fixed; left: 50%; bottom: 24px; z-index: 400; width: max-content; max-width: calc(100% - 32px); padding: 12px 20px; border: 2px solid var(--kraft); background: var(--ink); color: var(--kraft); box-shadow: 4px 4px 0 var(--red); font-size: 15px; font-weight: 600; opacity: 0; pointer-events: none; transform: translate(-50%, 12px); transition: opacity .18s ease-out, transform .18s ease-out; }
 .toast.visible { opacity: 1; transform: translate(-50%, 0); }
 
 @media (max-width: 1024px) {
@@ -282,4 +282,47 @@ input[type="file"]::file-selector-button { min-height: 40px; margin-right: 12px;
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* Fingerprint check */
+.match { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 14px 20px; align-items: center; margin-top: 14px; padding: 18px 20px; border: 2px dashed var(--ink); background: var(--kraft-deep); transition: background-color .25s ease, border-color .25s ease; }
+.match h2 { font-size: 21px; text-transform: uppercase; }
+.match-copy p { margin-top: 4px; color: var(--muted); font-size: 15px; }
+.match-drop { position: relative; display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 8px 14px; border: 2px solid var(--ink); background: var(--stock); font-weight: 600; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+.match-drop input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.match-drop:hover, .match-drop.over { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+.match-drop:focus-within { outline: 3px solid var(--ok); outline-offset: 3px; }
+.match-hole { display: grid; place-items: center; width: 36px; height: 36px; flex: none; background: var(--ink); color: var(--kraft); }
+.match-hole svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
+.match-result { grid-column: 1 / -1; min-height: 0; font-size: 15px; overflow-wrap: anywhere; }
+.match-result:empty { display: none; }
+.match-result .num { color: var(--muted); font-size: 13px; }
+.match.found { border-style: solid; border-color: var(--ok); background: var(--ok-bg); }
+.match.found .match-result b { color: var(--ok); }
+.match.missing .match-result b { color: var(--red-ink); }
+.release-row { transition: box-shadow .3s ease, transform .3s ease; }
+.release-row.hit { box-shadow: 6px 6px 0 var(--ok); transform: translate(-3px, -3px); border-color: var(--ok); }
+
+/* Packing list */
+.pack-title { display: flex; justify-content: space-between; align-items: baseline; margin-top: 18px; padding-bottom: 6px; border-bottom: 1px solid #4a433a; color: #fff; font-family: var(--heading); font-size: 17px; letter-spacing: .04em; text-transform: uppercase; }
+.pack-title span { color: var(--rail-muted); font-family: var(--body); font-size: 13px; letter-spacing: 0; text-transform: none; }
+.pack { margin: 0 0 14px; padding: 0; list-style: none; font-size: 14px; }
+.pack li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0 7px 18px; border-bottom: 1px dashed #3d372f; position: relative; }
+.pack li::before { content: ""; position: absolute; left: 0; top: 12px; width: 8px; height: 8px; background: var(--kraft); }
+.pack li.wait { color: var(--rail-muted); }
+.pack li.wait::before { background: transparent; border: 1px dashed #f0a08f; }
+.pack li.new { animation: pack-in .45s ease both; }
+.pack-path { min-width: 0; overflow-wrap: anywhere; }
+.pack-note-row { flex: none; max-width: 45%; color: var(--rail-muted); text-align: right; }
+.pack-note { margin: 0 0 14px; color: var(--rail-muted); font-size: 14px; }
+@keyframes pack-in { from { opacity: 0; transform: translateX(-8px); } }
+@media (max-width: 760px) {
+  .match { grid-template-columns: 1fr; padding: 16px; }
+  .pack li { flex-direction: column; gap: 2px; }
+  .pack-note-row { max-width: none; text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pack li.new { animation: none; }
+  .match-drop, .release-row, .match { transition: none; }
+  .match-drop:hover, .match-drop.over, .release-row.hit { transform: none; }
 }

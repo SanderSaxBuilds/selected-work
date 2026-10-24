@@ -54,11 +54,19 @@
       <section class="page" id="release-page" hidden aria-labelledby="release-title">
         <div class="page-heading"><div><p class="eyebrow">Before you share</p><h1 id="release-title">Release checks.</h1><p class="intro">See exactly what goes into the ZIP.</p></div><a class="button secondary" href="#catalog">Back to catalog</a></div>
         <div class="release-layout">
-          <div><section class="release-summary" id="release-summary" aria-live="polite"></section><div id="release-list"></div></div>
+          <div><section class="release-summary" id="release-summary" aria-live="polite"></section>
+            <section class="match" id="match" aria-labelledby="match-title">
+              <div class="match-copy"><h2 id="match-title">Is this the file you listed?</h2><p>Drop any file here, or choose one. Studio fingerprints it in this browser and looks for the listing it belongs to. Nothing is uploaded.</p></div>
+              <label class="match-drop" for="match-file"><input id="match-file" type="file"><span class="match-hole" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span><span class="match-label">Choose a file</span></label>
+              <p class="match-result" id="match-result" role="status" aria-live="polite"></p>
+            </section>
+            <div id="release-list"></div></div>
           <aside class="export-panel" aria-labelledby="export-title">
             <h2 id="export-title">Export your catalog</h2>
             <p>The ZIP holds a working catalog page, every attached download, the catalog data and a file manifest.</p>
-            <ul><li>Searchable static catalog page</li><li>Exact attached file bytes</li><li>SHA-256 fingerprints and a release record</li><li>No account or subscription needed</li></ul>
+            <h3 class="pack-title">Packing list <span id="pack-total" class="num"></span></h3>
+            <ol class="pack" id="pack" aria-label="Files that go into the ZIP"></ol>
+            <p class="pack-note">No account or subscription needed to host it.</p>
             <div class="public-notice"><b>Hosted files are public.</b><p>The export uses open download links. Include only files you have checked and have the right to share. Prices are shown for reference, with no payment step.</p></div>
             <label class="check-row publish-check"><input type="checkbox" id="public-confirm"><span>I understand that hosting this ZIP makes its downloads public.</span></label>
             <button type="button" class="button primary full" id="export-release" disabled>Export catalog ZIP</button>
