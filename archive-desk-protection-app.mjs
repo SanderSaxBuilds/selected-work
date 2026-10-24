@@ -533,3 +533,48 @@ submitOnEnter('unlock-passphrase', 'unlock-button')
 
 controls()
 
+// Guided sample run. It presses the real buttons in order, so a visitor sees a backup made, reopened and compared
+// with an edited copy, one step at a time. Reduced motion keeps the same steps with short pauses.
+const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches
+const beat = ms => new Promise(resolve => setTimeout(resolve, reduced() ? 150 : ms))
+const settle = async () => { await new Promise(resolve => setTimeout(resolve, 40)); while (state.busy) await new Promise(resolve => setTimeout(resolve, 40)); return !$('status-bar').classList.contains('error') }
+let touring = false
+$('run-tour').addEventListener('click', async () => {
+  if (touring || state.busy || !await replaceAllowed()) return
+  touring = true
+  $('run-tour').textContent = 'Running the sample'
+  $('run-tour').classList.add('running')
+  try {
+    document.querySelector('.tabbar').scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' })
+    mode('create')
+    selection(demoFiles(), 'Step 1 of 4. Four sample files are selected, with their relative paths and sizes listed below.')
+    await beat(1600)
+    $('build-archive').click()
+    if (!await settle()) return
+    status('Step 2 of 4. The backup ZIP is made. Every file has a fingerprint, and the whole archive draws its own seal.')
+    await beat(2200)
+    mode('verify')
+    $('verify-created').click()
+    if (!await settle()) return
+    status('Step 3 of 4. The copy was reopened and every file matched its manifest. Same bytes, same seal.')
+    await beat(2400)
+    mode('compare')
+    $('use-created').click()
+    if (!await settle()) return
+    const edited = demoFiles().filter(file => !file.path.endsWith('release.txt'))
+    edited[0].data = encoder.encode('<!doctype html>\n<title>North Studio</title>\n<h1>A revised homepage.</h1>\n')
+    edited.push({ path: 'website/README.txt', data: encoder.encode('Added after the first backup.\n'), modifiedAt: 1792285200000 })
+    selection(edited, 'An edited copy of the project is loaded as B.')
+    await beat(900)
+    $('compare-button').click()
+    if (!await settle()) return
+    const c = state.comparison.counts
+    status(`Done. Against the backup, the edited copy has ${c.added} added, ${c.changed} changed, ${c.removed} removed and ${c.unchanged} unchanged files. Now try it with your own folder.`)
+    const result = $('comparison-result').getBoundingClientRect()
+    if (result.bottom > innerHeight) $('comparison-result').scrollIntoView({ block: 'center', behavior: reduced() ? 'auto' : 'smooth' })
+  } finally {
+    touring = false
+    $('run-tour').textContent = 'Watch it again'
+    $('run-tour').classList.remove('running')
+  }
+})

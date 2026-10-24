@@ -71,7 +71,7 @@ code { font-family: var(--mono); }
 .brand img { width: 36px; height: 36px; }
 .topbar-right { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--muted); }
 .local-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 15px; }
-.local-badge > span { width: 8px; height: 8px; border-radius: 50%; background: var(--seal); }
+.local-badge > span { display: none; }
 .topbar-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 700; text-decoration: none; }
 .topbar-link:hover { text-decoration: underline; text-decoration-color: var(--steel); }
 
@@ -81,6 +81,8 @@ code { font-family: var(--mono); }
 .page-heading h1 { font-size: clamp(32px, 3.8vw, 46px); font-weight: 800; line-height: 1.08; letter-spacing: -.02em; }
 .page-heading .lede { max-width: 620px; margin-top: 12px; font-size: 18px; color: var(--muted); }
 .page-heading .button { flex: none; }
+.heading-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; flex: none; }
+#run-tour.running { cursor: progress; }
 
 /* Tabs: folder tabs that join the panel below */
 .tabbar { display: grid; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; gap: 6px; padding: 0 0 0 0; margin-bottom: 20px; border-bottom: 3px solid var(--ink); }
@@ -283,7 +285,8 @@ dialog p { margin: 8px 0 20px; color: var(--muted); font-size: 15px; }
   .shell { padding-top: 24px; }
   .page-heading { display: block; margin-bottom: 20px; }
   .page-heading .lede { font-size: 16px; }
-  .page-heading .button { width: 100%; margin-top: 16px; }
+  .heading-actions { display: grid; gap: 10px; margin-top: 18px; }
+  .page-heading .button { width: 100%; }
   .tabbar { gap: 4px; }
   .tabbar button { flex-direction: column; gap: 2px; min-height: 56px; padding: 6px 4px; font-size: 14px; }
   .tab-extra { display: none; }
