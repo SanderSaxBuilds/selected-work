@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f6f9">
+  <meta name="theme-color" content="#f5f2ec">
   <title>Leasing Practice courses</title>
   <meta name="description" content="Short practical courses for leasing teams. Ask better first questions, explain the options that matter and leave every conversation with a clear next step.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cpath d=%27M3 4h26v18H13l-10 7z%27 fill=%27%231b2331%27/%3E%3C/svg%3E">
   <link rel="stylesheet" href="sample-kit.css">
   <link rel="stylesheet" href="sample-wrongcreative.css">
 </head>
@@ -31,7 +32,7 @@
         <div class="hero-grid">
           <div>
             <p class="kicker">Practical courses for leasing teams</p>
-            <h1 class="h1" id="title">Better leasing conversations, one moment at a time.</h1>
+            <h1 class="h1" id="title">Better leasing conversations, <em>one moment at a time.</em></h1>
             <p class="lede">Short, self-paced lessons on the three moments that shape a tour: the first questions, how you explain the options and the follow-up you agree before the prospect leaves.</p>
             <div class="button-row">
               <a class="button button-primary" href="sample-wrongcreative-course.html">See the course</a>
@@ -39,7 +40,7 @@
             </div>
           </div>
           <article class="card course-card" aria-labelledby="card-title">
-            <div class="course-cover"><p>Course</p><h2 id="card-title">The leasing conversation</h2></div>
+            <div class="course-cover"><p>Course</p><h2 id="card-title">The leasing conversation</h2><p class="said">“What has to be true about the next place for you to say yes?”</p></div>
             <div class="course-body">
               <dl class="course-facts">
                 <div><dt>Modules</dt><dd>3</dd></div>
@@ -56,26 +57,48 @@
       <section class="section" aria-labelledby="moments-title">
         <div class="section-head">
           <h2 class="h2" id="moments-title">Three moments worth practicing</h2>
-          <p>Each module takes one moment, shows what a clearer version sounds like and ends with a short exercise you can try on your next tour.</p>
+          <p>Each module takes one moment, shows what a clearer version sounds like and ends with a short exercise you can try on your next tour. Here is one example tour, line by line. Rewrite each agent line to hear the difference.</p>
         </div>
-        <div class="grid grid-3">
-          <article class="card moment">
-            <span class="step">1</span>
-            <h3 class="h3">Open with focused questions</h3>
-            <p>Swap a broad opener for two questions that find out what the prospect needs to understand first.</p>
-            <p class="example"><span>Instead of</span>“So, what are you looking for?”</p>
+        <div class="tour" id="tour">
+          <div class="tour-tools">
+            <p>An example tour, written for the course. One prospect, two homes that fit.</p>
+            <button type="button" class="button button-secondary" id="rewrite-all" aria-pressed="false">Rewrite all three</button>
+          </div>
+
+          <article class="moment" aria-labelledby="m1-title">
+            <div class="moment-label"><span class="numeral" aria-hidden="true">i.</span><strong id="m1-title">Open with focused questions</strong></div>
+            <div>
+              <dl class="lines">
+                <div class="line prospect"><dt>Prospect</dt><dd>“Hi, I'm here for the two o'clock tour.”</dd></div>
+                <div class="line"><dt>Agent</dt><dd class="said-wrap"><span class="said-before">“Great. So, what are you looking for?”</span><span class="said-after">“Welcome. <span class="mark">What has to be true about the next place for you to say yes?</span> And when do you need to move by?”</span></dd></div>
+              </dl>
+              <button type="button" class="rewrite" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg><span>Rewrite this line</span></button>
+            </div>
+            <p class="note"><span class="before-note"><b>As often said</b>A broad opener. The prospect has to guess what you want to know, so you start the tour without a plan.</span><span class="after-note"><b>As practiced</b>Two focused questions. The answers decide which two homes you show and what you say about them.</span></p>
           </article>
-          <article class="card moment">
-            <span class="step">2</span>
-            <h3 class="h3">Explain the options that matter</h3>
-            <p>Compare two options using the priorities the prospect already gave you, and separate facts from things to confirm.</p>
-            <p class="example"><span>Instead of</span>A full tour of every amenity</p>
+
+          <article class="moment" aria-labelledby="m2-title">
+            <div class="moment-label"><span class="numeral" aria-hidden="true">ii.</span><strong id="m2-title">Explain the options that matter</strong></div>
+            <div>
+              <dl class="lines">
+                <div class="line prospect"><dt>Prospect</dt><dd>“Quiet matters most, I work nights. And I have a car.”</dd></div>
+                <div class="line"><dt>Agent</dt><dd class="said-wrap"><span class="said-before">“Sure. Let me show you the gym, the pool, the rooftop and the lounge, and then we'll see the units.”</span><span class="said-after">“Then two homes fit. <span class="mark">4B faces the courtyard and comes with a covered space.</span> 7A is larger but faces the street. The parking fee for 4B is <span class="mark">one thing I still need to confirm.</span>”</span></dd></div>
+              </dl>
+              <button type="button" class="rewrite" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg><span>Rewrite this line</span></button>
+            </div>
+            <p class="note"><span class="before-note"><b>As often said</b>Every amenity in order. Nothing links back to what the prospect just said.</span><span class="after-note"><b>As practiced</b>Two options, compared on the prospect's own priorities, with a known fact kept apart from what still needs checking.</span></p>
           </article>
-          <article class="card moment">
-            <span class="step">3</span>
-            <h3 class="h3">Agree a follow-up they can act on</h3>
-            <p>Summarize the open question, name the next step and who owns it, and set a time.</p>
-            <p class="example"><span>Instead of</span>“I'll send you some details.”</p>
+
+          <article class="moment" aria-labelledby="m3-title">
+            <div class="moment-label"><span class="numeral" aria-hidden="true">iii.</span><strong id="m3-title">Agree a follow-up they can act on</strong></div>
+            <div>
+              <dl class="lines">
+                <div class="line prospect"><dt>Prospect</dt><dd>“I like them both. I'll need to talk it over with my partner.”</dd></div>
+                <div class="line"><dt>Agent</dt><dd class="said-wrap"><span class="said-before">“Of course. I'll send you some details.”</span><span class="said-after">“Of course. <span class="mark">I'll check the parking fee for 4B and text you by noon tomorrow.</span> Would Saturday at ten work for your partner to see it?”</span></dd></div>
+              </dl>
+              <button type="button" class="rewrite" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg><span>Rewrite this line</span></button>
+            </div>
+            <p class="note"><span class="before-note"><b>As often said</b>A promise with no what and no when. The next step is left open.</span><span class="after-note"><b>As practiced</b>The open question, who acts on it, by when, and a time for the next visit.</span></p>
           </article>
         </div>
       </section>
@@ -127,5 +150,35 @@
       <div class="kit-links"><a href="sample-wrongcreative-emails.html">Launch emails</a><a href="sample-wrongcreative-handoff.md">Handoff notes</a><a href="./">Selected work</a></div>
     </div>
   </footer>
+<script>
+    (() => {
+      const moments = [...document.querySelectorAll('.moment')];
+      const all = document.getElementById('rewrite-all');
+      const set = (m, on) => {
+        m.classList.toggle('is-rewritten', on);
+        m.querySelector('.rewrite').setAttribute('aria-pressed', String(on));
+        m.querySelector('.rewrite span').textContent = on ? 'Show the original line' : 'Rewrite this line';
+        m.querySelector('.said-before').setAttribute('aria-hidden', String(on));
+        m.querySelector('.said-after').setAttribute('aria-hidden', String(!on));
+        m.querySelector('.before-note').setAttribute('aria-hidden', String(on));
+        m.querySelector('.after-note').setAttribute('aria-hidden', String(!on));
+      };
+      const sync = () => {
+        const every = moments.every(m => m.classList.contains('is-rewritten'));
+        all.setAttribute('aria-pressed', String(every));
+        all.textContent = every ? 'Show the originals' : 'Rewrite all three';
+      };
+      moments.forEach(m => {
+        set(m, false);
+        m.querySelector('.rewrite').addEventListener('click', () => { set(m, !m.classList.contains('is-rewritten')); sync(); });
+      });
+      all.addEventListener('click', () => {
+        const on = all.getAttribute('aria-pressed') !== 'true';
+        const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        moments.forEach((m, i) => still ? set(m, on) : setTimeout(() => set(m, on), i * 220));
+        setTimeout(sync, still ? 0 : moments.length * 220);
+      });
+    })();
+  </script>
 </body>
 </html>

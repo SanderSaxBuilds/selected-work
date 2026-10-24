@@ -3,70 +3,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#9c3f22">
+  <meta name="theme-color" content="#f8f3ea">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2715%27 fill=%27%2335574a%27/%3E%3Cpath d=%27M4 22l7-6 5 3 6-7 6 6v4z%27 fill=%27%23f8f3ea%27/%3E%3C/svg%3E">
   <title>Señales de mercado en Cosquín</title>
   <meta name="description" content="Relevamiento preliminar de fuentes públicas sobre comercios minoristas de alimentos en Cosquín, Córdoba: ocho comercios para comprobar, precios visibles y los datos que faltan para comparar formatos.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="sample-kit.css">
   <style>
-    /* Cosquín market signals. A hill town in Córdoba: cream paper, clay terracotta,
-       deep brown ink and an open sky blue. Rubik, 4 px corners, flat cards with warm rules,
-       a sun in the hero and a woven textile band, all in CSS. */
+    /* Cosquín market signals. A surveyor's field folder for a hill town in Córdoba:
+       cream paper, brown ink, sierra green for what is confirmed, clay only for what is not.
+       Spectral for headings, Rubik for the record, ruled rows instead of floating cards,
+       the Sierras Chicas ridge drawn once in the header, and every claim traceable to its source. */
     :root {
-      --ink: #3a2318; --paper: #fbf4e8; --surface: #fffaf2; --surface-soft: #f7ecdc;
-      --line: #ead9bf; --line-strong: #d6bf9e; --muted: #6b5040;
-      --brand: #a8472a; --brand-ink: #96401f; --brand-soft: #f6e0d4; --deep: #3a2318;
-      --on-deep: #fbf4e8; --on-deep-muted: #ecd9c6;
-      --terracotta: #c65d3b; --sky: #7fb2d8; --sky-soft: #e2eef8; --sky-ink: #1f4f75;
-      --accent: var(--sky); --accent-soft: var(--sky-soft); --accent-ink: var(--sky-ink);
-      --radius: 4px; --radius-button: 999px; --shadow: none;
-      --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--sky-ink);
-      --heading: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --ink: #33261d; --paper: #f8f3ea; --surface: #fffcf6; --surface-soft: #f2eadc;
+      --line: #e3d7c3; --line-strong: #cdbda3; --muted: #66574a;
+      --brand: #35574a; --brand-ink: #2d4b3f; --brand-soft: #e2ebe4; --deep: #2a3a33;
+      --on-deep: #f8f3ea; --on-deep-muted: #d5ddd6;
+      --terracotta: #a5553a; --clay-soft: #f3e2d8; --sky: #8fb0c4; --sky-soft: #e5eef2; --sky-ink: #2b4f63;
+      --accent: var(--brand); --accent-soft: var(--brand-soft); --accent-ink: var(--brand-ink);
+      --radius: 3px; --radius-button: 3px; --shadow: none;
+      --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--brand);
+      --heading: "Spectral", Georgia, "Times New Roman", serif;
       --body: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       --mono: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      --heading-weight: 600; --heading-tracking: -.01em;
+      --heading-weight: 600; --heading-tracking: -.005em;
     }
     body { font-weight: 400; }
-    .topbar { background: var(--paper); border-bottom-color: var(--line); }
+    .topbar { background: var(--paper); border-bottom-color: var(--ink); }
+    .brand { font-family: var(--heading); }
     .brand-mark { border-radius: 50%; background: var(--brand); color: var(--on-deep); }
 
-    .hero { position: relative; overflow: hidden; background: #9c3f22; color: var(--on-deep); isolation: isolate; }
-    .hero::before { content: ""; position: absolute; z-index: -1; right: -90px; top: -120px; width: 360px; height: 360px; border-radius: 50%; background: #ad4c2d; box-shadow: 0 0 0 46px rgba(173, 76, 45, .5); }
-    .hero::after { content: ""; display: block; height: 14px; background: repeating-linear-gradient(90deg, var(--deep) 0 18px, var(--sky) 18px 30px, var(--paper) 30px 36px, var(--terracotta) 36px 54px, var(--paper) 54px 60px, var(--sky) 60px 72px); }
-    .hero-inner { display: grid; gap: 28px; padding-top: 40px; padding-bottom: 44px; }
-    @media (min-width: 960px) { .hero-inner { grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); align-items: end; gap: 48px; padding-top: 72px; padding-bottom: 64px; } }
-    .hero .kicker { color: #fde3c8; font-weight: 500; }
-    .hero h1 { margin-top: 10px; font-weight: 700; }
-    .hero .lede { margin-top: 16px; color: var(--on-deep-muted); }
-    .hero .button-row { margin-top: 24px; }
-    .hero .button-light { color: var(--deep); background: var(--paper); }
-    .hero .button-light:hover { background: #fff; }
-    .hero .button-secondary { color: var(--on-deep); background: transparent; border-color: rgba(251, 244, 232, .6); }
-    .hero .button-secondary:hover { background: rgba(251, 244, 232, .12); border-color: var(--on-deep); }
-    .hero-meta { display: grid; gap: 0; margin: 0; padding: 6px 20px; border-radius: var(--radius); background: var(--paper); color: var(--ink); box-shadow: 6px 6px 0 var(--deep); }
+    .hero { position: relative; overflow: hidden; background: var(--paper); color: var(--ink); isolation: isolate; border-bottom: 1px solid var(--ink); }
+    .ridge { position: absolute; z-index: -1; left: 0; right: 0; bottom: 0; width: 100%; height: 150px; color: var(--brand); opacity: .14; }
+    .ridge path { fill: currentColor; }
+    .ridge .far { opacity: .55; }
+    .hero-inner { display: grid; gap: 28px; padding-top: 40px; padding-bottom: 56px; }
+    @media (min-width: 960px) { .hero-inner { grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); align-items: end; gap: 56px; padding-top: 76px; padding-bottom: 92px; } }
+    .hero .kicker { color: var(--brand-ink); font: 500 13px/1.4 var(--body); letter-spacing: .08em; text-transform: uppercase; }
+    .hero h1 { margin-top: 12px; font-weight: 600; font-size: clamp(38px, 6.2vw, 66px); }
+    .hero h1 em { font-style: italic; font-weight: 400; color: var(--brand-ink); }
+    .hero .lede { margin-top: 18px; color: var(--muted); }
+    .hero .button-row { margin-top: 26px; }
+    .hero .button-light { color: var(--on-deep); background: var(--brand); }
+    .hero .button-light:hover { background: var(--deep); }
+    .hero .button-secondary { color: var(--ink); background: transparent; border-color: var(--ink); }
+    .hero .button-secondary:hover { background: var(--surface); }
+    .hero-meta { display: grid; gap: 0; margin: 0; padding: 4px 20px; border: 1px solid var(--ink); border-radius: 0; background: var(--surface); color: var(--ink); }
     .hero-meta div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--line-strong); }
     .hero-meta div:last-child { border-bottom: 0; }
-    .hero-meta dt { color: var(--muted); font-size: 14px; }
+    .hero-meta dt { color: var(--muted); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
     .hero-meta dd { margin: 0; text-align: right; font-weight: 500; }
-
-    .pending { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; margin-top: 32px; padding: 20px; border-radius: var(--radius); background: var(--sky-soft); box-shadow: inset 6px 0 0 var(--sky); }
-    .pending-icon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--sky); color: var(--deep); }
+    .pending { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; margin-top: 32px; padding: 20px; border: 1px solid var(--line-strong); border-radius: 0; background: var(--surface); box-shadow: inset 4px 0 0 var(--terracotta); }
+    .pending-icon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--clay-soft); color: var(--terracotta); }
     .pending-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
-    .pending h2 { font-size: 20px; color: var(--sky-ink); }
-    .pending p { margin-top: 6px; color: #1e3b55; }
+    .pending h2 { font-size: 22px; color: var(--ink); }
+    .pending p { margin-top: 6px; color: var(--muted); }
 
     .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; margin-top: 24px; }
     @media (min-width: 760px) { .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
     .stat { padding: 14px 0 16px; border-top: 3px solid var(--ink); }
-    .stat strong { display: block; font: 500 52px/1 var(--mono); letter-spacing: -.02em; color: var(--brand-ink); font-variant-numeric: tabular-nums; }
+    .stat strong { display: block; font: 500 58px/1 var(--heading); letter-spacing: -.02em; color: var(--brand-ink); font-variant-numeric: lining-nums; }
     .stat.is-zero strong { color: var(--ink); text-decoration: line-through; text-decoration-color: var(--terracotta); text-decoration-thickness: 3px; }
     .stat span { display: block; margin-top: 6px; color: var(--muted); font-size: 15px; line-height: 1.4; }
 
     .filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 16px; }
     .filter-bar p { margin-right: 4px; color: var(--muted); font-size: 14px; font-weight: 500; }
-    .filter { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 500; cursor: pointer; transition: background-color .18s ease-out, border-color .18s ease-out; }
+    .filter { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface); font-size: 15px; font-weight: 500; cursor: pointer; transition: background-color .18s ease-out, border-color .18s ease-out; }
     .filter:hover { border-color: var(--brand); }
     .filter[aria-pressed="true"] { color: var(--on-deep); background: var(--deep); border-color: var(--deep); }
     .filter .count { font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; opacity: .85; }
@@ -75,7 +79,7 @@
     .shops { display: grid; gap: 14px; }
     @media (min-width: 760px) { .shops { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     .shop { display: flex; flex-direction: column; border-top: 4px solid var(--line-strong); }
-    .shop[data-tier="directa"] { border-top-color: var(--sky); }
+    .shop[data-tier="directa"] { border-top-color: var(--brand); }
     .shop[data-tier="espejo"] { border-top-color: var(--terracotta); }
     .shop h3 { font-size: 21px; }
     .shop-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
@@ -88,10 +92,10 @@
     .confidence { color: var(--muted); }
     .ext { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 500; }
     .ext svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .tier-direct { background: var(--sky-soft); color: var(--sky-ink); }
-    .tier-mirror { background: var(--brand-soft); color: #8a3a1e; }
+    .tier-direct { background: var(--brand-soft); color: var(--brand-ink); }
+    .tier-mirror { background: var(--clay-soft); color: #7f3a22; }
     .tier-directory { background: #efe4d2; color: #5a4632; }
-    .callout { margin-top: 16px; padding: 16px 18px; border-radius: var(--radius); background: var(--brand-soft); box-shadow: inset 6px 0 0 var(--terracotta); color: #5a2a17; }
+    .callout { margin-top: 16px; padding: 16px 18px; border-radius: 0; background: var(--clay-soft); box-shadow: inset 4px 0 0 var(--terracotta); color: #5a2f1f; }
 
     .price-table thead th { color: var(--ink); background: var(--surface-soft); }
     .price-table tbody th { font-weight: 500; }
@@ -111,14 +115,14 @@
     .questions { display: grid; gap: 12px; }
     @media (min-width: 640px) { .questions { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (min-width: 1000px) { .questions { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-    .question .n { display: inline-grid; place-items: center; width: 34px; height: 34px; margin-bottom: 12px; border-radius: 50%; background: var(--brand); color: #fff; font: 600 15px/1 var(--mono); }
+    .question .n { display: block; margin-bottom: 10px; color: var(--brand); font: italic 400 34px/1 var(--heading); }
     .question p { margin-top: 8px; color: var(--muted); }
 
     .context { display: grid; gap: 14px; }
     @media (min-width: 860px) { .context { grid-template-columns: 1.3fr .7fr; } }
     .context .card p { margin-top: 8px; color: #4e3427; }
-    .context .card.soft { background: var(--sky-soft); border-color: #c9ddee; }
-    .context .card.soft p { color: #1e3b55; }
+    .context .card.soft { background: var(--brand-soft); border-color: #c5d6ca; }
+    .context .card.soft p { color: var(--brand-ink); }
     .context .ext { margin-top: 6px; }
 
     .inputs { display: grid; gap: 0 24px; margin: 0; padding: 0; list-style: none; counter-reset: input; }
@@ -140,6 +144,14 @@
     .file strong { display: block; font-weight: 500; }
     .file span { display: block; color: var(--muted); font-size: 14px; }
     .site-footer { border-top: 3px solid var(--ink); }
+    .refs { margin-top: 8px; color: var(--muted); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+    .ref, .back { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 32px; margin-left: 4px; padding: 0 8px; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface-soft); color: var(--brand-ink); font: 600 13px/1 var(--mono); letter-spacing: 0; text-decoration: none; text-transform: none; transition: background-color .2s ease-out, border-color .2s ease-out; }
+    .ref:hover, .back:hover { border-color: var(--brand); background: var(--brand-soft); }
+    .back { margin: 6px 0 0; min-height: 36px; font-weight: 500; }
+    .shop, .sources li { scroll-margin-top: 90px; transition: box-shadow .5s ease-out, background-color .5s ease-out; }
+    .shop.flash, .sources li.flash { box-shadow: 0 0 0 3px var(--brand); background-color: #f4f8f3; }
+    .sources li.flash { box-shadow: inset 4px 0 0 var(--brand); padding-left: 12px; }
+    @media (pointer: coarse) { .ref { min-height: 44px; } .back { min-height: 44px; } }
   </style>
 </head>
 <body>
@@ -152,10 +164,11 @@
   </header>
 
   <section class="hero" aria-labelledby="titulo">
+    <svg class="ridge" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true"><path class="far" d="M0 150V96l90-18 110 10 120-34 95 14 130-40 85 22 140-30 120 26 110-18 150 30 120-10 170 28v100z"/><path d="M0 150v-30l140-12 120 14 160-26 110 10 150-22 130 18 160-14 140 16 120-8 110 12 100-6v48z"/></svg>
     <div class="wrap hero-inner">
       <div>
         <p class="kicker">Relevamiento preliminar de fuentes públicas</p>
-        <h1 class="h1" id="titulo">Señales de mercado en Cosquín</h1>
+        <h1 class="h1" id="titulo">Señales de mercado <em>en Cosquín</em></h1>
         <p class="lede">Una primera lectura de los comercios y precios visibles en línea, para ordenar la comparación entre carnicería, frutas y verduras, minimercado y un formato mixto.</p>
         <div class="button-row">
           <a class="button button-light" href="sample-cosquin-evidence.csv" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Tabla de evidencia CSV</a>
@@ -204,49 +217,57 @@
         </div>
 
         <div class="shops" id="comercios-lista">
-          <article class="card shop" data-tier="directa">
+          <article id="c-almacor" class="card shop" data-tier="directa">
             <div class="shop-top"><div><h3>Almacor</h3><p class="format">Supermercado de cadena</p></div><span class="chip tier-direct">Fuente directa</span></div>
+            <p class="refs">Respaldo <a class="ref" href="#s1">S1</a> <a class="ref" href="#s2">S2</a></p>
             <p class="note">El localizador oficial incluye una entrada identificada como “Cosquín (4)”. El número se trata como identificador, no como cantidad de locales. El folleto de la cadena muestra varias categorías de alimentos, pero no asigna ofertas a esta sucursal.</p>
             <div class="shop-foot"><span class="confidence">Confianza alta para la presencia declarada</span><a class="ext" href="https://www.almacor.com.ar/locales/">Abrir localizador<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
           </article>
-          <article class="card shop" data-tier="directa">
+          <article id="c-rincon" class="card shop" data-tier="directa">
             <div class="shop-top"><div><h3>Rincón de sabores</h3><p class="format">Dietética especializada</p></div><span class="chip tier-direct">Fuente directa</span></div>
+            <p class="refs">Respaldo <a class="ref" href="#s3">S3</a></p>
             <p class="address">Pedro Ortiz 659</p>
             <p class="note">La tienda publica catálogo, retiro y delivery sujeto a confirmación. Muestra precios de algunos productos envasados, sin gramaje en la muestra consultada.</p>
             <div class="shop-foot"><span class="confidence">Confianza alta para ficha y precios publicados</span><a class="ext" href="https://tiendas.pedix.app/comercio/rincon-de-sabores/">Abrir tienda<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
           </article>
-          <article class="card shop" data-tier="directa">
+          <article id="c-republica" class="card shop" data-tier="directa">
             <div class="shop-top"><div><h3>República Kiosco</h3><p class="format">Kiosco, bebidas y helados</p></div><span class="chip tier-direct">Fuente directa</span></div>
+            <p class="refs">Respaldo <a class="ref" href="#s4">S4</a></p>
             <p class="address">Presidente Perón 834</p>
             <p class="note">El catálogo muestra categorías de kiosco y bebidas, además de un combo con precio. El rastreo de la página tenía alrededor de un mes de antigüedad, así que la consulta no confirma vigencia ni stock.</p>
             <div class="shop-foot"><span class="confidence">Dato visible, vigencia sin confirmar</span><a class="ext" href="https://pency.app/republicacosquin">Abrir tienda<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
           </article>
-          <article class="card shop" data-tier="espejo">
+          <article id="c-elnono" class="card shop" data-tier="espejo">
             <div class="shop-top"><div><h3>Carnicería El Nono</h3><p class="format">Carnicería y minimercado declarados</p></div><span class="chip tier-mirror">Espejo</span></div>
+            <p class="refs">Respaldo <a class="ref" href="#s5">S5</a></p>
             <p class="address">Marimón 371 o 373, por resolver</p>
             <p class="note">Un espejo de publicaciones atribuidas al comercio muestra actividad fechada en 2026 y menciona carne, almacén, bebidas, panificados y lácteos. La dirección cambia entre publicaciones y no se pudo verificar la página propia del comercio.</p>
             <div class="shop-foot"><span class="confidence">Confianza media, verificar negocio y domicilio</span><a class="ext" href="https://www.foodbevg.com/AR/Cosqu%C3%ADn/100212929016897/Carnicer%C3%ADa-El-Nono-Cosqu%C3%ADn">Ver fuente espejo<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
           </article>
-          <article class="card shop" data-tier="directorio">
+          <article id="c-lamartina" class="card shop" data-tier="directorio">
             <div class="shop-top"><div><h3>Carnicería La Martina</h3><p class="format">Carnicería, según directorio</p></div><span class="chip tier-directory">Directorio</span></div>
+            <p class="refs">Respaldo <a class="ref" href="#s6">S6</a></p>
             <p class="address">Av. San Martín 341</p>
             <p class="note">Un directorio menciona venta minorista y mayorista para gastronomía. No se encontró una publicación reciente del comercio ni se confirmó su estado actual.</p>
             <div class="shop-foot"><span class="confidence">Confianza baja, confirmar operación</span><a class="ext" href="https://www.yellowpages.do/phone-54-93548635663-carnicer%C3%ADa-Cosqu%C3%ADn-AREN173543.html">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
           </article>
-          <article class="card shop" data-tier="directorio">
+          <article id="c-tabita" class="card shop" data-tier="directorio">
             <div class="shop-top"><div><h3>Carnicería Tabita</h3><p class="format">Carnicería, según directorio</p></div><span class="chip tier-directory">Directorio</span></div>
+            <p class="refs">Respaldo <a class="ref" href="#s7">S7</a></p>
             <p class="address">Florencio Sánchez 947</p>
             <p class="note">El nombre, el rubro y el domicilio aparecen en un directorio de terceros. La actividad actual y el surtido no se comprobaron con el comercio.</p>
             <div class="shop-foot"><span class="confidence">Confianza baja, validar ubicación</span><a class="ext" href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/carniceria-tabita/">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
           </article>
-          <article class="card shop" data-tier="directorio">
+          <article id="c-misemilla" class="card shop" data-tier="directorio">
             <div class="shop-top"><div><h3>Mi Semilla</h3><p class="format">Autoservicio de frutas y verduras, según el nombre</p></div><span class="chip tier-directory">Directorio</span></div>
+            <p class="refs">Respaldo <a class="ref" href="#s8">S8</a></p>
             <p class="address">Av. San Martín 1441</p>
             <p class="note">Una ficha de terceros ubica esta pista en Cosquín. No se encontró una fuente directa reciente que confirme la apertura ni los productos actuales.</p>
             <div class="shop-foot"><span class="confidence">Confianza baja, validar actividad</span><a class="ext" href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/mi-semilla-autoservicio-de-frutas-y-verduras/">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
           </article>
-          <article class="card shop" data-tier="directorio">
+          <article id="c-lacoscoina" class="card shop" data-tier="directorio">
             <div class="shop-top"><div><h3>La Coscoina Verduras Procesadas</h3><p class="format">Posible comercio de verduras frescas o procesadas</p></div><span class="chip tier-directory">Directorio</span></div>
+            <p class="refs">Respaldo <a class="ref" href="#s9">S9</a></p>
             <p class="address">Rawson y De la Paz</p>
             <p class="note">Un directorio da esta esquina y la etiqueta de frutería. La venta minorista, el catálogo y la actividad actual necesitan confirmación.</p>
             <div class="shop-foot"><span class="confidence">Confianza baja, validar actividad y rubro</span><a class="ext" href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/la-coscoina-verduras-procesadas/">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
@@ -325,16 +346,16 @@
           <p>Cada enlace abre la página que respalda el dato. Todas se consultaron el 6 de octubre de 2026. Las fichas de terceros se presentan como pistas, no como confirmación de actividad.</p>
         </div>
         <ul class="sources">
-          <li><span class="sid">S1</span><a href="https://www.almacor.com.ar/locales/">Almacor, localizador</a><p>Presencia declarada de una sucursal en Cosquín.</p></li>
-          <li><span class="sid">S2</span><a href="https://almacor.com.ar/catalogo/mailing.pdf">Almacor, folleto</a><p>Rubros y vigencia corporativa, sin precio local confirmado.</p></li>
-          <li><span class="sid">S3</span><a href="https://tiendas.pedix.app/comercio/rincon-de-sabores/">Rincón de sabores</a><p>Dirección, modalidades y muestra de catálogo.</p></li>
-          <li><span class="sid">S4</span><a href="https://pency.app/republicacosquin">República Kiosco</a><p>Dirección, rubros y combo publicado.</p></li>
-          <li><span class="sid">S5</span><a href="https://www.foodbevg.com/AR/Cosqu%C3%ADn/100212929016897/Carnicer%C3%ADa-El-Nono-Cosqu%C3%ADn">Carnicería El Nono</a><p>Espejo de publicaciones atribuidas al comercio.</p></li>
-          <li><span class="sid">S6</span><a href="https://www.yellowpages.do/phone-54-93548635663-carnicer%C3%ADa-Cosqu%C3%ADn-AREN173543.html">Carnicería La Martina</a><p>Ficha de directorio con domicilio y rubro.</p></li>
-          <li><span class="sid">S7</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/carniceria-tabita/">Carnicería Tabita</a><p>Ficha de directorio, sin corroborar con el comercio.</p></li>
-          <li><span class="sid">S8</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/mi-semilla-autoservicio-de-frutas-y-verduras/">Mi Semilla</a><p>Ficha de directorio, sin corroborar con el comercio.</p></li>
-          <li><span class="sid">S9</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/la-coscoina-verduras-procesadas/">La Coscoina</a><p>Ficha de directorio, ubicación aproximada.</p></li>
-          <li><span class="sid">S10</span><a href="https://cosquin.gob.ar/2026/07/28/el-festival-nacional-del-folklore-recibio-el-sello-de-evento-sostenible/">Municipalidad de Cosquín</a><p>Contexto estacional informado por el municipio.</p></li>
+          <li id="s1"><span class="sid">S1</span><a href="https://www.almacor.com.ar/locales/">Almacor, localizador</a><p>Presencia declarada de una sucursal en Cosquín.</p> <a class="back" href="#c-almacor">Ver ficha</a></li>
+          <li id="s2"><span class="sid">S2</span><a href="https://almacor.com.ar/catalogo/mailing.pdf">Almacor, folleto</a><p>Rubros y vigencia corporativa, sin precio local confirmado.</p> <a class="back" href="#c-almacor">Ver ficha</a></li>
+          <li id="s3"><span class="sid">S3</span><a href="https://tiendas.pedix.app/comercio/rincon-de-sabores/">Rincón de sabores</a><p>Dirección, modalidades y muestra de catálogo.</p> <a class="back" href="#c-rincon">Ver ficha</a></li>
+          <li id="s4"><span class="sid">S4</span><a href="https://pency.app/republicacosquin">República Kiosco</a><p>Dirección, rubros y combo publicado.</p> <a class="back" href="#c-republica">Ver ficha</a></li>
+          <li id="s5"><span class="sid">S5</span><a href="https://www.foodbevg.com/AR/Cosqu%C3%ADn/100212929016897/Carnicer%C3%ADa-El-Nono-Cosqu%C3%ADn">Carnicería El Nono</a><p>Espejo de publicaciones atribuidas al comercio.</p> <a class="back" href="#c-elnono">Ver ficha</a></li>
+          <li id="s6"><span class="sid">S6</span><a href="https://www.yellowpages.do/phone-54-93548635663-carnicer%C3%ADa-Cosqu%C3%ADn-AREN173543.html">Carnicería La Martina</a><p>Ficha de directorio con domicilio y rubro.</p> <a class="back" href="#c-lamartina">Ver ficha</a></li>
+          <li id="s7"><span class="sid">S7</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/carniceria-tabita/">Carnicería Tabita</a><p>Ficha de directorio, sin corroborar con el comercio.</p> <a class="back" href="#c-tabita">Ver ficha</a></li>
+          <li id="s8"><span class="sid">S8</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/mi-semilla-autoservicio-de-frutas-y-verduras/">Mi Semilla</a><p>Ficha de directorio, sin corroborar con el comercio.</p> <a class="back" href="#c-misemilla">Ver ficha</a></li>
+          <li id="s9"><span class="sid">S9</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/la-coscoina-verduras-procesadas/">La Coscoina</a><p>Ficha de directorio, ubicación aproximada.</p> <a class="back" href="#c-lacoscoina">Ver ficha</a></li>
+          <li id="s10"><span class="sid">S10</span><a href="https://cosquin.gob.ar/2026/07/28/el-festival-nacional-del-folklore-recibio-el-sello-de-evento-sostenible/">Municipalidad de Cosquín</a><p>Contexto estacional informado por el municipio.</p></li>
         </ul>
         <div class="files">
           <a class="file" href="sample-cosquin-evidence.csv" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h8"/></svg><span><strong>Tabla de evidencia</strong><span>CSV, 11 registros</span></span></a>
@@ -370,6 +391,25 @@
         status.textContent = shown === cards.length ? '' : `Mostrando ${shown} de ${cards.length}`;
       };
       buttons.forEach(b => b.addEventListener('click', () => apply(b.dataset.tier)));
+      // Traceability: jump between a business and the source that backs it, and mark where you landed.
+      const flash = target => {
+        target.classList.remove('flash'); void target.offsetWidth; target.classList.add('flash');
+        clearTimeout(target._flash); target._flash = setTimeout(() => target.classList.remove('flash'), 2200);
+      };
+      document.addEventListener('click', e => {
+        const link = e.target.closest('a.ref, a.back');
+        if (!link) return;
+        const target = document.getElementById(link.hash.slice(1));
+        if (!target) return;
+        e.preventDefault();
+        if (target.hidden) apply('todos');
+        const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'center' });
+        history.replaceState(null, '', link.hash);
+        target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+        flash(target);
+      });
     })();
   </script>
 </body>

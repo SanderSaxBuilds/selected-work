@@ -220,6 +220,8 @@ function assignLanes(items) {
   });
 }
 
+let scrub = null;
+let scrubDate = null;
 function renderStrip(shown) {
   const strip = $("#dayStrip"); strip.replaceChildren();
   let from = 7 * 60, to = 21 * 60;
@@ -253,7 +255,58 @@ function renderStrip(shown) {
     tick.style.left = pct(minute);
     axis.append(tick);
   }
-  strip.append(track, axis);
+  // The strip is a horizon: the sky shifts from dawn to dusk across the hours, and a sun marks the moment you scrub to.
+  const SKY = [[300, "#2b3462"], [420, "#ecc3cb"], [540, "#f5ebe2"], [660, "#eef3fb"], [960, "#eef3fb"], [1080, "#f3dfd2"], [1170, "#d3b2cc"], [1260, "#454b78"], [1380, "#262c50"]];
+  track.style.background = `linear-gradient(90deg, ${SKY.map(([minute, color]) => `${color} ${(((minute - from) / span) * 100).toFixed(1)}%`).join(", ")})`;
+  if (scrubDate !== state.selectedDate || scrub === null || scrub < from || scrub > to) {
+    const now = new Date(); const nowMinutes = now.getHours() * 60 + now.getMinutes();
+    scrub = state.selectedDate === todayKey() && nowMinutes >= from && nowMinutes <= to ? Math.round(nowMinutes / 5) * 5 : shown.length ? timeMinutes(shown[0].start) : 9 * 60;
+    scrubDate = state.selectedDate;
+  }
+  const sun = element("span", "strip-sun");
+  track.append(sun);
+  track.tabIndex = 0;
+  track.setAttribute("role", "slider");
+  track.setAttribute("aria-label", "Scrub through the day");
+  track.setAttribute("aria-valuemin", String(from));
+  track.setAttribute("aria-valuemax", String(to));
+  const readout = element("div", "strip-readout");
+  const readText = element("p", "strip-read");
+  const planHere = element("button", "strip-plan");
+  planHere.type = "button";
+  readout.append(readText, planHere);
+  const describe = minute => {
+    const at = shown.filter(item => timeMinutes(item.start) <= minute && eventEnd(item) > minute);
+    if (at.length) return { busy: true, text: `${at.map(item => item.title).join(" and ")} until ${formatMinutes(Math.max(...at.map(eventEnd)))}.` };
+    const next = shown.filter(item => timeMinutes(item.start) > minute).sort((a, b) => timeMinutes(a.start) - timeMinutes(b.start))[0];
+    return { busy: false, text: next ? `Open for ${formatDuration(timeMinutes(next.start) - minute)}, then ${next.title} at ${formatClock(next.start)}.` : "Open for the rest of the day." };
+  };
+  const place = minute => {
+    scrub = Math.min(to, Math.max(from, Math.round(minute / 5) * 5));
+    const { busy, text } = describe(scrub);
+    sun.style.left = pct(scrub);
+    sun.classList.toggle("is-busy", busy);
+    track.setAttribute("aria-valuenow", String(scrub));
+    track.setAttribute("aria-valuetext", `${formatMinutes(scrub)}. ${text}`);
+    readText.replaceChildren(element("strong", "", formatMinutes(scrub)), document.createTextNode(` ${text}`));
+    planHere.textContent = `Plan a block at ${formatMinutes(scrub)}`;
+    planHere.hidden = busy || scrub >= 24 * 60 - 15;
+  };
+  planHere.addEventListener("click", () => openEditor(null, state.selectedDate, minutesToTime(scrub), false, 30));
+  const fromPointer = event => { const box = track.getBoundingClientRect(); place(from + ((event.clientX - box.left) / box.width) * span); };
+  track.addEventListener("pointerdown", event => { if (event.button !== 0) return; track.setPointerCapture(event.pointerId); track.classList.add("is-scrubbing"); fromPointer(event); });
+  track.addEventListener("pointermove", event => { if (track.hasPointerCapture(event.pointerId)) fromPointer(event); });
+  const stop = event => { if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId); track.classList.remove("is-scrubbing"); };
+  track.addEventListener("pointerup", stop);
+  track.addEventListener("pointercancel", stop);
+  track.addEventListener("keydown", event => {
+    const step = { ArrowLeft: -15, ArrowDown: -15, ArrowRight: 15, ArrowUp: 15, PageDown: -60, PageUp: 60 }[event.key];
+    if (step) { event.preventDefault(); place(scrub + step); }
+    else if (event.key === "Home") { event.preventDefault(); place(from); }
+    else if (event.key === "End") { event.preventDefault(); place(to); }
+  });
+  place(scrub);
+  strip.append(track, axis, readout);
 }
 
 function agendaCard(item) {

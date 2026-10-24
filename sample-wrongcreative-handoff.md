@@ -7,7 +7,7 @@ Speculative sample for the Wrong Creative public course-marketing brief. It was 
 - Three linked responsive pages: [course home](sample-wrongcreative.html), [course detail](sample-wrongcreative-course.html) and [team pathway](sample-wrongcreative-bundle.html).
 - An expandable course outline, a one-question practice exercise with feedback, FAQ sections and a comparison table.
 - [Three launch emails](sample-wrongcreative-emails.html) with subjects, preview text and the page each one links to. A [plain text version](sample-wrongcreative-emails.md) is included.
-- Plain HTML and CSS with a small script for the exercise. Fonts load from Google Fonts. No tracking, copied imagery or checkout.
+- Plain HTML and CSS with two small scripts, one for the practice exercise and one for the example tour transcript on the home page, where each agent line can be rewritten. Fonts load from Google Fonts. No tracking, copied imagery or checkout.
 
 ## Thinkific handoff map
 

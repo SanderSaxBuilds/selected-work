@@ -299,7 +299,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .order-info p, .cart-info p { color: var(--muted); font-size: 13px; }
 
 /* Toast */
-.toast { position: fixed; left: 50%; bottom: 24px; z-index: 400; max-width: calc(100% - 32px); padding: 12px 20px; border: 2px solid var(--kraft); background: var(--ink); color: var(--kraft); box-shadow: var(--print); font-size: 15px; font-weight: 600; opacity: 0; pointer-events: none; transform: translate(-50%, 12px); transition: opacity .18s ease-out, transform .18s ease-out; }
+.toast { position: fixed; left: 50%; bottom: 24px; z-index: 400; width: max-content; max-width: calc(100% - 32px); padding: 12px 20px; border: 2px solid var(--kraft); background: var(--ink); color: var(--kraft); box-shadow: var(--print); font-size: 15px; font-weight: 600; opacity: 0; pointer-events: none; transform: translate(-50%, 12px); transition: opacity .18s ease-out, transform .18s ease-out; }
 .toast.visible { opacity: 1; transform: translate(-50%, 0); }
 
 /* Dialogs */
@@ -404,6 +404,9 @@ dialog h2 { font-size: 34px; text-transform: uppercase; }
   .bench-sheet { padding: 14px 12px 16px; }
   .q-row { grid-template-columns: minmax(0, 1fr) 3.8rem; gap: 0 10px; padding-top: 8px; }
   .q-row input[type="range"] { grid-column: 1 / -1; grid-row: 2; }
+  .q-row label { display: flex; align-items: center; min-height: 44px; }
+  .bench-sheet .sheet-top { flex-wrap: wrap; gap: 2px 12px; }
+  .bench-sheet .sheet-top span { white-space: normal; }
   .csv-table th:first-child { width: 2.8rem; }
   .csv-table th:last-child { width: 5.6rem; }
   .csv-table td { padding: 0 6px; }
