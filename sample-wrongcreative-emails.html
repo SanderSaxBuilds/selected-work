@@ -3,103 +3,117 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f2ec">
+  <meta name="theme-color" content="#1f0d26">
   <title>Launch emails | Leasing Practice</title>
   <meta name="description" content="A three-email launch sequence for a leasing course, each with its subject, preview text and the page it points to.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cpath d=%27M3 4h26v18H13l-10 7z%27 fill=%27%231b2331%27/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="sample-kit.css">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cpath d=%27M4 4h24a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H12l-8 6z%27 fill=%27%23e3255c%27/%3E%3C/svg%3E">
   <link rel="stylesheet" href="sample-wrongcreative.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to the emails</a>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="sample-wrongcreative.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H10l-6 4z"/><path d="M8 10h8"/></svg></span>Leasing Practice</a>
+      <a class="brand" href="sample-wrongcreative.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 9h10M7 13h6"/></svg></span>Leasing Practice</a>
       <a class="back-link" href="sample-wrongcreative.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Course site</a>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
-    <div class="wrap">
-      <section class="hero" aria-labelledby="title">
+    <section class="stage hero hero-short" aria-labelledby="title" style="padding-bottom:88px">
+      <div class="wrap">
         <p class="kicker">Launch sequence</p>
-        <h1 class="h1" id="title">Three emails, three moments.</h1>
+        <h1 class="h1" id="title">Three emails, <em>three moments.</em></h1>
         <p class="lede">Each email opens on one moment from the course and sends the reader to the page that shows it. Send them a few days apart, in this order.</p>
-        <div class="button-row"><a class="button button-secondary" href="sample-wrongcreative-emails.md">Plain text version</a></div>
-      </section>
+        <div class="button-row"><a class="button button-ghost" href="sample-wrongcreative-emails.md">Plain text version</a></div>
+        <ol class="sequence" aria-label="Send order">
+          <li><b>01</b><span>Day 0</span></li>
+          <li><b>02</b><span>Day 3</span></li>
+          <li><b>03</b><span>Day 7</span></li>
+        </ol>
+      </div>
+    </section>
 
-      <div class="email-list">
-        <section class="section email" aria-labelledby="e1-subject">
-          <div class="email-meta">
-            <span class="num">Email 01, day 0</span>
-            <div class="inbox-row" aria-hidden="true"><span class="avatar">LP</span><span><b>A clearer next step in the leasing conversation</b><span>Three moments to practice with your team.</span></span></div>
-            <dl>
-              <div><dt>Subject</dt><dd class="subject" id="e1-subject">A clearer next step in the leasing conversation</dd></div>
-              <div><dt>Preview text</dt><dd>Three moments to practice with your team.</dd></div>
-              <div><dt>Links to</dt><dd><a href="sample-wrongcreative-course.html#outline">Course outline</a></dd></div>
-            </dl>
+    <div class="wrap">
+      <div class="mail" id="mail">
+        <div class="inbox" id="inbox">
+          <div class="inbox-head">Inbox<span>3 from Leasing Practice</span></div>
+          <div role="tablist" aria-label="Launch emails" aria-orientation="vertical" id="inbox-list">
+            <button type="button" class="inbox-item" role="tab" id="t1" aria-controls="e1" aria-selected="true"><span class="avatar" aria-hidden="true">LP</span><span><em>Day 0</em><b>A clearer next step in the leasing conversation</b><span>Three moments to practice with your team.</span></span></button>
+            <button type="button" class="inbox-item" role="tab" id="t2" aria-controls="e2" aria-selected="false" tabindex="-1"><span class="avatar" aria-hidden="true">LP</span><span><em>Day 3</em><b>Try one follow-up question</b><span>A one-minute exercise to try with your team.</span></span></button>
+            <button type="button" class="inbox-item" role="tab" id="t3" aria-controls="e3" aria-selected="false" tabindex="-1"><span class="avatar" aria-hidden="true">LP</span><span><em>Day 7</em><b>On your own or as a team?</b><span>Compare the course and the team pathway.</span></span></button>
           </div>
-          <div class="email-frame">
-            <div class="email-frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="email-sheet">
-              <div class="email-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H10l-6 4z"/><path d="M8 10h8"/></svg></span>Leasing Practice</div>
-              <h3>When a prospect asks for details, what happens next?</h3>
-              <p>A useful conversation starts with understanding what matters to the prospect. The leasing conversation takes you through three moments: asking focused questions, explaining the options that matter and agreeing a follow-up.</p>
-              <p>Look through the outline and pick the moment your team wants to practice first.</p>
-              <a class="button button-primary" href="sample-wrongcreative-course.html#outline">See the course outline</a>
-              <p class="email-legal">You are receiving this because you asked for leasing training updates. Unsubscribe link and sender address go here.</p>
-            </div>
-          </div>
-        </section>
+        </div>
 
-        <section class="section email" aria-labelledby="e2-subject">
-          <div class="email-meta">
-            <span class="num">Email 02, day 3</span>
-            <div class="inbox-row" aria-hidden="true"><span class="avatar">LP</span><span><b>Try one follow-up question</b><span>A one-minute exercise to try with your team.</span></span></div>
-            <dl>
-              <div><dt>Subject</dt><dd class="subject" id="e2-subject">Try one follow-up question</dd></div>
-              <div><dt>Preview text</dt><dd>A one-minute exercise to try with your team.</dd></div>
-              <div><dt>Links to</dt><dd><a href="sample-wrongcreative-course.html#sample">Practice exercise</a></dd></div>
-            </dl>
-          </div>
-          <div class="email-frame">
-            <div class="email-frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="email-sheet">
-              <div class="email-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H10l-6 4z"/><path d="M8 10h8"/></svg></span>Leasing Practice</div>
-              <h3>Make the follow-up more specific.</h3>
-              <p>“I'll send you some details” leaves the next step open. Try asking what those details should help the prospect decide.</p>
-              <p>Our practice exercise gives you three follow-ups to compare and explains which one works. Try it, then compare it with how your team follows up today.</p>
-              <a class="button button-primary" href="sample-wrongcreative-course.html#sample">Try the exercise</a>
-              <p class="email-legal">You are receiving this because you asked for leasing training updates. Unsubscribe link and sender address go here.</p>
+        <div class="email-list">
+          <section class="email" id="e1" aria-labelledby="e1-subject">
+            <div class="email-meta">
+              <span class="num">Email 01, day 0</span>
+              <dl>
+                <div><dt>Subject</dt><dd class="subject" id="e1-subject">A clearer next step in the leasing conversation</dd></div>
+                <div><dt>Preview text</dt><dd>Three moments to practice with your team.</dd></div>
+                <div><dt>Links to</dt><dd><a href="sample-wrongcreative-course.html#outline">Course outline</a></dd></div>
+              </dl>
             </div>
-          </div>
-        </section>
+            <div class="email-frame">
+              <div class="email-frame-bar"><b>From Leasing Practice</b><span class="frame-size">Preview at 600 px</span></div>
+              <div class="email-sheet">
+                <div class="email-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 9h10M7 13h6"/></svg></span>Leasing Practice</div>
+                <h3>When a prospect asks for details, what happens next?</h3>
+                <p>A useful conversation starts with understanding what matters to the prospect. The leasing conversation takes you through three moments: asking focused questions, explaining the options that matter and agreeing a follow-up.</p>
+                <p>Look through the outline and pick the moment your team wants to practice first.</p>
+                <a class="button button-primary" href="sample-wrongcreative-course.html#outline">See the course outline</a>
+                <p class="email-legal">You are receiving this because you asked for leasing training updates. Unsubscribe link and sender address go here.</p>
+              </div>
+            </div>
+          </section>
 
-        <section class="section email" aria-labelledby="e3-subject">
-          <div class="email-meta">
-            <span class="num">Email 03, day 7</span>
-            <div class="inbox-row" aria-hidden="true"><span class="avatar">LP</span><span><b>On your own or as a team?</b><span>Compare the course and the team pathway.</span></span></div>
-            <dl>
-              <div><dt>Subject</dt><dd class="subject" id="e3-subject">On your own or as a team?</dd></div>
-              <div><dt>Preview text</dt><dd>Compare the course and the team pathway.</dd></div>
-              <div><dt>Links to</dt><dd><a href="sample-wrongcreative-bundle.html#compare">Comparison table</a></dd></div>
-            </dl>
-          </div>
-          <div class="email-frame">
-            <div class="email-frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="email-sheet">
-              <div class="email-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H10l-6 4z"/><path d="M8 10h8"/></svg></span>Leasing Practice</div>
-              <h3>Choose the way of learning that fits.</h3>
-              <p>Want to work through the conversation on your own? Start with the course. Want to compare answers together? The team pathway adds a discussion guide and a review worksheet for each module.</p>
-              <p>The comparison shows what each option includes, so you can pick the one your team needs.</p>
-              <a class="button button-primary" href="sample-wrongcreative-bundle.html#compare">Compare the options</a>
-              <p class="email-legal">You are receiving this because you asked for leasing training updates. Unsubscribe link and sender address go here.</p>
+          <section class="email" id="e2" aria-labelledby="e2-subject">
+            <div class="email-meta">
+              <span class="num">Email 02, day 3</span>
+              <dl>
+                <div><dt>Subject</dt><dd class="subject" id="e2-subject">Try one follow-up question</dd></div>
+                <div><dt>Preview text</dt><dd>A one-minute exercise to try with your team.</dd></div>
+                <div><dt>Links to</dt><dd><a href="sample-wrongcreative-course.html#sample">Practice exercise</a></dd></div>
+              </dl>
             </div>
-          </div>
-        </section>
+            <div class="email-frame">
+              <div class="email-frame-bar"><b>From Leasing Practice</b><span class="frame-size">Preview at 600 px</span></div>
+              <div class="email-sheet">
+                <div class="email-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 9h10M7 13h6"/></svg></span>Leasing Practice</div>
+                <h3>Make the follow-up more specific.</h3>
+                <p>“I'll send you some details” leaves the next step open. Try asking what those details should help the prospect decide.</p>
+                <p>Our practice exercise gives you three follow-ups to compare and explains which one works. Try it, then compare it with how your team follows up today.</p>
+                <a class="button button-primary" href="sample-wrongcreative-course.html#sample">Try the exercise</a>
+                <p class="email-legal">You are receiving this because you asked for leasing training updates. Unsubscribe link and sender address go here.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="email" id="e3" aria-labelledby="e3-subject">
+            <div class="email-meta">
+              <span class="num">Email 03, day 7</span>
+              <dl>
+                <div><dt>Subject</dt><dd class="subject" id="e3-subject">On your own or as a team?</dd></div>
+                <div><dt>Preview text</dt><dd>Compare the course and the team pathway.</dd></div>
+                <div><dt>Links to</dt><dd><a href="sample-wrongcreative-bundle.html#compare">Comparison table</a></dd></div>
+              </dl>
+            </div>
+            <div class="email-frame">
+              <div class="email-frame-bar"><b>From Leasing Practice</b><span class="frame-size">Preview at 600 px</span></div>
+              <div class="email-sheet">
+                <div class="email-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 9h10M7 13h6"/></svg></span>Leasing Practice</div>
+                <h3>Choose the way of learning that fits.</h3>
+                <p>Want to work through the conversation on your own? Start with the course. Want to compare answers together? The team pathway adds a discussion guide and a review worksheet for each module.</p>
+                <p>The comparison shows what each option includes, so you can pick the one your team needs.</p>
+                <a class="button button-primary" href="sample-wrongcreative-bundle.html#compare">Compare the options</a>
+                <p class="email-legal">You are receiving this because you asked for leasing training updates. Unsubscribe link and sender address go here.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </main>
@@ -110,5 +124,45 @@
       <div class="kit-links"><a href="sample-wrongcreative.html">Course site</a><a href="sample-wrongcreative-handoff.md">Handoff notes</a><a href="./">Selected work</a></div>
     </div>
   </footer>
+  <script>
+    (() => {
+      // Turn the three stacked emails into an inbox with a reading pane.
+      const mail = document.getElementById('mail');
+      const tabs = [...document.querySelectorAll('#inbox-list [role=tab]')];
+      const panes = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+      mail.classList.add('is-client');
+      panes.forEach((p, i) => { p.setAttribute('role', 'tabpanel'); p.setAttribute('aria-labelledby', tabs[i].id); p.tabIndex = 0; });
+      const show = (i, focus) => {
+        tabs.forEach((t, j) => { const on = i === j; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; panes[j].hidden = !on; panes[j].classList.toggle('in', on); });
+        if (focus) tabs[i].focus();
+      };
+      tabs.forEach((t, i) => {
+        t.addEventListener('click', () => show(i));
+        t.addEventListener('keydown', e => {
+          const k = e.key, d = (k === 'ArrowDown' || k === 'ArrowRight') ? 1 : (k === 'ArrowUp' || k === 'ArrowLeft') ? -1 : 0;
+          if (k === 'Home' || k === 'End') { e.preventDefault(); show(k === 'Home' ? 0 : tabs.length - 1, true); return; }
+          if (!d) return;
+          e.preventDefault(); show((i + d + tabs.length) % tabs.length, true);
+        });
+      });
+      // Each reading pane can preview the email at desktop or phone width.
+      panes.forEach(p => {
+        const frame = p.querySelector('.email-frame'), size = p.querySelector('.frame-size');
+        const tg = document.createElement('div'); tg.className = 'view-toggle'; tg.setAttribute('role', 'group'); tg.setAttribute('aria-label', 'Preview width');
+        [['Desktop', false], ['Phone', true]].forEach(([label, phone]) => {
+          const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', String(!phone));
+          b.addEventListener('click', () => {
+            frame.classList.toggle('is-phone', phone);
+            size.textContent = phone ? 'Preview at 360 px' : 'Preview at 600 px';
+            tg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+          });
+          tg.append(b);
+        });
+        p.insertBefore(tg, frame);
+      });
+      const fromHash = panes.findIndex(p => '#' + p.id === location.hash);
+      show(fromHash > -1 ? fromHash : 0);
+    })();
+  </script>
 </body>
 </html>

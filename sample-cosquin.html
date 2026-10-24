@@ -3,179 +3,273 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8f3ea">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2715%27 fill=%27%2335574a%27/%3E%3Cpath d=%27M4 22l7-6 5 3 6-7 6 6v4z%27 fill=%27%23f8f3ea%27/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#f4f5f2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%274%27 width=%2710%27 height=%2710%27 fill=%27%231b5d9b%27/%3E%3Crect x=%2718%27 y=%2718%27 width=%2710%27 height=%2710%27 fill=%27none%27 stroke=%27%2314181d%27 stroke-width=%272%27/%3E%3C/svg%3E">
   <title>Señales de mercado en Cosquín</title>
   <meta name="description" content="Relevamiento preliminar de fuentes públicas sobre comercios minoristas de alimentos en Cosquín, Córdoba: ocho comercios para comprobar, precios visibles y los datos que faltan para comparar formatos.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="sample-kit.css">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&display=swap" rel="stylesheet">
   <style>
-    /* Cosquín market signals. A surveyor's field folder for a hill town in Córdoba:
-       cream paper, brown ink, sierra green for what is confirmed, clay only for what is not.
-       Spectral for headings, Rubik for the record, ruled rows instead of floating cards,
-       the Sierras Chicas ridge drawn once in the header, and every claim traceable to its source. */
+    /* Cosquín market signals. Its own sheet, no shared kit.
+       Design language: an evidence report from a research desk. Cool report paper, black ink,
+       one celeste-to-deep-blue for what a source confirms, signal red only for what is missing.
+       Evidence strength is drawn, not decorated: a solid square for a direct source, a hatched
+       square for a mirror, a hollow square for a directory lead. Source Serif 4 for reading,
+       Archivo (condensed and wide) for labels and figures. Numbered sections, a contents rail
+       that follows you, and every claim one tap from its source. */
     :root {
-      --ink: #33261d; --paper: #f8f3ea; --surface: #fffcf6; --surface-soft: #f2eadc;
-      --line: #e3d7c3; --line-strong: #cdbda3; --muted: #66574a;
-      --brand: #35574a; --brand-ink: #2d4b3f; --brand-soft: #e2ebe4; --deep: #2a3a33;
-      --on-deep: #f8f3ea; --on-deep-muted: #d5ddd6;
-      --terracotta: #a5553a; --clay-soft: #f3e2d8; --sky: #8fb0c4; --sky-soft: #e5eef2; --sky-ink: #2b4f63;
-      --accent: var(--brand); --accent-soft: var(--brand-soft); --accent-ink: var(--brand-ink);
-      --radius: 3px; --radius-button: 3px; --shadow: none;
-      --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--brand);
-      --heading: "Spectral", Georgia, "Times New Roman", serif;
-      --body: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      --mono: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      --heading-weight: 600; --heading-tracking: -.005em;
+      color-scheme: light;
+      --paper: #f4f5f2; --sheet: #ffffff; --ink: #14181d; --ink-2: #39414b; --muted: #5d6670;
+      --rule: #d5d9dc; --rule-soft: #e6e9ea; --blue: #1b5d9b; --blue-ink: #154a7c; --celeste: #8cc3ea; --celeste-soft: #e4f1fa;
+      --red: #b8322a; --red-soft: #f8e5e2;
+      --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+      --label: "Archivo", "Arial Narrow", system-ui, sans-serif;
+      --focus: 0 0 0 2px var(--paper), 0 0 0 4px var(--blue);
     }
-    body { font-weight: 400; }
-    .topbar { background: var(--paper); border-bottom-color: var(--ink); }
-    .brand { font-family: var(--heading); }
-    .brand-mark { border-radius: 50%; background: var(--brand); color: var(--on-deep); }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-padding-top: 76px; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    body { margin: 0; min-width: 320px; color: var(--ink); background: var(--paper); font: 400 18px/1.62 var(--serif); font-optical-sizing: auto; }
+    h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; }
+    img, svg { display: block; max-width: 100%; }
+    button { font: inherit; color: inherit; }
+    a { color: var(--blue-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: none; box-shadow: var(--focus); }
+    [hidden] { display: none !important; }
+    .lab { font-family: var(--label); font-stretch: 85%; }
+    .skip-link { position: fixed; z-index: 60; top: 8px; left: 8px; padding: 10px 14px; color: #fff; background: var(--ink); font: 600 15px var(--label); text-decoration: none; transform: translateY(-180%); }
+    .skip-link:focus { transform: none; }
+    .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 760px) { .wrap { padding: 0 32px; } }
+    @media (min-width: 1900px) { .wrap { max-width: 1440px; } body { font-size: 19px; } }
 
-    .hero { position: relative; overflow: hidden; background: var(--paper); color: var(--ink); isolation: isolate; border-bottom: 1px solid var(--ink); }
-    .ridge { position: absolute; z-index: -1; left: 0; right: 0; bottom: 0; width: 100%; height: 150px; color: var(--brand); opacity: .14; }
-    .ridge path { fill: currentColor; }
-    .ridge .far { opacity: .55; }
-    .hero-inner { display: grid; gap: 28px; padding-top: 40px; padding-bottom: 56px; }
-    @media (min-width: 960px) { .hero-inner { grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); align-items: end; gap: 56px; padding-top: 76px; padding-bottom: 92px; } }
-    .hero .kicker { color: var(--brand-ink); font: 500 13px/1.4 var(--body); letter-spacing: .08em; text-transform: uppercase; }
-    .hero h1 { margin-top: 12px; font-weight: 600; font-size: clamp(38px, 6.2vw, 66px); }
-    .hero h1 em { font-style: italic; font-weight: 400; color: var(--brand-ink); }
-    .hero .lede { margin-top: 18px; color: var(--muted); }
-    .hero .button-row { margin-top: 26px; }
-    .hero .button-light { color: var(--on-deep); background: var(--brand); }
-    .hero .button-light:hover { background: var(--deep); }
-    .hero .button-secondary { color: var(--ink); background: transparent; border-color: var(--ink); }
-    .hero .button-secondary:hover { background: var(--surface); }
-    .hero-meta { display: grid; gap: 0; margin: 0; padding: 4px 20px; border: 1px solid var(--ink); border-radius: 0; background: var(--surface); color: var(--ink); }
-    .hero-meta div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--line-strong); }
-    .hero-meta div:last-child { border-bottom: 0; }
-    .hero-meta dt { color: var(--muted); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
-    .hero-meta dd { margin: 0; text-align: right; font-weight: 500; }
-    .pending { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; margin-top: 32px; padding: 20px; border: 1px solid var(--line-strong); border-radius: 0; background: var(--surface); box-shadow: inset 4px 0 0 var(--terracotta); }
-    .pending-icon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--clay-soft); color: var(--terracotta); }
-    .pending-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
-    .pending h2 { font-size: 22px; color: var(--ink); }
-    .pending p { margin-top: 6px; color: var(--muted); }
+    /* Running head with reading progress */
+    .topbar { position: sticky; top: 0; z-index: 30; background: rgba(244,245,242,.95); border-bottom: 1px solid var(--ink); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--ink); font: 700 15px/1.2 var(--label); font-stretch: 85%; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
+    .brand svg { width: 22px; height: 22px; flex: none; }
+    .brand small { color: var(--muted); font-weight: 500; letter-spacing: .04em; }
+    @media (max-width: 560px) { .brand small { display: none; } }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--ink-2); font: 500 15px var(--label); text-decoration: none; white-space: nowrap; }
+    .back-link:hover { color: var(--ink); text-decoration: underline; }
+    .back-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+    .progress { position: absolute; left: 0; bottom: -1px; height: 3px; width: 100%; background: var(--blue); transform-origin: 0 50%; transform: scaleX(0); }
 
-    .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; margin-top: 24px; }
-    @media (min-width: 760px) { .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-    .stat { padding: 14px 0 16px; border-top: 3px solid var(--ink); }
-    .stat strong { display: block; font: 500 58px/1 var(--heading); letter-spacing: -.02em; color: var(--brand-ink); font-variant-numeric: lining-nums; }
-    .stat.is-zero strong { color: var(--ink); text-decoration: line-through; text-decoration-color: var(--terracotta); text-decoration-thickness: 3px; }
-    .stat span { display: block; margin-top: 6px; color: var(--muted); font-size: 15px; line-height: 1.4; }
+    /* Cover */
+    .cover { position: relative; overflow: hidden; isolation: isolate; border-bottom: 1px solid var(--ink); }
+    .cover::before { content: ""; position: absolute; z-index: -1; right: -14%; top: -40%; width: 70%; height: 140%; background: radial-gradient(closest-side, rgba(140,195,234,.45), rgba(140,195,234,0)); }
+    .cover-grid { display: grid; gap: 36px; padding-block: 40px 44px; }
+    @media (min-width: 980px) { .cover-grid { grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); gap: 72px; padding-block: 72px 64px; align-items: end; } }
+    .series { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); color: var(--muted); font: 600 13px/1.4 var(--label); font-stretch: 85%; letter-spacing: .1em; text-transform: uppercase; }
+    .series b { color: var(--blue-ink); }
+    h1 { margin-top: 22px; font: 600 clamp(44px, 7.6vw, 104px)/.96 var(--serif); letter-spacing: -.03em; }
+    h1 em { display: block; font-weight: 400; color: var(--blue); }
+    .lede { max-width: 60ch; margin-top: 22px; color: var(--ink-2); font-size: clamp(18px, 1.7vw, 21px); line-height: 1.55; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 10px 20px; border: 1.5px solid var(--ink); border-radius: 0; color: var(--ink); background: transparent; font: 600 16px/1.2 var(--label); font-stretch: 90%; letter-spacing: .02em; text-decoration: none; cursor: pointer; transition: background-color .18s ease-out, color .18s ease-out; }
+    .button:hover { background: var(--ink); color: var(--paper); }
+    .button.solid { background: var(--ink); color: var(--paper); }
+    .button.solid:hover { background: var(--blue); border-color: var(--blue); }
+    .button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .meta { margin: 0; border-top: 3px solid var(--ink); }
+    .meta div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+    .meta dt { color: var(--muted); font: 600 13px/1.6 var(--label); font-stretch: 85%; letter-spacing: .1em; text-transform: uppercase; }
+    .meta dd { font-size: 17px; }
 
-    .filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 16px; }
-    .filter-bar p { margin-right: 4px; color: var(--muted); font-size: 14px; font-weight: 500; }
-    .filter { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface); font-size: 15px; font-weight: 500; cursor: pointer; transition: background-color .18s ease-out, border-color .18s ease-out; }
-    .filter:hover { border-color: var(--brand); }
-    .filter[aria-pressed="true"] { color: var(--on-deep); background: var(--deep); border-color: var(--deep); }
-    .filter .count { font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; opacity: .85; }
-    .filter-status { margin-left: auto; color: var(--muted); font-size: 14px; }
+    /* Figure 1: coverage */
+    .fig { padding: 36px 0 40px; border-bottom: 1px solid var(--rule); }
+    .fig-cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; margin-bottom: 18px; font: 600 13px/1.4 var(--label); font-stretch: 85%; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .fig-cap b { color: var(--ink); }
+    .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 24px; }
+    @media (min-width: 860px) { .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    .stat { padding-top: 12px; border-top: 1px solid var(--ink); }
+    .stat strong { display: block; font: 700 clamp(56px, 8vw, 104px)/.9 var(--label); font-stretch: 70%; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+    .stat span { display: block; max-width: 22ch; margin-top: 8px; color: var(--ink-2); font-size: 16px; line-height: 1.4; }
+    .stat .glyphs { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 12px; }
+    .stat.is-direct strong { color: var(--blue); }
+    .stat.is-zero strong { color: var(--red); position: relative; display: inline-block; }
+    .stat.is-zero strong::after { content: ""; position: absolute; left: -6%; right: -6%; top: 52%; height: 5px; background: var(--red); transform: rotate(-14deg); }
 
-    .shops { display: grid; gap: 14px; }
-    @media (min-width: 760px) { .shops { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    .shop { display: flex; flex-direction: column; border-top: 4px solid var(--line-strong); }
-    .shop[data-tier="directa"] { border-top-color: var(--brand); }
-    .shop[data-tier="espejo"] { border-top-color: var(--terracotta); }
-    .shop h3 { font-size: 21px; }
-    .shop-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
-    .shop .format { margin-top: 2px; color: var(--muted); font-size: 14px; }
-    .shop .address { margin-top: 12px; font-weight: 500; }
-    .shop .address::before { content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 8px; border-radius: 50%; background: var(--terracotta); vertical-align: 1px; }
-    .shop .note { margin-top: 10px; color: #4e3427; }
-    .shop-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 16px; margin-top: auto; padding-top: 14px; border-top: 1px dashed var(--line-strong); font-size: 14px; }
-    .shop .note + .shop-foot, .shop .address + .shop-foot { margin-top: 16px; }
+    /* Evidence glyphs */
+    .g { display: inline-block; width: 14px; height: 14px; flex: none; border: 2px solid var(--blue); background: var(--blue); vertical-align: -1px; }
+    .g.mirror { background: repeating-linear-gradient(135deg, var(--blue) 0 2px, transparent 2px 5px); }
+    .g.dir { background: transparent; border-color: var(--ink-2); }
+    .g.none { background: transparent; border: 2px dashed var(--red); }
+    .stat .glyphs .g { width: 18px; height: 18px; }
+
+    /* Document layout: contents rail and body */
+    .doc { display: grid; gap: 0; }
+    @media (min-width: 1100px) { .doc { grid-template-columns: 230px minmax(0, 1fr); gap: 56px; } }
+    .toc { display: none; }
+    @media (min-width: 1100px) { .toc { display: block; } .toc nav { position: sticky; top: 88px; padding-top: 48px; } }
+    .toc p { margin-bottom: 10px; color: var(--muted); font: 600 12px/1.4 var(--label); font-stretch: 85%; letter-spacing: .12em; text-transform: uppercase; }
+    .toc ol { padding: 0; list-style: none; border-left: 1px solid var(--rule); }
+    .toc a { display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: baseline; min-height: 40px; padding: 8px 0 8px 14px; margin-left: -1px; border-left: 3px solid transparent; color: var(--muted); font: 500 15px/1.3 var(--label); font-stretch: 90%; text-decoration: none; transition: color .2s ease-out, border-color .2s ease-out; }
+    .toc a span { font-variant-numeric: tabular-nums; }
+    .toc a:hover { color: var(--ink); }
+    .toc a.on { border-left-color: var(--blue); color: var(--ink); font-weight: 700; }
+
+    .pending { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; margin-top: 40px; padding: 20px 22px; background: var(--red-soft); border-left: 4px solid var(--red); }
+    .pending-mark { color: var(--red); font: 800 26px/1 var(--label); }
+    .pending h2 { font: 700 20px/1.3 var(--label); font-stretch: 90%; }
+    .pending p { margin-top: 6px; color: #4c2a26; font-size: 17px; }
+
+    .section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .section:last-child { border-bottom: 0; }
+    @media (min-width: 900px) { .section { padding: 72px 0; } }
+    .sec-head { display: grid; gap: 10px; max-width: 780px; margin-bottom: 28px; }
+    .sec-n { color: var(--blue); font: 700 14px/1 var(--label); font-stretch: 85%; letter-spacing: .14em; }
+    .sec-head h2 { font: 600 clamp(30px, 3.8vw, 46px)/1.05 var(--serif); letter-spacing: -.02em; }
+    .sec-head p { color: var(--ink-2); }
+
+    /* Section 1: evidence strip that filters, then a ledger */
+    .strip-wrap { margin-bottom: 26px; }
+    .strip { display: flex; gap: 3px; height: 54px; }
+    .strip button { position: relative; display: flex; align-items: flex-end; padding: 6px 10px; border: 2px solid var(--blue); background: var(--blue); color: #fff; font: 700 14px/1.1 var(--label); font-stretch: 85%; text-align: left; cursor: pointer; transition: opacity .25s ease-out, flex-grow .45s cubic-bezier(.2,.8,.2,1); min-width: 0; overflow: hidden; }
+    .strip button[data-tier="espejo"] { background: repeating-linear-gradient(135deg, var(--blue) 0 3px, #d7e6f3 3px 8px); color: var(--ink); }
+    .strip button[data-tier="espejo"] span { background: #fff; padding: 1px 4px; }
+    .strip button[data-tier="directorio"] { background: var(--sheet); border-color: var(--ink-2); color: var(--ink); }
+    .strip.filtered button:not([aria-pressed="true"]) { opacity: .28; }
+    .strip button:hover { opacity: 1 !important; }
+    .strip-key { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; margin-top: 10px; color: var(--muted); font: 500 14px/1.4 var(--label); font-stretch: 90%; }
+    .strip-key .reset { min-height: 36px; padding: 0 12px; border: 1px solid var(--rule); background: var(--sheet); font: 600 14px var(--label); cursor: pointer; }
+    .strip-key .reset[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+    .strip-key .status { font-weight: 700; color: var(--ink); }
+
+    .ledger { border-top: 2px solid var(--ink); }
+    .shop { display: grid; gap: 6px 24px; padding: 22px 0 20px; border-bottom: 1px solid var(--rule); scroll-margin-top: 90px; transition: background-color .6s ease-out, box-shadow .6s ease-out; }
+    @media (min-width: 760px) { .shop { grid-template-columns: 54px minmax(0, 1fr) minmax(0, 1.35fr); } }
+    .shop .cid { color: var(--muted); font: 700 14px/1.6 var(--label); font-stretch: 85%; font-variant-numeric: tabular-nums; }
+    .shop h3 { display: flex; align-items: baseline; gap: 10px; font: 600 23px/1.2 var(--serif); letter-spacing: -.01em; }
+    .shop h3 .g { flex: none; transform: translateY(-2px); }
+    .shop .format { margin-top: 2px; color: var(--muted); font: 500 15px/1.4 var(--label); font-stretch: 90%; }
+    .shop .address { margin-top: 8px; font: 600 15px/1.4 var(--label); font-stretch: 90%; }
+    .shop .address::before { content: "Domicilio  "; color: var(--muted); font-weight: 500; letter-spacing: .04em; white-space: pre; }
+    .shop .tier { display: inline-block; margin-top: 10px; padding: 2px 8px; font: 700 12px/1.5 var(--label); font-stretch: 85%; letter-spacing: .1em; text-transform: uppercase; border: 1px solid currentColor; }
+    .tier-direct { color: var(--blue-ink); }
+    .tier-mirror { color: var(--blue-ink); background: #e9f1f8; }
+    .tier-directory { color: var(--ink-2); }
+    .shop .note { color: var(--ink-2); font-size: 17px; }
+    .shop-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 16px; margin-top: 10px; padding-top: 8px; border-top: 1px dotted var(--rule); font: 500 14px/1.4 var(--label); font-stretch: 90%; }
     .confidence { color: var(--muted); }
-    .ext { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 500; }
+    .shop[data-tier="directa"] .confidence { color: var(--blue-ink); }
+    .refs { margin-top: 8px; color: var(--muted); font: 600 12px/1.4 var(--label); font-stretch: 85%; letter-spacing: .1em; text-transform: uppercase; }
+    .ref, .back { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 32px; margin-left: 4px; padding: 0 8px; border: 1px solid var(--blue); background: var(--celeste-soft); color: var(--blue-ink); font: 700 13px/1 var(--label); font-stretch: 90%; letter-spacing: .02em; text-decoration: none; text-transform: none; transition: background-color .18s ease-out, color .18s ease-out; }
+    .ref:hover, .back:hover { background: var(--blue); color: #fff; }
+    .back { margin: 8px 0 0; min-height: 36px; font-weight: 600; }
+    @media (pointer: coarse) { .ref, .back { min-height: 44px; } }
+    .ext { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; }
     .ext svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .tier-direct { background: var(--brand-soft); color: var(--brand-ink); }
-    .tier-mirror { background: var(--clay-soft); color: #7f3a22; }
-    .tier-directory { background: #efe4d2; color: #5a4632; }
-    .callout { margin-top: 16px; padding: 16px 18px; border-radius: 0; background: var(--clay-soft); box-shadow: inset 4px 0 0 var(--terracotta); color: #5a2f1f; }
+    .shop.flash, .sources li.flash { background-color: var(--celeste-soft); box-shadow: -12px 0 0 var(--celeste-soft), 12px 0 0 var(--celeste-soft); }
+    .callout { margin-top: 22px; padding: 16px 20px; border-left: 4px solid var(--red); background: var(--red-soft); color: #4c2a26; font-size: 17px; }
 
-    .price-table thead th { color: var(--ink); background: var(--surface-soft); }
-    .price-table tbody th { font-weight: 500; }
+    /* Source preview that opens from a reference */
+    .peek { position: absolute; z-index: 40; width: min(340px, calc(100vw - 32px)); padding: 14px 16px; background: var(--ink); color: #eef2f5; font: 400 15px/1.45 var(--label); font-stretch: 95%; box-shadow: 0 18px 40px -18px rgba(0,0,0,.5); pointer-events: none; opacity: 0; transform: translateY(4px); transition: opacity .16s ease-out, transform .16s ease-out; }
+    .peek.on { opacity: 1; transform: none; }
+    .peek b { display: block; color: var(--celeste); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+    .peek strong { display: block; margin-top: 2px; font-size: 16px; color: #fff; }
+
+    /* Section 2: prices */
+    .table-wrap { overflow-x: auto; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--ink); }
+    .table-wrap:focus-visible { box-shadow: var(--focus); }
+    .price-table { width: 100%; border-collapse: collapse; font: 400 16px/1.45 var(--label); font-stretch: 92%; }
+    .price-table caption { padding: 12px 0; color: var(--muted); font-size: 14px; text-align: left; caption-side: top; }
+    .price-table th, .price-table td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+    .price-table thead th { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border-bottom-color: var(--ink); white-space: nowrap; }
+    .price-table tbody tr:last-child > * { border-bottom: 0; }
+    .price-table tbody th { font-weight: 600; }
+    .price-table .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .price-table td.num { font: 700 20px/1.2 var(--label); font-stretch: 80%; color: var(--blue-ink); }
+    .price-table td:last-child { color: var(--muted); }
+    .price-table tbody tr { transition: background-color .15s ease-out; }
+    .price-table tbody tr:hover { background: var(--sheet); }
     @media (max-width: 640px) {
       .price-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
       .price-table, .price-table caption, .price-table tbody, .price-table tr, .price-table th, .price-table td { display: block; }
-      .price-table caption { padding: 14px 16px 4px; }
-      .price-table tr { padding: 12px 16px; border-bottom: 1px solid var(--line); }
+      .price-table tr { padding: 12px 0; border-bottom: 1px solid var(--rule); }
       .price-table tbody tr:last-child { border-bottom: 0; }
       .price-table tbody th, .price-table td { padding: 2px 0; border: 0; text-align: left; }
-      .price-table td::before { content: attr(data-label); display: inline-block; min-width: 76px; margin-right: 8px; color: var(--muted); font: 400 13px/1.4 var(--body); }
+      .price-table td::before { content: attr(data-label); display: inline-block; min-width: 80px; margin-right: 8px; color: var(--muted); font: 600 12px/1.4 var(--label); letter-spacing: .08em; text-transform: uppercase; }
       .price-table td.num { text-align: left; }
     }
-    .price-table td.num { font-weight: 600; font-size: 17px; color: var(--brand-ink); }
-    .table-note { margin-top: 12px; color: var(--muted); font-size: 15px; max-width: 80ch; }
+    .table-note { max-width: 74ch; margin-top: 16px; color: var(--ink-2); font-size: 16px; }
 
-    .questions { display: grid; gap: 12px; }
-    @media (min-width: 640px) { .questions { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (min-width: 1000px) { .questions { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-    .question .n { display: block; margin-bottom: 10px; color: var(--brand); font: italic 400 34px/1 var(--heading); }
-    .question p { margin-top: 8px; color: var(--muted); }
+    /* Section 3: questions */
+    .questions { display: grid; gap: 0; border-top: 2px solid var(--ink); }
+    @media (min-width: 700px) { .questions { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (min-width: 1240px) { .questions { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    .question { padding: 20px 20px 24px 0; border-bottom: 1px solid var(--rule); }
+    @media (min-width: 700px) { .question { padding-left: 20px; border-left: 1px solid var(--rule); } .question:nth-child(2n+1) { padding-left: 0; border-left: 0; } }
+    @media (min-width: 1240px) { .question { border-bottom: 0; } .question:nth-child(2n+1) { padding-left: 20px; border-left: 1px solid var(--rule); } .question:first-child { padding-left: 0; border-left: 0; } }
+    .question .n { display: block; color: var(--blue); font: 700 48px/1 var(--label); font-stretch: 70%; }
+    .question h3 { margin-top: 8px; font: 600 21px/1.25 var(--serif); }
+    .question p { margin-top: 8px; color: var(--ink-2); font-size: 17px; }
 
-    .context { display: grid; gap: 14px; }
-    @media (min-width: 860px) { .context { grid-template-columns: 1.3fr .7fr; } }
-    .context .card p { margin-top: 8px; color: #4e3427; }
-    .context .card.soft { background: var(--brand-soft); border-color: #c5d6ca; }
-    .context .card.soft p { color: var(--brand-ink); }
-    .context .ext { margin-top: 6px; }
+    /* Section 4: context */
+    .context { display: grid; gap: 28px; }
+    @media (min-width: 860px) { .context { grid-template-columns: 1.4fr .6fr; gap: 40px; } }
+    .context h3 { font: 600 22px/1.25 var(--serif); }
+    .context p { margin-top: 10px; color: var(--ink-2); }
+    .context aside { padding: 20px; background: var(--celeste-soft); border-top: 3px solid var(--blue); align-self: start; }
+    .context aside p { color: var(--blue-ink); }
+    .context .ext { margin-top: 8px; }
+    .figure-note { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--rule); color: var(--muted); font: 500 14px/1.45 var(--label); font-stretch: 92%; }
 
-    .inputs { display: grid; gap: 0 24px; margin: 0; padding: 0; list-style: none; counter-reset: input; }
+    /* Section 5: inputs */
+    .inputs { display: grid; gap: 0 32px; padding: 0; list-style: none; counter-reset: input; border-top: 2px solid var(--ink); }
     @media (min-width: 760px) { .inputs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    .inputs li { display: flex; gap: 14px; align-items: baseline; padding: 14px 0; border-bottom: 1px dashed var(--line-strong); counter-increment: input; }
-    .inputs li::before { content: counter(input, decimal-leading-zero); color: var(--brand-ink); font: 600 18px/1 var(--mono); }
+    .inputs li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--rule); counter-increment: input; }
+    .inputs li::before { content: counter(input, decimal-leading-zero); color: var(--red); font: 700 18px/1 var(--label); font-stretch: 80%; }
 
-    .sources { display: grid; gap: 0 24px; margin: 0; padding: 0; list-style: none; }
+    /* Section 6: sources */
+    .sources { display: grid; gap: 0 32px; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
     @media (min-width: 760px) { .sources { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    .sources li { padding: 12px 0; border-bottom: 1px solid var(--line); }
-    .sources a { font-weight: 500; }
-    .sources p { margin-top: 2px; color: var(--muted); font-size: 15px; }
-    .sources .sid { display: inline-block; min-width: 38px; color: var(--brand-ink); font: 600 13px/1 var(--mono); }
-    .files { display: grid; gap: 12px; margin-top: 24px; }
+    .sources li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 0 8px; padding: 14px 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 90px; transition: background-color .6s ease-out, box-shadow .6s ease-out; }
+    .sources li > * { grid-column: 2; }
+    .sources .sid { grid-column: 1; grid-row: 1 / span 3; color: var(--blue); font: 700 16px/1.6 var(--label); font-stretch: 80%; }
+    .sources a:not(.back) { font: 600 17px/1.5 var(--label); font-stretch: 92%; }
+    .sources p { margin-top: 2px; color: var(--muted); font-size: 16px; }
+    .sources .back { justify-self: start; }
+    .files { display: grid; gap: 0; margin-top: 32px; border-top: 2px solid var(--ink); }
     @media (min-width: 760px) { .files { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-    .file { display: flex; gap: 12px; align-items: center; min-height: 64px; padding: 14px 16px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); color: var(--ink); text-decoration: none; transition: border-color .18s ease-out, background-color .18s ease-out; }
-    .file:hover { border-color: var(--brand); background: #fff; }
-    .file svg { width: 22px; height: 22px; flex: none; fill: none; stroke: var(--brand-ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .file strong { display: block; font-weight: 500; }
-    .file span { display: block; color: var(--muted); font-size: 14px; }
-    .site-footer { border-top: 3px solid var(--ink); }
-    .refs { margin-top: 8px; color: var(--muted); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
-    .ref, .back { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 32px; margin-left: 4px; padding: 0 8px; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface-soft); color: var(--brand-ink); font: 600 13px/1 var(--mono); letter-spacing: 0; text-decoration: none; text-transform: none; transition: background-color .2s ease-out, border-color .2s ease-out; }
-    .ref:hover, .back:hover { border-color: var(--brand); background: var(--brand-soft); }
-    .back { margin: 6px 0 0; min-height: 36px; font-weight: 500; }
-    .shop, .sources li { scroll-margin-top: 90px; transition: box-shadow .5s ease-out, background-color .5s ease-out; }
-    .shop.flash, .sources li.flash { box-shadow: 0 0 0 3px var(--brand); background-color: #f4f8f3; }
-    .sources li.flash { box-shadow: inset 4px 0 0 var(--brand); padding-left: 12px; }
-    @media (pointer: coarse) { .ref { min-height: 44px; } .back { min-height: 44px; } }
+    .file { display: flex; gap: 14px; align-items: center; min-height: 72px; padding: 16px 16px 16px 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; transition: background-color .18s ease-out, padding .25s ease-out; }
+    @media (min-width: 760px) { .file + .file { padding-left: 16px; border-left: 1px solid var(--rule); } }
+    .file:hover { background: var(--sheet); }
+    .file svg { width: 24px; height: 24px; flex: none; fill: none; stroke: var(--blue); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .file strong { display: block; font: 700 16px/1.3 var(--label); font-stretch: 90%; }
+    .file span span { display: block; color: var(--muted); font: 500 14px/1.4 var(--label); font-stretch: 92%; }
+
+    .site-footer { padding: 32px 0 48px; border-top: 3px solid var(--ink); color: var(--ink-2); font-size: 16px; }
+    .site-footer p + p { margin-top: 8px; }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+    @media print { .topbar, .toc, .actions, .strip-wrap { display: none; } body { background: #fff; } }
   </style>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al informe</a>
   <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="#contenido"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>Señales de mercado</a>
+    <div class="wrap">
+      <a class="brand" href="#contenido"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="8" height="8" fill="#1b5d9b"/><rect x="14" y="14" width="8" height="8" fill="none" stroke="#14181d" stroke-width="2"/><rect x="14" y="2" width="8" height="8" fill="none" stroke="#1b5d9b" stroke-width="2"/></svg>Señales de mercado <small>Informe preliminar</small></a>
       <a class="back-link" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Trabajos seleccionados</a>
     </div>
+    <div class="progress" id="progreso" aria-hidden="true"></div>
   </header>
 
-  <section class="hero" aria-labelledby="titulo">
-    <svg class="ridge" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true"><path class="far" d="M0 150V96l90-18 110 10 120-34 95 14 130-40 85 22 140-30 120 26 110-18 150 30 120-10 170 28v100z"/><path d="M0 150v-30l140-12 120 14 160-26 110 10 150-22 130 18 160-14 140 16 120-8 110 12 100-6v48z"/></svg>
-    <div class="wrap hero-inner">
+  <section class="cover" aria-labelledby="titulo">
+    <div class="wrap cover-grid">
       <div>
-        <p class="kicker">Relevamiento preliminar de fuentes públicas</p>
-        <h1 class="h1" id="titulo">Señales de mercado <em>en Cosquín</em></h1>
+        <p class="series"><b>Relevamiento preliminar de fuentes públicas</b><span>Cosquín, Córdoba</span><span>Octubre de 2026</span></p>
+        <h1 id="titulo">Señales de mercado <em>en Cosquín</em></h1>
         <p class="lede">Una primera lectura de los comercios y precios visibles en línea, para ordenar la comparación entre carnicería, frutas y verduras, minimercado y un formato mixto.</p>
-        <div class="button-row">
-          <a class="button button-light" href="sample-cosquin-evidence.csv" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Tabla de evidencia CSV</a>
-          <a class="button button-secondary" href="#fuentes">Ver las fuentes</a>
+        <div class="actions">
+          <a class="button solid" href="sample-cosquin-evidence.csv" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Tabla de evidencia CSV</a>
+          <a class="button" href="#fuentes">Ver las fuentes</a>
         </div>
       </div>
-      <dl class="hero-meta">
+      <dl class="meta">
         <div><dt>Zona</dt><dd>Cosquín, Córdoba, Argentina</dd></div>
         <div><dt>Consulta</dt><dd>6 de octubre de 2026</dd></div>
         <div><dt>Base</dt><dd>Fuentes públicas en línea</dd></div>
@@ -186,183 +280,222 @@
 
   <main id="contenido" tabindex="-1">
     <div class="wrap">
-      <div class="pending" role="note" aria-labelledby="pendiente-titulo">
-        <span class="pending-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 7v6M12 17h.01"/></svg></span>
+      <figure class="fig" aria-labelledby="fig1">
+        <figcaption class="fig-cap" id="fig1"><span><b>Figura 1.</b> Resumen de cobertura</span><span><i class="g" aria-hidden="true"></i> fuente directa &nbsp; <i class="g mirror" aria-hidden="true"></i> espejo &nbsp; <i class="g dir" aria-hidden="true"></i> directorio</span></figcaption>
+        <div class="stats" aria-label="Resumen de cobertura">
+          <div class="stat"><strong>8</strong><span>comercios para comprobar en Cosquín</span><span class="glyphs" aria-hidden="true"><i class="g"></i><i class="g"></i><i class="g"></i><i class="g mirror"></i><i class="g dir"></i><i class="g dir"></i><i class="g dir"></i><i class="g dir"></i></span></div>
+          <div class="stat is-direct"><strong>3</strong><span>con fuente directa del negocio o su tienda</span><span class="glyphs" aria-hidden="true"><i class="g"></i><i class="g"></i><i class="g"></i></span></div>
+          <div class="stat"><strong>5</strong><span>pistas de directorio o espejo, sin confirmar</span><span class="glyphs" aria-hidden="true"><i class="g mirror"></i><i class="g dir"></i><i class="g dir"></i><i class="g dir"></i><i class="g dir"></i></span></div>
+          <div class="stat is-zero"><strong>0</strong><span>precios locales comparables entre sí</span><span class="glyphs" aria-hidden="true"><i class="g none"></i></span></div>
+        </div>
+      </figure>
+
+      <div class="doc">
+        <aside class="toc" aria-label="Contenido del informe">
+          <nav>
+            <p>Contenido</p>
+            <ol id="indice">
+              <li><a href="#comercios"><span>1</span>Comercios</a></li>
+              <li><a href="#precios"><span>2</span>Importes visibles</a></li>
+              <li><a href="#formatos"><span>3</span>Formatos</a></li>
+              <li><a href="#contexto"><span>4</span>Contexto local</a></li>
+              <li><a href="#insumos"><span>5</span>Datos necesarios</a></li>
+              <li><a href="#fuentes"><span>6</span>Fuentes</a></li>
+            </ol>
+          </nav>
+        </aside>
+
         <div>
-          <h2 id="pendiente-titulo">La recomendación de formato queda pendiente</h2>
-          <p>El planteo menciona un local y una operación de restaurante existentes, pero faltan la dirección exacta, el radio de captación, la superficie, los equipos, el presupuesto y los costos operativos. Sin la ubicación no se puede saber qué comercios compiten de verdad por los mismos clientes. Este relevamiento no concluye viabilidad ni rentabilidad.</p>
+          <div class="pending" role="note" aria-labelledby="pendiente-titulo">
+            <span class="pending-mark" aria-hidden="true">!</span>
+            <div>
+              <h2 id="pendiente-titulo">La recomendación de formato queda pendiente</h2>
+              <p>El planteo menciona un local y una operación de restaurante existentes, pero faltan la dirección exacta, el radio de captación, la superficie, los equipos, el presupuesto y los costos operativos. Sin la ubicación no se puede saber qué comercios compiten de verdad por los mismos clientes. Este relevamiento no concluye viabilidad ni rentabilidad.</p>
+            </div>
+          </div>
+
+          <section class="section" id="comercios" aria-labelledby="comercios-titulo">
+            <div class="sec-head">
+              <span class="sec-n">SECCIÓN 1</span>
+              <h2 id="comercios-titulo">Mapa inicial de comercios</h2>
+              <p>Son ocho nombres para cribar, no ocho competidores activos confirmados. El nivel indica qué tipo de fuente respalda cada ficha, no el tamaño ni el desempeño del negocio.</p>
+            </div>
+
+            <div class="strip-wrap" id="filtro" hidden>
+              <div class="strip" role="group" aria-label="Filtrar por nivel de evidencia">
+                <button type="button" class="filter" data-tier="directa" aria-pressed="false" style="flex:3 1 0"><span>Fuente directa 3</span></button>
+                <button type="button" class="filter" data-tier="espejo" aria-pressed="false" style="flex:1 1 0" aria-label="Espejo 1"><span>1</span></button>
+                <button type="button" class="filter" data-tier="directorio" aria-pressed="false" style="flex:4 1 0"><span>Directorio 4</span></button>
+              </div>
+              <div class="strip-key">
+                <span>Cada tramo es un comercio. Toque un nivel de evidencia para filtrar la lista.</span>
+                <span><span class="status" id="filtro-estado" role="status" aria-live="polite"></span> <button type="button" class="reset filter" data-tier="todos" aria-pressed="true">Todos 8</button></span>
+              </div>
+            </div>
+
+            <div class="ledger" id="comercios-lista">
+              <article id="c-almacor" class="shop" data-tier="directa">
+                <span class="cid">C1</span>
+                <div><h3><i class="g" aria-hidden="true"></i>Almacor</h3><p class="format">Supermercado de cadena</p><span class="tier tier-direct">Fuente directa</span><p class="refs">Respaldo <a class="ref" href="#s1">S1</a> <a class="ref" href="#s2">S2</a></p></div>
+                <div>
+                  <p class="note">El localizador oficial incluye una entrada identificada como “Cosquín (4)”. El número se trata como identificador, no como cantidad de locales. El folleto de la cadena muestra varias categorías de alimentos, pero no asigna ofertas a esta sucursal.</p>
+                  <div class="shop-foot"><span class="confidence">Confianza alta para la presencia declarada</span><a class="ext" href="https://www.almacor.com.ar/locales/">Abrir localizador<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
+                </div>
+              </article>
+              <article id="c-rincon" class="shop" data-tier="directa">
+                <span class="cid">C2</span>
+                <div><h3><i class="g" aria-hidden="true"></i>Rincón de sabores</h3><p class="format">Dietética especializada</p><p class="address">Pedro Ortiz 659</p><span class="tier tier-direct">Fuente directa</span><p class="refs">Respaldo <a class="ref" href="#s3">S3</a></p></div>
+                <div>
+                  <p class="note">La tienda publica catálogo, retiro y delivery sujeto a confirmación. Muestra precios de algunos productos envasados, sin gramaje en la muestra consultada.</p>
+                  <div class="shop-foot"><span class="confidence">Confianza alta para ficha y precios publicados</span><a class="ext" href="https://tiendas.pedix.app/comercio/rincon-de-sabores/">Abrir tienda<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
+                </div>
+              </article>
+              <article id="c-republica" class="shop" data-tier="directa">
+                <span class="cid">C3</span>
+                <div><h3><i class="g" aria-hidden="true"></i>República Kiosco</h3><p class="format">Kiosco, bebidas y helados</p><p class="address">Presidente Perón 834</p><span class="tier tier-direct">Fuente directa</span><p class="refs">Respaldo <a class="ref" href="#s4">S4</a></p></div>
+                <div>
+                  <p class="note">El catálogo muestra categorías de kiosco y bebidas, además de un combo con precio. El rastreo de la página tenía alrededor de un mes de antigüedad, así que la consulta no confirma vigencia ni stock.</p>
+                  <div class="shop-foot"><span class="confidence">Dato visible, vigencia sin confirmar</span><a class="ext" href="https://pency.app/republicacosquin">Abrir tienda<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
+                </div>
+              </article>
+              <article id="c-elnono" class="shop" data-tier="espejo">
+                <span class="cid">C4</span>
+                <div><h3><i class="g mirror" aria-hidden="true"></i>Carnicería El Nono</h3><p class="format">Carnicería y minimercado declarados</p><p class="address">Marimón 371 o 373, por resolver</p><span class="tier tier-mirror">Espejo</span><p class="refs">Respaldo <a class="ref" href="#s5">S5</a></p></div>
+                <div>
+                  <p class="note">Un espejo de publicaciones atribuidas al comercio muestra actividad fechada en 2026 y menciona carne, almacén, bebidas, panificados y lácteos. La dirección cambia entre publicaciones y no se pudo verificar la página propia del comercio.</p>
+                  <div class="shop-foot"><span class="confidence">Confianza media, verificar negocio y domicilio</span><a class="ext" href="https://www.foodbevg.com/AR/Cosqu%C3%ADn/100212929016897/Carnicer%C3%ADa-El-Nono-Cosqu%C3%ADn">Ver fuente espejo<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
+                </div>
+              </article>
+              <article id="c-lamartina" class="shop" data-tier="directorio">
+                <span class="cid">C5</span>
+                <div><h3><i class="g dir" aria-hidden="true"></i>Carnicería La Martina</h3><p class="format">Carnicería, según directorio</p><p class="address">Av. San Martín 341</p><span class="tier tier-directory">Directorio</span><p class="refs">Respaldo <a class="ref" href="#s6">S6</a></p></div>
+                <div>
+                  <p class="note">Un directorio menciona venta minorista y mayorista para gastronomía. No se encontró una publicación reciente del comercio ni se confirmó su estado actual.</p>
+                  <div class="shop-foot"><span class="confidence">Confianza baja, confirmar operación</span><a class="ext" href="https://www.yellowpages.do/phone-54-93548635663-carnicer%C3%ADa-Cosqu%C3%ADn-AREN173543.html">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
+                </div>
+              </article>
+              <article id="c-tabita" class="shop" data-tier="directorio">
+                <span class="cid">C6</span>
+                <div><h3><i class="g dir" aria-hidden="true"></i>Carnicería Tabita</h3><p class="format">Carnicería, según directorio</p><p class="address">Florencio Sánchez 947</p><span class="tier tier-directory">Directorio</span><p class="refs">Respaldo <a class="ref" href="#s7">S7</a></p></div>
+                <div>
+                  <p class="note">El nombre, el rubro y el domicilio aparecen en un directorio de terceros. La actividad actual y el surtido no se comprobaron con el comercio.</p>
+                  <div class="shop-foot"><span class="confidence">Confianza baja, validar ubicación</span><a class="ext" href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/carniceria-tabita/">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
+                </div>
+              </article>
+              <article id="c-misemilla" class="shop" data-tier="directorio">
+                <span class="cid">C7</span>
+                <div><h3><i class="g dir" aria-hidden="true"></i>Mi Semilla</h3><p class="format">Autoservicio de frutas y verduras, según el nombre</p><p class="address">Av. San Martín 1441</p><span class="tier tier-directory">Directorio</span><p class="refs">Respaldo <a class="ref" href="#s8">S8</a></p></div>
+                <div>
+                  <p class="note">Una ficha de terceros ubica esta pista en Cosquín. No se encontró una fuente directa reciente que confirme la apertura ni los productos actuales.</p>
+                  <div class="shop-foot"><span class="confidence">Confianza baja, validar actividad</span><a class="ext" href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/mi-semilla-autoservicio-de-frutas-y-verduras/">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
+                </div>
+              </article>
+              <article id="c-lacoscoina" class="shop" data-tier="directorio">
+                <span class="cid">C8</span>
+                <div><h3><i class="g dir" aria-hidden="true"></i>La Coscoina Verduras Procesadas</h3><p class="format">Posible comercio de verduras frescas o procesadas</p><p class="address">Rawson y De la Paz</p><span class="tier tier-directory">Directorio</span><p class="refs">Respaldo <a class="ref" href="#s9">S9</a></p></div>
+                <div>
+                  <p class="note">Un directorio da esta esquina y la etiqueta de frutería. La venta minorista, el catálogo y la actividad actual necesitan confirmación.</p>
+                  <div class="shop-foot"><span class="confidence">Confianza baja, validar actividad y rubro</span><a class="ext" href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/la-coscoina-verduras-procesadas/">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
+                </div>
+              </article>
+            </div>
+            <p class="callout">Cinco fichas son solo pistas de descubrimiento, incluido el espejo de El Nono, y no se usan como prueba de comercios activos. Hay otra ficha de carnicería y verdulería en Marimón 373 que no se cuenta aparte hasta descartar que sea el mismo negocio.</p>
+          </section>
+
+          <section class="section" id="precios" aria-labelledby="precios-titulo">
+            <div class="sec-head">
+              <span class="sec-n">SECCIÓN 2</span>
+              <h2 id="precios-titulo">Importes visibles y vacíos</h2>
+              <p>La fecha de consulta no es la fecha de publicación y no confirma disponibilidad. Estos importes no forman una canasta comparable.</p>
+            </div>
+            <div class="table-wrap" role="region" aria-labelledby="precios-caption" tabindex="0">
+              <table class="price-table">
+                <caption id="precios-caption">Tabla 1. Importes publicados en las fuentes consultadas el 6 de octubre de 2026</caption>
+                <thead><tr><th scope="col">Comercio</th><th scope="col">Artículo publicado</th><th scope="col" class="num">Importe</th><th scope="col">Límite para comparar</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Rincón de sabores</th><td data-label="Artículo">Maní sin sal, desde</td><td class="num" data-label="Importe">$700</td><td data-label="Límite">Sin unidad ni gramaje visibles</td></tr>
+                  <tr><th scope="row">Rincón de sabores</th><td data-label="Artículo">Castañas de cajú, desde</td><td class="num" data-label="Importe">$2.800</td><td data-label="Límite">Sin unidad ni gramaje visibles</td></tr>
+                  <tr><th scope="row">Rincón de sabores</th><td data-label="Artículo">Mix clásico con girasol, desde</td><td class="num" data-label="Importe">$1.420</td><td data-label="Límite">Sin unidad ni gramaje visibles</td></tr>
+                  <tr><th scope="row">Rincón de sabores</th><td data-label="Artículo">Granola tradicional, desde</td><td class="num" data-label="Importe">$1.400</td><td data-label="Límite">Sin unidad ni gramaje visibles</td></tr>
+                  <tr><th scope="row">República Kiosco</th><td data-label="Artículo">Combo Branca</td><td class="num" data-label="Importe">$22.000</td><td data-label="Límite">Rastreo de hace un mes aproximadamente. Composición, tamaño y vigencia no visibles</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-note">Los catálogos advierten que los precios pueden cambiar y muestran el signo “$” sin código de moneda. Almacor tiene un folleto corporativo válido del 1 al 6 de octubre, pero no confirma ofertas para Cosquín. Los precios locales de carne, frutas, verduras y productos básicos siguen sin conocerse.</p>
+          </section>
+
+          <section class="section" id="formatos" aria-labelledby="formatos-titulo">
+            <div class="sec-head">
+              <span class="sec-n">SECCIÓN 3</span>
+              <h2 id="formatos-titulo">Preguntas para comparar formatos</h2>
+              <p>Son comprobaciones pendientes, no conclusiones de rentabilidad.</p>
+            </div>
+            <div class="questions">
+              <article class="question"><span class="n">1</span><h3>Carnicería</h3><p>¿Hay frío y manipulación adecuados, proveedores cotizados y un surtido local con el que comparar?</p></article>
+              <article class="question"><span class="n">2</span><h3>Frutas y verduras</h3><p>¿Qué reposición, espacio y rotación pueden sostener los proveedores y la operación existente?</p></article>
+              <article class="question"><span class="n">3</span><h3>Minimercado</h3><p>¿Qué básicos cubren una necesidad del radio cercano sin inmovilizar demasiado capital?</p></article>
+              <article class="question"><span class="n">4</span><h3>Formato mixto</h3><p>¿Qué dos categorías pueden compartir espacio y equipos sin complicar la operación?</p></article>
+            </div>
+          </section>
+
+          <section class="section" id="contexto" aria-labelledby="contexto-titulo">
+            <div class="sec-head"><span class="sec-n">SECCIÓN 4</span><h2 id="contexto-titulo">Contexto local, con cautela</h2></div>
+            <div class="context">
+              <article>
+                <h3>Festival y estacionalidad</h3>
+                <p>La Municipalidad de Cosquín atribuyó al intendente una estimación de más de un millón de visitantes durante los nueve días del Festival Nacional de Folklore. El cuerpo de la nota lleva fecha 5 de febrero de 2026, aunque la ruta de la URL contiene otra fecha. Es una cifra reportada para un evento concentrado y no mide residentes, compras de alimentos ni ventas anuales.</p>
+                <a class="ext" href="https://cosquin.gob.ar/2026/07/28/el-festival-nacional-del-folklore-recibio-el-sello-de-evento-sostenible/">Leer la nota municipal<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+                <p class="figure-note">Respaldo <a class="ref" href="#s10">S10</a></p>
+              </article>
+              <aside aria-labelledby="alcance-titulo">
+                <h3 id="alcance-titulo">Alcance del relevamiento</h3>
+                <p>Consulta documental en fuentes públicas, sin visitas, llamadas, entrevistas ni compras. La ubicación del local existente sigue pendiente.</p>
+              </aside>
+            </div>
+          </section>
+
+          <section class="section" id="insumos" aria-labelledby="insumos-titulo">
+            <div class="sec-head">
+              <span class="sec-n">SECCIÓN 5</span>
+              <h2 id="insumos-titulo">Datos necesarios para avanzar</h2>
+              <p>Con estos datos se puede delimitar la competencia real y revisar opciones con menos supuestos.</p>
+            </div>
+            <ol class="inputs">
+              <li>Dirección del local y radio de captación esperado</li>
+              <li>Metros utilizables y distribución del espacio</li>
+              <li>Equipos disponibles y condiciones de frío</li>
+              <li>Rango de inversión y capital para inventario</li>
+              <li>Contactos o cotizaciones de proveedores</li>
+              <li>Formatos que el comprador quiere comparar primero</li>
+            </ol>
+          </section>
+
+          <section class="section" id="fuentes" aria-labelledby="fuentes-titulo">
+            <div class="sec-head">
+              <span class="sec-n">SECCIÓN 6</span>
+              <h2 id="fuentes-titulo">Fuentes y trazabilidad</h2>
+              <p>Cada enlace abre la página que respalda el dato. Todas se consultaron el 6 de octubre de 2026. Las fichas de terceros se presentan como pistas, no como confirmación de actividad.</p>
+            </div>
+            <ul class="sources">
+              <li id="s1"><span class="sid">S1</span><a href="https://www.almacor.com.ar/locales/">Almacor, localizador</a><p>Presencia declarada de una sucursal en Cosquín.</p> <a class="back" href="#c-almacor">Ver ficha</a></li>
+              <li id="s2"><span class="sid">S2</span><a href="https://almacor.com.ar/catalogo/mailing.pdf">Almacor, folleto</a><p>Rubros y vigencia corporativa, sin precio local confirmado.</p> <a class="back" href="#c-almacor">Ver ficha</a></li>
+              <li id="s3"><span class="sid">S3</span><a href="https://tiendas.pedix.app/comercio/rincon-de-sabores/">Rincón de sabores</a><p>Dirección, modalidades y muestra de catálogo.</p> <a class="back" href="#c-rincon">Ver ficha</a></li>
+              <li id="s4"><span class="sid">S4</span><a href="https://pency.app/republicacosquin">República Kiosco</a><p>Dirección, rubros y combo publicado.</p> <a class="back" href="#c-republica">Ver ficha</a></li>
+              <li id="s5"><span class="sid">S5</span><a href="https://www.foodbevg.com/AR/Cosqu%C3%ADn/100212929016897/Carnicer%C3%ADa-El-Nono-Cosqu%C3%ADn">Carnicería El Nono</a><p>Espejo de publicaciones atribuidas al comercio.</p> <a class="back" href="#c-elnono">Ver ficha</a></li>
+              <li id="s6"><span class="sid">S6</span><a href="https://www.yellowpages.do/phone-54-93548635663-carnicer%C3%ADa-Cosqu%C3%ADn-AREN173543.html">Carnicería La Martina</a><p>Ficha de directorio con domicilio y rubro.</p> <a class="back" href="#c-lamartina">Ver ficha</a></li>
+              <li id="s7"><span class="sid">S7</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/carniceria-tabita/">Carnicería Tabita</a><p>Ficha de directorio, sin corroborar con el comercio.</p> <a class="back" href="#c-tabita">Ver ficha</a></li>
+              <li id="s8"><span class="sid">S8</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/mi-semilla-autoservicio-de-frutas-y-verduras/">Mi Semilla</a><p>Ficha de directorio, sin corroborar con el comercio.</p> <a class="back" href="#c-misemilla">Ver ficha</a></li>
+              <li id="s9"><span class="sid">S9</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/la-coscoina-verduras-procesadas/">La Coscoina</a><p>Ficha de directorio, ubicación aproximada.</p> <a class="back" href="#c-lacoscoina">Ver ficha</a></li>
+              <li id="s10"><span class="sid">S10</span><a href="https://cosquin.gob.ar/2026/07/28/el-festival-nacional-del-folklore-recibio-el-sello-de-evento-sostenible/">Municipalidad de Cosquín</a><p>Contexto estacional informado por el municipio.</p> <a class="back" href="#contexto">Ver contexto</a></li>
+            </ul>
+            <div class="files">
+              <a class="file" href="sample-cosquin-evidence.csv" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h8"/></svg><span><strong>Tabla de evidencia</strong><span>CSV, 11 registros</span></span></a>
+              <a class="file" href="sample-cosquin-source_notes.md"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg><span><strong>Notas de fuentes</strong><span>Nivel y límites de cada fuente</span></span></a>
+              <a class="file" href="sample-cosquin-preliminary_findings.md"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h6"/></svg><span><strong>Hallazgos preliminares</strong><span>Resumen escrito del relevamiento</span></span></a>
+            </div>
+          </section>
         </div>
       </div>
-
-      <div class="stats" aria-label="Resumen de cobertura">
-        <div class="stat"><strong>8</strong><span>comercios para comprobar en Cosquín</span></div>
-        <div class="stat"><strong>3</strong><span>con fuente directa del negocio o su tienda</span></div>
-        <div class="stat"><strong>5</strong><span>pistas de directorio o espejo, sin confirmar</span></div>
-        <div class="stat is-zero"><strong>0</strong><span>precios locales comparables entre sí</span></div>
-      </div>
-
-      <section class="section" id="comercios" aria-labelledby="comercios-titulo">
-        <div class="section-head">
-          <h2 class="h2" id="comercios-titulo">Mapa inicial de comercios</h2>
-          <p>Son ocho nombres para cribar, no ocho competidores activos confirmados. El nivel indica qué tipo de fuente respalda cada ficha, no el tamaño ni el desempeño del negocio.</p>
-        </div>
-
-        <div class="filter-bar" role="group" aria-label="Filtrar por nivel de evidencia" hidden>
-          <p>Nivel de evidencia</p>
-          <button type="button" class="filter" data-tier="todos" aria-pressed="true">Todos <span class="count">8</span></button>
-          <button type="button" class="filter" data-tier="directa" aria-pressed="false">Fuente directa <span class="count">3</span></button>
-          <button type="button" class="filter" data-tier="espejo" aria-pressed="false">Espejo <span class="count">1</span></button>
-          <button type="button" class="filter" data-tier="directorio" aria-pressed="false">Directorio <span class="count">4</span></button>
-          <span class="filter-status" id="filtro-estado" role="status" aria-live="polite"></span>
-        </div>
-
-        <div class="shops" id="comercios-lista">
-          <article id="c-almacor" class="card shop" data-tier="directa">
-            <div class="shop-top"><div><h3>Almacor</h3><p class="format">Supermercado de cadena</p></div><span class="chip tier-direct">Fuente directa</span></div>
-            <p class="refs">Respaldo <a class="ref" href="#s1">S1</a> <a class="ref" href="#s2">S2</a></p>
-            <p class="note">El localizador oficial incluye una entrada identificada como “Cosquín (4)”. El número se trata como identificador, no como cantidad de locales. El folleto de la cadena muestra varias categorías de alimentos, pero no asigna ofertas a esta sucursal.</p>
-            <div class="shop-foot"><span class="confidence">Confianza alta para la presencia declarada</span><a class="ext" href="https://www.almacor.com.ar/locales/">Abrir localizador<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
-          </article>
-          <article id="c-rincon" class="card shop" data-tier="directa">
-            <div class="shop-top"><div><h3>Rincón de sabores</h3><p class="format">Dietética especializada</p></div><span class="chip tier-direct">Fuente directa</span></div>
-            <p class="refs">Respaldo <a class="ref" href="#s3">S3</a></p>
-            <p class="address">Pedro Ortiz 659</p>
-            <p class="note">La tienda publica catálogo, retiro y delivery sujeto a confirmación. Muestra precios de algunos productos envasados, sin gramaje en la muestra consultada.</p>
-            <div class="shop-foot"><span class="confidence">Confianza alta para ficha y precios publicados</span><a class="ext" href="https://tiendas.pedix.app/comercio/rincon-de-sabores/">Abrir tienda<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
-          </article>
-          <article id="c-republica" class="card shop" data-tier="directa">
-            <div class="shop-top"><div><h3>República Kiosco</h3><p class="format">Kiosco, bebidas y helados</p></div><span class="chip tier-direct">Fuente directa</span></div>
-            <p class="refs">Respaldo <a class="ref" href="#s4">S4</a></p>
-            <p class="address">Presidente Perón 834</p>
-            <p class="note">El catálogo muestra categorías de kiosco y bebidas, además de un combo con precio. El rastreo de la página tenía alrededor de un mes de antigüedad, así que la consulta no confirma vigencia ni stock.</p>
-            <div class="shop-foot"><span class="confidence">Dato visible, vigencia sin confirmar</span><a class="ext" href="https://pency.app/republicacosquin">Abrir tienda<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
-          </article>
-          <article id="c-elnono" class="card shop" data-tier="espejo">
-            <div class="shop-top"><div><h3>Carnicería El Nono</h3><p class="format">Carnicería y minimercado declarados</p></div><span class="chip tier-mirror">Espejo</span></div>
-            <p class="refs">Respaldo <a class="ref" href="#s5">S5</a></p>
-            <p class="address">Marimón 371 o 373, por resolver</p>
-            <p class="note">Un espejo de publicaciones atribuidas al comercio muestra actividad fechada en 2026 y menciona carne, almacén, bebidas, panificados y lácteos. La dirección cambia entre publicaciones y no se pudo verificar la página propia del comercio.</p>
-            <div class="shop-foot"><span class="confidence">Confianza media, verificar negocio y domicilio</span><a class="ext" href="https://www.foodbevg.com/AR/Cosqu%C3%ADn/100212929016897/Carnicer%C3%ADa-El-Nono-Cosqu%C3%ADn">Ver fuente espejo<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
-          </article>
-          <article id="c-lamartina" class="card shop" data-tier="directorio">
-            <div class="shop-top"><div><h3>Carnicería La Martina</h3><p class="format">Carnicería, según directorio</p></div><span class="chip tier-directory">Directorio</span></div>
-            <p class="refs">Respaldo <a class="ref" href="#s6">S6</a></p>
-            <p class="address">Av. San Martín 341</p>
-            <p class="note">Un directorio menciona venta minorista y mayorista para gastronomía. No se encontró una publicación reciente del comercio ni se confirmó su estado actual.</p>
-            <div class="shop-foot"><span class="confidence">Confianza baja, confirmar operación</span><a class="ext" href="https://www.yellowpages.do/phone-54-93548635663-carnicer%C3%ADa-Cosqu%C3%ADn-AREN173543.html">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
-          </article>
-          <article id="c-tabita" class="card shop" data-tier="directorio">
-            <div class="shop-top"><div><h3>Carnicería Tabita</h3><p class="format">Carnicería, según directorio</p></div><span class="chip tier-directory">Directorio</span></div>
-            <p class="refs">Respaldo <a class="ref" href="#s7">S7</a></p>
-            <p class="address">Florencio Sánchez 947</p>
-            <p class="note">El nombre, el rubro y el domicilio aparecen en un directorio de terceros. La actividad actual y el surtido no se comprobaron con el comercio.</p>
-            <div class="shop-foot"><span class="confidence">Confianza baja, validar ubicación</span><a class="ext" href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/carniceria-tabita/">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
-          </article>
-          <article id="c-misemilla" class="card shop" data-tier="directorio">
-            <div class="shop-top"><div><h3>Mi Semilla</h3><p class="format">Autoservicio de frutas y verduras, según el nombre</p></div><span class="chip tier-directory">Directorio</span></div>
-            <p class="refs">Respaldo <a class="ref" href="#s8">S8</a></p>
-            <p class="address">Av. San Martín 1441</p>
-            <p class="note">Una ficha de terceros ubica esta pista en Cosquín. No se encontró una fuente directa reciente que confirme la apertura ni los productos actuales.</p>
-            <div class="shop-foot"><span class="confidence">Confianza baja, validar actividad</span><a class="ext" href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/mi-semilla-autoservicio-de-frutas-y-verduras/">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
-          </article>
-          <article id="c-lacoscoina" class="card shop" data-tier="directorio">
-            <div class="shop-top"><div><h3>La Coscoina Verduras Procesadas</h3><p class="format">Posible comercio de verduras frescas o procesadas</p></div><span class="chip tier-directory">Directorio</span></div>
-            <p class="refs">Respaldo <a class="ref" href="#s9">S9</a></p>
-            <p class="address">Rawson y De la Paz</p>
-            <p class="note">Un directorio da esta esquina y la etiqueta de frutería. La venta minorista, el catálogo y la actividad actual necesitan confirmación.</p>
-            <div class="shop-foot"><span class="confidence">Confianza baja, validar actividad y rubro</span><a class="ext" href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/la-coscoina-verduras-procesadas/">Ver ficha<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
-          </article>
-        </div>
-        <p class="callout">Cinco fichas son solo pistas de descubrimiento, incluido el espejo de El Nono, y no se usan como prueba de comercios activos. Hay otra ficha de carnicería y verdulería en Marimón 373 que no se cuenta aparte hasta descartar que sea el mismo negocio.</p>
-      </section>
-
-      <section class="section" id="precios" aria-labelledby="precios-titulo">
-        <div class="section-head">
-          <h2 class="h2" id="precios-titulo">Importes visibles y vacíos</h2>
-          <p>La fecha de consulta no es la fecha de publicación y no confirma disponibilidad. Estos importes no forman una canasta comparable.</p>
-        </div>
-        <div class="table-wrap" role="region" aria-labelledby="precios-caption" tabindex="0">
-          <table class="table price-table">
-            <caption id="precios-caption">Importes publicados en las fuentes consultadas el 6 de octubre de 2026</caption>
-            <thead><tr><th scope="col">Comercio</th><th scope="col">Artículo publicado</th><th scope="col" class="num">Importe</th><th scope="col">Límite para comparar</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Rincón de sabores</th><td data-label="Artículo">Maní sin sal, desde</td><td class="num" data-label="Importe">$700</td><td data-label="Límite">Sin unidad ni gramaje visibles</td></tr>
-              <tr><th scope="row">Rincón de sabores</th><td data-label="Artículo">Castañas de cajú, desde</td><td class="num" data-label="Importe">$2.800</td><td data-label="Límite">Sin unidad ni gramaje visibles</td></tr>
-              <tr><th scope="row">Rincón de sabores</th><td data-label="Artículo">Mix clásico con girasol, desde</td><td class="num" data-label="Importe">$1.420</td><td data-label="Límite">Sin unidad ni gramaje visibles</td></tr>
-              <tr><th scope="row">Rincón de sabores</th><td data-label="Artículo">Granola tradicional, desde</td><td class="num" data-label="Importe">$1.400</td><td data-label="Límite">Sin unidad ni gramaje visibles</td></tr>
-              <tr><th scope="row">República Kiosco</th><td data-label="Artículo">Combo Branca</td><td class="num" data-label="Importe">$22.000</td><td data-label="Límite">Rastreo de hace un mes aproximadamente. Composición, tamaño y vigencia no visibles</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="table-note">Los catálogos advierten que los precios pueden cambiar y muestran el signo “$” sin código de moneda. Almacor tiene un folleto corporativo válido del 1 al 6 de octubre, pero no confirma ofertas para Cosquín. Los precios locales de carne, frutas, verduras y productos básicos siguen sin conocerse.</p>
-      </section>
-
-      <section class="section" id="formatos" aria-labelledby="formatos-titulo">
-        <div class="section-head">
-          <h2 class="h2" id="formatos-titulo">Preguntas para comparar formatos</h2>
-          <p>Son comprobaciones pendientes, no conclusiones de rentabilidad.</p>
-        </div>
-        <div class="questions">
-          <article class="card question"><span class="n">1</span><h3 class="h3">Carnicería</h3><p>¿Hay frío y manipulación adecuados, proveedores cotizados y un surtido local con el que comparar?</p></article>
-          <article class="card question"><span class="n">2</span><h3 class="h3">Frutas y verduras</h3><p>¿Qué reposición, espacio y rotación pueden sostener los proveedores y la operación existente?</p></article>
-          <article class="card question"><span class="n">3</span><h3 class="h3">Minimercado</h3><p>¿Qué básicos cubren una necesidad del radio cercano sin inmovilizar demasiado capital?</p></article>
-          <article class="card question"><span class="n">4</span><h3 class="h3">Formato mixto</h3><p>¿Qué dos categorías pueden compartir espacio y equipos sin complicar la operación?</p></article>
-        </div>
-      </section>
-
-      <section class="section" id="contexto" aria-labelledby="contexto-titulo">
-        <div class="section-head"><h2 class="h2" id="contexto-titulo">Contexto local, con cautela</h2></div>
-        <div class="context">
-          <article class="card">
-            <h3 class="h3">Festival y estacionalidad</h3>
-            <p>La Municipalidad de Cosquín atribuyó al intendente una estimación de más de un millón de visitantes durante los nueve días del Festival Nacional de Folklore. El cuerpo de la nota lleva fecha 5 de febrero de 2026, aunque la ruta de la URL contiene otra fecha. Es una cifra reportada para un evento concentrado y no mide residentes, compras de alimentos ni ventas anuales.</p>
-            <a class="ext" href="https://cosquin.gob.ar/2026/07/28/el-festival-nacional-del-folklore-recibio-el-sello-de-evento-sostenible/">Leer la nota municipal<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
-          </article>
-          <aside class="card soft" aria-labelledby="alcance-titulo">
-            <h3 class="h3" id="alcance-titulo">Alcance del relevamiento</h3>
-            <p>Consulta documental en fuentes públicas, sin visitas, llamadas, entrevistas ni compras. La ubicación del local existente sigue pendiente.</p>
-          </aside>
-        </div>
-      </section>
-
-      <section class="section" id="insumos" aria-labelledby="insumos-titulo">
-        <div class="section-head">
-          <h2 class="h2" id="insumos-titulo">Datos necesarios para avanzar</h2>
-          <p>Con estos datos se puede delimitar la competencia real y revisar opciones con menos supuestos.</p>
-        </div>
-        <ol class="inputs">
-          <li>Dirección del local y radio de captación esperado</li>
-          <li>Metros utilizables y distribución del espacio</li>
-          <li>Equipos disponibles y condiciones de frío</li>
-          <li>Rango de inversión y capital para inventario</li>
-          <li>Contactos o cotizaciones de proveedores</li>
-          <li>Formatos que el comprador quiere comparar primero</li>
-        </ol>
-      </section>
-
-      <section class="section" id="fuentes" aria-labelledby="fuentes-titulo">
-        <div class="section-head">
-          <h2 class="h2" id="fuentes-titulo">Fuentes y trazabilidad</h2>
-          <p>Cada enlace abre la página que respalda el dato. Todas se consultaron el 6 de octubre de 2026. Las fichas de terceros se presentan como pistas, no como confirmación de actividad.</p>
-        </div>
-        <ul class="sources">
-          <li id="s1"><span class="sid">S1</span><a href="https://www.almacor.com.ar/locales/">Almacor, localizador</a><p>Presencia declarada de una sucursal en Cosquín.</p> <a class="back" href="#c-almacor">Ver ficha</a></li>
-          <li id="s2"><span class="sid">S2</span><a href="https://almacor.com.ar/catalogo/mailing.pdf">Almacor, folleto</a><p>Rubros y vigencia corporativa, sin precio local confirmado.</p> <a class="back" href="#c-almacor">Ver ficha</a></li>
-          <li id="s3"><span class="sid">S3</span><a href="https://tiendas.pedix.app/comercio/rincon-de-sabores/">Rincón de sabores</a><p>Dirección, modalidades y muestra de catálogo.</p> <a class="back" href="#c-rincon">Ver ficha</a></li>
-          <li id="s4"><span class="sid">S4</span><a href="https://pency.app/republicacosquin">República Kiosco</a><p>Dirección, rubros y combo publicado.</p> <a class="back" href="#c-republica">Ver ficha</a></li>
-          <li id="s5"><span class="sid">S5</span><a href="https://www.foodbevg.com/AR/Cosqu%C3%ADn/100212929016897/Carnicer%C3%ADa-El-Nono-Cosqu%C3%ADn">Carnicería El Nono</a><p>Espejo de publicaciones atribuidas al comercio.</p> <a class="back" href="#c-elnono">Ver ficha</a></li>
-          <li id="s6"><span class="sid">S6</span><a href="https://www.yellowpages.do/phone-54-93548635663-carnicer%C3%ADa-Cosqu%C3%ADn-AREN173543.html">Carnicería La Martina</a><p>Ficha de directorio con domicilio y rubro.</p> <a class="back" href="#c-lamartina">Ver ficha</a></li>
-          <li id="s7"><span class="sid">S7</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/carniceria-tabita/">Carnicería Tabita</a><p>Ficha de directorio, sin corroborar con el comercio.</p> <a class="back" href="#c-tabita">Ver ficha</a></li>
-          <li id="s8"><span class="sid">S8</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/mi-semilla-autoservicio-de-frutas-y-verduras/">Mi Semilla</a><p>Ficha de directorio, sin corroborar con el comercio.</p> <a class="back" href="#c-misemilla">Ver ficha</a></li>
-          <li id="s9"><span class="sid">S9</span><a href="https://uniondetrabajadoresdelatierra.com.ar/fruteria/la-coscoina-verduras-procesadas/">La Coscoina</a><p>Ficha de directorio, ubicación aproximada.</p> <a class="back" href="#c-lacoscoina">Ver ficha</a></li>
-          <li id="s10"><span class="sid">S10</span><a href="https://cosquin.gob.ar/2026/07/28/el-festival-nacional-del-folklore-recibio-el-sello-de-evento-sostenible/">Municipalidad de Cosquín</a><p>Contexto estacional informado por el municipio.</p></li>
-        </ul>
-        <div class="files">
-          <a class="file" href="sample-cosquin-evidence.csv" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h8"/></svg><span><strong>Tabla de evidencia</strong><span>CSV, 11 registros</span></span></a>
-          <a class="file" href="sample-cosquin-source_notes.md"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg><span><strong>Notas de fuentes</strong><span>Nivel y límites de cada fuente</span></span></a>
-          <a class="file" href="sample-cosquin-preliminary_findings.md"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h6"/></svg><span><strong>Hallazgos preliminares</strong><span>Resumen escrito del relevamiento</span></span></a>
-        </div>
-      </section>
     </div>
   </main>
 
@@ -375,22 +508,23 @@
 
   <script>
     (() => {
-      const bar = document.querySelector('.filter-bar');
+      const still = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Evidence strip filters the ledger.
+      const wrap = document.getElementById('filtro');
+      const strip = wrap.querySelector('.strip');
       const cards = [...document.querySelectorAll('#comercios-lista [data-tier]')];
       const status = document.getElementById('filtro-estado');
-      const buttons = [...bar.querySelectorAll('.filter')];
-      bar.hidden = false;
+      const buttons = [...wrap.querySelectorAll('.filter')];
+      wrap.hidden = false;
       const apply = tier => {
         let shown = 0;
-        cards.forEach(card => {
-          const match = tier === 'todos' || card.dataset.tier === tier;
-          card.hidden = !match;
-          if (match) shown++;
-        });
+        cards.forEach(card => { const match = tier === 'todos' || card.dataset.tier === tier; card.hidden = !match; if (match) shown++; });
         buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tier === tier)));
+        strip.classList.toggle('filtered', tier !== 'todos');
         status.textContent = shown === cards.length ? '' : `Mostrando ${shown} de ${cards.length}`;
       };
-      buttons.forEach(b => b.addEventListener('click', () => apply(b.dataset.tier)));
+      buttons.forEach(b => b.addEventListener('click', () => apply(b.getAttribute('aria-pressed') === 'true' && b.dataset.tier !== 'todos' ? 'todos' : b.dataset.tier)));
+
       // Traceability: jump between a business and the source that backs it, and mark where you landed.
       const flash = target => {
         target.classList.remove('flash'); void target.offsetWidth; target.classList.add('flash');
@@ -402,14 +536,56 @@
         const target = document.getElementById(link.hash.slice(1));
         if (!target) return;
         e.preventDefault();
+        hidePeek();
         if (target.hidden) apply('todos');
-        const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-        target.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'center' });
+        target.scrollIntoView({ behavior: still() ? 'auto' : 'smooth', block: 'center' });
         history.replaceState(null, '', link.hash);
         target.setAttribute('tabindex', '-1');
         target.focus({ preventScroll: true });
         flash(target);
       });
+
+      // Source preview: hover or focus a reference to read what backs the claim.
+      const peek = document.createElement('div'); peek.className = 'peek'; peek.setAttribute('aria-hidden', 'true'); document.body.append(peek);
+      const hidePeek = () => peek.classList.remove('on');
+      const showPeek = a => {
+        const li = document.getElementById(a.hash.slice(1)); if (!li) return;
+        const title = li.querySelector('a:not(.back)'), desc = li.querySelector('p');
+        peek.replaceChildren();
+        const b = document.createElement('b'); b.textContent = li.querySelector('.sid').textContent;
+        const s = document.createElement('strong'); s.textContent = title.textContent;
+        const p = document.createElement('span'); p.textContent = desc.textContent;
+        peek.append(b, s, p);
+        const r = a.getBoundingClientRect();
+        const w = Math.min(340, innerWidth - 32);
+        peek.style.left = Math.max(16, Math.min(r.left + scrollX, scrollX + innerWidth - w - 16)) + 'px';
+        peek.style.top = (r.bottom + scrollY + 8) + 'px';
+        peek.classList.add('on');
+      };
+      document.querySelectorAll('a.ref').forEach(a => {
+        a.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') showPeek(a); });
+        a.addEventListener('pointerleave', hidePeek);
+        a.addEventListener('focus', () => showPeek(a));
+        a.addEventListener('blur', hidePeek);
+      });
+      addEventListener('keydown', e => { if (e.key === 'Escape') hidePeek(); });
+
+      // Reading progress and the contents rail follow the reader.
+      const bar = document.getElementById('progreso');
+      const tocLinks = [...document.querySelectorAll('#indice a')];
+      const secs = tocLinks.map(a => document.getElementById(a.hash.slice(1)));
+      let ticking = false;
+      const onScroll = () => {
+        ticking = false;
+        const max = document.documentElement.scrollHeight - innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+        let cur = -1;
+        secs.forEach((s, i) => { if (s.getBoundingClientRect().top < innerHeight * 0.35) cur = i; });
+        tocLinks.forEach((a, i) => { a.classList.toggle('on', i === cur); if (i === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+      };
+      addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+      addEventListener('resize', onScroll);
+      onScroll();
     })();
   </script>
 </body>
