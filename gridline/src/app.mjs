@@ -262,12 +262,14 @@ function renderChips() {
   if (state.sort.length) out.push(`<button type="button" class="chip sort" data-clear="sort" aria-label="Clear sort. ${esc(sortText())}"><span class="t">${esc(sortText())}</span><span class="x">${ICON.x}</span></button>`);
   if (out.length >= 2) out.push('<button type="button" class="chip-clear" data-clear="all">Clear all</button>');
   if (state.stale) out.push('<button type="button" class="chip warn" data-clear="stale">Edits changed rows in this view. Refresh to re-sort and re-filter</button>');
-  $('#chips').innerHTML = out.length ? '<span class="chips-label">Showing</span>' + out.join('') : '<span class="chips-empty">All orders. Use the search box or a column menu to narrow the list.</span>';
+  $('#chips').innerHTML = out.length ? '<span class="chips-label">Showing</span>' + out.join('') : `<span class="chips-empty"><span class="ce-text">All orders. Try a saved view:</span>${BUILTIN.slice(1).map(v => `<button type="button" class="quick" data-view="b:${v.id}">${esc(v.name)}</button>`).join('')}<span class="ce-hint">Then double-click a cell to edit it, or drag across numbers for their sum.</span></span>`;
   const fc = $('#filter-count');
   fc.hidden = !filterCount; fc.textContent = filterCount;
 }
 
 $('#chips').addEventListener('click', e => {
+  const v = e.target.closest('[data-view]');
+  if (v) { viewsSelect.value = v.dataset.view; viewsSelect.dispatchEvent(new Event('change')); return; }
   const b = e.target.closest('[data-clear]');
   if (!b) return;
   const what = b.dataset.clear;

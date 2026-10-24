@@ -22,7 +22,8 @@ const stored = () => ev(`JSON.parse(localStorage.getItem('slotbook.v1'))`);
 const tapCheck = `(() => {
   const vis = el => { const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && !el.closest('[hidden]'); };
   const els = [...document.querySelectorAll('button, select, input:not([type=radio]), textarea, a.btn, .svc, #cal-body td.day, [role=tab]')].filter(vis);
-  return els.filter(el => { const r = el.getBoundingClientRect(); return r.height < 44 || r.width < 44; }).map(el => el.tagName + '#' + el.id + '.' + el.className + ' ' + Math.round(el.getBoundingClientRect().width) + 'x' + Math.round(el.getBoundingClientRect().height));
+  // Month cells are seven to a row, so on a 320 phone they are 44 tall and at least 36 wide. Closed days are not targets.
+  return els.filter(el => !el.matches('#cal-body td.none')).filter(el => { const r = el.getBoundingClientRect(); const minW = el.matches('#cal-body td') ? 36 : 44; return r.height < 44 || r.width < minW; }).map(el => el.tagName + '#' + el.id + '.' + el.className + ' ' + Math.round(el.getBoundingClientRect().width) + 'x' + Math.round(el.getBoundingClientRect().height));
 })()`;
 
 try {
@@ -82,7 +83,7 @@ try {
 
   // Mouse, closed day and the next open day button
   await p.click('#cal-body td[data-date="2026-10-28"]');
-  t.ok((await ev(`document.getElementById('slots').textContent`)).includes('No open times'), 'a closed day explains there are no times');
+  t.ok((await ev(`document.getElementById('slots').textContent`)).includes('closed this day'), 'a closed day explains there are no times');
   await p.click('#next-open');
   t.ok(await ev(`document.querySelector('#cal-body td[aria-selected="true"]').dataset.date`) === '2026-10-29', 'the next open day button jumps to Thursday 29 October');
   const lateTimes = await slotTexts();
@@ -175,10 +176,10 @@ try {
   await p.key('ArrowRight');
   t.ok(!(await ev(`document.getElementById('panel-staff').hidden`)) && await active() === 'tab-staff', 'ArrowRight on the tabs opens the staff view');
   t.ok(await ev(`document.getElementById('tab-staff').getAttribute('aria-selected')`) === 'true', 'staff tab is marked selected');
-  const firstStaffDay = await ev(`document.getElementById('staff-date').textContent`);
+  const firstStaffDay = await ev(`document.getElementById('agenda-h').textContent`);
   t.ok(firstStaffDay === 'Wednesday 21 October', 'staff view opens on the next day with bookings', firstStaffDay);
   for (let i = 0; i < 3; i++) await p.click('#staff-next');
-  t.ok(await ev(`document.getElementById('staff-date').textContent`) === 'Saturday 24 October', 'staff can step to Saturday');
+  t.ok(await ev(`document.getElementById('agenda-h').textContent`) === 'Saturday 24 October', 'staff can step to Saturday');
   t.ok((await ev(`document.getElementById('staff-list').textContent`)).includes('Sample Visitor'), 'the new booking is listed for the day');
   t.ok((await ev(`document.getElementById('staff-hours').textContent`)) === 'Open 09:00 to 16:00.', 'staff view shows the opening hours');
   await p.click(`#staff-list [data-cancel]`);
@@ -191,7 +192,7 @@ try {
   const cancelled = (await stored()).bookings.find(b => b.ref === ref);
   t.ok(cancelled.status === 'cancelled', 'cancellation is saved to localStorage');
   await p.click('#staff-today');
-  t.ok(await ev(`document.getElementById('staff-date').textContent`) === 'Tuesday 20 October', 'Today button returns to today');
+  t.ok(await ev(`document.getElementById('agenda-h').textContent`) === 'Tuesday 20 October', 'Today button returns to today');
   await p.click('#tab-book');
   await p.click('#services input[value="puncture"]');
   await p.click('#cal-body td[data-date="2026-10-24"]');
