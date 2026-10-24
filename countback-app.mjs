@@ -22,6 +22,28 @@ const unitWord = (row, n) => n === 1 ? row.unit.replace(/s$/, "") : row.unit;
 
 function status(text) { $("walkthrough-status").textContent = text; }
 
+// The draft is kept in this browser only, so a refresh or a closed tab does not lose the counts.
+const DRAFT_KEY = `countback-draft-${order.id}`;
+function saveDraft() {
+  try {
+    if (!ledger.events.length) { localStorage.removeItem(DRAFT_KEY); return; }
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({ ledger, sources: [...sources], savedAt: new Date().toISOString() }));
+  } catch {}
+}
+function loadDraft() {
+  let data = null;
+  try { data = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch { return null; }
+  if (!data || !data.ledger || !Array.isArray(data.ledger.events) || !Array.isArray(data.ledger.seen)) return null;
+  const known = new Set(order.items.map(item => item.sku));
+  const whole = n => Number.isSafeInteger(n) && n >= 0 && n <= 10000;
+  for (const [i, e] of data.ledger.events.entries()) {
+    const item = order.items.find(product => product.sku === e.sku);
+    if (!known.has(e.sku) || !whole(e.cartons) || !whole(e.loose) || !whole(e.damaged) || e.damaged > e.cartons * item.perCarton + e.loose || e.revision !== i + 1 || typeof e.evidence !== "string") return null;
+  }
+  if (data.ledger.revision !== data.ledger.events.length) return null;
+  return data;
+}
+
 function resetLog() {
   messages = 0;
   $("transcript").replaceChildren(el("p", "empty-log", "Spoken counts and readbacks appear here while the walkthrough plays."));
@@ -218,6 +240,8 @@ async function playWalkthrough() {
   resetLog();
   status("Playing the scripted delivery.");
   render();
+  saveDraft();
+  $("stop-demo").focus();
   for (let index = 0; index < walkthroughSteps.length; index++) {
     await wait(700);
     if (token !== runToken) return;
@@ -225,13 +249,16 @@ async function playWalkthrough() {
     appendMessage("user", step.text);
     record({ ...step, evidence: step.text }, "guided-" + index, step.text, "Walkthrough");
     render();
+    saveDraft();
     await wait(550);
     if (token !== runToken) return;
     appendMessage("system", step.reply);
   }
   demoRunning = false;
   status("Walkthrough finished. Recount any line, then print or export the receipt.");
+  const hadFocus = document.activeElement === document.body || document.activeElement === $("stop-demo");
   render();
+  if (hadFocus) $("demo").focus();
 }
 
 $("demo").addEventListener("click", playWalkthrough);
@@ -250,8 +277,19 @@ $("reset").addEventListener("click", () => {
   resetLog();
   status("New receipt. Play the walkthrough or count a line yourself.");
   render();
+  saveDraft();
 });
 for (const id of ["cartons", "loose", "damaged"]) $(id).addEventListener("input", updateLiveTotal);
+$("fill-order").addEventListener("click", () => {
+  const row = order.items.find(item => item.sku === editSku);
+  if (!row) return;
+  $("cartons").value = String(Math.floor(row.ordered / row.perCarton));
+  $("loose").value = String(row.ordered % row.perCarton);
+  if (!$("damaged").value.trim()) $("damaged").value = "0";
+  $("edit-error").textContent = "";
+  updateLiveTotal();
+  $("cartons").focus();
+});
 $("cancel-edit").addEventListener("click", () => $("edit-dialog").close());
 $("edit-dialog").addEventListener("close", () => {
   const button = document.querySelector(`[data-edit="${editSku}"]`);
@@ -269,6 +307,7 @@ $("edit-form").addEventListener("submit", event => {
     manualSequence++;
     record({ ...args, evidence }, "manual-" + Date.now() + "-" + manualSequence, evidence, "Manual count");
     render();
+    saveDraft();
     $("edit-dialog").close();
     status(`${order.items.find(item => item.sku === editSku).name} saved. The history keeps every earlier count.`);
   } catch (error) {
@@ -290,4 +329,11 @@ $("export").addEventListener("click", () => {
 $("print").addEventListener("click", () => { if (!$("print").disabled) window.print(); });
 
 resetLog();
+const draft = loadDraft();
+if (draft) {
+  ledger = draft.ledger;
+  for (const [rev, source] of draft.sources || []) if (Number.isSafeInteger(rev) && typeof source === "string") sources.set(rev, source);
+  const at = new Date(draft.savedAt);
+  status(`Restored the draft saved in this browser${Number.isNaN(at.getTime()) ? "" : ` at ${at.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`}. New receipt clears it.`);
+}
 render();
