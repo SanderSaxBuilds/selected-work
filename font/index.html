@@ -163,49 +163,44 @@ h1 span{color:var(--muted)}
 .fileo a:hover{color:var(--ph);border-bottom-color:var(--ph)}
 .hnote{font:500 12px/1.5 var(--sys);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 0}
 
-/* control deck */
-.deck{display:flex;flex-wrap:wrap;align-items:flex-end;gap:18px 26px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(0,0,0,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
-.eng,.namebox label{display:block;font:400 10px/1 var(--pix);letter-spacing:.05em;text-transform:uppercase;color:var(--case-mute);text-shadow:0 1px 0 rgba(255,255,255,.45);margin:0 0 9px;white-space:nowrap}
-.namebox{flex:1 1 250px;min-width:0}
-.namebox input{display:block;width:100%;min-height:54px;border:0;border-radius:6px;background:#111211;box-shadow:inset 0 2px 5px rgba(0,0,0,.9),0 0 0 1px #3c3b37,0 1px 0 1px rgba(255,255,255,.45);padding:2px 14px 0;font:400 32px/1 var(--led);letter-spacing:.03em;color:var(--ph);caret-color:var(--ph);outline:0}
-.namebox input::placeholder{color:var(--ph-faint)}
-.namebox input:focus-visible{box-shadow:inset 0 2px 5px rgba(0,0,0,.9),0 0 0 1px #3c3b37,0 0 0 3px #1b1a18}
-.tools{display:flex;flex-wrap:wrap;gap:18px 22px}
-.grp{flex:0 0 auto;min-width:0}
-.keys{display:flex;gap:9px;padding-bottom:5px}
-.key{position:relative;min-width:62px;height:52px;padding:0 12px;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:0;border-radius:6px;
-  background:linear-gradient(180deg,#f0eee8,#dddbd4);color:var(--case-ink);font:600 11.5px/1 var(--sys);letter-spacing:.06em;text-transform:uppercase;
-  box-shadow:inset 0 1px 0 #fff,inset 0 -4px 0 rgba(0,0,0,.07),0 4px 0 #8d8b84,0 5px 1px rgba(0,0,0,.28),0 8px 10px -3px rgba(0,0,0,.35);transition:transform .07s,box-shadow .07s}
-.key:hover{background:linear-gradient(180deg,#f6f5f0,#e3e1da)}
-.key:active{transform:translateY(3px);box-shadow:inset 0 1px 0 #fff,inset 0 -2px 0 rgba(0,0,0,.07),0 1px 0 #8d8b84,0 2px 2px rgba(0,0,0,.3)}
-.key.dk{background:linear-gradient(180deg,#5b5a55,#47463f);color:#f0efe9;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -4px 0 rgba(0,0,0,.2),0 4px 0 #24231f,0 5px 1px rgba(0,0,0,.3),0 8px 10px -3px rgba(0,0,0,.4)}
-.key.dk:hover{background:linear-gradient(180deg,#64635d,#4f4e47)}
-.key.dk:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -2px 0 rgba(0,0,0,.2),0 1px 0 #24231f,0 2px 2px rgba(0,0,0,.3)}
-.key svg{width:17px;height:17px}
-.nb i{display:block;width:24px;height:var(--h);background:currentColor;border-radius:2px}
-.nb::after{content:"";position:absolute;left:8px;top:7px;width:7px;height:3px;border-radius:1px;background:rgba(0,0,0,.14)}
-.nb[aria-checked=true]{transform:translateY(2px);background:linear-gradient(180deg,#e2e0d9,#cfcdc5);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 2px 5px rgba(0,0,0,.14),0 2px 0 #8d8b84,0 3px 2px rgba(0,0,0,.25)}
-.nb[aria-checked=true]::after{background:#1b1a18}
-.swr{display:flex;gap:8px;padding-bottom:2px}
-.sw{display:flex;flex-direction:column;align-items:center;gap:8px;border:0;background:transparent;padding:0 2px;min-width:58px;min-height:52px;color:var(--case-ink);font:600 11.5px/1 var(--sys);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
-.sw .slot{position:relative;width:48px;height:26px;border-radius:13px;background:#1a1a18;box-shadow:inset 0 2px 4px rgba(0,0,0,.95),0 1px 0 rgba(255,255,255,.55)}
-.sw .slot::before{content:"";position:absolute;left:9px;top:10px;width:10px;height:6px;border-radius:1px;background:#3a3a36;transition:background .16s,box-shadow .16s}
-.sw .slot i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#fdfcf8,#c4c2bb 62%,#8b8982);box-shadow:0 2px 3px rgba(0,0,0,.65);transition:transform .16s var(--ease)}
-.sw[aria-checked=true] .slot i{transform:translateX(22px)}
-.sw[aria-checked=true] .slot::before{background:var(--ph);box-shadow:0 0 7px rgba(232,230,218,.55)}
-.sw[disabled]{opacity:.45;cursor:not-allowed}
-.dialr{display:flex;align-items:center;gap:14px}
-.dial{position:relative;width:74px;height:74px;border-radius:50%;touch-action:none;cursor:grab;flex:0 0 auto}
-.dial.grab{cursor:grabbing}
-.dial .ticks{position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(from -136deg,#3b3a36 0 2deg,transparent 2deg 27deg);
-  -webkit-mask:radial-gradient(circle,transparent 31px,#000 32px,#000 36px,transparent 37px),conic-gradient(from 135deg,transparent 0 90deg,#000 90deg);-webkit-mask-composite:source-in;
-  mask:radial-gradient(circle,transparent 31px,#000 32px,#000 36px,transparent 37px) intersect,conic-gradient(from 135deg,transparent 0 90deg,#000 90deg)}
-.dial::before{content:"";position:absolute;inset:10px;border-radius:50%;box-shadow:0 4px 0 #77756e,0 7px 10px rgba(0,0,0,.45)}
-.knob{position:absolute;inset:10px;border-radius:50%;transform:rotate(var(--a,0deg));transition:transform .08s;
-  background:radial-gradient(circle at 50% 50%,transparent 15px,rgba(0,0,0,.08) 16px,transparent 17px),repeating-conic-gradient(#d9d7d0 0 6deg,#b7b5ae 6deg 12deg);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -2px 2px rgba(0,0,0,.2)}
-.knob::before{content:"";position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 42% 34%,#f6f5f0,#cfcdc6 60%,#aeaca5);box-shadow:inset 0 -1px 1px rgba(0,0,0,.25),0 1px 2px rgba(0,0,0,.25)}
-.knob i{position:absolute;left:50%;top:9px;width:4px;height:15px;margin-left:-2px;border-radius:2px;background:#1b1a18}
-.dv{display:block;font:400 28px/1 var(--led);color:var(--ph);background:#111211;padding:9px 12px 7px;border-radius:5px;box-shadow:inset 0 2px 4px rgba(0,0,0,.9),0 0 0 1px #3c3b37,0 1px 0 1px rgba(255,255,255,.45);min-width:92px;text-align:center;font-variant-numeric:tabular-nums}
+/* control deck: one name box, one pen slider, two buttons */
+.mach{margin-bottom:12px}
+.mach::before,.mach::after{content:"";position:absolute;bottom:10px;width:11px;height:11px;border-radius:50%;border:1px solid rgba(0,0,0,.35);background:linear-gradient(45deg,transparent 42%,rgba(0,0,0,.5) 43% 57%,transparent 58%),radial-gradient(circle at 40% 35%,#f1efe9,#a4a29a 75%);box-shadow:0 1px 0 rgba(255,255,255,.5)}
+.mach::before{left:9px}.mach::after{right:9px}
+.foot{position:absolute;bottom:-11px;width:12%;min-width:44px;height:11px;border-radius:0 0 6px 6px;background:linear-gradient(#2a2926,#121211);box-shadow:0 6px 10px -4px #000}
+.foot.l{left:7%}.foot.r{right:7%}
+.bezel{position:relative;padding-bottom:36px}
+.bezel::after{content:"HF-84";position:absolute;right:26px;bottom:11px;font:400 10px/1 var(--pix);letter-spacing:.08em;color:#55534d;text-shadow:0 1px 0 rgba(255,255,255,.5)}
+.bezel::before{content:"";position:absolute;left:26px;bottom:15px;width:min(220px,30%);height:3px;border-radius:2px;background:#9d9b93;box-shadow:inset 0 1px 1px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.5)}
+.deck{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name cta" "pen hint";gap:18px 28px;align-items:end;margin-top:22px;padding-top:20px;border-top:1px solid rgba(0,0,0,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.namebox{grid-area:name;min-width:0}
+.namebox label{display:block;font:600 16px/1.2 var(--body);color:var(--case-ink);margin:0 0 9px}
+.namebox input{display:block;width:100%;min-height:64px;border:0;border-radius:8px;background:#111211;box-shadow:inset 0 3px 6px rgba(0,0,0,.9),0 0 0 1px #3c3b37,0 1px 0 1px rgba(255,255,255,.45);padding:0 18px;font:500 26px/1 var(--body);color:#f2f1ec;caret-color:#f2f1ec;outline:0}
+.namebox input::placeholder{color:#6d6c66}
+.namebox input:focus-visible{box-shadow:inset 0 3px 6px rgba(0,0,0,.9),0 0 0 1px #3c3b37,0 0 0 4px #1b1a18}
+.deck .cta{grid-area:cta;display:flex;flex-wrap:wrap;gap:12px;padding-bottom:4px}
+.deck .btn{min-height:64px;padding:0 26px;font-size:13px}
+.deck .btn.p{background:linear-gradient(180deg,#45443f,#2c2b28);color:#f4f3ee;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -4px 0 rgba(0,0,0,.25),0 4px 0 #11110f,0 5px 1px rgba(0,0,0,.35),0 10px 14px -6px rgba(0,0,0,.5)}
+.deck .btn.p:hover{background:linear-gradient(180deg,#504f4a,#363531)}
+.deck .btn.p:active{transform:translateY(3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -2px 0 rgba(0,0,0,.25),0 1px 0 #11110f,0 2px 2px rgba(0,0,0,.35)}
+.deck .btn.g{background:linear-gradient(180deg,#f2f0ea,#dddbd4);color:#1b1a18;box-shadow:inset 0 1px 0 #fff,inset 0 -4px 0 rgba(0,0,0,.07),0 4px 0 #8d8b84,0 5px 1px rgba(0,0,0,.25),0 10px 14px -6px rgba(0,0,0,.35)}
+.deck .btn.g:hover{background:linear-gradient(180deg,#f8f7f3,#e5e3dc)}
+.deck .btn.g:active{transform:translateY(3px);box-shadow:inset 0 1px 0 #fff,0 1px 0 #8d8b84,0 2px 2px rgba(0,0,0,.25)}
+.penr{grid-area:pen;display:flex;align-items:center;gap:16px;min-width:0}
+.penr label{font:600 16px/1.2 var(--body);color:var(--case-ink);white-space:nowrap}
+.penr input{flex:1 1 auto;max-width:300px;min-width:0}
+.penr output{font:400 24px/1 var(--led);color:var(--ph);background:#111211;padding:7px 10px 5px;border-radius:5px;box-shadow:inset 0 2px 4px rgba(0,0,0,.9),0 0 0 1px #3c3b37,0 1px 0 1px rgba(255,255,255,.45);min-width:84px;text-align:center;font-variant-numeric:tabular-nums}
+.dhint{grid-area:hint;margin:0;font-size:16px;line-height:1.5;color:#45433e;text-align:right;max-width:30em;justify-self:end}
+input[type=range].fd,.penr input,.wt input{-webkit-appearance:none;appearance:none;background:transparent;height:44px;cursor:pointer}
+.penr input::-webkit-slider-runnable-track{height:8px;border-radius:4px;background:#1a1a18;box-shadow:inset 0 1px 2px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.5)}
+.penr input::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:38px;margin-top:-15px;border-radius:4px;border:0;background:linear-gradient(#1b1a18,#1b1a18) 50% 50%/14px 2px no-repeat,linear-gradient(180deg,#46453f,#2a2926);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 3px 0 #11110f,0 5px 7px rgba(0,0,0,.45)}
+.penr input::-moz-range-track{height:8px;border-radius:4px;background:#1a1a18}
+.penr input::-moz-range-thumb{width:26px;height:38px;border-radius:4px;border:0;background:linear-gradient(180deg,#46453f,#2a2926);box-shadow:0 3px 0 #11110f}
+@media (max-width:860px){
+  .deck{grid-template-columns:minmax(0,1fr);grid-template-areas:"name" "pen" "cta" "hint"}
+  .deck .cta .btn{flex:1 1 220px}
+  .dhint{text-align:left;justify-self:start}
+}
 
 @media (max-width:980px){
   .desk2{grid-template-columns:minmax(0,1fr)}
@@ -573,6 +568,81 @@ footer a{color:var(--tx);display:inline-flex;align-items:center;min-height:44px}
 .ch:hover b,.ch:hover span,.ch:hover .ar{color:var(--case-ink)}
 footer{font:500 12.5px/1.5 var(--sys)}
 @media (max-width:640px){.tt{padding:0 34px}.tt::before{left:10px}.tt::after{right:10px}.faq summary{font-size:17.5px}}
+/* simpler pass: every section is a unit of the same machine */
+.obar{display:inline-flex;align-items:center;min-height:38px;padding:0 14px;margin-left:12px;border-radius:5px;text-decoration:none;font:600 12px/1 var(--sys);letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(180deg,#e9e7e0,#cfcdc6);color:#1b1a18;box-shadow:inset 0 1px 0 #fff,0 3px 0 #77756e,0 4px 4px rgba(0,0,0,.4);white-space:nowrap}
+.obar:hover{background:linear-gradient(180deg,#f4f3ee,#dad8d1)}
+.obar:active{transform:translateY(2px);box-shadow:inset 0 1px 0 #fff,0 1px 0 #77756e}
+@media (max-width:900px){.obar{margin-left:auto}.clk{margin-left:12px}}
+@media (max-width:380px){.clk{display:none}}
+.win{border:8px solid #bdbbb3;border-top:0;box-shadow:inset 0 0 0 1px #000,0 1px 0 rgba(255,255,255,.08),0 3px 0 #5f5d58,0 40px 80px -40px #000}
+.win>.tt{padding-left:44px;padding-right:44px;height:38px}
+.win>.tt::before{left:16px;top:13px}.win>.tt::after{right:16px;top:13px}
+.ex .tt{order:-1}
+.contact .win{border-color:#2b2a27;box-shadow:inset 0 0 0 1px #000,0 3px 0 #11110f,0 30px 60px -30px rgba(0,0,0,.6)}
+h1,.stx h2,.head h2,.contact h2{font-family:var(--body);font-weight:600;letter-spacing:-.025em}
+h1{font-size:clamp(38px,5.6vw,80px);line-height:1}
+.sl b{font-family:var(--body);font-weight:600;letter-spacing:-.01em}
+.step{font:600 17px/1.35 var(--body);letter-spacing:0;text-transform:none;color:var(--hi);margin:0 0 14px}
+.step i{min-width:28px;height:28px;font:400 21px/1 var(--led);border-radius:4px}
+.step.s2{margin-top:28px}
+.left .fld{margin-bottom:6px;max-width:360px}
+.left .wt{margin-top:18px;max-width:300px}
+.hint{margin:0 0 16px}
+.wt input::-webkit-slider-runnable-track{background:#050505}
+.note a{color:var(--hi);text-underline-offset:3px}
+.steps{list-style:none;margin:0;padding:14px 18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;background:#0d0e0d;border-bottom:1px solid #000;counter-reset:none}
+.steps li{display:flex;align-items:center;gap:11px;min-width:0;padding:10px 12px;border-radius:6px;background:#181918;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 0 0 1px #000;font:600 16px/1.2 var(--body);color:#8c8b85;transition:color .2s,box-shadow .2s}
+.steps li span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.steps li i{flex:0 0 auto;width:28px;height:28px;display:grid;place-items:center;border-radius:4px;font:400 21px/1 var(--led);font-style:normal;background:#2c2c29;color:#9c9b92}
+.steps li.done{color:#d4d3cd}
+.steps li.done i{background:var(--case);color:var(--case-ink)}
+.steps li.now{color:var(--hi);box-shadow:inset 0 0 0 1px rgba(232,230,218,.55),0 0 0 1px #000}
+.steps li.now i{background:var(--ph);color:var(--scr)}
+.plan .pr{display:inline-block;align-self:flex-start;padding:12px 16px 6px;border-radius:6px;background:var(--scr);color:var(--ph);box-shadow:inset 0 2px 6px rgba(0,0,0,.95),0 0 0 1px #2c2c29,0 1px 0 1px rgba(255,255,255,.06);font-size:76px}
+.plan .pr small{color:var(--ph-dim)}
+.plan .btn{min-height:58px}
+.contact{background:linear-gradient(180deg,#d1cfc8,#bbb9b1);color:var(--case-ink);border-top:4px solid #2b2a27;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+.contact h2{color:#1b1a18}
+.contact h2 em{color:#5c5a54}
+.contact p{color:#3b3a36}
+.contact .kick{color:#45433e}
+.contact .ch:hover{background:var(--case)}
+footer{background:#121211}
+.hero{padding:30px 0 44px}
+.hrow{grid-template-columns:minmax(0,1fr);gap:12px;margin-bottom:26px}
+.eyebrow{margin-bottom:12px}
+h1{font-size:clamp(36px,4.4vw,62px);line-height:1.04}
+.hside p{margin:0;max-width:46em}
+.page{height:auto;min-height:clamp(220px,30vh,380px)}
+.eyebrow{display:none}
+.stg li{padding:10px 0}
+@media (min-width:1000px){h1 br{display:none}}
+.proc .cells,.stg .pb{display:none}
+.stg li{padding:7px 0}
+.proc h2{padding-top:14px;padding-bottom:10px}
+.fileo{padding-top:10px;padding-bottom:12px}
+.cap{height:46px;margin-bottom:14px}
+.bezel{padding-top:16px;padding-left:16px;padding-right:16px}
+@media (min-width:641px) and (max-height:820px){.hside{display:none}.hrow{margin-bottom:20px}}
+@media (min-width:641px) and (max-width:999px){.proc .stg,.proc .fileo{display:none}}
+.penr output{white-space:nowrap}
+@media (max-width:380px){.penr{gap:10px}.penr output{min-width:0;font-size:21px;padding:6px 8px 4px}}
+.steps li.done i{font-size:0}.steps li.done i::after{content:"\2713";font:700 16px/1 var(--body)}
+@media (max-width:640px){
+  .hrow{display:block;margin-bottom:22px}.hside{margin-top:14px}.hside p{margin:0;font-size:17.5px}
+  .proc .cells,.proc .stg{display:none}
+  .eyebrow{display:none}.proc .fileo{display:none}.hrow{display:contents}.hside{order:3;margin-top:26px}.hh{margin-bottom:20px}
+  .page{height:clamp(200px,30vh,240px)}
+  .bezel{padding-bottom:26px}.bezel::before,.bezel::after{bottom:9px}.bezel::before{left:14px}.bezel::after{right:14px}
+  h1{font-size:34px}
+  .stg li{padding:6px 0}
+  .win{border-width:0 6px 6px}.win>.tt{padding:0 34px}.win>.tt::before{left:12px}.win>.tt::after{right:12px}
+  #try .win{margin:0 -6px;border-left-width:6px;border-right-width:6px}
+  .steps{grid-template-columns:1fr 1fr;padding:12px;gap:8px}
+  .steps li{font-size:15px;padding:9px 10px}
+  .station{margin:0}
+}
+
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.sweep{display:none}}
 </style>
 <script>document.documentElement.classList.add("js")</script>
@@ -581,15 +651,15 @@ footer{font:500 12.5px/1.5 var(--sys)}
 <header class="bar"><div class="wrap">
   <a class="logo" href="../" aria-label="SanderSax"><i class="mk" aria-hidden="true"></i><span class="lw" aria-hidden="true">SANDERSAX</span></a>
   <nav class="nav" aria-label="Sections" data-t-aria="navL"><a href="#try" data-t="nTry">Try it</a><a href="#how" data-t="nHow">How it works</a><a href="#uses" data-t="nUse">Examples</a><a href="#prices" data-t="nPrice">Prices</a><a href="#contact" data-t="nContact">Contact</a></nav>
+  <a class="obar" href="#prices" data-t="oBar">Order</a>
   <span class="clk" id="clk" aria-hidden="true">00:00</span>
   <div class="lang" role="group" aria-label="Language / Язык"><button type="button" data-l="en" aria-pressed="true">EN</button><button type="button" data-l="ru" aria-pressed="false">RU</button></div>
 </div></header>
 
 <section class="hero" id="hero"><div class="wrap">
   <div class="hrow">
-    <div class="hh"><p class="eyebrow" data-t="eyebrow">Handwriting font · Latin and Cyrillic</p><h1 data-t="h1">Your handwriting,<br><span>as a real font.</span></h1></div>
-    <div class="hside"><p data-t="hside">Type a name. A pen writes it, then the machine reads the strokes and builds them into a font file. Your own font is made from one sheet you fill in by hand.</p>
-      <div class="cta"><a class="btn p" href="#try" data-t="ctaTry">Draw your letters</a><a class="btn g" href="#prices" data-t="ctaPrice">Order the full font</a></div></div>
+    <div class="hh"><p class="eyebrow" data-t="eyebrow">Handwriting font · Latin and Cyrillic</p><h1 data-t="h1">Your handwriting, <br><span>as a real font.</span></h1></div>
+    <div class="hside"><p data-t="hside">Type your name and the machine writes it by hand, then builds the letters into a font file. Your own full font is made from one sheet you fill in with a pen.</p></div>
   </div>
   <div class="mach station">
     <div class="cap">
@@ -621,34 +691,13 @@ footer{font:500 12.5px/1.5 var(--sys)}
     </div>
     </div></div>
     <div class="deck">
-      <div class="namebox"><label for="nameIn" data-t="nameL">Name</label><input id="nameIn" type="text" maxlength="14" autocomplete="off" spellcheck="false" placeholder="Sander" data-t-ph="namePh"></div>
-      <div class="tools">
-        <div class="grp"><span class="eng" aria-hidden="true" data-t="nibT">Nib</span>
-        <div class="seg keys" role="radiogroup" aria-label="Pen weight" data-t-aria="nibL">
-          <button type="button" class="nb key" role="radio" aria-checked="false" data-nib=".042" aria-label="Fine" data-t-aria="nibF" style="--h:2px"><i></i><span data-t="nibF2">Fine</span></button>
-          <button type="button" class="nb key" role="radio" aria-checked="true" data-nib=".062" aria-label="Medium" data-t-aria="nibM" style="--h:4px"><i></i><span data-t="nibM2">Med</span></button>
-          <button type="button" class="nb key" role="radio" aria-checked="false" data-nib=".088" aria-label="Broad" data-t-aria="nibB" style="--h:6px"><i></i><span data-t="nibB2">Broad</span></button>
-        </div></div>
-        <div class="grp"><span class="eng" aria-hidden="true" data-t="keyT">Feed</span>
-        <div class="keys">
-          <button type="button" class="key dk" id="replay"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></svg><span data-t="replayK">Again</span></button>
-          <button type="button" class="key dk" id="next"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" d="M5 12h13m-5-5 5 5-5 5"/></svg><span data-t="nextK">Next</span></button>
-        </div></div>
-      </div>
-      <div class="grp sws"><span class="eng" aria-hidden="true" data-t="swT2">Screen</span>
-        <div class="swr">
-          <button type="button" class="sw" role="switch" aria-checked="true" id="tGuide"><span class="slot" aria-hidden="true"><i></i></span><span data-t="tGuide">Guides</span></button>
-          <button type="button" class="sw" role="switch" aria-checked="true" id="tBloom"><span class="slot" aria-hidden="true"><i></i></span><span data-t="tBloom">Glow</span></button>
-          <button type="button" class="sw" role="switch" aria-checked="true" id="tAuto"><span class="slot" aria-hidden="true"><i></i></span><span data-t="tAuto">Auto feed</span></button>
-        </div>
-      </div>
-      <div class="grp dialw"><span class="eng" aria-hidden="true" data-t="dialT">Pen size</span>
-        <div class="dialr"><div class="dial" id="dial" role="slider" tabindex="0" aria-label="Pen size" data-t-aria="dialL" aria-valuemin="3" aria-valuemax="11" aria-valuenow="6"><span class="ticks" aria-hidden="true"></span><span class="knob" aria-hidden="true"><i></i></span></div>
-        <output class="dv" id="dialV" for="dial">0.6 mm</output></div>
-      </div>
+      <div class="namebox"><label for="nameIn" data-t="nameL">Type your name</label><input id="nameIn" type="text" maxlength="14" autocomplete="off" spellcheck="false" placeholder="Sander" data-t-ph="namePh"></div>
+      <div class="cta"><a class="btn p" href="#prices" data-t="ctaPrice">Order your font, from $39</a><a class="btn g" href="#uses" data-t="ctaEx">See examples</a></div>
+      <div class="penr"><label for="penSize" data-t="penL">Pen size</label><input type="range" id="penSize" min="30" max="110" step="2" value="62"><output id="penV" for="penSize">0.62 mm</output></div>
+      <p class="dhint" data-t="hnote">A sample hand writes your name live. Your font will look like you.</p>
     </div>
+    <span class="foot l" aria-hidden="true"></span><span class="foot r" aria-hidden="true"></span>
   </div>
-  <p class="hnote" data-t="hnote">A sample hand, written live. Your font will look like you.</p>
 </div></section>
 
 <section class="story" id="how">
@@ -680,23 +729,28 @@ footer{font:500 12.5px/1.5 var(--sys)}
   <div class="head"><div><p class="kick"><b>03</b><span data-t="kTry">Font studio</span></p><h2 data-t="trH">Now draw <em>your own</em></h2></div><p data-t="trP">Draw a few letters with a mouse, finger or stylus. The page turns them into a real font file you can install, and the pen at the top starts writing with them.</p></div>
   <div class="win">
     <div class="tt"><span data-t="stuT">Font studio · my-handwriting.otf</span></div>
+    <ol class="steps" id="steps">
+      <li data-s="1"><i>1</i><span data-t="sp1">Choose letters</span></li>
+      <li data-s="2"><i>2</i><span data-t="sp2">Draw them</span></li>
+      <li data-s="3"><i>3</i><span data-t="sp3">Try typing</span></li>
+      <li data-s="4"><i>&#8595;</i><span data-t="sp4">Download</span></li>
+    </ol>
     <div class="sheet">
       <div class="left">
-        <p class="step"><i>1</i><span data-t="s1">Draw each letter</span></p>
-        <div class="row">
-          <div class="fld"><label for="letters" data-t="lettersL">Letters to draw</label><input type="text" id="letters" value="Sax" maxlength="40" autocomplete="off" spellcheck="false"></div>
-          <div class="fld wt"><label for="weight" data-t="weightL">Pen</label><input type="range" id="weight" min="14" max="64" value="30"></div>
-        </div>
+        <p class="step"><i>1</i><span data-t="s1">Choose the letters you want to draw</span></p>
+        <div class="fld"><label for="letters" data-t="lettersL">Letters</label><input type="text" id="letters" value="Sax" maxlength="40" autocomplete="off" spellcheck="false"></div>
+        <p class="step s2"><i>2</i><span data-t="s2">Draw each letter in its box</span></p>
+        <p class="hint" id="hint" data-t="hint">A sample is drawn first. <b>Press &#215; to clear a box</b>, then draw with a mouse, finger or stylus. Sit the letter on the solid line.</p>
         <div class="pads" id="pads"></div>
-        <p class="hint" id="hint" data-t="hint">The pen draws a sample first. <b>Press × and draw your own</b> with a mouse, finger or stylus. Sit the letters on the solid line.</p>
+        <div class="fld wt"><label for="weight" data-t="weightL">Pen thickness</label><input type="range" id="weight" min="14" max="64" value="30"></div>
       </div>
       <div class="right">
-        <p class="step" style="margin:0"><i>2</i><span data-t="s2">Type with it</span></p>
+        <p class="step" style="margin:0"><i>3</i><span data-t="s3">Type anything with your letters</span></p>
         <div class="live" id="live"><textarea class="out lit" id="out" rows="2" spellcheck="false" aria-label="Type with your font" data-t-aria="outL">Sax</textarea></div>
         <div class="sizes" id="sizes" aria-hidden="true"><div style="font-size:40px"><small>40 PT</small><span class="sz"></span></div><div style="font-size:24px"><small>24 PT</small><span class="sz"></span></div><div style="font-size:15px"><small>15 PT</small><span class="sz"></span></div></div>
-        <p class="step" style="margin:6px 0 0"><i>3</i><span data-t="s3">Take it with you</span></p>
+        <p class="step" style="margin:6px 0 0"><i>&#8595;</i><span data-t="s4">Download and install it</span></p>
         <div class="dl"><button type="button" class="btn k" id="dl" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg><span data-t="dl">Download my font (.otf)</span></button><span class="meta" id="meta"></span></div>
-        <p class="note" data-t="note">This quick font has only the letters you drew. The full font has every letter, digit and sign in Latin and Cyrillic, made from your real pen on paper.</p>
+        <p class="note" data-t="note">This quick font has only the letters you drew. The full font has every letter, digit and sign in Latin and Cyrillic, made from your real pen on paper. <a href="#prices">See prices</a></p>
       </div>
     </div>
   </div>
@@ -765,23 +819,23 @@ var BH=52;
 /* ---------- language ---------- */
 var T={en:{},ru:{
 navL:"Разделы",nTry:"Попробовать",nHow:"Как это работает",nUse:"Примеры",nPrice:"Цены",nContact:"Контакты",eyebrow:"Шрифт из почерка · латиница и кириллица",
-h1:"Ваш почерк,<br><span>как настоящий шрифт.</span>",hside:"Напишите имя. Перо выведет его, а машина прочитает штрихи и соберёт из них файл шрифта. Ваш собственный шрифт делается из одного листа, заполненного от руки.",
-winT:"Почерк в шрифт",nameL:"Имя",namePh:"Мария",replayL:"Написать ещё раз",nibL:"Толщина пера",nibT:"Перо",nibF:"Тонкое",nibM:"Среднее",nibB:"Широкое",
-nibF2:"Тонк.",nibM2:"Сред.",nibB2:"Шир.",keyT:"Подача",replayK:"Ещё раз",nextK:"Дальше",swT2:"Экран",tGuide:"Линии",tBloom:"Свечение",tAuto:"Автоподача",dialT:"Размер пера",dialL:"Размер пера",
+h1:"Ваш почерк, <br><span>как настоящий шрифт.</span>",hside:"Напишите имя, и машина выведет его от руки, а потом соберёт буквы в файл шрифта. Ваш полный шрифт делается из одного листа, заполненного ручкой.",
+winT:"Почерк в шрифт",nameL:"Напишите своё имя",namePh:"Мария",replayL:"Написать ещё раз",nibL:"Толщина пера",nibT:"Перо",nibF:"Тонкое",nibM:"Среднее",nibB:"Широкое",
+penL:"Размер пера",ctaEx:"Смотреть примеры",sp1:"Выберите буквы",sp2:"Нарисуйте",sp3:"Попробуйте",sp4:"Скачайте",s4:"Скачайте и установите",noteA:"Смотреть цены",oBar:"Заказать",
 mCap:"Загл.",mX:"Строчн.",mBase:"Линия",mDesc:"Низ",swT:"Чтение",
 procL:"Процесс",procT:"Процесс",pr1:"Чтение скана",pr2:"Штрихи",pr3:"Сборка знаков",pr4:"Экспорт шрифта",procGo:"Нарисовать свои буквы →",
-hnote:"Пример почерка, пишется вживую. Ваш шрифт будет похож на вас.",
-ctaTry:"Нарисовать буквы",ctaPrice:"Заказать полный шрифт",
+hnote:"Образец почерка пишет ваше имя вживую. Ваш шрифт будет похож на вас.",
+ctaTry:"Нарисовать буквы",ctaPrice:"Заказать шрифт, от $39",
 stK:"Как делается полный шрифт",stH:"От одного листа до <em>настоящего шрифта</em>",
 st1h:"Распечатайте лист",st1p:"Три страницы A4, клетка для каждой буквы, цифры и знака. Печатайте в масштабе 100%.",
 st2h:"Заполните и сфотографируйте",st2p:"Одна буква в клетке, на линии, чёрным фломастером. Сфотографируйте каждую страницу ровно, при дневном свете, и пришлите фото.",
 st3h:"Получите шрифт",st3p:"Через два дня вы получите файлы шрифта, страницу с образцом и помощь с установкой. Подпись можно поставить на отдельную клавишу.",
 st1a:"Скачать лист (PDF) →",scT:"Лист в шрифт",sheetHead:"Шрифт из почерка",saveT:"Сохранить шрифт",fileMeta:"Латиница и кириллица · 166 знаков",
 studioL:"Студия шрифта",kTry:"Студия шрифта",stuT:"Студия шрифта · my-handwriting.otf",trH:"Теперь нарисуйте <em>свои</em>",trP:"Нарисуйте несколько букв мышью, пальцем или стилусом. Страница превратит их в настоящий файл шрифта, который можно установить, и перо вверху начнёт писать ими.",
-s1:"Нарисуйте каждую букву",lettersL:"Какие буквы рисовать",weightL:"Перо",
-hint:"Сначала перо рисует пример. <b>Нажмите × и нарисуйте свою</b> мышью, пальцем или стилусом. Ставьте буквы на сплошную линию.",
-s2:"Пишите им",outL:"Напишите текст своим шрифтом",s3:"Заберите с собой",dl:"Скачать мой шрифт (.otf)",
-note:"В этом быстром шрифте только нарисованные буквы. Полный шрифт содержит все буквы, цифры и знаки на латинице и кириллице, с вашей настоящей ручки на бумаге.",
+s1:"Выберите буквы, которые хотите нарисовать",lettersL:"Буквы",weightL:"Толщина пера",
+hint:"Сначала рисуется пример. <b>Нажмите × чтобы очистить клетку</b>, и рисуйте мышью, пальцем или стилусом. Ставьте букву на сплошную линию.",
+s2:"Нарисуйте каждую букву в своей клетке",outL:"Напишите текст своим шрифтом",s3:"Напишите что угодно своими буквами",dl:"Скачать мой шрифт (.otf)",
+note:"В этом быстром шрифте только нарисованные буквы. Полный шрифт содержит все буквы, цифры и знаки на латинице и кириллице, с вашей настоящей ручки на бумаге. <a href=\"#prices\">Смотреть цены</a>",
 kUse:"Примеры",useH:"Куда идёт <em>ваша рука</em>",useP:"Во всех примерах имя, которое вы написали вверху. Нарисуйте буквы в студии, и они заменят образец почерка.",
 g1:"На экранах",g1p:"Приложение, сообщение, письмо и пост.",g2:"В жизни",g2p:"Открытка, этикетка, упаковка, вывеска и страница.",
 eA0:"Дневник",eA1:"Доброе утро,",eA2:"Позвонить в типографию",eA3:"Отправить фото листа",eA4:"Забрать рамки",eA5:"Заметка",eA6:"Золотое тиснение на этикетке?",c1:"Экран приложения",
@@ -1015,40 +1069,12 @@ window.__proc=proc;
     size();if(state==="done"||reduce)write(cur,false);else write(cur)},160)});
   var tm=0;inp.addEventListener("input",function(){touched=!!inp.value.trim();clearTimeout(tm);clearTimeout(cycleT);tm=setTimeout(function(){write(current())},380)});
   inp.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();clearTimeout(tm);write(current())}});
-  $("#replay").addEventListener("click",function(){write(current())});
-  $("#next").addEventListener("click",function(){inp.value="";touched=false;clearTimeout(tm);idx++;pageNo++;write(current())});
-  document.querySelectorAll(".nb").forEach(function(b){b.addEventListener("click",function(){setNib(b)});b.addEventListener("keydown",radioKeys)});
-  function setNib(b,quiet){setK(+b.dataset.nib||.062,quiet)}
-  /* pen size: one value shared by the nib keys and the dial */
-  var dial=$("#dial"),dialV=$("#dialV"),KMIN=.03,KMAX=.11;
-  function setK(k,quiet){nibK=clamp(Math.round(k*1000)/1000,KMIN,KMAX);
-    document.querySelectorAll(".nb").forEach(function(x){x.setAttribute("aria-checked",String(Math.abs(+x.dataset.nib-nibK)<.0015))});
-    var u=(nibK-KMIN)/(KMAX-KMIN);dial.style.setProperty("--a",(-135+270*u).toFixed(1)+"deg");
-    var mm=(nibK*10).toFixed(2).replace(/0$/,"");dial.setAttribute("aria-valuenow",(nibK*100).toFixed(1));dial.setAttribute("aria-valuetext",mm+" mm");dialV.textContent=mm+" mm";
+  /* pen size: one plain slider under the name box */
+  var pen=$("#penSize"),penV=$("#penV"),KMIN=.03,KMAX=.11,auto=!reduce;
+  function setK(k,quiet){nibK=clamp(Math.round(k*1000)/1000,KMIN,KMAX);pen.value=Math.round(nibK*1000);
+    var mm=(nibK*10).toFixed(2).replace(/0$/,"");pen.setAttribute("aria-valuetext",mm+" mm");penV.textContent=mm+" mm";
     if(!quiet){try{localStorage.setItem("hw-nib",String(nibK))}catch(e){}}if(S.length){widths();redraw()}}
-  dial.setAttribute("aria-valuemin","3");dial.setAttribute("aria-valuemax","11");
-  dial.addEventListener("keydown",function(e){var s={ArrowUp:.002,ArrowRight:.002,ArrowDown:-.002,ArrowLeft:-.002,PageUp:.01,PageDown:-.01}[e.key];
-    if(e.key==="Home"){e.preventDefault();setK(KMIN);return}if(e.key==="End"){e.preventDefault();setK(KMAX);return}if(s){e.preventDefault();setK(nibK+s)}});
-  (function(){var drag=false;
-    function at(e){var r=dial.getBoundingClientRect(),a=Math.atan2(e.clientX-(r.left+r.width/2),-(e.clientY-(r.top+r.height/2)))*180/Math.PI;
-      setK(KMIN+(clamp(a,-135,135)+135)/270*(KMAX-KMIN))}
-    dial.addEventListener("pointerdown",function(e){drag=true;try{dial.setPointerCapture(e.pointerId)}catch(_){}dial.classList.add("grab");at(e);e.preventDefault()});
-    dial.addEventListener("pointermove",function(e){if(drag)at(e)});
-    function up(){drag=false;dial.classList.remove("grab")}
-    dial.addEventListener("pointerup",up);dial.addEventListener("pointercancel",up);
-    dial.addEventListener("wheel",function(e){e.preventDefault();setK(nibK+(e.deltaY<0?.002:-.002))},{passive:false})})();
-  /* screen switches */
-  var auto=!reduce;
-  function sw(id,on,fn){var b=$(id);b.setAttribute("aria-checked",String(on));b.addEventListener("click",function(){var v=b.getAttribute("aria-checked")!=="true";b.setAttribute("aria-checked",String(v));fn(v)})}
-  sw("#tGuide",true,function(v){page.classList.toggle("noguide",!v)});
-  sw("#tBloom",true,function(v){page.classList.toggle("nobloom",!v)});
-  sw("#tAuto",auto,function(v){auto=v;clearTimeout(cycleT);if(v&&state==="done"&&!reduce){touched=false;cycleT=setTimeout(turn,1600)}});
-  function radioKeys(e){var g=Array.from(e.currentTarget.parentNode.querySelectorAll("[role=radio]")),i=g.indexOf(e.currentTarget),d=e.key==="ArrowRight"||e.key==="ArrowDown"?1:e.key==="ArrowLeft"||e.key==="ArrowUp"?-1:0;
-    if(!d)return;e.preventDefault();var n=g[(i+d+g.length)%g.length];n.focus();n.click()}
-  /* roving focus: only the checked radio is in the tab order */
-  function roving(){document.querySelectorAll(".seg").forEach(function(s){var rs=s.querySelectorAll("[role=radio]"),any=false;rs.forEach(function(b){var on=b.getAttribute("aria-checked")==="true";any=any||on;b.tabIndex=on?0:-1});if(!any&&rs[0])rs[0].tabIndex=0})}
-  new MutationObserver(roving).observe(document.querySelector(".tools"),{subtree:true,attributes:true,attributeFilter:["aria-checked"]});roving();
-  if(reduce){$("#tAuto").disabled=true}
+  pen.addEventListener("input",function(){setK(+pen.value/1000)});
   setK(.062,true);
   try{var sn=+localStorage.getItem("hw-nib");if(sn>=KMIN&&sn<=KMAX)setK(sn,true)}catch(e){}
   return {
@@ -1227,7 +1253,11 @@ function build(){
     hero.own(own?fam:null);updateMeta();
   }).catch(function(e){meta.textContent=String(e).slice(0,80)});
 }
-function updateMeta(){if(!meta)return;meta.textContent=fontBuf?U[lang].ready(glyphCount,Math.max(1,Math.round(fontBuf.byteLength/1024))):U[lang].none;
+var dlDone=false;
+function stepBar(){var own=pads.some(function(p){var st=store[p.ch];return st&&st.strokes.length&&!st.sample});
+  var done=[chars().length>0,own,outTouched,dlDone],now=done.indexOf(false);
+  document.querySelectorAll("#steps li").forEach(function(li,i){li.classList.toggle("done",done[i]);li.classList.toggle("now",i===now)})}
+function updateMeta(){if(!meta)return;stepBar();meta.textContent=fontBuf?U[lang].ready(glyphCount,Math.max(1,Math.round(fontBuf.byteLength/1024))):U[lang].none;
   var t=out.value.split("\n")[0]||lettersIn.value;document.querySelectorAll("#sizes .sz").forEach(function(s){s.textContent=(drawnOnly(t)+" ").repeat(6)})}
 
 /* letters not drawn yet become spaces, the built font only holds what was drawn */
@@ -1246,7 +1276,7 @@ weightIn.addEventListener("input",function(){pads.forEach(drawPad);rebuild()});
 out.addEventListener("input",function(){outTouched=true;updateMeta()});
 
 dlBtn.addEventListener("click",function(){
-  if(!fontBuf)return;var url=URL.createObjectURL(new Blob([fontBuf],{type:"font/otf"})),a=document.createElement("a");
+  if(!fontBuf)return;dlDone=true;stepBar();var url=URL.createObjectURL(new Blob([fontBuf],{type:"font/otf"})),a=document.createElement("a");
   a.href=url;a.download="my-handwriting.otf";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},4000);
   if(reduce)return;var r=dlBtn.getBoundingClientRect(),b=document.createElement("div");b.className="burst";b.style.left=(r.left+r.width/2)+"px";b.style.top=(r.top+r.height/2)+"px";
   for(var i=0;i<12;i++){var s=document.createElement("i");s.style.setProperty("--a",(i/12*360)+"deg");s.style.setProperty("--d",(44+(i%3)*12)+"px");b.appendChild(s)}
