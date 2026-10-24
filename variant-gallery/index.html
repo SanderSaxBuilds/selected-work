@@ -4,54 +4,46 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#f3eee7" />
+    <meta name="theme-color" content="#e6ebe4" />
     <title>Stillwater Bottle | Fieldnote Goods</title>
-    <meta name="description" content="The Stillwater Bottle in three colors and two sizes. A double-wall steel bottle with a soft matte finish." />
+    <meta name="description" content="The Stillwater Bottle in three colours and two sizes. A double-wall steel bottle with a soft powder coat, a carry loop and optional engraving." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&amp;display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;display=swap" />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
-  <body>
+  <body data-tone="moss">
     <a class="skip-link" href="#main">Skip to product</a>
+    <p class="ribbon">Free shipping over $50. Free returns for 30 days.</p>
     <header class="site-header">
       <div class="shell header-row">
         <a class="brand" href="#product" aria-label="Fieldnote Goods, back to product">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 40 40">
-              <path d="M20 3.5 35.5 12.4v15.2L20 36.5 4.5 27.6V12.4L20 3.5Z" fill="none" stroke="currentColor" stroke-width="2" />
-              <path d="M12 25.8c4.6-7.6 11.4-7.6 16 0M14.4 18.8c3.2-4.8 8-4.8 11.2 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" />
-            </svg>
-          </span>
-          <span class="brand-name">Fieldnote Goods</span>
+          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M20 4 34 12v16L20 36 6 28V12L20 4Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+            <path d="M14.5 21.5c3-4.6 8-4.6 11 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" />
+          </svg>
+          <span class="brand-name">Fieldnote</span>
         </a>
         <nav class="main-nav" aria-label="Main navigation">
-          <a href="#product">Shop</a>
-          <a href="#details">Details</a>
-          <a href="#study-panel">Study</a>
+          <a href="#product">Bottle</a>
+          <a href="#story">Build</a>
+          <a href="#sizes">Sizes</a>
+          <a href="#study-panel">QA study</a>
         </nav>
         <button class="bag-button" type="button" id="bagButton" aria-haspopup="dialog" aria-label="Bag, 0 items">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 13H6L5 8Zm4 0V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" /></svg>
-          <span class="bag-label">Bag</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 13H6L5 8Zm4 0V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" /></svg>
           <span class="bag-count" id="bagCount">0</span>
         </button>
       </div>
     </header>
 
     <main id="main">
-      <div class="shell">
-        <nav class="breadcrumbs" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="#product">Shop</a></li>
-            <li><a href="#product">Drinkware</a></li>
-            <li aria-current="page">Stillwater Bottle</li>
-          </ol>
-        </nav>
-
-        <section class="product-layout" id="product" aria-labelledby="productTitle">
-          <div class="gallery-column">
-            <div class="media-stage" id="mediaStage" aria-busy="false">
+      <section class="product-layout shell" id="product" aria-labelledby="productTitle">
+        <div class="gallery-column">
+          <div class="gallery">
+            <div class="gallery-thumbnails" id="galleryThumbnails" role="group" aria-label="Product views"></div>
+            <div class="media-stage" id="mediaStage" aria-busy="false" data-zoom="off">
               <div class="media-skeleton" id="mediaSkeleton" hidden>
                 <span class="skeleton-shape"></span>
                 <span class="sr-only">Loading product image</span>
@@ -59,103 +51,180 @@
               <div class="media-fallback" id="mediaFallback" hidden>
                 <span class="fallback-icon" aria-hidden="true">
                   <svg viewBox="0 0 54 54">
-                    <rect x="7" y="9" width="40" height="36" rx="8" fill="none" stroke="currentColor" stroke-width="1.8" />
-                    <circle cx="19" cy="21" r="3.2" fill="currentColor" />
-                    <path d="m12 39 10-10 6 6 5-5 9 9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" />
+                    <rect x="7" y="9" width="40" height="36" rx="3" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    <path d="m12 39 10-10 6 6 5-5 9 9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" />
+                    <path d="M8 46 46 8" stroke="currentColor" stroke-width="1.6" />
                   </svg>
                 </span>
                 <strong id="fallbackTitle">Photo unavailable</strong>
                 <span id="fallbackDescription">This option has no product photo yet.</span>
               </div>
-              <img class="product-image" id="mainImage" alt="" width="960" height="900" hidden />
-              <span class="image-index figure" id="imageIndex" aria-hidden="true">1 of 2</span>
-            </div>
-            <div class="gallery-thumbnails" id="galleryThumbnails" role="group" aria-label="Product views"></div>
-          </div>
-
-          <div class="product-info">
-            <p class="eyebrow">Stillwater collection</p>
-            <h1 id="productTitle">Stillwater Bottle</h1>
-            <div class="price-row">
-              <p class="price figure" id="priceValue">$36.00</p>
-              <p class="price-meta" id="priceMeta">500 ml, Moss</p>
-            </div>
-            <p class="product-description">A double-wall steel bottle with a soft matte finish. Cold drinks stay cold through a long day out, and the loop lid hooks onto a bag strap.</p>
-
-            <div class="link-message" id="linkMessage" role="alert" hidden>
-              <strong>That link points to an option we don't have.</strong>
-              <p>Showing Moss 500 ml instead. Pick any option to update the link.</p>
-            </div>
-
-            <form class="variant-form" id="variantForm" novalidate>
-              <fieldset class="option-fieldset">
-                <legend>Color <span class="current-option" id="currentColor">Moss</span></legend>
-                <div class="color-options" id="colorOptions"></div>
-              </fieldset>
-              <fieldset class="option-fieldset">
-                <legend>Capacity <span class="current-option" id="currentSize">500 ml</span></legend>
-                <div class="size-options" id="sizeOptions"></div>
-              </fieldset>
-            </form>
-
-            <div class="availability" id="availabilityCard" data-available="true">
-              <span class="availability-dot" aria-hidden="true"></span>
-              <p><strong id="availabilityLabel">In stock</strong> <span id="availabilityDescription">Ships in 1 to 2 business days.</span></p>
-              <button class="swap-button" type="button" id="swapOption" hidden></button>
-            </div>
-
-            <div class="buy-row">
-              <div class="quantity" role="group" aria-labelledby="quantityLabel">
-                <span class="sr-only" id="quantityLabel">Quantity</span>
-                <button class="qty-button" type="button" id="qtyDown" aria-label="Decrease quantity">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
-                </button>
-                <output class="qty-value figure" id="qtyValue" aria-live="polite">1</output>
-                <button class="qty-button" type="button" id="qtyUp" aria-label="Increase quantity">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+              <div class="zoom-frame" id="zoomFrame">
+                <img class="product-image" id="mainImage" alt="" width="1000" height="1250" hidden />
+                <svg class="engrave-layer" id="engraveLayer" viewBox="0 0 1000 1250" preserveAspectRatio="xMidYMid slice" aria-hidden="true" hidden>
+                  <defs>
+                    <linearGradient id="etch" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stop-color="#8f969a" /><stop offset=".3" stop-color="#e9ecee" /><stop offset=".55" stop-color="#b8bec2" /><stop offset="1" stop-color="#7d8488" />
+                    </linearGradient>
+                  </defs>
+                  <text id="engraveText" x="500" y="876" text-anchor="middle"></text>
+                </svg>
+              </div>
+              <div class="stage-tools">
+                <span class="image-index" id="imageIndex" aria-hidden="true">1 / 4</span>
+                <span class="view-name" id="viewName" aria-hidden="true">Front</span>
+                <button class="zoom-button" type="button" id="zoomButton" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6" /><path d="m15.5 15.5 5 5M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+                  <span id="zoomLabel">Zoom</span>
                 </button>
               </div>
-              <button class="add-button" type="button" id="addToBag">Add to bag</button>
+              <div class="stage-arrows">
+                <button class="arrow-button" type="button" id="prevView" aria-label="Previous view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6 8.5 12l6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+                <button class="arrow-button" type="button" id="nextView" aria-label="Next view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+              </div>
             </div>
-            <p class="shipping-note">Free shipping on orders of $50 or more. Free returns within 30 days.</p>
+          </div>
+        </div>
 
+        <div class="product-info">
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="#product">Drinkware</a></li>
+              <li aria-current="page">Stillwater</li>
+            </ol>
+          </nav>
+          <h1 id="productTitle"><span class="title-main">Stillwater</span> <span class="title-sub">Bottle</span></h1>
+          <div class="price-row">
+            <p class="price figure" id="priceValue">$36.00</p>
+            <p class="price-meta" id="priceMeta">500 ml, Moss</p>
+          </div>
+          <p class="product-description">Double-wall steel under a soft powder coat. Cold drinks stay cold through a long day out, and the loop on the lid hooks onto a bag strap or two fingers.</p>
+
+          <div class="link-message" id="linkMessage" role="alert" hidden>
+            <strong>That link points to an option we don't have.</strong>
+            <p>Showing Moss 500 ml instead. Pick any option to update the link.</p>
+          </div>
+
+          <form class="variant-form" id="variantForm" novalidate>
+            <fieldset class="option-fieldset">
+              <legend><span class="legend-key">Colour</span> <span class="current-option" id="currentColor">Moss</span></legend>
+              <div class="color-options" id="colorOptions"></div>
+            </fieldset>
+            <fieldset class="option-fieldset">
+              <legend><span class="legend-key">Capacity</span> <span class="current-option" id="currentSize">500 ml</span></legend>
+              <div class="size-options" id="sizeOptions"></div>
+            </fieldset>
+            <fieldset class="option-fieldset engrave-fieldset">
+              <legend class="sr-only">Engraving</legend>
+              <label class="engrave-toggle">
+                <input type="checkbox" id="engraveOn" />
+                <span class="toggle-track" aria-hidden="true"><span></span></span>
+                <span class="engrave-copy"><strong>Add engraving</strong> <span class="figure">+$6.00</span><small>Laser cut through the coat to the steel, up to 14 letters.</small></span>
+              </label>
+              <div class="engrave-field" id="engraveField" hidden>
+                <label class="sr-only" for="engraveInput">Engraving text</label>
+                <input type="text" id="engraveInput" maxlength="14" autocomplete="off" spellcheck="false" placeholder="Your name" aria-describedby="engraveHelp" />
+                <span class="engrave-count figure" id="engraveCount">0/14</span>
+                <p class="engrave-help" id="engraveHelp">Letters, numbers, spaces, the hyphen and the full stop. The front photo shows it as you type.</p>
+              </div>
+            </fieldset>
+          </form>
+
+          <div class="availability" id="availabilityCard" data-available="true">
+            <p><strong id="availabilityLabel">In stock</strong> <span id="availabilityDescription">Ships in 1 to 2 business days.</span></p>
+            <button class="swap-button" type="button" id="swapOption" hidden></button>
+          </div>
+
+          <div class="buy-row" id="buyRow">
+            <div class="quantity" role="group" aria-labelledby="quantityLabel">
+              <span class="sr-only" id="quantityLabel">Quantity</span>
+              <button class="qty-button" type="button" id="qtyDown" aria-label="Decrease quantity">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+              </button>
+              <output class="qty-value figure" id="qtyValue" aria-live="polite">1</output>
+              <button class="qty-button" type="button" id="qtyUp" aria-label="Increase quantity">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+              </button>
+            </div>
+            <button class="add-button" type="button" id="addToBag">Add to bag</button>
+          </div>
+
+          <ul class="promise-list">
+            <li><b>24 h</b> cold</li>
+            <li><b>10 h</b> hot</li>
+            <li><b>18/8</b> steel</li>
+            <li><b>30 day</b> returns</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="story" id="story" aria-labelledby="storyTitle">
+        <div class="shell story-grid">
+          <figure class="story-figure">
+            <img id="storyImage" src="assets/moss-500-detail.svg" alt="Close view of the Moss cap, its knurled grip and the bare steel lip" width="1000" height="1250" loading="lazy" />
+          </figure>
+          <div class="story-copy">
+            <p class="kicker">How it is built</p>
+            <h2 id="storyTitle">A lid that sits on steel, not on paint.</h2>
+            <p>The coat stops just below the mouth so the lid threads onto a polished steel lip. Nothing chips where your hand turns it, and the seal meets bare metal every time.</p>
             <dl class="spec-list" id="details">
               <div><dt>Keeps cold</dt><dd>Up to 24 hours</dd></div>
               <div><dt>Keeps hot</dt><dd>Up to 10 hours</dd></div>
-              <div><dt>Material</dt><dd>18/8 stainless steel, powder coat</dd></div>
+              <div><dt>Body</dt><dd>18/8 stainless steel, vacuum double wall</dd></div>
+              <div><dt>Finish</dt><dd>Powder coat with a fine grain</dd></div>
+              <div><dt>Lid</dt><dd>Knurled grip, carry loop, silicone seal</dd></div>
               <div><dt>Care</dt><dd>Hand wash with mild soap</dd></div>
             </dl>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="care" aria-labelledby="careTitle">
-          <div>
-            <p class="eyebrow">Care</p>
-            <h2 id="careTitle">Keep the finish feeling new.</h2>
+      <section class="sizes shell" id="sizes" aria-labelledby="sizesTitle">
+        <div class="sizes-copy">
+          <p class="kicker">Which size</p>
+          <h2 id="sizesTitle">How long are you out for?</h2>
+          <p>Drag to the length of a normal day away from a tap. The bottle that covers it is picked for you.</p>
+          <div class="day-slider">
+            <label for="hoursOut">Hours out <output id="hoursOut-out" for="hoursOut">3 hours</output></label>
+            <input type="range" id="hoursOut" min="1" max="10" step="1" value="3" />
+            <div class="day-scale" aria-hidden="true"><span>1</span><span>5</span><span>10</span></div>
           </div>
-          <ul class="care-list">
-            <li><strong>Wash by hand.</strong> Warm water, mild soap and a soft bottle brush.</li>
-            <li><strong>Skip the scourer.</strong> Abrasive pads polish the matte coat to a shine.</li>
-            <li><strong>Dry with the lid off.</strong> The seal lasts longer when it is not stored damp.</li>
-          </ul>
-        </section>
+          <p class="day-answer" id="dayAnswer" aria-live="polite"></p>
+          <button class="ghost-button" type="button" id="pickSize">Choose 500 ml</button>
+        </div>
+        <figure class="sizes-figure">
+          <img id="sizesImage" src="assets/moss-500-sizes.svg" alt="The 750 ml and 500 ml Moss bottles side by side" width="1000" height="1250" loading="lazy" />
+        </figure>
+      </section>
 
-        <section class="study-panel" id="study-panel" aria-labelledby="studyTitle">
+      <section class="care shell" aria-labelledby="careTitle">
+        <h2 id="careTitle">Keep the finish new.</h2>
+        <ol class="care-list">
+          <li><strong>Wash by hand.</strong> Warm water, mild soap and a soft bottle brush.</li>
+          <li><strong>Skip the scourer.</strong> Abrasive pads polish the grain flat and leave a shine.</li>
+          <li><strong>Dry with the lid off.</strong> The seal lasts longer when it is not stored damp.</li>
+        </ol>
+      </section>
+
+      <section class="study-panel" id="study-panel" aria-labelledby="studyTitle">
+        <div class="shell study-grid">
           <div class="study-copy">
-            <p class="eyebrow">Interaction study</p>
-            <h2 id="studyTitle">The photo should always match the option you picked.</h2>
-            <p>This page keeps the photo, price, stock and link in step with every choice. Switch the gallery behavior to see two common store bugs reproduced on purpose: a photo that lags behind the selection, and a photo address that returns a 404.</p>
+            <p class="kicker">Store QA study</p>
+            <h2 id="studyTitle">The photo must always match the option you picked.</h2>
+            <p>Photo, price, stock, engraving and the link stay in step with every choice. Switch the gallery behaviour to reproduce two common store bugs on purpose: a photo that lags behind the selection, and a photo address that returns a 404.</p>
           </div>
           <div class="study-control">
-            <label for="behaviorMode">Gallery behavior</label>
-            <select id="behaviorMode">
-              <option value="fixed">Working gallery</option>
-              <option value="stale">Bug: photo stays on the previous option</option>
-              <option value="missing-file">Bug: photo address returns 404</option>
-            </select>
+            <label for="behaviorMode">Gallery behaviour</label>
+            <div class="select-wrap">
+              <select id="behaviorMode">
+                <option value="fixed">Working gallery</option>
+                <option value="stale">Bug: photo stays on the previous option</option>
+                <option value="missing-file">Bug: photo address returns 404</option>
+              </select>
+            </div>
             <div class="defect-note" id="defectNote" hidden>
               <strong>Stale photo reproduced.</strong>
-              <p>Color, capacity and price update, but the large photo stays on the earlier option.</p>
+              <p>Colour, capacity and price update, but the large photo stays on the earlier option.</p>
             </div>
             <div class="defect-note" id="missingAssetNote" hidden>
               <strong>Missing photo reproduced.</strong>
@@ -163,14 +232,23 @@
             </div>
           </div>
           <p class="sr-only" id="liveStatus" role="status" aria-live="polite" aria-atomic="true"></p>
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
+
+    <div class="buy-bar" id="buyBar" aria-hidden="true">
+      <div class="shell buy-bar-row">
+        <span class="buy-bar-swatch" id="buyBarSwatch"></span>
+        <span class="buy-bar-text"><strong>Stillwater</strong> <span id="buyBarMeta">Moss, 500 ml</span></span>
+        <button class="add-button add-small" type="button" id="buyBarAdd" tabindex="-1">Add, $36.00</button>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <div class="shell footer-row">
         <span class="footer-brand">Fieldnote Goods</span>
-        <p>Fieldnote Goods is a fictional store built as a frontend study. Nothing here is for sale, and the bottle artwork is original.</p>
+        <p>Fieldnote Goods is a fictional store built as a frontend study. Nothing here is for sale. The bottle renders are original SVG drawings, made for this page.</p>
+        <a href="../index.html">Back to selected work</a>
       </div>
     </footer>
 
@@ -178,10 +256,10 @@
       <div class="bag-head">
         <h2 id="bagTitle">Your bag</h2>
         <button class="icon-button" type="button" id="bagClose" aria-label="Close bag">
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
         </button>
       </div>
-      <div id="bagLines"></div>
+      <div class="bag-body" id="bagLines"></div>
       <div class="bag-foot" id="bagFoot" hidden>
         <div class="ship-meter" id="shipMeter">
           <p id="shipText">$14.00 away from free shipping</p>

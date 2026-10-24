@@ -143,16 +143,101 @@ $(function () {
     });
     $('#measure').prop('hidden', true);
     $('#add-error').prop('hidden', true);
+    drawFitting();
   }
-  renderJobs();
+  function cm(v) { return v + ' cm'; }
+  // Fitting sketch: a technical flat per garment, the job's area in red, the new hem following the slider
+  var PX_CM = 4;
+  var mirror = function (s) { return [300 - s[1], 300 - s[0]]; };
+  var FLATS = {
+    trousers: {
+      cloth: '<path d="M92 30h116v20H92z"/><path d="M92 50 80 350h62l8-232 8 232h62L208 50z"/>',
+      detail: '<path d="M104 50c4 24 14 34 32 36"/><path d="M196 50c-4 24-14 34-32 36"/><path d="M110 30v20M140 30v20M160 30v20M190 30v20"/><path d="M81 336h60M159 336h60"/>',
+      zones: '<rect class="zone fillzone" data-z="waist" x="92" y="30" width="116" height="20"/><path class="zone linezone" data-z="waist" d="M150 50v-20"/>' +
+        '<path class="zone linezone" data-z="hem hem-orig" d="M80 350h62M158 350h62"/><path class="zone linezone" data-z="zip" d="M150 50v62c0 8-4 12-10 14"/>' +
+        '<path class="zone linezone" data-z="taper" d="M86 210 94 348M140 210l-6 138M214 210l-8 138M160 210l6 138"/>',
+      measure: { base: 350, dimX: 240, segs: function (y) { var l = [92 - 12 * (y - 50) / 300, 150 - 8 * (y - 118) / 232]; return [l, mirror(l)]; } }
+    },
+    shirt: {
+      cloth: '<path d="M124 34 100 44 64 60 60 300h28l4-190 4 230h108l4-230 4 190h28l-4-240-36-16-24-10q-26 18-52 0z"/><path d="M124 34l14 26 12-12 12 12 14-26"/>',
+      detail: '<path d="M150 52v288"/><path d="M61 284h27M212 284h27"/><path d="M66 64c10 14 20 28 26 46M234 64c-10 14-20 28-26 46"/>',
+      zones: '<path class="zone linezone" data-z="sleeves" d="M60 300h28M212 300h28"/><path class="zone linezone" data-z="sides" d="M100 118l6 218M200 118l-6 218"/>' +
+        [80, 122, 164, 206, 248, 296].map(function (y) { return '<circle class="zone dotzone" data-z="buttons" cx="156" cy="' + y + '" r="3.6"/>'; }).join(''),
+      measure: { base: 300, dimX: 254, segs: function (y) { var l = [64 - 4 * (y - 60) / 240, 92 - 4 * (y - 110) / 190]; return [l, mirror(l)]; } }
+    },
+    dress: {
+      cloth: '<path d="M116 26h6l4 46h-6zM178 26h6l-4 46h-6z"/><path d="M118 70q32 14 64 0l6 80 62 200q-100 18-200 0l62-200z"/>',
+      detail: '<path d="M112 150q38 10 76 0"/><path d="M150 76v74"/><path d="M58 336q92 16 184 0"/>',
+      zones: '<path class="zone linezone" data-z="straps" d="M119 28l4 42M181 28l-4 42"/><path class="zone linezone" data-z="dhem" d="M50 350q100 18 200 0"/>' +
+        '<path class="zone linezone" data-z="takein" d="M124 76l-6 74-50 180M176 76l6 74 50 180"/>',
+      measure: { base: 350, dimX: 262, curve: true, segs: function (y) { var x = 112 - 62 * (y - 150) / 200; return [[x, 300 - x]]; } }
+    },
+    jacket: {
+      cloth: '<path d="M120 30 96 40 58 58 52 316h32l6-200 2 236h116l2-236 6 200h32l-6-258-38-18-24-10q-30 14-60 0z"/>',
+      detail: '<path d="M100 270h36M164 270h36"/><path d="M53 300h31M216 300h31"/><path d="M62 62c12 16 22 32 28 54M238 62c-12 16-22 32-28 54"/>',
+      lines: '<path d="M120 30l16 64-12 8 20 58 6 40M180 30l-16 64 12 8-20 58-6 40"/>',
+      zones: '<path class="zone fillzone" data-z="lining" d="M96 120h108l2 228H94z"/><path class="zone linezone" data-z="jsleeves" d="M52 316h32M216 316h32"/>' +
+        '<path class="zone linezone" data-z="jzip" d="M150 200v152"/><circle class="zone dotzone" data-z="" cx="156" cy="226" r="3.6"/><circle class="zone dotzone" data-z="" cx="156" cy="262" r="3.6"/>',
+      measure: { base: 316, dimX: 262, segs: function (y) { var l = [58 - 6 * (y - 58) / 258, 90 - 6 * (y - 116) / 200]; return [l, mirror(l)]; } }
+    },
+    repair: {
+      cloth: '<path d="M118 36 92 44 50 80l18 44 26-16 2 232h108l2-232 26 16 18-44-42-36-26-8q-32 26-64 0z"/>',
+      detail: '<path d="M150 60v40"/><path d="M98 326h104"/>',
+      zones: '<rect class="zone fillzone" data-z="patch" x="152" y="206" width="40" height="36"/><path class="zone linezone" data-z="patch" d="M152 206h40v36h-40z" stroke-dasharray="3 2"/>' +
+        '<circle class="zone dotzone" data-z="button" cx="150" cy="92" r="4"/>' +
+        '<path class="zone linezone" data-z="darn" d="M110 276h22M110 281h22M110 286h22M114 272v18M120 272v18M126 272v18"/>'
+    }
+  };
+  var NOTES = {
+    hem: ['Inside leg', 81], 'hem-orig': ['Inside leg', 81], sleeves: ['Sleeve', 64], dhem: ['Length', 102], jsleeves: ['Sleeve', 63],
+    waist: 'Taken in at the centre back seam, up to 4 cm.', taper: 'A new leg line from the knee down.', zip: 'Fly zip swapped for a matched one.',
+    sides: 'Side seams brought in evenly from the arm to the hem.', buttons: 'The full set replaced with matched buttons.',
+    takein: 'Side seams taken in from the bust to the hip.', straps: 'Straps shortened at the back seam.', lining: 'Body and sleeve lining replaced, a full week on the bench.',
+    jzip: 'Front zip replaced, top to bottom.', patch: 'Patched from the inside and stitched by hand.', button: 'One button sewn on with a thread shank.', darn: 'The hole woven closed with matched thread.'
+  };
+  var $art = $('#fitting-art');
+  function drawFitting() {
+    var gid = $('input[name="garment"]:checked').val();
+    var jid = $('input[name="job"]:checked').val();
+    var f = FLATS[gid];
+    var g = find(gid, GARMENTS[0].jobs[0].id).g;
+    if ($art.data('g') !== gid) {
+      $art.data('g', gid).html('<svg viewBox="0 0 300 380" class="flat" role="img" aria-label="Sketch of ' + g.name.toLowerCase() + '">' +
+        '<g class="cloth">' + f.cloth + '</g><g class="detail">' + f.detail + '</g>' + (f.lines ? '<g class="line" fill="none" stroke="#0d0d0d" stroke-width="1.6">' + f.lines + '</g>' : '') +
+        f.zones + '<g class="redline"></g></svg>');
+    }
+    $art.find('.zone').each(function () {
+      var zs = (this.getAttribute('data-z') || '').split(' ');
+      this.classList.toggle('on', !!jid && zs.indexOf(jid) > -1);
+    });
+    var job = jid ? find(gid, jid).j : null;
+    var red = $art.find('.redline')[0];
+    if (!job) { red.innerHTML = ''; $('#fitting-cap').text('Pick a job to see where the work goes.'); return; }
+    if (job.measure && f.measure) {
+      var s = Number($('#shorten').val()), m = f.measure, y = m.base - s * PX_CM, b = m.base, html = '';
+      $.each(m.segs(y), function (i, seg) {
+        var sb = m.segs(b)[i];
+        html += '<path class="cutaway" d="M' + seg[0] + ' ' + y + 'L' + seg[1] + ' ' + y + 'L' + sb[1] + ' ' + (b + 1) + 'L' + sb[0] + ' ' + (b + 1) + 'Z"/>';
+        html += m.curve ? '<path class="cut" d="M' + (seg[0] - 4) + ' ' + y + 'Q150 ' + (y + 18) + ' ' + (seg[1] + 4) + ' ' + y + '"/>' : '<path class="cut" d="M' + (seg[0] - 5) + ' ' + y + 'H' + (seg[1] + 5) + '"/>';
+      });
+      html += '<path class="dim" d="M' + m.dimX + ' ' + y + 'V' + b + 'M' + (m.dimX - 4) + ' ' + (y + 4) + 'l4-4 4 4M' + (m.dimX - 4) + ' ' + (b - 4) + 'l4 4 4-4"/>';
+      html += '<text class="dim-text" x="' + (m.dimX + 6) + '" y="' + ((y + b) / 2 + 4) + '">' + cm(s) + '</text>';
+      red.innerHTML = html;
+      var n = NOTES[jid];
+      $('#fitting-cap').html('').append($('<b>').text(job.name + '. '), document.createTextNode(n[0] + ' about ' + (n[1] - s) + ' cm, from ' + n[1] + ' cm. Taken up ' + cm(s) + (jid === 'hem-orig' ? ', the original hem goes back on.' : '.')));
+    } else {
+      red.innerHTML = '';
+      $('#fitting-cap').html('').append($('<b>').text(job.name + '. '), document.createTextNode(NOTES[jid] || ''));
+    }
+  }  renderJobs();
   $garments.on('change', 'input', renderJobs);
   $('#job-list').on('change', 'input', function () {
     var f = find($('input[name="garment"]:checked').val(), $(this).val());
     $('#measure').prop('hidden', !f.j.measure);
     $('#add-error').prop('hidden', true);
+    drawFitting();
   });
-  function cm(v) { return v + ' cm'; }
-  $('#shorten').on('input', function () { $('#shorten-out').text(cm($(this).val())); });
+  $('#shorten').on('input', function () { $('#shorten-out').text(cm($(this).val())); drawFitting(); });
   $('#add-form').on('submit', function (e) {
     e.preventDefault();
     var gid = $('input[name="garment"]:checked').val();
@@ -166,6 +251,7 @@ $(function () {
     addLine(gid, jid, Number($('#shorten').val()));
     $('#job-list input').prop('checked', false);
     $('#measure').prop('hidden', true);
+    drawFitting();
     announceAdd();
   });
 

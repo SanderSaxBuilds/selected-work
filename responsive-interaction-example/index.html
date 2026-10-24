@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#eceeec">
-  <title>Hemline alterations counter</title>
-  <meta name="description" content="A responsive page for a fictional alterations counter. Prices by garment, and a ticket you build item by item with a live total and a ready date. HTML, CSS and jQuery.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Hemline atelier</title>
+  <meta name="description" content="A responsive page for a fictional alterations atelier. Prices by garment, a fitting sketch that shows exactly where the work goes, and a ticket you build item by item with a live total and a ready date. HTML, CSS and jQuery.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="jquery-4.0.0.min.js" defer></script>
   <script src="app.js" defer></script>
@@ -17,7 +17,7 @@
   <a class="skip-link" href="#ticket">Skip to the ticket builder</a>
   <header class="site-header">
     <div class="bar">
-      <a class="brand" href="#top" aria-label="Hemline, back to the top"><span class="brand-mark" aria-hidden="true"></span>Hemline</a>
+      <a class="brand" href="#top" aria-label="Hemline, back to the top">Hemline<span class="brand-sub" aria-hidden="true">Atelier</span></a>
       <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Menu</span></button>
       <nav id="site-nav" aria-label="Page sections">
         <a href="#prices">Prices</a>
@@ -30,10 +30,27 @@
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="label">Alterations and repairs, a two-person counter</p>
-        <h1 id="hero-title">Trousers taken up <span id="hero-day">in three working days</span>.</h1>
-        <p class="intro">Pick the jobs, see the price and the day it is ready before anything is cut. Bring it to the counter or leave it in the drop box.</p>
+        <p class="label">No. 14, alterations and repairs</p>
+        <h1 id="hero-title">Trousers taken up <em id="hero-day">in three working days</em>.</h1>
+        <p class="intro">Pick the jobs, see the price, the day it is ready and exactly where the needle goes, before anything is cut. Bring it to the counter or leave it in the drop box.</p>
+        <a class="button" href="#ticket">Build a ticket</a>
       </div>
+      <figure class="hero-flat" aria-hidden="true">
+        <svg viewBox="0 0 300 380" class="flat">
+          <g class="cloth">
+            <path d="M92 30h116v20H92z"/>
+            <path d="M92 50 80 350h62l8-232 8 232h62L208 50z"/>
+          </g>
+          <g class="detail">
+            <path d="M150 50v62c0 8-4 12-10 14"/><path d="M104 50c4 24 14 34 32 36"/><path d="M196 50c-4 24-14 34-32 36"/>
+            <path d="M110 30v20M140 30v20M160 30v20M190 30v20"/>
+            <path d="M81 336h60M159 336h60"/>
+          </g>
+          <g class="redline"><path d="M74 318h158" class="cut"/><path d="M246 336v-18" class="dim"/><path d="M242 322l4-4 4 4M242 332l4 4 4-4" class="dim"/></g>
+          <text x="252" y="331" class="dim-text">3 cm</text>
+        </svg>
+        <figcaption>Fig. 1, trousers, hem taken up 3 cm</figcaption>
+      </figure>
       <dl class="hours" aria-label="Opening hours">
         <div><dt>Mon to Fri</dt><dd>08:30 to 18:00</dd></div>
         <div><dt>Saturday</dt><dd>09:00 to 14:00</dd></div>
@@ -45,6 +62,7 @@
 
     <section id="prices" class="prices" aria-labelledby="prices-title" tabindex="-1">
       <div class="section-head">
+        <p class="label">The list</p>
         <h2 id="prices-title">Prices</h2>
         <p>Per garment, labour and thread included. Tap a price to put it on your ticket.</p>
       </div>
@@ -54,31 +72,40 @@
     <section id="how" class="how" aria-labelledby="how-title" tabindex="-1">
       <h2 id="how-title">How a ticket works</h2>
       <ol class="steps">
-        <li><span class="step-n">1</span><b>Build it here</b> Add each garment and job. The total and the ready day update as you go.</li>
-        <li><span class="step-n">2</span><b>Drop it off</b> Show the ticket number at the counter, or write it on the bag for the drop box.</li>
-        <li><span class="step-n">3</span><b>Try it on</b> Fittings are free. If the length is wrong, it goes back on the bench at no cost.</li>
+        <li><span class="step-n">i.</span><b>Build it here</b> Add each garment and job. The sketch, the total and the ready day update as you go.</li>
+        <li><span class="step-n">ii.</span><b>Drop it off</b> Show the ticket number at the counter, or write it on the bag for the drop box.</li>
+        <li><span class="step-n">iii.</span><b>Try it on</b> Fittings are free. If the length is wrong, it goes back on the bench at no cost.</li>
       </ol>
     </section>
 
     <section id="ticket" class="builder" aria-labelledby="ticket-title" tabindex="-1">
       <div class="builder-main">
+        <p class="label">The fitting room</p>
         <h2 id="ticket-title">Build a ticket</h2>
         <form id="add-form" class="add-form" novalidate>
-          <fieldset class="garments">
-            <legend>Garment</legend>
-            <div class="garment-list" id="garment-list"></div>
-          </fieldset>
-          <fieldset class="jobs">
-            <legend>Job</legend>
-            <div class="job-list" id="job-list"></div>
-          </fieldset>
-          <div class="measure" id="measure" hidden>
-            <label for="shorten">Shorten by <output id="shorten-out" for="shorten">3 cm</output></label>
-            <input type="range" id="shorten" min="1" max="15" step="0.5" value="3" aria-describedby="shorten-help">
-            <p id="shorten-help" class="help">Measured from the current hem. Drag the tape or use the arrow keys.</p>
+          <div class="picks-col">
+            <fieldset class="garments">
+              <legend>Garment</legend>
+              <div class="garment-list" id="garment-list"></div>
+            </fieldset>
+            <fieldset class="jobs">
+              <legend>Job</legend>
+              <div class="job-list" id="job-list"></div>
+            </fieldset>
           </div>
-          <p class="field-error" id="add-error" role="alert" hidden>Pick a job for this garment first.</p>
-          <button class="button" type="submit" id="add-btn">Add to ticket</button>
+          <figure class="fitting" id="fitting">
+            <div class="fitting-art" id="fitting-art"></div>
+            <figcaption id="fitting-cap" aria-live="polite">Pick a job to see where the work goes.</figcaption>
+            <div class="measure" id="measure" hidden>
+              <label for="shorten">Shorten by <output id="shorten-out" for="shorten">3 cm</output></label>
+              <input type="range" id="shorten" min="1" max="15" step="0.5" value="3" aria-describedby="shorten-help">
+              <p id="shorten-help" class="help">Measured from the current hem. Drag the slider or use the arrow keys, the red line follows.</p>
+            </div>
+          </figure>
+          <div class="add-row">
+            <p class="field-error" id="add-error" role="alert" hidden>Pick a job for this garment first.</p>
+            <button class="button" type="submit" id="add-btn">Add to ticket</button>
+          </div>
         </form>
 
         <form id="book-form" class="book-form" novalidate>
@@ -112,6 +139,7 @@
       <aside class="tag-wrap" aria-labelledby="tag-title">
         <div class="tag" id="tag">
           <span class="tag-hole" aria-hidden="true"></span>
+          <svg class="tag-thread" viewBox="0 0 40 84" aria-hidden="true"><path d="M20 82C10 62 32 50 20 32S12 6 26 0"/></svg>
           <div class="tag-head">
             <h3 id="tag-title">Ticket</h3>
             <span class="tag-no" id="tag-no">Not booked yet</span>
