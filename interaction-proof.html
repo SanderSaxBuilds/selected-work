@@ -3,226 +3,327 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-<title>Layered graphic study</title>
-<meta name="description" content="A flat process graphic that becomes a layered object. Scroll to separate the layers, tilt it with the pointer or use the buttons and slider. Plain HTML, CSS and SVG.">
+<meta name="theme-color" content="#f1f1ee">
+<title>Print plates study</title>
+<meta name="description" content="A poster pulled apart into its four print plates. Scroll to separate cyan, magenta, yellow and black, tilt the stack, switch plates off and knock the registration out. Plain HTML, CSS and SVG.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="study.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body.study-magenta { --accent: #a3245f; --accent-ink: #8a1d50; --accent-soft: #fbe9f1; --accent-code: #f3a6c8; }
-.scrolly { display: grid; gap: 0; padding-bottom: 40px; }
-@media (min-width: 900px) { .scrolly { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 48px; padding-bottom: 64px; } }
-.stage-col { position: sticky; top: 0; z-index: 2; padding: 8px 0 12px; background: var(--paper); }
-@media (min-width: 900px) { .stage-col { top: 24px; align-self: start; padding: 0; background: none; } }
-.stage { position: relative; height: 280px; border-radius: var(--radius); overflow: hidden; perspective: 950px; background: #1c1117; box-shadow: var(--shadow); }
-@media (min-width: 480px) { .stage { height: 340px; } }
-@media (min-width: 900px) { .stage { height: 520px; } }
-.grid-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px); background-size: 28px 28px; }
-.scaler { position: absolute; inset: 0; transform-style: preserve-3d; transform: scale(.66); }
-@media (min-width: 480px) { .scaler { transform: scale(.8); } }
-@media (min-width: 900px) { .scaler { transform: none; } }
-.assembly { position: absolute; top: 46%; left: 50%; width: 280px; height: 210px; transform-style: preserve-3d; transform: translate(-50%, -50%) rotateX(58deg) rotateZ(-34deg); transition: transform .18s ease-out; }
-.tile { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: 6px; border: 1px solid rgba(255,255,255,.28); box-shadow: 0 14px 24px rgba(0,0,0,.28); transform: translateZ(var(--z, 0px)); transition: transform .18s ease-out; }
-.tile:nth-child(1) { --z: -62px; background: #3d1529; }
-.tile:nth-child(2) { background: #a3245f; }
-.tile:nth-child(3) { --z: 62px; background: #fbe9f1; border-color: rgba(255,255,255,.6); }
-.tile svg { width: 170px; height: 125px; }
-.stage-tag { position: absolute; left: 16px; bottom: 14px; padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.6); color: var(--deep-ink); font: 600 13px/1.5 var(--mono); }
-.paused .tile, .paused .assembly { transition: none !important; }
+/* A print room: cool paper, press black, and the four process inks used only where they belong. */
+:root {
+  color-scheme: light;
+  --paper: #f1f1ee; --sheet: #ffffff; --ink: #141414; --ink-2: #34343a; --muted: #5d5e63; --line: #d6d6d1;
+  --c: #00a0dc; --m: #e4007f; --y: #ffe600; --k: #1d1b1c;
+  --c-ink: #006f99; --m-ink: #b0005f; --y-ink: #7a6a00;
+  --press: #222125;
+  --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink);
+  --sans: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; color: var(--ink); background: var(--paper); font: 400 17px/1.55 var(--sans); font-stretch: 100%; }
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 4px; }
+[hidden] { display: none !important; }
+h1, h2, p { margin: 0; }
+.skip-link { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; background: var(--ink); color: #fff; }
+.skip-link:focus { top: 12px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.top { border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 60px; }
+.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; text-decoration: none; }
+.back svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; }
+.marks { display: inline-flex; gap: 5px; }
+.marks i { width: 14px; height: 14px; border-radius: 50%; }
+.marks i:nth-child(1) { background: var(--c); } .marks i:nth-child(2) { background: var(--m); } .marks i:nth-child(3) { background: var(--y); } .marks i:nth-child(4) { background: var(--k); }
 
-.step { padding: 28px 0; border-top: 1px solid var(--line); }
-@media (min-width: 900px) { .step { min-height: 440px; padding: 40px 0; display: flex; flex-direction: column; justify-content: center; } .step:first-child { border-top: 0; } }
-.step-no { display: inline-grid; place-items: center; width: 32px; height: 32px; margin-bottom: 12px; border-radius: 50%; background: var(--accent); color: #fff; font: 600 14px/1 var(--mono); }
-.step h2 { font-size: clamp(24px, 3vw, 30px); letter-spacing: -.03em; }
-.step p { margin-top: 10px; color: var(--muted); font-size: 17px; max-width: 46ch; }
-.step .reduced-note { color: var(--accent-ink); font-size: 15px; }
-.control-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-.button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
-.slider { margin-top: 20px; max-width: 420px; }
-.slider label { display: block; font-weight: 600; }
-.slider input[type="range"] { display: block; width: 100%; height: 44px; margin: 4px 0 0; accent-color: var(--accent); cursor: pointer; background: transparent; }
-.slider-scale { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; }
-.slider-scale output { color: var(--accent-ink); font: 600 14px/1.4 var(--mono); font-variant-numeric: tabular-nums; }
-.live { min-height: 24px; margin-top: 12px; color: var(--accent-ink); font-size: 15px; font-weight: 500; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 24px 64px; align-items: end; padding-top: 64px; padding-bottom: 40px; }
+.label { font: 500 13px/1.4 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+h1 { margin-top: 12px; font-size: clamp(44px, 7.4vw, 108px); font-weight: 800; font-stretch: 70%; line-height: .9; letter-spacing: -.02em; text-transform: uppercase; }
+h1 .k { display: inline-block; }
+.lede { color: var(--ink-2); font-size: 19px; }
+
+.scrolly { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; padding-bottom: 64px; }
+.stage-col { position: sticky; top: 20px; align-self: start; }
+.stage { position: relative; height: min(640px, calc(100vh - 40px)); min-height: 460px; overflow: hidden; border-radius: 6px; background: radial-gradient(90% 70% at 50% 35%, #34323a 0%, var(--press) 70%); perspective: 1100px; }
+.scaler { position: absolute; inset: 0; transform-style: preserve-3d; }
+.composite, .assembly { position: absolute; top: 50%; left: 50%; width: 252px; height: 356px; }
+.composite { transform: translate(-50%, -50%); background: var(--sheet); box-shadow: 0 30px 50px -20px rgba(0, 0, 0, .6); transition: opacity .2s ease; }
+.composite svg { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: multiply; transition: transform .25s ease, opacity .2s ease; }
+.assembly { transform-style: preserve-3d; transform: translate(-50%, -50%) rotateX(56deg) rotateZ(-32deg); transition: transform .18s ease-out, opacity .2s ease; }
+.plate { position: absolute; inset: 0; border: 1px solid rgba(255, 255, 255, .5); border-radius: 2px; background: rgba(255, 255, 255, .84); box-shadow: 0 18px 28px rgba(0, 0, 0, .3); transform: translateZ(var(--z, 0px)); transition: transform .2s ease-out, opacity .2s ease; }
+.plate svg { width: 100%; height: 100%; display: block; }
+.plate b { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; font: 600 13px/1 var(--mono); }
+.plate.off, .composite svg.off { opacity: 0; }
+.stage-read { position: absolute; left: 14px; right: 14px; bottom: 12px; display: flex; justify-content: space-between; gap: 10px; color: #d9d9dd; font: 500 13px/1.4 var(--mono); pointer-events: none; }
+.paused .plate, .paused .assembly { transition: none !important; }
+
+.steps { counter-reset: step; }
+.step { min-height: 78vh; padding: 48px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
+.step:first-child { border-top: 0; padding-top: 8px; min-height: 60vh; }
+.step:last-child { min-height: 0; }
+.step-no { font: 600 13px/1 var(--mono); color: var(--muted); }
+.step h2 { margin-top: 10px; font-size: clamp(28px, 3.2vw, 40px); font-weight: 800; font-stretch: 75%; line-height: 1; text-transform: uppercase; letter-spacing: -.01em; }
+.step p { margin-top: 12px; max-width: 44ch; color: var(--ink-2); }
+.note { color: var(--m-ink); font-size: 15px; }
+.slider { margin-top: 22px; max-width: 440px; }
+.slider label { display: flex; justify-content: space-between; gap: 10px; font-weight: 600; }
+.slider output { font: 500 15px/1.5 var(--mono); }
+.slider input { display: block; width: 100%; height: 44px; margin: 4px 0 0; accent-color: var(--ink); cursor: pointer; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 2px solid var(--ink); border-radius: 4px; background: var(--ink); color: #fff; font-weight: 700; font-stretch: 90%; letter-spacing: .02em; text-transform: uppercase; font-size: 15px; transition: transform .1s ease, background-color .15s ease; }
+.btn:hover { background: var(--ink-2); }
+.btn:active { transform: translateY(1px); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { background: rgba(20, 20, 20, .06); }
+.btn[aria-pressed="true"] { background: var(--sheet); color: var(--ink); }
+.plates { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.plate-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px 0 10px; border: 2px solid var(--ink); border-radius: 4px; background: var(--sheet); font-weight: 700; transition: background-color .15s ease, color .15s ease; }
+.plate-btn i { width: 24px; height: 24px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2); }
+.plate-btn[data-p="c"] i { background: var(--c); } .plate-btn[data-p="m"] i { background: var(--m); } .plate-btn[data-p="y"] i { background: var(--y); } .plate-btn[data-p="k"] i { background: var(--k); }
+.plate-btn[aria-pressed="false"] { border-style: dashed; color: var(--muted); background: transparent; }
+.plate-btn[aria-pressed="false"] i { background: transparent !important; box-shadow: inset 0 0 0 2px var(--line); }
+.plate-btn:hover { background: #fff; }
+.live { min-height: 26px; margin-top: 14px; font-weight: 600; color: var(--ink-2); }
+.live.warn { color: var(--m-ink); }
+
+.built { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 56px; padding-top: 72px; padding-bottom: 72px; border-top: 2px solid var(--ink); }
+.built h2 { font-size: clamp(30px, 3.6vw, 48px); font-weight: 800; font-stretch: 72%; text-transform: uppercase; line-height: .95; }
+.built p { margin-top: 14px; color: var(--ink-2); }
+code { font: 500 .9em var(--mono); }
+pre { margin: 0; padding: 20px; overflow-x: auto; border-radius: 6px; background: var(--press); color: #e7e7ea; font: 400 14px/1.6 var(--mono); font-variant-ligatures: none; }
+.foot { border-top: 1px solid var(--line); }
+.foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding-top: 24px; padding-bottom: 36px; color: var(--muted); font-size: 15px; }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 40px; }
+  .scrolly { grid-template-columns: 1fr; gap: 0; }
+  .stage-col { top: 0; z-index: 5; padding: 8px 0 10px; margin: 0 -24px; padding-left: 24px; padding-right: 24px; background: var(--paper); }
+  .stage { height: 42vh; min-height: 270px; max-height: 380px; }
+  .scaler { transform: scale(.68); }
+  .step, .step:first-child { min-height: 0; padding: 36px 0; }
+  .built { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .wrap { padding-left: 16px; padding-right: 16px; }
+  .stage-col { margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+  .scaler { transform: scale(.6); }
+  .lede { font-size: 17px; }
+}
+@media (min-width: 1800px) { body { zoom: 1.2; } }
+@media (min-width: 2300px) { body { zoom: 1.4; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
 </head>
-<body class="study-magenta">
+<body>
 <a class="skip-link" href="#main">Skip to the study</a>
-<header class="site-bar">
+<header class="top">
   <div class="wrap">
-    <a class="back-link" href="index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
-    <span class="site-owner">Alexandr Khrustalev</span>
+    <a class="back" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
+    <span class="marks" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
   </div>
 </header>
 
 <main id="main">
   <section class="hero wrap" aria-labelledby="title">
-    <p class="kicker">CSS and SVG interaction study</p>
-    <h1 id="title">One process graphic, three ways to explore it.</h1>
-    <p class="lede">A flat input, process and result diagram that opens up into layers. Scroll down and the layers pull apart. Move the pointer over it and it tilts. The buttons and slider do the same job for anyone who'd rather click or use a keyboard.</p>
+    <div>
+      <p class="label">CSS and SVG interaction study</p>
+      <h1 id="title">Four plates, one poster.</h1>
+    </div>
+    <p class="lede">A printed poster is four thin layers of ink: cyan, magenta, yellow and black. Scroll to pull the plates apart, tilt the stack with the pointer, switch plates off, and knock the registration out to see the colour fringes a press operator hunts for.</p>
   </section>
 
-  <section class="wrap scrolly" aria-label="Layered graphic">
+  <section class="wrap scrolly" aria-label="Poster plates">
     <div class="stage-col">
-      <div class="stage" id="stage" role="img" aria-label="Three stacked tiles showing input, process and result. Their separation follows the slider value.">
-        <div class="grid-lines"></div>
+      <div class="stage" id="stage" role="img" aria-label="A swim club poster drawn as four print plates. Their separation, visible plates and registration follow the controls beside it.">
         <div class="scaler">
-          <div class="assembly" id="assembly">
-            <div class="tile"><svg viewBox="0 0 170 125" aria-hidden="true"><g fill="none" stroke="#f3a6c8" stroke-width="3"><rect x="19" y="18" width="132" height="90" rx="12"/><path d="M42 45h52M42 64h85M42 83h64"/></g></svg></div>
-            <div class="tile"><svg viewBox="0 0 170 125" aria-hidden="true"><g fill="none" stroke="#fbe9f1" stroke-width="3"><path d="M38 38h45v50H38zM100 38h33v50h-33zM83 62h17"/><path d="m91 55 9 7-9 7"/></g></svg></div>
-            <div class="tile"><svg viewBox="0 0 170 125" aria-hidden="true"><g fill="none" stroke="#7a1a47" stroke-width="4"><circle cx="85" cy="63" r="37"/><path d="m65 63 14 14 29-30"/></g></svg></div>
-          </div>
+          <div class="composite" id="composite"></div>
+          <div class="assembly" id="assembly"></div>
         </div>
-        <span class="stage-tag" aria-hidden="true" id="stage-tag">0%</span>
+        <div class="stage-read" aria-hidden="true"><span id="read-depth">Combined</span><span id="read-reg">In register</span></div>
       </div>
     </div>
 
     <div class="steps">
       <div id="scroll-track">
         <article class="step">
-          <span class="step-no" aria-hidden="true">1</span>
-          <h2>Scroll</h2>
-          <p>Keep scrolling. Your position in this section sets how far apart the layers sit, from flat to fully separated.</p>
-          <p class="reduced-note" id="reduced-note" hidden>Your device asks for reduced motion, so scrolling leaves the layers alone. The slider below still works.</p>
+          <span class="step-no">01 / Separate</span>
+          <h2>Pull the plates apart</h2>
+          <p>Keep scrolling. Your position here sets how far apart the four plates float, from one printed sheet to a stack of films.</p>
+          <p class="note" id="reduced-note" hidden>Your device asks for reduced motion, so scrolling leaves the plates still. The slider below does the same job.</p>
+          <div class="slider">
+            <label for="depth">Separation <output id="depth-out" for="depth">0%</output></label>
+            <input id="depth" type="range" min="0" max="100" step="1" value="0">
+          </div>
+          <div class="row">
+            <button class="btn" id="separate" type="button">Separate</button>
+            <button class="btn ghost" id="motion" type="button" aria-pressed="false">Pause motion</button>
+          </div>
         </article>
         <article class="step">
-          <span class="step-no" aria-hidden="true">2</span>
-          <h2>Point</h2>
-          <p>Move the pointer across the graphic. The viewing angle follows it within a small range and settles back when the pointer leaves.</p>
+          <span class="step-no">02 / Tilt</span>
+          <h2>Look along the stack</h2>
+          <p>Move the pointer across the poster. The angle follows within a small range and settles back when you leave. Each film carries only its own ink, so the red sun is magenta on one plate and yellow on another.</p>
         </article>
       </div>
-      <article class="step" aria-labelledby="controls-title">
-        <span class="step-no" aria-hidden="true">3</span>
-        <h2 id="controls-title">Click or use the keyboard</h2>
-        <p>Every effect has a control. Motion can be paused, and the page respects a reduced-motion setting.</p>
-        <div class="control-row">
-          <button class="button button-primary" id="separate" type="button">Separate layers</button>
-          <button class="button button-secondary" id="reset" type="button">Reset view</button>
-          <button class="button button-secondary" id="motion" type="button" aria-pressed="false">Pause motion</button>
+      <article class="step">
+        <span class="step-no">03 / Plates</span>
+        <h2>Switch inks off</h2>
+        <p>Take a plate away and see what it was doing. Without yellow the sun turns pink, without cyan the sea goes purple and the sky disappears.</p>
+        <div class="plates" role="group" aria-label="Plates">
+          <button type="button" class="plate-btn" data-p="c" aria-pressed="true"><i></i>Cyan</button>
+          <button type="button" class="plate-btn" data-p="m" aria-pressed="true"><i></i>Magenta</button>
+          <button type="button" class="plate-btn" data-p="y" aria-pressed="true"><i></i>Yellow</button>
+          <button type="button" class="plate-btn" data-p="k" aria-pressed="true"><i></i>Black</button>
         </div>
+      </article>
+      <article class="step" id="reg-step" aria-labelledby="reg-title">
+        <span class="step-no">04 / Registration</span>
+        <h2 id="reg-title">Knock it out of register</h2>
+        <p>On press, each plate has to land on the same spot. The plates settle back into one sheet here. Drag the slider and the cyan and magenta plates drift, which shows up first as coloured edges on the sun and at the crosshair marks in the corners.</p>
         <div class="slider">
-          <label for="depth">Layer separation</label>
-          <input id="depth" type="range" min="0" max="100" step="1" value="0" aria-describedby="depth-scale">
-          <div class="slider-scale" id="depth-scale"><span>Flat</span><output id="readout" for="depth">0%</output><span>Separated</span></div>
+          <label for="reg">Plates off by <output id="reg-out" for="reg">0.0 mm</output></label>
+          <input id="reg" type="range" min="0" max="12" step="1" value="0" aria-describedby="reg-help">
         </div>
+        <p class="note" id="reg-help" style="color:var(--muted)">Measured as if the poster were printed on an A3 sheet.</p>
+        <div class="row"><button class="btn ghost" id="reset" type="button">Reset everything</button></div>
         <p class="live" id="status" role="status" aria-live="polite"></p>
       </article>
     </div>
   </section>
 
-  <section class="section wrap" aria-labelledby="built-title">
-    <div class="split">
-      <div class="section-head">
-        <p class="eyebrow">How it's built</p>
-        <h2 id="built-title">Three SVG drawings and one CSS variable.</h2>
-        <p>Each layer is an ordinary SVG inside a tile. Depth is a CSS custom property fed into <code>translateZ</code>, and the stage's perspective does the rest. No canvas and no libraries, so the drawings stay editable as plain markup.</p>
-        <p>Scroll updates are batched to one per animation frame. Touching the slider or a button hands control to you until you scroll again.</p>
-      </div>
-      <figure class="code">
-        <figcaption><span>interaction-proof.html</span><span>setDepth</span></figcaption>
-<pre tabindex="0" aria-label="Excerpt: setDepth function">function setDepth(raw, announce) {
-  const n = Math.round(Math.max(0, Math.min(100, Number(raw) || 0)));
-  depth.value = String(n);
-  readout.value = n + '%';
-  tag.textContent = n + '%';
-  tiles.forEach((tile, i) =&gt;
-    tile.style.setProperty('--z', (i - 1) * (62 + n * .9) + 'px'));
-  separate.textContent = n &gt;= 50 ? 'Combine layers' : 'Separate layers';
-  if (announce) status.textContent = n === 0
-    ? 'Layers are flat.' : 'Layers separated ' + n + '%.';
-}</pre>
-      </figure>
+  <section class="built wrap" aria-labelledby="built-title">
+    <div>
+      <h2 id="built-title">Four SVG files and one variable</h2>
+      <p>Each plate is a small SVG drawn in a single ink. Flat, they sit on a white sheet with <code>mix-blend-mode: multiply</code>, which is how inks mix on paper. Separated, the same drawings move onto films in a 3D stack, spaced by a CSS custom property fed into <code>translateZ</code>.</p>
+      <p>Scroll updates run once per animation frame. Touching a slider or button hands control to you until you scroll again. No canvas, no libraries.</p>
     </div>
+    <pre tabindex="0" aria-label="Excerpt: setDepth function">function setDepth(raw) {
+  const n = clamp(Math.round(raw), 0, 100);
+  plates.forEach((p, i) =&gt;
+    p.style.setProperty('--z', (i - 1.5) * (4 + n * 1.1) + 'px'));
+  composite.style.opacity = Math.max(0, 1 - n / 12);
+  assembly.style.opacity = Math.min(1, n / 8);
+}</pre>
   </section>
 </main>
 
-<footer class="site-foot">
+<footer class="foot">
   <div class="wrap">
-    <p>An independent study by Alexandr Khrustalev. It's a CSS and SVG depth effect, not a Rive file or a 3D render.</p>
+    <p>An independent study by Alexandr Khrustalev. The swim club on the poster is fictional.</p>
     <a href="index.html">Back to selected work</a>
   </div>
 </footer>
 
 <script>
 'use strict';
-const stage = document.querySelector('#stage');
-const assembly = document.querySelector('#assembly');
-const tiles = [...document.querySelectorAll('.tile')];
-const depth = document.querySelector('#depth');
-const readout = document.querySelector('#readout');
-const tag = document.querySelector('#stage-tag');
-const status = document.querySelector('#status');
-const separate = document.querySelector('#separate');
-const pause = document.querySelector('#motion');
-const track = document.querySelector('#scroll-track');
-const reducedNote = document.querySelector('#reduced-note');
+const INK = { c: '#00a0dc', m: '#e4007f', y: '#ffe600', k: '#1d1b1c' };
+const ORDER = ['y', 'm', 'c', 'k'];
+const reg = ink => [[16, 16], [236, 16], [16, 340], [236, 340]].map(([x, y]) => `<g stroke="${ink}" stroke-width="1" fill="none"><circle cx="${x}" cy="${y}" r="6"/><path d="M${x - 10} ${y}h20M${x} ${y - 10}v20"/></g>`).join('');
+const SEA = 'M0 238 C 40 226, 70 250, 110 238 S 180 226, 220 240 S 252 236, 252 236 V 318 H 0 Z';
+const ART = {
+  c: `<rect x="0" y="0" width="252" height="244" fill="${INK.c}" opacity=".28"/><path d="${SEA}" fill="${INK.c}"/><g stroke="${INK.c}" stroke-width="3" fill="none" opacity=".9"><path d="M20 274c20-8 34 8 54 0s34 8 54 0"/><path d="M110 296c20-8 34 8 54 0s34 8 54 0"/></g>`,
+  m: `<circle cx="168" cy="160" r="58" fill="${INK.m}"/><path d="${SEA}" fill="${INK.m}" opacity=".45"/>`,
+  y: `<circle cx="168" cy="160" r="58" fill="${INK.y}"/><rect x="0" y="318" width="252" height="38" fill="${INK.y}"/><rect x="0" y="0" width="252" height="244" fill="${INK.y}" opacity=".12"/>`,
+  k: `<text x="20" y="82" fill="${INK.k}" font-family="Archivo, Arial Narrow, sans-serif" font-weight="800" font-size="62" font-stretch="62%" letter-spacing="-1">LOW</text><text x="20" y="138" fill="${INK.k}" font-family="Archivo, Arial Narrow, sans-serif" font-weight="800" font-size="62" font-stretch="62%" letter-spacing="-1">TIDE</text><text x="20" y="160" fill="${INK.k}" font-family="JetBrains Mono, monospace" font-size="9.5">OPEN WATER SWIM</text><text x="36" y="341" fill="${INK.k}" font-family="JetBrains Mono, monospace" font-size="9.5">HARBOUR STEPS, SAT 06:30</text><path d="M120 252c6-6 12-6 18 0" stroke="${INK.k}" stroke-width="3" fill="none"/><circle cx="114" cy="250" r="4" fill="${INK.k}"/>`
+};
+const svg = p => `<svg viewBox="0 0 252 356" aria-hidden="true">${ART[p]}${reg(INK[p])}</svg>`;
+const $ = s => document.querySelector(s);
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+const composite = $('#composite'), assembly = $('#assembly'), stage = $('#stage');
+composite.innerHTML = ORDER.map(svg).join('');
+assembly.innerHTML = ORDER.map(p => `<div class="plate" data-p="${p}">${svg(p)}<b>${p.toUpperCase()}</b></div>`).join('');
+const plates = [...assembly.querySelectorAll('.plate')];
+const flat = [...composite.querySelectorAll('svg')];
+const depth = $('#depth'), regIn = $('#reg'), status = $('#status');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-const BASE = 'translate(-50%, -50%) rotateX(58deg) rotateZ(-34deg)';
-let paused = false, frame = 0, manual = false;
+const BASE = 'translate(-50%, -50%) rotateX(56deg) rotateZ(-32deg)';
+const NAMES = { c: 'Cyan', m: 'Magenta', y: 'Yellow', k: 'Black' };
+let paused = false, manual = false, frame = 0;
+const on = { c: true, m: true, y: true, k: true };
 
 function setDepth(raw, announce) {
-  const n = Math.round(Math.max(0, Math.min(100, Number(raw) || 0)));
+  const n = clamp(Math.round(Number(raw) || 0), 0, 100);
   depth.value = String(n);
-  readout.value = n + '%';
-  tag.textContent = n + '%';
-  tiles.forEach((tile, i) =>
-    tile.style.setProperty('--z', (i - 1) * (62 + n * .9) + 'px'));
-  separate.textContent = n >= 50 ? 'Combine layers' : 'Separate layers';
-  if (announce) status.textContent = n === 0
-    ? 'Layers are flat.' : 'Layers separated ' + n + '%.';
+  $('#depth-out').value = n + '%';
+  plates.forEach((p, i) => p.style.setProperty('--z', (i - 1.5) * (4 + n * 1.1) + 'px'));
+  composite.style.opacity = String(Math.max(0, 1 - n / 12));
+  assembly.style.opacity = String(Math.min(1, n / 8));
+  $('#read-depth').textContent = n === 0 ? 'Combined' : `Separated ${n}%`;
+  $('#separate').textContent = n >= 50 ? 'Combine' : 'Separate';
+  if (announce) say(n === 0 ? 'Plates combined into one sheet.' : `Plates separated ${n}%.`);
 }
-
+function setReg(raw, announce) {
+  const n = Number(raw) || 0;
+  regIn.value = String(n);
+  const mm = (n * 420 / 252 / 2).toFixed(1);
+  $('#reg-out').value = mm + ' mm';
+  $('#read-reg').textContent = n ? `Off by ${mm} mm` : 'In register';
+  const shift = { c: [n / 2, -n / 4], m: [-n / 3, n / 2], y: [0, 0], k: [0, 0] };
+  flat.forEach((s, i) => { const [x, y] = shift[ORDER[i]]; s.style.transform = `translate(${x}px, ${y}px)`; });
+  plates.forEach((p, i) => { const [x, y] = shift[ORDER[i]]; p.querySelector('svg').style.transform = `translate(${x}px, ${y}px)`; });
+  if (announce) say(n ? `Cyan and magenta are ${mm} mm out of register. Look for coloured edges on the sun and the corner marks.` : 'Back in register.', n >= 6);
+}
+function setPlate(p, val) {
+  on[p] = val;
+  document.querySelector(`.plate-btn[data-p="${p}"]`).setAttribute('aria-pressed', String(val));
+  flat[ORDER.indexOf(p)].classList.toggle('off', !val);
+  plates[ORDER.indexOf(p)].classList.toggle('off', !val);
+  const left = Object.keys(on).filter(k => on[k]);
+  say(left.length ? `${NAMES[p]} ${val ? 'back on' : 'off'}. Printing with ${left.map(k => NAMES[k].toLowerCase()).join(', ')}.` : 'All plates off. That is a blank sheet.');
+}
+function say(t, warn) { status.textContent = t; status.classList.toggle('warn', !!warn); }
 function resetAngle() { assembly.style.transform = BASE; }
-function scrollDriven() { return !paused && !reduced.matches && !manual; }
-
+const scrollDriven = () => !paused && !reduced.matches && !manual;
 function fromScroll() {
-  const rect = track.getBoundingClientRect();
-  const progress = (innerHeight * .55 - rect.top) / Math.max(1, rect.height - innerHeight * .2);
-  setDepth(progress * 100, false);
+  const r = $('#scroll-track').getBoundingClientRect();
+  const up = clamp((innerHeight * .3 - r.top) / Math.max(1, r.height - innerHeight * .2), 0, 1);
+  const back = clamp((innerHeight * .6 - $('#reg-step').getBoundingClientRect().top) / (innerHeight * .35), 0, 1);
+  setDepth(up * (1 - back) * 100, false);
 }
 
 depth.addEventListener('input', () => { manual = true; setDepth(depth.value, false); });
 depth.addEventListener('change', () => setDepth(depth.value, true));
-separate.addEventListener('click', () => { manual = true; setDepth(Number(depth.value) >= 50 ? 0 : 100, true); });
-document.querySelector('#reset').addEventListener('click', () => {
-  manual = true;
-  setDepth(0, true);
-  resetAngle();
+regIn.addEventListener('input', () => { if (Number(depth.value) > 0) { manual = true; setDepth(0, false); } setReg(regIn.value, false); });
+regIn.addEventListener('change', () => setReg(regIn.value, true));
+$('#separate').addEventListener('click', () => { manual = true; setDepth(Number(depth.value) >= 50 ? 0 : 100, true); });
+document.querySelectorAll('.plate-btn').forEach(b => b.addEventListener('click', () => setPlate(b.dataset.p, b.getAttribute('aria-pressed') !== 'true')));
+$('#reset').addEventListener('click', () => {
+  manual = true; ORDER.forEach(p => { on[p] = true; document.querySelector(`.plate-btn[data-p="${p}"]`).setAttribute('aria-pressed', 'true'); }); flat.concat(plates).forEach(e => e.classList.remove('off'));
+  setDepth(0, false); setReg(0, false); resetAngle(); say('Reset. One sheet, all four plates, in register.');
 });
-pause.addEventListener('click', () => {
+$('#motion').addEventListener('click', e => {
   paused = !paused;
   document.body.classList.toggle('paused', paused);
-  pause.setAttribute('aria-pressed', String(paused));
-  status.textContent = paused ? 'Motion paused. Scroll and pointer tilt are off.' : 'Motion on.';
+  e.currentTarget.setAttribute('aria-pressed', String(paused));
+  e.currentTarget.textContent = paused ? 'Resume motion' : 'Pause motion';
+  say(paused ? 'Motion paused. Scroll and tilt are off, the sliders still work.' : 'Motion on.');
   resetAngle();
-  if (!paused && scrollDriven()) fromScroll();
+  if (scrollDriven()) fromScroll();
 });
-
-stage.addEventListener('pointermove', (e) => {
+stage.addEventListener('pointermove', e => {
   if (paused || reduced.matches) return;
   const r = stage.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-  assembly.style.transform = `translate(-50%, -50%) rotateX(${58 - y * 14}deg) rotateZ(${-34 + x * 16}deg)`;
+  assembly.style.transform = `translate(-50%, -50%) rotateX(${56 - y * 16}deg) rotateZ(${-32 + x * 20}deg)`;
 });
 stage.addEventListener('pointerleave', resetAngle);
-
 const release = () => { manual = false; };
 addEventListener('wheel', release, { passive: true });
-addEventListener('touchmove', release, { passive: true });
-addEventListener('keydown', (e) => {
-  if (['PageDown', 'PageUp', 'Home', 'End', ' ', 'ArrowDown', 'ArrowUp'].includes(e.key) && !['INPUT', 'BUTTON'].includes(e.target.tagName)) manual = false;
-});
+addEventListener('touchmove', e => { if (!(e.target.closest && e.target.closest('input'))) release(); }, { passive: true });
+addEventListener('keydown', e => { if (['PageDown', 'PageUp', 'Home', 'End', ' ', 'ArrowDown', 'ArrowUp'].includes(e.key) && !['INPUT', 'BUTTON'].includes(e.target.tagName)) manual = false; });
 addEventListener('scroll', () => {
   if (frame || !scrollDriven()) return;
   frame = requestAnimationFrame(() => { frame = 0; if (scrollDriven()) fromScroll(); });
 }, { passive: true });
-
-function syncReduced() { reducedNote.hidden = !reduced.matches; }
+const syncReduced = () => { $('#reduced-note').hidden = !reduced.matches; };
 reduced.addEventListener('change', syncReduced);
 syncReduced();
-setDepth(0, false);
+resetAngle(); setDepth(0, false); setReg(0, false);
 if (scrollDriven()) fromScroll();
 </script>
 </body>

@@ -3,70 +3,142 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#fafafa">
-  <title>Responsive layout example</title>
-  <meta name="description" content="A small responsive page with a phone menu, an expandable answer and a form that checks its input in the browser. HTML, CSS and jQuery.">
+  <meta name="theme-color" content="#eceeec">
+  <title>Hemline alterations counter</title>
+  <meta name="description" content="A responsive page for a fictional alterations counter. Prices by garment, and a ticket you build item by item with a live total and a ready date. HTML, CSS and jQuery.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="jquery-4.0.0.min.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#overview">Skip to the content</a>
+  <a class="skip-link" href="#ticket">Skip to the ticket builder</a>
   <header class="site-header">
     <div class="bar">
-      <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="13" height="16" rx="2"/><rect x="15" y="9" width="6" height="11" rx="1.5"/></svg></span>Layout and interaction</a>
-      <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="menu-icon" aria-hidden="true"></span>Menu</button>
-      <nav id="site-nav" aria-label="Page sections"><a href="#overview">Overview</a><a href="#details">Details</a><a href="#project">Try the form</a></nav>
+      <a class="brand" href="#top" aria-label="Hemline, back to the top"><span class="brand-mark" aria-hidden="true"></span>Hemline</a>
+      <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Menu</span></button>
+      <nav id="site-nav" aria-label="Page sections">
+        <a href="#prices">Prices</a>
+        <a href="#how">How it works</a>
+        <a href="#ticket" class="nav-cta">Build a ticket <span class="nav-count" id="nav-count" hidden></span></a>
+      </nav>
     </div>
   </header>
-  <main>
-    <section id="overview" class="hero" tabindex="-1">
-      <div>
-        <p class="eyebrow">Responsive code example</p>
-        <h1>One layout.<br>Every screen.</h1>
-        <p class="intro">A responsive HTML and CSS page with a phone menu, an expandable answer and a form that checks its input in the browser. The interactions use jQuery.</p>
-        <a class="button" href="#project">Try the form<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="label">Alterations and repairs, a two-person counter</p>
+        <h1 id="hero-title">Trousers taken up <span id="hero-day">in three working days</span>.</h1>
+        <p class="intro">Pick the jobs, see the price and the day it is ready before anything is cut. Bring it to the counter or leave it in the drop box.</p>
       </div>
-      <figure class="preview" aria-hidden="true">
-        <div class="preview-top"><span></span><span></span><span></span></div>
-        <div class="preview-body">
-          <div class="preview-line"></div><div class="preview-line short"></div>
-          <div class="preview-grid"><div>01</div><div>02</div><div>03</div></div>
-          <div class="preview-phone"><div></div><div></div><div></div></div>
+      <dl class="hours" aria-label="Opening hours">
+        <div><dt>Mon to Fri</dt><dd>08:30 to 18:00</dd></div>
+        <div><dt>Saturday</dt><dd>09:00 to 14:00</dd></div>
+        <div><dt>Sunday</dt><dd>Closed</dd></div>
+        <div><dt>Express</dt><dd>Next working day, plus half</dd></div>
+      </dl>
+      <div class="tape" aria-hidden="true"><div class="tape-strip" id="tape-strip"></div></div>
+    </section>
+
+    <section id="prices" class="prices" aria-labelledby="prices-title" tabindex="-1">
+      <div class="section-head">
+        <h2 id="prices-title">Prices</h2>
+        <p>Per garment, labour and thread included. Tap a price to put it on your ticket.</p>
+      </div>
+      <div class="price-groups" id="price-groups"></div>
+    </section>
+
+    <section id="how" class="how" aria-labelledby="how-title" tabindex="-1">
+      <h2 id="how-title">How a ticket works</h2>
+      <ol class="steps">
+        <li><span class="step-n">1</span><b>Build it here</b> Add each garment and job. The total and the ready day update as you go.</li>
+        <li><span class="step-n">2</span><b>Drop it off</b> Show the ticket number at the counter, or write it on the bag for the drop box.</li>
+        <li><span class="step-n">3</span><b>Try it on</b> Fittings are free. If the length is wrong, it goes back on the bench at no cost.</li>
+      </ol>
+    </section>
+
+    <section id="ticket" class="builder" aria-labelledby="ticket-title" tabindex="-1">
+      <div class="builder-main">
+        <h2 id="ticket-title">Build a ticket</h2>
+        <form id="add-form" class="add-form" novalidate>
+          <fieldset class="garments">
+            <legend>Garment</legend>
+            <div class="garment-list" id="garment-list"></div>
+          </fieldset>
+          <fieldset class="jobs">
+            <legend>Job</legend>
+            <div class="job-list" id="job-list"></div>
+          </fieldset>
+          <div class="measure" id="measure" hidden>
+            <label for="shorten">Shorten by <output id="shorten-out" for="shorten">3 cm</output></label>
+            <input type="range" id="shorten" min="1" max="15" step="0.5" value="3" aria-describedby="shorten-help">
+            <p id="shorten-help" class="help">Measured from the current hem. Drag the tape or use the arrow keys.</p>
+          </div>
+          <p class="field-error" id="add-error" role="alert" hidden>Pick a job for this garment first.</p>
+          <button class="button" type="submit" id="add-btn">Add to ticket</button>
+        </form>
+
+        <form id="book-form" class="book-form" novalidate>
+          <h3>Your details</h3>
+          <div class="error-summary" id="error-summary" role="alert" tabindex="-1" hidden>
+            <p>Check these before booking:</p>
+            <ul id="error-list"></ul>
+          </div>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" maxlength="60" aria-describedby="name-error">
+            <p class="field-error" id="name-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="phone">Phone, for the ready message</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="phone-help phone-error">
+            <p class="help" id="phone-help">At least 7 digits. Spaces and a leading plus are fine.</p>
+            <p class="field-error" id="phone-error" hidden></p>
+          </div>
+          <fieldset class="handover">
+            <legend>Hand over</legend>
+            <label class="option"><input type="radio" name="handover" value="counter" checked><span>At the counter</span></label>
+            <label class="option"><input type="radio" name="handover" value="box"><span>Drop box, any time</span></label>
+          </fieldset>
+          <label class="option express"><input type="checkbox" id="express"><span>Express, ready the next working day <em>plus half the price</em></span></label>
+          <p class="help" id="express-note" hidden>Lining jobs take a full week and cannot go express.</p>
+          <button class="button button-book" type="submit" id="book-btn"><span class="spinner" aria-hidden="true"></span><span class="book-label">Book this ticket</span></button>
+        </form>
+      </div>
+
+      <aside class="tag-wrap" aria-labelledby="tag-title">
+        <div class="tag" id="tag">
+          <span class="tag-hole" aria-hidden="true"></span>
+          <div class="tag-head">
+            <h3 id="tag-title">Ticket</h3>
+            <span class="tag-no" id="tag-no">Not booked yet</span>
+          </div>
+          <p class="tag-empty" id="tag-empty">Empty for now. Pick a garment and a job, or tap any price above.</p>
+          <ul class="tag-lines" id="tag-lines" aria-live="polite"></ul>
+          <div class="tag-foot" id="tag-foot" hidden>
+            <div class="tag-row"><span>Labour</span><span id="tag-sub"></span></div>
+            <div class="tag-row" id="tag-express-row" hidden><span>Express</span><span id="tag-express"></span></div>
+            <div class="tag-row tag-total"><span>Total</span><strong id="tag-total"></strong></div>
+            <p class="tag-ready">Ready <b id="tag-ready"></b></p>
+          </div>
+          <div class="tag-done" id="tag-done" hidden>
+            <p class="stamp" aria-hidden="true">Booked</p>
+            <p id="tag-done-text"></p>
+            <button type="button" class="button button-quiet" id="new-ticket">Start another ticket</button>
+          </div>
         </div>
-        <figcaption>Flexible grids. Clear controls.</figcaption>
-      </figure>
-    </section>
-    <section id="details" class="detail-section" tabindex="-1">
-      <div>
-        <p class="eyebrow">What it shows</p>
-        <h2>Layout and behavior, working together.</h2>
-        <p>An original example, not commissioned client work. Nothing you type leaves this page.</p>
-      </div>
-      <div class="detail-card">
-        <button id="detail-toggle" type="button" aria-expanded="false" aria-controls="detail-answer"><span>What changes on a narrow screen?</span><span class="detail-symbol" aria-hidden="true"></span></button>
-        <div id="detail-answer" hidden><p>The two columns stack, the navigation folds into a menu and every control stays large enough to tap, with no sideways scrolling.</p></div>
-      </div>
-    </section>
-    <section id="project" class="form-section" tabindex="-1">
-      <div>
-        <p class="eyebrow">Local interaction</p>
-        <h2>Try a project title.</h2>
-        <p>The form catches an empty title and shows what you typed as plain text. It doesn't send or store anything.</p>
-      </div>
-      <form id="project-form" novalidate>
-        <label for="project-title">Project title</label>
-        <input id="project-title" name="title" type="text" maxlength="240" autocomplete="off" aria-describedby="form-message" placeholder="Example: Supplier overview page">
-        <button class="button" type="submit">Check title<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></button>
-        <p id="form-message" role="status" aria-live="polite"></p>
-      </form>
+        <p class="fine">Hemline is fictional. Nothing on this page is sent or stored, and the ticket number only lives in this tab.</p>
+      </aside>
     </section>
   </main>
+
+  <div class="mini-total" id="mini-total" hidden><span id="mini-text"></span><a href="#tag-title" class="mini-link">See ticket</a></div>
+
   <footer class="site-footer">
-    <p>Written in HTML, CSS and jQuery by Alexandr Khrustalev. The form doesn't submit anywhere.</p>
+    <p>A responsive example in HTML, CSS and jQuery by Alexandr Khrustalev. Not client work.</p>
     <a href="../index.html">Back to selected work</a>
   </footer>
 </body>

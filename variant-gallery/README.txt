@@ -1,6 +1,6 @@
 Stillwater Bottle product page
 
-Open index.html on a static web server. The page keeps color, capacity, price, stock, photo and the ?variant= link in step with every choice, including Back and Forward. Arrow keys move through colors, capacities and photo thumbnails without losing focus. The bag holds items in memory for the current visit only.
+Open index.html on a static web server. The page keeps color, capacity, price, stock, photo and the ?variant= link in step with every choice, including Back and Forward. Arrow keys move through colors, capacities and photo thumbnails without losing focus. When an option is sold out, one button switches to the nearest option that ships. The bag holds items in memory for the current visit only, with quantity steppers and a meter toward the $50 free shipping line.
 
 The Study panel reproduces two common store bugs on purpose: a photo that stays on the previous option, and a photo address that returns a 404 so the fallback appears. These are demonstrations, not checkout or a live shop.
 

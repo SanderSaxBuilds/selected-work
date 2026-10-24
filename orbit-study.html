@@ -20,7 +20,16 @@
 .keys { margin-top: 16px; color: var(--muted); font-size: 14px; }
 .keys kbd { display: inline-block; min-width: 24px; padding: 1px 6px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 6px; background: var(--surface); color: var(--ink); font-size: 12px; text-align: center; }
 .stage-wrap { min-width: 0; }
-.stage { position: relative; width: 100%; max-width: 560px; margin: 0 auto; aspect-ratio: 1 / 1; border: 1px solid var(--line); border-radius: 2px; background-color: #0e1118; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 100% 25%, 25% 100%; background-position: 0 -1px, -1px 0; overflow: hidden; }
+.stage { position: relative; width: 100%; max-width: 560px; margin: 0 auto; aspect-ratio: 1 / 1; border: 1px solid var(--line); border-radius: 2px; background: radial-gradient(circle at 46% 40%, #1c2232 0%, #10131b 62%, #0b0d12 100%); overflow: hidden; }
+.finish { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding: 0; border: 0; }
+.finish legend { width: 100%; margin-bottom: 8px; color: var(--muted); font-family: var(--label); font-size: 13px; }
+.swatch { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px 0 10px; border: 1px solid var(--line-strong); border-radius: 999px; background: transparent; color: var(--ink); font-family: inherit; font-size: 15px; font-weight: 500; line-height: 1; cursor: pointer; transition: border-color .15s ease, background-color .15s ease; }
+.swatch:hover { background: var(--surface); }
+.swatch:active { transform: translateY(1px); }
+.swatch[aria-pressed="true"] { border-color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--ink); }
+.swatch i { display: inline-flex; }
+.swatch i b { width: 12px; height: 12px; margin-right: -3px; border-radius: 50%; box-shadow: 0 0 0 1.5px #0b0d12; }
+@media (prefers-reduced-motion: reduce) { .swatch { transition: none; } }
 .stage canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; border-radius: inherit; }
 .stage canvas:active { cursor: grabbing; }
 .stage canvas:focus-visible { box-shadow: inset 0 0 0 3px var(--accent); }
@@ -59,7 +68,13 @@
           <label class="toggle"><input id="reduced" type="checkbox">Reduce motion</label>
           <label class="toggle"><input id="static" type="checkbox">Static view</label>
         </div>
-        <p class="keys">With the scene focused, the <kbd>Arrow</kbd> keys turn it, <kbd>Space</kbd> pauses and <kbd>Home</kbd> resets the view.</p>
+        <fieldset class="finish" id="finish">
+          <legend>Finish</legend>
+          <button type="button" class="swatch" data-finish="glacier" aria-pressed="true"><i aria-hidden="true"><b style="background:#8ab4ff"></b><b style="background:#eceef3"></b><b style="background:#9aa3b5"></b></i>Glacier</button>
+          <button type="button" class="swatch" data-finish="brass" aria-pressed="false"><i aria-hidden="true"><b style="background:#dba852"></b><b style="background:#f2dc9c"></b><b style="background:#9a7240"></b></i>Brass</button>
+          <button type="button" class="swatch" data-finish="enamel" aria-pressed="false"><i aria-hidden="true"><b style="background:#d9473a"></b><b style="background:#f1ece0"></b><b style="background:#2c5f9e"></b></i>Enamel</button>
+        </fieldset>
+        <p class="keys">Flick the scene and it keeps spinning, then slows to a stop. With the scene focused, the <kbd>Arrow</kbd> keys turn it, <kbd>Space</kbd> pauses and <kbd>Home</kbd> resets the view.</p>
       </div>
       <div class="stage-wrap">
         <div class="stage" id="stage">
@@ -75,13 +90,13 @@
     <div class="section-head">
       <p class="eyebrow">How it's built</p>
       <h2 id="built-title">One ring, drawn three times.</h2>
-      <p>The page builds a single torus of 9,216 vertices once and draws it three times with a different size, tilt and color. A short shader adds diffuse light, a specular highlight and a soft rim.</p>
+      <p>The page builds a single torus of 9,216 vertices once and draws it three times with a different size, tilt and color. A short shader adds diffuse light, a specular highlight and a soft rim. Changing the finish only swaps three colour uniforms, and a flick is the release speed of the drag, eased out over a second or two.</p>
     </div>
     <div class="split">
       <div class="stack">
         <div class="card"><span class="label">Respects the visitor</span><h3>Motion is optional</h3><p>If the device asks for reduced motion, the scene starts still. Rotation also pauses while the tab is hidden, so it doesn't burn battery in the background.</p></div>
         <div class="card"><span class="label">Works without WebGL</span><h3>A drawing takes over</h3><p>If WebGL is missing or the graphics context is lost, the canvas is hidden from view and from screen readers and a matching SVG drawing replaces it.</p></div>
-        <div class="card"><span class="label">Keyboard and touch</span><h3>No mouse needed</h3><p>The scene is focusable and turns with the arrow keys. On touch screens a horizontal drag turns it and a vertical swipe still scrolls the page.</p></div>
+        <div class="card"><span class="label">Keyboard and touch</span><h3>No mouse needed</h3><p>The scene is focusable and turns with the arrow keys. On touch screens a horizontal drag turns it and a vertical swipe still scrolls the page. With reduced motion on, a flick stops where you let go.</p></div>
       </div>
       <figure class="code">
         <figcaption><span>orbit-study.html</span><span>torus mesh</span></figcaption>
@@ -128,7 +143,7 @@ const preference = matchMedia('(prefers-reduced-motion: reduce)');
 reduced.checked = preference.matches;
 
 const BASE_X = .33, BASE_Y = .45;
-let gl, program, raf = 0, last = 0, frames = 0, angleX = BASE_X, angleY = BASE_Y, paused = false, drag = null, failed = false;
+let spin = null, spinRaf = 0, gl, program, raf = 0, last = 0, frames = 0, angleX = BASE_X, angleY = BASE_Y, paused = false, drag = null, failed = false;
 
 function shader(type, source) {
   const s = gl.createShader(type);
@@ -209,6 +224,20 @@ const objects = [
   [[1.34, .2, .15], [.92, .93, .95], .95],
   [[-.65, 1.18, .2], [.6, .64, .71], .6]
 ];
+const FINISHES = {
+  glacier: ['#8ab4ff', '#eceef3', '#9aa3b5'],
+  brass: ['#dba852', '#f2dc9c', '#9a7240'],
+  enamel: ['#d9473a', '#f1ece0', '#2c5f9e']
+};
+const rgb = hex => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);
+function setFinish(name) {
+  const set = FINISHES[name] || FINISHES.glacier;
+  set.forEach((hex, i) => { objects[i][1] = rgb(hex); fallback.querySelectorAll('ellipse')[i].setAttribute('stroke', hex); });
+  document.querySelectorAll('.swatch').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.finish === name)));
+  canvas.dataset.finish = name;
+  draw();
+}
+document.querySelectorAll('.swatch').forEach(b => b.addEventListener('click', () => setFinish(b.dataset.finish)));
 
 function draw() {
   if (!gl || stillMode()) return;
@@ -247,7 +276,7 @@ function toggleMotion() {
   paused = wasPlaying;
   sync();
 }
-function resetView() { angleX = BASE_X; angleY = BASE_Y; draw(); }
+function resetView() { stopSpin(); angleX = BASE_X; angleY = BASE_Y; draw(); }
 
 motion.addEventListener('click', toggleMotion);
 reset.addEventListener('click', resetView);
@@ -265,15 +294,43 @@ canvas.addEventListener('keydown', (e) => {
   angleX += e.key === 'ArrowDown' ? .16 : e.key === 'ArrowUp' ? -.16 : 0;
   draw();
 });
-canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY }; canvas.setPointerCapture(e.pointerId); });
+function stopSpin() { cancelAnimationFrame(spinRaf); spinRaf = 0; spin = null; }
+function spinStep(t) {
+  spinRaf = 0;
+  if (!spin || stillMode()) { spin = null; return; }
+  const dt = spin.t ? Math.min(t - spin.t, 50) : 16;
+  spin.t = t;
+  angleY += spin.vy * dt;
+  angleX += spin.vx * dt;
+  const k = Math.pow(.996, dt);
+  spin.vx *= k; spin.vy *= k;
+  draw();
+  if (Math.abs(spin.vx) + Math.abs(spin.vy) > .00004) spinRaf = requestAnimationFrame(spinStep);
+  else spin = null;
+}
+canvas.addEventListener('pointerdown', (e) => {
+  stopSpin();
+  drag = { x: e.clientX, y: e.clientY, t: e.timeStamp, vx: 0, vy: 0 };
+  try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* pointer already gone */ }
+});
 canvas.addEventListener('pointermove', (e) => {
   if (!drag) return;
-  angleY += (e.clientX - drag.x) * .008;
-  angleX += (e.clientY - drag.y) * .008;
-  drag = { x: e.clientX, y: e.clientY };
+  const dx = (e.clientX - drag.x) * .008, dy = (e.clientY - drag.y) * .008;
+  const dt = Math.max(1, e.timeStamp - drag.t);
+  angleY += dx;
+  angleX += dy;
+  drag = { x: e.clientX, y: e.clientY, t: e.timeStamp, vx: dy / dt, vy: dx / dt };
   draw();
 });
-for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) canvas.addEventListener(type, () => { drag = null; });
+canvas.addEventListener('pointerup', (e) => {
+  if (drag && !reduced.checked && e.timeStamp - drag.t < 80) {
+    const cap = v => Math.max(-.02, Math.min(.02, v));
+    spin = { vx: cap(drag.vx), vy: cap(drag.vy), t: 0 };
+    if (Math.abs(spin.vx) + Math.abs(spin.vy) > .0002) { canvas.dataset.flicks = String((Number(canvas.dataset.flicks) || 0) + 1); spinRaf = requestAnimationFrame(spinStep); } else spin = null;
+  }
+  drag = null;
+});
+for (const type of ['pointercancel', 'lostpointercapture']) canvas.addEventListener(type, () => { drag = null; });
 canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); failed = true; sync(); });
 new ResizeObserver(() => draw()).observe(stage);
 
