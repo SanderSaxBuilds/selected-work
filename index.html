@@ -3,256 +3,269 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SanderSax · Websites and tools by Alexandr Khrustalev</title>
-<meta name="description" content="Websites, CSV reporting tools, integrations and business documents by Alexandr Khrustalev (SanderSax). Fly through the work, open the working demos and download the sample files.">
+<title>Sander Sax · Selected work, websites and tools</title>
+<meta name="description" content="Selected work by Sander Sax (Alexandr Khrustalev), a freelance web and product builder in Thailand. Websites, web apps, data tools and business documents, each one open as a working demo or a file.">
 <link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="SanderSax · Websites and tools that do real work">
-<meta property="og:description" content="Business websites, CSV reports, integrations and documents. Every project opens as a working demo.">
+<meta property="og:title" content="Sander Sax · Selected work">
+<meta property="og:description" content="Websites, web apps, data tools and business documents. Every project opens as a working demo or a file.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/cover-v3-04-ledgerlens-cover.png">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="1000">
-<meta name="theme-color" content="#06070b">
+<meta name="theme-color" content="#0f0e0d">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/sandersax-icon-32.png">
 <link rel="apple-touch-icon" href="assets/sandersax-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Barlow+Condensed:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Barlow+Condensed:wght@700&display=swap">
 <script>
-/* the depth journey, unless the visitor's system asks for reduced motion, then a plain stacked list */
+/* the folio in depth, unless the visitor's system asks for reduced motion, then a plain list */
 (function(){try{localStorage.removeItem("ss-view")}catch(e){}
 if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("depth")})();
 </script>
 <style>
-@property --c{syntax:"<color>";inherits:true;initial-value:#6c86ff}
+@property --glow{syntax:"<color>";inherits:true;initial-value:#3a3530}
 :root{
-  --bg:#06070b;--panel:#0d0f17;--panel-2:#131624;--text:#eef0f6;--soft:#b9bfcf;--muted:#80869a;--line:rgba(255,255,255,.09);
-  --display:"Inter Tight",system-ui,sans-serif;--body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-  --serif:"Instrument Serif",Georgia,serif;--mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --bg:#0f0e0d;--sheet:#181716;--sheet-2:#201f1d;--ink:#efebe4;--soft:#bcb6ac;--muted:#878177;--line:rgba(239,235,228,.1);--line-2:rgba(239,235,228,.2);
+  --display:Archivo,"Arial Narrow",system-ui,sans-serif;--body:Geist,system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"Geist Mono",ui-monospace,Consolas,monospace;
   --ease:cubic-bezier(.16,1,.3,1);
 }
-body{--c:#6c86ff;transition:--c 1.4s ease}
-body[data-ch="n"]{--c:#6fdcbf}body[data-ch="w"]{--c:#6c86ff}body[data-ch="d"]{--c:#3cc8b4}
-body[data-ch="i"]{--c:#a084ff}body[data-ch="b"]{--c:#ff6f9f}body[data-ch="r"]{--c:#93d47f}
-[data-ch="a"],[data-ch="e"]{--cc:#6c86ff}[data-ch="n"]{--cc:#6fdcbf}[data-ch="w"]{--cc:#6c86ff}[data-ch="d"]{--cc:#3cc8b4}
-[data-ch="i"]{--cc:#a084ff}[data-ch="b"]{--cc:#ff6f9f}[data-ch="r"]{--cc:#93d47f}
+/* index divider inks, one per chapter */
+[data-ch="a"],[data-ch="n"],[data-ch="e"]{--cc:#e9e3d8}[data-ch="w"]{--cc:#a9c4a1}[data-ch="d"]{--cc:#9fb6c9}
+[data-ch="i"]{--cc:#bcaad8}[data-ch="b"]{--cc:#d8a6ab}[data-ch="r"]{--cc:#d2c78f}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 var(--body);min-width:320px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);min-width:320px;overflow-x:hidden;-webkit-font-smoothing:antialiased;--glow:#3a3530;transition:--glow 1.2s ease}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
-:focus-visible{outline:2px solid var(--c);outline-offset:3px;border-radius:8px}
-.skip{position:fixed;left:12px;top:12px;z-index:99;background:#fff;color:#000;padding:12px 16px;border-radius:8px;font-weight:600;transform:translateY(-200%)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.skip{position:fixed;left:12px;top:12px;z-index:99;background:var(--ink);color:var(--bg);padding:12px 16px;font-weight:600;transform:translateY(-200%)}
 .skip:focus{transform:none}
 
-/* the still light at the end of the route, tinted by the chapter you are in */
+/* the room is lit by the work in front of you: a still light taken from the current cover */
 .atmo{position:fixed;inset:0;z-index:0;pointer-events:none;background:
-  radial-gradient(16vmax 11vmax at 50% 52%,color-mix(in srgb,var(--c) 30%,transparent),transparent 72%),
-  radial-gradient(70vmax 50vmax at 50% 56%,color-mix(in srgb,var(--c) 16%,transparent),transparent 70%),
-  linear-gradient(#06070b,#080a12)}
+  radial-gradient(46vmax 30vmax at 50% 48%,color-mix(in srgb,var(--glow) 42%,transparent),transparent 72%),
+  radial-gradient(90vmax 60vmax at 50% 40%,color-mix(in srgb,var(--glow) 16%,transparent),transparent 70%),
+  radial-gradient(120vmax 60vmax at 50% 120%,rgba(0,0,0,.55),transparent 60%),
+  linear-gradient(#121110,#0c0b0a)}
 
 /* top bar */
-.top{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;align-items:center;gap:12px;height:64px;padding:0 24px;background:linear-gradient(rgba(6,7,11,.92),rgba(6,7,11,0))}
+.top{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;align-items:center;gap:12px;height:68px;padding:0 28px;background:linear-gradient(rgba(15,14,13,.94),rgba(15,14,13,.7) 60%,rgba(15,14,13,0))}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}
-.logo .mk{width:20px;height:32px;background:#eef0f6;-webkit-mask:url(assets/sandersax-mark.png) center/contain no-repeat;mask:url(assets/sandersax-mark.png) center/contain no-repeat}
+.logo .mk{width:20px;height:32px;background:var(--ink);-webkit-mask:url(assets/sandersax-mark.png) center/contain no-repeat;mask:url(assets/sandersax-mark.png) center/contain no-repeat}
 .logo .wm{font-family:"Barlow Condensed",var(--display);font-weight:700;font-size:19px;letter-spacing:.06em}
-.top nav{display:flex;gap:2px;margin-left:auto}
-.top nav a{padding:10px 12px;border-radius:999px;text-decoration:none;font-size:14px;color:var(--soft);transition:color .2s}
-.top nav a:hover{color:#fff}
-.msg{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border-radius:999px;background:#eef0f6;color:#06070b;font-weight:600;font-size:14px;text-decoration:none;transition:transform .3s var(--ease)}
-.msg:hover{transform:translateY(-1px)}
-@media (max-width:900px){.top nav{display:none}.msg{margin-left:auto}}
-@media (max-width:420px){.top{padding:0 16px;gap:8px}.msg{padding:0 14px}}
+.top nav{display:flex;gap:4px;margin-left:auto}
+.top nav a{position:relative;padding:10px 12px;text-decoration:none;font-size:14px;color:var(--soft);transition:color .2s}
+.top nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.top nav a:hover{color:var(--ink)}
+.top nav a:hover::after{transform:scaleX(1)}
+.msg{display:inline-flex;align-items:center;gap:10px;min-height:40px;margin-left:8px;padding:0 16px;border:1px solid var(--line-2);color:var(--ink);font-weight:500;font-size:14px;text-decoration:none;transition:background .25s,color .25s,border-color .25s}
+.msg:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media (max-width:980px){.top nav{display:none}.msg{margin-left:auto}}
+@media (max-width:420px){.top{padding:0 16px;gap:8px}.msg{padding:0 12px}}
 
-/* ---------- stations, shared ---------- */
+/* ---------- the sheets ---------- */
 .space{position:relative;z-index:1}
-.card{position:relative;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);background:linear-gradient(180deg,#121521,var(--panel) 40%);border:1px solid var(--line);border-radius:24px;box-shadow:0 50px 120px -50px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .8s,box-shadow .8s}
-/* each sheet carries a divider tab, set further along the folio for every chapter */
-.tab{position:absolute;bottom:100%;left:calc(26px + var(--ti,0) * (100% - 190px) / 6);display:flex;align-items:center;gap:9px;height:30px;padding:0 14px 0 12px;margin-bottom:-1px;border:1px solid var(--line);border-bottom:0;border-radius:11px 11px 0 0;background:#121521;font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;pointer-events:none;filter:brightness(calc(1 - var(--dim,0)));transition:color .6s,border-color .8s}
-.tab::before{content:"";width:12px;height:2px;border-radius:2px;background:var(--cc);opacity:.75}
-.card.on .tab,.end.on .tab{color:var(--text);border-color:color-mix(in srgb,var(--cc) 34%,var(--line))}
-/* a soft light that follows the pointer across the card */
-.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .5s;background:radial-gradient(520px circle at var(--mx,50%) var(--my,40%),rgba(255,255,255,.075),transparent 46%)}
-.card:hover::after{opacity:1}
-.card[data-side="r"] .im{order:2}
+.card{position:relative;display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);background:var(--sheet);border:1px solid var(--line);border-radius:3px;box-shadow:0 60px 120px -50px rgba(0,0,0,.95),0 2px 0 rgba(255,255,255,.03) inset;transition:border-color .8s}
 .card>span[id]{position:absolute;top:0;left:0}
-/* the work sits mounted on the sheet like a print, with a margin of board around it */
-.im{position:relative;display:block;text-decoration:none;color:inherit;margin:12px 0 12px 12px;aspect-ratio:16/10;overflow:hidden;border-radius:14px;background:var(--panel-2);box-shadow:0 0 0 1px rgba(255,255,255,.07),0 18px 40px -22px rgba(0,0,0,.9)}
-.card[data-side="r"] .im{margin:12px 12px 12px 0}
-.im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform 1.2s var(--ease)}
-.card:hover .im img{transform:scale(1.035)}
-.tx{display:flex;flex-direction:column;padding:28px 30px 26px;min-width:0}
-.meta{display:flex;align-items:center;gap:10px;font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-.meta b{font-weight:500;color:var(--cc)}
-.meta .tag{margin-left:auto;padding:5px 9px;border-radius:999px;border:1px solid color-mix(in srgb,var(--cc) 45%,transparent);color:var(--cc);letter-spacing:.04em}
-.card h3{font:700 clamp(22px,2.2vw,30px)/1.12 var(--display);letter-spacing:-.02em;margin:0 0 10px}
-.card p{margin:0 0 8px;color:var(--soft);font-size:15px;line-height:1.6}
+/* each sheet carries an index divider tab, set further along the edge for every chapter */
+.tab{position:absolute;bottom:100%;left:calc(18px + var(--ti,0) * (100% - 170px) / 6);display:flex;align-items:center;height:26px;padding:0 18px;margin-bottom:-1px;background:var(--cc);color:#151412;font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;pointer-events:none;clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 100%,0 100%);filter:brightness(calc(1 - var(--dim,0) * .9)) saturate(calc(1 - var(--dim,0) * .5))}
+/* the work, edge to edge on the sheet */
+.im{position:relative;display:block;text-decoration:none;color:inherit;aspect-ratio:16/10;overflow:hidden;background:var(--sheet-2);border-radius:2px 0 0 2px}
+.im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform 1.4s var(--ease),filter .8s}
+.im::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);pointer-events:none}
+.card:hover .im img{transform:scale(1.025)}
+.tx{display:flex;flex-direction:column;padding:30px 32px 30px;min-width:0;border-left:1px solid var(--line)}
+.meta{display:flex;align-items:baseline;gap:12px;font:500 11px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+.meta b{font-weight:500;color:var(--ink)}
+.meta b::after{content:" / 28";color:var(--muted)}
+.meta .tag{margin-left:auto;text-align:right}
+.card h3{font:640 clamp(24px,2.3vw,34px)/1.06 var(--display);font-stretch:94%;letter-spacing:-.022em;margin:0 0 14px;text-wrap:balance}
+.card p{margin:0 0 10px;color:var(--soft);font-size:15px;line-height:1.6}
 .card p.more{font-size:13.5px;color:var(--muted)}
-.card p.more a{color:var(--soft)}
-.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:14px}
-.links a{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--line);font-size:14px;font-weight:600;text-decoration:none;color:var(--text);transition:background .3s,border-color .3s,transform .3s var(--ease)}
-.links a:hover{border-color:rgba(255,255,255,.3);transform:translateY(-1px)}
-.links a:first-child{background:var(--cc);border-color:transparent;color:#06070b}
-.links a:first-child::after{content:"↗";font-weight:500}
-.links a:first-child:hover{filter:brightness(1.08)}
+.card p.more a{color:var(--soft);text-underline-offset:3px}
+.links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;margin-top:auto;padding-top:20px}
+.links a{display:inline-flex;align-items:center;min-height:40px;font-size:14px;font-weight:500;color:var(--soft);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:5px;transition:color .25s,text-decoration-color .25s}
+.links a:hover{color:var(--ink);text-decoration-color:var(--ink)}
+.links a:first-child{flex:0 0 100%;justify-content:space-between;min-height:50px;padding:0 18px;margin-bottom:4px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;font-size:15px;border-radius:2px;transition:background .3s}
+.links a:first-child::after{content:"→";font-weight:400;transition:transform .45s var(--ease)}
+.links a:first-child:hover{background:#fff}
+.links a:first-child:hover::after{transform:translateX(5px)}
 
-/* website check visual, drawn instead of a screenshot */
-.im.chk{display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--cc) 14%,var(--panel-2)),var(--panel-2) 70%)}
-.chk .in{display:flex;align-items:center;gap:26px;padding:24px}
-.ring{position:relative;width:132px;height:132px;flex:0 0 auto}
-.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ring circle{fill:none;stroke-width:8}
-.ring .t{stroke:rgba(255,255,255,.08)}.ring .v{stroke:var(--cc);stroke-linecap:round;stroke-dasharray:264;stroke-dashoffset:169}
-.ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 38px/1 var(--display)}
-.ring b small{display:block;font:500 11px/1 var(--mono);color:var(--muted);text-align:center;margin-top:6px}
-.chk ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font:500 12.5px/1.3 var(--mono);color:var(--soft)}
-.chk li{display:flex;gap:10px;align-items:center}
-.chk li::before{content:"";width:16px;height:2px;background:var(--cc);border-radius:2px}
-
-/* opening and closing stations */
-.intro{text-align:center;position:relative;isolation:isolate}
-html.depth .intro::before{content:"";position:absolute;inset:-18% -12%;z-index:-1;background:radial-gradient(closest-side,rgba(6,7,11,.94) 55%,rgba(6,7,11,0));pointer-events:none}
-/* the name label on the front of the folio */
-.plate{display:inline-grid;justify-items:center;gap:7px;margin:0 0 30px;padding:16px 30px 15px;border:1px solid rgba(255,255,255,.16);border-radius:6px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));box-shadow:inset 0 0 0 4px rgba(6,7,11,.6),inset 0 0 0 5px rgba(255,255,255,.07),0 20px 50px -30px rgba(0,0,0,.9)}
-.plate b{font:italic 400 clamp(30px,3.4vw,44px)/1 var(--serif);letter-spacing:-.005em;color:#f4f1ea}
-.plate .pk,.plate .ps{font:500 10.5px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.plate .pk{color:var(--c);transition:color 1.4s}
-h1{font:700 clamp(44px,7.4vw,112px)/.95 var(--display);letter-spacing:-.045em;margin:0 0 26px}
-h1 em,.end h2 em{font:italic 400 1.08em/1 var(--serif);letter-spacing:-.01em;color:var(--c);transition:color 1.4s}
-.lede{max-width:36em;margin:0 auto 34px;color:var(--soft);font-size:clamp(16px,1.4vw,19px)}
-.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);transition:transform .35s var(--ease),background .3s,border-color .3s}
-.btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.3)}
-.btn.p{background:#eef0f6;color:#06070b;border-color:transparent}
+/* ---------- opening sheet ---------- */
+.intro{position:relative;isolation:isolate;text-align:left}
+.kick{display:flex;flex-wrap:wrap;gap:6px 22px;margin:0 0 22px;font:500 11.5px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.kick b{font-weight:500;color:var(--ink)}
+h1{font:700 clamp(58px,10.4vw,200px)/.84 var(--display);font-stretch:118%;letter-spacing:-.045em;margin:0 0 34px;margin-left:-.04em}
+.lower{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px 64px;align-items:end}
+.lede{margin:0 0 28px;max-width:31em;color:var(--soft);font-size:clamp(17px,1.35vw,21px);line-height:1.5}
+.lede b{font-weight:500;color:var(--ink)}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px}
+.btn{display:inline-flex;align-items:center;gap:12px;min-height:50px;font-weight:500;font-size:15px;color:var(--soft);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:6px;transition:color .25s,text-decoration-color .25s}
+.btn:hover{color:var(--ink);text-decoration-color:var(--ink)}
+.btn.p{padding:0 22px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;border-radius:2px}
+.btn.p:hover{background:#fff}
 .btn.p span{display:inline-block;transition:transform .5s var(--ease)}
 .btn.p:hover span{transform:translateY(3px)}
-.end{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;padding:40px;background:var(--panel);border:1px solid var(--line);border-radius:28px}
-.end h2{font:700 clamp(32px,4vw,56px)/1 var(--display);letter-spacing:-.035em;margin:0 0 16px}
-.end p{color:var(--soft);margin:0 0 12px;max-width:30em}
-.end .note{font-size:13px;color:var(--muted)}
-.end .note a{color:var(--soft)}
-.chs{display:grid;gap:10px}
-.ch{display:flex;align-items:center;gap:16px;min-height:72px;padding:12px 18px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid var(--line);text-decoration:none;transition:background .3s,transform .4s var(--ease)}
-.ch:hover{background:rgba(255,255,255,.07);transform:translateX(4px)}
-.ch .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto}
-.ch .ic svg{width:22px;height:22px}
-.ch b{display:block;font-size:16px}
-.ch span{font-size:13.5px;color:var(--muted)}
-.ch .ar{margin-left:auto;color:var(--muted)}
-.elsewhere{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:16px;font-size:14px}
-.elsewhere a{color:var(--muted);text-decoration:none;min-height:40px;display:inline-flex;align-items:center}
-.elsewhere a:hover{color:#fff}
-.end footer{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding-top:18px;border-top:1px solid var(--line);font:500 12px/1.5 var(--mono);color:var(--muted)}
+/* the folio's contents, one line per divider */
+.toc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.toc a{display:flex;align-items:center;gap:14px;min-height:44px;border-bottom:1px solid var(--line);text-decoration:none;font-size:15px;color:var(--soft);transition:color .25s,padding .45s var(--ease)}
+.toc a::before{content:"";width:22px;height:9px;background:var(--cc);clip-path:polygon(3px 0,calc(100% - 3px) 0,100% 100%,0 100%);opacity:.9}
+.toc a span{margin-left:auto;font:500 11.5px/1 var(--mono);letter-spacing:.08em;color:var(--muted)}
+.toc a:hover{color:var(--ink);padding-left:6px}
 
-/* chapter words */
-.cw{text-align:center;pointer-events:none}
-.cw span{display:block;font:italic 400 clamp(120px,19vw,300px)/.9 var(--serif);letter-spacing:-.02em;color:var(--cc);white-space:nowrap}
-.cw small{display:block;margin-top:10px;font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+/* ---------- closing sheet ---------- */
+.end{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px 64px;align-items:start;padding:44px 44px 26px;background:var(--sheet);border:1px solid var(--line);border-radius:3px;box-shadow:0 60px 120px -50px rgba(0,0,0,.95)}
+.end h2{font:700 clamp(34px,4.2vw,64px)/.98 var(--display);font-stretch:110%;letter-spacing:-.035em;margin:0 0 20px;text-wrap:balance}
+.end h2 em{font-style:normal;color:var(--muted)}
+.end p{color:var(--soft);margin:0 0 12px;max-width:30em}
+.end .note{font-size:13px;color:var(--muted);margin-top:22px}
+.end .note a{color:var(--soft);text-underline-offset:3px}
+.elsewhere{display:flex;flex-wrap:wrap;gap:0 22px;margin-top:10px;font-size:14px}
+.elsewhere a{color:var(--soft);min-height:40px;display:inline-flex;align-items:center;text-underline-offset:5px;text-decoration-color:var(--line-2)}
+.elsewhere a:hover{color:var(--ink);text-decoration-color:var(--ink)}
+.chs{display:grid;border-top:1px solid var(--line)}
+.ch{display:flex;align-items:center;gap:18px;min-height:84px;padding:10px 4px;border-bottom:1px solid var(--line);text-decoration:none;transition:padding .45s var(--ease)}
+.ch:hover{padding-left:12px}
+.ch .ic{width:22px;height:22px;flex:0 0 auto;display:grid;place-items:center;color:var(--muted);transition:color .3s}
+.ch:hover .ic{color:var(--ink)}
+.ch .ic svg{width:22px;height:22px}
+.ch b{display:block;font:600 clamp(20px,1.9vw,26px)/1.1 var(--display);font-stretch:105%;letter-spacing:-.01em}
+.ch div span{font:500 12.5px/1.4 var(--mono);color:var(--muted);letter-spacing:.04em}
+.ch .ar{margin-left:auto;color:var(--muted);font-size:20px;transition:transform .45s var(--ease),color .3s}
+.ch:hover .ar{transform:translateX(6px);color:var(--ink)}
+.end footer{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding-top:18px;border-top:1px solid var(--line);font:500 11.5px/1.5 var(--mono);letter-spacing:.06em;color:var(--muted)}
+
+/* chapter headings, used by the plain list */
+.cw{pointer-events:none}
+.cw span{display:block;font:700 clamp(44px,7vw,96px)/.9 var(--display);font-stretch:112%;letter-spacing:-.04em;color:var(--ink)}
+.cw small{display:flex;align-items:center;gap:12px;margin-top:12px;font:500 11.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cw small::before{content:"";width:26px;height:10px;background:var(--cc);clip-path:polygon(3px 0,calc(100% - 3px) 0,100% 100%,0 100%)}
 
 /* ---------- depth mode ---------- */
 html.depth,html.depth body{height:100%;overflow:hidden;overscroll-behavior:none}
-html.depth .space{position:fixed;inset:0;overflow:clip;perspective:1100px;touch-action:pinch-zoom;-webkit-user-select:none;user-select:none}
-html.depth .st{position:absolute;left:50%;top:54%;will-change:transform,opacity;backface-visibility:hidden;visibility:hidden}
+html.depth .space{position:fixed;inset:0;overflow:clip;perspective:1200px;touch-action:pinch-zoom;-webkit-user-select:none;user-select:none}
+html.depth .st{position:absolute;left:50%;top:calc(50% + 14px);will-change:transform,opacity;backface-visibility:hidden;visibility:hidden}
 html.depth .card{width:var(--w)}
-html.depth .intro{width:min(1100px,92vw);top:50%}
-html.depth .end{width:min(1080px,90vw)}
+html.depth .intro{width:var(--wi)}
+html.depth .end{width:var(--w)}
+html.depth .cw{display:none}
 html.depth.dragging .space,html.depth.dragging .space *{cursor:grabbing!important}
 html.depth .im{-webkit-user-drag:none}
-
-/* cards waiting in the stack sit in shadow until they come forward */
-html.depth .card::before,html.depth .end::before{content:"";position:absolute;inset:0;z-index:5;border-radius:inherit;background:#06070b;opacity:var(--dim,0);pointer-events:none}
+/* sheets waiting in the folder sit in shadow until they come forward */
+html.depth .card::before,html.depth .end::before{content:"";position:absolute;inset:0;z-index:5;border-radius:inherit;background:var(--bg);opacity:var(--dim,0);pointer-events:none}
 html.depth .card.far{cursor:pointer}
 html.depth .card.far .links,html.depth .card.far .im{pointer-events:none}
-html.depth .card.far:hover{border-color:color-mix(in srgb,var(--cc) 40%,var(--line))}
+html.depth .card.far:hover{border-color:var(--line-2)}
+/* a sheet wakes up when it reaches the front */
+html.depth .card .meta,html.depth .card p,html.depth .card .links,html.depth .card h3{transition:opacity .7s var(--ease),transform .9s var(--ease)}
+html.depth .card:not(.on) .meta,html.depth .card:not(.on) p,html.depth .card:not(.on) .links{opacity:.12;transform:translateY(14px)}
+html.depth .card:not(.on) h3{opacity:.5;transform:translateY(6px)}
+html.depth .card.on h3{transition-delay:.03s}
+html.depth .card.on p{transition-delay:.08s}
+html.depth .card.on p+p{transition-delay:.12s}
+html.depth .card.on .links{transition-delay:.16s}
+html.depth .card.on{border-color:var(--line-2)}
+html.depth .card:not(.on) .im img{filter:saturate(.6)}
 
-/* the chapter's word, faint and far behind the stack */
-html.depth .cw{position:fixed;left:50%;top:40%;z-index:0;transform:translate(-50%,-50%) scale(1.06);opacity:0;transition:opacity 1.1s ease,transform 1.6s var(--ease)}
-html.depth .cw small{display:none}
-html.depth .cw.now{opacity:.06;transform:translate(-50%,-50%) scale(1)}
-
-/* the veil you fly through into a project */
-.veil{display:none;pointer-events:none}
-html.depth .veil{display:block;position:fixed;inset:0;z-index:45;opacity:0;background:radial-gradient(60% 60% at 50% 52%,color-mix(in srgb,var(--c) 30%,#06070b),#06070b 75%);transition:opacity .55s ease .1s}
-html.depth .veil.on{opacity:1}
+/* opening a project: its picture grows to fill the screen */
+.zoom{position:fixed;z-index:60;pointer-events:none;background:var(--sheet-2) no-repeat left top/cover;transition:left .62s var(--ease),top .62s var(--ease),width .62s var(--ease),height .62s var(--ease),border-radius .62s}
+.zoomv{position:fixed;inset:0;z-index:59;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .45s ease}
+.zoomv.on{opacity:.92}
 
 /* one tick per stop on the right edge */
 .rail{display:none}
-html.depth .rail{display:flex;position:fixed;z-index:40;right:14px;top:50%;transform:translateY(-50%);flex-direction:column;align-items:flex-end;padding:8px 0;touch-action:none}
-.rail .tk{position:relative;display:flex;align-items:center;justify-content:flex-end;width:48px;height:clamp(11px,2.1vh,18px)}
-.rail .tk::before{content:"";width:9px;height:1.5px;border-radius:2px;background:rgba(255,255,255,.22);transition:width .4s var(--ease),background .3s}
-.rail .tk:hover::before{width:20px;background:rgba(255,255,255,.7)}
-.rail .tk[aria-current="true"]::before{width:30px;background:var(--cc)}
-.rail .tk span{position:absolute;right:52px;top:50%;transform:translate(8px,-50%);white-space:nowrap;padding:7px 11px;border-radius:9px;background:rgba(13,15,23,.94);border:1px solid var(--line);font:500 13px/1 var(--body);color:var(--text);opacity:0;pointer-events:none;transition:opacity .2s,transform .35s var(--ease)}
+html.depth .rail{display:flex;position:fixed;z-index:40;right:10px;top:50%;transform:translateY(-50%);flex-direction:column;align-items:flex-end;padding:8px 0;touch-action:none}
+.rail .tk{position:relative;display:flex;align-items:center;justify-content:flex-end;width:44px;height:clamp(10px,1.9vh,17px)}
+.rail .tk::before{content:"";width:8px;height:1px;background:rgba(239,235,228,.28);transition:width .45s var(--ease),background .3s,height .3s}
+.rail .tk:hover::before{width:18px;background:rgba(239,235,228,.75)}
+.rail .tk[aria-current="true"]::before{width:28px;height:2px;background:var(--cc)}
+.rail .tk span{position:absolute;right:50px;top:50%;transform:translate(8px,-50%);white-space:nowrap;padding:8px 12px;background:var(--ink);color:var(--bg);font:500 13px/1 var(--body);opacity:0;pointer-events:none;transition:opacity .2s,transform .35s var(--ease)}
 .rail .tk:hover span{opacity:1;transform:translate(0,-50%)}
-@media (max-width:760px){html.depth .rail{display:none}}
+@media (max-width:760px){
+  html.depth .rail{right:2px}
+  .rail .tk{width:20px;height:clamp(8px,1.55vh,13px)}
+  .rail .tk::before{width:6px}
+  .rail .tk[aria-current="true"]::before{width:14px}
+  .rail .tk span{display:none}
+}
 
-/* a card wakes up when you reach it */
-html.depth .card .meta,html.depth .card p,html.depth .card .links{transition:opacity .7s var(--ease),transform .9s var(--ease)}
-html.depth .card:not(.on) .meta,html.depth .card:not(.on) p,html.depth .card:not(.on) .links{opacity:.16;transform:translateY(12px)}
-html.depth .card.on p{transition-delay:.07s}
-html.depth .card.on p+p{transition-delay:.12s}
-html.depth .card.on .links{transition-delay:.17s}
-html.depth .card.on{border-color:color-mix(in srgb,var(--cc) 34%,var(--line));box-shadow:0 50px 120px -50px rgba(0,0,0,.9),0 0 0 1px color-mix(in srgb,var(--cc) 10%,transparent),0 30px 90px -40px color-mix(in srgb,var(--cc) 40%,transparent)}
-
-/* the headline parts as you fly through it */
-.intro .l1,.intro .l2{display:inline-block;will-change:transform}
-html.depth .intro .l1{transform:translateX(calc(var(--pass,0)*-34vw))}
-html.depth .intro .l2{transform:translateX(calc(var(--pass,0)*34vw))}
+/* the route bar along the bottom */
 .hud{display:none}
-html.depth .hud{display:flex}
-.shade{display:none;position:fixed;z-index:39;left:0;top:0;bottom:0;width:230px;pointer-events:none;background:linear-gradient(90deg,rgba(6,7,11,.9),rgba(6,7,11,0))}
-@media (min-width:1181px){html.depth .shade{display:block}}
-.hud{position:fixed;z-index:40;left:26px;top:50%;transform:translateY(-50%);flex-direction:column;gap:6px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
-.hud .ct{color:var(--soft);margin-bottom:12px;letter-spacing:.06em}
-.hud .ct b{color:var(--c);font-weight:500;transition:color 1.4s}
-.hud button.go{display:flex;align-items:center;gap:10px;min-height:28px;color:var(--muted);text-align:left;text-transform:uppercase;letter-spacing:.1em;font:inherit;transition:color .3s}
-.hud button.go::before{content:"";width:14px;height:1.5px;background:currentColor;opacity:.5;transition:width .5s var(--ease),opacity .3s}
-.hud button.go:hover{color:var(--text)}
-.hud button.go[aria-current="true"]{color:var(--text)}
-.hud button.go[aria-current="true"]::before{width:34px;opacity:1;background:var(--c)}
-.hud .bar{position:relative;width:150px;height:2px;margin:-2px 0 16px;background:rgba(255,255,255,.1);border-radius:2px}
-.hud .bar i{position:absolute;inset:0;border-radius:2px;background:var(--c);transform-origin:left;transform:scaleX(var(--p,0));transition:background 1.4s}
-.hud .bar s{position:absolute;top:-3px;width:1px;height:8px;background:rgba(255,255,255,.28)}
-.hud .pn{display:flex;gap:6px;margin-top:14px}
-.hud .pn button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--soft);transition:border-color .3s,color .3s}
-.hud .pn button:hover{border-color:rgba(255,255,255,.3);color:#fff}
-@media (max-width:1180px){
-  .hud{left:auto;right:16px;top:auto;bottom:16px;transform:none;flex-direction:row;align-items:center;gap:10px;padding:6px 6px 6px 16px;border-radius:999px;background:rgba(13,15,23,.88);border:1px solid var(--line)}
-  .hud .ct{margin:0;white-space:nowrap}
-  .hud .chs-l{display:none}
-  .hud .bar{width:64px;margin:0}
-  .hud .pn{margin:0}
+html.depth .hud{display:flex;position:fixed;z-index:40;left:0;right:0;bottom:0;height:58px;align-items:center;gap:18px;padding:0 28px;background:linear-gradient(rgba(15,14,13,0),rgba(15,14,13,.9) 30%,#0f0e0d 70%);font:500 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.hud .bar{position:absolute;left:28px;right:28px;top:8px;height:1px;background:var(--line)}
+.hud .bar i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(var(--p,0));transition:transform .2s linear}
+.hud .bar s{position:absolute;top:-3px;width:1px;height:7px;background:var(--line-2)}
+.hud .ct{display:flex;align-items:baseline;gap:14px;min-width:0;flex:1 1 0;color:var(--muted);white-space:nowrap}
+.hud .ct b{font-weight:500;color:var(--ink)}
+.hud .ct em{font:500 13.5px/1 var(--body);font-style:normal;letter-spacing:0;text-transform:none;color:var(--soft);overflow:hidden;text-overflow:ellipsis}
+.hud .chs-l{display:flex;gap:2px}
+.hud button.go{position:relative;display:flex;align-items:center;gap:8px;min-height:40px;padding:0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font:inherit;transition:color .3s}
+.hud button.go::before{content:"";width:14px;height:6px;background:var(--cc);clip-path:polygon(2px 0,calc(100% - 2px) 0,100% 100%,0 100%);opacity:.35;transition:opacity .3s}
+.hud button.go:hover{color:var(--ink)}
+.hud button.go[aria-current="true"]{color:var(--ink)}
+.hud button.go[aria-current="true"]::before{opacity:1}
+.hud .pn{display:flex;gap:6px;flex:1 1 0;justify-content:flex-end}
+.hud .pn button{width:40px;height:40px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--soft);font-size:15px;transition:background .25s,color .25s}
+.hud .pn button:hover{background:var(--ink);color:var(--bg)}
+@media (max-width:1180px){.hud .chs-l{display:none}}
+@media (max-width:760px){
+  html.depth .hud{padding:0 16px;height:60px}
+  .hud .bar{left:16px;right:16px}
+  .hud .ct{gap:10px}
+}
+
+/* ---------- narrower screens ---------- */
+@media (max-width:900px){
+  .card{grid-template-columns:1fr}
+  .im{border-radius:2px 2px 0 0}
+  .tx{border-left:0;border-top:1px solid var(--line);padding:20px 22px 22px}
+  .lower{grid-template-columns:1fr}
 }
 @media (max-width:760px){
-  .card{grid-template-columns:1fr}
-  .card[data-side="r"] .im{order:0}
-  .im,.card[data-side="r"] .im{margin:10px 10px 0;border-radius:12px}
-  .tab{left:calc(18px + var(--ti,0) * (100% - 150px) / 6);height:26px;padding:0 10px;font-size:9.5px;gap:7px}
-  .tx{padding:18px 18px 18px}
-  .card h3{font-size:21px}
+  .tab{left:calc(12px + var(--ti,0) * (100% - 120px) / 6);height:22px;padding:0 12px;font-size:9px;letter-spacing:.1em;clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 100%,0 100%)}
+  .tx{padding:16px 16px 16px}
+  .meta{margin-bottom:12px;font-size:10.5px}
+  .card h3{font-size:22px;margin-bottom:8px}
   .card p{font-size:14px;line-height:1.5}
-  .meta{margin-bottom:10px}
-  .links a{min-height:40px;padding:0 14px;font-size:13.5px}
-  html.depth .card p:not(.keep){display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+  .links{padding-top:12px;gap:2px 16px}
+  .links a{min-height:36px;font-size:13.5px}
+  .links a:first-child{min-height:46px;font-size:14.5px;margin-bottom:2px}
+  html.depth .card p:not(.keep){display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   html.depth .card p.more{display:none}
-  .chk .in{gap:16px;padding:16px}.ring{width:96px;height:96px}.ring b{font-size:28px}
-  .end{grid-template-columns:1fr;gap:22px;padding:22px}
-  .hud{left:16px;right:16px;justify-content:space-between}
+  h1{margin-bottom:22px}
+  .lede{font-size:16px;margin-bottom:20px}
+  html.depth .toc{display:none}
+  html.depth .intro{padding-right:20px}
+  .end{grid-template-columns:1fr;gap:18px;padding:24px 18px 18px}
   html.depth .end .note,html.depth .end footer,html.depth .end .elsewhere{display:none}
-  html.depth .end h2{font-size:30px}
+  html.depth .end h2{font-size:30px;margin-bottom:12px}
   html.depth .end p{font-size:15px}
-  html.depth .ch{min-height:58px;padding:8px 14px}
-  html.depth .ch .ic{width:38px;height:38px}
-  html.depth .lede{font-size:15px;margin-bottom:24px}
+  html.depth .ch{min-height:64px}
+  .ch b{font-size:19px}
+}
+@media (max-width:420px){.hud .ct em{display:none}}
+/* phones on their side: picture and words side by side */
+html.short .card{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+html.short .im{border-radius:2px 0 0 2px}
+html.short .tx{border-top:0;border-left:1px solid var(--line);padding:14px 16px}
+html.short .card p:not(.keep){-webkit-line-clamp:3}
+html.short .card h3{font-size:19px}
+@media (max-height:640px) and (min-width:761px){
+  html.depth .card p:not(.keep){display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  html.depth .card p.more{display:none}
+  html.depth .toc{display:none}
 }
 
-/* ---------- reduced motion: a plain stacked list ---------- */
-html:not(.depth) .space{max-width:1120px;margin:0 auto;padding:120px 24px 40px;display:grid;gap:28px}
-html:not(.depth) .intro{padding:60px 0 40px}
-html:not(.depth) .cw{text-align:left;margin-top:40px}
-html:not(.depth) .cw span{font-size:clamp(64px,9vw,120px)}
-@media (max-width:640px){html:not(.depth) .space{padding:96px 16px 32px;gap:18px}}
+/* ---------- reduced motion: a plain list ---------- */
+html:not(.depth) .space{max-width:1180px;margin:0 auto;padding:120px 24px 48px;display:grid;gap:44px}
+html:not(.depth) .intro{padding:40px 0 20px}
+html:not(.depth) .top{background:rgba(15,14,13,.97);border-bottom:1px solid var(--line)}
+html:not(.depth) [id]{scroll-margin-top:110px}
+html:not(.depth) .cw{margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
+html:not(.depth) .card{margin-top:26px}
+@media (max-width:640px){html:not(.depth) .space{padding:96px 16px 32px;gap:30px}}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
 </style>
@@ -260,7 +273,6 @@ html:not(.depth) .cw span{font-size:clamp(64px,9vw,120px)}
 <body data-ch="a">
 <a class="skip" href="#all">Skip to the work</a>
 <div class="atmo" aria-hidden="true"></div>
-<div class="veil" id="veil" aria-hidden="true"></div>
 <header class="top">
   <a class="logo" href="./" aria-label="SanderSax, home"><i class="mk" aria-hidden="true"></i><span class="wm" aria-hidden="true">[SANDERSAX]</span></a>
   <nav aria-label="Sections"><a href="#all">Work</a><a href="thailand/">Websites in Thailand</a><a href="font/">Handwriting font</a><a href="#contact">Contact</a></nav>
@@ -269,76 +281,87 @@ html:not(.depth) .cw span{font-size:clamp(64px,9vw,120px)}
 
 <main class="space" id="space">
 <section class="st intro" data-ch="a" id="top">
-  <p class="plate"><span class="pk">Portfolio · 2026 · 28 projects</span><b>Alexandr Khrustalev</b><span class="ps">SanderSax · Thailand, UTC+7 · English and Russian</span></p>
-  <h1><span class="l1">I build websites</span><br><span class="l2">that do <em>real work.</em></span></h1>
-  <p class="lede">Business sites in English, Russian and Thai, CSV reports you can check line by line, and the small connections between systems. Twenty-eight projects ahead. Every one opens as a working demo or a file you can download.</p>
-  <div class="cta">
-    <a class="btn p" href="#all" data-go="1"><span aria-hidden="true">↓</span>Fly in</a>
-    <a class="btn" href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp</a>
-    <a class="btn" href="mailto:leshadqq@gmail.com">Email</a>
+  <p class="kick"><b>Selected work 2026</b><span>Alexandr Khrustalev</span><span>Thailand, UTC+7</span></p>
+  <h1>Sander Sax</h1>
+  <div class="lower">
+    <div>
+      <p class="lede"><b>Freelance web and product builder.</b> I design and build websites, web apps, data tools and business documents, end to end. Twenty-eight projects in this folio, each one opens as a working demo or a file you can download.</p>
+      <div class="cta">
+        <a class="btn p" href="#all" data-go="1">See the work<span aria-hidden="true">↓</span></a>
+        <a class="btn" href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn" href="mailto:leshadqq@gmail.com">Email</a>
+      </div>
+    </div>
+    <ol class="toc" aria-label="Contents">
+      <li><a href="#all" data-ch="n">New<span>4</span></a></li>
+      <li><a href="#work" data-ch="w">Websites<span>9</span></a></li>
+      <li><a href="#data" data-ch="d">Data<span>6</span></a></li>
+      <li><a href="#systems" data-ch="i">Systems<span>4</span></a></li>
+      <li><a href="#documents" data-ch="b">Documents<span>3</span></a></li>
+      <li><a href="#research" data-ch="r">Research<span>2</span></a></li>
+    </ol>
   </div>
 </section>
 
-<div class="cw" data-ch="n" id="all"><span>New</span><small>This week · 4 stops</small></div>
-<article class="st card" data-ch="n" id="new" data-side="l"><a class="im" href="thailand/" tabindex="-1" aria-hidden="true"><img src="assets/j/thailand.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>01</b>New<span class="tag">Live offer</span></div><h3>Websites for businesses in Thailand</h3><p>Spa, tours, rentals, cafes and clinics. Booking goes straight to Telegram, WhatsApp or LINE. Fixed USD prices, ready in days.</p><div class="links"><a href="thailand/">Open the offer</a></div></div></article>
-<article class="st card" data-ch="n" id="font" data-side="r"><a class="im" href="font/" tabindex="-1" aria-hidden="true"><img src="assets/j/font.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>02</b>New<span class="tag">Service</span></div><h3>Your handwriting as a real font</h3><p>Type a name and a pen writes it on a digital notebook page, lit only by its own ink. Draw a few letters, download them as a real font, and see them on an app, an email, a label and a sign.</p><div class="links"><a href="font/">Open the font page</a></div></div></article>
-<article class="st card" data-ch="n" id="check" data-side="l"><a class="im" href="check/" tabindex="-1" aria-hidden="true"><img src="assets/j/check.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>03</b>New<span class="tag">Free tool</span></div><h3>Website check in two minutes</h3><p>Answer a few questions about any business site and get a scored report with the three fixes that matter most. Switch fixes on to see the score you would reach.</p><div class="links"><a href="check/">Run the check</a></div></div></article>
-<article class="st card" data-ch="n" id="builder" data-side="r"><a class="im" href="builder/" tabindex="-1" aria-hidden="true"><img src="assets/j/builder.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>04</b>New<span class="tag">Working web app</span></div><h3>Booking site builder</h3><p>A website kit for local businesses in Thailand with a studio in the browser. Fill in services, prices, hours and contacts, watch the site update on desktop and phone, then download a zip that is ready to host. Russian, English and Thai, with bookings in WhatsApp, LINE or Telegram. 79 browser checks.</p><div class="links"><a href="builder/">Open the builder</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/builder">Source</a></div></div></article>
+<div class="cw" data-ch="n" id="all"><span>New</span><small>This week · 4 projects</small></div>
+<article class="st card" data-ch="n" id="new" data-side="l"><a class="im" href="thailand/" tabindex="-1" aria-hidden="true"><img src="assets/j/thailand.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>01</b><span class="tag">Live offer</span></div><h3>Websites for businesses in Thailand</h3><p>Spa, tours, rentals, cafes and clinics. Bookings go straight to Telegram, WhatsApp or LINE. Fixed USD prices, ready in days.</p><div class="links"><a href="thailand/">Open the offer</a></div></div></article>
+<article class="st card" data-ch="n" id="font" data-side="r"><a class="im" href="font/" tabindex="-1" aria-hidden="true"><img src="assets/j/font.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>02</b><span class="tag">Service</span></div><h3>Your handwriting as a real font</h3><p>Type a name and a pen writes it. Draw a few letters, download them as a real font, and see them on an app, an email, a label and a sign.</p><div class="links"><a href="font/">Open the font page</a></div></div></article>
+<article class="st card" data-ch="n" id="check" data-side="l"><a class="im" href="check/" tabindex="-1" aria-hidden="true"><img src="assets/j/check.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>03</b><span class="tag">Free tool</span></div><h3>Website check in two minutes</h3><p>Check a business website and get a scored report with the three fixes that matter most, then see the score each fix would reach.</p><div class="links"><a href="check/">Run the check</a></div></div></article>
+<article class="st card" data-ch="n" id="builder" data-side="r"><a class="im" href="builder/" tabindex="-1" aria-hidden="true"><img src="assets/j/builder.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>04</b><span class="tag">Working web app</span></div><h3>Booking site builder</h3><p>A studio in the browser for local businesses in Thailand. Fill in services, prices, hours and contacts, watch the site update on desktop and phone, then download a zip that is ready to host. Russian, English and Thai, bookings by WhatsApp, LINE or Telegram.</p><div class="links"><a href="builder/">Open the builder</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/builder">Source</a></div></div></article>
 
-<div class="cw" data-ch="w" id="work"><span>Websites</span><small>Sites and web apps · 9 stops</small></div>
-<article class="st card" data-ch="w" id="10-allex-website" data-side="l"><a class="im" href="https://temirkhanclub.com/" tabindex="-1" aria-hidden="true"><img src="assets/j/allex.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>05</b>Websites<span class="tag">Live business site</span></div><h3>ALLEX RESPECT ASIA</h3><p>The company's live site: an animated product collection, four product pages, a comparison table, company information, a document library and mobile navigation. I did the frontend, responsive layouts and deployment. Product artwork and records come from the business.</p><div class="links"><a href="https://temirkhanclub.com/">Open the live site</a></div></div></article>
-<article class="st card" data-ch="w" id="toolroom" data-side="r"><a class="im" href="toolroom.html" tabindex="-1" aria-hidden="true"><img src="assets/j/toolroom.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>06</b>Websites<span class="tag">Storefront demo</span></div><h3>Toolroom store and seller workspace</h3><p>A small digital-goods store with a working bench: QuoteCheck prices a job and ExportCheck fixes a CSV before it ships. Buyers get a library and receipts, and the seller workspace matches a file to its listing on the device. No real payments.</p><div class="links"><a href="toolroom.html">Try the store</a><a href="toolroom-studio.html">Seller workspace</a><a href="toolroom-source.zip">Source</a></div></div></article>
-<article class="st card" data-ch="w" id="07-field-frame" data-side="l"><span id="07"></span><a class="im" href="field-frame.html" tabindex="-1" aria-hidden="true"><img src="assets/j/field.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>07</b>Websites<span class="tag">Website concept</span></div><h3>Field &amp; Frame builder site</h3><p>A calm local builder site. Project sheets switch each floor plan between before and after, a rough estimate splits the cost by trade, and the brief downloads as one page. The company is fictional.</p><div class="links"><a href="field-frame.html">Open the site</a><a href="field-frame-source.zip">Source</a></div></div></article>
-<article class="st card" data-ch="w" id="sample-courses" data-side="r"><a class="im" href="sample-wrongcreative.html" tabindex="-1" aria-hidden="true"><img src="assets/j/courses.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>08</b>Websites<span class="tag">Course site and emails</span></div><h3>Leasing Practice courses</h3><p>A course site for leasing teams with a practice exercise that works in the page, a course page, a team bundle, three launch emails and handoff notes. A speculative sample for a public brief.</p><div class="links"><a href="sample-wrongcreative.html">Open the course site</a><a href="sample-wrongcreative-emails.html">Launch emails</a></div></div></article>
-<article class="st card" data-ch="w" id="06-daybreak" data-side="l"><span id="06"></span><a class="im" href="daybreak.html" tabindex="-1" aria-hidden="true"><img src="assets/j/daybreak.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>09</b>Websites<span class="tag">Web app</span></div><h3>Daybreak week planner</h3><p>Day and week views with three calendars, overlap checks and a focus timer. Drag the day's horizon to read the open time and plan a block on the spot. It works without a calendar account.</p><div class="links"><a href="daybreak.html">Open the planner</a><a href="daybreak-source.zip">Source</a></div></div></article>
-<article class="st card" data-ch="w" id="sample-mobile" data-side="r"><a class="im" href="sample-mobile.html" tabindex="-1" aria-hidden="true"><img src="assets/j/mobile.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>10</b>Websites<span class="tag">Mobile interface</span></div><h3>Clearline receipt review</h3><p>A phone app for clearing a month of receipts. Swipe right to approve or left to send one back with a reason. Each receipt shows its policy flags and what approving does to the budget, and every decision can be undone.</p><div class="links"><a href="sample-mobile.html">Open the interface</a><a href="sample-mobile-handoff.md">Handoff notes</a></div></div></article>
-<article class="st card" data-ch="w" id="variant-gallery" data-side="l"><a class="im" href="variant-gallery/" tabindex="-1" aria-hidden="true"><img src="assets/j/variant.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>11</b>Websites<span class="tag">Frontend bug study</span></div><h3>Product page that stays in sync</h3><p>Colour, size, price, stock, photo and link always match the choice. A sold-out option offers the nearest one that ships. Switch on the two common bugs to see them, then compare the fixed page.</p><div class="links"><a href="variant-gallery/">Try the product page</a></div></div></article>
-<article class="st card" data-ch="w" id="orbit-study" data-side="r"><a class="im" href="orbit-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/orbit.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>12</b>Websites<span class="tag">3D and interaction</span></div><h3>Orbit and other interaction studies</h3><p>A WebGL scene written without a 3D library. Drag it, flick it, change its finish or swap it for a still image. Also a four-plate print study that separates as you scroll, and Hemline, an alterations counter with a ticket builder.</p><div class="links"><a href="orbit-study.html">Open Orbit</a><a href="interaction-proof.html">Print plates</a><a href="responsive-interaction-example/">Hemline</a></div></div></article>
-<article class="st card" data-ch="w" id="email-kit" data-side="l"><a class="im" href="email-kit/" tabindex="-1" aria-hidden="true"><img src="assets/j/email.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>13</b>Websites<span class="tag">Email templates</span></div><h3>Inkpost email templates</h3><p>Four emails for a fictional coffee roaster: welcome, order confirmation, shipping update and a monthly newsletter, each with a plain text version. Outlook fallbacks, columns that stack on phones without media queries, and a dark mode. 98 tests and 172 browser checks, run in Chromium.</p><div class="links"><a href="email-kit/">Open the preview</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source</a></div></div></article>
+<div class="cw" data-ch="w" id="work"><span>Websites</span><small>Sites and web apps · 9 projects</small></div>
+<article class="st card" data-ch="w" id="10-allex-website" data-side="l"><a class="im" href="https://temirkhanclub.com/" tabindex="-1" aria-hidden="true"><img src="assets/j/allex.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>05</b><span class="tag">Live business site</span></div><h3>ALLEX RESPECT ASIA</h3><p>The company's live site: an animated product collection, four product pages, a comparison table, company information, a document library and mobile navigation. I built the frontend, the responsive layouts and the deployment. Product artwork and records come from the business.</p><div class="links"><a href="https://temirkhanclub.com/">Open the live site</a></div></div></article>
+<article class="st card" data-ch="w" id="toolroom" data-side="r"><a class="im" href="toolroom.html" tabindex="-1" aria-hidden="true"><img src="assets/j/toolroom.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>06</b><span class="tag">Storefront demo</span></div><h3>Toolroom store and seller workspace</h3><p>A small digital-goods store with a working bench: QuoteCheck prices a job and ExportCheck fixes a CSV before it ships. Buyers get a library and receipts, and the seller workspace matches a file to its listing on the device. No real payments.</p><div class="links"><a href="toolroom.html">Try the store</a><a href="toolroom-studio.html">Seller workspace</a><a href="toolroom-source.zip">Source</a></div></div></article>
+<article class="st card" data-ch="w" id="07-field-frame" data-side="l"><span id="07"></span><a class="im" href="field-frame.html" tabindex="-1" aria-hidden="true"><img src="assets/j/field.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>07</b><span class="tag">Website concept</span></div><h3>Field &amp; Frame builder site</h3><p>A calm local builder site. Project sheets switch each floor plan between before and after, a rough estimate splits the cost by trade, and the brief downloads as one page. The company is fictional.</p><div class="links"><a href="field-frame.html">Open the site</a><a href="field-frame-source.zip">Source</a></div></div></article>
+<article class="st card" data-ch="w" id="sample-courses" data-side="r"><a class="im" href="sample-wrongcreative.html" tabindex="-1" aria-hidden="true"><img src="assets/j/courses.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>08</b><span class="tag">Course site and emails</span></div><h3>Leasing Practice courses</h3><p>A course site for leasing teams with a practice exercise that works in the page, a course page, a team bundle, three launch emails and handoff notes. A speculative sample for a public brief.</p><div class="links"><a href="sample-wrongcreative.html">Open the course site</a><a href="sample-wrongcreative-emails.html">Launch emails</a></div></div></article>
+<article class="st card" data-ch="w" id="06-daybreak" data-side="l"><span id="06"></span><a class="im" href="daybreak.html" tabindex="-1" aria-hidden="true"><img src="assets/j/daybreak.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>09</b><span class="tag">Web app</span></div><h3>Daybreak week planner</h3><p>Day and week views with three calendars, overlap checks and a focus timer. Drag the day's horizon to read the open time and plan a block on the spot. It works without a calendar account.</p><div class="links"><a href="daybreak.html">Open the planner</a><a href="daybreak-source.zip">Source</a></div></div></article>
+<article class="st card" data-ch="w" id="sample-mobile" data-side="r"><a class="im" href="sample-mobile.html" tabindex="-1" aria-hidden="true"><img src="assets/j/mobile.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>10</b><span class="tag">Mobile interface</span></div><h3>Clearline receipt review</h3><p>A phone app for clearing a month of receipts. Swipe right to approve or left to send one back with a reason. Each receipt shows its policy flags and what approving does to the budget, and every decision can be undone.</p><div class="links"><a href="sample-mobile.html">Open the interface</a><a href="sample-mobile-handoff.md">Handoff notes</a></div></div></article>
+<article class="st card" data-ch="w" id="variant-gallery" data-side="l"><a class="im" href="variant-gallery/" tabindex="-1" aria-hidden="true"><img src="assets/j/variant.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>11</b><span class="tag">Frontend bug study</span></div><h3>Product page that stays in sync</h3><p>Colour, size, price, stock, photo and link always match the choice. A sold-out option offers the nearest one that ships. Switch on the two common bugs to see them, then compare the fixed page.</p><div class="links"><a href="variant-gallery/">Try the product page</a></div></div></article>
+<article class="st card" data-ch="w" id="orbit-study" data-side="r"><a class="im" href="orbit-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/orbit.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>12</b><span class="tag">3D and interaction</span></div><h3>Orbit and other interaction studies</h3><p>A WebGL scene written without a 3D library. Drag it, flick it, change its finish or swap it for a still image. Also a four-plate print study that separates as you scroll, and Hemline, an alterations counter with a ticket builder.</p><div class="links"><a href="orbit-study.html">Open Orbit</a><a href="interaction-proof.html">Print plates</a><a href="responsive-interaction-example/">Hemline</a></div></div></article>
+<article class="st card" data-ch="w" id="email-kit" data-side="l"><a class="im" href="email-kit/" tabindex="-1" aria-hidden="true"><img src="assets/j/email.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>13</b><span class="tag">Email templates</span></div><h3>Inkpost email templates</h3><p>Four emails for a fictional coffee roaster: welcome, order confirmation, shipping update and a monthly newsletter, each with a plain text version. Outlook fallbacks, columns that stack on phones without media queries, and a dark mode. 98 tests and 172 browser checks.</p><div class="links"><a href="email-kit/">Open the preview</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source</a></div></div></article>
 
-<div class="cw" data-ch="d"><span>Data</span><small>Reports and data apps · 6 stops</small></div>
-<article class="st card" data-ch="d" id="gridline" data-side="r"><a class="im" href="gridline/" tabindex="-1" aria-hidden="true"><img src="assets/j/gridline.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>14</b>Data<span class="tag">Working web app</span></div><h3>Gridline order grid</h3><p>Edit 20,000 purchase orders in the browser. Filter and sort, paste whole blocks, undo anything and review every change before you export it. Scrolls at 60 fps with 54 unit tests and 128 browser checks. The orders are fictional sample data.</p><div class="links"><a href="gridline/">Open Gridline</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/gridline">Source</a></div></div></article>
-<article class="st card" data-ch="d" id="slotbook" data-side="l"><a class="im" href="slotbook/" tabindex="-1" aria-hidden="true"><img src="assets/j/slotbook.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>15</b>Data<span class="tag">Working web app</span></div><h3>Slotbook booking page</h3><p>A booking page for a fictional bike workshop with weekly hours, closed days, buffers between bookings and a calendar you can use from the keyboard. Times show in the visitor's own time zone and each booking downloads as a calendar file. 34 unit tests and 97 browser checks.</p><div class="links"><a href="slotbook/">Open Slotbook</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/slotbook">Source</a></div></div></article>
-<article class="st card" data-ch="d" id="04-ledgerlens" data-side="r"><span id="04"></span><a class="im" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/" tabindex="-1" aria-hidden="true"><img src="assets/j/ledger.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>16</b>Data<span class="tag">Working web app</span></div><h3>LedgerLens report builder</h3><p>Load order and refund exports and build a revenue report for any period, by month, quarter, customer, product or order size. Fix bad rows in place and download the corrected file. Files stay in the browser.</p><div class="links"><a href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/">Open LedgerLens</a><a href="https://github.com/SanderSaxBuilds/ledgerlens-report-builder">Source</a></div></div></article>
-<article class="st card" data-ch="d" id="03-financial-report" data-side="l"><span id="03"></span><a class="im" href="03-financial-report-Expense_Report_Sample.xlsx" tabindex="-1" aria-hidden="true"><img src="assets/j/expense.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>17</b>Data<span class="tag">Excel workbook</span></div><h3>Expense report workbook</h3><p>Two CSV files become an Excel report with budget variance, a prior-month comparison and reconciliation checks. Six months of sample data, and every total is a live formula.</p><div class="links"><a href="03-financial-report-Expense_Report_Sample.xlsx">Sample workbook</a><a href="03-financial-report-Expense_Report_Source.zip">Source</a></div></div></article>
-<article class="st card" data-ch="d" id="exportcheck-study" data-side="r"><a class="im" href="exportcheck-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/export.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>18</b>Data<span class="tag">Python tool</span></div><h3>ExportCheck CSV preflight</h3><p>Checks headers, keys, dates and amounts before a CSV goes to someone else. See three recorded runs: a clean file, one with row errors kept for review and one rejected outright.</p><div class="links"><a href="exportcheck-study.html">See the recorded runs</a></div></div></article>
-<article class="st card" data-ch="d" id="08-countback" data-side="l"><span id="08"></span><a class="im" href="countback.html" tabindex="-1" aria-hidden="true"><img src="assets/j/countback.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>19</b>Data<span class="tag">Web app</span></div><h3>Countback delivery receiving</h3><p>Count a delivery by carton or unit, flag shortages, damage and extras, and keep every correction in the history. The draft survives a reload. Print the result or export it as CSV.</p><div class="links"><a href="countback.html">Open the demo</a><a href="countback-source.zip">Source</a></div></div></article>
+<div class="cw" data-ch="d" id="data"><span>Data</span><small>Reports and data apps · 6 projects</small></div>
+<article class="st card" data-ch="d" id="gridline" data-side="r"><a class="im" href="gridline/" tabindex="-1" aria-hidden="true"><img src="assets/j/gridline.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>14</b><span class="tag">Working web app</span></div><h3>Gridline order grid</h3><p>Edit 20,000 purchase orders in the browser. Filter and sort, paste whole blocks, undo anything and review every change before you export it. Scrolls at 60 fps, with 54 unit tests and 128 browser checks. The orders are fictional sample data.</p><div class="links"><a href="gridline/">Open Gridline</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/gridline">Source</a></div></div></article>
+<article class="st card" data-ch="d" id="slotbook" data-side="l"><a class="im" href="slotbook/" tabindex="-1" aria-hidden="true"><img src="assets/j/slotbook.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>15</b><span class="tag">Working web app</span></div><h3>Slotbook booking page</h3><p>A booking page for a fictional bike workshop with weekly hours, closed days, buffers between bookings and a calendar you can use from the keyboard. Times show in the visitor's own time zone and each booking downloads as a calendar file.</p><div class="links"><a href="slotbook/">Open Slotbook</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/slotbook">Source</a></div></div></article>
+<article class="st card" data-ch="d" id="04-ledgerlens" data-side="r"><span id="04"></span><a class="im" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/" tabindex="-1" aria-hidden="true"><img src="assets/j/ledger.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>16</b><span class="tag">Working web app</span></div><h3>LedgerLens report builder</h3><p>Load order and refund exports and build a revenue report for any period, by month, quarter, customer, product or order size. Fix bad rows in place and download the corrected file. Files stay in the browser.</p><div class="links"><a href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/">Open LedgerLens</a><a href="https://github.com/SanderSaxBuilds/ledgerlens-report-builder">Source</a></div></div></article>
+<article class="st card" data-ch="d" id="03-financial-report" data-side="l"><span id="03"></span><a class="im" href="03-financial-report-Expense_Report_Sample.xlsx" tabindex="-1" aria-hidden="true"><img src="assets/j/expense.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>17</b><span class="tag">Excel workbook</span></div><h3>Expense report workbook</h3><p>Two CSV files become an Excel report with budget variance, a prior-month comparison and reconciliation checks. Six months of sample data, and every total is a live formula.</p><div class="links"><a href="03-financial-report-Expense_Report_Sample.xlsx">Sample workbook</a><a href="03-financial-report-Expense_Report_Source.zip">Source</a></div></div></article>
+<article class="st card" data-ch="d" id="exportcheck-study" data-side="r"><a class="im" href="exportcheck-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/export.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>18</b><span class="tag">Python tool</span></div><h3>ExportCheck CSV preflight</h3><p>Checks headers, keys, dates and amounts before a CSV goes to someone else. See three recorded runs: a clean file, one with row errors kept for review and one rejected outright.</p><div class="links"><a href="exportcheck-study.html">See the recorded runs</a></div></div></article>
+<article class="st card" data-ch="d" id="08-countback" data-side="l"><span id="08"></span><a class="im" href="countback.html" tabindex="-1" aria-hidden="true"><img src="assets/j/countback.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>19</b><span class="tag">Web app</span></div><h3>Countback delivery receiving</h3><p>Count a delivery by carton or unit, flag shortages, damage and extras, and keep every correction in the history. The draft survives a reload. Print the result or export it as CSV.</p><div class="links"><a href="countback.html">Open the demo</a><a href="countback-source.zip">Source</a></div></div></article>
 
-<div class="cw" data-ch="i"><span>Systems</span><small>Integrations and tools · 4 stops</small></div>
-<article class="st card" data-ch="i" id="webhook-receipt" data-side="r"><a class="im" href="webhook-receipt-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/webhook.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>20</b>Systems<span class="tag">Python API</span></div><h3>Webhook receipts without duplicates</h3><p>A local service that checks signed callbacks, processes each event once and saves each receipt together with its shipment update. See five recorded outcomes, a restart and 32 passing tests.</p><div class="links"><a href="webhook-receipt-study.html">See the study</a></div></div></article>
-<article class="st card" data-ch="i" id="sop-extraction" data-side="l"><a class="im" href="sop-extraction-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/sop.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>21</b>Systems<span class="tag">Document parsing</span></div><h3>Work instructions from Word to JSON and CSV</h3><p>A parser that turns a Word procedure written to a set template into structured steps, keeps a reference back to each source paragraph and refuses content it can't read reliably.</p><div class="links"><a href="sop-extraction-study.html">See the extraction</a></div></div></article>
-<article class="st card" data-ch="i" id="archive-desk" data-side="r"><a class="im" href="archive-desk.html" tabindex="-1" aria-hidden="true"><img src="assets/j/archive.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>22</b>Systems<span class="tag">Backup app</span></div><h3>Archive Desk project backups</h3><p>Make a ZIP backup of a project in the browser, check every file against its fingerprint, compare versions and recover into a new folder. The Windows Workbench adds a backup library, imports and run history.</p><p class="more">Also: <a href="archive-desk-cli.html">command-line companion</a>, <a href="archive-desk-protection.html">encrypted backup preview</a>, <a href="archive-desk-workbench-0.6-source.zip">Workbench source</a>.</p><div class="links"><a href="archive-desk.html">Try it in the browser</a><a href="archive-desk-workbench-history.html">Workbench guide</a><a href="https://github.com/SanderSaxBuilds/selected-work/releases/tag/archive-desk-workbench-0.6-windows-r2">Windows download</a></div></div></article>
-<article class="st card" data-ch="i" id="09-migration-proof" data-side="l"><span id="09"></span><a class="im" href="09-migration-proof-Migration_Rehearsal_Method_Source.zip" tabindex="-1" aria-hidden="true"><img src="assets/j/migration.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>23</b>Systems<span class="tag">Migration method</span></div><h3>Data migration rehearsal</h3><p>Repeatable transforms, a target schema with row-level security, row and total reconciliation, and a cutover and rollback runbook, rehearsed on sample data.</p><div class="links"><a href="09-migration-proof-Migration_Rehearsal_Method_Source.zip">Source and runbook</a><a href="https://github.com/SanderSaxBuilds/supabase-migration-proof">Repository</a></div></div></article>
+<div class="cw" data-ch="i" id="systems"><span>Systems</span><small>Integrations and tools · 4 projects</small></div>
+<article class="st card" data-ch="i" id="webhook-receipt" data-side="r"><a class="im" href="webhook-receipt-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/webhook.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>20</b><span class="tag">Python API</span></div><h3>Webhook receipts without duplicates</h3><p>A local service that checks signed callbacks, processes each event once and saves each receipt together with its shipment update. See five recorded outcomes, a restart and 32 passing tests.</p><div class="links"><a href="webhook-receipt-study.html">See the study</a></div></div></article>
+<article class="st card" data-ch="i" id="sop-extraction" data-side="l"><a class="im" href="sop-extraction-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/sop.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>21</b><span class="tag">Document parsing</span></div><h3>Work instructions from Word to JSON and CSV</h3><p>A parser that turns a Word procedure written to a set template into structured steps, keeps a reference back to each source paragraph and refuses content it can't read reliably.</p><div class="links"><a href="sop-extraction-study.html">See the extraction</a></div></div></article>
+<article class="st card" data-ch="i" id="archive-desk" data-side="r"><a class="im" href="archive-desk.html" tabindex="-1" aria-hidden="true"><img src="assets/j/archive.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>22</b><span class="tag">Backup app</span></div><h3>Archive Desk project backups</h3><p>Make a ZIP backup of a project in the browser, check every file against its fingerprint, compare versions and recover into a new folder. The Windows Workbench adds a backup library, imports and run history.</p><p class="more">Also: <a href="archive-desk-cli.html">command-line companion</a>, <a href="archive-desk-protection.html">encrypted backup preview</a>, <a href="archive-desk-workbench-0.6-source.zip">Workbench source</a>.</p><div class="links"><a href="archive-desk.html">Try it in the browser</a><a href="archive-desk-workbench-history.html">Workbench guide</a><a href="https://github.com/SanderSaxBuilds/selected-work/releases/tag/archive-desk-workbench-0.6-windows-r2">Windows download</a></div></div></article>
+<article class="st card" data-ch="i" id="09-migration-proof" data-side="l"><span id="09"></span><a class="im" href="09-migration-proof-Migration_Rehearsal_Method_Source.zip" tabindex="-1" aria-hidden="true"><img src="assets/j/migration.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>23</b><span class="tag">Migration method</span></div><h3>Data migration rehearsal</h3><p>Repeatable transforms, a target schema with row-level security, row and total reconciliation, and a cutover and rollback runbook, rehearsed on sample data.</p><div class="links"><a href="09-migration-proof-Migration_Rehearsal_Method_Source.zip">Source and runbook</a><a href="https://github.com/SanderSaxBuilds/supabase-migration-proof">Repository</a></div></div></article>
 
-<div class="cw" data-ch="b"><span>Documents</span><small>Decks, catalogues, finance · 3 stops</small></div>
-<article class="st card" data-ch="b" id="01-northline" data-side="r"><span id="01"></span><a class="im" href="01-northline-Northline_Executive_Review.pdf" tabindex="-1" aria-hidden="true"><img src="assets/j/northline.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>24</b>Documents<span class="tag">Presentation design</span></div><h3>Northline presentation system</h3><p>An eight-slide executive review with charts, a bridge and a decision slide, fifteen finished slide layouts and a two-page guide. Shown as PDF design previews.</p><div class="links"><a href="01-northline-Northline_Executive_Review.pdf">Executive review</a><a href="01-northline-Northline_Layout_Gallery_Preview.pdf">Layouts PDF</a><a href="01-northline-Northline_Template_Guide.pdf">Guide</a></div></div></article>
-<article class="st card" data-ch="b" id="02-werksupply" data-side="l"><span id="02"></span><a class="im" href="02-werksupply-WerkSupply_Catalogue_Preview.pdf" tabindex="-1" aria-hidden="true"><img src="assets/j/werk.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>25</b>Documents<span class="tag">Catalogue design</span></div><h3>WerkSupply product catalogue</h3><p>Four catalogue pages with original product drawings, comparable specifications and a sample quote that adds up. The editable HTML source and product list are included.</p><div class="links"><a href="02-werksupply-WerkSupply_Catalogue_Preview.pdf">Catalogue PDF</a><a href="02-werksupply-WerkSupply_Editable_Source.zip">Editable source</a></div></div></article>
-<article class="st card" data-ch="b" id="05-property-documents" data-side="r"><span id="05"></span><a class="im" href="05-property-documents-Northline_Property_Documents.pdf" tabindex="-1" aria-hidden="true"><img src="assets/j/property.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>26</b>Documents<span class="tag">Financial documents</span></div><h3>Property financing pack</h3><p>A fifteen-slide portfolio deck, a four-page financing summary and a one-page term sheet for a fictional ten-asset portfolio. The figures agree across all three.</p><div class="links"><a href="05-property-documents-Northline_Property_Documents.pdf">Portfolio deck</a><a href="05-property-documents-Northline_Financing_Summary.pdf">Summary</a><a href="05-property-documents-Northline_Financing_Term_Sheet.pdf">Term sheet</a></div></div></article>
+<div class="cw" data-ch="b" id="documents"><span>Documents</span><small>Decks, catalogues, finance · 3 projects</small></div>
+<article class="st card" data-ch="b" id="01-northline" data-side="r"><span id="01"></span><a class="im" href="01-northline-Northline_Executive_Review.pdf" tabindex="-1" aria-hidden="true"><img src="assets/j/northline.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>24</b><span class="tag">Presentation design</span></div><h3>Northline presentation system</h3><p>An eight-slide executive review with charts, a bridge and a decision slide, fifteen finished slide layouts and a two-page guide. Shown as PDF design previews.</p><div class="links"><a href="01-northline-Northline_Executive_Review.pdf">Executive review</a><a href="01-northline-Northline_Layout_Gallery_Preview.pdf">Layouts PDF</a><a href="01-northline-Northline_Template_Guide.pdf">Guide</a></div></div></article>
+<article class="st card" data-ch="b" id="02-werksupply" data-side="l"><span id="02"></span><a class="im" href="02-werksupply-WerkSupply_Catalogue_Preview.pdf" tabindex="-1" aria-hidden="true"><img src="assets/j/werk.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>25</b><span class="tag">Catalogue design</span></div><h3>WerkSupply product catalogue</h3><p>Four catalogue pages with original product drawings, comparable specifications and a sample quote that adds up. The editable HTML source and product list are included.</p><div class="links"><a href="02-werksupply-WerkSupply_Catalogue_Preview.pdf">Catalogue PDF</a><a href="02-werksupply-WerkSupply_Editable_Source.zip">Editable source</a></div></div></article>
+<article class="st card" data-ch="b" id="05-property-documents" data-side="r"><span id="05"></span><a class="im" href="05-property-documents-Northline_Property_Documents.pdf" tabindex="-1" aria-hidden="true"><img src="assets/j/property.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>26</b><span class="tag">Financial documents</span></div><h3>Property financing pack</h3><p>A fifteen-slide portfolio deck, a four-page financing summary and a one-page term sheet for a fictional ten-asset portfolio. The figures agree across all three.</p><div class="links"><a href="05-property-documents-Northline_Property_Documents.pdf">Portfolio deck</a><a href="05-property-documents-Northline_Financing_Summary.pdf">Summary</a><a href="05-property-documents-Northline_Financing_Term_Sheet.pdf">Term sheet</a></div></div></article>
 
-<div class="cw" data-ch="r"><span>Research</span><small>Market scans and content · 2 stops</small></div>
-<article class="st card" data-ch="r" id="sample-cosquin" data-side="l"><a class="im" href="sample-cosquin.html" tabindex="-1" aria-hidden="true"><img src="assets/j/cosquin.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>27</b>Research<span class="tag">Market research, Spanish</span></div><h3>Market signals in Cosquín</h3><p>A Spanish-language scan of public sources on food retail in Cosquín, Córdoba: eight shops to verify, the prices that are visible, the gaps, and a source for every figure.</p><div class="links"><a href="sample-cosquin.html">Open the report</a><a href="sample-cosquin-source_notes.md">Source notes</a></div></div></article>
-<article class="st card" data-ch="r" id="sample-subtrak" data-side="r"><a class="im" href="sample-subtrak.html" tabindex="-1" aria-hidden="true"><img src="assets/j/subtrak.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>28</b>Research<span class="tag">Social content</span></div><h3>Construction content kit</h3><p>Three posts with square graphics and a 24-second vertical piece. Switch each post between LinkedIn and short-form copy with live character counts, and jump the video to each beat.</p><div class="links"><a href="sample-subtrak.html">Open the kit</a><a href="sample-subtrak-copy_and_handoff.md">Copy and handoff</a></div></div></article>
+<div class="cw" data-ch="r" id="research"><span>Research</span><small>Market scans and content · 2 projects</small></div>
+<article class="st card" data-ch="r" id="sample-cosquin" data-side="l"><a class="im" href="sample-cosquin.html" tabindex="-1" aria-hidden="true"><img src="assets/j/cosquin.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>27</b><span class="tag">Market research, Spanish</span></div><h3>Market signals in Cosquín</h3><p>A Spanish-language scan of public sources on food retail in Cosquín, Córdoba: eight shops to verify, the prices that are visible, the gaps, and a source for every figure.</p><div class="links"><a href="sample-cosquin.html">Open the report</a><a href="sample-cosquin-source_notes.md">Source notes</a></div></div></article>
+<article class="st card" data-ch="r" id="sample-subtrak" data-side="r"><a class="im" href="sample-subtrak.html" tabindex="-1" aria-hidden="true"><img src="assets/j/subtrak.jpg" alt="" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>28</b><span class="tag">Social content</span></div><h3>Construction content kit</h3><p>Three posts with square graphics and a 24-second vertical piece. Switch each post between LinkedIn and short-form copy with live character counts, and jump the video to each beat.</p><div class="links"><a href="sample-subtrak.html">Open the kit</a><a href="sample-subtrak-copy_and_handoff.md">Copy and handoff</a></div></div></article>
 
 <section class="st end" data-ch="e" id="contact" aria-labelledby="cH">
-  <div><h2 id="cH">End of the route. Have a page, file or export that <em>needs work?</em></h2><p>Send it with a short note on what should happen. I reply with the scope, price and timing, usually the same day.</p>
-    <p class="note">ALLEX RESPECT ASIA is a live business site. The other projects are my own work, built with fictional companies and sample data to show how I'd handle a real brief. None of them is presented as client work. Older overview: <a href="Selected_Work_Overview.pdf">PDF</a>.</p>
-    <div class="elsewhere"><a href="https://contra.com/alexandr_khrustalev_tbhzo1a2">Contra</a><a href="https://www.linkedin.com/in/sander-sax-9835a82b4/">LinkedIn</a><a href="https://github.com/SanderSaxBuilds">GitHub</a></div></div>
+  <div><h2 id="cH">Have a page, file or export that <em>needs work?</em></h2><p>Send it with a short note on what should happen. I reply with the scope, price and timing, usually the same day.</p>
+    <div class="elsewhere"><a href="https://contra.com/alexandr_khrustalev_tbhzo1a2">Contra</a><a href="https://www.linkedin.com/in/sander-sax-9835a82b4/">LinkedIn</a><a href="https://github.com/SanderSaxBuilds">GitHub</a></div>
+    <p class="note">ALLEX RESPECT ASIA is a live business site. The other projects are my own work, built with fictional companies and sample data to show how I would handle a real brief. None of them is presented as client work. Older overview: <a href="Selected_Work_Overview.pdf">PDF</a>.</p></div>
   <div class="chs">
-    <a class="ch" href="https://t.me/sandersax" target="_blank" rel="noopener"><span class="ic" style="background:#229ed9"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5Z"/></svg></span><div><b>Telegram</b><span>@sandersax</span></div><span class="ar" aria-hidden="true">→</span></a>
-    <a class="ch" href="https://wa.me/66961347329" target="_blank" rel="noopener"><span class="ic" style="background:#25d366"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.7-.6 13.5 13.5 0 0 1-5.2-4.6c-.4-.5-1-1.5-1-2.8s.7-2 1-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.3Z"/></svg></span><div><b>WhatsApp</b><span>+66 96 134 7329</span></div><span class="ar" aria-hidden="true">→</span></a>
-    <a class="ch" href="mailto:leshadqq@gmail.com"><span class="ic" style="background:#2b3558"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg></span><div><b>Email</b><span>leshadqq@gmail.com</span></div><span class="ar" aria-hidden="true">→</span></a>
+    <a class="ch" href="https://t.me/sandersax" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5Z"/></svg></span><div><b>Telegram</b><span>@sandersax</span></div><span class="ar" aria-hidden="true">→</span></a>
+    <a class="ch" href="https://wa.me/66961347329" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.7-.6 13.5 13.5 0 0 1-5.2-4.6c-.4-.5-1-1.5-1-2.8s.7-2 1-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.3Z"/></svg></span><div><b>WhatsApp</b><span>+66 96 134 7329</span></div><span class="ar" aria-hidden="true">→</span></a>
+    <a class="ch" href="mailto:leshadqq@gmail.com"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg></span><div><b>Email</b><span>leshadqq@gmail.com</span></div><span class="ar" aria-hidden="true">→</span></a>
   </div>
   <footer><span>© 2026 Alexandr Khrustalev · SanderSax</span><span>Thailand, working remotely</span></footer>
 </section>
 </main>
 
-<div class="shade" aria-hidden="true"></div>
 <div class="rail" id="rail" aria-hidden="true"></div>
 <nav class="hud" id="hud" aria-label="Route">
-  <div class="ct" id="ct"><b>00</b> / 29</div>
   <div class="bar" id="bar" aria-hidden="true"><i></i></div>
+  <div class="ct" id="ct" aria-live="polite"><b>Index</b></div>
   <div class="chs-l" id="chl"></div>
-  <div class="pn"><button type="button" id="prev" aria-label="Previous stop">↑</button><button type="button" id="next" aria-label="Next stop">↓</button></div>
+  <div class="pn"><button type="button" id="prev" aria-label="Previous project">↑</button><button type="button" id="next" aria-label="Next project">↓</button></div>
 </nav>
 
 <script>
@@ -350,21 +373,21 @@ html:not(.depth) .cw span{font-size:clamp(64px,9vw,120px)}
 <script>
 (function(){
 var root=document.documentElement;
-if(!root.classList.contains("depth"))return; /* reduced motion: the stacked list needs no script */
+if(!root.classList.contains("depth"))return; /* reduced motion: the plain list needs no script */
 var body=document.body,space=document.getElementById("space");
 var sts=[].slice.call(space.querySelectorAll(".st")),cws=[].slice.call(space.querySelectorAll(".cw"));
-var N=sts.length,ct=document.getElementById("ct"),chl=document.getElementById("chl"),bar=document.getElementById("bar"),veil=document.getElementById("veil"),rail=document.getElementById("rail");
+var N=sts.length,ct=document.getElementById("ct"),chl=document.getElementById("chl"),bar=document.getElementById("bar"),rail=document.getElementById("rail");
 var fine=matchMedia("(hover: hover) and (pointer: fine)").matches;
-var NAMES={a:"Start",n:"New",w:"Websites",d:"Data",i:"Systems",b:"Documents",r:"Research",e:"Contact"};
-var P,DZ,T,DR,H=[];
+var NAMES={a:"Index",n:"New",w:"Websites",d:"Data",i:"Systems",b:"Documents",r:"Research",e:"Contact"};
+var P,DZ,T,DR,VH,H=[],FS=[];
 var s=0,goal=0,raf=0,cur=-1,enter=false,drag=null,eat=false;
 var look={x:0,y:0},view={x:0,y:0};
-function pad(n){return(n<10?"0":"")+n}
 function clamp(v,a,b){return v<a?a:v>b?b:v}
+function esc(t){return String(t).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
 
 /* chapter buttons, and their marks on the progress line */
 var chapters=[];sts.forEach(function(st,i){var c=st.dataset.ch;if(!chapters.length||chapters[chapters.length-1].c!==c)chapters.push({c:c,i:i})});
-chapters.forEach(function(ch){var b=document.createElement("button");b.type="button";b.className="go";b.textContent=NAMES[ch.c];b.dataset.c=ch.c;
+chapters.forEach(function(ch){if(ch.c==="a")return;var b=document.createElement("button");b.type="button";b.className="go";b.textContent=NAMES[ch.c];b.dataset.c=ch.c;b.dataset.ch=ch.c;
   b.addEventListener("click",function(){goTo(ch.i)});chl.appendChild(b);
   if(ch.i>0&&ch.i<N-1){var m=document.createElement("s");m.style.left=(ch.i/(N-1)*100).toFixed(2)+"%";bar.appendChild(m)}});
 var chBtns=[].slice.call(chl.children);
@@ -372,7 +395,7 @@ var chBtns=[].slice.call(chl.children);
 /* one tick per stop on the right edge: hover to read it, click or sweep to go there */
 var ticks=sts.map(function(st,i){var b=document.createElement("button"),h=st.querySelector("h3,h2");
   b.type="button";b.className="tk";b.tabIndex=-1;b.dataset.ch=st.dataset.ch;
-  var t=document.createElement("span");t.textContent=i===0?"Start":st.id==="contact"?"Contact":h?h.textContent:"";b.appendChild(t);
+  var t=document.createElement("span");t.textContent=i===0?"Index":st.id==="contact"?"Contact":h?h.textContent:"";b.appendChild(t);
   rail.appendChild(b);return b});
 function railAt(y){var r=rail.getBoundingClientRect();return clamp(Math.round((y-r.top)/r.height*N-.5),0,N-1)}
 var sweeping=false;
@@ -380,16 +403,31 @@ rail.addEventListener("pointerdown",function(e){if(e.button!==0||enter)return;sw
 rail.addEventListener("pointermove",function(e){if(sweeping)goTo(railAt(e.clientY))});
 rail.addEventListener("pointerup",function(){sweeping=false});rail.addEventListener("pointercancel",function(){sweeping=false});
 
+/* the room takes its light from the cover in front: one small average per picture, read once */
+var tones={},cv=document.createElement("canvas");cv.width=cv.height=12;var cx=null;try{cx=cv.getContext("2d",{willReadFrequently:true})}catch(_){}
+function toneOf(i,cb){var st=sts[i],img=st&&st.querySelector(".im img");if(!img||!cx)return cb(null);var src=img.getAttribute("src");
+  if(tones[src]!==undefined)return cb(tones[src]);
+  var im=new Image();im.decoding="async";im.onload=function(){try{cx.clearRect(0,0,12,12);cx.drawImage(im,0,0,12,12);var d=cx.getImageData(0,0,12,12).data,r=0,g=0,b=0,n=0;
+    for(var j=0;j<d.length;j+=4){var w=1+Math.max(d[j],d[j+1],d[j+2])-Math.min(d[j],d[j+1],d[j+2]);r+=d[j]*w;g+=d[j+1]*w;b+=d[j+2]*w;n+=w}
+    tones[src]="rgb("+Math.round(r/n)+","+Math.round(g/n)+","+Math.round(b/n)+")"}catch(_){tones[src]=null}cb(tones[src])};
+  im.onerror=function(){tones[src]=null;cb(null)};im.src=src}
+function light(i){toneOf(i,function(c){if(Math.round(goal)===i||Math.round(s)===i)body.style.setProperty("--glow",c||"#3a3530")})}
+
 function layout(){
-  var vw=innerWidth,vh=innerHeight,mob=vw<760;
-  P=mob?900:1100;DZ=mob?240:320;T=mob?14:28;DR=mob?190:260;
+  var vw=innerWidth,vh=innerHeight,mob=vw<760,narrow=vw<=900;VH=vh;
+  P=mob?900:1200;DZ=mob?230:300;T=mob?13:24;DR=mob?190:260;
   space.style.perspective=P+"px";
-  var w=Math.min(1080,vw*.8,(vh-170)*2.55);if(mob)w=Math.min(vw-28,460);
+  var w=Math.min(1200,vw*.84,(vh-200)*2.62);
+  if(narrow)w=Math.min(vw-(mob?44:80),560);
+  var wide=vh<520&&vw>vh;root.classList.toggle("short",wide);if(wide)w=Math.min(vw-110,(vh-90)*2.6,980);
   space.style.setProperty("--w",Math.round(w)+"px");
-  H=sts.map(function(st){return st.offsetHeight});
+  space.style.setProperty("--wi",Math.round(Math.min(1320,vw-(mob?32:96)))+"px");
+  /* a sheet taller than the room between the bars is set down a little smaller, never cut */
+  var avail=vh-(mob?150:170);
+  H=sts.map(function(st,i){var h=st.offsetHeight;FS[i]=Math.min(1,(i===0?vh-120:avail)/h);return h*FS[i]});
 }
 
-/* k is how many steps a stop is ahead of you: the next ones wait in a stack behind, the one you leave flies past */
+/* k is how many steps a sheet is ahead of you: the next ones wait in the folder behind, the one you leave lifts up and past you */
 function place(st,i){
   var k=i-s,e=st;
   if(k>4.6||k<-.62){if(e._vis){e._vis=false;e.style.visibility="hidden";e.style.pointerEvents="none"}if(e._on){e._on=false;e.classList.remove("on")}return false}
@@ -400,93 +438,105 @@ function place(st,i){
     busy=Math.abs(e._tl-e._lift)>.003||Math.abs(e._trx-e._rx)>.02||Math.abs(e._try-e._ry)>.02;rx=e._rx;ry=e._ry}
   if(k>=0){
     var sc=P/(P+k*DZ);z=-k*DZ;
-    y=H[i]/2-(H0/2+k*T+(e._lift||0)*14)/sc;
-    o=clamp(4.6-k,0,1);dim=Math.min(.8,k*.3);
-    /* a taller card waiting behind must not show below the one in front */
+    y=H[i]/2-(H0/2+k*T+(e._lift||0)*16)/sc;
+    o=clamp(4.6-k,0,1);dim=Math.min(.84,k*.32);
+    /* a taller sheet waiting behind must not show below the one in front */
     if(k>.02)cut=Math.max(0,H[i]-(H0+k*T)/sc+2);
-    /* on the opening screen the stack waits low, under the headline */
-    if(s<1&&i>0){var f=1-clamp(s,0,1);y+=f*innerHeight*.66/sc;dim=Math.max(dim,f*.5);cut=cut*(1-f)}
+    /* on the opening page the folder waits low, under the name */
+    if(s<1&&i>0){var f=1-clamp(s,0,1);y+=f*VH*.7/sc;dim=Math.max(dim,f*.35);cut=cut*(1-f)}
   }else{
-    var p=-k;z=p*760;y=p*80;o=clamp(1-p*1.7,0,1);dim=0;rx-=p*7;
+    var p=-k;z=p*380;y=-p*VH*.42;o=clamp(1-p*1.65,0,1);dim=0;rx+=p*9;
   }
   e.style.opacity=o.toFixed(3);e.style.setProperty("--dim",dim.toFixed(3));
-  var cp=cut>0?"inset(-48px 0 "+cut.toFixed(1)+"px 0 round 24px)":"";if(e._cp!==cp){e._cp=cp;e.style.clipPath=cp}
+  var cp=cut>0?"inset(-40px 0 "+cut.toFixed(1)+"px 0)":"";if(e._cp!==cp){e._cp=cp;e.style.clipPath=cp}
   e.style.zIndex=String(1000-Math.round(k*20));
-  e.style.transform="translate(-50%,-50%) translate3d(0,"+y.toFixed(1)+"px,"+z.toFixed(1)+"px) rotateX("+rx.toFixed(2)+"deg) rotateY("+ry.toFixed(2)+"deg)";
+  e.style.transform="translate(-50%,-50%) translate3d(0,"+y.toFixed(1)+"px,"+z.toFixed(1)+"px) rotateX("+rx.toFixed(2)+"deg) rotateY("+ry.toFixed(2)+"deg)"+(FS[i]<1?" scale("+FS[i].toFixed(4)+")":"");
   var on=Math.abs(k)<.35;if(on!==!!e._on){e._on=on;e.classList.toggle("on",on)}
   e.classList.toggle("far",k>=.35);
   e.style.pointerEvents=k>-.2&&k<4.2?"auto":"none";
-  if(i===0)e.style.setProperty("--pass",clamp(-k*1.5,0,1).toFixed(3));
   return busy;
 }
 function render(){
-  space.style.perspectiveOrigin=(50+view.x*5).toFixed(2)+"% "+(50+view.y*4).toFixed(2)+"%";
+  space.style.perspectiveOrigin=(50+view.x*4).toFixed(2)+"% "+(50+view.y*3).toFixed(2)+"%";
   var busy=false;for(var i=0;i<N;i++)if(place(sts[i],i))busy=true;
   bar.style.setProperty("--p",clamp(s/(N-1),0,1).toFixed(4));
   var k=clamp(Math.round(s),0,N-1);
-  if(k!==cur){cur=k;var c=sts[k].dataset.ch;body.dataset.ch=c;ct.innerHTML="<b>"+pad(k)+"</b> / "+pad(N-1)+" · "+NAMES[c];
+  if(k!==cur){cur=k;var st=sts[k],c=st.dataset.ch;body.dataset.ch=c;
+    var h=st.querySelector("h3"),num=st.querySelector(".meta b");
+    ct.innerHTML=num?"<b>"+num.textContent+" / 28</b><span>"+NAMES[c]+"</span><em>"+esc(h.textContent)+"</em>":"<b>"+NAMES[c]+"</b><span>"+(k===0?"28 projects":"Get in touch")+"</span>";
     chBtns.forEach(function(b){b.setAttribute("aria-current",String(b.dataset.c===c))});
     ticks.forEach(function(t,j){t.setAttribute("aria-current",String(j===k))});
-    cws.forEach(function(w){w.classList.toggle("now",w.dataset.ch===c)})}
+    for(var j=Math.max(1,k-1);j<Math.min(N,k+6);j++){var im=sts[j].querySelector(".im img");if(im&&im.loading!=="eager")im.loading="eager"}
+    light(k);if(k+1<N)toneOf(k+1,function(){})}
   return busy;
 }
-function tick(){
-  raf=0;
-  if(!drag){s+=(goal-s)*(enter?.085:.15);if(Math.abs(goal-s)<.0008)s=goal}
+var lastT=0;
+function tick(now){
+  raf=0;var dt=lastT?Math.min(80,Math.max(1,now-lastT)):16.7;lastT=now;
+  /* the same glide at any frame rate */
+  if(!drag){s+=(goal-s)*(1-Math.pow(.85,dt/16.7));if(Math.abs(goal-s)<.0008)s=goal}
   view.x+=(look.x-view.x)*.08;view.y+=(look.y-view.y)*.08;
   var looking=Math.abs(look.x-view.x)>.002||Math.abs(look.y-view.y)>.002;
   var busy=render();
-  if((s!==goal&&!drag)||busy||looking)raf=requestAnimationFrame(tick);
+  if((s!==goal&&!drag)||busy||looking)raf=requestAnimationFrame(tick);else lastT=0;
 }
 function kick(){if(!raf)raf=requestAnimationFrame(tick)}
 function goTo(i){if(enter)return;goal=clamp(Math.round(i),0,N-1);kick()}
 
-/* opening a project flies you into its card */
-function flyInto(href){
+/* opening a project: its picture grows to fill the screen, then the page opens */
+var zoom=null,zv=null;
+function flyInto(href,st){
   if(enter)return;enter=true;
-  goal=Math.round(goal)+.5;veil.classList.add("on");kick();
-  setTimeout(function(){location.href=href},680);
+  var img=st&&st.querySelector(".im img"),r=img&&img.getBoundingClientRect();
+  zv=document.createElement("div");zv.className="zoomv";body.appendChild(zv);
+  if(r&&r.width){zoom=document.createElement("div");zoom.className="zoom";
+    zoom.style.cssText="left:"+r.left+"px;top:"+r.top+"px;width:"+r.width+"px;height:"+r.height+"px;background-image:url('"+(img.currentSrc||img.src)+"')";
+    body.appendChild(zoom);zoom.getBoundingClientRect();
+    zoom.style.left="0px";zoom.style.top="0px";zoom.style.width=innerWidth+"px";zoom.style.height=innerHeight+"px"}
+  zv.getBoundingClientRect();zv.classList.add("on");
+  setTimeout(function(){location.href=href},640);
 }
-addEventListener("pageshow",function(e){if(e.persisted&&enter){enter=false;veil.classList.remove("on");goal=s=Math.round(goal-.5);kick()}});
+addEventListener("pageshow",function(e){if(e.persisted&&enter){enter=false;if(zoom)zoom.remove();if(zv)zv.remove();zoom=zv=null;kick()}});
 
 sts.forEach(function(st,i){
   if(!st.classList.contains("card"))return;
   st._card=true;st._rx=st._ry=st._trx=st._try=0;st._lift=st._tl=0;
-  /* a card waiting in the stack is a door: click it to bring it forward */
+  /* a sheet waiting in the folder is a door: click it to bring it forward */
   st.addEventListener("click",function(e){
     if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     if(!st._on){e.preventDefault();st._tl=0;goTo(i);return}
     var a=e.target.closest("a");if(!a||a.target==="_blank")return;var href=a.getAttribute("href");
     if(!href||href.charAt(0)==="#"||/^(mailto|tel):/i.test(href)||/\.(pdf|zip|xlsx|md)(\?|#|$)/i.test(href))return;
-    e.preventDefault();flyInto(a.href);
+    e.preventDefault();flyInto(a.href,st);
   });
   if(!fine)return;
   st.addEventListener("pointerenter",function(){if(!st._on&&!drag){st._tl=1;kick()}});
   st.addEventListener("pointermove",function(e){if(!st._on||drag){st._trx=st._try=0;return}var r=st.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
-    st._try=(x-.5)*7;st._trx=(.5-y)*5;st.style.setProperty("--mx",(x*100).toFixed(1)+"%");st.style.setProperty("--my",(y*100).toFixed(1)+"%");kick()});
+    st._try=(x-.5)*4;st._trx=(.5-y)*3;kick()});
   st.addEventListener("pointerleave",function(){st._trx=st._try=0;st._tl=0;kick()});
 });
 
 /* one wheel gesture is one step, so a hard flick can never throw you past the work */
-var acc=0,lastW=0,lastA=0,stepT=-1e4;
+var acc=0,lastW=0,lastA=0,stepT=-1e4,streamT=0;
 addEventListener("wheel",function(e){
   if(e.ctrlKey)return;e.preventDefault();if(enter||drag)return;
   var now=performance.now(),dy=e.deltaMode===1?e.deltaY*32:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
   if(Math.abs(e.deltaX)>Math.abs(dy)*1.2)dy=e.deltaX;
-  var quiet=now-lastW,ad=Math.abs(dy);lastW=now;
+  var quiet=now-lastW,ad=Math.abs(dy);lastW=now;if(quiet>160)streamT=now;
   var fresh=quiet>160||(now-stepT>650&&ad>=50&&ad>=lastA*.95)||(now-stepT>380&&ad>lastA*1.6+6);
   lastA=ad;
-  if(now-stepT<1200&&!fresh){acc=0;return}
+  /* the tail of a gesture that already moved never moves again, however long it runs */
+  if(!fresh&&(now-stepT<1200||stepT>=streamT)){acc=0;return}
   if(quiet>160)acc=0;
   acc+=dy;
   if(Math.abs(acc)>=36){var d=acc>0?1:-1;acc=0;stepT=now;goTo(Math.round(goal)+d)}
 },{passive:false});
 
-/* drag the world with a finger or the mouse, it follows you and settles on the nearest stop */
+/* drag the folder with a finger or the mouse, it follows you and settles on the nearest sheet */
 space.addEventListener("dragstart",function(e){e.preventDefault()});
 space.addEventListener("pointerdown",function(e){
   if(enter||(e.pointerType==="mouse"&&e.button!==0))return;
-  var now=performance.now();drag={id:e.pointerId,y0:e.clientY,s0:s,ly:e.clientY,lt:now,v:0,moved:false};
+  var now=performance.now();drag={id:e.pointerId,y0:e.clientY,s0:s,g0:Math.round(goal),ly:e.clientY,lt:now,v:0,moved:false};
 });
 addEventListener("pointermove",function(e){
   if(fine){look.x=e.clientX/innerWidth*2-1;look.y=e.clientY/innerHeight*2-1;kick()}
@@ -494,13 +544,15 @@ addEventListener("pointermove",function(e){
   var dy=e.clientY-drag.y0;
   if(!drag.moved){if(Math.abs(dy)<8)return;drag.moved=true;drag.y0=e.clientY;dy=0;root.classList.add("dragging");try{space.setPointerCapture(e.pointerId)}catch(_){}}
   var now=performance.now(),dt=Math.max(1,now-drag.lt);drag.v=drag.v*.5+(e.clientY-drag.ly)/dt*.5;drag.ly=e.clientY;drag.lt=now;
-  s=clamp(drag.s0-dy/DR,-.3,N-.7);goal=s;kick();
+  /* the stack follows the finger for one sheet, then resists: one gesture is one project */
+  var raw=-dy/DR,m=Math.abs(raw),o=m<=1?raw:(raw<0?-1:1)*(1+Math.min(.22,(m-1)*.18));
+  s=clamp(drag.s0+o,-.3,N-.7);goal=s;kick();
 },{passive:true});
 function endDrag(e){
   if(!drag||e.pointerId!==drag.id)return;var d=drag;drag=null;root.classList.remove("dragging");
   if(!d.moved)return;eat=true;setTimeout(function(){eat=false},60);
   if(performance.now()-d.lt>90)d.v=0;
-  var n=Math.round(s-d.v*170/DR),base=Math.round(s);goTo(clamp(n,base-1,base+1));
+  var t=(s-d.s0)-d.v*120/DR;goTo(d.g0+(t>.2?1:t<-.2?-1:0));
 }
 addEventListener("pointerup",endDrag);addEventListener("pointercancel",endDrag);
 document.addEventListener("click",function(e){if(eat){eat=false;e.preventDefault();e.stopPropagation()}},true);
@@ -510,7 +562,7 @@ addEventListener("resize",function(){layout();kick()});
 document.getElementById("prev").addEventListener("click",function(){goTo(goal-1)});
 document.getElementById("next").addEventListener("click",function(){goTo(goal+1)});
 
-/* keys move stop by stop */
+/* keys move sheet by sheet */
 addEventListener("keydown",function(e){
   if(e.altKey||e.ctrlKey||e.metaKey)return;var t=e.target,k=e.key,i=Math.round(goal);
   if(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))return;
@@ -527,7 +579,7 @@ document.addEventListener("click",function(e){
   var a=e.target.closest('a[href^="#"]');if(!a)return;var el=document.getElementById(a.getAttribute("href").slice(1));if(!el)return;
   var st=stopOf(el);if(!st)return;e.preventDefault();goTo(sts.indexOf(st));
 });
-/* keyboard focus brings its stop to the front */
+/* keyboard focus brings its sheet to the front */
 space.addEventListener("focusin",function(e){var st=e.target.closest(".st");if(!st)return;space.scrollTop=0;space.scrollLeft=0;goTo(sts.indexOf(st))});
 
 layout();
