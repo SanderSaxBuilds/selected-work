@@ -155,10 +155,14 @@ html.depth .space{transform-origin:50% 52%}
 .dust{display:none;position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
 html.depth .dust{display:block}
 
-/* outlined stop numbers floating behind each card, and a gate at every chapter */
-.gn,.gate{display:none;pointer-events:none}
-html.depth .gn,html.depth .gate{display:block;position:absolute;left:50%;top:52%;visibility:hidden;will-change:transform,opacity}
-.gn{font:500 230px/.8 var(--mono);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.2px color-mix(in srgb,var(--cc) 60%,transparent);white-space:nowrap}
+/* a gate at every chapter, a floor of light under the route, and the veil you fly through into a project */
+.gate,.floor,.veil{display:none;pointer-events:none}
+html.depth .gate{display:block;position:absolute;left:50%;top:52%;visibility:hidden;will-change:transform,opacity}
+html.depth .floor{display:block;position:absolute;left:50%;top:52%;width:7000px;height:10000px;margin:-5000px 0 0 -3500px;background:radial-gradient(42% 30% at 50% 6%,color-mix(in srgb,var(--c) 26%,transparent),transparent 72%),radial-gradient(30% 40% at 50% 55%,color-mix(in srgb,var(--c) 9%,transparent),transparent 70%);will-change:transform}
+html.depth .veil{display:block;position:fixed;inset:0;z-index:45;opacity:0;background:radial-gradient(60% 60% at 50% 52%,color-mix(in srgb,var(--c) 30%,#06070b),#06070b 75%);transition:opacity .6s ease .12s}
+html.depth .veil.on{opacity:1}
+html.depth .card.far{cursor:pointer}
+html.depth .card.far .links,html.depth .card.far .im{pointer-events:none}
 .gate{border:1.5px solid color-mix(in srgb,var(--cc) 55%,transparent);border-radius:72px;box-shadow:inset 0 0 90px -20px color-mix(in srgb,var(--cc) 45%,transparent),0 0 90px -30px color-mix(in srgb,var(--cc) 45%,transparent)}
 
 /* a card wakes up when you reach it */
@@ -225,7 +229,6 @@ html.depth .hint{display:block}
   html.depth .ch{min-height:58px;padding:8px 14px}
   html.depth .ch .ic{width:38px;height:38px}
   html.depth .lede{font-size:15px;margin-bottom:24px}
-  .gn{font-size:140px}
   .gate{border-radius:48px}
 }
 
@@ -243,6 +246,7 @@ html:not(.depth) .cw span{font-size:clamp(64px,9vw,120px)}
 <a class="skip" href="#all">Skip to the work</a>
 <div class="atmo" aria-hidden="true"></div>
 <canvas class="dust" id="dust" aria-hidden="true"></canvas>
+<div class="veil" id="veil" aria-hidden="true"></div>
 <header class="top">
   <a class="logo" href="./" aria-label="SanderSax, home"><i class="mk" aria-hidden="true"></i><span class="wm" aria-hidden="true">[SANDERSAX]</span></a>
   <nav aria-label="Sections"><a href="#all">Work</a><a href="thailand/">Websites in Thailand</a><a href="font/">Handwriting font</a><a href="#contact">Contact</a></nav>
@@ -330,11 +334,12 @@ var root=document.documentElement;
 if(!root.classList.contains("depth"))return; /* reduced motion: the stacked list needs no script */
 var body=document.body,space=document.getElementById("space"),runway=document.getElementById("runway");
 var sts=[].slice.call(space.querySelectorAll(".st")),cws=[].slice.call(space.querySelectorAll(".cw"));
-var N=sts.length,ct=document.getElementById("ct"),chl=document.getElementById("chl"),hint=document.getElementById("hint"),bar=document.getElementById("bar");
+var N=sts.length,ct=document.getElementById("ct"),chl=document.getElementById("chl"),hint=document.getElementById("hint"),bar=document.getElementById("bar"),veil=document.getElementById("veil");
 var dust=document.getElementById("dust"),dc=dust.getContext("2d"),fine=matchMedia("(hover: hover) and (pointer: fine)").matches;
 var NAMES={a:"Start",n:"New",w:"Websites",d:"Data",i:"Systems",b:"Documents",r:"Research",e:"Contact"};
-var GAP=1700,P,PE,SEG,AX,AY,mob,pos=[],cpos=[],gpos=[],npos=[],pts=[];
-var cam={x:0,y:0,z:0},tgt={x:0,y:0,z:0},raf=0,cur=-1,look={x:0,y:0},vel=0,roll=0;
+var GAP=1700,P,PE,SEG,AX,AY,FY,mob,pos=[],cpos=[],gpos=[],pts=[];
+var cam={x:0,y:0,z:0},tgt={x:0,y:0,z:0},raf=0,cur=-1,vel=0,roll=0,enter=null;
+var look={x:0,y:0},view={x:0,y:0},ty=0,tp=0; /* pointer target, smoothed view, tan of yaw and pitch */
 function pad(n){return(n<10?"0":"")+n}
 function clamp(v,a,b){return v<a?a:v>b?b:v}
 function seeded(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -346,24 +351,23 @@ chapters.forEach(function(ch){var b=document.createElement("button");b.type="but
   if(ch.i>0&&ch.i<N-1){var m=document.createElement("s");m.style.left=(ch.i/(N-1)*100).toFixed(2)+"%";bar.appendChild(m)}});
 var chBtns=[].slice.call(chl.children);
 
-/* outlined stop numbers behind the cards, and a gate you pass through at each chapter */
-var gns=sts.map(function(s,i){if(!s.classList.contains("card"))return null;var g=document.createElement("div");g.className="gn";g.dataset.ch=s.dataset.ch;g.setAttribute("aria-hidden","true");g._f=.6;g.textContent=pad(i);space.appendChild(g);return g});
-var gates=cws.map(function(c){var g=document.createElement("div");g.className="gate";g._f=.36;g.dataset.ch=c.dataset.ch;g.setAttribute("aria-hidden","true");space.appendChild(g);return g});
+/* a gate you pass through at each chapter, and a floor of light under the route */
+var gates=cws.map(function(c){var g=document.createElement("div");g.className="gate";g.dataset.ch=c.dataset.ch;g.setAttribute("aria-hidden","true");space.appendChild(g);return g});
+var floor=document.createElement("div");floor.className="floor";floor.setAttribute("aria-hidden","true");space.insertBefore(floor,space.firstChild);
 
 function layout(){
   var vw=innerWidth,vh=innerHeight;mob=vw<760;
-  P=PE=mob?820:1000;SEG=Math.round(vh*(mob?.9:1));AX=mob?150:Math.min(560,vw*.36);AY=mob?70:110;
+  P=PE=mob?820:1000;SEG=Math.round(vh*(mob?.9:1));AX=mob?150:Math.min(560,vw*.36);AY=mob?70:110;FY=mob?520:600;
   space.style.perspective=P+"px";
   var w=Math.min(1080,vw*.84,(vh-150)*2.55);if(mob)w=Math.min(vw-28,460);
   space.style.setProperty("--w",Math.round(w)+"px");
   pos=sts.map(function(s,i){var ends=i===0||i===N-1;return{x:ends?0:(i%2?AX:-AX),y:ends?0:Math.round(Math.sin(i*1.9)*AY),z:i*GAP}});
   cpos=cws.map(function(c){var f=sts.indexOf(c.nextElementSibling),a=pos[f-1],b=pos[f];return{x:(a.x+b.x)/2,y:(a.y+b.y)/2-(mob?40:60),z:(a.z+b.z)/2}});
   gpos=cpos.map(function(c){return{x:c.x,y:c.y+(mob?40:60),z:c.z+GAP*.16}});
-  npos=pos.map(function(p){var side=p.x<0?-1:1;return{x:p.x+side*w*(mob?.18:.4),y:p.y-w*(mob?.72:.3),z:p.z+(mob?280:460)}});
   gates.forEach(function(g){g.style.width=Math.round(vw*2.1)+"px";g.style.height=Math.round(vh*1.75)+"px"});
   var dpr=Math.min(2,devicePixelRatio||1);dust.width=Math.round(vw*dpr);dust.height=Math.round(vh*dpr);dc.setTransform(dpr,0,0,dpr,0,0);
-  var rnd=seeded(7),n=mob?90:210,span=(N+1)*GAP;pts=[];
-  for(var k=0;k<n;k++){var x=(rnd()*2-1)*vw*1.5,y=(rnd()*2-1)*vh*1.25;
+  var rnd=seeded(7),n=mob?110:260,span=(N+1)*GAP;pts=[];
+  for(var k=0;k<n;k++){var x=(rnd()*2-1)*vw*1.7,y=(rnd()*2-1)*vh*1.3;
     if(Math.abs(x)<vw*.32&&Math.abs(y)<vh*.32)x+=x<0?-vw*.32:vw*.32;
     pts.push({x:x,y:y,z:-GAP+rnd()*span,r:.5+rnd()*.9})}
   runway.style.height=((N-1)*SEG+vh)+"px";
@@ -371,45 +375,56 @@ function layout(){
 function ease(t){t=clamp((t-.14)/.72,0,1);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
 function target(){
   if(!(SEG>0)||innerHeight<2)layout();
+  if(enter){var q=pos[enter.i];tgt.x=q.x;tgt.y=q.y;tgt.z=q.z+P*.5;return}
   var s=SEG>0?clamp(scrollY/SEG,0,N-1):0,i=Math.min(N-2,Math.floor(s)),e=ease(s-i),a=pos[i],b=pos[i+1];
   tgt.x=a.x+(b.x-a.x)*e;tgt.y=a.y+(b.y-a.y)*e;tgt.z=a.z+(b.z-a.z)*e;
 }
-/* kind 0 a stop, 1 a chapter word, 2 decoration */
+/* kind 0 a stop, 1 a chapter word, 2 a gate */
 function place(el,p,kind,i){
-  var d=p.z-cam.z,o;
+  var d=p.z-cam.z,o,lift=0,busy=false;
+  if(kind===0&&el._card){el._lift+=(el._tl-el._lift)*.16;lift=el._lift;if(Math.abs(el._tl-el._lift)>.01)busy=true;d-=lift*240}
+  var entering=enter&&enter.i===i;
   if(kind===1){o=clamp(1-d/(GAP*.8),0,1)*.9;if(d<0)o*=Math.max(0,1+d/(P*.55))}
-  else{var far=GAP*3.3;o=d>far?0:Math.min(1,(far-d)/(GAP*1.1));o*=1-clamp(d/far,0,1)*.55;if(d<0)o*=Math.max(0,1+d/(P*(kind===2?.7:.42)));if(kind===2)o*=el._f}
-  if(o<=.005||d<-P*.8){if(el.style.visibility!=="hidden")el.style.visibility="hidden";if(el._on){el._on=false;el.classList.remove("on")}return false}
+  else{var far=GAP*3.3;o=d>far?0:Math.min(1,(far-d)/(GAP*1.1));o*=1-clamp(d/far,0,1)*.55;if(d<0&&!entering)o*=Math.max(0,1+d/(P*(kind===2?.7:.42)));if(kind===2)o*=.36;o=Math.min(1,o+lift*.35)}
+  el._d=d;
+  if(o<=.005||d<-P*.8){if(el.style.visibility!=="hidden")el.style.visibility="hidden";if(el._on){el._on=false;el.classList.remove("on")}el.style.pointerEvents="none";return busy}
   el.style.visibility="visible";el.style.opacity=o.toFixed(3);
   el.style.zIndex=String(Math.round(20000-d/4));
-  var X=p.x-cam.x,Y=p.y-cam.y,rot="",busy=false;
+  /* the camera looks around the stop you are at: far things swing, the near card stays put */
+  var X=p.x-cam.x-d*ty,Y=p.y-cam.y-d*tp,ya=Math.atan(ty)*57.3,pa=Math.atan(tp)*57.3,rot="";
   if(kind===0&&el._card){
-    /* cards turn to face you on the way in, and lean a little toward the pointer once you arrive */
+    var pass=d<0&&!entering?clamp(-d/(P*.42),0,1):0,side=(p.x-cam.x)<0?-1:1;
+    X+=side*pass*pass*420;
     el._rx+=(el._trx-el._rx)*.14;el._ry+=(el._try-el._ry)*.14;
-    busy=Math.abs(el._trx-el._rx)>.02||Math.abs(el._try-el._ry)>.02;
-    rot=" rotateY("+(-X/AX*11+el._ry).toFixed(2)+"deg) rotateX("+(Y/AY*3+el._rx).toFixed(2)+"deg)";
+    if(Math.abs(el._trx-el._rx)>.02||Math.abs(el._try-el._ry)>.02)busy=true;
+    /* cards turn to face you on the way in, swing aside as you pass, and lean toward the pointer */
+    rot=" rotateY("+(-(p.x-cam.x)/AX*11+ya+side*pass*38+el._ry).toFixed(2)+"deg) rotateX("+((p.y-cam.y)/AY*3+pa+el._rx).toFixed(2)+"deg)";
     var on=Math.abs(d)<GAP*.32;if(on!==!!el._on){el._on=on;el.classList.toggle("on",on)}
     if(d<GAP*2){el.style.setProperty("--px",(-Math.abs(X)/AX*24).toFixed(1)+"px");el.style.setProperty("--py",(-Math.abs(Y)/AY*10).toFixed(1)+"px")}
+    el.classList.toggle("far",!on&&d>0);
+    el.style.pointerEvents=d>-GAP*.3&&d<GAP*2.4?"auto":"none";
+  }else{
+    rot=" rotateY("+ya.toFixed(2)+"deg) rotateX("+pa.toFixed(2)+"deg)";
+    el.style.pointerEvents=kind===0&&Math.abs(d)<GAP*.3?"auto":"none";
   }
   if(i===0)el.style.setProperty("--pass",clamp(-d/(P*.5),0,1).toFixed(3));
-  el.style.pointerEvents=kind===0&&Math.abs(d)<GAP*.3?"auto":"none";
   el.style.transform="translate(-50%,-50%) translate3d("+X.toFixed(1)+"px,"+Y.toFixed(1)+"px,"+(-d).toFixed(1)+"px)"+rot;
   return busy;
 }
 function drawDust(dz,dx){
   var vw=innerWidth,vh=innerHeight;dc.clearRect(0,0,vw,vh);
-  var ox=vw*(50+look.x*3)/100,oy=vh*(52+look.y*3)/100,cx=vw/2,cy=vh*.52,streak=Math.abs(dz)>1.2;
+  var ox=vw/2,oy=vh*.52,streak=Math.abs(dz)>1.2,m=enter?5:2.6;
   dc.lineCap="round";
   for(var k=0;k<pts.length;k++){
     var q=pts[k],d=q.z-cam.z;if(d<-P*.7||d>GAP*4.2)continue;
-    var s=PE/(PE+d),sx=ox+(cx+q.x-cam.x-ox)*s,sy=oy+(cy+q.y-cam.y-oy)*s;
+    var s=PE/(PE+d),wx=q.x-cam.x-d*ty,wy=q.y-cam.y-d*tp,sx=ox+wx*s,sy=oy+wy*s;
     if(sx<-60||sx>vw+60||sy<-60||sy>vh+60)continue;
     var a=Math.min(1,(GAP*4.2-d)/(GAP*1.6));if(d<0)a*=Math.max(0,1+d/(P*.7));a*=.6;if(a<.01)continue;
     var r=Math.max(.5,q.r*1.7*s);
     dc.fillStyle=dc.strokeStyle="rgba(214,222,255,"+a.toFixed(3)+")";
     if(streak){
-      var d0=d+dz*2.6,s0=PE/(PE+d0);
-      if(s0>0){dc.lineWidth=r*2;dc.beginPath();dc.moveTo(ox+(cx+q.x-cam.x+dx*2.6-ox)*s0,oy+(cy+q.y-cam.y-oy)*s0);dc.lineTo(sx,sy);dc.stroke();continue}
+      var d0=d+dz*m,s0=PE/(PE+d0);
+      if(s0>0){dc.lineWidth=r*2;dc.beginPath();dc.moveTo(ox+(wx+dx*m)*s0,oy+wy*s0);dc.lineTo(sx,sy);dc.stroke();continue}
     }
     dc.beginPath();dc.arc(sx,sy,r,0,6.2832);dc.fill();
   }
@@ -418,46 +433,68 @@ function render(dz,dx){
   /* speed widens the view a touch and the route banks into its turns */
   PE=P*(1-Math.min(.16,Math.abs(vel)/700));
   roll+=(clamp(-dx*.05,-2.4,2.4)-roll)*.18;if(Math.abs(roll)<.005)roll=0;
+  ty=Math.tan(view.x*(mob?0:.13));tp=Math.tan(view.y*(mob?0:.07));
   space.style.perspective=PE.toFixed(0)+"px";
-  space.style.perspectiveOrigin=(50+look.x*3).toFixed(2)+"% "+(52+look.y*3).toFixed(2)+"%";
   var rt=roll?"rotate("+roll.toFixed(3)+"deg)":"";space.style.transform=rt;dust.style.transform=rt;
   var busy=false;
   sts.forEach(function(s,i){if(place(s,pos[i],0,i))busy=true});
   cws.forEach(function(c,i){place(c,cpos[i],1)});
   gates.forEach(function(g,i){place(g,gpos[i],2)});
-  gns.forEach(function(g,i){if(g)place(g,npos[i],2)});
+  floor.style.transform="translate3d("+(-5000*ty).toFixed(1)+"px,"+(FY-5000*tp).toFixed(1)+"px,-5000px) rotateX(90deg)";
   drawDust(dz,dx);
-  bar.style.setProperty("--p",(cam.z/((N-1)*GAP)).toFixed(4));
+  bar.style.setProperty("--p",clamp(cam.z/((N-1)*GAP),0,1).toFixed(4));
   var k=clamp(Math.round(cam.z/GAP),0,N-1);
   if(k!==cur){cur=k;var c=sts[k].dataset.ch;body.dataset.ch=c;ct.innerHTML="<b>"+pad(k)+"</b> / "+pad(N-1)+" · "+NAMES[c];
     chBtns.forEach(function(b){b.setAttribute("aria-current",String(b.dataset.c===c))})}
   return busy;
 }
 function tick(){
-  raf=0;var k=.12,px=cam.x,pz=cam.z;
+  raf=0;var k=enter?.075:.12,px=cam.x,pz=cam.z;
   cam.x+=(tgt.x-cam.x)*k;cam.y+=(tgt.y-cam.y)*k;cam.z+=(tgt.z-cam.z)*k;
+  view.x+=(look.x-view.x)*.07;view.y+=(look.y-view.y)*.07;
+  var looking=Math.abs(look.x-view.x)>.002||Math.abs(look.y-view.y)>.002;
   var settled=Math.abs(tgt.z-cam.z)<.5&&Math.abs(tgt.x-cam.x)<.5&&Math.abs(tgt.y-cam.y)<.5;
   if(settled){cam.x=tgt.x;cam.y=tgt.y;cam.z=tgt.z}
   var dz=cam.z-pz,dx=cam.x-px;vel+=(dz-vel)*.25;if(Math.abs(vel)<.02)vel=0;
   var busy=render(dz,dx);
-  if(!settled||busy||vel||roll)raf=requestAnimationFrame(tick);
+  if(!settled||busy||looking||vel||roll)raf=requestAnimationFrame(tick);
 }
 function kick(){if(!raf)raf=requestAnimationFrame(tick)}
 function snap(){target();cam.x=tgt.x;cam.y=tgt.y;cam.z=tgt.z;vel=0;roll=0;render(0,0)}
 function goTo(i,instant){i=clamp(i,0,N-1);scrollTo({top:i*SEG,behavior:instant?"auto":"smooth"})}
 
-sts.forEach(function(s){
+/* opening a project flies you into its card first */
+function flyInto(i,href){
+  if(enter)return;enter={i:i};hint.classList.add("gone");
+  veil.classList.add("on");target();kick();
+  setTimeout(function(){location.href=href},720);
+}
+addEventListener("pageshow",function(e){if(e.persisted&&enter){enter=null;veil.classList.remove("on");snap()}});
+
+sts.forEach(function(s,i){
   if(!s.classList.contains("card"))return;
-  s._card=true;s._rx=s._ry=s._trx=s._try=0;
+  s._card=true;s._rx=s._ry=s._trx=s._try=0;s._lift=s._tl=0;
+  /* a card further down the route is a door: click it to travel there */
+  s.addEventListener("click",function(e){
+    if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    if(!s._on){e.preventDefault();s._tl=0;goTo(i);return}
+    var a=e.target.closest("a");if(!a||a.target==="_blank")return;var href=a.getAttribute("href");
+    if(!href||href.charAt(0)==="#"||/\.(pdf|zip|xlsx|md)(\?|#|$)/i.test(href))return;
+    e.preventDefault();flyInto(i,a.href);
+  });
   if(!fine)return;
+  s.addEventListener("pointerenter",function(){if(!s._on){s._tl=1;kick()}});
   s.addEventListener("pointermove",function(e){if(!s._on)return;var r=s.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
     s._try=(x-.5)*6;s._trx=(.5-y)*4.5;s.style.setProperty("--mx",(x*100).toFixed(1)+"%");s.style.setProperty("--my",(y*100).toFixed(1)+"%");kick()});
-  s.addEventListener("pointerleave",function(){s._trx=s._try=0;kick()});
+  s.addEventListener("pointerleave",function(){s._trx=s._try=0;s._tl=0;kick()});
 });
 
-addEventListener("scroll",function(){target();kick();if(scrollY>40)hint.classList.add("gone")},{passive:true});
+addEventListener("scroll",function(){if(enter)return;target();kick();if(scrollY>40)hint.classList.add("gone")},{passive:true});
 addEventListener("resize",function(){var k=SEG>0?scrollY/SEG:0;layout();scrollTo(0,k*SEG);snap()});
-if(fine)addEventListener("pointermove",function(e){look.x=e.clientX/innerWidth*2-1;look.y=e.clientY/innerHeight*2-1;kick()},{passive:true});
+if(fine){
+  addEventListener("pointermove",function(e){look.x=e.clientX/innerWidth*2-1;look.y=e.clientY/innerHeight*2-1;kick()},{passive:true});
+  document.addEventListener("pointerleave",function(){look.x=look.y=0;kick()});
+}
 document.getElementById("prev").addEventListener("click",function(){goTo(Math.round(scrollY/SEG)-1)});
 document.getElementById("next").addEventListener("click",function(){goTo(Math.round(scrollY/SEG)+1)});
 
