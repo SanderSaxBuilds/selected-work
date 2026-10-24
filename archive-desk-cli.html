@@ -31,19 +31,26 @@
   <section id="commands" class="g-split" aria-labelledby="commands-title">
     <div>
       <div class="section-head"><h2 id="commands-title">Four commands, one saved baseline</h2></div>
-      <p class="note">Extract the source into a new folder and open a terminal in its ArchiveDeskCLI folder. Swap the example paths for your own, pick an existing output folder outside the project and close editors that might change its files.</p>
+      <p class="note">Extract the source into a new folder and open a terminal in its ArchiveDeskCLI folder. Type your own folders below and the four commands are rewritten to match. Pick an existing output folder outside the project and close editors that might change its files.</p>
+      <form class="paths" id="paths" autocomplete="off" novalidate>
+        <div class="field"><label for="p-project">Project folder</label><input id="p-project" type="text" spellcheck="false" value="C:\Projects\MyProject" data-default="C:\Projects\MyProject" data-name="project folder"></div>
+        <div class="field"><label for="p-backups">Backup folder</label><input id="p-backups" type="text" spellcheck="false" value="C:\Backups" data-default="C:\Backups" data-name="backup folder"></div>
+        <div class="field"><label for="p-recovered">Restore into</label><input id="p-recovered" type="text" spellcheck="false" value="C:\Recovered" data-default="C:\Recovered" data-name="restore folder"></div>
+        <div class="field"><label for="p-name">Backup name</label><input id="p-name" type="text" spellcheck="false" value="project-new" data-default="project-new" data-name="backup name"></div>
+        <div class="paths-foot"><p id="paths-note" class="paths-note" role="status" aria-live="polite">Showing the example paths.</p><button class="button secondary" type="reset">Reset to the example</button></div>
+      </form>
       <ol class="cmd-list">
         <li><span class="step-no">1</span><div><h3>Create and verify a backup</h3>
-<pre class="code">node cli.mjs backup "C:\Projects\MyProject" --out "C:\Backups\project-new.zip"</pre>
+<div class="cmd"><pre class="code" data-cmd="backup">node cli.mjs backup "C:\Projects\MyProject" --out "C:\Backups\project-new.zip"</pre><button class="copy" type="button" hidden>Copy</button></div>
           <p>Reads the regular project files, saves a new ZIP and verifies the bytes it reads back from disk. An existing output file is refused.</p></div></li>
         <li><span class="step-no">2</span><div><h3>Check a saved copy again</h3>
-<pre class="code">node cli.mjs verify "C:\Backups\project-new.zip"</pre>
+<div class="cmd"><pre class="code" data-cmd="verify">node cli.mjs verify "C:\Backups\project-new.zip"</pre><button class="copy" type="button" hidden>Copy</button></div>
           <p>Reads the ZIP records, CRC values and every manifest fingerprint. Keep another checked copy somewhere else.</p></div></li>
         <li><span class="step-no">3</span><div><h3>Compare the project later</h3>
-<pre class="code">node cli.mjs compare "C:\Backups\project-new.zip" "C:\Projects\MyProject" --report "C:\Backups\comparison-new.json"</pre>
+<div class="cmd"><pre class="code" data-cmd="compare">node cli.mjs compare "C:\Backups\project-new.zip" "C:\Projects\MyProject" --report "C:\Backups\project-new-comparison.json"</pre><button class="copy" type="button" hidden>Copy</button></div>
           <p>The JSON report lists added, removed, changed and unchanged paths, plus the SHA-256 of the exact backup it compared against.</p></div></li>
         <li><span class="step-no">4</span><div><h3>Restore into a new folder</h3>
-<pre class="code">node cli.mjs restore "C:\Backups\project-new.zip" --out "C:\Recovered\project-new"</pre>
+<div class="cmd"><pre class="code" data-cmd="restore">node cli.mjs restore "C:\Backups\project-new.zip" --out "C:\Recovered\project-new"</pre><button class="copy" type="button" hidden>Copy</button></div>
           <p>The parent folder must exist and the destination must be new. Each file is written, synced and read back against the manifest. Existing destinations and linked parent paths are refused.</p>
           <p>If a restore stops partway, the command reports the exact folder and leaves the partial files there for you to inspect. Timestamps, empty folders and permissions are not restored.</p></div></li>
       </ol>
@@ -98,5 +105,61 @@
   <nav aria-label="More from Archive Desk"><a href="archive-desk.html">Browser app</a><a href="archive-desk-protection.html">Encrypted copies</a><a href="archive-desk-workbench-history.html">Workbench for Windows</a></nav>
   <p>Built by SanderSaxBuilds with Node.js built-in modules and no third-party runtime packages. The sample project is fictional.</p>
 </div></footer>
+<script>
+// Rewrites the four example commands from the folders typed above. Nothing leaves the page.
+(() => {
+  const $ = id => document.getElementById(id)
+  const form = $('paths'), note = $('paths-note')
+  const fields = { project: $('p-project'), backups: $('p-backups'), recovered: $('p-recovered'), name: $('p-name') }
+  const trim = v => v.trim().replace(/^"(.*)"$/, '$1').replace(/[\\/]+$/, '')
+  const sep = v => (v.includes('/') && !v.includes('\\')) ? '/' : '\\'
+  const join = (dir, leaf) => dir + sep(dir) + leaf
+  const norm = v => v.replace(/\//g, '\\').toLowerCase()
+  const inside = (child, parent) => { const c = norm(child), p = norm(parent); return c === p || c.startsWith(p + '\\') }
+  function render() {
+    const v = {}, used = []
+    for (const [k, el] of Object.entries(fields)) {
+      v[k] = trim(el.value)
+      if (!v[k]) { v[k] = el.dataset.default; used.push(el.dataset.name) }
+    }
+    const problems = []
+    for (const el of Object.values(fields)) el.removeAttribute('aria-invalid')
+    const quoted = Object.keys(fields).filter(k => v[k].includes('"'))
+    if (quoted.length) { problems.push('Folder and file names cannot contain a double quote.'); for (const k of quoted) fields[k].setAttribute('aria-invalid', 'true') }
+    if (/[\\/:*?<>|]/.test(v.name)) { problems.push('The backup name is a file name, so leave out slashes and the characters : * ? < > |.'); fields.name.setAttribute('aria-invalid', 'true') }
+    if (inside(v.backups, v.project)) { problems.push('The backup folder sits inside the project, so each backup would include the last one. Choose a folder outside it.'); fields.backups.setAttribute('aria-invalid', 'true') }
+    if (inside(v.recovered, v.project)) { problems.push('Restoring inside the project mixes recovered files with the originals. Choose a folder outside it.'); fields.recovered.setAttribute('aria-invalid', 'true') }
+    const zip = join(v.backups, v.name + '.zip')
+    const cmds = {
+      backup: `node cli.mjs backup "${v.project}" --out "${zip}"`,
+      verify: `node cli.mjs verify "${zip}"`,
+      compare: `node cli.mjs compare "${zip}" "${v.project}" --report "${join(v.backups, v.name + '-comparison.json')}"`,
+      restore: `node cli.mjs restore "${zip}" --out "${join(v.recovered, v.name)}"`
+    }
+    for (const pre of document.querySelectorAll('pre[data-cmd]')) { pre.textContent = cmds[pre.dataset.cmd]; pre.closest('.cmd').classList.toggle('blocked', problems.length > 0) }
+    const changed = Object.values(fields).some(el => el.value !== el.dataset.default)
+    note.classList.toggle('bad', problems.length > 0)
+    note.textContent = problems.length ? problems.join(' ') : !changed ? 'Showing the example paths.' : used.length ? `Using the example for the empty ${used.join(' and ')}.` : 'Commands updated for your folders.'
+  }
+  form.addEventListener('input', render)
+  form.addEventListener('reset', () => setTimeout(render))
+  form.addEventListener('submit', e => e.preventDefault())
+  async function copy(text) {
+    try { await navigator.clipboard.writeText(text); return true } catch {}
+    const t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0'; document.body.append(t); t.select()
+    let ok = false; try { ok = document.execCommand('copy') } catch {} t.remove(); return ok
+  }
+  for (const b of document.querySelectorAll('.cmd .copy')) {
+    b.hidden = false
+    b.addEventListener('click', async () => {
+      const pre = b.previousElementSibling
+      b.textContent = (await copy(pre.textContent)) ? 'Copied' : 'Selected'
+      if (b.textContent !== 'Copied') { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r) }
+      clearTimeout(b._t); b._t = setTimeout(() => { b.textContent = 'Copy' }, 1800)
+    })
+  }
+  render()
+})()
+</script>
 </body>
 </html>
