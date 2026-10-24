@@ -176,6 +176,9 @@ function renderHeader() {
   $("#dayView").hidden = state.view !== "day";
   $("#weekView").hidden = state.view !== "week";
   $(".workspace").classList.toggle("is-week", state.view === "week");
+  $("#daySummary").hidden = state.view === "week";
+  $("#dayStrip").hidden = state.view === "week";
+  if (state.view === "week") setSky(12 * 60);
   for (const [button, view] of [[$("#dayViewButton"), "day"], [$("#weekViewButton"), "week"]]) button.setAttribute("aria-pressed", String(state.view === view));
   for (const [button, view] of [[$("#navToday"), "day"], [$("#navWeek"), "week"]]) {
     button.classList.toggle("is-current", state.view === view);
@@ -220,12 +223,39 @@ function assignLanes(items) {
   });
 }
 
+// The sky over the planner follows the hour you scrub to: night, dawn rose, clear noon, lilac dusk.
+const SKY = [[0, "#141a38"], [300, "#1d2346"], [390, "#4b4a85"], [435, "#e2b4c6"], [490, "#f3e2da"], [570, "#e3ecf8"], [720, "#cde0f5"], [900, "#d8e5f6"], [1020, "#ecdcd6"], [1110, "#d4aac8"], [1170, "#8a79b2"], [1235, "#3e4279"], [1320, "#1d2346"], [1440, "#141a38"]];
+const hex = value => [1, 3, 5].map(index => parseInt(value.slice(index, index + 2), 16));
+function skyAt(minute) {
+  const m = Math.max(0, Math.min(1440, minute));
+  const upper = SKY.findIndex(([at]) => at >= m);
+  if (upper <= 0) return hex(SKY[0][1]);
+  const [a, ca] = SKY[upper - 1], [b, cb] = SKY[upper];
+  const t = (m - a) / (b - a || 1);
+  return hex(ca).map((value, index) => Math.round(value + (hex(cb)[index] - value) * t));
+}
+const rgb = channels => `rgb(${channels.join(" ")})`;
+function setSky(minute) {
+  const top = skyAt(minute), low = skyAt(minute + 110);
+  const root = document.documentElement.style;
+  root.setProperty("--sky-1", rgb(top));
+  root.setProperty("--sky-2", rgb(low));
+  const light = (0.2126 * top[0] + 0.7152 * top[1] + 0.0722 * top[2]) / 255;
+  $("#sky").classList.toggle("is-night", light < 0.5);
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", rgb(top));
+}
+
+function dayRange(shown) {
+  let from = 7 * 60, to = 21 * 60;
+  for (const item of shown) { from = Math.min(from, Math.floor(timeMinutes(item.start) / 60) * 60); to = Math.max(to, Math.ceil(eventEnd(item) / 60) * 60); }
+  return { from, to };
+}
+
 let scrub = null;
 let scrubDate = null;
 function renderStrip(shown) {
   const strip = $("#dayStrip"); strip.replaceChildren();
-  let from = 7 * 60, to = 21 * 60;
-  for (const item of shown) { from = Math.min(from, Math.floor(timeMinutes(item.start) / 60) * 60); to = Math.max(to, Math.ceil(eventEnd(item) / 60) * 60); }
+  const { from, to } = dayRange(shown);
   const span = to - from;
   const pct = minutes => `${((minutes - from) / span) * 100}%`;
   const track = element("div", "strip-track");
@@ -256,7 +286,6 @@ function renderStrip(shown) {
     axis.append(tick);
   }
   // The strip is a horizon: the sky shifts from dawn to dusk across the hours, and a sun marks the moment you scrub to.
-  const SKY = [[300, "#2b3462"], [420, "#ecc3cb"], [540, "#f5ebe2"], [660, "#eef3fb"], [960, "#eef3fb"], [1080, "#f3dfd2"], [1170, "#d3b2cc"], [1260, "#454b78"], [1380, "#262c50"]];
   track.style.background = `linear-gradient(90deg, ${SKY.map(([minute, color]) => `${color} ${(((minute - from) / span) * 100).toFixed(1)}%`).join(", ")})`;
   if (scrubDate !== state.selectedDate || scrub === null || scrub < from || scrub > to) {
     const now = new Date(); const nowMinutes = now.getHours() * 60 + now.getMinutes();
@@ -291,6 +320,9 @@ function renderStrip(shown) {
     readText.replaceChildren(element("strong", "", formatMinutes(scrub)), document.createTextNode(` ${text}`));
     planHere.textContent = `Plan a block at ${formatMinutes(scrub)}`;
     planHere.hidden = busy || scrub >= 24 * 60 - 15;
+    setSky(scrub);
+    const line = $("#dayTimeline .tl-scrub");
+    if (line) { line.style.top = `${(scrub - timelineFrom) * timelinePpm}px`; line.dataset.time = formatMinutes(scrub); }
   };
   planHere.addEventListener("click", () => openEditor(null, state.selectedDate, minutesToTime(scrub), false, 30));
   const fromPointer = event => { const box = track.getBoundingClientRect(); place(from + ((event.clientX - box.left) / box.width) * span); };
@@ -309,52 +341,172 @@ function renderStrip(shown) {
   strip.append(track, axis, readout);
 }
 
-function agendaCard(item) {
-  const conflicts = overlappingEvents(item, state.events);
-  const card = element("button", `agenda-card ${item.calendar}`);
-  card.type = "button";
-  const time = element("span", "agenda-time");
-  time.append(element("span", "", formatClock(item.start)), element("span", "agenda-end", formatMinutes(eventEnd(item))));
-  const body = element("span", "agenda-body");
-  body.append(element("span", "agenda-title", item.title), element("span", "agenda-meta", `${capitalize(item.calendar)}, ${formatDuration(item.duration)}`));
-  const tags = element("span", "agenda-tags");
-  if (item.protected) tags.append(element("span", "tag focus", "Protected focus"));
-  if (conflicts.length) tags.append(element("span", "tag warn", `Overlaps ${conflicts.map(other => other.title).join(" and ")}`));
-  body.append(tags);
-  card.append(time, body);
-  card.setAttribute("aria-label", `${item.title}, ${eventRange(item)}, ${item.calendar} calendar${item.protected ? ", protected focus" : ""}${conflicts.length ? `, overlaps ${conflicts.map(other => other.title).join(" and ")}` : ""}. Edit.`);
-  card.addEventListener("click", () => openEditor(item));
-  return card;
+// Overlapping blocks share the width of their cluster, each in its own lane.
+function laneLayout(items) {
+  const sorted = [...items].sort((a, b) => timeMinutes(a.start) - timeMinutes(b.start) || eventEnd(b) - eventEnd(a));
+  const out = [];
+  let cluster = [], clusterEnd = -1;
+  const flush = () => { if (!cluster.length) return; const placed = assignLanes(cluster); const lanes = Math.max(...placed.map(entry => entry.lane + 1)); for (const entry of placed) out.push({ ...entry, lanes }); cluster = []; };
+  for (const item of sorted) {
+    if (timeMinutes(item.start) >= clusterEnd) { flush(); clusterEnd = -1; }
+    cluster.push(item); clusterEnd = Math.max(clusterEnd, eventEnd(item));
+  }
+  flush();
+  return out;
 }
 
-function gapRow(gap) {
-  const row = element("div", "gap-row");
+function blockLabel(item) {
+  const conflicts = overlappingEvents(item, state.events);
+  return `${item.title}, ${eventRange(item)}, ${item.calendar} calendar${item.protected ? ", protected focus" : ""}${conflicts.length ? `, overlaps ${conflicts.map(other => other.title).join(" and ")}` : ""}. Edit.`;
+}
+
+const snap = minutes => Math.round(minutes / 15) * 15;
+let timelineFrom = 7 * 60;
+let timelinePpm = 1.2;
+let suppressClick = false;
+
+function moveBlock(item, start) {
+  const next = Math.max(0, Math.min(24 * 60 - item.duration, start));
+  if (next === timeMinutes(item.start)) return false;
+  if (readOnly) { showStorageIssue(storageIssue || "conflict"); return false; }
+  item.start = minutesToTime(next);
+  const saved = persist();
+  const conflicts = overlappingEvents(item, state.events);
+  render();
+  const button = $(`#dayTimeline [data-id="${CSS.escape(item.id)}"] .tl-open`);
+  button?.focus({ preventScroll: true });
+  announce(saved ? `Moved ${item.title} to ${eventRange(item)}.${conflicts.length ? ` It now overlaps ${conflicts.map(other => other.title).join(" and ")}.` : ""}` : NOT_SAVED);
+  return true;
+}
+
+function timelineBlock(item, layout, from, ppm) {
+  const start = timeMinutes(item.start);
+  const conflicts = overlappingEvents(item, state.events);
+  const block = element("div", `tl-block ${item.calendar}${item.protected ? " is-protected" : ""}${conflicts.length ? " has-overlap" : ""}${item.duration <= 30 ? " is-short" : ""}`);
+  block.dataset.id = item.id;
+  block.style.top = `${(start - from) * ppm}px`;
+  block.style.height = `${Math.max(item.duration * ppm, 22)}px`;
+  block.style.setProperty("--lane", String(layout.lane));
+  block.style.setProperty("--lanes", String(layout.lanes));
+  const open = element("button", "tl-open");
+  open.type = "button";
+  const time = element("span", "tl-time", `${formatClock(item.start)} to ${formatMinutes(eventEnd(item))}`);
+  open.append(element("span", "tl-title", item.title), time);
+  const tags = element("span", "tl-tags");
+  if (item.protected) tags.append(element("span", "tag focus", "Protected"));
+  if (conflicts.length) tags.append(element("span", "tag warn", `Overlaps ${conflicts.map(other => other.title).join(" and ")}`));
+  if (tags.childElementCount) open.append(tags);
+  open.setAttribute("aria-label", blockLabel(item));
+  open.setAttribute("aria-keyshortcuts", "Alt+ArrowUp Alt+ArrowDown");
+  open.addEventListener("click", () => { if (suppressClick) { suppressClick = false; return; } openEditor(item); });
+  open.addEventListener("keydown", event => {
+    if (!event.altKey || !["ArrowUp", "ArrowDown"].includes(event.key)) return;
+    event.preventDefault();
+    moveBlock(item, timeMinutes(item.start) + (event.key === "ArrowUp" ? -15 : 15));
+  });
+  const grip = element("span", "tl-grip");
+  grip.setAttribute("aria-hidden", "true");
+  grip.title = "Drag to move";
+  block.append(open, grip);
+
+  let drag = null;
+  const begin = event => {
+    if (event.button !== 0) return;
+    if (event.pointerType !== "mouse" && !event.target.closest(".tl-grip")) return;
+    drag = { y: event.clientY, origin: start, next: start, moved: false, id: event.pointerId };
+    block.setPointerCapture(event.pointerId);
+  };
+  block.addEventListener("pointerdown", begin);
+  block.addEventListener("pointermove", event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const dy = event.clientY - drag.y;
+    if (!drag.moved && Math.abs(dy) < 5) return;
+    drag.moved = true;
+    block.classList.add("is-dragging");
+    drag.next = Math.max(0, Math.min(24 * 60 - item.duration, snap(drag.origin + dy / ppm)));
+    block.style.top = `${(drag.next - from) * ppm}px`;
+    time.textContent = `${formatMinutes(drag.next)} to ${formatMinutes(drag.next + item.duration)}`;
+  });
+  const finish = event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const { moved, next } = drag; drag = null;
+    if (block.hasPointerCapture(event.pointerId)) block.releasePointerCapture(event.pointerId);
+    block.classList.remove("is-dragging");
+    if (!moved) return;
+    suppressClick = true; setTimeout(() => { suppressClick = false; }, 0);
+    if (event.type === "pointercancel" || !moveBlock(item, next)) render();
+  };
+  block.addEventListener("pointerup", finish);
+  block.addEventListener("pointercancel", finish);
+  return block;
+}
+
+function gapRegion(gap, from, ppm) {
+  const region = element("div", "tl-gap");
+  region.style.top = `${(gap.start - from) * ppm}px`;
+  region.style.height = `${gap.minutes * ppm}px`;
   const text = element("p", "gap-text");
   text.append(element("strong", "", `${formatDuration(gap.minutes)} open`), document.createTextNode(` ${formatMinutes(gap.start)} to ${formatMinutes(gap.end)}`));
-  const button = element("button", "gap-button", "Protect");
+  const button = element("button", "gap-button", "Protect it");
   button.type = "button";
   button.setAttribute("aria-label", `Protect ${formatDuration(gap.minutes)} from ${formatMinutes(gap.start)} as focus time`);
   button.addEventListener("click", () => {
     const length = Math.min(120, Math.floor(gap.minutes / 15) * 15);
     openEditor(null, state.selectedDate, minutesToTime(gap.start), true, length, "Focus time");
   });
-  row.append(text, button);
-  return row;
+  region.append(text, button);
+  return region;
 }
+
+function renderTimeline(shown) {
+  const outer = $("#dayTimeline"); outer.replaceChildren();
+  outer.hidden = !shown.length;
+  if (!shown.length) return;
+  const box = element("div", "tl-canvas");
+  outer.append(box);
+  const { from, to } = dayRange(shown);
+  const ppm = window.innerWidth < 600 ? 1.15 : 1.3;
+  timelineFrom = from; timelinePpm = ppm;
+  box.style.height = `${(to - from) * ppm}px`;
+  box.dataset.from = String(from);
+  for (let minute = from; minute <= to; minute += 60) {
+    const hour = element("span", `tl-hour${minute === to ? " is-last" : ""}`, formatMinutes(minute % 1440).replace(":00", ""));
+    hour.style.top = `${(minute - from) * ppm}px`;
+    hour.setAttribute("aria-hidden", "true");
+    box.append(hour);
+  }
+  for (const gap of freeGaps(state.events, state.selectedDate, { ...DAY_WINDOW, minLength: 45 })) box.append(gapRegion(gap, from, ppm));
+  if (state.selectedDate === todayKey()) {
+    const now = new Date(); const minutes = now.getHours() * 60 + now.getMinutes();
+    if (minutes >= from && minutes <= to) { const line = element("span", "tl-now"); line.style.top = `${(minutes - from) * ppm}px`; line.setAttribute("aria-hidden", "true"); box.append(line); }
+  }
+  const scrubLine = element("span", "tl-scrub");
+  scrubLine.setAttribute("aria-hidden", "true");
+  box.append(scrubLine);
+  const list = element("ol", "tl-blocks");
+  list.setAttribute("aria-label", "Blocks in time order");
+  for (const layout of laneLayout(shown)) { const li = element("li"); li.append(timelineBlock(layout.item, layout, from, ppm)); list.append(li); }
+  box.append(list);
+}
+
+$("#dayTimeline").addEventListener("click", event => {
+  const box = $("#dayTimeline .tl-canvas");
+  if (!box || event.target.closest("button, .tl-block")) return;
+  const rect = box.getBoundingClientRect();
+  const minute = snap(timelineFrom + (event.clientY - rect.top) / timelinePpm);
+  if (minute < 0 || minute > 24 * 60 - 15) return;
+  openEditor(null, state.selectedDate, minutesToTime(minute), false, 30);
+});
 
 function renderDay() {
   const all = eventsForDate(state.events, state.selectedDate);
   const shown = eventsForDate(state.events, state.selectedDate, visibleCalendars());
   const summary = dailySummary(state.events, state.selectedDate);
   renderSummary(summary);
+  renderTimeline(shown);
   renderStrip(shown);
   $("#visibleCount").textContent = shown.length === all.length ? `${all.length} ${all.length === 1 ? "block" : "blocks"}` : `${shown.length} of ${all.length} blocks shown`;
-  const agenda = $("#dayAgenda"); agenda.replaceChildren();
-  const rows = [
-    ...shown.map(item => ({ at: timeMinutes(item.start), node: agendaCard(item) })),
-    ...(shown.length ? freeGaps(state.events, state.selectedDate, { ...DAY_WINDOW, minLength: 45 }).map(gap => ({ at: gap.start, node: gapRow(gap) })) : []),
-  ].sort((a, b) => a.at - b.at);
-  for (const row of rows) { const li = element("li"); li.append(row.node); agenda.append(li); }
+  $("#agendaHint").hidden = !shown.length;
   $("#dayEmpty").hidden = shown.length > 0;
   if (!shown.length) {
     const allHidden = !state.filters.length;
@@ -367,7 +519,19 @@ function renderDay() {
 function renderWeek() {
   const grid = $("#weekGrid"); grid.replaceChildren();
   const today = todayKey();
-  for (const key of weekDates(state.selectedDate)) {
+  const days = weekDates(state.selectedDate);
+  const visible = days.flatMap(key => eventsForDate(state.events, key, visibleCalendars()));
+  const { from, to } = dayRange(visible);
+  const ppm = 0.62;
+  grid.style.setProperty("--week-height", `${(to - from) * ppm}px`);
+  const rule = element("div", "week-hours");
+  rule.setAttribute("aria-hidden", "true");
+  rule.append(element("span", "week-hours-head"));
+  const hoursTrack = element("div", "week-hours-track");
+  for (let minute = from; minute < to; minute += 120) { const tick = element("span", "", formatMinutes(minute).replace(":00", "")); tick.style.top = `${(minute - from) * ppm}px`; hoursTrack.append(tick); }
+  rule.append(hoursTrack);
+  grid.append(rule);
+  for (const key of days) {
     const column = element("section", `week-day${key === state.selectedDate ? " is-selected" : ""}${key === today ? " is-today" : ""}`);
     const headingId = `week-${key}`;
     column.setAttribute("aria-labelledby", headingId);
@@ -377,25 +541,26 @@ function renderWeek() {
     head.setAttribute("aria-label", `${formatDate(key, { weekday: "long", month: "long", day: "numeric" })}${key === today ? ", today" : ""}. Open day`);
     head.addEventListener("click", () => { state.selectedDate = key; state.view = "day"; persist(); render(); });
     const summary = dailySummary(state.events, key);
-    const load = element("div", "week-load-bar");
-    const fill = element("span", "", undefined); fill.style.width = `${Math.min(100, summary.plannedMinutes / 600 * 100)}%`;
-    load.append(fill);
-    load.setAttribute("aria-hidden", "true");
     const total = element("p", "week-total", summary.blocks ? `${formatDuration(summary.plannedMinutes)} planned` : "Open day");
-    column.append(head, load, total);
+    column.append(head, total);
     const blocks = eventsForDate(state.events, key, visibleCalendars());
-    const list = element("ul", "week-events");
-    for (const item of blocks) {
+    const track = element("ul", "week-events");
+    for (const layout of laneLayout(blocks)) {
+      const item = layout.item;
       const li = element("li");
-      const chip = element("button", `week-event ${item.calendar}${overlappingEvents(item, state.events).length ? " has-overlap" : ""}`);
+      const chip = element("button", `week-event ${item.calendar}${item.duration <= 45 ? " is-short" : ""}${item.protected ? " is-protected" : ""}${overlappingEvents(item, state.events).length ? " has-overlap" : ""}`);
       chip.type = "button";
-      chip.append(element("span", "week-time", formatClock(item.start)), element("span", "week-title", item.title));
+      chip.style.top = `${(timeMinutes(item.start) - from) * ppm}px`;
+      chip.style.height = `${Math.max(item.duration * ppm, 18)}px`;
+      chip.style.setProperty("--lane", String(layout.lane));
+      chip.style.setProperty("--lanes", String(layout.lanes));
+      chip.append(element("span", "week-time", formatClock(item.start).replace(":00", "")), element("span", "week-title", item.title));
       chip.setAttribute("aria-label", `${item.title}, ${eventRange(item)}, ${item.calendar} calendar${item.protected ? ", protected focus" : ""}${overlappingEvents(item, state.events).length ? ", overlaps another block" : ""}. Edit.`);
       chip.addEventListener("click", () => openEditor(item));
-      li.append(chip); list.append(li);
+      li.append(chip); track.append(li);
     }
-    if (blocks.length) column.append(list);
-    else column.append(element("p", "week-empty", summary.blocks ? "Only hidden calendars" : "Nothing planned"));
+    column.append(track);
+    if (!blocks.length) column.append(element("p", "week-empty", summary.blocks ? "Only hidden calendars" : "Nothing planned"));
     grid.append(column);
   }
 }
@@ -595,6 +760,14 @@ function renderSession() {
   $("#breathingButton").textContent = meditationActive ? session.status === "running" ? "Pause break" : "Resume break" : "Start break";
   $("#endMeditation").hidden = !meditationActive;
   $("#breathingOrb").classList.toggle("is-breathing", meditationActive && session.status === "running");
+  const fraction = focusActive ? currentRemaining(session) / session.durationMs : session?.kind === "focus" && session.status === "finished" ? 0 : 1;
+  $("#dialFill").style.strokeDashoffset = String(Math.round((1 - fraction) * 1000));
+  $(".dial").classList.toggle("is-running", focusActive && session.status === "running");
+  let cue = "Step away between blocks";
+  if (meditationActive && session.status === "running") cue = Math.floor((session.durationMs - currentRemaining(session)) / 4000) % 2 ? "Breathe out, slowly" : "Breathe in";
+  else if (meditationActive) cue = "Paused. Resume when ready";
+  else if (session?.kind === "meditation" && session.status === "finished") cue = "Break finished";
+  if ($("#breathCue").textContent !== cue) $("#breathCue").textContent = cue;
   $$("[data-minutes]").forEach(button => button.setAttribute("aria-pressed", String(Number(button.dataset.minutes) === state.focusDuration)));
   $$("[data-meditation-minutes]").forEach(button => button.setAttribute("aria-pressed", String(Number(button.dataset.meditationMinutes) === state.meditationDuration)));
 }
@@ -650,6 +823,10 @@ $("#restorePlan").addEventListener("change", async event => {
   finally { event.target.value = ""; }
 });
 window.addEventListener("storage", event => { if (event.key === STORE_KEY) { readOnly = true; showStorageIssue("conflict"); } });
+
+let resizeTimer;
+let lastWidthBand = window.innerWidth < 600;
+window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { const band = window.innerWidth < 600; if (band !== lastWidthBand) { lastWidthBand = band; render(); } }, 150); });
 
 if (storageIssue) showStorageIssue(storageIssue);
 render();

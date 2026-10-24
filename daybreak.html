@@ -3,68 +3,79 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#eef3fb">
-  <meta name="description" content="Plan your day and week in time blocks, see open stretches at a glance, protect focus time and run a focus timer. Works in the browser without an account.">
+  <meta name="theme-color" content="#dfeaf7">
+  <meta name="description" content="Plan your day and week in time blocks, drag them into place, see open stretches at a glance, protect focus time and run a focus timer. Works in the browser without an account.">
   <title>Daybreak planner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@200;300;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..600,100&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="daybreak-styles.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%2323305e%27/%3E%3Cpath d=%27M7 22a9 9 0 0 1 18 0z%27 fill=%27%23ecc3cb%27/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%2716%27 fill=%27%23c9dcf2%27/%3E%3Ccircle cx=%2716%27 cy=%2720%27 r=%276%27 fill=%27%23fff6e8%27/%3E%3Cpath d=%27M5 22h22%27 stroke=%27%231d2346%27 stroke-width=%272%27/%3E%3C/svg%3E">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to planner</a>
   <div class="shell">
     <aside class="sidebar" id="sidebar" aria-label="Planner menu">
       <div class="sidebar-top">
-        <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 22h22"/><path d="M9 22a7 7 0 0 1 14 0"/><path d="M16 6v4M7.5 10.5l2.5 2.5M24.5 10.5 22 13"/></svg></span><span>Daybreak</span></div>
+        <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M4 22h24"/><path d="M9 22a7 7 0 0 1 14 0"/><path d="M16 5v4M7 9.5l2.6 2.6M25 9.5l-2.6 2.6"/></svg></span><span>Daybreak</span></div>
         <button type="button" class="icon-button sidebar-close" id="closeMenu" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
-      <p class="brand-line">Plan the day around the work that matters.</p>
 
       <nav class="main-nav" aria-label="Views">
-        <button type="button" class="nav-button" id="navToday"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Day</button>
-        <button type="button" class="nav-button" id="navWeek"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 10h18M8 10v10M13 10v10M18 10v10"/></svg>Week</button>
+        <button type="button" class="nav-button" id="navToday"><span class="nav-glyph" aria-hidden="true">D</span>Day plan</button>
+        <button type="button" class="nav-button" id="navWeek"><span class="nav-glyph" aria-hidden="true">W</span>Week ahead</button>
       </nav>
 
-      <section class="calendar-filters" aria-labelledby="calendarHeading">
+      <section class="side-block calendar-filters" aria-labelledby="calendarHeading">
         <h2 id="calendarHeading" class="side-heading">Calendars</h2>
-        <label class="filter"><input type="checkbox" data-calendar="work" checked><span class="swatch work" aria-hidden="true"></span><span class="filter-name">Work</span><span class="filter-count" id="count-work"></span></label>
-        <label class="filter"><input type="checkbox" data-calendar="personal" checked><span class="swatch personal" aria-hidden="true"></span><span class="filter-name">Personal</span><span class="filter-count" id="count-personal"></span></label>
-        <label class="filter"><input type="checkbox" data-calendar="family" checked><span class="swatch family" aria-hidden="true"></span><span class="filter-name">Family</span><span class="filter-count" id="count-family"></span></label>
-        <p class="side-note">Hidden calendars still count when Daybreak checks for overlaps and open time.</p>
+        <label class="filter work"><input type="checkbox" data-calendar="work" checked><span class="filter-name">Work</span><span class="filter-count" id="count-work"></span></label>
+        <label class="filter personal"><input type="checkbox" data-calendar="personal" checked><span class="filter-name">Personal</span><span class="filter-count" id="count-personal"></span></label>
+        <label class="filter family"><input type="checkbox" data-calendar="family" checked><span class="filter-name">Family</span><span class="filter-count" id="count-family"></span></label>
+        <p class="side-note">Hidden calendars still count when Daybreak looks for overlaps and open time.</p>
       </section>
 
-      <section class="plan-backup" aria-labelledby="backupHeading">
+      <section class="side-block week-load" aria-labelledby="loadHeading">
+        <div class="side-row"><h2 id="loadHeading" class="side-heading">The week, by weight</h2><span id="weekTotal" class="side-total"></span></div>
+        <ol class="load-list" id="loadList"></ol>
+        <p class="load-key"><span class="key planned" aria-hidden="true"></span>Planned <span class="key protected" aria-hidden="true"></span>Protected focus</p>
+      </section>
+
+      <section class="side-block plan-backup" aria-labelledby="backupHeading">
         <h2 id="backupHeading" class="side-heading">Keep a copy</h2>
-        <p class="side-note">Your plan is saved in this browser. Download a copy before you clear it or switch devices.</p>
-        <button class="side-button" type="button" id="exportPlan">Download plan</button>
-        <label class="side-button file-button" for="restorePlan">Restore from a file<input type="file" id="restorePlan" accept=".json,application/json"></label>
+        <p class="side-note">Your plan lives in this browser. Download a copy before you clear it or switch devices.</p>
+        <div class="backup-actions">
+          <button class="side-button" type="button" id="exportPlan">Download plan</button>
+          <label class="side-button file-button" for="restorePlan">Restore a file<input type="file" id="restorePlan" accept=".json,application/json"></label>
+        </div>
         <button class="link-button" type="button" id="resetDemo">Start over with the sample week</button>
       </section>
     </aside>
     <div class="scrim" id="scrim" hidden></div>
 
     <main id="main" tabindex="-1">
-      <header class="topbar">
-        <button id="mobileMenu" type="button" class="icon-button mobile-menu" aria-controls="sidebar" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-        <div class="title-block">
+      <header class="sky" id="sky">
+        <div class="sky-bar">
+          <button id="mobileMenu" type="button" class="icon-button mobile-menu" aria-controls="sidebar" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h11"/></svg></button>
+          <div class="controls">
+            <div class="date-nav" role="group" aria-label="Change date">
+              <button id="previousDate" type="button" class="icon-button" aria-label="Previous day"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+              <button id="todayDate" type="button" class="today-button">Today</button>
+              <button id="nextDate" type="button" class="icon-button" aria-label="Next day"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+            <input id="jumpDate" class="jump-date" type="date" aria-label="Go to date">
+            <div class="view-switch" role="group" aria-label="Planner view">
+              <button id="dayViewButton" type="button" aria-pressed="true">Day</button>
+              <button id="weekViewButton" type="button" aria-pressed="false">Week</button>
+            </div>
+          </div>
+          <button class="add-button" id="addEvent" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add block</span></button>
+        </div>
+        <div class="sky-title">
           <p class="eyebrow" id="eyebrow">Today</p>
           <h1 id="pageTitle">Monday, October 19</h1>
+          <div class="day-summary" id="daySummary"></div>
         </div>
-        <div class="controls">
-          <div class="date-nav" role="group" aria-label="Change date">
-            <button id="previousDate" type="button" class="icon-button" aria-label="Previous day"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-            <button id="todayDate" type="button" class="today-button">Today</button>
-            <button id="nextDate" type="button" class="icon-button" aria-label="Next day"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-          </div>
-          <input id="jumpDate" class="jump-date" type="date" aria-label="Go to date">
-          <div class="view-switch" role="group" aria-label="Planner view">
-            <button id="dayViewButton" type="button" aria-pressed="true">Day</button>
-            <button id="weekViewButton" type="button" aria-pressed="false">Week</button>
-          </div>
-        </div>
-        <button class="primary-button add-button" id="addEvent" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add block</span></button>
+        <div class="day-strip" id="dayStrip"></div>
       </header>
 
       <div id="storageBanner" class="storage-banner" role="alert" hidden><p id="storageMessage"></p><div class="banner-actions" id="bannerActions"></div></div>
@@ -74,14 +85,13 @@
           <h2 id="plannerHeading" class="visually-hidden">Planner</h2>
 
           <div id="dayView" class="day-view">
-            <div class="day-summary" id="daySummary"></div>
-            <div class="day-strip" id="dayStrip"></div>
-            <div class="agenda-head"><h3>Schedule</h3><span id="visibleCount"></span></div>
-            <ol id="dayAgenda" class="agenda"></ol>
+            <div class="agenda-head"><h3>The day, hour by hour</h3><span id="visibleCount"></span></div>
+            <p class="agenda-hint" id="agendaHint">Drag a block to move it, or tap an open hour to plan there. With the keyboard, focus a block and press Alt with the up or down arrow.</p>
+            <div id="dayTimeline" class="timeline"></div>
             <div id="dayEmpty" class="empty-state" hidden>
               <p class="empty-title" id="emptyTitle">Nothing planned yet</p>
               <p id="emptyDescription">Add a block with a title, a start time and a length.</p>
-              <div class="empty-actions"><button type="button" class="primary-button" id="emptyAdd">Add block</button><button type="button" class="secondary-button" id="showAllCalendars" hidden>Show all calendars</button></div>
+              <div class="empty-actions"><button type="button" class="add-button" id="emptyAdd">Add block</button><button type="button" class="side-button" id="showAllCalendars" hidden>Show all calendars</button></div>
             </div>
           </div>
 
@@ -92,12 +102,15 @@
 
         <aside class="rail" aria-label="Focus tools">
           <section class="focus-card" aria-labelledby="focusHeading">
-            <div class="card-top"><h2 id="focusHeading">Focus timer</h2><span id="timerState" class="state-pill">Ready</span></div>
-            <div class="timer-display" id="timerDisplay">50:00</div>
+            <div class="card-top"><h2 id="focusHeading">Focus</h2><span id="timerState" class="state-pill">Ready</span></div>
+            <div class="dial">
+              <svg class="dial-ring" viewBox="0 0 200 200" aria-hidden="true"><circle class="dial-track" cx="100" cy="100" r="88"/><circle class="dial-fill" id="dialFill" cx="100" cy="100" r="88" pathLength="1000"/></svg>
+              <div class="timer-display" id="timerDisplay">50:00</div>
+            </div>
             <div class="presets" role="group" aria-label="Focus length">
-              <button type="button" data-minutes="25" aria-pressed="false">25 min</button>
-              <button type="button" data-minutes="50" aria-pressed="true">50 min</button>
-              <button type="button" data-minutes="90" aria-pressed="false">90 min</button>
+              <button type="button" data-minutes="25" aria-pressed="false">25</button>
+              <button type="button" data-minutes="50" aria-pressed="true">50</button>
+              <button type="button" data-minutes="90" aria-pressed="false">90</button>
             </div>
             <div class="timer-actions"><button type="button" class="light-button" id="timerStart">Start focus</button><button type="button" class="ghost-button" id="timerReset">End</button></div>
             <div class="find-focus">
@@ -107,21 +120,18 @@
             </div>
           </section>
 
-          <section class="card week-load" aria-labelledby="loadHeading">
-            <div class="card-head"><h2 id="loadHeading">This week</h2><span id="weekTotal" class="mono"></span></div>
-            <ol class="load-list" id="loadList"></ol>
-            <p class="load-key"><span class="key planned" aria-hidden="true"></span>Planned <span class="key protected" aria-hidden="true"></span>Protected focus</p>
-          </section>
-
-          <section class="card quiet-card" aria-labelledby="quietHeading">
-            <div class="card-head"><h2 id="quietHeading">Breathing break</h2><span class="breathing-orb" id="breathingOrb" aria-hidden="true"></span></div>
-            <p class="card-copy">Step away between blocks. Breathe slowly and stop whenever you like.</p>
+          <section class="quiet-card" aria-labelledby="quietHeading">
+            <div class="card-head"><h2 id="quietHeading">Breathing break</h2></div>
+            <div class="breath">
+              <span class="breathing-orb" id="breathingOrb" aria-hidden="true"></span>
+              <p class="breath-cue" id="breathCue" aria-live="off">Step away between blocks</p>
+            </div>
             <div class="presets small" role="group" aria-label="Break length">
               <button type="button" data-meditation-minutes="1" aria-pressed="false">1 min</button>
               <button type="button" data-meditation-minutes="2" aria-pressed="true">2 min</button>
               <button type="button" data-meditation-minutes="5" aria-pressed="false">5 min</button>
             </div>
-            <div class="quiet-actions"><button type="button" class="secondary-button" id="breathingButton">Start break</button><span id="meditationDisplay" class="mono">02:00</span></div>
+            <div class="quiet-actions"><button type="button" class="side-button" id="breathingButton">Start break</button><span id="meditationDisplay" class="mono">02:00</span></div>
             <button type="button" class="link-button" id="endMeditation" hidden>End break</button>
           </section>
         </aside>
@@ -147,7 +157,7 @@
         </div>
         <label class="checkbox-row" for="eventProtected"><input id="eventProtected" name="protected" type="checkbox"><span>Protected focus time</span></label>
         <p id="overlapWarning" class="overlap-warning" hidden></p>
-        <div class="dialog-actions"><button id="deleteEvent" class="danger-button" type="button" hidden>Delete</button><button class="primary-button" type="submit" id="saveEvent">Add block</button></div>
+        <div class="dialog-actions"><button id="deleteEvent" class="danger-button" type="button" hidden>Delete</button><button class="add-button" type="submit" id="saveEvent">Add block</button></div>
       </form>
     </section>
   </div>

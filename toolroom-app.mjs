@@ -24,6 +24,7 @@ let selectedProduct = null
 let pendingRestore = null
 let pendingOriginal = null
 let toastTimer
+let spotlight = null
 
 try {
   const stored = localStorage.getItem(storageKey)
@@ -91,9 +92,13 @@ function renderCatalog() {
   if (sort === 'name') products = [...products].sort((a, b) => a.name.localeCompare(b.name))
   $('#product-grid').innerHTML = products.map(product => {
     const saved = state.saved.includes(product.id)
-    return `<article class="product-card"><div class="product-media"><div class="product-art ${product.category}" data-detail="${product.id}" aria-hidden="true">${artwork(product)}</div><button type="button" class="save-button" data-save="${product.id}" data-focus-key="save:${product.id}" aria-label="Save ${escape(product.name)}" aria-pressed="${saved}">${icons.bookmark}</button></div><div class="card-body"><div class="card-head"><h3><button type="button" class="card-title" data-detail="${product.id}" data-focus-key="detail:${product.id}">${escape(product.name)}</button></h3><span class="price num">${money(product.priceCents)}</span></div><p class="card-meta"><span>${categoryLabels[product.category]}</span><span class="num">v${escape(shownVersion(product.version))}</span></p><p class="summary">${escape(product.summary)}</p><div class="card-actions">${buyButton(product)}<button type="button" class="button secondary" data-detail="${product.id}" aria-label="Details for ${escape(product.name)}">Details</button></div></div></article>`
+    const out = state.cart.includes(product.id)
+    return `<article class="product-card${out ? ' out' : ''}" data-pocket="${product.id}"><div class="product-media"><div class="product-art ${product.category}" data-detail="${product.id}" aria-hidden="true">${artwork(product)}</div><span class="pocket-label" aria-hidden="true">${icons.check}In your bag</span><button type="button" class="save-button" data-save="${product.id}" data-focus-key="save:${product.id}" aria-label="Save ${escape(product.name)}" aria-pressed="${saved}">${icons.bookmark}</button></div><div class="card-body"><div class="card-head"><h3><button type="button" class="card-title" data-detail="${product.id}" data-focus-key="detail:${product.id}">${escape(product.name)}</button></h3><span class="price num">${money(product.priceCents)}</span></div><p class="card-meta"><span>${categoryLabels[product.category]}</span><span class="num">v${escape(shownVersion(product.version))}</span></p><p class="summary">${escape(product.summary)}</p><div class="card-actions">${buyButton(product)}<button type="button" class="button secondary" data-detail="${product.id}" aria-label="Details for ${escape(product.name)}">Details</button></div></div></article>`
   }).join('')
   $('#result-count').textContent = `${products.length} ${products.length === 1 ? 'tool' : 'tools'}`
+  if (spotlight) $(`[data-pocket="${spotlight}"]`)?.classList.add('spot')
+  const outCount = state.cart.length
+  $('#drawer-out').textContent = outCount ? `${outCount} out of the drawer, in your bag` : 'All tools in the drawer'
   $('#no-results').hidden = products.length > 0
   $('#no-results h3').textContent = category === 'saved' && !query ? 'No saved tools yet.' : 'Nothing matches that search.'
   $('#no-results p').textContent = category === 'saved' && !query ? 'Tap the bookmark on any tool to keep it here.' : 'Try a different word or clear the filters.'
@@ -410,6 +415,10 @@ function renderQuote() {
   $('#q-fee').textContent = '-' + dollars(q.fee)
   $('#q-keep').textContent = dollars(q.keep)
   $('#q-hour').textContent = dollars(q.hour)
+  // The gauge splits the estimate into what you keep and what fees and costs take.
+  const keepShare = Math.max(0, Math.min(1, q.keep / q.total))
+  $('#q-gauge-keep').style.width = `${(keepShare * 100).toFixed(1)}%`
+  $('#q-gauge-fee').style.width = `${((1 - keepShare) * 100).toFixed(1)}%`
   // Flag a quote that pays less per hour than the rate after fees by more than a fifth.
   $('#q-hour').parentElement.classList.toggle('low', q.hour < q.rate * 0.8)
   const match = pins.findIndex(pin => pin.build === q.build && pin.rev === q.rev && pin.rate === q.rate)
@@ -474,6 +483,30 @@ if (csvInputs.length) {
   })
   renderCsv()
 }
+
+// The finder maps a problem to the tool that closes it, then lights that pocket in the drawer.
+const finderButtons = [...document.querySelectorAll('[data-find]')]
+finderButtons.forEach(button => button.setAttribute('aria-pressed', 'false'))
+finderButtons.forEach(button => button.addEventListener('click', () => {
+  const product = byId(button.dataset.find)
+  if (!product) return
+  const again = spotlight === product.id
+  spotlight = again ? null : product.id
+  finderButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button && !again)))
+  category = 'all'; search = ''; sort = 'featured'; $('#search').value = ''; $('#sort').value = 'featured'
+  renderCatalog()
+  if (again) { $('#finder-result').textContent = ''; return }
+  $('#finder-result').innerHTML = `<b>${escape(product.name)}</b>, ${money(product.priceCents)}. ${escape(product.summary)} <a href="#collection" data-goto-pocket="${product.id}">Show it in the drawer</a>`
+}))
+$('#finder-result').addEventListener('click', event => {
+  const link = event.target.closest('[data-goto-pocket]')
+  if (!link) return
+  event.preventDefault()
+  const card = $(`[data-pocket="${link.dataset.gotoPocket}"]`)
+  if (!card) return
+  card.scrollIntoView({ block: 'center', behavior: reduceMotion.matches ? 'auto' : 'smooth' })
+  card.querySelector('.card-title')?.focus({ preventScroll: true })
+})
 
 // Product art leans toward the pointer, a small reward for looking closer.
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)')

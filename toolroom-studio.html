@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#efe6d6">
+  <meta name="theme-color" content="#e9eae6">
   <meta name="description" content="Toolroom Studio is a seller workspace for digital downloads. Write listings, attach and fingerprint files, run release checks and export a portable catalog ZIP.">
   <title>Toolroom Studio | Get your next release ready</title>
   <link rel="icon" href="toolroom-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Azeret+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="toolroom-studio.css">
   <script type="module" src="toolroom-studio-app.mjs"></script>
 </head>
@@ -17,7 +17,7 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="topbar">
     <a class="brand" href="#catalog"><img src="toolroom-mark.svg" alt="" width="32" height="32"><span>Toolroom <b>Studio</b></span></a>
-    <p class="top-status"><i aria-hidden="true"></i><span id="save-status">Saved on this device</span></p>
+    <p class="top-status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 9.5 17 19 7.5"/></svg><span id="save-status">Saved on this device</span></p>
     <button type="button" class="button secondary" id="backup-open">Backup and restore</button>
   </header>
   <div class="shell">
@@ -35,15 +35,16 @@
     <main id="main">
       <section class="page" id="catalog-page" aria-labelledby="catalog-title">
         <div class="page-heading">
-          <div><p class="eyebrow">Seller workspace</p><h1 id="catalog-title">Get your next release ready.</h1><p class="intro">Write the listings, attach the files and run the final checks before anything goes public.</p></div>
+          <div><p class="eyebrow"><span class="num">TR-S1</span> Seller workspace</p><h1 id="catalog-title">Get your next release ready.</h1><p class="intro">Write the listings, attach the files and run the final checks before anything goes public.</p></div>
           <div class="heading-actions"><button type="button" class="button primary" id="add-product"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a product</button><button type="button" class="button secondary" id="example-open">Open the worked example</button></div>
         </div>
         <div class="overview">
           <div><span class="metric-label">Listings</span><strong id="product-count" class="num">0</strong><span>on the shelf</span></div>
           <div><span class="metric-label">Files attached</span><strong id="asset-count" class="num">0</strong><span>this session</span></div>
           <div><span class="metric-label">Ready to ship</span><strong id="ready-count" class="num">0</strong><span>all checks complete</span></div>
-          <a class="overview-link" href="#release">Review the release<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a class="overview-link" href="#release">Go to release checks<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
+        <section class="line-board" id="line-board" aria-labelledby="line-title-text"><h2 class="line-title" id="line-title-text">Release line</h2></section>
         <section class="shop-strip" aria-labelledby="shop-name"><div class="shop-monogram" id="shop-monogram" aria-hidden="true">M</div><div class="shop-copy"><h2 id="shop-name">My download catalog</h2><p id="shop-tagline">Add a short introduction for your catalog.</p></div><button type="button" class="button secondary" id="shop-edit">Edit catalog</button></section>
         <div class="catalog-toolbar"><h2>Listings <span id="list-count" class="num">0</span></h2><label class="search"><span class="sr-only">Search listings</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><input id="search" type="search" placeholder="Search listings" autocomplete="off"></label></div>
         <div id="product-grid" class="product-grid"></div>
@@ -52,7 +53,7 @@
         <p class="workspace-note">Listings save in this browser. File contents stay in memory until you close the tab, so keep the exported catalog ZIP to recover both, or reattach your original files.</p>
       </section>
       <section class="page" id="release-page" hidden aria-labelledby="release-title">
-        <div class="page-heading"><div><p class="eyebrow">Before you share</p><h1 id="release-title">Release checks.</h1><p class="intro">See exactly what goes into the ZIP.</p></div><a class="button secondary" href="#catalog">Back to catalog</a></div>
+        <div class="page-heading"><div><p class="eyebrow"><span class="num">TR-S2</span> Before you share</p><h1 id="release-title">Release checks.</h1><p class="intro">See exactly what goes into the ZIP.</p></div><a class="button secondary" href="#catalog">Back to catalog</a></div>
         <div class="release-layout">
           <div><section class="release-summary" id="release-summary" aria-live="polite"></section>
             <section class="match" id="match" aria-labelledby="match-title">
