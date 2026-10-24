@@ -126,6 +126,11 @@ button { cursor: pointer; }
 .availability strong { color: var(--ink); font-weight: 500; }
 .availability[data-available="false"] strong { color: var(--error); }
 .availability span { color: var(--muted); }
+.availability { flex-wrap: wrap; }
+.availability p { flex: 1 1 200px; }
+.swap-button { flex-basis: 100%; min-height: 44px; margin-left: 20px; padding: 0 16px; border: 1px solid var(--ink); border-radius: 0; background: transparent; color: var(--ink); font: inherit; font-size: 14px; font-weight: 500; text-align: left; transition: background-color 150ms ease-out, color 150ms ease-out; }
+.swap-button:hover { background: var(--ink); color: var(--paper); }
+.swap-button[hidden] { display: none; }
 
 .buy-row { display: flex; gap: 12px; margin-top: 20px; }
 .quantity { display: inline-flex; align-items: center; border: 1px solid var(--ink); border-radius: 0; background: transparent; }
@@ -185,7 +190,21 @@ button { cursor: pointer; }
 .bag-swatch { grid-row: span 2; width: 36px; height: 36px; border-radius: 50%; background: var(--swatch); box-shadow: inset 0 0 0 1px rgba(59, 42, 32, .2); }
 .bag-line strong { display: block; font-size: 16px; font-weight: 500; }
 .bag-line div span { color: var(--muted); font-size: 14px; }
-.bag-line .text-button { grid-column: 2 / -1; justify-self: start; }
+.bag-line .line-actions { grid-column: 2 / -1; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.line-qty { display: inline-flex; align-items: center; border: 1px solid var(--line); }
+.line-qty button { display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; color: var(--ink); font-size: 18px; }
+.line-qty button:hover:not(:disabled) { background: var(--sand-deep); }
+.line-qty button:disabled { color: var(--line); cursor: not-allowed; }
+.line-qty output { min-width: 28px; text-align: center; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.bag-empty-wrap { padding: 28px 0 8px; text-align: center; }
+.bag-empty-wrap .bag-empty { padding: 0 0 14px; }
+.ghost-button { min-height: 44px; padding: 0 18px; border: 1px solid var(--ink); border-radius: 0; background: transparent; color: var(--ink); font: inherit; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; }
+.ghost-button:hover { background: var(--ink); color: var(--paper); }
+.ship-meter { margin-bottom: 16px; font-size: 14px; color: var(--muted); }
+.ship-meter[data-done="true"] p { color: var(--clay-ink); font-weight: 500; }
+.ship-track { display: block; height: 4px; margin-top: 8px; background: var(--line); }
+.ship-fill { display: block; height: 100%; width: 0; background: var(--clay-ink); transition: width 300ms ease-out; }
+@media (prefers-reduced-motion: reduce) { .ship-fill, .swap-button { transition: none; } }
 .text-button { min-height: 44px; padding: 0; border: 0; background: none; color: var(--error); font-size: 14px; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
 .bag-foot { padding: 16px 24px 24px; border-top: 1px solid var(--ink); }
 .bag-foot[hidden] { display: none; }

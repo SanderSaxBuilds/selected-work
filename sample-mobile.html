@@ -2,391 +2,879 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e7e4dc">
 <title>Clearline expense review</title>
-<meta name="description" content="A mobile expense review interface for small teams. Scan the month, filter what needs a decision, open an expense and approve it or ask for a correction.">
+<meta name="description" content="A phone-first expense review app for a small team. Swipe a receipt right to approve it or left to send it back with a reason, with policy checks, budget impact and undo on every card.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* Clearline. A crisp finance app: white, near-black ink, one cobalt.
-   Approve is blue and reject is red. Hairline borders, 12 px corners, tabular figures. */
+/* Clearline. Receipts on a stone desk: thermal paper, carbon ink, a ledger green for approve and a stamp red for send back. */
 :root {
   color-scheme: light;
-  --ink: #0f1222; --paper: #f4f6fb; --surface: #ffffff; --surface-soft: #f7f8fc; --line: #e3e6ef; --line-strong: #c9cfdd;
-  --muted: #565d73; --cobalt: #2546d8; --cobalt-deep: #1a35b0; --cobalt-soft: #e8edfd; --cobalt-ink: #1b34a8;
-  --red: #c8231d; --red-soft: #fdecea; --red-ink: #a41b16; --pending: #fff3d1; --pending-ink: #6e4a00;
-  --radius: 12px; --radius-button: 12px;
-  --focus: 0 0 0 2px #fff, 0 0 0 4px var(--cobalt);
-  --heading: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --body: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --mono: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --stone: #e7e4dc; --stone-deep: #d9d5ca; --ink: #151718; --ink-2: #2b2e2f; --muted: #5b605e; --faint: #8a8e8b;
+  --app: #f4f2ed; --paper: #fffefa; --line: #dedad1; --line-strong: #c4bfb3;
+  --green: #136148; --green-deep: #0c4835; --green-soft: #e0eee7;
+  --red: #a8322a; --red-deep: #85251f; --red-soft: #f6e2de;
+  --amber-ink: #6f4f00; --amber-soft: #f4e8c6; --amber-line: #dcc68a;
+  --focus: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink);
+  --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --ease: cubic-bezier(.25, .8, .3, 1);
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; min-width: 320px; color: var(--ink); background: var(--surface); font: 500 16px/1.5 var(--body); }
-button, input { font: inherit; color: inherit; }
-button { cursor: pointer; }
-button:disabled { cursor: not-allowed; }
-a { color: var(--cobalt-ink); text-underline-offset: 3px; }
+body { margin: 0; min-width: 320px; color: var(--ink); font: 400 16px/1.5 var(--sans); background: var(--stone) radial-gradient(120% 70% at 78% 0%, #f1eee7 0%, rgba(241, 238, 231, 0) 60%) no-repeat; background-attachment: fixed; }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: none; box-shadow: var(--focus); }
 [hidden] { display: none !important; }
-h1, h2, h3 { margin: 0; font-family: var(--heading); letter-spacing: -.02em; }
-p { margin: 0; }
+h1, h2, h3, p { margin: 0; }
 svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.num, .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.vh { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; padding: 0 6px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 5px; background: var(--paper); font: 500 12px/1 var(--mono); }
 
-.page { display: grid; gap: 24px; max-width: 1120px; margin: 0 auto; padding: 16px 16px 40px; }
-@media (min-width: 900px) {
-  .page { grid-template-columns: minmax(0, 1fr) 420px; gap: 72px; align-items: start; padding: 48px 24px 64px; }
-  .intro { position: sticky; top: 48px; padding-top: 32px; }
+/* Page */
+.page { display: grid; grid-template-areas: "intro" "app" "notes" "about"; gap: 28px; max-width: 1180px; margin: 0 auto; padding: 8px 16px 48px; }
+.intro { grid-area: intro; }
+.app-wrap { grid-area: app; }
+.notes { grid-area: notes; }
+.about { grid-area: about; }
+@media (min-width: 960px) {
+  .page { grid-template-columns: minmax(0, 1fr) 404px; grid-template-areas: "intro app" "notes app" "about app"; grid-template-rows: auto auto 1fr; column-gap: clamp(48px, 7vw, 120px); row-gap: 28px; padding: 40px 32px 56px; align-items: start; }
+  .app-wrap { position: sticky; top: 24px; }
 }
-.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--muted); font-size: 15px; font-weight: 600; text-decoration: none; }
+.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--muted); font-weight: 600; font-size: 15px; text-decoration: none; }
 .back:hover { color: var(--ink); }
-.back svg { width: 16px; height: 16px; stroke-width: 2; }
-.kicker { margin-top: 12px; color: var(--cobalt-ink); font-size: 15px; font-weight: 700; }
-.intro h1 { margin-top: 10px; font-size: clamp(34px, 5vw, 54px); font-weight: 800; line-height: 1.04; letter-spacing: -.035em; }
-.lede { margin-top: 16px; max-width: 44ch; color: var(--muted); font-size: 18px; line-height: 1.6; }
-.features { display: grid; gap: 0; margin: 28px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); max-width: 46ch; }
-.features li { display: flex; gap: 12px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
-.features svg { width: 20px; height: 20px; margin-top: 1px; color: var(--cobalt); stroke-width: 2.4; }
-.about { margin-top: 28px; color: var(--muted); font-size: 14px; max-width: 52ch; }
-.about p + p { margin-top: 6px; }
-@media (max-width: 899px) { .features { display: none; } .lede { font-size: 17px; } }
+.back svg { width: 16px; height: 16px; stroke-width: 2.2; }
+.eyebrow { margin-top: 18px; font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.intro h1 { margin-top: 12px; max-width: 15ch; font-size: clamp(36px, 5.2vw, 64px); font-weight: 800; line-height: .98; letter-spacing: -.04em; }
+.intro h1 em { font-style: normal; color: var(--green); }
+.lede { margin-top: 18px; max-width: 46ch; color: var(--ink-2); font-size: 18px; line-height: 1.55; }
+.keys { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 22px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 14px; }
+.keys li { display: inline-flex; align-items: center; gap: 8px; }
+@media (max-width: 959px) { .keys { display: none; } .lede { font-size: 17px; } }
 
-/* Device: a near-black bezel around a white app */
-.device { position: relative; width: 100%; max-width: 420px; margin: 0 auto; overflow: hidden; border: 8px solid var(--ink); border-radius: 40px; background: var(--surface); box-shadow: 0 30px 60px -20px rgba(15, 18, 34, .35); }
-.app-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 18px 14px 12px 20px; background: var(--surface); }
-.app-name { display: inline-flex; align-items: center; gap: 8px; font: 800 21px/1 var(--heading); letter-spacing: -.03em; }
-.app-name i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--cobalt); color: #fff; font-style: normal; }
-.app-name i svg { width: 16px; height: 16px; stroke-width: 2.8; }
-.app-tools { display: flex; align-items: center; gap: 6px; }
-.icon-button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 44px; padding: 0 10px; border: 0; border-radius: var(--radius-button); background: transparent; color: var(--muted); font-size: 14px; font-weight: 700; transition: background-color .18s ease-out; }
-.icon-button:hover { background: var(--surface-soft); color: var(--ink); }
-.icon-button svg { width: 18px; height: 18px; }
-.avatar { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; }
+.notes h2, .about h2 { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.notes-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; max-width: 520px; }
+.note-list { display: grid; gap: 10px; max-width: 520px; margin: 12px 0 0; padding: 0; list-style: none; }
+.note-empty { max-width: 520px; margin-top: 12px; padding: 16px 18px; border: 1px dashed var(--line-strong); border-radius: 12px; color: var(--muted); font-size: 15px; }
+.note { display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 14px 16px; border-radius: 12px; background: var(--paper); box-shadow: 0 1px 0 var(--line), 0 10px 24px -18px rgba(21, 23, 24, .5); animation: note-in .45s var(--ease); }
+.note .who { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: var(--paper); font: 600 13px/1 var(--mono); }
+.note.is-back .who { background: var(--red); }
+.note.is-ok .who { background: var(--green); }
+.note-top { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted); }
+.note-top b { color: var(--ink); font-weight: 700; }
+.note p { margin-top: 3px; font-size: 15px; line-height: 1.45; }
+@keyframes note-in { from { opacity: 0; transform: translateY(-8px); } }
+.about { max-width: 520px; color: var(--muted); font-size: 14px; }
+.about p { margin-top: 8px; }
+.about .text-btn { margin-top: 6px; }
 
-.screen { min-height: 640px; padding: 8px 20px 104px; }
-.screen-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.screen-head h2 { font-size: 26px; font-weight: 800; }
-.screen-head h2:focus-visible { border-radius: 6px; }
-.sub { color: var(--muted); font-size: 14px; }
+/* Device */
+.device { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 404px; height: min(840px, calc(100vh - 48px)); min-height: 660px; margin: 0 auto; overflow: hidden; border: 10px solid var(--ink); border-radius: 46px; background: var(--app); box-shadow: 0 40px 70px -40px rgba(21, 23, 24, .55), 0 0 0 1px #000; isolation: isolate; }
+.viewport { position: relative; flex: 1; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.viewport::-webkit-scrollbar { display: none; }
+.app-bar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 18px 10px; background: var(--app); }
+.brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 19px; letter-spacing: -.03em; }
+.brand-mark { position: relative; width: 22px; height: 22px; border: 2.5px solid var(--ink); border-radius: 50%; }
+.brand-mark::after { content: ""; position: absolute; left: 50%; top: -5px; bottom: -5px; width: 2.5px; margin-left: -1.25px; background: var(--green); transform: rotate(35deg); }
+.bar-end { display: flex; align-items: center; gap: 10px; color: var(--muted); font: 500 12px/1 var(--mono); }
+.avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: var(--paper); font: 600 12px/1 var(--mono); }
+.screen { padding: 4px 18px 24px; }
+.screen-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 44px; }
+.screen-head h2 { font-size: 26px; font-weight: 800; letter-spacing: -.035em; }
+.screen-head h2:focus, .sheet h3:focus { box-shadow: none; }
 
-/* Balance: a solid cobalt card, big tabular total, white meter */
-.balance { margin-top: 14px; padding: 20px; border-radius: 18px; background: var(--cobalt); color: #fff; }
-.balance-label { color: #e1e7ff; font-size: 14px; font-weight: 600; }
-.balance-total { display: block; margin-top: 4px; font: 800 40px/1.05 var(--mono); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
-.meter { height: 6px; margin-top: 18px; border-radius: 3px; background: rgba(255, 255, 255, .28); overflow: hidden; }
-.meter i { display: block; height: 100%; border-radius: 3px; background: #fff; transition: width .2s ease-out; }
-.balance-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; color: #e9edff; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+/* Progress of the review queue */
+.progress { margin-top: 6px; }
+.progress-line { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; color: var(--muted); }
+.progress-line b { color: var(--ink); font-weight: 700; }
+.ticks { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; height: 6px; margin-top: 8px; }
+.ticks i { border-radius: 2px; background: var(--line); transition: background-color .3s ease; }
+.ticks i.ok { background: var(--green); }
+.ticks i.back { background: var(--red); }
+.undo-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--paper); font-size: 14px; font-weight: 600; transition: transform .12s ease, background-color .15s ease; }
+.undo-chip:hover { background: #fff; border-color: var(--ink); }
+.undo-chip:active { transform: scale(.96); }
+.undo-chip svg { width: 16px; height: 16px; }
 
-.summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-.stat { display: block; width: 100%; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); text-align: left; transition: border-color .18s ease-out, background-color .18s ease-out; }
-.stat:hover { border-color: var(--cobalt); background: var(--surface-soft); }
-.stat-label { display: block; color: var(--muted); font-size: 13px; font-weight: 600; }
-.stat-value { display: block; margin-top: 2px; font: 800 30px/1.15 var(--mono); font-variant-numeric: tabular-nums; }
-.stat-note { display: block; margin-top: 2px; font-size: 13px; font-weight: 700; }
-.stat-note.is-pending { color: var(--pending-ink); }
-.stat-note.is-done { color: var(--cobalt-ink); }
+/* Receipt stack */
+.stack { position: relative; margin-top: 16px; }
+.stack[data-depth="2"]::before, .stack[data-depth="3"]::before, .stack[data-depth="3"]::after { content: ""; position: absolute; left: 14px; right: 14px; top: 10px; bottom: -10px; border-radius: 4px; background: #ece8df; box-shadow: 0 1px 0 var(--line-strong); z-index: 0; }
+.stack[data-depth="3"]::after { left: 26px; right: 26px; top: 18px; bottom: -18px; background: #e3dfd4; z-index: -1; }
+.card { position: relative; z-index: 1; touch-action: pan-y; user-select: none; -webkit-user-select: none; filter: drop-shadow(0 1px 0 rgba(21, 23, 24, .1)) drop-shadow(0 14px 18px rgba(21, 23, 24, .12)); cursor: grab; will-change: transform; }
+.card.dragging { cursor: grabbing; }
+.card.settle { transition: transform .32s var(--ease); }
+.receipt { position: relative; padding: 18px 18px 26px; background: var(--paper); border-radius: 4px 4px 0 0; -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%; mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%; }
+.r-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.r-merchant { font-size: 22px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; overflow-wrap: anywhere; }
+.r-meta { margin-top: 4px; color: var(--muted); font-size: 13.5px; }
+.r-cat { flex: none; padding: 4px 8px; border: 1px solid var(--line-strong); border-radius: 4px; font: 500 11px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.r-lines { margin: 14px 0 0; padding: 12px 0 0; list-style: none; border-top: 1px dashed var(--line-strong); font: 400 13.5px/1.45 var(--mono); }
+.r-lines li { display: flex; gap: 8px; align-items: baseline; padding: 3px 0; }
+.r-lines .d { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.r-lines .a { flex: none; }
+.r-total { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line-strong); }
+.r-total span { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.r-total strong { font: 600 28px/1 var(--mono); letter-spacing: -.02em; }
+.r-proof { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13.5px; color: var(--ink-2); }
+.r-proof svg { width: 16px; height: 16px; }
+.r-proof.missing { color: var(--red); font-weight: 600; }
+.flags { display: grid; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; }
+.flag { display: flex; gap: 8px; align-items: start; padding: 8px 10px; border-left: 3px solid var(--amber-line); background: var(--amber-soft); color: var(--amber-ink); font-size: 13.5px; font-weight: 500; line-height: 1.35; }
+.flag svg { width: 15px; height: 15px; margin-top: 1px; stroke-width: 2.2; }
+.impact { margin-top: 12px; font-size: 13.5px; color: var(--ink-2); }
+.impact-bar { position: relative; height: 6px; margin-top: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.impact-bar i { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 3px; background: var(--ink-2); }
+.impact-bar i + i { background: var(--green); opacity: .55; }
+.impact.over { color: var(--red); font-weight: 600; }
+.impact.over .impact-bar i + i { background: var(--red); opacity: .7; }
+.stamp { position: absolute; top: 46%; left: 50%; z-index: 2; padding: 6px 14px; border: 3px solid currentColor; border-radius: 6px; font: 600 26px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) rotate(-10deg) scale(1.15); mix-blend-mode: multiply; }
+.stamp.ok { color: var(--green); }
+.stamp.back { color: var(--red); transform: translate(-50%, -50%) rotate(8deg) scale(1.15); }
+.card.show-stamp .stamp.on { opacity: .92; transform: translate(-50%, -50%) rotate(-10deg) scale(1); transition: opacity .12s ease, transform .18s var(--ease); }
+.card.show-stamp .stamp.back.on { transform: translate(-50%, -50%) rotate(8deg) scale(1); }
+.card .stamp.ok { opacity: var(--yes, 0); }
+.card .stamp.back { opacity: var(--no, 0); }
 
-.list-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; }
-.list-head h3 { font-size: 16px; font-weight: 800; }
-.text-button { min-height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--cobalt-ink); font-size: 14px; font-weight: 700; }
-.text-button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 26px; }
+.act { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 54px; padding: 0 12px; border: 2px solid var(--ink); border-radius: 14px; background: var(--paper); font-size: 16px; font-weight: 700; transition: transform .12s ease, background-color .15s ease, color .15s ease, border-color .15s ease; }
+.act svg { width: 18px; height: 18px; stroke-width: 2.4; }
+.act:active { transform: scale(.97); }
+.act.back { border-color: var(--red); color: var(--red); }
+.act.back:hover { background: var(--red-soft); }
+.act.ok { border-color: var(--green); background: var(--green); color: #fff; }
+.act.ok:hover { background: var(--green-deep); border-color: var(--green-deep); }
+.act-row { display: flex; justify-content: center; margin-top: 6px; }
+.text-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px; border: 0; background: transparent; color: var(--ink-2); font-size: 14.5px; font-weight: 600; text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
+.text-btn:hover { text-decoration-color: var(--ink); }
+.hint { margin-top: 2px; text-align: center; color: var(--faint); font-size: 12.5px; }
 
-.rows { margin: 0; padding: 0; list-style: none; }
-.row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 72px; padding: 12px 4px; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; transition: background-color .18s ease-out; }
-.row:hover { background: var(--surface-soft); }
-.row-icon { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--paper); color: var(--ink); font-size: 13px; font-weight: 800; }
-.row-main { flex: 1; min-width: 0; }
-.row-name { display: block; overflow: hidden; font-size: 15px; font-weight: 700; white-space: nowrap; text-overflow: ellipsis; }
-.row-meta { display: block; color: var(--muted); font-size: 13px; }
-.row-end { display: grid; justify-items: end; gap: 4px; }
-.row-amount { font: 700 15px/1.2 var(--mono); font-variant-numeric: tabular-nums; }
-.status { display: inline-flex; align-items: center; gap: 5px; min-height: 22px; padding: 1px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; white-space: nowrap; }
-.status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.status.pending { background: var(--pending); color: var(--pending-ink); }
-.status.approved { background: var(--cobalt-soft); color: var(--cobalt-ink); }
-.status.correction { background: var(--red-soft); color: var(--red-ink); }
+/* Skeleton */
+.skeleton { margin-top: 16px; padding: 18px; background: var(--paper); border-radius: 4px; }
+.skeleton i { display: block; height: 12px; margin-top: 10px; border-radius: 3px; background: linear-gradient(90deg, #ece8df 0, #f6f3ec 40%, #ece8df 80%) 0 0 / 300% 100%; animation: sheen 1.1s linear infinite; }
+.skeleton i:first-child { width: 60%; height: 20px; margin-top: 0; }
+.skeleton i:nth-child(2) { width: 40%; }
+.skeleton i:nth-child(n+3) { width: 100%; }
+.skeleton i:last-child { width: 45%; height: 24px; margin-left: auto; margin-top: 18px; }
+@keyframes sheen { to { background-position: -150% 0; } }
+.loading-label { margin-top: 10px; text-align: center; color: var(--muted); font-size: 13px; }
 
-.search-label { display: block; margin-top: 16px; font-size: 14px; font-weight: 700; }
-.search { width: 100%; min-height: 48px; margin-top: 6px; padding: 10px 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-button); background: var(--surface-soft); font-size: 16px; }
-.search::placeholder { color: #6b7187; }
-.chips { display: flex; gap: 6px; margin: 12px -20px 4px; padding: 0 20px 4px; overflow-x: auto; scrollbar-width: none; }
+/* Done state */
+.done { margin-top: 18px; padding: 26px 20px 22px; border-radius: 4px; background: var(--paper); text-align: center; }
+.done-seal { display: grid; place-items: center; width: 116px; height: 116px; margin: 0 auto; border: 3px solid var(--green); border-radius: 50%; color: var(--green); transform: rotate(-8deg); animation: seal .5s var(--ease); }
+.done-seal span { display: block; font: 600 13px/1.25 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.done-seal b { display: block; font: 700 30px/1 var(--sans); letter-spacing: -.03em; }
+@keyframes seal { from { opacity: 0; transform: rotate(-20deg) scale(1.4); } }
+.done h3 { margin-top: 18px; font-size: 22px; font-weight: 800; letter-spacing: -.03em; }
+.done-sums { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin: 16px 0 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--line); text-align: left; }
+.done-sums div { padding: 12px; background: var(--paper); }
+.done-sums dt { color: var(--muted); font-size: 13px; }
+.done-sums dd { margin: 2px 0 0; font: 600 17px/1.25 var(--mono); }
+.done .act { width: 100%; margin-top: 16px; }
+
+/* Ledger */
+.search-wrap { position: relative; margin-top: 8px; }
+.search-wrap svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; margin-top: -9px; color: var(--muted); pointer-events: none; }
+.search { width: 100%; min-height: 48px; padding: 10px 14px 10px 42px; border: 1.5px solid var(--line-strong); border-radius: 12px; background: var(--paper); font-size: 16px; transition: border-color .15s ease; }
+.search:focus { border-color: var(--ink); }
+.search:focus-visible { box-shadow: none; }
+.search::placeholder { color: #7b7f7c; }
+.chips { display: flex; gap: 6px; margin: 10px -18px 0; padding: 0 18px 6px; overflow-x: auto; scrollbar-width: none; }
 .chips::-webkit-scrollbar { display: none; }
-.chip { flex: none; min-height: 44px; padding: 0 14px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface); font-size: 14px; font-weight: 700; transition: background-color .18s ease-out; }
-.chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; }
-.chip .n { margin-left: 6px; font-size: 13px; font-variant-numeric: tabular-nums; opacity: .8; }
-.empty { padding: 40px 12px; color: var(--muted); text-align: center; }
+.chip { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 12px; border: 1.5px solid var(--line-strong); border-radius: 999px; background: transparent; font-size: 14px; font-weight: 600; transition: background-color .15s ease, border-color .15s ease, transform .12s ease; }
+.chip:active { transform: scale(.96); }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.chip .n { font: 500 12px/1 var(--mono); opacity: .75; }
+@media (pointer: coarse) { .chip { min-height: 44px; } }
+.rows { margin: 8px 0 0; padding: 0; list-style: none; }
+.lrow { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center; width: 100%; min-height: 64px; padding: 10px 6px; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; transition: background-color .15s ease; }
+.lrow:hover { background: rgba(255, 254, 250, .8); }
+.lrow:active { background: var(--paper); }
+.l-date { font: 500 12px/1.15 var(--mono); text-transform: uppercase; color: var(--muted); text-align: center; }
+.l-date b { display: block; font-size: 18px; font-weight: 600; color: var(--ink); }
+.l-name { display: block; overflow: hidden; font-weight: 700; white-space: nowrap; text-overflow: ellipsis; }
+.l-meta { display: block; overflow: hidden; color: var(--muted); font-size: 13px; white-space: nowrap; text-overflow: ellipsis; }
+.l-end { display: grid; justify-items: end; gap: 3px; }
+.l-amt { font: 500 15px/1.2 var(--mono); }
+.st { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.st::before { content: ""; width: 7px; height: 7px; border-radius: 1px; background: currentColor; }
+.st.pending { color: var(--amber-ink); }
+.st.approved { color: var(--green); }
+.st.back { color: var(--red); }
+.empty { padding: 34px 10px 10px; text-align: center; }
+.empty p { color: var(--muted); }
+.empty strong { display: block; margin-bottom: 4px; color: var(--ink); font-size: 17px; }
+.empty .act { margin-top: 14px; min-height: 48px; padding: 0 18px; font-size: 15px; }
+.ledger-foot { display: flex; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--muted); font-size: 13px; }
 
-.back-button { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px 0 0; border: 0; background: transparent; color: var(--cobalt-ink); font-size: 15px; font-weight: 700; }
-.back-button svg { width: 18px; height: 18px; stroke-width: 2.2; }
-.detail-top { display: flex; gap: 14px; align-items: center; margin-top: 8px; }
-.detail-icon { display: grid; place-items: center; width: 52px; height: 52px; flex: none; border-radius: 16px; background: var(--paper); color: var(--ink); font-size: 17px; font-weight: 800; }
-.detail-top h2 { font-size: 23px; font-weight: 800; }
-.detail-amount { margin: 20px 0 6px; font: 800 42px/1.1 var(--mono); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
-.details { margin: 16px 0 20px; border-top: 1px solid var(--line); }
-.details div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
-.details dt { color: var(--muted); font-size: 14px; }
-.details dd { margin: 0; max-width: 62%; text-align: right; font-size: 15px; font-weight: 700; }
-.action { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; border: 1px solid transparent; border-radius: var(--radius-button); font-size: 16px; font-weight: 700; transition: background-color .18s ease-out; }
-.action svg { width: 18px; height: 18px; stroke-width: 2.4; }
-.action-primary { background: var(--cobalt); color: #fff; }
-.action-primary:hover:not(:disabled) { background: var(--cobalt-deep); }
-.action-secondary { margin-top: 10px; border-color: #efb4b0; background: var(--surface); color: var(--red-ink); }
-.action-secondary:hover:not(:disabled) { background: var(--red-soft); }
-.action:disabled { border-color: var(--line); background: var(--surface-soft); color: var(--muted); }
-.undo { margin-top: 8px; }
-.feedback { min-height: 24px; margin-top: 10px; color: var(--cobalt-ink); font-size: 14px; font-weight: 600; }
-.fine { margin-top: 8px; color: var(--muted); font-size: 13px; }
+/* Budget */
+.big-meter { margin-top: 10px; padding: 16px; border-radius: 12px; background: var(--ink); color: var(--paper); }
+.bm-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.bm-top strong { font: 600 30px/1.05 var(--mono); letter-spacing: -.02em; }
+.bm-top span { color: #c9ccc8; font-size: 13px; }
+.bm-bar { position: relative; display: flex; height: 10px; margin-top: 14px; border-radius: 5px; background: #3a3e3f; overflow: hidden; }
+.bm-bar i { display: block; height: 100%; transition: width .5s var(--ease); }
+.bm-bar .a { background: #9fd1b9; }
+.bm-bar .p { background: repeating-linear-gradient(-45deg, #e6d39a 0 4px, #b9a35f 4px 8px); }
+.bm-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; font-size: 12.5px; color: #d8dbd7; }
+.bm-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.bm-legend i { width: 10px; height: 10px; border-radius: 2px; }
+.bm-legend .a { background: #9fd1b9; }
+.bm-legend .p { background: #e6d39a; }
+.cats { margin: 14px 0 0; padding: 0; list-style: none; }
+.cat { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.cat-top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.cat-top b { font-weight: 700; }
+.cat-top span { font: 500 13px/1.3 var(--mono); color: var(--muted); text-align: right; }
+.cat-bar { position: relative; display: flex; height: 8px; margin-top: 8px; border-radius: 4px; background: #e6e2d9; overflow: hidden; }
+.cat-bar i { display: block; height: 100%; transition: width .5s var(--ease); }
+.cat-bar .a { background: var(--green); }
+.cat-bar .p { background: repeating-linear-gradient(-45deg, #d6b85e 0 3px, #b9973a 3px 6px); }
+.cat.over .cat-bar .a { background: var(--red); }
+.cat-note { margin-top: 6px; font-size: 13px; color: var(--muted); }
+.cat.over .cat-note { color: var(--red); font-weight: 600; }
 
-.tabbar { position: absolute; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); background: var(--surface); padding: 6px 12px 14px; }
-.tabbar button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 56px; border: 0; border-radius: 12px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 700; }
-.tabbar button svg { width: 22px; height: 22px; }
-.tabbar button[aria-current="page"] { color: var(--ink); }
-.tabbar button[aria-current="page"] svg { color: var(--cobalt); stroke-width: 2.2; }
-.tab-badge { position: relative; display: block; height: 22px; }
-.tab-badge b { position: absolute; top: -6px; right: -12px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--red); color: #fff; font: 700 12px/18px var(--mono); text-align: center; }
-@media (max-width: 380px) { .screen { padding-left: 16px; padding-right: 16px; } .chips { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; } .balance-total { font-size: 34px; } .stat-value { font-size: 26px; } .device { border-width: 6px; border-radius: 32px; } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+/* Tab bar */
+.tabbar { position: relative; z-index: 4; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 6px 10px 12px; border-top: 1px solid var(--line); background: var(--app); }
+.tab { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 54px; border: 0; border-radius: 12px; background: transparent; color: var(--muted); font-size: 12.5px; font-weight: 600; transition: color .15s ease, background-color .15s ease; }
+.tab svg { width: 22px; height: 22px; }
+.tab:hover { color: var(--ink); }
+.tab[aria-current="page"] { color: var(--ink); background: var(--paper); }
+.tab b { position: absolute; top: 5px; left: calc(50% + 6px); min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--red); color: #fff; font: 600 11px/18px var(--mono); text-align: center; }
+
+/* Sheets and toast */
+.scrim { position: absolute; inset: 0; z-index: 8; background: rgba(21, 23, 24, .38); opacity: 0; transition: opacity .2s ease; }
+.scrim.open { opacity: 1; }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 9; max-height: 88%; overflow-y: auto; padding: 10px 18px 20px; border-radius: 22px 22px 0 0; background: var(--app); box-shadow: 0 -10px 30px rgba(21, 23, 24, .2); transform: translateY(100%); transition: transform .28s var(--ease); }
+.sheet.open { transform: none; }
+.sheet::before { content: ""; display: block; width: 40px; height: 4px; margin: 0 auto 12px; border-radius: 2px; background: var(--line-strong); }
+.sheet h3 { font-size: 21px; font-weight: 800; letter-spacing: -.03em; }
+.sheet h3:focus-visible { border-radius: 4px; }
+.sheet .sub { margin-top: 4px; color: var(--muted); font-size: 14px; }
+.reasons { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; border: 0; }
+.reasons legend { margin-bottom: 8px; padding: 0; font-weight: 700; font-size: 14px; }
+.reason { position: relative; }
+.reason input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.reason span { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border: 1.5px solid var(--line-strong); border-radius: 999px; background: var(--paper); font-size: 14.5px; font-weight: 600; transition: background-color .15s ease, border-color .15s ease; }
+.reason input:checked + span { border-color: var(--red); background: var(--red); color: #fff; }
+.reason input:focus-visible + span { box-shadow: var(--focus); }
+.reason em { font: 500 11px/1 var(--mono); font-style: normal; letter-spacing: .05em; text-transform: uppercase; opacity: .8; }
+.field { display: block; margin-top: 14px; font-weight: 700; font-size: 14px; }
+.field textarea { display: block; width: 100%; min-height: 76px; margin-top: 6px; padding: 10px 12px; border: 1.5px solid var(--line-strong); border-radius: 12px; background: var(--paper); font-weight: 400; font-size: 16px; resize: vertical; }
+.field textarea:focus { border-color: var(--ink); }
+.field textarea:focus-visible { box-shadow: none; }
+.field-foot { display: flex; justify-content: space-between; gap: 10px; margin-top: 4px; font-weight: 400; font-size: 12.5px; color: var(--muted); }
+.error { display: none; align-items: start; gap: 8px; margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--red); background: var(--red-soft); color: var(--red-deep); font-size: 14px; font-weight: 600; }
+.error.show { display: flex; }
+.error svg { width: 16px; height: 16px; margin-top: 2px; stroke-width: 2.4; }
+.shake { animation: shake .32s ease; }
+@keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.sheet-actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; margin-top: 16px; }
+.act.plain { border-color: var(--line-strong); }
+.act.plain:hover { border-color: var(--ink); }
+.act.red { border-color: var(--red); background: var(--red); color: #fff; }
+.act.red:hover { background: var(--red-deep); border-color: var(--red-deep); }
+.timeline { margin: 14px 0 0; padding: 0 0 0 18px; list-style: none; border-left: 2px solid var(--line); }
+.timeline li { position: relative; padding: 0 0 12px 4px; font-size: 14px; }
+.timeline li::before { content: ""; position: absolute; left: -25px; top: 5px; width: 10px; height: 10px; border: 2px solid var(--app); border-radius: 50%; background: var(--ink-2); }
+.timeline li.ok::before { background: var(--green); }
+.timeline li.back::before { background: var(--red); }
+.timeline li.warn::before { background: #c09a2c; }
+.timeline small { display: block; color: var(--muted); font: 400 12px/1.4 var(--mono); }
+.sheet .receipt { margin-top: 12px; padding-bottom: 22px; }
+.toast { position: absolute; left: 12px; right: 12px; bottom: 86px; z-index: 7; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; padding: 6px 6px 6px 14px; border-radius: 12px; background: var(--ink); color: var(--paper); font-size: 14px; box-shadow: 0 12px 30px -10px rgba(0, 0, 0, .5); transform: translateY(20px); opacity: 0; pointer-events: none; transition: transform .25s var(--ease), opacity .2s ease; }
+.toast.show { transform: none; opacity: 1; pointer-events: auto; }
+.toast button { min-height: 44px; padding: 0 14px; border: 0; border-radius: 9px; background: #2f3334; color: #fff; font-weight: 700; }
+.toast button:hover { background: #42474a; }
+.toast span { min-width: 0; }
+
+/* Phones: the app is the screen, no bezel */
+@media (max-width: 520px) {
+  .page { padding-left: 0; padding-right: 0; gap: 22px; }
+  .intro, .notes, .about { padding: 0 16px; }
+  .device { max-width: none; height: auto; min-height: 0; overflow: visible; border: 0; border-radius: 0; box-shadow: 0 -1px 0 var(--line-strong); }
+  .viewport { overflow: visible; }
+  .app-bar { position: static; }
+  .tabbar { position: sticky; bottom: 0; padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+  .scrim, .sheet, .toast { position: fixed; }
+  .sheet { max-height: 86vh; }
+  .toast { bottom: calc(80px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 360px) {
+  .screen { padding-left: 14px; padding-right: 14px; }
+  .chips { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
+  .r-merchant { font-size: 20px; }
+  .r-total strong { font-size: 24px; }
+  .act { font-size: 15px; gap: 6px; }
+}
+/* Large screens: scale the whole scene instead of leaving a small island */
+@media (min-width: 1800px) and (min-height: 1000px) { .page { zoom: 1.2; } }
+@media (min-width: 2300px) and (min-height: 1300px) { .page { zoom: 1.45; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
 </style>
 </head>
 <body>
 <main class="page">
   <section class="intro" aria-labelledby="intro-title">
     <a class="back" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
-    <p class="kicker">Mobile interface concept</p>
-    <h1 id="intro-title">Review expenses without losing the next step.</h1>
-    <p class="lede">Clearline gives a small team one place to see the month, find what needs a decision and approve or send back an expense in two taps.</p>
-    <ul class="features">
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Spending against budget, recalculated as decisions change</li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Filter by status and search by merchant or teammate</li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Approve or request a correction, with one-step undo</li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Works with a keyboard, and Escape steps back from a detail</li>
+    <p class="eyebrow">Mobile interface, Clearline</p>
+    <h1 id="intro-title">Clear the month's receipts with <em>one thumb.</em></h1>
+    <p class="lede">A phone app for a small team lead. Swipe a receipt right to approve it or left to send it back with a reason. Every card shows its policy checks and what approving does to the budget, and every decision can be undone.</p>
+    <ul class="keys" aria-label="Keyboard shortcuts in the app">
+      <li><kbd>&rarr;</kbd>Approve</li>
+      <li><kbd>&larr;</kbd>Send back</li>
+      <li><kbd>L</kbd>Later</li>
+      <li><kbd>Z</kbd>Undo</li>
     </ul>
-    <div class="about">
-      <p>Speculative sample for a public brief that asked for a refresh of an existing expense app. It is not the buyer's app and was not commissioned.</p>
-      <p>Clearline, the team and every expense are fictional. Decisions stay on this page and nothing is sent anywhere.</p>
-    </div>
   </section>
 
-  <article class="device" aria-label="Clearline app preview">
-    <header class="app-bar">
-      <span class="app-name"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></i>Clearline</span>
-      <div class="app-tools">
-        <button type="button" class="icon-button" id="reset-demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg>Reset</button>
-        <span class="avatar" role="img" aria-label="Signed in as Dana Ruiz">DR</span>
-      </div>
-    </header>
+  <div class="app-wrap">
+    <article class="device" id="device" aria-label="Clearline app">
+      <div class="viewport" id="viewport">
+        <header class="app-bar">
+          <span class="brand"><i class="brand-mark" aria-hidden="true"></i>Clearline</span>
+          <span class="bar-end"><span>Oct 2026</span><span class="avatar" role="img" aria-label="Signed in as Dana Ruiz, team lead">DR</span></span>
+        </header>
 
-    <section class="screen" id="overview" aria-labelledby="overview-title">
-      <div class="screen-head"><h2 id="overview-title">Overview</h2><span class="sub">October 2026</span></div>
-      <div class="balance">
-        <span class="balance-label">Spent this month</span>
-        <strong class="balance-total" id="total-spent">$0.00</strong>
-        <div class="meter" id="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Share of the monthly budget used"><i id="meter-fill"></i></div>
-        <div class="balance-foot"><span id="budget-used">0% of $4,000 budget</span><span id="budget-left">$0 left</span></div>
-      </div>
-      <div class="summary">
-        <button type="button" class="stat" data-jump="pending"><span class="stat-label">Awaiting review</span><span class="stat-value" id="pending-count">0</span><span class="stat-note is-pending num" id="pending-amount">$0.00</span></button>
-        <button type="button" class="stat" data-jump="approved"><span class="stat-label">Approved</span><span class="stat-value" id="approved-count">0</span><span class="stat-note is-done num" id="approved-amount">$0.00</span></button>
-      </div>
-      <div class="list-head"><h3>Latest expenses</h3><button type="button" class="text-button" id="view-all">View all</button></div>
-      <ul class="rows" id="recent-list"></ul>
-    </section>
+        <section class="screen" id="review" aria-labelledby="review-title">
+          <div class="screen-head">
+            <h2 id="review-title">To review</h2>
+            <button type="button" class="undo-chip" id="undo" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14l-5-5 5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Undo</button>
+          </div>
+          <div class="progress">
+            <div class="progress-line"><span id="progress-text"></span><span>Largest first</span></div>
+            <div class="ticks" id="ticks" aria-hidden="true"></div>
+          </div>
+          <div id="review-body"></div>
+        </section>
 
-    <section class="screen" id="activity" aria-labelledby="activity-title" hidden>
-      <div class="screen-head"><h2 id="activity-title">Activity</h2><span class="sub" id="result-count" aria-live="polite"></span></div>
-      <label class="search-label" for="search">Find an expense</label>
-      <input class="search" id="search" type="search" placeholder="Merchant, category or teammate" autocomplete="off">
-      <div class="chips" role="group" aria-label="Filter by status">
-        <button type="button" class="chip" data-filter="all" aria-pressed="true">All<span class="n" data-count="all"></span></button>
-        <button type="button" class="chip" data-filter="pending" aria-pressed="false">To review<span class="n" data-count="pending"></span></button>
-        <button type="button" class="chip" data-filter="approved" aria-pressed="false">Approved<span class="n" data-count="approved"></span></button>
-        <button type="button" class="chip" data-filter="correction" aria-pressed="false">Needs correction<span class="n" data-count="correction"></span></button>
+        <section class="screen" id="ledger" aria-labelledby="ledger-title" hidden>
+          <div class="screen-head"><h2 id="ledger-title">Ledger</h2><span class="mono" id="ledger-count" aria-live="polite" style="font-size:13px;color:var(--muted)"></span></div>
+          <div class="search-wrap">
+            <label class="vh" for="search">Search expenses</label>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+            <input class="search" id="search" type="search" placeholder="Merchant, category or teammate" autocomplete="off" maxlength="60">
+          </div>
+          <div class="chips" role="group" aria-label="Filter by status">
+            <button type="button" class="chip" data-filter="all" aria-pressed="true">All <span class="n" data-count="all"></span></button>
+            <button type="button" class="chip" data-filter="pending" aria-pressed="false">To review <span class="n" data-count="pending"></span></button>
+            <button type="button" class="chip" data-filter="approved" aria-pressed="false">Approved <span class="n" data-count="approved"></span></button>
+            <button type="button" class="chip" data-filter="back" aria-pressed="false">Sent back <span class="n" data-count="back"></span></button>
+            <button type="button" class="chip" data-filter="flagged" aria-pressed="false">Flagged <span class="n" data-count="flagged"></span></button>
+          </div>
+          <ul class="rows" id="ledger-list"></ul>
+          <div class="ledger-foot"><span id="ledger-sum"></span><button type="button" class="text-btn" data-reset>Restore sample month</button></div>
+        </section>
+
+        <section class="screen" id="budget" aria-labelledby="budget-title" hidden>
+          <div class="screen-head"><h2 id="budget-title">Budget</h2><span class="mono" style="font-size:13px;color:var(--muted)">October</span></div>
+          <div class="big-meter">
+            <div class="bm-top"><strong id="bm-approved"></strong><span id="bm-of"></span></div>
+            <div class="bm-bar" role="img" id="bm-bar"><i class="a" id="bm-a"></i><i class="p" id="bm-p"></i></div>
+            <div class="bm-legend"><span><i class="a"></i>Approved</span><span><i class="p"></i><span id="bm-wait"></span></span></div>
+          </div>
+          <ul class="cats" id="cats"></ul>
+        </section>
       </div>
-      <ul class="rows" id="activity-list"></ul>
-    </section>
 
-    <section class="screen" id="detail" aria-labelledby="detail-title" hidden>
-      <button type="button" class="back-button" id="detail-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Activity</button>
-      <div class="detail-top"><span class="detail-icon" id="detail-icon" aria-hidden="true"></span><div><h2 id="detail-title"></h2><p class="sub" id="detail-subtitle"></p></div></div>
-      <p class="detail-amount" id="detail-amount"></p>
-      <span class="status" id="detail-status"></span>
-      <dl class="details" id="detail-fields"></dl>
-      <button type="button" class="action action-primary" id="approve"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg><span>Approve expense</span></button>
-      <button type="button" class="action action-secondary" id="request-correction">Request a correction</button>
-      <button type="button" class="text-button undo" id="undo" hidden>Undo last decision</button>
-      <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
-      <p class="fine">Decisions only change this preview. Reset restores the sample month.</p>
-    </section>
+      <nav class="tabbar" aria-label="App sections">
+        <button type="button" class="tab" data-tab="review" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>Review<b id="tab-badge"></b></button>
+        <button type="button" class="tab" data-tab="ledger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Ledger</button>
+        <button type="button" class="tab" data-tab="budget"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Budget</button>
+      </nav>
 
-    <nav class="tabbar" aria-label="Main views">
-      <button type="button" id="nav-overview" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Overview</button>
-      <button type="button" id="nav-activity"><span class="tab-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg><b id="nav-badge" aria-hidden="true"></b></span><span id="nav-activity-label">Activity</span></button>
-    </nav>
-  </article>
+      <div class="scrim" id="scrim" hidden></div>
+
+      <form class="sheet" id="back-sheet" role="dialog" aria-modal="true" aria-labelledby="back-title" hidden novalidate>
+        <h3 id="back-title" tabindex="-1">Send it back</h3>
+        <p class="sub" id="back-sub"></p>
+        <fieldset class="reasons" id="reasons"><legend>What needs fixing?</legend></fieldset>
+        <label class="field">Note for the teammate, optional
+          <textarea id="back-note" maxlength="140" placeholder="For example, a photo of the full bill is enough."></textarea>
+          <span class="field-foot"><span>They see this in their notification.</span><span class="mono" id="back-count">0/140</span></span>
+        </label>
+        <p class="error" id="back-error" role="alert"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg><span>Pick at least one reason so they know what to fix.</span></p>
+        <div class="sheet-actions"><button type="button" class="act plain" data-close>Cancel</button><button type="submit" class="act red">Send back</button></div>
+      </form>
+
+      <form class="sheet" id="noreceipt-sheet" role="dialog" aria-modal="true" aria-labelledby="nr-title" hidden novalidate>
+        <h3 id="nr-title" tabindex="-1">No receipt on file</h3>
+        <p class="sub" id="nr-sub"></p>
+        <label class="field">Note for the auditor
+          <textarea id="nr-note" maxlength="140" placeholder="Why it is fine to pay without a receipt."></textarea>
+          <span class="field-foot"><span>Required, at least 8 characters.</span><span class="mono" id="nr-count">0/140</span></span>
+        </label>
+        <p class="error" id="nr-error" role="alert"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg><span>Add a short note for the auditor, at least 8 characters.</span></p>
+        <div class="sheet-actions"><button type="button" class="act plain" data-close>Cancel</button><button type="submit" class="act ok">Approve anyway</button></div>
+      </form>
+
+      <div class="sheet" id="detail-sheet" role="dialog" aria-modal="true" aria-labelledby="d-title" hidden>
+        <h3 id="d-title" tabindex="-1"></h3>
+        <p class="sub" id="d-sub"></p>
+        <div id="d-receipt"></div>
+        <ol class="timeline" id="d-timeline" aria-label="History"></ol>
+        <div class="sheet-actions"><button type="button" class="act plain" data-close>Close</button><button type="button" class="act" id="d-action"></button></div>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-text"></span><button type="button" id="toast-undo">Undo</button></div>
+    </article>
+  </div>
+
+  <section class="notes" aria-labelledby="notes-title">
+    <div class="notes-head"><h2 id="notes-title">What the team receives</h2><span class="mono" id="notes-count" style="font-size:12px;color:var(--muted)"></span></div>
+    <p class="note-empty" id="note-empty">Nothing yet. Each decision you make in the app appears here as the note the teammate gets.</p>
+    <ul class="note-list" id="note-list" aria-live="polite"></ul>
+  </section>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this sample</h2>
+    <p>A speculative sample for a public brief that asked for a refresh of an existing expense app. It is not the buyer's app and was not commissioned.</p>
+    <p>Clearline, the team and every receipt are fictional. Totals, flags and budget figures are worked out from the sample receipts. Decisions stay on this page and nothing is sent anywhere.</p>
+    <button type="button" class="text-btn" data-reset>Restore the sample month</button>
+  </section>
 </main>
 <script>
-const BUDGET = 4000;
-const seed = [
-  { id: 1, name: 'FastFreight', category: 'Shipping', date: '2026-10-09', by: 'Owen Park', amount: 312.75, status: 'pending', note: 'Sample shipment to a retail partner in Leeds.', receipt: 'Attached' },
-  { id: 2, name: 'Harbor Print Co.', category: 'Marketing', date: '2026-10-08', by: 'Priya Nair', amount: 246.50, status: 'pending', note: 'Trade show flyers, 500 copies.', receipt: 'Attached' },
-  { id: 3, name: 'Corner Café', category: 'Meals', date: '2026-10-07', by: 'Lena Ortiz', amount: 86.40, status: 'correction', note: 'Client lunch. The receipt shows a card slip without the itemized bill.', receipt: 'Card slip only' },
-  { id: 4, name: 'Northline Supplies', category: 'Materials', date: '2026-10-05', by: 'Priya Nair', amount: 184.00, status: 'pending', note: 'Replacement consumables for the workshop.', receipt: 'Attached' },
-  { id: 5, name: 'Brightdesk Furniture', category: 'Equipment', date: '2026-10-04', by: 'Owen Park', amount: 649.00, status: 'approved', note: 'Standing desk for the new designer.', receipt: 'Attached' },
-  { id: 6, name: 'Studio Rental', category: 'Workspace', date: '2026-10-03', by: 'Dana Ruiz', amount: 920.00, status: 'approved', note: 'October workspace rental.', receipt: 'Invoice attached' },
-  { id: 7, name: 'Transit Pass', category: 'Travel', date: '2026-10-02', by: 'Lena Ortiz', amount: 138.00, status: 'pending', note: 'Monthly local travel pass.', receipt: 'Attached' },
-  { id: 8, name: 'Cloudline Hosting', category: 'Software', date: '2026-10-01', by: 'Dana Ruiz', amount: 59.00, status: 'approved', note: 'Monthly hosting plan for the client portal.', receipt: 'Invoice attached' }
+const ME = 'Dana Ruiz';
+const LIMITS = { Shipping: 600, Marketing: 400, Meals: 150, Materials: 300, Equipment: 800, Workspace: 920, Travel: 250, Software: 150 };
+const FREIGHT = [['Pallet to Leeds retail partner', 268.00], ['Fuel surcharge', 32.15], ['Tail lift', 12.60]];
+const SEED = [
+  { id: 'e1', name: 'FastFreight', category: 'Shipping', date: '2026-10-09', by: 'Owen Park', proof: 'itemized', status: 'pending', note: 'Sample stock for the Leeds partner.', lines: FREIGHT },
+  { id: 'e2', name: 'Harbor Print Co.', category: 'Marketing', date: '2026-10-08', by: 'Priya Nair', proof: 'itemized', status: 'pending', note: 'Flyers for the trade show stand.', lines: [['A5 flyers, 500 at 0.41', 205.00], ['Next-day print fee', 41.50]] },
+  { id: 'e3', name: 'Corner Café', category: 'Meals', date: '2026-10-07', by: 'Lena Ortiz', proof: 'slip', status: 'pending', note: 'Lunch with the Northline buyer.', lines: [['Card payment', 86.40]] },
+  { id: 'e4', name: 'Northline Supplies', category: 'Materials', date: '2026-10-05', by: 'Priya Nair', proof: 'itemized', status: 'pending', note: 'Consumables for the workshop.', lines: [['Sanding discs, 2 packs at 38.50', 77.00], ['Masking tape, 12 rolls at 4.25', 51.00], ['Dust masks, 2 boxes at 28.00', 56.00]] },
+  { id: 'e5', name: 'Brightdesk Furniture', category: 'Equipment', date: '2026-10-04', by: 'Owen Park', proof: 'invoice', status: 'approved', note: 'Desk for the new designer.', lines: [['Standing desk, oak top', 589.00], ['Delivery and assembly', 60.00]] },
+  { id: 'e6', name: 'Studio Rental', category: 'Workspace', date: '2026-10-02', by: 'Dana Ruiz', proof: 'invoice', status: 'approved', note: 'October studio rent.', lines: [['October studio rent', 920.00]] },
+  { id: 'e7', name: 'Transit Pass', category: 'Travel', date: '2026-10-02', by: 'Lena Ortiz', proof: 'itemized', status: 'pending', note: 'Monthly travel pass.', lines: [['Monthly pass, zones 1 to 3', 138.00]] },
+  { id: 'e8', name: 'Cloudline Hosting', category: 'Software', date: '2026-10-01', by: 'Dana Ruiz', proof: 'invoice', status: 'approved', note: 'Hosting for the client portal.', lines: [['Hosting, client portal plan', 59.00]] },
+  { id: 'e9', name: 'FastFreight', category: 'Shipping', date: '2026-10-12', by: 'Owen Park', proof: 'itemized', status: 'pending', note: 'Sample stock for the Leeds partner.', lines: FREIGHT },
+  { id: 'e10', name: 'City Taxi', category: 'Travel', date: '2026-10-10', by: 'Lena Ortiz', proof: 'itemized', status: 'pending', note: 'Late train, taxi to the client site.', lines: [['Fare, station to client', 21.30], ['Booking fee', 2.50]] },
+  { id: 'e11', name: 'Foundry Type', category: 'Software', date: '2026-10-13', by: 'Priya Nair', proof: 'none', status: 'pending', note: 'Font licence for the trade show artwork.', lines: [['Desktop font licence, one seat', 49.00]] }
 ];
-let items = seed.map(i => ({ ...i }));
-let currentFilter = 'all';
-let selectedId = null;
-let lastDecision = null;
+const REASONS = ['Itemized receipt missing', 'Looks like a duplicate', 'Wrong category', 'Over the policy limit', 'Personal expense'];
+const PROOF = { itemized: 'Itemized receipt attached', invoice: 'Invoice attached', slip: 'Card slip only, no itemized bill', none: 'No receipt attached' };
 
 const $ = id => document.getElementById(id);
-const statusLabel = s => ({ pending: 'To review', approved: 'Approved', correction: 'Needs correction' })[s];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+const cents = v => Math.round(v * 100);
 const money = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(v);
-const moneyWhole = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(v);
-const shortDate = iso => new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-const longDate = iso => new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-const initials = name => {
-  const words = name.replace(/[^A-Za-z ]/g, '').split(' ').filter(Boolean);
-  if (words.length > 1) return words.slice(0, 2).map(w => w[0]).join('').toUpperCase();
-  const caps = words[0].match(/[A-Z]/g) || [];
-  return (caps.length > 1 ? caps.slice(0, 2).join('') : words[0].slice(0, 2)).toUpperCase();
-};
-const sum = list => list.reduce((t, i) => t + i.amount, 0);
-
+const whole = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(v);
+const day = iso => new Date(iso + 'T12:00:00');
+const shortDate = iso => day(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+const weekday = iso => day(iso).toLocaleDateString('en-GB', { weekday: 'long' });
+const clock = () => new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+const first = n => n.split(' ')[0];
+const initials = n => n.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+const total = it => it.lines.reduce((t, l) => t + cents(l[1]), 0) / 100;
+const sumOf = list => list.reduce((t, i) => t + cents(i.amount), 0) / 100;
+const LIMIT_TOTAL = Object.values(LIMITS).reduce((a, b) => a + b, 0);
 function el(tag, cls, text) { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+function icon(path) { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); s.innerHTML = path; return s; }
+const ICON_FLAG = '<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.3"/>';
+const ICON_DOC = '<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/>';
 
-function row(item) {
-  const li = el('li');
-  const b = el('button', 'row');
-  b.type = 'button';
-  b.setAttribute('aria-label', `${item.name}, ${money(item.amount)}, ${statusLabel(item.status)}, ${shortDate(item.date)}`);
-  const icon = el('span', 'row-icon', initials(item.name)); icon.setAttribute('aria-hidden', 'true');
-  const main = el('span', 'row-main');
-  main.append(el('span', 'row-name', item.name), el('span', 'row-meta', `${item.category}, ${shortDate(item.date)}`));
-  const end = el('span', 'row-end');
-  end.append(el('span', 'row-amount', money(item.amount)), el('span', `status ${item.status}`, statusLabel(item.status)));
-  b.append(icon, main, end);
-  b.addEventListener('click', () => openDetail(item.id));
-  li.append(b);
-  return li;
+let busy = false, items, queue, history, notes, filter = 'all', view = 'review', loading = false, openSheet = null, sheetReturn = null, toastTimer = null, nextNote = 1;
+
+function reset(withLoad = true) {
+  items = SEED.map(s => ({ ...s, amount: total(s), log: [{ kind: '', text: `Submitted by ${s.by}`, when: shortDate(s.date) }] }));
+  items.forEach(i => { flagsFor(i).forEach(f => i.log.push({ kind: 'warn', text: f, when: 'Policy check' })); if (i.status === 'approved') i.log.push({ kind: 'ok', text: `Approved by ${ME}`, when: shortDate(i.date) }); });
+  queue = items.filter(i => i.status === 'pending').sort((a, b) => b.amount - a.amount || a.date.localeCompare(b.date)).map(i => i.id);
+  history = []; notes = []; filter = 'all';
+  $('search').value = '';
+  document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === 'all')));
+  hideToast();
+  if (withLoad) { loading = true; render(); setTimeout(() => { loading = false; render(); }, reduce.matches ? 0 : 520); } else render();
+}
+const byId = id => items.find(i => i.id === id);
+
+function flagsFor(i) {
+  const f = [];
+  if (i.proof === 'none') f.push('No receipt attached');
+  if (i.category === 'Meals' && i.amount > 75 && i.proof !== 'itemized') f.push('Meals over $75 need an itemized bill');
+  const twin = items ? items.find(o => o.id !== i.id && o.name === i.name && cents(o.amount) === cents(i.amount) && Math.abs(day(o.date) - day(i.date)) <= 7 * 864e5) : null;
+  if (twin) f.push(`Same merchant and amount as ${shortDate(twin.date)}`);
+  const wd = day(i.date).getDay();
+  if (wd === 0 || wd === 6) f.push(`Spent on a ${weekday(i.date)}`);
+  return f;
+}
+function suggested(i) {
+  const f = flagsFor(i).join(' ');
+  return REASONS.filter(r => (r.startsWith('Itemized') && /itemized|No receipt/.test(f)) || (r.startsWith('Looks like') && /Same merchant/.test(f)) || (r.startsWith('Over') && impact(i).over));
+}
+function approvedIn(cat, except) { return sumOf(items.filter(i => i.category === cat && i.status === 'approved' && i.id !== except)); }
+function impact(i) {
+  const lim = LIMITS[i.category], before = approvedIn(i.category, i.id), after = (cents(before) + cents(i.amount)) / 100;
+  return { lim, before, after, over: after > lim, overBy: (cents(after) - cents(lim)) / 100 };
+}
+
+function receiptNode(i, withStamps) {
+  const r = el('div', 'receipt');
+  const top = el('div', 'r-top');
+  const left = el('div');
+  left.append(el('p', 'r-merchant', i.name), el('p', 'r-meta', `${shortDate(i.date)}, from ${i.by}`));
+  top.append(left, el('span', 'r-cat', i.category));
+  const lines = el('ul', 'r-lines');
+  i.lines.forEach(([d, a]) => { const li = el('li'); li.append(el('span', 'd', d), el('span', 'a', money(a))); lines.append(li); });
+  const tot = el('div', 'r-total'); tot.append(el('span', null, 'Total'), el('strong', null, money(i.amount)));
+  const proof = el('p', 'r-proof' + (i.proof === 'none' ? ' missing' : '')); proof.append(icon(ICON_DOC), document.createTextNode(PROOF[i.proof]));
+  r.append(top, lines, tot);
+  if (i.proof !== 'none') r.append(proof);
+  const f = flagsFor(i);
+  if (f.length) { const ul = el('ul', 'flags'); ul.setAttribute('aria-label', 'Policy checks'); f.forEach(t => { const li = el('li', 'flag'); li.append(icon(ICON_FLAG), document.createTextNode(t)); ul.append(li); }); r.append(ul); }
+  if (i.status === 'pending') {
+    const m = impact(i);
+    const p = el('div', 'impact' + (m.over ? ' over' : ''));
+    p.append(el('span', null, m.over ? `Approving takes ${i.category} ${money(m.overBy)} over its ${whole(m.lim)} limit.` : `Approving puts ${i.category} at ${Math.round(m.after / m.lim * 100)}% of its ${whole(m.lim)} limit.`));
+    const bar = el('div', 'impact-bar'); const a = el('i'), b = el('i');
+    const scale = Math.max(m.lim, m.after);
+    a.style.width = (m.before / scale * 100) + '%'; b.style.left = (m.before / scale * 100) + '%'; b.style.width = (i.amount / scale * 100) + '%';
+    bar.append(a, b); p.append(bar); r.append(p);
+  }
+  if (withStamps) { r.append(el('span', 'stamp ok', 'Approved'), el('span', 'stamp back', 'Sent back')); }
+  return r;
 }
 
 function render() {
-  const pending = items.filter(i => i.status === 'pending');
-  const approved = items.filter(i => i.status === 'approved');
-  const total = sum(items);
-  const pct = Math.min(100, total / BUDGET * 100);
-  $('total-spent').textContent = money(total);
-  $('meter-fill').style.width = pct.toFixed(1) + '%';
-  $('meter').setAttribute('aria-valuenow', pct.toFixed(0));
-  $('meter').setAttribute('aria-valuetext', `${pct.toFixed(0)} percent of the ${moneyWhole(BUDGET)} budget`);
-  $('budget-used').textContent = `${pct.toFixed(0)}% of ${moneyWhole(BUDGET)} budget`;
-  $('budget-left').textContent = `${money(Math.max(0, BUDGET - total))} left`;
-  $('pending-count').textContent = pending.length;
-  $('pending-amount').textContent = money(sum(pending));
-  $('approved-count').textContent = approved.length;
-  $('approved-amount').textContent = money(sum(approved));
-  $('nav-badge').textContent = pending.length || '';
-  $('nav-badge').hidden = !pending.length;
-  $('nav-activity-label').textContent = 'Activity';
-  $('nav-activity').setAttribute('aria-label', pending.length ? `Activity, ${pending.length} to review` : 'Activity');
-  for (const key of ['all', 'pending', 'approved', 'correction']) {
-    document.querySelector(`[data-count="${key}"]`).textContent = key === 'all' ? items.length : items.filter(i => i.status === key).length;
+  const pend = items.filter(i => i.status === 'pending');
+  // tab badge
+  $('tab-badge').textContent = pend.length || '';
+  $('tab-badge').hidden = !pend.length;
+  document.querySelector('[data-tab="review"]').setAttribute('aria-label', pend.length ? `Review, ${pend.length} waiting` : 'Review');
+  renderReview(pend);
+  renderLedger();
+  renderBudget(pend);
+  renderNotes();
+  $('undo').hidden = !history.length;
+}
+
+function renderReview(pend) {
+  const all = history.length + queue.length;
+  $('progress-text').replaceChildren(el('b', null, `${history.length} of ${all}`), document.createTextNode(' reviewed'));
+  $('ticks').replaceChildren(...history.map(h => el('i', byId(h.id).status === 'approved' ? 'ok' : 'back')), ...queue.map(() => el('i')));
+  const body = $('review-body');
+  if (loading) {
+    const s = el('div', 'skeleton'); for (let k = 0; k < 7; k++) s.append(el('i'));
+    body.replaceChildren(s, el('p', 'loading-label', 'Fetching October receipts'));
+    body.setAttribute('aria-busy', 'true');
+    return;
   }
-  $('recent-list').replaceChildren(...items.slice(0, 4).map(row));
-  const query = $('search').value.trim().toLowerCase();
-  const found = items.filter(i => (currentFilter === 'all' || i.status === currentFilter) && [i.name, i.category, i.by].some(v => v.toLowerCase().includes(query)));
-  $('result-count').textContent = `${found.length} ${found.length === 1 ? 'expense' : 'expenses'}`;
-  const list = $('activity-list');
-  list.replaceChildren(...found.map(row));
-  if (!found.length) list.append(el('li', 'empty', 'Nothing matches. Try another name or status.'));
+  body.removeAttribute('aria-busy');
+  if (!queue.length) {
+    const ok = history.map(h => byId(h.id)).filter(i => i.status === 'approved');
+    const back = items.filter(i => i.status === 'back');
+    const d = el('div', 'done');
+    const seal = el('div', 'done-seal'); seal.setAttribute('aria-hidden', 'true');
+    const inner = el('div'); inner.append(el('span', null, 'October'), el('b', null, 'Clear'), el('span', null, 'Reviewed')); seal.append(inner);
+    const sums = el('dl', 'done-sums');
+    [[`Approved, ${ok.length}`, money(sumOf(ok))], [`Sent back, ${back.length}`, money(sumOf(back))]].forEach(([k, v]) => { const w = el('div'); w.append(el('dt', null, k), el('dd', null, v)); sums.append(w); });
+    const led = el('button', 'act ok', 'Open the ledger'); led.type = 'button'; led.addEventListener('click', () => go('ledger'));
+    const rs = el('button', 'text-btn', 'Restore the sample month'); rs.type = 'button'; rs.addEventListener('click', () => reset());
+    d.append(seal, el('h3', null, 'Nothing left to review'), el('p', 'hint', back.length ? `${back.length === 1 ? 'One teammate has' : back.length + ' teammates have'} a note on what to fix.` : 'Every receipt this month is approved.'), sums, led, rs);
+    body.replaceChildren(d);
+    return;
+  }
+  const cur = byId(queue[0]);
+  const stack = el('div', 'stack'); stack.dataset.depth = String(Math.min(3, queue.length));
+  const card = el('div', 'card'); card.id = 'card';
+  card.setAttribute('role', 'group'); card.setAttribute('aria-roledescription', 'receipt');
+  card.setAttribute('aria-label', `${cur.name}, ${money(cur.amount)}, ${cur.category}, from ${cur.by}`);
+  card.append(receiptNode(cur, true));
+  stack.append(card);
+  const acts = el('div', 'actions');
+  const bk = el('button', 'act back'); bk.type = 'button'; bk.id = 'btn-back'; bk.append(icon('<path d="M15 6l-6 6 6 6"/>'), document.createTextNode('Send back'));
+  const ok = el('button', 'act ok'); ok.type = 'button'; ok.id = 'btn-ok'; ok.append(document.createTextNode('Approve'), icon('<path d="M5 12l5 5 9-10"/>'));
+  bk.addEventListener('click', () => askBack(bk)); ok.addEventListener('click', () => tryApprove(ok));
+  acts.append(bk, ok);
+  const row = el('div', 'act-row');
+  const later = el('button', 'text-btn', queue.length > 1 ? 'Later, show the next one' : 'Later'); later.type = 'button'; later.id = 'btn-later';
+  later.disabled = queue.length < 2; if (queue.length < 2) later.hidden = true;
+  later.addEventListener('click', laterCard);
+  row.append(later);
+  body.replaceChildren(stack, acts, row, el('p', 'hint', 'Drag the receipt right to approve, left to send back.'));
+  bindDrag(card);
 }
 
-function setFilter(filter) {
-  currentFilter = filter;
-  document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
+function renderLedger() {
+  const q = $('search').value.trim().toLowerCase();
+  const counts = { all: items.length, pending: 0, approved: 0, back: 0, flagged: 0 };
+  items.forEach(i => { counts[i.status]++; if (flagsFor(i).length) counts.flagged++; });
+  Object.entries(counts).forEach(([k, v]) => { document.querySelector(`[data-count="${k}"]`).textContent = v; });
+  const found = items.filter(i => (filter === 'all' || (filter === 'flagged' ? flagsFor(i).length : i.status === filter)) && [i.name, i.category, i.by].some(v => v.toLowerCase().includes(q))).sort((a, b) => b.date.localeCompare(a.date));
+  $('ledger-count').textContent = `${found.length} of ${items.length}`;
+  $('ledger-sum').textContent = found.length ? `${money(sumOf(found))} shown` : '';
+  const list = $('ledger-list');
+  if (!found.length) {
+    const li = el('li', 'empty');
+    li.append(el('strong', null, q ? `Nothing matches “${$('search').value.trim()}”` : 'Nothing in this filter'), el('p', null, q ? 'Try a merchant, a category such as Travel, or a first name.' : 'Every expense in this view has moved on.'));
+    const c = el('button', 'act plain', 'Clear search and filters'); c.type = 'button';
+    c.addEventListener('click', () => { $('search').value = ''; setFilter('all'); $('search').focus(); });
+    li.append(c); list.replaceChildren(li); return;
+  }
+  list.replaceChildren(...found.map(i => {
+    const li = el('li'); const b = el('button', 'lrow'); b.type = 'button';
+    const st = { pending: 'To review', approved: 'Approved', back: 'Sent back' }[i.status];
+    b.setAttribute('aria-label', `${i.name}, ${money(i.amount)}, ${st}, ${shortDate(i.date)}, ${i.by}${flagsFor(i).length ? ', flagged' : ''}`);
+    const d = el('span', 'l-date'); d.setAttribute('aria-hidden', 'true'); d.append(el('b', null, String(day(i.date).getDate())), document.createTextNode('Oct'));
+    const m = el('span'); m.style.minWidth = '0'; m.append(el('span', 'l-name', i.name), el('span', 'l-meta', `${i.category}, ${i.by}${flagsFor(i).length ? ', flagged' : ''}`));
+    const e = el('span', 'l-end'); e.append(el('span', 'l-amt', money(i.amount)), el('span', `st ${i.status}`, st));
+    b.append(d, m, e); b.addEventListener('click', () => openDetail(i.id, b)); li.append(b); return li;
+  }));
+}
+
+function renderBudget(pend) {
+  const appr = items.filter(i => i.status === 'approved');
+  const a = sumOf(appr), p = sumOf(pend);
+  $('bm-approved').textContent = money(a);
+  $('bm-of').textContent = `approved of ${whole(LIMIT_TOTAL)}`;
+  $('bm-a').style.width = Math.min(100, a / LIMIT_TOTAL * 100) + '%';
+  $('bm-p').style.width = Math.min(100 - Math.min(100, a / LIMIT_TOTAL * 100), p / LIMIT_TOTAL * 100) + '%';
+  $('bm-wait').textContent = `Waiting, ${money(p)}`;
+  $('bm-bar').setAttribute('aria-label', `${money(a)} approved and ${money(p)} waiting, of a ${whole(LIMIT_TOTAL)} budget`);
+  const rows = Object.keys(LIMITS).map(cat => {
+    const lim = LIMITS[cat], ap = sumOf(appr.filter(i => i.category === cat)), wt = sumOf(pend.filter(i => i.category === cat));
+    return { cat, lim, ap, wt, use: (ap + wt) / lim };
+  }).sort((x, y) => y.use - x.use);
+  $('cats').replaceChildren(...rows.map(r => {
+    const over = cents(r.ap) + cents(r.wt) > cents(r.lim);
+    const li = el('li', 'cat' + (over ? ' over' : ''));
+    const t = el('div', 'cat-top'); t.append(el('b', null, r.cat), el('span', null, `${money(r.ap)} / ${whole(r.lim)}`));
+    const bar = el('div', 'cat-bar'); bar.setAttribute('aria-hidden', 'true');
+    const sc = Math.max(r.lim, r.ap + r.wt); const ia = el('i', 'a'), ip = el('i', 'p');
+    ia.style.width = (r.ap / sc * 100) + '%'; ip.style.width = (r.wt / sc * 100) + '%'; bar.append(ia, ip);
+    let note;
+    if (over) note = `${money((cents(r.ap) + cents(r.wt) - cents(r.lim)) / 100)} over if everything waiting is approved.`;
+    else if (r.wt) note = `${money(r.wt)} waiting. ${money((cents(r.lim) - cents(r.ap) - cents(r.wt)) / 100)} left after that.`;
+    else note = `${money((cents(r.lim) - cents(r.ap)) / 100)} left.`;
+    li.append(t, bar, el('p', 'cat-note', note)); return li;
+  }));
+}
+
+function renderNotes() {
+  $('note-empty').hidden = notes.length > 0;
+  $('notes-count').textContent = notes.length ? `${notes.length} sent` : '';
+  const list = $('note-list');
+  const have = new Set([...list.children].map(n => n.dataset.id));
+  const want = new Set(notes.map(n => String(n.id)));
+  [...list.children].forEach(n => { if (!want.has(n.dataset.id)) n.remove(); });
+  notes.forEach(n => {
+    if (have.has(String(n.id))) return;
+    const li = el('li', 'note ' + (n.kind === 'ok' ? 'is-ok' : 'is-back')); li.dataset.id = n.id;
+    const who = el('span', 'who', initials(n.to)); who.setAttribute('aria-hidden', 'true');
+    const body = el('div'); const top = el('div', 'note-top'); const to = el('span'); to.append(document.createTextNode('To '), el('b', null, n.to)); top.append(to, el('span', 'mono', n.time));
+    body.append(top, el('p', null, n.text)); li.append(who, body); list.prepend(li);
+  });
+}
+
+/* Decisions */
+function tryApprove(trigger) {
+  if (busy) return;
+  const i = byId(queue[0]); if (!i) return;
+  if (i.proof === 'none') { openNoReceipt(i, trigger); return; }
+  commit(i, 'approved', {});
+}
+function askBack(trigger) { if (busy) return; const i = byId(queue[0]); if (i) openBack(i, trigger); }
+function laterCard() {
+  if (queue.length < 2 || busy) return;
+  const id = queue.shift(); queue.push(id);
+  const card = $('card');
+  const next = () => { render(); $('btn-ok') && $('btn-ok').focus({ preventScroll: true }); };
+  if (card && !reduce.matches) { card.classList.add('settle'); card.style.transform = 'translateY(24px) scale(.94)'; card.style.opacity = '0'; card.style.transition = 'transform .25s ease, opacity .2s ease'; setTimeout(next, 220); } else next();
+  showToast(`${byId(id).name} moved to the end of the queue.`, false);
+}
+function commit(i, status, extra) {
+  if (busy || i.status !== 'pending') return;
+  busy = true;
+  const card = $('card');
+  const apply = () => {
+    busy = false;
+    const prevIndex = queue.indexOf(i.id);
+    queue = queue.filter(id => id !== i.id);
+    i.status = status;
+    const n = { id: nextNote++, to: i.by, kind: status === 'approved' ? 'ok' : 'back', time: clock() };
+    if (status === 'approved') {
+      i.log.push({ kind: 'ok', text: `Approved by ${ME}${extra.note ? `. Auditor note: ${extra.note}` : ''}`, when: n.time, byMe: true });
+      n.text = `${i.name}, ${money(i.amount)}, is approved. It goes into the next reimbursement run.`;
+    } else {
+      i.log.push({ kind: 'back', text: `Sent back: ${extra.reasons.join(', ')}${extra.note ? `. “${extra.note}”` : ''}`, when: n.time, byMe: true });
+      n.text = `${i.name}, ${money(i.amount)}, came back to you. ${extra.reasons.join('. ')}.${extra.note ? ' ' + extra.note : ''}`;
+    }
+    if (i.by === ME) n.to = ME;
+    notes.push(n);
+    history.push({ id: i.id, noteId: n.id, prevIndex });
+    render();
+    showToast(status === 'approved' ? `Approved ${i.name}, ${money(i.amount)}.` : `Sent back to ${first(i.by)}.`, true);
+    const f = $('btn-ok') || document.querySelector('#review-body .act.ok') ;
+    if (f && !openSheet) f.focus({ preventScroll: true });
+  };
+  if (!card || reduce.matches) { apply(); return; }
+  const dir = status === 'approved' ? 1 : -1;
+  card.querySelector(status === 'approved' ? '.stamp.ok' : '.stamp.back').classList.add('on');
+  card.classList.add('show-stamp');
+  card.style.setProperty('--yes', 0); card.style.setProperty('--no', 0);
+  setTimeout(() => {
+    card.style.transition = 'transform .4s cubic-bezier(.4,.1,.6,1), opacity .4s ease';
+    card.style.transform = `translateX(${dir * 125}%) rotate(${dir * 14}deg)`;
+    card.style.opacity = '0';
+    setTimeout(apply, 330);
+  }, 260);
+}
+function undo() {
+  if (busy) return;
+  const h = history.pop(); if (!h) return;
+  const i = byId(h.id);
+  i.status = 'pending';
+  const k = i.log.map(l => l.byMe).lastIndexOf(true); if (k > -1) i.log.splice(k, 1);
+  notes = notes.filter(n => n.id !== h.noteId);
+  queue.unshift(i.id);
+  hideToast();
+  go('review', false);
   render();
+  announce(`Undone. ${i.name} is back on top of the queue.`);
+  const b = $('btn-ok'); if (b) b.focus({ preventScroll: true });
 }
 
-function show(view, focus = true) {
-  for (const id of ['overview', 'activity', 'detail']) $(id).hidden = id !== view;
-  const nav = { overview: $('nav-overview'), activity: $('nav-activity') };
-  const active = view === 'overview' ? nav.overview : nav.activity;
-  const inactive = view === 'overview' ? nav.activity : nav.overview;
-  active.setAttribute('aria-current', 'page');
-  inactive.removeAttribute('aria-current');
-  render();
-  if (!focus) return;
-  const target = view === 'detail' ? $('detail-title') : view === 'activity' ? $('activity-title') : $('overview-title');
-  target.setAttribute('tabindex', '-1');
-  target.focus();
+/* Drag */
+function bindDrag(card) {
+  let s = null;
+  const clamp = v => Math.max(0, Math.min(1, v));
+  card.addEventListener('pointerdown', e => { if (e.button !== 0 || openSheet) return; s = { x: e.clientX, y: e.clientY, id: e.pointerId, dx: 0, on: false }; });
+  card.addEventListener('pointermove', e => {
+    if (!s || e.pointerId !== s.id) return;
+    const dx = e.clientX - s.x, dy = e.clientY - s.y;
+    if (!s.on) {
+      if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) { s.on = true; try { card.setPointerCapture(e.pointerId); } catch {} card.classList.add('dragging'); card.classList.remove('settle'); }
+      else if (Math.abs(dy) > 10) { s = null; return; } else return;
+    }
+    s.dx = dx;
+    card.style.transform = `translateX(${dx}px) rotate(${dx / 22}deg)`;
+    card.style.setProperty('--yes', clamp(dx / 120)); card.style.setProperty('--no', clamp(-dx / 120));
+  });
+  const end = () => {
+    if (!s) return; const dx = s.dx, was = s.on; s = null;
+    card.classList.remove('dragging');
+    if (!was) return;
+    const snap = () => { card.classList.add('settle'); card.style.transform = ''; card.style.setProperty('--yes', 0); card.style.setProperty('--no', 0); };
+    if (dx > 110) { const i = byId(queue[0]); if (i.proof === 'none') { snap(); openNoReceipt(i, $('btn-ok')); } else commit(i, 'approved', {}); }
+    else if (dx < -110) { snap(); askBack($('btn-back')); }
+    else snap();
+  };
+  card.addEventListener('pointerup', end); card.addEventListener('pointercancel', end);
 }
 
-function openDetail(id, focus = true) {
-  selectedId = id;
-  const item = items.find(i => i.id === id);
-  $('detail-title').textContent = item.name;
-  $('detail-subtitle').textContent = item.category;
-  $('detail-icon').textContent = initials(item.name);
-  $('detail-amount').textContent = money(item.amount);
-  $('detail-status').className = `status ${item.status}`;
-  $('detail-status').textContent = statusLabel(item.status);
-  const fields = [['Date', longDate(item.date)], ['Submitted by', item.by], ['Receipt', item.receipt], ['Note', item.note]];
-  $('detail-fields').replaceChildren(...fields.map(([k, v]) => { const d = el('div'); d.append(el('dt', null, k), el('dd', null, v)); return d; }));
-  const open = item.status === 'pending';
-  $('approve').disabled = !open;
-  $('approve').querySelector('span').textContent = item.status === 'approved' ? 'Approved' : item.status === 'correction' ? 'Sent back for correction' : 'Approve expense';
-  $('request-correction').disabled = !open;
-  $('request-correction').hidden = !open;
-  $('undo').hidden = !(lastDecision && lastDecision.id === id);
-  $('feedback').textContent = '';
-  show('detail', focus);
+/* Sheets */
+function openSheetEl(sheet, trigger, focusEl) {
+  sheetReturn = trigger || document.activeElement; openSheet = sheet;
+  $('scrim').hidden = false; sheet.hidden = false;
+  requestAnimationFrame(() => { $('scrim').classList.add('open'); sheet.classList.add('open'); });
+  (focusEl || sheet.querySelector('h3')).focus({ preventScroll: true });
 }
-
-function decide(status) {
-  const item = items.find(i => i.id === selectedId);
-  if (!item || item.status !== 'pending') return;
-  lastDecision = { id: item.id, status: item.status };
-  item.status = status;
-  openDetail(selectedId, false);
-  $('feedback').textContent = status === 'approved' ? `${item.name} approved. You can undo this.` : `Correction requested from ${item.by}. You can undo this.`;
-  $('undo').focus();
+function closeSheet(restore = true) {
+  const sheet = openSheet; if (!sheet) return; openSheet = null;
+  $('scrim').classList.remove('open'); sheet.classList.remove('open');
+  const fin = () => { sheet.hidden = true; if (!openSheet) $('scrim').hidden = true; };
+  reduce.matches ? fin() : setTimeout(fin, 280);
+  if (restore && sheetReturn && document.contains(sheetReturn)) sheetReturn.focus({ preventScroll: true });
 }
+function openBack(i, trigger) {
+  $('back-sub').textContent = `${i.name}, ${money(i.amount)}. ${first(i.by)} gets your reason and note.`;
+  const fs = $('reasons'); const sug = suggested(i);
+  fs.querySelectorAll('.reason').forEach(n => n.remove());
+  REASONS.forEach(r => { const l = el('label', 'reason'); const c = el('input'); c.type = 'checkbox'; c.name = 'reason'; c.value = r; const sp = el('span', null, r); if (sug.includes(r)) sp.append(el('em', null, 'Suggested')); l.append(c, sp); fs.append(l); });
+  $('back-note').value = ''; $('back-count').textContent = '0/140'; $('back-error').classList.remove('show');
+  $('back-sheet').dataset.id = i.id;
+  openSheetEl($('back-sheet'), trigger);
+}
+function openNoReceipt(i, trigger) {
+  $('nr-sub').textContent = `${i.name}, ${money(i.amount)}, from ${i.by}. Paying without a receipt needs a note the auditor can read later.`;
+  $('nr-note').value = ''; $('nr-count').textContent = '0/140'; $('nr-error').classList.remove('show');
+  $('noreceipt-sheet').dataset.id = i.id;
+  openSheetEl($('noreceipt-sheet'), trigger, $('nr-note'));
+}
+function openDetail(id, trigger) {
+  const i = byId(id);
+  $('d-title').textContent = i.name;
+  $('d-sub').textContent = `${i.category}, ${shortDate(i.date)}, from ${i.by}. ${i.note}`;
+  $('d-receipt').replaceChildren(receiptNode(i, false));
+  $('d-timeline').replaceChildren(...i.log.map(l => { const li = el('li', l.kind); li.append(document.createTextNode(l.text), el('small', null, l.when)); return li; }));
+  const a = $('d-action');
+  a.className = 'act ' + (i.status === 'pending' ? 'ok' : 'plain');
+  a.textContent = i.status === 'pending' ? 'Review it now' : 'Reopen for review';
+  a.onclick = () => {
+    if (i.status === 'pending') { queue = [i.id, ...queue.filter(q => q !== i.id)]; closeSheet(false); go('review'); render(); return; }
+    i.status = 'pending'; i.log.push({ kind: '', text: `Reopened by ${ME}`, when: clock() });
+    history = history.filter(h => h.id !== i.id);
+    queue.unshift(i.id); closeSheet(false); go('review'); render();
+    announce(`${i.name} reopened and placed first in the queue.`);
+  };
+  openSheetEl($('detail-sheet'), trigger);
+}
+$('back-note').addEventListener('input', e => { $('back-count').textContent = `${e.target.value.length}/140`; });
+$('nr-note').addEventListener('input', e => { $('nr-count').textContent = `${e.target.value.length}/140`; if (e.target.value.trim().length >= 8) $('nr-error').classList.remove('show'); });
+$('reasons').addEventListener('change', () => { if ($('reasons').querySelector('input:checked')) $('back-error').classList.remove('show'); });
+function fail(err, sheet) { err.classList.add('show'); if (!reduce.matches) { sheet.classList.remove('shake'); void sheet.offsetWidth; sheet.classList.add('shake'); } }
+$('back-sheet').addEventListener('submit', e => {
+  e.preventDefault();
+  const reasons = [...$('reasons').querySelectorAll('input:checked')].map(c => c.value);
+  if (!reasons.length) { fail($('back-error'), $('reasons')); $('reasons').querySelector('input').focus(); return; }
+  const i = byId($('back-sheet').dataset.id); closeSheet(false);
+  commit(i, 'back', { reasons, note: $('back-note').value.trim() });
+});
+$('noreceipt-sheet').addEventListener('submit', e => {
+  e.preventDefault();
+  const note = $('nr-note').value.trim();
+  if (note.length < 8) { fail($('nr-error'), $('nr-note')); $('nr-note').focus(); return; }
+  const i = byId($('noreceipt-sheet').dataset.id); closeSheet(false);
+  commit(i, 'approved', { note });
+});
+document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => closeSheet()));
+$('scrim').addEventListener('click', () => closeSheet());
 
-$('nav-overview').addEventListener('click', () => show('overview'));
-$('nav-activity').addEventListener('click', () => show('activity'));
-$('view-all').addEventListener('click', () => { setFilter('all'); show('activity'); });
-document.querySelectorAll('[data-jump]').forEach(b => b.addEventListener('click', () => { setFilter(b.dataset.jump); show('activity'); }));
-$('detail-back').addEventListener('click', () => show('activity'));
-$('search').addEventListener('input', render);
+/* Toast and announcements */
+function showToast(text, undoable) {
+  $('toast-text').textContent = text; $('toast-undo').hidden = !undoable;
+  $('toast').classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(hideToast, 7000);
+}
+function hideToast() { $('toast').classList.remove('show'); }
+function announce(t) { showToast(t, false); }
+$('toast-undo').addEventListener('click', undo);
+$('undo').addEventListener('click', undo);
+
+/* Navigation */
+function go(v, focus = true) {
+  view = v;
+  ['review', 'ledger', 'budget'].forEach(k => { $(k).hidden = k !== v; });
+  document.querySelectorAll('[data-tab]').forEach(t => t.dataset.tab === v ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'));
+  $('viewport').scrollTop = 0;
+  if (focus) { const h = $(v + '-title'); h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+}
+function setFilter(f) { filter = f; document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === f))); renderLedger(); }
+document.querySelectorAll('[data-tab]').forEach(t => t.addEventListener('click', () => { hideToast(); go(t.dataset.tab); }));
 document.querySelectorAll('[data-filter]').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.filter)));
-$('approve').addEventListener('click', () => decide('approved'));
-$('request-correction').addEventListener('click', () => decide('correction'));
-$('undo').addEventListener('click', () => {
-  if (!lastDecision) return;
-  const id = lastDecision.id;
-  items.find(i => i.id === id).status = lastDecision.status;
-  lastDecision = null;
-  openDetail(id, false);
-  $('feedback').textContent = 'Decision undone. The expense is back in review.';
-  $('approve').focus();
+document.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click', () => { closeSheet(false); go('review', false); reset(); announce('Sample month restored.'); }));
+$('search').addEventListener('input', renderLedger);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && openSheet) { e.preventDefault(); closeSheet(); return; }
+  if (openSheet) {
+    if (e.key === 'Tab') { const f = [...openSheet.querySelectorAll('button, input, textarea, [tabindex="-1"]')].filter(n => !n.hidden && n.offsetParent !== null); const a = f[0], z = f[f.length - 1]; if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); } else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } }
+    return;
+  }
+  if ((e.target.closest && e.target.closest('input, textarea')) || e.altKey || e.ctrlKey || e.metaKey) return;
+  if (view !== 'review' || loading) return;
+  const k = e.key.toLowerCase();
+  if (k === 'z' && history.length) { e.preventDefault(); undo(); return; }
+  if (!queue.length) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); tryApprove($('btn-ok')); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); askBack($('btn-back')); }
+  else if (k === 'l') { e.preventDefault(); laterCard(); }
 });
-$('reset-demo').addEventListener('click', () => {
-  items = seed.map(i => ({ ...i }));
-  lastDecision = null; selectedId = null;
-  $('search').value = '';
-  setFilter('all');
-  show('overview');
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('detail').hidden) show('activity'); });
-render();
+reset();
 </script>
 </body>
 </html>

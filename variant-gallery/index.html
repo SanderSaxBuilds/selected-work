@@ -101,6 +101,7 @@
             <div class="availability" id="availabilityCard" data-available="true">
               <span class="availability-dot" aria-hidden="true"></span>
               <p><strong id="availabilityLabel">In stock</strong> <span id="availabilityDescription">Ships in 1 to 2 business days.</span></p>
+              <button class="swap-button" type="button" id="swapOption" hidden></button>
             </div>
 
             <div class="buy-row">
@@ -116,7 +117,7 @@
               </div>
               <button class="add-button" type="button" id="addToBag">Add to bag</button>
             </div>
-            <p class="shipping-note">Free shipping on orders over $50. Free returns within 30 days.</p>
+            <p class="shipping-note">Free shipping on orders of $50 or more. Free returns within 30 days.</p>
 
             <dl class="spec-list" id="details">
               <div><dt>Keeps cold</dt><dd>Up to 24 hours</dd></div>
@@ -182,6 +183,10 @@
       </div>
       <div id="bagLines"></div>
       <div class="bag-foot" id="bagFoot" hidden>
+        <div class="ship-meter" id="shipMeter">
+          <p id="shipText">$14.00 away from free shipping</p>
+          <span class="ship-track" aria-hidden="true"><span class="ship-fill" id="shipFill"></span></span>
+        </div>
         <div class="bag-total"><span>Subtotal</span><strong class="figure" id="bagSubtotal">$0.00</strong></div>
         <p class="bag-note">Checkout is switched off in this study store.</p>
       </div>

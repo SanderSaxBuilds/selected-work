@@ -173,7 +173,15 @@ function pickDate(iso) {
 function renderSlots() {
   const box = $('slots');
   const head = $('times-for');
-  if (!state.date) { head.textContent = 'Pick a day to see open times.'; box.innerHTML = ''; return; }
+  if (!state.date) {
+    head.textContent = 'Pick a day to see open times.';
+    const first = D.slots.reduce((a, s) => (a === null || s.start < a.start ? s : a), null);
+    if (!first) { box.innerHTML = '<p class="none-msg">No open times in the booking window for this service.</p>'; return; }
+    const day = C.dateInZone(first.start, state.zone);
+    const n = D.byDate.get(day)?.length || 0;
+    box.innerHTML = `<div class="soonest"><p class="soonest-label">Soonest for ${esc(service().name.toLowerCase())}</p><p class="soonest-when"><strong>${C.formatDateLong(day)}</strong> <span class="mono">${C.formatTime(first.start, state.zone)}</span></p><p class="muted">${n} open time${n === 1 ? '' : 's'} that day.</p><button type="button" class="btn line" id="soonest" data-date="${day}">Show that day</button></div>`;
+    return;
+  }
   const list = D.byDate.get(state.date) || [];
   head.innerHTML = `<strong>${C.formatDateLong(state.date)}</strong> <span class="muted">${esc(service().name)}, ${service().duration} min</span>`;
   if (!list.length) {
@@ -451,7 +459,7 @@ function init() {
   $('slots').addEventListener('click', e => {
     const b = e.target.closest('button');
     if (!b) return;
-    if (b.id === 'next-open') {
+    if (b.id === 'next-open' || b.id === 'soonest') {
       const d = b.dataset.date;
       setFocus(d, false);
       pickDate(d);

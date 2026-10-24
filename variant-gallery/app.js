@@ -124,6 +124,11 @@
     $("#availabilityDescription").textContent = activeVariant.available
       ? "Ships in 1 to 2 business days."
       : `${optionShort(activeVariant)} is restocking. The other options ship now.`;
+    const swap = $("#swapOption");
+    const alt = activeVariant.available ? null
+      : variants.find((v) => v.available && v.color === activeVariant.color) || variants.find((v) => v.available && v.size === activeVariant.size);
+    swap.hidden = !alt;
+    if (alt) { swap.dataset.variant = alt.id; swap.textContent = `Show ${optionShort(alt)} instead, ${formatUsd(alt.priceCents)}`; }
     addButton.disabled = !activeVariant.available;
     addButton.textContent = activeVariant.available ? `Add to bag, ${formatUsd(activeVariant.priceCents * quantity)}` : "Sold out";
     document.body.dataset.variantId = activeVariant.id;
@@ -298,10 +303,18 @@
     const lines = $("#bagLines");
     lines.replaceChildren();
     if (!count) {
+      const wrap = document.createElement("div");
+      wrap.className = "bag-empty-wrap";
       const empty = document.createElement("p");
       empty.className = "bag-empty";
-      empty.textContent = "Your bag is empty.";
-      lines.append(empty);
+      empty.textContent = "Your bag is empty. Orders of $50 or more ship free.";
+      const back = document.createElement("button");
+      back.type = "button";
+      back.className = "ghost-button";
+      back.dataset.close = "";
+      back.textContent = "Keep looking";
+      wrap.append(empty, back);
+      lines.append(wrap);
       $("#bagFoot").hidden = true;
       return;
     }
@@ -319,21 +332,50 @@
       const name = document.createElement("strong");
       name.textContent = "Stillwater Bottle";
       const meta = document.createElement("span");
-      meta.textContent = `${optionName(variant)}, qty ${qty}`;
+      meta.textContent = `${optionName(variant)}, ${formatUsd(variant.priceCents)} each`;
       text.append(name, meta);
       const price = document.createElement("span");
       price.className = "figure";
       price.textContent = formatUsd(variant.priceCents * qty);
+      const actions = document.createElement("div");
+      actions.className = "line-actions";
+      const stepper = document.createElement("div");
+      stepper.className = "line-qty";
+      stepper.setAttribute("role", "group");
+      stepper.setAttribute("aria-label", `Quantity, ${optionName(variant)}`);
+      const less = document.createElement("button");
+      less.type = "button";
+      less.dataset.step = "-1";
+      less.dataset.id = id;
+      less.textContent = "\u2212";
+      less.disabled = qty <= 1;
+      less.setAttribute("aria-label", `One fewer ${optionShort(variant)}`);
+      const shown = document.createElement("output");
+      shown.textContent = String(qty);
+      const more = document.createElement("button");
+      more.type = "button";
+      more.dataset.step = "1";
+      more.dataset.id = id;
+      more.textContent = "+";
+      more.disabled = qty >= MAX_QTY;
+      more.setAttribute("aria-label", `One more ${optionShort(variant)}`);
+      stepper.append(less, shown, more);
       const remove = document.createElement("button");
       remove.type = "button";
       remove.className = "text-button";
       remove.dataset.remove = id;
       remove.textContent = "Remove";
       remove.setAttribute("aria-label", `Remove ${optionName(variant)}`);
-      row.append(swatch, text, price, remove);
+      actions.append(stepper, remove);
+      row.append(swatch, text, price, actions);
       lines.append(row);
     });
     $("#bagSubtotal").textContent = formatUsd(subtotal);
+    const FREE_SHIP = 5000;
+    const meter = $("#shipMeter");
+    meter.dataset.done = String(subtotal >= FREE_SHIP);
+    $("#shipText").textContent = subtotal >= FREE_SHIP ? "Free shipping on this order." : `${formatUsd(FREE_SHIP - subtotal)} away from free shipping.`;
+    $("#shipFill").style.width = `${Math.min(100, (subtotal / FREE_SHIP) * 100)}%`;
     $("#bagFoot").hidden = false;
   }
 
@@ -393,6 +435,14 @@
     syncView();
   });
 
+  $("#swapOption").addEventListener("click", (event) => {
+    const next = byId.get(event.currentTarget.dataset.variant);
+    if (!next) return;
+    activeVariant = next;
+    activeMediaIndex = 0;
+    syncView({ writeLink: true });
+    addButton.focus();
+  });
   $("#qtyDown").addEventListener("click", () => setQuantity(quantity - 1));
   $("#qtyUp").addEventListener("click", () => setQuantity(quantity + 1));
 
@@ -416,7 +466,18 @@
   });
   $("#bagClose").addEventListener("click", () => bagDialog.close());
   bagDialog.addEventListener("click", (event) => {
-    if (event.target === bagDialog) bagDialog.close();
+    if (event.target === bagDialog || event.target.closest("[data-close]")) { bagDialog.close(); return; }
+    const step = event.target.closest("[data-step]");
+    if (step) {
+      const id = step.dataset.id;
+      const next = Math.min(MAX_QTY, Math.max(1, (bag.get(id) ?? 0) + Number(step.dataset.step)));
+      bag.set(id, next);
+      renderBag();
+      const again = bagDialog.querySelector(`[data-id="${id}"][data-step="${step.dataset.step}"]`);
+      (again && !again.disabled ? again : bagDialog.querySelector(`[data-id="${id}"]:not(:disabled)`) ?? $("#bagClose")).focus();
+      liveStatus.textContent = `${optionShort(byId.get(id))}, quantity ${next}.`;
+      return;
+    }
     const remove = event.target.closest("[data-remove]");
     if (remove) {
       bag.delete(remove.dataset.remove);
