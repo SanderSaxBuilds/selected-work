@@ -1,4 +1,4 @@
-/* Website check. A visitor types an address, a real Lighthouse run measures it, and the result is written up in plain words.
+/* Website check, console edition. A visitor types an address at a terminal prompt, a real Lighthouse run measures it, and the result prints in plain words.
    Engine: Microlink's free Lighthouse endpoint (browser callable, no key, about 25 runs a day per visitor).
    PageSpeed Insights is used instead when PSI_KEY holds a browser key restricted to this site. Google's keyless PSI quota is 0. */
 (function(){
@@ -276,121 +276,7 @@ function fixes(M){
 }
 function lvl(imp){return imp>=60?2:imp>=30?1:0}
 
-/* -------- state -------- */
-var lang="en",dev="mobile",state="idle",ctrl=null,t0=0,tb=0,tick=null,retried=false,lastErr=null;
-var store={sample:window.CHECK_SAMPLE||null,live:{},url:""},view={src:"sample",dev:"mobile",cat:null};
-var input=$("[data-url]"),form=$("#probe"),glass=$("#glass"),rep=$("[data-rep]"),live=$("[data-live]"),goBtn=$("[data-go]");
-
-function T(){return S[lang]}
-
-/* -------- the instrument face -------- */
-function axisTicks(){
-  var h="";for(var s=0;s<=AXIS;s+=5){h+='<i style="left:'+(s/AXIS*100)+'%" class="'+(s%10?"":"mj")+'">'+(s%10?"":"<b>"+s+"</b>")+"</i>"}
-  $("[data-ticks]").innerHTML=h;
-  var band=$(".axis-band");band.style.left=(15/AXIS*100)+"%";band.style.width=(25/AXIS*100)+"%";
-}
-function setGlass(g){state=g;$$(".g-state",glass).forEach(function(el){el.hidden=el.getAttribute("data-g")!==g});glass.setAttribute("data-state",g)}
-function stepsHTML(n,retry){
-  var t=T();return t.steps.map(function(s,i){var c=i<n?"ok":i===n?"now":"";
-    var lab=(i===1&&retry)?t.retry:s;
-    return '<li class="'+c+'"><i aria-hidden="true"></i><span>'+esc(lab)+'</span><em data-st="'+i+'"></em></li>'}).join("");
-}
-var stepN=-1,stepTimes=[];
-function setStep(n,force){
-  if(n<=stepN&&!force)return;
-  for(var i=stepN+1;i<=n;i++)stepTimes[i]=(performance.now()-t0)/1000;
-  stepN=n;$("[data-steps]").innerHTML=stepsHTML(n,retried);
-  stepTimes.forEach(function(v,i){var em=$('[data-st="'+i+'"]');if(em&&i<n)em.textContent=v.toFixed(1)+"s"});
-  if(n<T().steps.length)live.textContent=T().steps[n];
-}
-function clock(){
-  var s=(performance.now()-t0)/1000,sb=(performance.now()-tb)/1000;
-  $("[data-clock]").textContent=(s<10?"0":"")+s.toFixed(1);
-  $("[data-fill]").style.width=Math.min(100,s/AXIS*100)+"%";
-  for(var i=STEP_AT.length-2;i>=2;i--){if(sb>=STEP_AT[i]){setStep(i);break}}
-}
-function devNote(){var t=T();$("[data-gdev]").textContent=t.devNote[dev];$("[data-gdev2]").textContent=t.devNote[dev]}
-
-function start(url,d){
-  if(ctrl)return;
-  dev=d||dev;syncDev();
-  store.url=url;input.value=url.replace(/^https:\/\//,"").replace(/\/$/,"");if(view.src==="live"&&store.lastUrl!==url){store.live={}}store.lastUrl=url;
-  setErr("");retried=false;stepN=-1;stepTimes=[];
-  setGlass("run");t0=tb=performance.now();lastErr=null;setStep(1);
-  $("[data-fill]").style.width="0";
-  tick=setInterval(clock,reduce?1000:100);clock();
-  goBtn.classList.add("on");$("[data-golab]").textContent=T().stop;
-  run(url,dev);
-}
-function run(url,d){
-  ctrl=new AbortController();var my=ctrl,timer=setTimeout(function(){my.abort("limit")},LIMIT);
-  measure(url,d,my.signal).then(function(M){
-    clearTimeout(timer);if(my!==ctrl)return;
-    setStep(6);
-    store.live[d]=M;store.url=url;
-    setTimeout(function(){finish();view={src:"live",dev:d,cat:null};render(true);showDone(M);share(url,d);
-      setTimeout(function(){var r=$("#report");r.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});try{r.focus({preventScroll:true})}catch(x){}},reduce?0:900)},reduce?0:350);
-  },function(e){
-    clearTimeout(timer);if(my!==ctrl)return;
-    if(my.signal.aborted){finish();if(my.signal.reason==="limit")fail("timeout");else{setGlass("idle");setErr(T().e.stopped)}return}
-    if(e.code==="timeout"&&!retried){retried=true;ctrl=null;tb=performance.now();stepN=-1;stepTimes=[];setStep(1);run(url,d);return}
-    finish();fail(e.code||"other",e.detail);
-  });
-}
-function toUnit(){$(".unit").scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"})}
-function finish(){clearInterval(tick);tick=null;ctrl=null;goBtn.classList.remove("on");$("[data-golab]").textContent=T().measure}
-function stop(){if(ctrl)ctrl.abort("user")}
-function fail(code,detail){
-  lastErr=[code,detail];var t=T(),msg=fmt(t.e[code]||t.e.other,{c:detail||code});
-  $("[data-errmsg]").textContent=msg;setGlass("err");live.textContent=msg;
-  if(!store.live.mobile&&!store.live.desktop){view={src:"sample",dev:view.dev,cat:null};render(false)}
-}
-function showDone(M){
-  var t=T();
-  $("[data-reads]").innerHTML=CATS.map(function(c){var v=M.cats[c],b=band(v);return '<div class="rd b'+b+'"><span>'+esc(t.cats[c])+'</span><b>'+(v==null?"–":v)+'</b></div>'}).join("");
-  $("[data-took]").textContent=fmt(t.took,{x:((performance.now()-t0)/1000).toFixed(1)});setGlass("done");
-  live.textContent=t.rep+". "+CATS.map(function(c){return t.cats[c]+" "+M.cats[c]}).join(", ");
-}
-function setErr(m){$("[data-err]").textContent=m;input.setAttribute("aria-invalid",m&&m!==T().e.stopped?"true":"false")}
-function syncDev(){$$("[data-dev]").forEach(function(b){b.setAttribute("aria-checked",String(b.getAttribute("data-dev")===dev))});$(".dev-sw").setAttribute("data-on",dev);devNote()}
-function share(url,d){try{var p=new URLSearchParams(location.search);p.set("url",url.replace(/^https:\/\//,""));p.set("device",d);history.replaceState(null,"","?"+p.toString()+location.hash)}catch(e){}}
-
-/* -------- the report -------- */
-var GR=42;
-function dial(c,v,on){
-  var b=band(v),t=T(),off=v==null?100:100-v,ticks="";
-  for(var i=0;i<50;i++){var p=i*2,mj=p===0||p===50||p===90,a=(p/100)*Math.PI*2-Math.PI/2,r1=mj?47.5:49,r2=mj?54:52;
-    ticks+='<line class="tk'+(mj?" mj":"")+'" x1="'+(50+Math.cos(a)*r1).toFixed(2)+'" y1="'+(50+Math.sin(a)*r1).toFixed(2)+'" x2="'+(50+Math.cos(a)*r2).toFixed(2)+'" y2="'+(50+Math.sin(a)*r2).toFixed(2)+'"/>'}
-  var lab=t.cats[c]+": "+(v==null?"–":v)+" "+t.of+", "+(b<0?"":t.band[b]);
-  return '<button type="button" class="dial b'+b+(on?" sel":"")+'" data-cat="'+c+'" aria-pressed="'+(on?"true":"false")+'" aria-label="'+esc(lab)+'">'+
-   '<span class="dial-g"><svg viewBox="-6 -6 112 112" aria-hidden="true">'+ticks+
-   '<circle class="tr" cx="50" cy="50" r="'+GR+'"/>'+
-   '<circle class="ar" data-arc cx="50" cy="50" r="'+GR+'" pathLength="100" stroke-dasharray="100 100" stroke-dashoffset="'+(reduce?off:100)+'" data-off="'+off+'" transform="rotate(-90 50 50)"'+(v===0?' style="display:none"':'')+'/></svg>'+
-   '<span class="dial-n" data-n="'+(v==null?"":v)+'">'+(v==null?"–":(reduce?v:0))+'</span></span>'+
-   '<span class="dial-l"><b>'+esc(t.cats[c])+'</b><small>'+esc(t.catSub[c])+'</small><em>'+(b<0?"":esc(t.band[b]))+'</em></span></button>';
-}
-var SCALE={fcp:[1800,3000,6000],lcp:[2500,4000,8000],tbt:[200,600,1200],cls:[0.1,0.25,0.5],tbw:[1677722,3355443,6710886]};
-function reading(k,m){
-  var t=T();if(!m||m.v==null)return "";
-  var sc=SCALE[k],b=sband(m.s),pos=Math.min(100,m.v/sc[2]*100),val=k==="cls"?(lang==="ru"?m.v.toFixed(3).replace(".",","):m.v.toFixed(3)):k==="tbw"?bytes(m.v,lang):k==="tbt"?Math.round(m.v)+(lang==="ru"?" мс":" ms"):secs(m.v,lang);
-  return '<li class="rdg b'+b+'"><div class="rdg-t"><b>'+esc(t.mn[k])+'</b><small>'+esc(t.mh[k])+'</small></div>'+
-   '<div class="rdg-v"><strong>'+esc(val)+'</strong><em>'+(b<0?"":esc(t.band[b]))+'</em></div>'+
-   '<div class="rdg-s" aria-hidden="true"><span class="z g" style="width:'+(sc[0]/sc[2]*100)+'%"></span><span class="z f" style="width:'+((sc[1]-sc[0])/sc[2]*100)+'%"></span><span class="z p"></span><i class="nd" style="--x:'+pos.toFixed(1)+'%"></i></div></li>';
-}
-function fixHTML(o,i,top){
-  var t=T(),fx=o.fx,tx=fx?fx[lang]||fx.en:null,L=lvl(o.imp);
-  var title=tx?tx[0]:o.titles[0],body=tx?tx[1]:t.generic;
-  var ev="";
-  if(o.dv.length||o.items.length||!tx){
-    ev='<details class="ev"><summary>'+esc(t.saw)+'</summary><div class="ev-b">'+
-      (tx?"":"")+'<p class="ev-lh">'+esc(o.titles.join(" · "))+(o.dv.length?" · "+esc(o.dv.join(", ")):"")+'</p>'+
-      (o.items.length?'<ul>'+o.items.map(function(it){return "<li>"+esc(it)+"</li>"}).join("")+"</ul>":"")+'</div></details>';
-  }
-  var sv=o.cat==="performance"&&o.sav>=100?'<p class="fx-sv">'+esc(fmt(t.saves,{x:secs(o.sav,lang)}))+'</p>':"";
-  return '<li class="fx l'+L+'" data-fc="'+o.cat+'">'+(top?'<span class="fx-i">'+(i+1)+'</span>':"")+
-    '<div class="fx-b"><div class="fx-h"><span class="fx-imp"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>'+esc(t.impact[L])+'</span><span class="fx-c">'+esc(t.cats[o.cat])+'</span></div>'+
-    '<h4>'+esc(title)+'</h4><p>'+esc(body)+'</p>'+sv+ev+'</div></li>';
-}
+/* -------- verdict line -------- */
 function verdict(M,F){
   var t=T(),d=t.devWord[M.device],worst=null,wv=101;
   CATS.forEach(function(c){var v=M.cats[c];if(v!=null&&v<wv){wv=v;worst=c}});
@@ -402,129 +288,475 @@ function verdict(M,F){
   var tail=F.length?(Math.min(5,main)===1?t.v.tail1:fmt(t.v.tailN,{n:Math.min(5,main)})):"";
   return {s:s,tail:tail};
 }
-function current(){return view.src==="live"?store.live[view.dev]:(store.sample&&store.sample[view.dev])}
-function render(anim){
-  var M=current(),t=T();
-  if(!M){rep.innerHTML="";return}
-  var F=fixes(M),top=[],rest=[];
-  F.forEach(function(o){(top.length<5&&(lvl(o.imp)>0||top.length<3)?top:rest).push(o)});
-  var V=verdict(M,top),isS=view.src==="sample",other=view.dev==="mobile"?"desktop":"mobile";
-  var hasOther=isS?!!(store.sample&&store.sample[other]):!!store.live[other];
-  var cat=view.cat;
-  function vis(list){return cat?list.filter(function(o){return o.cat===cat}):list}
-  var tv=vis(top),rv=vis(rest);
-  rep.className="rep"+(isS?" is-sample":"")+(anim&&!reduce?" in":"");
-  rep.innerHTML=
-   '<header class="rep-top"><div class="rep-tt"><h2 id="rep-h">'+esc(t.rep)+'</h2><span class="tag'+(isS?" s":"")+'">'+esc(isS?t.sampleTag:t.liveTag)+'</span></div>'+
-    '<div class="rep-sw" role="group" aria-label="'+esc(t.devLabel)+'">'+["mobile","desktop"].map(function(d){var avail=isS?!!(store.sample&&store.sample[d]):true;return '<button type="button" data-rdev="'+d+'" aria-pressed="'+(d===view.dev)+'"'+(avail?"":" disabled")+'>'+esc(t.dev[d])+(isS||store.live[d]?"":' <small>+</small>')+'</button>'}).join("")+'</div></header>'+
-   (isS?'<p class="rep-note">'+esc(t.sampleP)+'</p>':"")+
-   '<dl class="rep-meta"><div><dt>'+esc(t.fAddr)+'</dt><dd>'+esc(host(M.final||M.url))+'</dd></div><div><dt>'+esc(t.fWhen)+'</dt><dd>'+esc(when(M.at,lang))+'</dd></div><div><dt>'+esc(t.fDev)+'</dt><dd>'+esc(t.dev[M.device])+'</dd></div><div><dt>'+esc(t.fEng)+'</dt><dd>Lighthouse '+esc(M.ver)+'</dd></div></dl>'+
-   '<div class="rep-hero '+M.device+'">'+
-     (M.shot?'<figure class="shot '+M.device+'"><img src="'+M.shot+'" alt="'+esc(fmt(t.shotAlt,{d:t.dev[M.device].toLowerCase()}))+'"></figure>':"")+
-     '<div class="rep-side"><p class="verdict">'+esc(V.s)+' <span>'+esc(V.tail)+'</span></p>'+
-     '<div class="dials">'+CATS.map(function(c){return dial(c,M.cats[c],cat===c)}).join("")+'</div></div>'+
-   '</div>'+
-   '<section class="rep-sec"><h3>'+esc(t.readings)+'</h3><ul class="rdgs">'+["lcp","fcp","tbt","cls","tbw"].map(function(k){return reading(k,M.m[k])}).join("")+'</ul></section>'+
-   '<section class="rep-sec"><div class="sec-h"><h3>'+esc(t.fixHead)+'</h3>'+(cat?'<button type="button" class="chip" data-cat="">'+esc(fmt(t.showing,{c:t.cats[cat]}))+' <span aria-hidden="true">×</span></button>':"")+'</div><p class="sec-p">'+esc(t.fixSub)+'</p>'+
-     (tv.length?'<ol class="fxs">'+tv.map(function(o,i){return fixHTML(o,i,true)}).join("")+'</ol>':'<p class="nofix">'+esc(cat?t.noFixCat:t.noFix)+'</p>')+
-     (rv.length?'<details class="more"><summary>'+esc(fmt(t.more,{n:rv.length}))+'</summary><ul class="fxs sm">'+rv.map(function(o,i){return fixHTML(o,i,false)}).join("")+'</ul></details>':"")+
-   '</section>'+
-   '<div class="acts">'+
-     '<button type="button" class="act" data-act="print"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></svg>'+esc(t.actPrint)+'</button>'+
-     '<button type="button" class="act" data-act="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>'+esc(t.actCopy)+'</span></button>'+
-     (isS?"":'<button type="button" class="act" data-act="link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span>'+esc(t.actLink)+'</span></button>')+
-     (!isS&&!hasOther?'<button type="button" class="act" data-act="other"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>'+esc(fmt(t.otherDev,{d:t.devWord[other]}))+'</button>':"")+
-   '</div>'+
-   '<section class="cta"><div class="cta-t"><h3>'+esc(t.ctaH)+'</h3><p>'+esc(t.ctaP)+'</p></div>'+
-     '<div class="cta-l">'+
-       '<a class="ch tg" href="https://t.me/'+CONTACT.telegram+'" target="_blank" rel="noopener" data-tg><b>'+esc(t.tg)+'</b><small>@'+CONTACT.telegram+'</small></a>'+
-       '<a class="ch wa" target="_blank" rel="noopener" data-wa><b>'+esc(t.wa)+'</b><small>'+esc(t.waS)+'</small></a>'+
-       '<a class="ch em" data-em><b>'+esc(t.em)+'</b><small>'+CONTACT.email+'</small></a>'+
-     '</div><p class="cta-print">Telegram @'+CONTACT.telegram+' · WhatsApp +66 96 134 7329 · '+CONTACT.email+'</p></section>';
-  var txt=summary(M,top);
-  $("[data-wa]",rep).href="https://wa.me/"+CONTACT.whatsapp+"?text="+encodeURIComponent(txt);
-  $("[data-em]",rep).href="mailto:"+CONTACT.email+"?subject="+encodeURIComponent(fmt(t.subj,{u:host(M.final||M.url)}))+"&body="+encodeURIComponent(txt);
-  $("[data-tg]",rep).addEventListener("click",function(){copy(txt)});
-  $$("[data-rdev]",rep).forEach(function(b){b.addEventListener("click",function(){
-    var d=b.getAttribute("data-rdev");if(d===view.dev)return;
-    if(view.src==="live"&&!store.live[d]){toUnit();start(store.url,d);return}
-    view.dev=d;view.cat=null;render(false);$('[data-rdev="'+d+'"]',rep).focus()})});
-  $$("[data-cat]",rep).forEach(function(b){b.addEventListener("click",function(){
-    var c=b.getAttribute("data-cat")||null;view.cat=(c&&view.cat!==c)?c:null;render(false);
-    var f=view.cat?$('.dial[data-cat="'+view.cat+'"]',rep):$('.dial[data-cat="'+(c||"performance")+'"]',rep);if(f)f.focus({preventScroll:true})})});
-  $$("[data-act]",rep).forEach(function(b){b.addEventListener("click",function(){
-    var a=b.getAttribute("data-act");
-    if(a==="print"){$$("details",rep).forEach(function(d){d.open=true});window.print()}
-    else if(a==="copy")copy(txt,b);
-    else if(a==="link")copy(location.href,b);
-    else if(a==="other"){toUnit();start(store.url,other)}
-  })});
-  fill(anim);
+
+/* -------- console words -------- */
+var C={
+en:{skip:"Skip to the command line",sys:"SANDERSAX WEBSITE CHECK, CONSOLE WC-3270",eng:"ENGINE    LIGHTHOUSE {v}, RUN BY MICROLINK",devs:"DEVICES   PHONE, MID-RANGE ON SLOW 4G. DESKTOP, FAST LINE.",
+ h1:"Measure any website in about thirty seconds.",hint1:"Type an address and press Enter, for example",
+ hint2:"On a phone, tap the keys below. {ex} shows a sample report, {help} lists every command.",
+ ready:"READY",run:"RUNNING, ESC STOPS",prt:"PRINTING, ANY KEY SKIPS",typeAddr:"TYPE THE ADDRESS, THEN PRESS ENTER",
+ busy:"A test is running. Type STOP or press Esc to cancel it.",noRun:"Nothing is running.",unknown:"Unknown command {c}. Type HELP for the list.",
+ helpH:"COMMANDS",helpKeys:"Up and Down arrows bring back earlier commands. Esc or a tap skips the printing.",
+ help:[["yourbusiness.com","Measure a website. SCAN yourbusiness.com does the same.",0],["SCAN address DESKTOP","Measure it as a desktop computer instead of a phone.",0],["DEVICE","Switch the test device between phone and desktop.",1],["EXAMPLE","Show a real report for example.com.",1],["FIX 1","Show what the test saw for fix number 1.",1],["MORE","List the smaller things found.",1],["PRINT","Print the last report, or save it as PDF.",1],["SHARE","Copy a link that opens this check again.",1],["COPY","Copy a short summary of the report.",1],["CONTACT","Ways to reach me about the fixes.",1],["STOP","Cancel a running test.",1],["RETRY","Run the last test again.",1],["LANG RU","Change the language: EN, RU or TH.",1],["CLEAR","Clear the screen.",1]],
+ devSet:"Test device is now: {d}.",scanH:"MEASURING {u} ON {D}",elapsed:"ELAPSED",usual:"usually done between 15 and 40 s",doneL:"Done in {x} s. Report follows.",
+ rpH:"WEBSITE REPORT",tagS:"EXAMPLE",tagL:"MEASURED JUST NOW",sampleP:"A real report for example.com, the standard test address. Type your own address to measure your site.",
+ scores:"SCORES",verdict:"VERDICT",fixHint:"Ordered by how much each one helps your visitors. Type FIX and a number to see what the test saw.",
+ moreL:"Smaller things found: {n}.",moreH:"SMALLER THINGS FOUND",evH:"FIX {n}, WHAT THE TEST SAW",evNone:"The test gave no more detail for this one.",
+ noRep:"No report yet. Type an address, or EXAMPLE for a sample.",noFix:"There is no fix {n}. This report lists {m}.",noMore:"Nothing smaller was found.",
+ next:"NEXT",eT:{empty:"NO ADDRESS",invalid:"BAD ADDRESS",local:"PRIVATE ADDRESS",unreach:"NO REPLY",timeout:"TIMED OUT",quota:"DAILY LIMIT",net:"OFFLINE",other:"NOT FINISHED",stopped:"STOPPED"},
+ hRetry:"Type RETRY to run it again.",hQuota:"Type CONTACT and send me the address, I will run it for you.",hAddr:"Try for example SCAN yourbusiness.com",noRetry:"Nothing to retry yet.",
+ copiedL:"Link copied.",copiedS:"Summary copied.",shared:"Shared.",copyFail:"Could not copy. Select the text above and copy it by hand.",
+ printL:"Opening the print dialog. Choose Save as PDF to keep a file.",langSet:"Language set to English.",otherHint:"Type {c} to measure on {d} too.",
+ ph:"yourbusiness.com",inLabel:"Command line",keysLabel:"Command keys",oDev:"DEVICE",printHead:"SanderSax website check",cmdW:"Command"},
+ru:{skip:"Перейти к командной строке",sys:"SANDERSAX ПРОВЕРКА САЙТА, КОНСОЛЬ WC-3270",eng:"ДВИЖОК     LIGHTHOUSE {v}, ЗАПУСК ЧЕРЕЗ MICROLINK",devs:"УСТРОЙСТВА ТЕЛЕФОН, СРЕДНИЙ, МЕДЛЕННЫЙ 4G. КОМПЬЮТЕР, БЫСТРЫЙ ИНТЕРНЕТ.",
+ h1:"Измерьте любой сайт примерно за полминуты.",hint1:"Введите адрес и нажмите Enter, например",
+ hint2:"На телефоне нажимайте клавиши внизу. {ex} покажет пример отчёта, {help} покажет все команды.",
+ ready:"ГОТОВ",run:"ИДЁТ ТЕСТ, ESC ОСТАНОВИТ",prt:"ПЕЧАТЬ, ЛЮБАЯ КЛАВИША ПРОПУСКАЕТ",typeAddr:"ВВЕДИТЕ АДРЕС И НАЖМИТЕ ENTER",
+ busy:"Идёт тест. Введите STOP или нажмите Esc, чтобы отменить.",noRun:"Сейчас ничего не запущено.",unknown:"Неизвестная команда {c}. Введите HELP, чтобы увидеть список.",
+ helpH:"КОМАНДЫ",helpKeys:"Стрелки вверх и вниз возвращают прошлые команды. Esc или касание пропускают печать.",
+ help:[["vash-biznes.com","Измерить сайт. SCAN vash-biznes.com делает то же самое.",0],["SCAN адрес DESKTOP","Измерить как на компьютере, а не на телефоне.",0],["DEVICE","Переключить тестовое устройство: телефон или компьютер.",1],["EXAMPLE","Показать настоящий отчёт для example.com.",1],["FIX 1","Показать, что увидел тест, для исправления номер 1.",1],["MORE","Список мелочей.",1],["PRINT","Напечатать последний отчёт или сохранить в PDF.",1],["SHARE","Скопировать ссылку, которая снова откроет эту проверку.",1],["COPY","Скопировать краткий итог отчёта.",1],["CONTACT","Как связаться со мной насчёт исправлений.",1],["STOP","Отменить идущий тест.",1],["RETRY","Запустить последний тест ещё раз.",1],["LANG EN","Сменить язык: EN, RU или TH.",1],["CLEAR","Очистить экран.",1]],
+ devSet:"Тестовое устройство: {d}.",scanH:"ИЗМЕРЯЕМ {u}, {D}",elapsed:"ПРОШЛО",usual:"обычно готово за 15-40 с",doneL:"Готово за {x} с. Отчёт ниже.",
+ rpH:"ОТЧЁТ О САЙТЕ",tagS:"ПРИМЕР",tagL:"ИЗМЕРЕНО ТОЛЬКО ЧТО",sampleP:"Настоящий отчёт для example.com, стандартного тестового адреса. Введите свой адрес, чтобы измерить свой сайт.",
+ scores:"ОЦЕНКИ",verdict:"ИТОГ",fixHint:"По порядку пользы для посетителей. Введите FIX и номер, чтобы увидеть, что увидел тест.",
+ moreL:"Мелочей найдено: {n}.",moreH:"МЕЛОЧИ",evH:"ИСПРАВЛЕНИЕ {n}, ЧТО УВИДЕЛ ТЕСТ",evNone:"Тест не дал подробностей по этому пункту.",
+ noRep:"Отчёта пока нет. Введите адрес или EXAMPLE для примера.",noFix:"Исправления {n} нет. В отчёте их {m}.",noMore:"Мелочей не найдено.",
+ next:"ДАЛЬШЕ",eT:{empty:"НЕТ АДРЕСА",invalid:"НЕВЕРНЫЙ АДРЕС",local:"ЧАСТНЫЙ АДРЕС",unreach:"НЕТ ОТВЕТА",timeout:"ВРЕМЯ ВЫШЛО",quota:"ЛИМИТ НА СЕГОДНЯ",net:"НЕТ СВЯЗИ",other:"ТЕСТ НЕ ЗАВЕРШЁН",stopped:"ОСТАНОВЛЕНО"},
+ hRetry:"Введите RETRY, чтобы запустить снова.",hQuota:"Введите CONTACT и пришлите мне адрес, я проверю сам.",hAddr:"Например: SCAN vash-biznes.com",noRetry:"Повторять пока нечего.",
+ copiedL:"Ссылка скопирована.",copiedS:"Итог скопирован.",shared:"Отправлено.",copyFail:"Не удалось скопировать. Выделите текст выше и скопируйте вручную.",
+ printL:"Открываю печать. Выберите «Сохранить как PDF», чтобы получить файл.",langSet:"Язык: русский.",otherHint:"Введите {c}, чтобы измерить и на {d}.",
+ ph:"vash-biznes.com",inLabel:"Командная строка",keysLabel:"Командные клавиши",oDev:"УСТР.",printHead:"SanderSax, проверка сайта",cmdW:"Команда"},
+th:{skip:"ข้ามไปที่บรรทัดคำสั่ง",sys:"SANDERSAX เช็กเว็บไซต์ คอนโซล WC-3270",eng:"เครื่องมือ  LIGHTHOUSE {v} รันผ่าน MICROLINK",devs:"อุปกรณ์  มือถือระดับกลาง เน็ต 4G ช้า และคอมพิวเตอร์ เน็ตเร็ว",
+ h1:"วัดเว็บไซต์ไหนก็ได้ในราวสามสิบวินาที",hint1:"พิมพ์ที่อยู่เว็บแล้วกด Enter เช่น",
+ hint2:"บนมือถือแตะปุ่มด้านล่าง {ex} แสดงรายงานตัวอย่าง {help} แสดงคำสั่งทั้งหมด",
+ ready:"พร้อม",run:"กำลังทดสอบ กด ESC เพื่อหยุด",prt:"กำลังพิมพ์ กดปุ่มใดก็ได้เพื่อข้าม",typeAddr:"พิมพ์ที่อยู่เว็บ แล้วกด ENTER",
+ busy:"กำลังทดสอบอยู่ พิมพ์ STOP หรือกด Esc เพื่อยกเลิก",noRun:"ตอนนี้ไม่มีการทดสอบ",unknown:"ไม่รู้จักคำสั่ง {c} พิมพ์ HELP เพื่อดูรายการ",
+ helpH:"คำสั่ง",helpKeys:"ลูกศรขึ้นและลงเรียกคำสั่งก่อนหน้า กด Esc หรือแตะเพื่อข้ามการพิมพ์",
+ help:[["yourbusiness.com","วัดเว็บไซต์ พิมพ์ SCAN yourbusiness.com ก็ได้ผลเหมือนกัน",0],["SCAN ที่อยู่ DESKTOP","วัดแบบคอมพิวเตอร์แทนมือถือ",0],["DEVICE","สลับอุปกรณ์ทดสอบระหว่างมือถือกับคอมพิวเตอร์",1],["EXAMPLE","ดูรายงานจริงของ example.com",1],["FIX 1","ดูสิ่งที่การทดสอบเห็นสำหรับข้อที่ 1",1],["MORE","ดูเรื่องเล็กๆ ที่พบ",1],["PRINT","พิมพ์รายงานล่าสุด หรือบันทึกเป็น PDF",1],["SHARE","คัดลอกลิงก์ที่เปิดการเช็กนี้อีกครั้ง",1],["COPY","คัดลอกสรุปสั้นๆ ของรายงาน",1],["CONTACT","ช่องทางติดต่อผมเรื่องการแก้ไข",1],["STOP","ยกเลิกการทดสอบที่กำลังทำ",1],["RETRY","ทดสอบครั้งล่าสุดอีกครั้ง",1],["LANG EN","เปลี่ยนภาษา EN, RU หรือ TH",1],["CLEAR","ล้างหน้าจอ",1]],
+ devSet:"อุปกรณ์ทดสอบตอนนี้คือ{d}",scanH:"กำลังวัด {u} บน{D}",elapsed:"ผ่านไป",usual:"ปกติเสร็จใน 15 ถึง 40 วินาที",doneL:"เสร็จใน {x} วินาที รายงานอยู่ด้านล่าง",
+ rpH:"รายงานเว็บไซต์",tagS:"ตัวอย่าง",tagL:"เพิ่งวัดเสร็จ",sampleP:"รายงานจริงของ example.com ที่อยู่สำหรับทดสอบมาตรฐาน พิมพ์ที่อยู่ของคุณเพื่อวัดเว็บของคุณ",
+ scores:"คะแนน",verdict:"สรุป",fixHint:"เรียงตามประโยชน์ต่อผู้เข้าชม พิมพ์ FIX ตามด้วยหมายเลขเพื่อดูสิ่งที่การทดสอบเห็น",
+ moreL:"พบเรื่องเล็กๆ {n} ข้อ",moreH:"เรื่องเล็กๆ ที่พบ",evH:"ข้อ {n} สิ่งที่การทดสอบเห็น",evNone:"การทดสอบไม่มีรายละเอียดเพิ่มสำหรับข้อนี้",
+ noRep:"ยังไม่มีรายงาน พิมพ์ที่อยู่เว็บ หรือ EXAMPLE เพื่อดูตัวอย่าง",noFix:"ไม่มีข้อ {n} รายงานนี้มี {m} ข้อ",noMore:"ไม่พบเรื่องเล็กๆ",
+ next:"ต่อไป",eT:{empty:"ไม่มีที่อยู่",invalid:"ที่อยู่ไม่ถูกต้อง",local:"ที่อยู่ส่วนตัว",unreach:"ไม่มีการตอบกลับ",timeout:"หมดเวลา",quota:"ครบโควตาวันนี้",net:"ออฟไลน์",other:"ทดสอบไม่เสร็จ",stopped:"หยุดแล้ว"},
+ hRetry:"พิมพ์ RETRY เพื่อลองใหม่",hQuota:"พิมพ์ CONTACT แล้วส่งที่อยู่มา ผมจะเช็กให้",hAddr:"ลองแบบนี้ SCAN yourbusiness.com",noRetry:"ยังไม่มีอะไรให้ลองใหม่",
+ copiedL:"คัดลอกลิงก์แล้ว",copiedS:"คัดลอกสรุปแล้ว",shared:"แชร์แล้ว",copyFail:"คัดลอกไม่สำเร็จ เลือกข้อความด้านบนแล้วคัดลอกเอง",
+ printL:"กำลังเปิดหน้าพิมพ์ เลือกบันทึกเป็น PDF เพื่อเก็บไฟล์",langSet:"เปลี่ยนเป็นภาษาไทยแล้ว",otherHint:"พิมพ์ {c} เพื่อวัดบน{d}ด้วย",
+ ph:"yourbusiness.com",inLabel:"บรรทัดคำสั่ง",keysLabel:"ปุ่มคำสั่ง",oDev:"อุปกรณ์",printHead:"SanderSax เช็กเว็บไซต์",cmdW:"คำสั่ง"}
+};
+var KEYS=["SCAN","EXAMPLE","DEVICE","PRINT","SHARE","CONTACT","HELP","CLEAR"];
+function cell(c){return '<i class="c '+c+'"></i>'}   /* one character cell of a gauge, drawn as a lit block */
+
+/* -------- state -------- */
+var lang="en",dev="mobile",ctrl=null,t0=0,tb=0,tick=null,retried=false,stepN=-1,runBox=null;
+var store={sample:window.CHECK_SAMPLE||null,live:{}};
+var cur=null,lastScan=null,lastErr=false,hist=[],hi=0,touch=false,follow=true,rpN=0,idle=[];
+var ver=((store.sample&&store.sample.mobile&&store.sample.mobile.ver)||"13").split(".")[0];
+var log=$("[data-log]"),form=$("#cmd"),input=$("#cmd-in"),pr=$("[data-prompt]"),keys=$("[data-keys]"),live=$("[data-live]"),stat=$("[data-stat]"),screen=$("[data-screen]");
+function T(){return S[lang]}
+function K(){return C[lang]}
+function disp(u){return String(u).replace(/^https:\/\//,"").replace(/\/$/,"")}
+function L(html,cls,tag){tag=tag||"div";return "<"+tag+' class="ln'+(cls?" "+cls:"")+'">'+html+"</"+tag+">"}
+function B(cmd,label){return '<button type="button" class="k" data-cmd="'+esc(cmd)+'">'+esc(label||cmd)+"</button>"}
+function pad(n){return (n<10?"0":"")+n}
+function sec(x){var v=x.toFixed(1);return lang==="ru"?v.replace(".",","):v}
+
+/* -------- teletype printer: every .ln is one line, revealed in order -------- */
+var Q=[],qt=null,printing=false;
+function put(html,opt){
+  opt=opt||{};
+  var box=document.createElement("div");box.className="blk"+(opt.cls?" "+opt.cls:"");box.innerHTML=html;
+  log.appendChild(box);
+  var lines=$$(".ln",box);
+  if(opt.now||reduce||(!Q.length&&!lines.length)){if(!printing)settle();return box}
+  lines.forEach(function(n){n.classList.add("wait");Q.push(n)});
+  if(!printing){printing=true;pr.classList.add("off");setStat()}
+  if(!qt)pump();
+  return box;
 }
-function fill(anim){
-  var arcs=$$("[data-arc]",rep),nums=$$(".dial-n",rep);
-  if(!anim||reduce){arcs.forEach(function(a){a.setAttribute("stroke-dashoffset",a.getAttribute("data-off"))});nums.forEach(function(n){if(n.getAttribute("data-n"))n.textContent=n.getAttribute("data-n")});rep.classList.add("set");return}
-  var T0=null,D=1100;
-  function f(ts){if(!rep.isConnected)return;if(T0==null)T0=ts;var p=Math.min(1,(ts-T0)/D),e=1-Math.pow(1-p,3);
-    arcs.forEach(function(a){var off=+a.getAttribute("data-off");a.setAttribute("stroke-dashoffset",String(100-(100-off)*e))});
-    nums.forEach(function(n){var v=n.getAttribute("data-n");if(v)n.textContent=Math.round(+v*e)});
-    if(p<1)requestAnimationFrame(f);else rep.classList.add("set")}
-  function end(){arcs.forEach(function(a){a.setAttribute("stroke-dashoffset",a.getAttribute("data-off"))});nums.forEach(function(n){if(n.getAttribute("data-n"))n.textContent=n.getAttribute("data-n")});rep.classList.add("set")}
-  setTimeout(function(){requestAnimationFrame(f)},450);
-  setTimeout(end,D+1200);
+function pump(){
+  var n=Q.shift();
+  if(!n){qt=null;printing=false;pr.classList.remove("off");setStat();settle();return}
+  n.classList.remove("wait");
+  var len=Math.min(90,(n.textContent||"").replace(/\s+/g," ").length),d=Math.max(50,Math.min(240,len*4.5));
+  n.style.setProperty("--n",String(Math.max(1,Math.round(len/2))));n.style.setProperty("--d",Math.round(d)+"ms");
+  n.classList.add("tt");
+  if(follow)keep(n);
+  qt=setTimeout(pump,Math.max(24,d*0.5)+(n.classList.contains("gap")?50:0));
+}
+function skip(){
+  if(!printing)return;
+  clearTimeout(qt);qt=null;
+  Q.forEach(function(n){n.classList.remove("wait")});Q=[];
+  pump();
+}
+function keep(n){
+  var r=n.getBoundingClientRect(),kb=keys.getBoundingClientRect(),lim=Math.min(window.innerHeight,kb.top>0?kb.top:window.innerHeight)-14;
+  if(r.bottom>lim)window.scrollBy(0,Math.ceil(r.bottom-lim));
+}
+function settle(){
+  setStat();
+  if(follow)keep(pr);
+  if(!touch){try{input.focus({preventScroll:true})}catch(e){}}
+  var c=idle.splice(0);c.forEach(function(f){f()});
+}
+function say(html,cls){return put(L(html,cls))}
+
+/* -------- status line and keys -------- */
+function setStat(m){
+  var k=K();
+  stat.textContent=m||(ctrl?k.run:printing?k.prt:k.ready);
+  stat.className=ctrl?"st run":printing?"st prt":"st";
+  $("[data-odev]").textContent=k.oDev+" "+T().dev[dev].toUpperCase();
+}
+function keysRender(){
+  keys.innerHTML=KEYS.map(function(c,i){
+    var cmd=(i===0&&ctrl)?"STOP":c,sub=c==="DEVICE"?T().dev[dev].toUpperCase():"";
+    return '<button type="button" class="key'+(cmd==="STOP"?" stop":"")+'" data-key="'+cmd+'"><small aria-hidden="true">PF'+(i+1)+'</small><b>'+cmd+'</b>'+(sub?'<em>'+esc(sub)+'</em>':"")+'</button>';
+  }).join("");
+}
+function syncDev(){setStat();keysRender()}
+
+/* -------- commands -------- */
+var DEVW={PHONE:"mobile",MOBILE:"mobile",DESKTOP:"desktop",PC:"desktop",COMPUTER:"desktop",LAPTOP:"desktop"};
+var CMD={
+  SCAN:cmdScan,MEASURE:cmdScan,CHECK:cmdScan,RUN:cmdScan,TEST:cmdScan,
+  HELP:cmdHelp,"?":cmdHelp,CLEAR:cmdClear,CLS:cmdClear,
+  PRINT:cmdPrint,SHARE:cmdShare,LINK:cmdShare,COPY:cmdCopy,SUMMARY:cmdCopy,
+  EXAMPLE:cmdExample,SAMPLE:cmdExample,DEMO:cmdExample,
+  DEVICE:cmdDevice,PHONE:function(){cmdDevice(["PHONE"])},MOBILE:function(){cmdDevice(["PHONE"])},DESKTOP:function(){cmdDevice(["DESKTOP"])},
+  FIX:cmdFix,MORE:cmdMore,CONTACT:cmdContact,STOP:cmdStop,RETRY:cmdRetry,LANG:cmdLang
+};
+var DURING=["STOP","HELP","?","CLEAR","CLS","LANG"];
+function exec(raw){
+  skip();follow=true;
+  var s=String(raw||"").trim().slice(0,300);
+  put(L('<span class="pp" aria-hidden="true">===&gt;</span> <span class="sr">'+esc(K().cmdW)+': </span>'+esc(s),"echo"),{now:true});
+  if(!s){settle();return}
+  if(hist[hist.length-1]!==s)hist.push(s);hi=hist.length;
+  var parts=s.split(/\s+/),w=parts[0].toUpperCase(),arg=parts.slice(1);
+  if(ctrl&&DURING.indexOf(w)<0){say(esc(K().busy),"dim");return}
+  if(CMD[w]){CMD[w](arg);return}
+  if(parts.length<=2&&/[.:\/]/.test(parts[0])){cmdScan(parts);return}
+  say(esc(fmt(K().unknown,{c:parts[0].toUpperCase()})),"warn");
+}
+function cmdScan(a){
+  var d=dev,addr=null;
+  a.forEach(function(x){var u=x.toUpperCase();if(DEVW[u])d=DEVW[u];else if(!addr)addr=x});
+  if(!addr){errBlock("empty");return}
+  var p=parseAddress(addr);
+  if(p.err){errBlock(p.err);return}
+  start(p.url,d);
+}
+function cmdHelp(){
+  var k=K(),h=L(esc(k.helpH),"sec","h2");
+  k.help.forEach(function(r){h+=L('<span class="hp-c">'+(r[2]?B(r[0]):'<code>'+esc(r[0])+'</code>')+'</span><span class="hp-d">'+esc(r[1])+'</span>',"hp")});
+  h+=L(esc(k.helpKeys),"dim");
+  put(h,{cls:"help"});
+}
+function cmdClear(){skip();log.innerHTML="";follow=true;window.scrollTo(0,0);settle()}
+function cmdExample(){
+  var M=store.sample&&(store.sample[dev]||store.sample.mobile);
+  if(!M){errBlock("other","no sample");return}
+  showReport(M,"sample","https://example.com/");
+}
+function cmdDevice(a){
+  var w=(a[0]||"").toUpperCase();
+  dev=DEVW[w]||(dev==="mobile"?"desktop":"mobile");syncDev();
+  var h=L(esc(fmt(K().devSet,{d:T().dev[dev]})));
+  if(cur&&cur.src==="live"&&!store.live[dev+"|"+cur.url]){var c="SCAN "+disp(cur.url)+" "+(dev==="desktop"?"DESKTOP":"PHONE");h+=L(esc(fmt(K().otherHint,{c:"{c}",d:T().devWord[dev]})).replace("{c}",B(c)),"dim")}
+  put(h);
+}
+function cmdLang(a){
+  var w=(a[0]||"").toLowerCase(),order=["en","ru","th"];
+  setLang(S[w]?w:order[(order.indexOf(lang)+1)%3]);
+  say(esc(K().langSet));
+}
+function need(){if(!cur){say(esc(K().noRep)+" "+B("EXAMPLE"),"warn");return false}return true}
+function allFixes(){return cur.top.concat(cur.rest)}
+function cmdFix(a){
+  if(!need())return;
+  var all=allFixes(),n=parseInt(a[0],10);
+  if(!(n>=1&&n<=all.length)){say(esc(fmt(K().noFix,{n:a[0]||"?",m:all.length})),"warn");return}
+  put(L(esc(fmt(K().evH,{n:n})),"sec","h2")+L(esc(fixTitle(all[n-1])),"hi")+evHTML(all[n-1]));
+}
+function cmdMore(){
+  if(!need())return;
+  if(!cur.rest.length){say(esc(K().noMore));return}
+  var h=L(esc(K().moreH),"sec","h2");
+  cur.rest.forEach(function(o,i){h+=fixHTML(o,cur.top.length+i)});
+  put(h);
+}
+function cmdPrint(){
+  if(!need())return;
+  if(!cur.el||!cur.el.isConnected){var b=put(reportHTML(cur),{now:true});cur.el=$(".rp",b)}
+  mark(cur.el);
+  say(esc(K().printL),"dim");
+  skip();
+  setTimeout(function(){window.print()},reduce?0:120);
+}
+function mark(el){$$(".rp.pr").forEach(function(x){x.classList.remove("pr")});el.classList.add("pr");document.body.classList.add("has-pr")}
+function shareURL(){return cur&&cur.src==="live"?location.href:location.origin+location.pathname}
+function cmdShare(){
+  var u=shareURL(),k=K(),coarse=window.matchMedia("(pointer: coarse)").matches;
+  if(navigator.share&&coarse){navigator.share({title:T().doc,url:u}).then(function(){say(esc(k.shared))},function(){copyOut(u,k.copiedL)});return}
+  copyOut(u,k.copiedL);
+}
+function cmdCopy(){if(!need())return;copyOut(summary(cur.M,cur.top),K().copiedS,true)}
+function copyOut(text,okMsg,quiet){
+  copy(text).then(function(){say(esc(okMsg)+(quiet?"":' <span class="dim">'+esc(text)+'</span>'))},function(){say(esc(K().copyFail)+' <span class="hi">'+esc(text)+'</span>',"warn")});
+}
+function cmdContact(){put(ctaHTML(cur?summary(cur.M,cur.top):T().hello,cur?host(cur.M.final||cur.M.url):""))}
+function cmdStop(){if(ctrl)ctrl.abort("user");else say(esc(K().noRun),"dim")}
+function cmdRetry(){if(!lastScan){say(esc(K().noRetry),"dim");return}start(lastScan.url,lastScan.dev)}
+
+/* -------- a live measurement -------- */
+function start(url,d){
+  dev=d;lastScan={url:url,dev:d};lastErr=false;retried=false;stepN=-1;
+  var k=K(),t=T();
+  runBox=put(L(esc(fmt(k.scanH,{u:disp(url),D:t.dev[d].toUpperCase()})),"hd")+L(esc(t.devNote[d]),"dim")+'<ol class="steps" data-steps></ol>'+L("","prog"),{now:true,cls:"run"});
+  t0=tb=performance.now();
+  ctrl={pending:true};syncDev();
+  setStep(1);
+  tick=setInterval(clock,reduce?1000:100);clock();
+  live.textContent=fmt(k.scanH,{u:disp(url),D:t.dev[d]});
+  go(url,d);
+}
+function stepLabel(i){return i===1&&retried?T().retry:T().steps[i]}
+function setStep(n){
+  if(!runBox||n<=stepN)return;
+  var ol=$("[data-steps]",runBox);
+  for(var i=stepN+1;i<=n;i++){
+    var prev=ol.lastElementChild;
+    if(prev&&!prev.classList.contains("ok")){prev.classList.add("ok");$("em",prev).textContent="OK "+sec((performance.now()-t0)/1000)}
+    var li=document.createElement("li");li.className="ln";
+    li.innerHTML='<span>'+esc(stepLabel(i))+'</span><i aria-hidden="true"></i><em>...</em>';
+    ol.appendChild(li);
+  }
+  stepN=n;
+  if(follow)keep(pr);
+}
+function gauge(s){
+  var n=20,f=Math.min(n,Math.floor(s/60*n)),a="";
+  for(var i=0;i<f;i++)a+=cell("on");
+  /* filled part, then the "usually done here" stretch (15 to 40 s of 60), then the rest */
+  var h='<span class="g-on">'+a+'</span>';
+  for(var j=f;j<n;j++){h+=cell(j>=5&&j<14?"typ":"off")}
+  return h;
+}
+function clock(){
+  if(!runBox)return;
+  var s=(performance.now()-t0)/1000,sb=(performance.now()-tb)/1000,k=K();
+  $(".prog",runBox).innerHTML='<span class="pl">'+esc(k.elapsed)+' <b>'+sec(s)+' s</b></span><span class="pg" aria-hidden="true">['+gauge(s)+']</span><span class="pu dim">'+esc(k.usual)+'</span>';
+  for(var i=STEP_AT.length-2;i>=2;i--){if(sb>=STEP_AT[i]){setStep(i);break}}
+}
+function go(url,d){
+  var ac=new AbortController();ctrl=ac;
+  var timer=setTimeout(function(){ac.abort("limit")},LIMIT);
+  measure(url,d,ac.signal).then(function(M){
+    clearTimeout(timer);if(ac!==ctrl)return;
+    setStep(6);
+    var took=(performance.now()-t0)/1000;
+    finish(true);
+    store.live[d+"|"+url]=M;
+    put(L(esc(fmt(K().doneL,{x:sec(took)})),"ok"),{now:true});
+    shareState(url,d);
+    showReport(M,"live",url);
+  },function(e){
+    clearTimeout(timer);if(ac!==ctrl)return;
+    if(ac.signal.aborted){finish(false);errBlock(ac.signal.reason==="limit"?"timeout":"stopped");return}
+    if(e.code==="timeout"&&!retried){retried=true;tb=performance.now();var ol=$("[data-steps]",runBox);ol.innerHTML="";stepN=-1;setStep(1);go(url,d);return}
+    finish(false);errBlock(e.code||"other",e.detail);
+  });
+}
+function finish(ok){
+  clearInterval(tick);tick=null;ctrl=null;
+  if(runBox){
+    clock();
+    var last=$("[data-steps] li:last-child",runBox);
+    if(last&&!last.classList.contains("ok")){last.classList.add(ok?"ok":"bad");$("em",last).textContent=ok?"OK "+sec((performance.now()-t0)/1000):"--"}
+  }
+  runBox=null;syncDev();
+}
+function errBlock(code,detail){
+  var t=T(),k=K(),msg=fmt(t.e[code]||t.e.other,{c:detail||code});
+  var addr=code==="empty"||code==="invalid"||code==="local";
+  var h=L('<span class="er-c">?ERR</span> '+esc(k.eT[code]||k.eT.other),"er-h")+L(esc(msg));
+  if(addr)h+=L(esc(k.hAddr)+" "+B("EXAMPLE"),"dim");
+  else if(code==="quota")h+=L(esc(k.hQuota)+" "+B("CONTACT")+" "+B("RETRY"),"dim");
+  else h+=L(esc(k.hRetry)+" "+B("RETRY"),"dim");
+  lastErr=!addr;
+  put(h,{cls:"er"});
+  live.textContent=(k.eT[code]||"")+". "+msg;
+}
+function shareState(url,d){try{var p=new URLSearchParams(location.search);p.set("url",disp(url));p.set("device",d);history.replaceState(null,"","?"+p.toString()+location.hash)}catch(e){}}
+
+/* -------- the report, printed as console output -------- */
+function split(F){
+  var top=[],rest=[];
+  F.forEach(function(o){(top.length<5&&(lvl(o.imp)>0||top.length<3)?top:rest).push(o)});
+  return {top:top,rest:rest};
+}
+function showReport(M,src,url){
+  var F=fixes(M),sp=split(F);
+  cur={M:M,F:F,top:sp.top,rest:sp.rest,src:src,url:url,el:null};
+  var box=put(reportHTML(cur),{cls:"rpb"});
+  cur.el=$(".rp",box);
+  var t=T();
+  live.textContent=K().rpH+". "+CATS.map(function(c){return t.cats[c]+" "+(M.cats[c]==null?"-":M.cats[c])}).join(", ");
+}
+function bar(v){
+  var n=20,f=v==null?0:Math.round(v/100*n),on="",off="";
+  for(var i=0;i<n;i++){if(i<f)on+=cell("on");else off+=cell("off")}
+  return '[<span class="on">'+on+'</span><span class="off">'+off+'</span>]';
+}
+function rgauge(k,v){
+  var sc=SCALE[k],n=15,g=Math.round(sc[0]/sc[2]*n),f=Math.round(sc[1]/sc[2]*n),p=Math.min(n-1,Math.floor(v/sc[2]*n)),h="";
+  for(var i=0;i<n;i++){var z=i<g?0:i<f?1:2;h+='<span class="z'+z+(i===p?" mk":"")+'">'+(i===p?cell("mk"):"-")+'</span>'}
+  return "["+h+"]";
+}
+var SCALE={fcp:[1800,3000,6000],lcp:[2500,4000,8000],tbt:[200,600,1200],cls:[0.1,0.25,0.5],tbw:[1677722,3355443,6710886]};
+function readVal(k,m){return k==="cls"?(lang==="ru"?m.v.toFixed(3).replace(".",","):m.v.toFixed(3)):k==="tbw"?bytes(m.v,lang):k==="tbt"?Math.round(m.v)+(lang==="ru"?" мс":" ms"):secs(m.v,lang)}
+function fixTitle(o){var tx=o.fx?(o.fx[lang]||o.fx.en):null;return tx?tx[0]:o.titles[0]}
+function evHTML(o){
+  var k=K(),h="";
+  if(o.titles.length)h+=L(esc(o.titles.join(". "))+(o.dv.length?' <span class="dim">('+esc(o.dv.join(", "))+')</span>':""),"ev");
+  o.items.forEach(function(it){h+=L("- "+esc(it),"ev it")});
+  if(!o.dv.length&&!o.items.length)h+=L(esc(k.evNone),"ev dim");
+  return h;
+}
+function fixHTML(o,i){
+  var t=T(),fx=o.fx,tx=fx?fx[lang]||fx.en:null,lv=lvl(o.imp),n=i+1;
+  var body=tx?tx[1]:t.generic,imp=["#--","##-","###"][lv];
+  var h='<div class="fx l'+lv+'">';
+  h+=L('<span class="fx-n">'+pad(n)+'</span><span class="fx-t">'+esc(fixTitle(o))+'</span>',"fx-h");
+  h+=L('<span class="fx-i"><span aria-hidden="true">['+imp+']</span> '+esc(t.impact[lv])+'</span><span class="fx-c">'+esc(t.cats[o.cat])+'</span><span class="np">'+B("FIX "+n)+'</span>',"fx-m");
+  h+=L(esc(body),"fx-p");
+  if(o.cat==="performance"&&o.sav>=100)h+=L(esc(fmt(t.saves,{x:secs(o.sav,lang)})),"fx-s");
+  h+='<div class="po fx-ev">'+evHTML(o)+'</div></div>';
+  return h;
+}
+function ctaHTML(txt,u){
+  var t=T(),wa="https://wa.me/"+CONTACT.whatsapp+"?text="+encodeURIComponent(txt);
+  var em="mailto:"+CONTACT.email+"?subject="+encodeURIComponent(fmt(t.subj,{u:u||"my website"}))+"&body="+encodeURIComponent(txt);
+  return L(esc(t.ctaH),"sec","h3")+L(esc(t.ctaP),"cta-p")+
+    L('<a class="lk" href="https://t.me/'+CONTACT.telegram+'" target="_blank" rel="noopener">TELEGRAM @'+CONTACT.telegram+'</a><a class="lk" href="'+esc(wa)+'" target="_blank" rel="noopener">WHATSAPP</a><a class="lk" href="'+esc(em)+'">EMAIL</a>',"cta-l np")+
+    L(esc(t.waS),"dim np")+
+    '<p class="po">Telegram @'+CONTACT.telegram+', WhatsApp +66 96 134 7329, '+CONTACT.email+'</p>';
+}
+function reportHTML(c){
+  var M=c.M,t=T(),k=K(),isS=c.src==="sample",V=verdict(M,c.top),id="rp"+(++rpN),other=M.device==="mobile"?"desktop":"mobile";
+  var h='<section class="rp" aria-labelledby="'+id+'">';
+  h+='<p class="po ph">'+esc(k.printHead)+', sandersaxbuilds.github.io/selected-work/check/</p>';
+  h+=L('<h2 id="'+id+'">'+esc(k.rpH)+'</h2><span class="tag'+(isS?" s":"")+'">'+esc(isS?k.tagS:k.tagL)+'</span>',"rp-h");
+  if(isS)h+=L(esc(k.sampleP),"dim");
+  h+='<dl class="meta">'+[[t.fAddr,disp(M.final||M.url).replace(/^http:\/\//,"")],[t.fWhen,when(M.at,lang)],[t.fDev,t.dev[M.device]],[t.fEng,"Lighthouse "+M.ver+(M.src?", "+M.src:"")]].map(function(r){return '<div class="ln mr"><dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd></div>'}).join("")+'</dl>';
+  h+='<div class="rp-top"><div class="rp-sc">';
+  h+=L(esc(k.scores),"sec","h3");
+  CATS.forEach(function(cat){var v=M.cats[cat],b=band(v);
+    h+=L('<span class="sc-l">'+esc(t.cats[cat])+'</span><span class="sc-b" aria-hidden="true">'+bar(v)+'</span><span class="sc-n">'+(v==null?"--":v)+'<span class="sr"> '+esc(t.of)+',</span></span><span class="sc-w">'+(b<0?"":esc(t.band[b]))+'</span>',"sc b"+b)});
+  h+=L(esc(k.verdict),"sec","h3")+L(esc(V.s)+(V.tail?" "+esc(V.tail):""),"vd");
+  h+='</div>';
+  if(M.shot)h+='<figure class="ln shot '+M.device+'"><img src="'+M.shot+'" alt="'+esc(fmt(t.shotAlt,{d:t.dev[M.device].toLowerCase()}))+'"></figure>';
+  h+='</div>';
+  h+=L(esc(t.readings),"sec","h3");
+  ["lcp","fcp","tbt","cls","tbw"].forEach(function(key){var m=M.m[key];if(!m||m.v==null)return;var b=sband(m.s);
+    h+=L('<span class="rd-l">'+esc(t.mn[key])+'</span><span class="rd-v">'+esc(readVal(key,m))+'</span><span class="rd-w">'+(b<0?"":esc(t.band[b]))+'</span><span class="rd-g" aria-hidden="true">'+rgauge(key,m.v)+'</span>',"rd b"+b)+L(esc(t.mh[key]).replace(/(\d) (s|с|ms|มс)([ .]|$)/g,"$1 $2$3").replace(/ (\d[\d.,]*)\.$/," $1."),"rd-h dim")});
+  h+=L(esc(t.fixHead),"sec","h3");
+  if(c.top.length){h+=L(esc(k.fixHint),"dim np");c.top.forEach(function(o,i){h+=fixHTML(o,i)})}
+  else h+=L(esc(t.noFix));
+  if(c.rest.length){
+    h+=L(esc(fmt(k.moreL,{n:c.rest.length}))+' <span class="np">'+B("MORE")+'</span>',"more");
+    h+='<div class="po">'+c.rest.map(function(o,i){return fixHTML(o,c.top.length+i)}).join("")+'</div>';
+  }
+  var nx=[B("PRINT"),B("SHARE"),B("COPY"),B("CONTACT")];
+  if(!isS&&!store.live[other+"|"+c.url])nx.push(B("SCAN "+disp(c.url)+" "+(other==="desktop"?"DESKTOP":"PHONE"),T().dev[other].toUpperCase()));
+  h+=L('<span class="nx-l">'+esc(k.next)+'</span>'+nx.join(""),"nx np");
+  h+=ctaHTML(summary(M,c.top),host(M.final||M.url));
+  h+='</section>';
+  return h;
 }
 function summary(M,top){
   var t=T(),u=host(M.final||M.url),lines=[t.hello,"",fmt(t.sum,{u:u,d:t.dev[M.device],t:when(M.at,lang)})];
-  lines.push(CATS.map(function(c){return t.cats[c]+": "+(M.cats[c]==null?"–":M.cats[c])}).join(", "));
-  if(top.length){lines.push("");lines.push(t.fixFirst);top.slice(0,5).forEach(function(o,i){var tx=o.fx?(o.fx[lang]||o.fx.en)[0]:o.titles[0];lines.push((i+1)+". "+tx)})}
-  if(view.src==="live"){lines.push("");lines.push(t.link+": "+location.href)}
+  lines.push(CATS.map(function(c){return t.cats[c]+": "+(M.cats[c]==null?"-":M.cats[c])}).join(", "));
+  if(top.length){lines.push("");lines.push(t.fixFirst);top.slice(0,5).forEach(function(o,i){lines.push((i+1)+". "+fixTitle(o))})}
+  if(cur&&cur.src==="live"&&cur.M===M){lines.push("");lines.push(t.link+": "+location.href)}
   return lines.join("\n");
 }
-function copy(text,btn){
-  var t=T();
-  function mark(ok){if(!btn)return;var sp=$("span",btn)||btn,old=sp.textContent;sp.textContent=ok?t.copied:t.copyFail;btn.classList.toggle("ok",ok);setTimeout(function(){if(btn.isConnected){sp.textContent=old;btn.classList.remove("ok")}},2000)}
-  function fb(){try{var ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();var r=document.execCommand("copy");ta.remove();mark(r)}catch(e){mark(false)}}
-  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(text).then(function(){mark(true)},fb);else fb();
+function copy(text){
+  return new Promise(function(res,rej){
+    function fb(){try{var ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();var r=document.execCommand("copy");ta.remove();r?res():rej()}catch(e){rej()}}
+    if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(text).then(res,fb);else fb();
+  });
+}
+
+/* -------- boot -------- */
+function boot(){
+  var k=K(),t=T();
+  put(L(esc(k.sys),"hi")+L(esc(fmt(k.eng,{v:ver})),"dim")+L(esc(k.devs),"dim")+L("","gap")+
+    '<h1 class="ln h1">'+esc(k.h1)+'</h1>'+L(esc(t.lead),"lead")+L("","gap")+
+    L(esc(k.hint1)+' <code>'+esc(k.ph)+'</code>')+
+    L(esc(k.hint2).replace("{ex}",B("EXAMPLE")).replace("{help}",B("HELP")))+
+    L(esc(t.privacy),"dim sm"),{cls:"boot"});
 }
 
 /* -------- language -------- */
 function setLang(l){
-  lang=S[l]?l:"en";var t=T();
+  lang=S[l]?l:"en";var t=T(),k=K();
   document.documentElement.lang=lang;document.title=t.doc;
   $$("[data-s]").forEach(function(el){var v=t[el.getAttribute("data-s")];if(typeof v==="string")el.textContent=v});
+  $$("[data-c]").forEach(function(el){var v=k[el.getAttribute("data-c")];if(typeof v==="string")el.textContent=v});
   $$("[data-s-aria]").forEach(function(el){var v=t[el.getAttribute("data-s-aria")];if(typeof v==="string")el.setAttribute("aria-label",v)});
   $$(".langs button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-l")===lang))});
-  input.placeholder=t.ph;$("[data-golab]").textContent=ctrl?t.stop:t.measure;devNote();
-  if(state==="run")setStep(stepN,true);
-  if(state==="done"&&current())showDone(current());
-  if(state==="err"&&lastErr)$("[data-errmsg]").textContent=fmt(t.e[lastErr[0]]||t.e.other,{c:lastErr[1]||lastErr[0]});
-  if($("[data-err]").textContent)setErr("");
-  render(false);
+  input.placeholder=k.ph;keys.setAttribute("aria-label",k.keysLabel);
+  syncDev();
   try{localStorage.setItem("ak-lang",lang)}catch(e){}
 }
 
 /* -------- wiring -------- */
-form.addEventListener("submit",function(e){
-  e.preventDefault();
-  if(ctrl){stop();return}
-  var p=parseAddress(input.value);
-  if(p.err){setErr(T().e[p.err]);input.focus();return}
-  start(p.url,dev);
+form.addEventListener("submit",function(e){e.preventDefault();var v=input.value;input.value="";exec(v)});
+input.addEventListener("keydown",function(e){
+  if(e.key==="ArrowUp"&&hist.length){e.preventDefault();hi=Math.max(0,hi-1);input.value=hist[hi];setTimeout(function(){input.setSelectionRange(input.value.length,input.value.length)},0)}
+  else if(e.key==="ArrowDown"&&hist.length){e.preventDefault();hi=Math.min(hist.length,hi+1);input.value=hist[hi]||""}
 });
-input.addEventListener("input",function(){if($("[data-err]").textContent)setErr("")});
-$$("[data-dev]").forEach(function(b){
-  b.addEventListener("click",function(){if(ctrl)return;dev=b.getAttribute("data-dev");syncDev()});
-  b.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key==="ArrowLeft"||e.key==="ArrowUp"||e.key==="ArrowDown"){e.preventDefault();if(ctrl)return;dev=dev==="mobile"?"desktop":"mobile";syncDev();$('[data-dev="'+dev+'"]').focus()}});
+document.addEventListener("keydown",function(e){
+  touch=false;
+  if(e.key==="Escape"){if(printing){skip();e.preventDefault()}else if(ctrl){ctrl.abort("user");e.preventDefault()}else if(document.activeElement===input)input.value="";return}
+  if(printing&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&["Shift","Control","Alt","Meta","Tab","CapsLock"].indexOf(e.key)<0)skip();
 });
-$$(".langs button").forEach(function(b){b.addEventListener("click",function(){setLang(b.getAttribute("data-l"))})});
-$("[data-plate]").textContent="LIGHTHOUSE "+((store.sample&&store.sample.mobile&&store.sample.mobile.ver)||"13").split(".")[0];
-axisTicks();
+document.addEventListener("pointerdown",function(e){touch=e.pointerType==="touch"||e.pointerType==="pen";if(printing&&screen.contains(e.target)&&!e.target.closest("a,button"))skip()});
+function stopFollow(){if(printing||ctrl)follow=false}
+window.addEventListener("wheel",function(e){if(e.deltaY<0)stopFollow()},{passive:true});
+window.addEventListener("touchmove",stopFollow,{passive:true});
+function onCmdClick(e){
+  var b=e.target.closest("[data-cmd],[data-key]");if(!b)return;
+  if(b.hasAttribute("data-key")){
+    var c=b.getAttribute("data-key");
+    if(c==="SCAN"){var v=input.value.trim();if(v){input.value="";exec(/^scan\b/i.test(v)?v:"SCAN "+v)}else{skip();setStat(K().typeAddr);input.focus()}return}
+    exec(c);return;
+  }
+  exec(b.getAttribute("data-cmd"));
+}
+log.addEventListener("click",onCmdClick);
+keys.addEventListener("click",onCmdClick);
+screen.addEventListener("click",function(e){
+  if(touch||e.target.closest("a,button,input,img")||String(window.getSelection&&window.getSelection())!=="")return;
+  try{input.focus({preventScroll:true})}catch(x){}
+});
+$$(".langs button").forEach(function(b){b.addEventListener("click",function(){var l=b.getAttribute("data-l");if(l!==lang){setLang(l);say(esc(K().langSet))}})});
+window.addEventListener("beforeprint",function(){
+  skip();
+  if(!$(".rp.pr")){var all=$$(".rp");if(all.length)mark(all[all.length-1])}
+});
+window.addEventListener("afterprint",function(){$$(".rp.pr").forEach(function(x){x.classList.remove("pr")});document.body.classList.remove("has-pr")});
+try{window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change",function(m){reduce=m.matches})}catch(e){}
 
 var P=new URLSearchParams(location.search),saved=null;try{saved=localStorage.getItem("ak-lang")}catch(e){}
 var nl=(navigator.language||"en").slice(0,2);
 setLang(S[P.get("lang")]?P.get("lang"):S[saved]?saved:S[nl]?nl:"en");
-if(P.get("device")==="desktop"){dev="desktop";view.dev="desktop"}
-syncDev();setGlass("idle");render(false);
-if(P.get("url")){var pa=parseAddress(P.get("url"));if(pa.url){input.value=pa.url.replace(/^https:\/\//,"").replace(/\/$/,"");start(pa.url,dev)}else{input.value=P.get("url");setErr(T().e[pa.err])}}
-window.__check={parseAddress:parseAddress,fixes:fixes,store:store,view:view};
+if(P.get("device")==="desktop")dev="desktop";
+$("[data-ver]").textContent=ver;
+syncDev();
+boot();
+if(P.get("url")){var q="SCAN "+P.get("url").slice(0,200)+(dev==="desktop"?" DESKTOP":"");if(printing)idle.push(function(){exec(q)});else exec(q)}
+window.__check={parseAddress:parseAddress,fixes:fixes,store:store,exec:exec,skip:skip,cur:function(){return cur},printing:function(){return printing}};
 })();

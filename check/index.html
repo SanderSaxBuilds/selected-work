@@ -4,98 +4,56 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Website check · SanderSax</title>
-<meta name="description" content="Type any website address and get a real Lighthouse report in plain words: speed, ease of use, trust and Google basics, with the fixes that matter most. Free, no sign up.">
+<meta name="description" content="Type any website address at the console prompt and get a real Lighthouse report in plain words: speed, ease of use, trust and Google basics, with the fixes that matter most. Free, no sign up.">
 <meta property="og:title" content="Website check, a real report in about thirty seconds">
-<meta property="og:description" content="Scores for speed, ease of use, trust and Google, with the fixes that matter most, written for business owners. Free.">
+<meta property="og:description" content="An old style console that measures any website with Lighthouse and prints the scores and the fixes that matter most, written for business owners. Free.">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/check.jpg">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#e4e5e0">
+<meta name="theme-color" content="#0d0e0c">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/sandersax-icon-32.png">
 <link rel="apple-touch-icon" href="../assets/sandersax-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.microlink.io" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="scan.css?v=20261024u">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scan.css?v=20261025c">
 </head>
 <body>
-<a class="skip" href="#probe" data-s="skip">Skip to the address field</a>
+<a class="skip" href="#cmd-in" data-c="skip">Skip to the command line</a>
 <header class="top">
-  <div class="wrap top-in">
-    <a class="brand" href="../" aria-label="SanderSax, all work"><i class="mk" aria-hidden="true"></i><span>SanderSax</span></a>
-    <span class="model" aria-hidden="true">WC-1</span>
-    <span class="top-name" data-s="kick">Website check</span>
-    <div class="langs" role="group" aria-label="Language / Язык / ภาษา">
-      <button type="button" data-l="en" aria-pressed="true">EN</button>
-      <button type="button" data-l="ru" aria-pressed="false">RU</button>
-      <button type="button" data-l="th" aria-pressed="false">TH</button>
-    </div>
-  </div>
+  <a class="brand" href="../" aria-label="SanderSax, all work"><span class="mk" aria-hidden="true"></span>SanderSax</a>
+  <a class="back" href="../" data-s="fAll">All work</a>
 </header>
 
-<main id="main">
-  <section class="intro wrap" aria-labelledby="h1">
-    <h1 id="h1"><span data-s="h1a">Measure any website</span> <em data-s="h1b">in about thirty seconds.</em></h1>
-    <p class="lead" data-s="lead"></p>
-  </section>
-
-  <section class="wrap" aria-label="Measuring instrument" data-s-aria="instr">
-    <div class="unit">
-      <div class="unit-plate" aria-hidden="true"><span>SANDERSAX · WC-1</span><span data-plate>LIGHTHOUSE 13</span></div>
-      <div class="glass" id="glass">
-        <div class="g-state" data-g="idle">
-          <p class="g-big" data-s="ready">Ready</p>
-          <p class="g-small" data-s="readyP"></p>
-          <p class="g-dev" data-gdev></p>
-        </div>
-        <div class="g-state" data-g="run" hidden>
-          <ol class="g-steps" data-steps></ol>
-          <div class="g-clock"><span data-s="elapsed">Elapsed</span><b data-clock>00.0</b><small data-gdev2></small></div>
-        </div>
-        <div class="g-state" data-g="done" hidden>
-          <div class="g-reads" data-reads></div>
-          <div class="g-row"><a class="g-go" href="#report" data-s="doneBtn">Read the report</a><span class="g-took" data-took></span></div>
-        </div>
-        <div class="g-state" data-g="err" hidden>
-          <p class="g-err" data-errmsg></p>
-          <p class="g-small" data-s="exampleNote"></p>
-        </div>
-        <div class="axis" aria-hidden="true">
-          <div class="axis-band"><span data-s="typical"></span></div>
-          <div class="axis-fill" data-fill></div>
-          <div class="axis-ticks" data-ticks></div>
+<main id="main" class="mon">
+  <div class="case">
+    <div class="screen" data-screen>
+      <div class="bar">
+        <span class="bar-t" aria-hidden="true">WC-3270</span>
+        <span class="bar-c" data-s="kick">Website check</span>
+        <div class="langs" role="group" aria-label="Language / Язык / ภาษา">
+          <button type="button" data-l="en" aria-pressed="true">EN</button>
+          <button type="button" data-l="ru" aria-pressed="false">RU</button>
+          <button type="button" data-l="th" aria-pressed="false">TH</button>
         </div>
       </div>
-      <form class="deck" id="probe" novalidate>
-        <label class="field">
-          <span class="field-lab" data-s="fieldLabel">Website address</span>
-          <span class="field-box"><span class="field-pre" aria-hidden="true">https://</span><input type="text" name="url" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" enterkeyhint="go" aria-describedby="probe-err" data-url></span>
-        </label>
-        <div class="dev" role="radiogroup" aria-label="Device" data-s-aria="devLabel">
-          <span class="field-lab" aria-hidden="true" data-s="devLabel">Device</span>
-          <div class="dev-sw">
-            <button type="button" role="radio" aria-checked="true" data-dev="mobile"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/></svg><span data-s="phone">Phone</span></button>
-            <button type="button" role="radio" aria-checked="false" data-dev="desktop"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="1.6"/><path d="M8 20.5h8M12 16.5v4"/></svg><span data-s="desktop">Desktop</span></button>
-            <i class="dev-knob" aria-hidden="true"></i>
-          </div>
-        </div>
-        <button class="go" type="submit" data-go><span data-golab>Measure</span></button>
-        <p class="deck-err" id="probe-err" data-err aria-live="polite"></p>
+      <div class="log" data-log></div>
+      <form class="prompt" id="cmd" data-prompt autocomplete="off" novalidate>
+        <label for="cmd-in"><span class="pp" aria-hidden="true">===&gt;</span><span class="sr" data-c="inLabel">Command line</span></label>
+        <input id="cmd-in" type="text" name="cmd" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" maxlength="300">
       </form>
-      <p class="sr" aria-live="polite" data-live></p>
+      <div class="oia" aria-hidden="true"><span data-stat class="st">READY</span><span data-odev></span><span>LIGHTHOUSE <b data-ver>13</b></span></div>
     </div>
-    <p class="privacy" data-s="privacy"></p>
-  </section>
-
-  <section class="wrap rep-wrap" id="report" tabindex="-1" aria-labelledby="rep-h">
-    <div class="rep" data-rep></div>
-  </section>
+    <div class="badge" aria-hidden="true"><span class="badge-n">SANDERSAX</span><span>WC-3270 WEBSITE CHECK TERMINAL</span></div>
+    <div class="keys" data-keys role="group" aria-label="Command keys"></div>
+  </div>
 </main>
+<p class="sr" aria-live="polite" data-live></p>
 
-<footer class="foot"><div class="wrap foot-in"><span>© 2026 Alexandr Khrustalev · SanderSax · <span data-s="fCity">Thailand, working remotely</span></span><nav aria-label="Links" data-s-aria="footLabel"><a href="../thailand/" data-s="fOffer">Websites for businesses</a><a href="../" data-s="fAll">All work</a></nav></div></footer>
+<footer class="foot"><span>© 2026 Alexandr Khrustalev · SanderSax · <span data-s="fCity">Thailand, working remotely</span></span><nav aria-label="Links" data-s-aria="footLabel"><a href="../thailand/" data-s="fOffer">Websites for businesses</a><a href="../" data-s="fAll">All work</a></nav></footer>
 
-<script src="lh.js?v=20261024u"></script>
-<script src="sample.js?v=20261024u"></script>
-<script src="scan.js?v=20261024u" defer></script>
+<script src="lh.js?v=20261025c"></script>
+<script src="sample.js?v=20261025c"></script>
+<script src="scan.js?v=20261025c" defer></script>
 </body>
 </html>
