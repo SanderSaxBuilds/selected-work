@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0d2a22">
 <title>Clearline expense review</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123a2c'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23e9f2ec' stroke-width='2.4'/%3E%3Cpath d='M9 24 23 8' stroke='%23e9f2ec' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="description" content="A phone-first expense review app for a small team. Swipe a receipt right to approve it or left to send it back with a reason, with policy checks, budget impact and undo on every card.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,6 +93,15 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 .notes-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; max-width: 520px; }
 .note-list { display: grid; gap: 10px; max-width: 520px; margin: 12px 0 0; padding: 0; list-style: none; color: var(--ink); }
 .note-empty { max-width: 520px; margin-top: 12px; padding: 16px 18px; border: 1px dashed rgba(233, 242, 236, .28); border-radius: 14px; color: var(--env-muted); font-size: 15px; }
+.note-empty > p { margin: 0; }
+.note-list.ghost { margin-top: 14px; }
+.note-list.ghost .note { opacity: .62; animation: none; box-shadow: none; }
+.checks { max-width: 520px; margin-top: 28px; }
+.checks h3 { font: 600 12px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--env-muted); margin-bottom: 4px; }
+.checks ul { margin: 0; padding: 0; list-style: none; }
+.checks li { padding: 11px 0; border-bottom: 1px solid var(--env-line); font-size: 15px; line-height: 1.5; color: var(--env-muted); }
+.checks li:last-child { border-bottom: 0; }
+.checks b { color: var(--env-ink); font-weight: 600; }
 .note { display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 14px 16px; border-radius: 14px; background: var(--paper); box-shadow: 0 14px 30px -20px rgba(0, 0, 0, .7); animation: note-in .45s var(--ease); }
 .note .who { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: var(--paper); font: 600 13px/1 var(--mono); }
 .note.is-back .who { background: var(--red); }
@@ -473,8 +483,23 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
   </section>
 
   <section class="notes" aria-labelledby="notes-title">    <div class="notes-head"><h2 id="notes-title">What the team receives</h2><span class="mono" id="notes-count" style="font-size:12px;color:var(--muted)"></span></div>
-    <p class="note-empty" id="note-empty">Nothing yet. Each decision you make in the app appears here as the note the teammate gets.</p>
+    <div class="note-empty" id="note-empty">
+      <p>Nothing sent yet. Each decision you make in the app lands here as the note the teammate gets, worded for them, not for the finance team. This is what they look like:</p>
+      <ul class="note-list ghost" aria-label="Example notes">
+        <li class="note is-ok"><span class="who" aria-hidden="true">OP</span><div><div class="note-top"><span>Example, to <b>Owen Park</b></span></div><p>FastFreight, $312.75, is approved. It goes into the next reimbursement run.</p></div></li>
+        <li class="note is-back"><span class="who" aria-hidden="true">PN</span><div><div class="note-top"><span>Example, to <b>Priya Nair</b></span></div><p>Foundry Type, $49.00, came back to you. Itemized receipt missing.</p></div></li>
+      </ul>
+    </div>
     <ul class="note-list" id="note-list" aria-live="polite"></ul>
+    <div class="checks">
+      <h3>Checked on every receipt</h3>
+      <ul>
+        <li><b>Same merchant, same amount.</b> A likely double claim is flagged before anyone pays it twice.</li>
+        <li><b>Budget after approval.</b> The card shows where the category lands against its monthly limit.</li>
+        <li><b>Receipt on file.</b> Approving without one asks for a short note for the auditor.</li>
+        <li><b>Undo for every decision.</b> A mistaken swipe is one tap, or the Z key, away from fixed.</li>
+      </ul>
+    </div>
   </section>
 
   <section class="about" aria-labelledby="about-title">

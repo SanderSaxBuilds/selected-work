@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="styles.css?v=20261024u">
+<link rel="stylesheet" href="styles.css?v=20261025r">
 </head>
 <body>
 <a class="skip" href="#main">Skip to booking</a>
@@ -35,12 +35,15 @@
   </div>
 </header>
 
-<p class="sample-note"><span class="tag">Sample</span> Lamyai Cycle Workshop is a fictional business. Bookings are sample data kept only in this browser and no message is sent.</p>
+<div class="intro">
+  <p class="intro-lead">A booking page for a one-bench repair workshop. Customers only see start times where the whole job fits, after opening hours, the lunch break and a 15 minute buffer. Staff move bookings by dragging them in the diary.</p>
+  <p class="sample-note"><span class="tag">Sample</span> Lamyai Cycle Workshop is a fictional business. Bookings are sample data kept only in this browser and no message is sent.</p>
+</div>
 
 <main id="main" tabindex="-1">
   <section id="panel-book" role="tabpanel" aria-labelledby="tab-book">
     <div class="book" id="book">
-      <aside class="side">
+      <div class="side">
         <section class="step services" aria-labelledby="h-service">
           <h1 class="page-title">Book a workshop slot</h1>
           <h2 id="h-service" class="step-h"><span class="num">1</span>Service</h2>
@@ -79,7 +82,7 @@
             <ul id="changes" class="changes"></ul>
           </div>
         </details>
-      </aside>
+      </div>
 
       <section class="step times" aria-labelledby="h-time">
         <div class="times-head">
@@ -141,6 +144,16 @@
             </form>
           </section>
         </div>
+        <section class="perks" aria-labelledby="perks-h">
+          <h2 id="perks-h">Already handled for the workshop</h2>
+          <ul>
+            <li><span><b>Real opening hours.</b> Weekly hours, the lunch break and one-off changes like a late night or a training day.</span></li>
+            <li><span><b>No double booking.</b> A 15 minute buffer is kept around every job, and a booking needs three hours notice.</span></li>
+            <li><span><b>Visitors abroad.</b> Set Times in to London or New York and every time converts, clock changes included.</span></li>
+            <li><span><b>A calendar file.</b> The customer downloads the booking for their own calendar.</span></li>
+            <li><span><b>A diary for staff.</b> Drag a booking to another time or day in Workshop diary.</span></li>
+          </ul>
+        </section>
       </section>
     </div>
 

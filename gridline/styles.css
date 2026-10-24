@@ -71,7 +71,11 @@ select { min-height: 40px; border: 1px solid var(--line-strong); border-radius: 
 /* Chips */
 .chips { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 0 20px 8px; min-height: 40px; font-size: 13px; }
 .chips-label { font-weight: 600; color: var(--muted); margin-right: 2px; }
-.chips-empty { color: var(--muted); }
+.chips-empty { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; color: var(--muted); }
+.quick { min-height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 3px; background: var(--card); color: var(--ink); font: 500 13px/1 var(--sans); cursor: pointer; transition: border-color .15s ease, background-color .15s ease; }
+.quick:hover { border-color: rgba(148, 136, 255, .6); background: var(--soft); }
+.quick:focus-visible { outline: 2px solid #9488ff; outline-offset: 2px; }
+.ce-hint { margin-left: 6px; }
 .chip { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; max-width: 100%; padding: 0 4px 0 10px; border-radius: 3px; border: 1px solid rgba(148, 136, 255, .4); background: var(--soft); color: var(--blue-deep); font-size: 13px; font-weight: 500; cursor: pointer; }
 .chip span.t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chip .x { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 2px; flex: none; }
@@ -325,7 +329,9 @@ details.fgroup .fc { border-top: 0; padding-top: 0; }
   .phone-sort select { flex: 1; min-width: 0; }
   .search input { min-height: 44px; font-size: 16px; }
   .chips { padding: 0 16px 8px; min-height: 0; }
-  .chips-empty { display: none; }
+  .ce-text, .ce-hint { display: none; }
+  .quick { min-height: 44px; flex: none; }
+  .chips-empty { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; }
   .chip { min-height: 36px; }
   .main { padding: 0 16px; }
   .status { padding: 8px 16px; }
