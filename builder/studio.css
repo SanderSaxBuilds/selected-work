@@ -6,7 +6,7 @@
 :root{
   --app:#0f1012;--chrome:#141518;--panel:#17181b;--panel-2:#1d1e22;--field:#212227;--field-2:#26272d;
   --canvas:#1c1d21;--canvas-2:#16171a;
-  --ink:#ededf0;--muted:#a0a2ab;--dim:#6e717a;
+  --ink:#ededf0;--muted:#a0a2ab;--dim:#8d9099;
   --line:#26282d;--line-2:#32343b;--line-3:#4a4d56;
   --accent:#8b7bff;--accent-2:#b0a6ff;--on-accent:#0f0d1f;--accent-soft:rgba(139,123,255,.14);--ring:rgba(139,123,255,.32);
   --ok:#72d69f;--ok-soft:rgba(114,214,159,.14);--danger:#ff7a6e;--warn:#e9c46a;
@@ -18,7 +18,7 @@
   color-scheme:dark;
 }
 html{-webkit-text-size-adjust:100%;background:var(--app)}
-body{margin:0;min-width:320px;background:var(--app);color:var(--ink);font:14.5px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--app);color:var(--ink);font:14.5px/1.55 var(--body);-webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;letter-spacing:-.02em}
 p{margin:0}
 a{color:inherit}
@@ -37,7 +37,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn-sm{min-height:34px;padding:0 12px;font-size:13px;border-radius:7px}
 .btn-primary{background:var(--accent);color:var(--on-accent);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 .btn-primary:hover{background:var(--accent-2)}
-.btn-primary .ext{font-family:var(--mono);font-weight:500;font-size:11.5px;opacity:.7;margin-left:-4px}
+.btn-primary .ext{font-family:var(--mono);font-weight:500;font-size:11.5px;opacity:.9;margin-left:-4px}
 .btn-quiet{background:var(--field);color:var(--ink);border-color:var(--line-2)}
 .btn-quiet:hover{border-color:var(--line-3);background:var(--field-2)}
 .btn .spin{display:none}
@@ -69,11 +69,13 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .top-note{color:var(--dim);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;padding-left:16px;border-left:1px solid var(--line-2)}
 .top-r{display:flex;align-items:center;gap:8px;margin-left:auto;flex:0 0 auto}
 @media (max-width:1180px){.top-note{display:none}}
+@media (max-width:760px){
+  #copyCfg .lbl{display:none}
+  #copyCfg{width:44px;padding:0}
+}
 @media (max-width:640px){
   .top{gap:8px;padding:0 10px 0 12px}
-  #copyCfg .lbl{display:none}
-  #copyCfg{width:36px;padding:0}
-  .btn-primary .lbl{display:none}
+  .btn-primary .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
   .btn-primary .ext{margin-left:-2px;opacity:1}
   .seg-ui button{min-width:34px;padding:0 7px}
   .brand-w{display:none}
@@ -288,6 +290,8 @@ select option{background:var(--panel-2);color:var(--ink)}
 .p-links a{color:var(--accent-2);text-decoration:none;font-weight:600;min-height:36px;display:inline-flex;align-items:center}
 .p-links a:hover{text-decoration:underline;text-underline-offset:3px}
 .p-links .linkbtn{color:var(--muted)}
+.p-contacts a{color:var(--muted);font-weight:500;overflow-wrap:anywhere}
+.p-contacts a:first-child{color:var(--accent-2);font-weight:600}
 
 /* canvas */
 .pv-bar{flex:0 0 auto;height:var(--bar);display:flex;align-items:center;gap:14px;padding:0 14px;border-bottom:1px solid var(--line);background:var(--chrome)}
@@ -333,7 +337,7 @@ select option{background:var(--panel-2);color:var(--ink)}
 .pv-err h3{font-size:22px;line-height:1.15}
 .pv-err p{color:var(--muted);max-width:30em;font-size:14px}
 
-.pv-try{position:absolute;left:50%;bottom:16px;z-index:3;transform:translateX(-50%);display:inline-flex;align-items:center;gap:10px;max-width:calc(100% - 32px);padding:6px 14px 6px 6px;border-radius:10px;border:1px solid var(--line-3);background:rgba(23,24,27,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--ink);font-size:13px;font-weight:600;text-align:left;box-shadow:0 14px 30px -14px rgba(0,0,0,.7);transition:opacity .35s var(--ease),transform .35s var(--ease),border-color .2s var(--ease)}
+.pv-try{position:absolute;left:50%;bottom:16px;z-index:3;transform:translateX(-50%);display:inline-flex;width:max-content;align-items:center;gap:10px;max-width:calc(100% - 32px);padding:6px 14px 6px 6px;border-radius:10px;border:1px solid var(--line-3);background:rgba(23,24,27,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--ink);font-size:13px;font-weight:600;text-align:left;box-shadow:0 14px 30px -14px rgba(0,0,0,.7);transition:opacity .35s var(--ease),transform .35s var(--ease),border-color .2s var(--ease)}
 .pv-try:hover{border-color:var(--accent)}
 .pv-try-i{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;background:var(--accent);flex:0 0 auto}
 .pv-try-i .i{width:17px;height:17px;stroke:var(--on-accent)}
@@ -378,7 +382,7 @@ select option{background:var(--panel-2);color:var(--ink)}
 
 /* tablet and phone: one view at a time */
 @media (max-width:1023px){
-  :root{--tabs:52px}
+  :root{--tabs:58px}
   html{scroll-padding:calc(var(--top) + var(--tabs) + 60px) 0 24px}
   .tabs{display:flex}
   .studio{display:block;height:auto}
@@ -402,6 +406,57 @@ select option{background:var(--panel-2);color:var(--ink)}
   .swatches{grid-template-columns:repeat(8,minmax(0,1fr))}
 }
 
+/* touch screens and the narrow layout: every control is at least 44px and fields use 16px text so phones do not zoom */
+@media (max-width:1023px),(pointer:coarse){
+  .btn,.btn-sm,.linkbtn,.p-links a,.btn-add,.color-in,.lng{min-height:44px}
+  #copyCfg{min-width:44px}
+  .brand{min-height:44px;min-width:44px;justify-content:center}
+  .seg button,.seg-wide button{min-height:44px;min-width:44px}
+  .jump a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px}
+  input[type="text"],input[type="url"],input[type="tel"],input[type="number"],input[type="time"],textarea,select{min-height:44px;font-size:16px}
+  .affix input{min-height:44px}
+  .hex,.tsel{font-size:16px!important}
+  .tsel{min-height:44px;width:104px}
+  .ib{width:44px;height:44px}
+  .ready li button{min-height:44px}
+  .toast .t-act{min-height:44px}
+  .pv-try{padding:8px 16px 8px 8px}
+  .pv-grip{width:44px}
+  .swatches{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .sw{aspect-ratio:auto;height:44px}
+  .switch{width:52px;height:44px;background:none}
+  .switch::before{content:"";position:absolute;left:0;right:0;top:9px;height:26px;border-radius:999px;background:var(--line-3);transition:background-color .2s var(--ease)}
+  .switch[aria-checked="true"]{background:none}
+  .switch[aria-checked="true"]::before{background:var(--accent)}
+  .switch .knob{top:13px;left:4px}
+  .switch[aria-checked="true"] .knob{transform:translateX(26px)}
+}
+@media (max-width:1023px) and (min-width:560px){.swatches{grid-template-columns:repeat(8,minmax(0,1fr))}}
+/* phones and the narrow layout: readable text sizes */
+@media (max-width:1023px){
+  body{font-size:15px}
+  .p-lead{font-size:16px}
+  .help,.bar-hint,.p-foot,.empty-st p,.state,.ready p{font-size:15px}
+  .lab{font-size:14px}
+  .row .lab{font-size:13px}
+}
+/* the folded cover and other very narrow phones: the download button keeps only its icon */
+@media (max-width:360px){
+  .top{gap:4px;padding:0 8px}
+  .top-r{gap:4px}
+  .btn-primary .ext{display:none}
+  #dl{width:44px;padding:0}
+  .langs{grid-template-columns:minmax(0,1fr)}
+}
+
+/* room for the parts the script fills in on load, so the panel does not jump, and the preview stays hidden until it is sized */
+.pv-device:not([style]){visibility:hidden}
+#ready:empty{min-height:93px}
+#editLangSeg:empty{min-height:36px}
+#presets:empty{min-height:170px}
+@media (max-width:1023px),(pointer:coarse){#editLangSeg:empty{min-height:50px}}
+@media (max-width:1023px){#ready:empty{min-height:121px}}
+@media (max-width:360px){#presets:empty{min-height:258px}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }

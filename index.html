@@ -13,16 +13,12 @@
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/cover-v3-04-ledgerlens-cover.png">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="1000">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0f0e0d">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/sandersax-icon-32.png">
 <link rel="apple-touch-icon" href="assets/sandersax-icon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="assets/portfolio-bodoni-r.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/portfolio-bodoni-i.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Barlow+Condensed:wght@700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Barlow+Condensed:wght@700&display=swap"></noscript>
-<link rel="preload" href="assets/p/thailand-480.jpg" as="image" fetchpriority="high">
+<link rel="preload" href="assets/portfolio-geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/p/cosquin-480.jpg" as="image" fetchpriority="high">
 <script>
 /* the folio in depth, unless the visitor's system asks for reduced motion, then a plain list.
    In depth the opening plays once: the name rises out of its mask and the folders are dealt into a fan */
@@ -31,9 +27,15 @@ if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
 d.classList.add("depth");if(!/^#./.test(location.hash)){d.classList.add("pre");setTimeout(function(){if(d.classList.contains("pre"))d.classList.add("go")},2600)}})();
 </script>
 <style>
-@font-face{font-family:"Bodoni Moda";font-style:normal;font-weight:500;font-display:swap;src:url(assets/portfolio-bodoni-r.woff2) format("woff2")}
-@font-face{font-family:"Bodoni Moda";font-style:italic;font-weight:500;font-display:swap;src:url(assets/portfolio-bodoni-i.woff2) format("woff2")}
-@property --glow{syntax:"<color>";inherits:true;initial-value:#3a3530}
+/* the name and the wordmark carry their own few letters, so they are drawn in their real faces from the first frame */
+@font-face{font-family:"Bodoni Moda";font-style:normal;font-weight:500;font-display:block;src:url(data:font/woff2;base64,d09GMgABAAAAAAboABAAAAAAC9QAAAaNAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbgiocKAZgP1NUQVRaAGQRCAqJLIgKCxQAATYCJAMkBCAFhSwHIAwHGwgKURTzgUwjZeH8/SDg36nek2SIFIKNFWAqEDsEtgtsb+xsHCjB19gdIEoaIHx11VBta4UBKwswcq3KxaiKpxf1vB/uZ7o1DyxacGrb+7/fqtM2wovSLpCdyR04H9g9rVm5iQph1DiT/NeLACIZhiVED5273UClhVXIHdPmLKGg2+vpRx/Y6B8iEeVL+o+hlYtcTIPU7/EOkai4aAVDUKYCiVM4w25EPyqxAnHt99GDEydzt/3fyPGL8tqnWIgli4y7cbOpu3Eg20fJa/IF2IZZHBwo2i+SZTSNC+C093b3hnwkE0mTRRYSxicPRgNXkqITFGWf+Id8xpGohIHJwxnS45RJOYwFJ/S/L+DE7Fd6/Xk6T6Pjdb969guhdL8q6zp/q0rLBxyfSLvOSeFGxsTdaAHS8Ihvl1DkG9u7e/xCRvT6Nw6IBNGZRjJOZJ5+kShJXg2EU/yTVXkRz4Yi4YQUXkKScAtkNJbY/sM6RSxmIx6G8HKlHyRbvrC/tz+y77ZP2sftKXu8IKwtWSGztk2MFkdE4iEBXWJS+qUCLVbscubRWfjXEIqypar4gpTYTPWCVDVW2x23cyhmd/TOkAimHD9++tKHH388Z3w88fWye+dPpTz00Ev1j774YNVk8pvl98ydmEi67Yknao+dOnbJpAhqYwQSjxw5cdFjTz2VPzWV8lbhmTnjifff/3zNIy88UDmR9EZJeN7kZPLtTz5Zd/Tk0YsnCAyGrGVLVFkzTdPUxt5/XwQty7IsSwTff18bM5cu1yTVsiw1ZBAwTdM0TQKGsTNkWUIOWpYaMgwDNfi+NmYSMNSQJYLvo94xUQJntLH3y5MMIzr0rFPTUEOGQUFYOUULGMZgqPekSxVROzUiZcNY5gUNXf2m1yRaxJy2XhM9IPpwuWYYu50akUJzqR9IEsHJiXHOweSQM3BOOzpEWXy6CVGAnOgfTNkXnW2RZG6fv/1PkbFxcgthXrAQ5uVVZA7ClM0xb//HwdSk9q/TXI52qHvFHN3KjY1Jvx7NL5lYROabRo/f5MZ5pU6O4h3a1ol76tUeSw3j8DA1Fv45JR1ki77TQ+Q7ziY667Kkv8kgsTJfMll1nRMTkwqI3j3KLlBq+idMSg1DptyZk1YEOKsEDAMmJ+OWWGKnbkRQg6l9ZZCDI7HcccR0xLY8yrE9NoY4uO4e5duugdfJSAe9gL0ImR93iSgsK4uxcAgtthk0G3AqSbAfTMpBdm7CIGVtJiVnDhUT+MiIucrM20olnMNNHmcki1Ix1paVt1BT1bIiyCrD6ngFNdMApUxO/bIaN6Uae6zglYSAnVYjP4dOsoVsVlNOTN5n2e0rOLLztpeIV5FnCcAZKOBcDVTrE0EsYTjFHYLowzejE27r6hLuNmPC89sPaOdHk4EZhHlIBmZhtHPte160JikBxidNTcYnKYEm5t6I9EVhofS5NwLJM+bdRqfc1dcn3l1F59UuxDmsh/8DWCqqUqF0EysNfScrhQKmXgdn5iHVfD9ry4aDUaFkIJJ5Ng6x2TbUxIBVkFyRDAifHElJYBXEhNhR58laKPnEeuJq6Dr1cEZ0IxotuX7E2CRzmQIoY8WLeRJfFOBh4YL6JaWF84trOuY1Nk2bVta8oKM8M6zoclHB3EUldQu2LKwZSwyv+Xh8v/Kqsvum3QofJGQZc7My5xlZmd/My8ya+w0ACEASM55ZuqF5fUzDv27Z9TbAxy/F3gDw5VSj59wN/w9pc9wVgBMJANE0QgN5bu3mczecvVGb08zsFqGEMZVRlitVrFAeZ6WSykrlMHWyl7pmLyvCLECcL4JxXEzhwJPNXySau0+80lDFHxdtM52gSCTqJKKFUyfTxMubyuekgwsodE7yuEIbTRXz6kImEuo+oXAeeVrnJJJLdPG4SdYlEInKJfbfgkUMM8hGhpiJv/+dAXrZTC1VjOBnLh620MtWBpn/AB8AcJeOj1524WF5v9xLNz0KNuN+RvBRR3G/7GMzXgWoqI8iePsARQzj7b9dzHymMYc2htnCMEMa516cG61vFw64ZQq9BAD8qU4ZRZRQQuWJq1fH5SePekrhIq5b7R1gI16MUx849YG53t3OMCPs5EgmAPiEJZvL01lCDx50uocW4GWYPjxsRnGtEpIQEmd/Hzo5yYnd3KZ72MomiticdeFiegcPbcGDDz9ethKVe9nEgPxtIX52MoKHYh8wt3O2jg6yj1DGsvNhYV8ZVq4HAA==) format("woff2")}
+@font-face{font-family:"Bodoni Moda";font-style:italic;font-weight:500;font-display:block;src:url(data:font/woff2;base64,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) format("woff2")}
+/* the other faces are small Latin subsets served from here, so the opening needs no second server */
+@font-face{font-family:Geist;font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/portfolio-geist.woff2) format("woff2")}
+@font-face{font-family:"Geist Mono";font-style:normal;font-weight:400 500;font-display:swap;src:url(assets/portfolio-geist-mono.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(data:font/woff2;base64,d09GMgABAAAAAA7YABEAAAAAHIAAAA59AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbgWYcKAZgAGwIgSAJnBURCAqNeIwUCxgAATYCJAMqBCAFg34HIAyBVhtYGhFFfYhMI2Xh/P38/3R+9aokw/cnc4MGnqZanh6r5AbydLtJZbuB/OkcabD07YFFClLt2WiDZE6+cOVFTKLNiE6+LP/5b87/tc85eyadCXhQCRak5iEVC+JJLehAilnrSevJfQ5cEQOu2XOjfWL6Zfjwa6r9/5fdAFmobsLNufZdLtv9/68LlPBSwsuISALwpZgM07IauBk1VmzdrEUIkG1xFlZ+Y42JE5dW4c9Ogoi2qJ4iSaDVYiyov0Fn6CLJ6fzxIe18NPvsx3GRm8Z+qTB95J1Pf5zq38posEuS6ik5NRCP5ap+nN6gKlVI3yn/vAGv8h9E5f9aBRVyqK/OdnfKP+jNz8kFVUmSQ25ajer60apwBsgRv5hBHjapNEHNvL0dYjpNp4VYCLtS6+UfJgnkWNh9QIOwNip2K5VfQ3xN/ljP3jKXiXz0aRJv0UVxmaR61YTta9Rv9OF+nNIHxPSm85dyTOReEm0m8VVHxxD5YxJsv5B6ZhB1NTK65FIuaW1qah2I6S7N6CkdUEKv05s6YZZOw/cDlr8tf1H+rPxe+e0S5TfKrytZZ315suqSv9b0uPL/5fjbSV8pkS/dQN4lkvfLfyURx8b8brx8rP243ZIfS0lUzuWvy3/K38hG+c/yknrDmYoPRr1Amv/7R8ksZX70fdrZe4TqwWsJLns4m9p3OT9KIIPsB3Wq03Kpjj3fB6Ugo6ZrEmRsHEFosH03gtTKV34ER/PqW063R7FBx7C1cSG7Ji4Cx0Cawy8ythSkMdkK7uKLaymlsTH8d57zIY1Z7/RE/BxDGhWvO6JjbKxAi+SddN0X0tg4gqvhhOiZRPnKR9+YpW/A4xXj5wu4g9fWZ8W2mS1nqM4SH06Q7r+e+Mr38oSxWCQ+7qQeY/xdOk5TLiTnzFY4u0j8RCrjvIiflyI/98vvcp5njMYisR6DF/PGN7tKrgZj0zT1IANsmSVoPwE9SlnoY8t4sBfMLzzKvt+kpfAx36/QcZqushQiTFPtSfoa0TcqTiNUNM8YbpCtGDWzSFBTMeoq9nw/hbARqq62gBPyqqgdx7wEpkpv2zFZEBU7W6Iy9MvtN5xzDhEW5ysB3MFeYhdetp8mKvVTxp2DpMI9n6jbUV2EmsaGCdckQ0zqHdpQsWKQijPI43chlhAWtWGEDc2aLrRjlt936ZgzG7hj0+VuOy3V1dDrjR0ys3jo7zU72dR7kdxS4E+ECmTgBpZnucoCqjjaRV4wKsAe7jhrNjiByqbr35ztVQ2cWSS1Td5Zwb2jjXll39reIme2SHxP+enQj7CrCylnWGXTCE0NYZmxax6uvBBjV8Upmgm6L5q7irTcaDrk2fj7Li1zlaFlLOeW0VKxoult/egwKdzVND2D7XfUFyN09KO95NHBHKfnN0I6o3Z1QW1zZNFuG4gsRis83kyQQVzsjmnTCqKvGE6wSArXmeEGcZ7zJuduDn0Fkf1KT4T0bhnMPCDFrrmHprlno5UEanXCF7Ag6qgphAHdWgshWm3oaSpIzg4TtFXMM+yoGNsKFRsTVFfFbCGy7508KahFHYrj2AupXWMXB1106yG+HHovpRH6uqBeGOGELsQnOckkOcUccpq5xGMV8hyrkudZjbzA6uRFtpEZahUES1Tto8NE8QjizWNm/wh6SUQ/9FPRo4hB6KevEGvCbmgs7Az9Duor2EZ9yvQlfGoKoJ0BaAFAGwC0lwHaWYD2CkAbAjwjzZODlpyzsDhp2SgIu2doWcmF0Z77xZzXOBfi3DDCBc18j0NqqGysLu6rL+Se5XEXd7NR7FRn+50vXBgWFdGbJedTC9e/5JrVEnsua76idcYVTWxilt+hIUI9sCiN+t++ti40vaXGxWXRs/OKXNU84Xu6f00gk40jXNOjE5MI43RBQJjlOMKrupDUD3jE9y4L/iCDB3l+T91TGSfH3rn3OVS8HgvR6w4jXNegPk7US9wAbpCm/mKLYmya8J18pJgn+Tiaxg03j+JyRlXFkqkMe2bxe2cv+ZbLFfa+5Q4qp9P4fFvSMJwr6UtUc4uqOWW5PefZrk3BucauFComWy0SuCbzUDH2fLdSef+ZYoY7UPNs7Ck0zPy65W6YHHZpucIVxQpVYwNx6kqQoaIwFe5gC1iQ5wR2dT5dLp/8NMLED+MxMyqDedRkHOHmfDcaoplzsEHswFm33AdDbF5eFHSYjHii/KuuOoezTmoYLoZqgErw4A7GFsBVHujqjuJqf1//thZxJlTcPuSs1Fx7eIvvaMUjD/7kOU6YZOHtpwlP0lFxXnTDCHcF0+97i03H2VZb+oyNxvVwYwtPNW6EOfPk8NrNfJyuCqpmhPNlMTMXh6YceL00w5aKzcbeOafiCY/UWPXcc1003CBOvzb351/i3gEMe3AJO3Gixp5/qCT4qY7kXiZdDz2yxH1d0I3QV7FqyQzz6QPZO+Zdazq570hnhKvDCA8XBfVIFyS6HVwbRnis8eowwhMPLj1TPOJ5rjJPuZ7qvfmBeBJGeKbXRPMwKn640bUM+iJNgma0ZhR4i5geYK0o8TYAbwckd7hewYk91U4+1yvKN/FLmtWOYoMfk2HEjislfgIFfhIFHsiP7mOdaPIuAO8G8B4xPch6Ae8DcAsg+nWie0MG0BJBgDgFEIMAMQQQwwAxAqgYdS1hR/DEWMK56K6HjtNaPuFwpUc9eZOuJRLLqS4ImQ4jMpOEnQrFbEJBnu4CeQakJWd1WirPlYA8DyAXkrBLlbiYUJCXukCGADSsLpWXS0BeAZCrSditSlxLKMjrXSBvAOhNdam8VQIyAvBEXcvm/W3LF7XMZSXkPl9hfma+3++pWLT1LcqixtNXal5ZGOFZXUXcbVaYE5pSFAfQUzX9x8+3RCWIvc/SXMirk9jaC7GX2dON+FiXsyhmqysnJ2zGRInDhj0CdWeBKPxyxfPPY/GcEXkGCBntkdkp75jRFYQ+WfrMoDnDWHmOPE+efegzxodS2sOGEUHrHB1JDdxtmlHHCUfIMG6bZjTl6EIk2RddIA7P9bsCEfquYdwxNz/9Qa4Mv5/FJf5Y7QyE5Py6V0zE2yMZeUyH/7GcNg8l4ZVydGEO/h/72n04/PN309EPpRxdWO+Kiy1WVhD67pa5OYdfM/kT9b4+Q+FPG8bK7dtEKWKpMfSiGX2Zwu/Xf/3bt822aQQv9HrJiLxgvFf3tW8pepgRXUg9dnfK0QUK17wcbfPR1A4Fhcm+OYcfHtLQaF+IJDumYGWBdPWKhdFUovHzNoQIxnIJPv/OqCTCvMyT3++9/7A4ueiHb/R4HanHkhzDaTbT7hXcz7K2qdGz+8iR3ZXye7WlSbFssdf+8F/T0v+anr6anraa3rrfiAuwdknjuIBhn45xffzxDPOGmfGxx+Ua8/QnfqSOsqqKF0q44l3rLX6CLX7t2HDQt8U3HDz2Wug0f/KRTOl0Zma7mD9Zft8hi7/F/BDzaba4iy0+zfww87fY4i62uIMtfoIt7qhld3kOvYo+NfM2V42yc5eFW+ISN8iV0PMPK9hY5k1KkgXMCQ19WvSP+PLmtg1VgV3bXf7T8Yl0zCkN8/R1Dz/PXJnbWVbemVtZ+6TeUVndvCmbLZ5ki1Ny/52W9s/snLP3Jt2paNrUFuzr8J0KtqexxZNscWbur9LTvp2bc+L0j39XsLfGN9jvG8/a7LjhFeKGl5TNOG2UeT4QSng+KDNm9c2OG14hOnSWvh+15/3q8go+bvH9bPFX2eiq+5lfZ95f490L0tdtjy6eulvvknbdv+5o7bi7yWChqIZYmkpAl14IJZWQIUhWki++UQxekAqCoemsBW2kA7rfRrqOwHu2xjds3LjRvXF3cYWzqNqRsEbLrnCX5ZASVPRYPykMQIgddSwF0U6qjzqWmYE0pKzfkKwZ6RXuEkkS2VlCSOGFlOoWxY46CEEBpG5HcUHxRmVkVLh3VxQKsMaCEEOCkpNiUyYpyd5zjCFJ9L/LfIUBMO+og5QqAKV2qnqn0+F05GtGVoU7tzg/IzFW1wjklZSHW5D6vptKN+W3aFc8sXAWC8U5BGXTBUHZ4NUPZhEwJEKzrKkqL0Uh8jcVJ+txpJHXOKWIILxHFu2NPncRpIKSE6tXpYtQSnRVH+2pAxF3acS8h+sz3cVpdh+hqsvvfiva6C3Y7CyucDp1I7PCnV2UHiuVAHnJGl+ShNgp6ku2lWyNGq42pSAkJghB6SSF9NJ0EqAghJSiA0LIAKSQDU6Hs1i6AQcJGRsjSGTrAhSZJQRJ0V+QWUx+EAXIRSgpHrMVPPsZmPig9mvLgbgd/7bp8neHled7+n/v/gxk05/931Or8fKPqgoEvZgVmSWKY29Z/ud/T60ekX8sKO1s0Bz5YrvpFzDpR3DR63AJARfdgYveRSb9EGnkRxbI5m1iDIx55YMKcAQf8sLHYh1QxcipNljFuk61ppTxcdJ+hxPy8BsUnOs/YbjELjwyXKEcM8MZGTg+XEMpNmixtfYAA5jCFMawDdWoxiR6MIEgxjBF5ypMvtwhVGEUE+hHNRqwH1540IUJDGEUs9iDUYygF30YwST6GL0SHoxiqKQdfZjIDvG75mEtqrABNdjS3lReHJG3nPznZjta0QwP/Nie+3Kfa5AXSmljOGO36PdH4DysQw3WYjPy0IoB9OmzggKtsZQyilOIHlnvWkxjCgN+qphEHkr9qk/Gaf0IClOm0d1etAejGEY1Tnk6hvW7FceV/cNx2tXXsA796o+8iS82+5aIPuxfpCdCP2NL0D2vY99G5DPK/zzGbT+sttmqNKdK09mY9lEvPNoGVS5yOWrY7nk/8ZOxnzQ/ueaTmhsMs0oSkuAeAP7W1ljtXSqim02+RfdNX5L0stL0N22omrDXn7lUEtfyti0EUu6bPa1z0e+42+4VO7QaVSoymGPL36TVa4vqQ0sCe1/hXg179wI=) format("woff2")}
+@font-face{font-family:Archivo;font-style:normal;font-weight:300 800;font-stretch:62% 125%;font-display:swap;src:url(assets/portfolio-archivo.woff2) format("woff2")}
+@property --glow{syntax:"<color>";inherits:false;initial-value:#3a3530}
 :root{
   --bg:#0f0e0d;--sheet:#181716;--sheet-2:#201f1d;--ink:#efebe4;--soft:#bcb6ac;--muted:#878177;--line:rgba(239,235,228,.1);--line-2:rgba(239,235,228,.2);
   --display:Archivo,"Arial Narrow",system-ui,sans-serif;--serif:"Bodoni Moda",Didot,"Bodoni 72","Bodoni MT",Georgia,serif;--body:Geist,system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"Geist Mono",ui-monospace,Consolas,monospace;
@@ -44,7 +46,7 @@ d.classList.add("depth");if(!/^#./.test(location.hash)){d.classList.add("pre");s
 [data-ch="i"]{--cc:#bcaad8}[data-ch="b"]{--cc:#d8a6ab}[data-ch="r"]{--cc:#d2c78f}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);min-width:320px;overflow-x:hidden;-webkit-font-smoothing:antialiased;--glow:#3a3530;transition:--glow 1.2s ease}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -52,7 +54,7 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 .skip:focus{transform:none}
 
 /* the room is lit by the work in front of you: a still light taken from the current cover */
-.atmo{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+.atmo{position:fixed;inset:0;z-index:0;pointer-events:none;transition:--glow 1.2s ease;background:
   radial-gradient(46vmax 30vmax at 50% 48%,color-mix(in srgb,var(--glow) 42%,transparent),transparent 72%),
   radial-gradient(90vmax 60vmax at 50% 40%,color-mix(in srgb,var(--glow) 16%,transparent),transparent 70%),
   radial-gradient(120vmax 60vmax at 50% 120%,rgba(0,0,0,.55),transparent 60%),
@@ -60,18 +62,19 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 
 /* top bar */
 .top{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;align-items:center;gap:12px;height:68px;padding:0 28px;background:linear-gradient(rgba(15,14,13,.94),rgba(15,14,13,.7) 60%,rgba(15,14,13,0))}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}
+.logo{display:flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;white-space:nowrap}
 .logo .mk{width:20px;height:32px;background:var(--ink);-webkit-mask:url(assets/sandersax-mark.png) center/contain no-repeat;mask:url(assets/sandersax-mark.png) center/contain no-repeat}
 .logo .wm{font-family:"Barlow Condensed",var(--display);font-weight:700;font-size:19px;letter-spacing:.06em}
 .top nav{display:flex;gap:4px;margin-left:auto}
-.top nav a{position:relative;padding:10px 12px;text-decoration:none;font-size:14px;color:var(--soft);transition:color .2s}
+.top nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 12px;text-decoration:none;font-size:14px;color:var(--soft);transition:color .2s}
 .top nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
 .top nav a:hover{color:var(--ink)}
 .top nav a:hover::after{transform:scaleX(1)}
-.msg{display:inline-flex;align-items:center;gap:10px;min-height:40px;margin-left:8px;padding:0 16px;border:1px solid var(--line-2);color:var(--ink);font-weight:500;font-size:14px;text-decoration:none;transition:background .25s,color .25s,border-color .25s}
+.msg{display:inline-flex;align-items:center;gap:10px;min-height:44px;margin-left:8px;padding:0 16px;white-space:nowrap;border:1px solid var(--line-2);color:var(--ink);font-weight:500;font-size:14px;text-decoration:none;transition:background .25s,color .25s,border-color .25s}
 .msg:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 @media (max-width:980px){.top nav{display:none}.msg{margin-left:auto}}
 @media (max-width:420px){.top{padding:0 16px;gap:8px}.msg{padding:0 12px}}
+@media (max-width:340px){.top{gap:6px}.logo{gap:8px}.logo .wm{font-size:16px;letter-spacing:.04em}.msg{padding:0 10px}}
 
 /* ---------- the sheets ---------- */
 .space{position:relative;z-index:1}
@@ -94,7 +97,7 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 .card p.more{font-size:13.5px;color:var(--muted)}
 .card p.more a{color:var(--soft);text-underline-offset:3px}
 .links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;margin-top:auto;padding-top:20px}
-.links a{display:inline-flex;align-items:center;min-height:40px;font-size:14px;font-weight:500;color:var(--soft);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:5px;transition:color .25s,text-decoration-color .25s}
+.links a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;font-weight:500;color:var(--soft);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:5px;transition:color .25s,text-decoration-color .25s}
 .links a:hover{color:var(--ink);text-decoration-color:var(--ink)}
 .links a:first-child{flex:0 0 100%;justify-content:space-between;min-height:50px;padding:0 18px;margin-bottom:4px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;font-size:15px;border-radius:2px;transition:background .3s}
 .links a:first-child::after{content:"→";font-weight:400;transition:transform .45s var(--ease)}
@@ -131,7 +134,7 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 .fc:focus-visible img{outline:2px solid var(--ink);outline-offset:3px}
 .fan .say{position:absolute;right:0;top:2%;margin:0;font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transform:translateZ(0)}
 
-.ifoot{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:18px 48px;align-items:end;padding-top:18px;border-top:1px solid var(--line)}
+.ifoot{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:18px 48px;align-items:end;padding-top:18px;border-top:1px solid var(--line)}
 .lede{margin:0;max-width:36em;color:var(--soft);font-size:clamp(16px,1.2vw,19px);line-height:1.55}
 .lede b{font-weight:500;color:var(--ink)}
 .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px 22px}
@@ -155,7 +158,9 @@ html.go .rv{animation:up .9s var(--ease) both;animation-delay:var(--dl,1s)}
 html.go .fc{animation:deal 1.5s var(--ease) both;animation-delay:calc(.45s + var(--i) * .06s)}
 .btn{display:inline-flex;align-items:center;gap:12px;min-height:50px;font-weight:500;font-size:15px;color:var(--soft);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:6px;transition:color .25s,text-decoration-color .25s}
 .btn:hover{color:var(--ink);text-decoration-color:var(--ink)}
-.btn.p{padding:0 22px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;border-radius:2px}
+.cta .btn:not(.p){position:relative}
+.cta .btn:not(.p)::before{content:"";position:absolute;inset:-6px -11px}
+.btn.p::before{content:"";position:absolute;inset:-4px 0}color:var(--bg);text-decoration:none;font-weight:600;border-radius:2px}
 .btn.p:hover{background:#fff}
 .btn.p span{display:inline-block;transition:transform .5s var(--ease)}
 .btn.p:hover span{transform:translateY(3px)}
@@ -174,7 +179,7 @@ html.go .fc{animation:deal 1.5s var(--ease) both;animation-delay:calc(.45s + var
 .end .note{font-size:13px;color:var(--muted);margin-top:22px}
 .end .note a{color:var(--soft);text-underline-offset:3px}
 .elsewhere{display:flex;flex-wrap:wrap;gap:0 22px;margin-top:10px;font-size:14px}
-.elsewhere a{color:var(--soft);min-height:40px;display:inline-flex;align-items:center;text-underline-offset:5px;text-decoration-color:var(--line-2)}
+.elsewhere a{color:var(--soft);min-height:44px;display:inline-flex;align-items:center;text-underline-offset:5px;text-decoration-color:var(--line-2)}
 .elsewhere a:hover{color:var(--ink);text-decoration-color:var(--ink)}
 .chs{display:grid;border-top:1px solid var(--line)}
 .ch{display:flex;align-items:center;gap:18px;min-height:84px;padding:10px 4px;border-bottom:1px solid var(--line);text-decoration:none;transition:padding .45s var(--ease)}
@@ -202,6 +207,8 @@ html.depth .card{width:var(--w)}
 html.depth .intro{width:var(--wi)}
 html.depth .end{width:var(--w)}
 html.depth .cw{display:none}
+/* the sheets in the folder are set out after the opening has painted, a few at a time, so the first screen comes up at once */
+html.depth .st:not(.intro):not(.lv){content-visibility:hidden}
 html.depth.dragging .space,html.depth.dragging .space *{cursor:grabbing!important}
 html.depth .im{-webkit-user-drag:none}
 html.depth .fc,html.depth .fc img{-webkit-user-drag:none}
@@ -245,10 +252,11 @@ html.depth .rail{display:flex;position:fixed;z-index:40;right:10px;top:50%;trans
   .fc{--w:min(54vw,340px);--sp:.7;bottom:6%}
   .fan .say{display:none}
   .ifoot{grid-template-columns:1fr;gap:14px;padding-top:14px}
-  .cta{justify-content:flex-start;gap:4px 20px}
+  .cta{justify-content:flex-start;gap:8px 22px}
   .cta .hint{text-align:left;margin:0}
 }
-@media (max-width:360px){.cta .hint{display:none}}
+@media (max-width:360px),(max-width:900px) and (max-height:740px){.cta .hint{display:none}}
+@media (min-width:2400px) and (min-height:1300px){.nm{font-size:clamp(84px,min(15.5vw,25vh),252px)}.fc{--w:clamp(190px,22vw,480px)}.lede{font-size:20px}}
 @media (max-width:760px){
   html.depth .rail{right:2px}
   .rail .tk{width:20px;height:clamp(8px,1.55vh,13px)}
@@ -266,6 +274,7 @@ html.depth .hud{display:flex;position:fixed;z-index:40;left:0;right:0;bottom:0;h
 .hud .ct{display:flex;align-items:baseline;gap:14px;min-width:0;flex:1 1 0;color:var(--muted);white-space:nowrap}
 .hud .ct b{font-weight:500;color:var(--ink)}
 .hud .ct em{font:500 13.5px/1 var(--body);font-style:normal;letter-spacing:0;text-transform:none;color:var(--soft);overflow:hidden;text-overflow:ellipsis}
+.hud .ct b,.hud .ct span{flex:none}
 .hud .chs-l{display:flex;gap:2px}
 .hud button.go{position:relative;display:flex;align-items:center;gap:8px;min-height:40px;padding:0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font:inherit;transition:color .3s}
 .hud button.go::before{content:"";width:14px;height:6px;background:var(--cc);clip-path:polygon(2px 0,calc(100% - 2px) 0,100% 100%,0 100%);opacity:.35;transition:opacity .3s}
@@ -273,7 +282,7 @@ html.depth .hud{display:flex;position:fixed;z-index:40;left:0;right:0;bottom:0;h
 .hud button.go[aria-current="true"]{color:var(--ink)}
 .hud button.go[aria-current="true"]::before{opacity:1}
 .hud .pn{display:flex;gap:6px;flex:1 1 0;justify-content:flex-end}
-.hud .pn button{width:40px;height:40px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--soft);font-size:15px;transition:background .25s,color .25s}
+.hud .pn button{width:44px;height:44px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--soft);font-size:15px;transition:background .25s,color .25s}
 .hud .pn button:hover{background:var(--ink);color:var(--bg)}
 @media (max-width:1180px){.hud .chs-l{display:none}}
 @media (max-width:760px){
@@ -294,9 +303,10 @@ html.depth .hud{display:flex;position:fixed;z-index:40;left:0;right:0;bottom:0;h
   .tx{padding:16px 16px 16px}
   .meta{margin-bottom:12px;font-size:10.5px}
   .card h3{font-size:22px;margin-bottom:8px}
-  .card p{font-size:14px;line-height:1.5}
-  .links{padding-top:12px;gap:2px 16px}
-  .links a{min-height:36px;font-size:13.5px}
+  .card p{font-size:16px;line-height:1.5}
+  .card p.more,.end .note{font-size:15px}
+  .links{padding-top:12px;gap:0 18px}
+  .links a{min-height:44px;font-size:14px}
   .links a:first-child{min-height:46px;font-size:14.5px;margin-bottom:2px}
   html.depth .card p:not(.keep){display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   html.depth .card p.more{display:none}
@@ -306,20 +316,23 @@ html.depth .hud{display:flex;position:fixed;z-index:40;left:0;right:0;bottom:0;h
   .nm .by{gap:10px;font-size:clamp(19px,5.6vw,26px)}
   .nm .by small{display:none}
   .fan{min-height:190px;margin-top:-8px}
-  .fc{--w:min(54vw,300px);--sp:.62;bottom:4%;transform-origin:50% 260%}
+  .fc{--w:min(54vw,300px);--sp:.62;bottom:11%;transform-origin:50% 260%}
   .fx b{height:19px;padding:0 9px;gap:6px;font-size:8.5px;letter-spacing:.1em;left:calc(4% + var(--i) * 11%);clip-path:polygon(5px 0,calc(100% - 5px) 0,100% 100%,0 100%)}
   .fx b em{display:none}
   .lede{font-size:16px}
   .lede .x{display:none}
   html.depth .intro{padding-right:16px}
-  .end{grid-template-columns:1fr;gap:18px;padding:24px 18px 18px}
+  .end{grid-template-columns:minmax(0,1fr);gap:18px;padding:24px 18px 18px}
   html.depth .end .note,html.depth .end footer,html.depth .end .elsewhere{display:none}
   html.depth .end h2{font-size:30px;margin-bottom:12px}
-  html.depth .end p{font-size:15px}
+  html.depth .end p{font-size:16px}
   html.depth .ch{min-height:64px}
   .ch b{font-size:19px}
+  .ch div{min-width:0}
+  .ch div span{overflow-wrap:anywhere}
 }
-@media (max-width:420px){.hud .ct em{display:none}}
+@media (max-width:700px){.hud .ct em{display:none}}
+@media (max-width:340px){.hud .ct span{display:none}.ch{gap:14px}.ch .ar{display:none}.ch div span{letter-spacing:0}html.depth .end h2{font-size:27px}}
 /* phones on their side: picture and words side by side */
 html.short .card{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
 html.short .im{border-radius:2px 0 0 2px}
@@ -344,6 +357,15 @@ html.short .kick{display:none}
 html.short .fan{min-height:170px}
 html.short .fc{--w:min(25vw,210px);--sp:.6;bottom:0}
 html.short .lede{display:none}
+html.short .cta .hint{display:none}
+/* the closing sheet on a phone held sideways: the essentials only, so it is never shrunk to fit */
+html.short .end{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 32px;padding:18px 22px 14px}
+html.short .ch div{min-width:0}
+html.short .end .note,html.short .end footer,html.short .end .elsewhere{display:none}
+html.short .end h2{font-size:26px;margin-bottom:8px}
+html.short .end p{font-size:15px;line-height:1.5;margin:0}
+html.short .ch{min-height:50px;padding:3px 4px}
+html.short .ch b{font-size:17px}
 @media (max-height:640px) and (min-width:761px){.lede .x{display:none}.cta .hint{display:none}}
 html:not(.depth) .top{background:rgba(15,14,13,.97);border-bottom:1px solid var(--line)}
 html:not(.depth) [id]{scroll-margin-top:110px}
@@ -371,11 +393,11 @@ html:not(.depth) .card{margin-top:26px}
     <nav class="fan" aria-label="Folders">
       <div class="fin" id="fin">
         <a class="fc" href="#all" data-ch="n" style="--i:0;--r:-21deg"><span class="fx"><img src="assets/p/thailand-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>New<em>4</em></b></span><span class="sr">New, 4 projects</span></a>
-        <a class="fc" href="#work" data-ch="w" style="--i:1;--r:-12.6deg"><span class="fx"><img src="assets/p/orbit-480.jpg" alt="" width="480" height="300" decoding="async"><b>Websites<em>9</em></b></span><span class="sr">Websites, 9 projects</span></a>
-        <a class="fc" href="#data" data-ch="d" style="--i:2;--r:-4.2deg"><span class="fx"><img src="assets/p/ledger-480.jpg" alt="" width="480" height="300" decoding="async"><b>Data<em>6</em></b></span><span class="sr">Data, 6 projects</span></a>
-        <a class="fc" href="#systems" data-ch="i" style="--i:3;--r:4.2deg"><span class="fx"><img src="assets/p/webhook-480.jpg" alt="" width="480" height="300" decoding="async"><b>Systems<em>4</em></b></span><span class="sr">Systems, 4 projects</span></a>
-        <a class="fc" href="#documents" data-ch="b" style="--i:4;--r:12.6deg"><span class="fx"><img src="assets/p/property-480.jpg" alt="" width="480" height="300" decoding="async"><b>Documents<em>3</em></b></span><span class="sr">Documents, 3 projects</span></a>
-        <a class="fc" href="#research" data-ch="r" style="--i:5;--r:21deg"><span class="fx"><img src="assets/p/cosquin-480.jpg" alt="" width="480" height="300" decoding="async"><b>Research<em>2</em></b></span><span class="sr">Research, 2 projects</span></a>
+        <a class="fc" href="#work" data-ch="w" style="--i:1;--r:-12.6deg"><span class="fx"><img src="assets/p/orbit-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Websites<em>9</em></b></span><span class="sr">Websites, 9 projects</span></a>
+        <a class="fc" href="#data" data-ch="d" style="--i:2;--r:-4.2deg"><span class="fx"><img src="assets/p/ledger-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Data<em>6</em></b></span><span class="sr">Data, 6 projects</span></a>
+        <a class="fc" href="#systems" data-ch="i" style="--i:3;--r:4.2deg"><span class="fx"><img src="assets/p/webhook-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Systems<em>4</em></b></span><span class="sr">Systems, 4 projects</span></a>
+        <a class="fc" href="#documents" data-ch="b" style="--i:4;--r:12.6deg"><span class="fx"><img src="assets/p/property-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Documents<em>3</em></b></span><span class="sr">Documents, 3 projects</span></a>
+        <a class="fc" href="#research" data-ch="r" style="--i:5;--r:21deg"><span class="fx"><img src="assets/p/cosquin-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Research<em>2</em></b></span><span class="sr">Research, 2 projects</span></a>
       </div>
       <p class="say rv" style="--dl:1.5s" aria-hidden="true">Pick a folder</p>
     </nav>
@@ -480,11 +502,11 @@ function opened(){root.classList.remove("pre","go")}
 if(root.classList.contains("pre")){
   var started=false,start=function(){if(started)return;started=true;root.classList.add("go");setTimeout(opened,2500)};
   Promise.all([document.fonts?document.fonts.load('500 100px "Bodoni Moda"'):0,document.fonts?document.fonts.load('italic 500 100px "Bodoni Moda"'):0]).then(start,start);
-  setTimeout(start,700);
+  setTimeout(start,300);
 }
 /* the covers further in wait until the opening is on screen, then load a few sheets ahead */
 function warmUp(){if(warm)return;warm=true;cur=-1;seenAt=-1;kick()}
-addEventListener("load",function(){setTimeout(warmUp,900)});
+addEventListener("load",function(){setTimeout(trickle,150);setTimeout(warmUp,900)});
 var look={x:0,y:0},view={x:0,y:0};
 function clamp(v,a,b){return v<a?a:v>b?b:v}
 function esc(t){return String(t).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
@@ -515,17 +537,25 @@ function toneOf(i,cb){var st=sts[i],img=st&&st.querySelector(".im img");if(!img|
     for(var j=0;j<d.length;j+=4){var w=1+Math.max(d[j],d[j+1],d[j+2])-Math.min(d[j],d[j+1],d[j+2]);r+=d[j]*w;g+=d[j+1]*w;b+=d[j+2]*w;n+=w}
     tones[src]="rgb("+Math.round(r/n)+","+Math.round(g/n)+","+Math.round(b/n)+")"}catch(_){tones[src]=null}cb(tones[src])};
   im.onerror=function(){tones[src]=null;cb(null)};im.src=src}
-function light(i){toneOf(i,function(c){if(Math.round(goal)===i||Math.round(s)===i)body.style.setProperty("--glow",c||"#3a3530")})}
+var atmo=document.querySelector(".atmo");
+function light(i){toneOf(i,function(c){if(atmo&&(Math.round(goal)===i||Math.round(s)===i))atmo.style.setProperty("--glow",c||"#3a3530")})}
+/* sheets are laid out on demand: the ones around where you are heading first, the rest while the page is idle */
+var allLive=false;
+function liven(a,b){var any=false;for(var j=Math.max(1,a);j<Math.min(N,b);j++)if(!sts[j]._lv){sts[j]._lv=true;sts[j].classList.add("lv");any=true}
+  if(any){allLive=sts.every(function(st,j){return j===0||st._lv});layout()}return any}
+function trickle(){var j=1;(function step(){if(allLive||j>=N)return;liven(j,j+3);j+=3;kick();setTimeout(step,40)})()}
 
 function layout(){
   var vw=innerWidth,vh=innerHeight,mob=vw<760,narrow=vw<=900;VH=vh;
   P=mob?900:1200;DZ=mob?230:300;T=mob?13:24;DR=mob?190:260;
   space.style.perspective=P+"px";
-  var w=Math.min(1200,vw*.84,(vh-200)*2.62);
+  /* very large screens get a larger sheet, so the folder does not sit small in the middle */
+  var huge=vw>=2400&&vh>=1300;
+  var w=Math.min(huge?1440:1200,vw*.84,(vh-200)*2.62);
   if(narrow)w=Math.min(vw-(mob?44:80),560);
   var wide=vh<520&&vw>vh;root.classList.toggle("short",wide);if(wide)w=Math.min(vw-110,(vh-90)*2.6,980);
   space.style.setProperty("--w",Math.round(w)+"px");
-  space.style.setProperty("--wi",Math.round(Math.min(1320,vw-(mob?32:96)))+"px");
+  space.style.setProperty("--wi",Math.round(Math.min(huge?1600:1320,vw-(mob?32:96)))+"px");
   /* a sheet taller than the room between the bars is set down a little smaller, never cut */
   var avail=vh-(mob?150:170);
   H=sts.map(function(st,i){var h=st.offsetHeight;FS[i]=Math.min(1,(i===0?vh-120:avail)/h);return h*FS[i]});
@@ -561,6 +591,7 @@ function place(st,i){
   return busy;
 }
 function render(){
+  if(!allLive){var lo=Math.floor(Math.min(s,goal)),hi=Math.ceil(Math.max(s,goal));if(hi>0)liven(lo-1,hi+6)}
   /* the fan leans toward the pointer and closes as you go into the folio */
   if(fin&&s<1.3){var op=1-clamp(s,0,1)*.85;if(fin._op!==op){fin._op=op;fin.style.setProperty("--op",op.toFixed(3))}
     fin.style.transform="rotateY("+(view.x*10).toFixed(2)+"deg) rotateX("+(-view.y*7).toFixed(2)+"deg)";

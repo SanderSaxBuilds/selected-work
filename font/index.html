@@ -8,6 +8,12 @@
 <meta property="og:title" content="Your handwriting, as a real font">
 <meta property="og:description" content="A pen writes your name, the machine reads it and builds the letters into a font file. Draw letters in the browser and download a working font in seconds.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/font/">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/font.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/font/">
 <meta name="theme-color" content="#0a0a0b">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/sandersax-icon-32.png">
 <link rel="apple-touch-icon" href="../assets/sandersax-icon-180.png">
@@ -17,7 +23,7 @@
 <style>
 :root{
   --desk:#0a0a0b;--win:#141416;--win-2:#19191c;--win-3:#212125;--deep:#070708;--face:#e7e6e1;
-  --tx:#d4d3ce;--hi:#f1f0eb;--muted:#8a8b90;--muted-2:#5b5c61;
+  --tx:#d4d3ce;--hi:#f1f0eb;--muted:#8a8b90;--muted-2:#86878c;
   --line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.13);--line-3:rgba(255,255,255,.26);
   --bev:inset 1px 1px 0 rgba(255,255,255,.09),inset -1px -1px 0 rgba(0,0,0,.55);
   --sunk:inset 1px 1px 0 rgba(0,0,0,.7),inset -1px -1px 0 rgba(255,255,255,.07);
@@ -34,7 +40,7 @@
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:72px;background:var(--desk)}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-body{margin:0;background:radial-gradient(120% 70% at 50% -8%,#19191c 0,#0e0e10 42%,var(--desk) 70%) no-repeat,var(--desk);color:var(--tx);font:18px/1.65 var(--body);min-width:320px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{margin:0;background:radial-gradient(120% 70% at 50% -8%,#19191c 0,#0e0e10 42%,var(--desk) 70%) no-repeat,var(--desk);color:var(--tx);font:18px/1.65 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 section,footer{position:relative;overflow-x:clip}
 a{color:inherit}
 button,input,textarea{font:inherit;color:inherit}
@@ -58,7 +64,7 @@ button{cursor:pointer}
 .nav a:hover{background:var(--hi);color:var(--desk)}
 .clk{font:500 22px/1 var(--led);letter-spacing:.06em;color:var(--tx);padding:0 4px 0 12px;border-left:1px solid var(--line-2);margin-left:4px;font-variant-numeric:tabular-nums}
 .lang{display:flex;padding:2px;background:var(--deep);box-shadow:var(--sunk);border:1px solid #000;flex:0 0 auto}
-.lang button{border:0;background:transparent;color:var(--muted);min-width:44px;min-height:40px;font:600 11px/1 var(--sys);letter-spacing:.08em;transition:color .15s}
+.lang button{border:0;background:transparent;color:var(--muted);min-width:44px;min-height:44px;font:600 11px/1 var(--sys);letter-spacing:.08em;transition:color .15s}
 .lang button:hover{color:var(--hi)}
 .lang button[aria-pressed="true"]{background:var(--face);color:var(--desk);box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #8f8f8b}
 @media (max-width:900px){.nav{display:none}.clk{margin-left:auto;border-left:0}}
@@ -117,7 +123,7 @@ h1 span{color:var(--muted)}
 .page.nobloom canvas.glow{opacity:0}
 .ml{position:absolute;left:0;right:0;top:var(--y,50%);height:0;border-top:1px dashed rgba(232,230,218,.13);opacity:0;transition:opacity .5s,top .5s var(--ease);pointer-events:none}
 .ml.b{border-top-style:solid;border-top-color:rgba(232,230,218,.26)}
-.ml span{position:absolute;left:14px;top:0;transform:translateY(-50%);padding:0 8px 0 0;background:#0f100f;font:400 17px/1 var(--led);letter-spacing:.04em;text-transform:uppercase;color:var(--ph-faint)}
+.ml span{position:absolute;left:14px;top:0;transform:translateY(-50%);padding:0 8px 0 0;background:#0f100f;font:400 17px/1 var(--led);letter-spacing:.04em;text-transform:uppercase;color:#8a897f}
 .ml.b span{color:var(--ph-dim)}
 .page.metric:not(.noguide) .ml{opacity:1}
 .ph,.pf{position:absolute;left:18px;right:18px;display:flex;justify-content:space-between;gap:12px;font:400 19px/1 var(--led);letter-spacing:.04em;text-transform:uppercase;color:var(--ph-dim);pointer-events:none;white-space:nowrap}
@@ -392,7 +398,7 @@ section.s{padding-top:110px}
 .mail .mh span{padding:7px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mail .mh span+span{border-top:1px solid var(--line)}
 .mail .mh i{font-style:normal;color:var(--muted-2);display:inline-block;min-width:64px}
-.mail .mb{padding:14px 14px 16px;font-size:13.5px;color:var(--muted)}
+.mail .mb{padding:14px 14px 16px;font-size:15px;color:var(--muted)}
 .mail .mb p{margin:0 0 8px}
 .mail .sg{display:block;font-size:min(44px,calc(11cqi*var(--k)));margin:6px 0 10px;white-space:nowrap}
 .mail .sl2{font:500 10.5px/1.4 var(--sys);color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin:0}
@@ -547,7 +553,7 @@ footer a{color:var(--tx);display:inline-flex;align-items:center;min-height:44px}
 .pad.done::after{font:400 15px/1 var(--led);background:var(--ph);color:var(--scr);padding:2px 5px 1px}
 .hint,.note{font-size:16px;line-height:1.6;color:#aeada7}
 .out{border-radius:8px}
-.sizes small{font:400 15px/1 var(--led);width:44px;color:var(--ph-faint)}
+.sizes small{font:400 15px/1 var(--led);width:44px;color:var(--ph-dim)}
 .dl .meta{font:400 22px/1.2 var(--led);color:var(--ph-dim)}
 .exg-h h3{font:600 12.5px/1.3 var(--sys);letter-spacing:.1em}
 .exg-h h3 i{background:var(--case);color:var(--case-ink);border-radius:2px}
@@ -569,7 +575,7 @@ footer a{color:var(--tx);display:inline-flex;align-items:center;min-height:44px}
 footer{font:500 12.5px/1.5 var(--sys)}
 @media (max-width:640px){.tt{padding:0 34px}.tt::before{left:10px}.tt::after{right:10px}.faq summary{font-size:17.5px}}
 /* simpler pass: every section is a unit of the same machine */
-.obar{display:inline-flex;align-items:center;min-height:38px;padding:0 14px;margin-left:12px;border-radius:5px;text-decoration:none;font:600 12px/1 var(--sys);letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(180deg,#e9e7e0,#cfcdc6);color:#1b1a18;box-shadow:inset 0 1px 0 #fff,0 3px 0 #77756e,0 4px 4px rgba(0,0,0,.4);white-space:nowrap}
+.obar{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;margin-left:12px;border-radius:5px;text-decoration:none;font:600 12px/1 var(--sys);letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(180deg,#e9e7e0,#cfcdc6);color:#1b1a18;box-shadow:inset 0 1px 0 #fff,0 3px 0 #77756e,0 4px 4px rgba(0,0,0,.4);white-space:nowrap}
 .obar:hover{background:linear-gradient(180deg,#f4f3ee,#dad8d1)}
 .obar:active{transform:translateY(2px);box-shadow:inset 0 1px 0 #fff,0 1px 0 #77756e}
 @media (max-width:900px){.obar{margin-left:auto}.clk{margin-left:12px}}
@@ -607,7 +613,7 @@ h1{font-size:clamp(38px,5.6vw,80px);line-height:1}
 .contact p{color:#3b3a36}
 .contact .kick{color:#45433e}
 .contact .ch:hover{background:var(--case)}
-footer{background:#121211}
+footer{background:#121211;color:var(--muted)}
 .hero{padding:30px 0 44px}
 .hrow{grid-template-columns:minmax(0,1fr);gap:12px;margin-bottom:26px}
 .eyebrow{margin-bottom:12px}
@@ -641,6 +647,37 @@ h1{font-size:clamp(36px,4.4vw,62px);line-height:1.04}
   .steps{grid-template-columns:1fr 1fr;padding:12px;gap:8px}
   .steps li{font-size:15px;padding:9px 10px}
   .station{margin:0}
+}
+
+/* QA pass: phones, the folded cover, short landscape and touch */
+.fileo a{min-height:44px}
+.left{min-width:0}.fld input[type=text]{width:100%;min-width:0}
+@media (hover:none){.pad .tl button{width:44px;height:44px}}
+@media (max-width:560px){.clk{display:none}}
+@media (max-width:359px){.logo{min-width:44px;justify-content:center}}
+@media (max-width:480px){.vent{display:none}.cap-t{white-space:normal;line-height:1.25;text-overflow:clip}}
+@media (max-width:400px){.pad{width:calc(50% - 5px)}}
+@media (max-width:360px){
+  .win>.tt{font-size:10.5px;letter-spacing:.04em;height:auto;min-height:38px;padding:7px 30px;line-height:1.3}
+  .win>.tt span{white-space:normal;text-align:center}
+  .btn{padding:0 14px;white-space:normal;text-align:center;line-height:1.25}
+  .cap{gap:10px}.badge em{display:none}
+  .ch{gap:10px;padding:12px 8px}.ch div{min-width:0}.ch span{overflow-wrap:anywhere}
+  .mail .mh span{white-space:normal}
+  .penr{flex-wrap:wrap;row-gap:0}.penr output{margin-left:auto}.penr input{order:3;flex:1 1 100%;max-width:none}
+  .ph,.pf{left:10px;right:10px;gap:2px 14px;font-size:15px;flex-wrap:wrap}#mDesc span{display:none}
+}
+@media (max-width:1100px){.ex>.tt{padding-left:34px;padding-right:34px}.ex>.tt::before{left:12px}.ex>.tt::after{right:12px}}
+@media (max-width:999px){
+  .steps{grid-template-columns:1fr 1fr}
+  .steps li span{white-space:normal;text-overflow:clip;line-height:1.2}
+}
+@media (max-width:360px){.steps{grid-template-columns:1fr}.steps li{min-height:44px;padding:6px 10px}}
+@media (max-width:900px) and (max-height:520px) and (orientation:landscape){
+  .pin .wrap{grid-template-columns:minmax(0,1fr) auto;gap:28px}
+  .sw2{width:calc(100svh - var(--bh) - 80px)}
+  .stx h2{font-size:26px}
+  .sl{margin-top:10px}
 }
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.sweep{display:none}}

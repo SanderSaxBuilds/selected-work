@@ -397,6 +397,57 @@ body.dragging { cursor: grabbing; user-select: none; }
   .book { grid-template-columns: minmax(0, 380px) minmax(0, 1fr) minmax(0, 440px); gap: 28px; }
 }
 
+/* ---------- footer ---------- */
+.foot { border-top: 1px solid var(--line); background: var(--sheet); }
+.foot-in { max-width: 1680px; margin: 0 auto; padding: 8px var(--gutter) 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 0 24px; font-size: 14px; color: var(--muted); }
+.foot-in > span { padding: 12px 0; }
+.foot nav { display: flex; flex-wrap: wrap; gap: 0 20px; }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: .25em; overflow-wrap: anywhere; }
+.foot a:hover { text-decoration-color: currentColor; }
+
+/* ---------- room for what the script fills in, so nothing below jumps when it runs ---------- */
+#services:empty { min-height: 459px; }
+#ticket-steps:empty { min-height: 146px; }
+.cal-wrap:has(#cal-body:empty) { min-height: 350px; }
+#slots:empty { min-height: 172px; }
+@media (min-width: 760px) { #services:empty { min-height: 378px; } #slots:empty { min-height: 793px; } }
+@media (min-width: 1100px) { #services:empty { min-height: 176px; } }
+@media (min-width: 1340px) { #services:empty { min-height: 139px; } }
+
+/* ---------- QA pass: touch, phones and the folded cover ---------- */
+.intro-lead { max-width: 62ch; }
+.ticket-steps li:not(.is-done) .tv { color: var(--muted); }
+@media (min-width: 1340px) {
+  .svc-meta { flex-wrap: wrap; gap: 0 14px; white-space: normal; }
+  .svc-meta span { white-space: nowrap; }
+}
+/* touch: a 30 minute booking in the diary is a 44px target */
+@media (max-width: 1023px), (pointer: coarse) {
+  :root { --drh: 46px; }
+  .btn.sm, .toast-act { min-height: 44px; }
+}
+.dg-corner { color: var(--muted); font-size: 10px; }
+.row.off .t { color: #6c7279; }
+.row.closed .t { color: var(--muted); }
+@media (max-width: 759px) {
+  .sample-note, .cal-help, .fine, .hint, .tl-help, .zone-note, .staff-sub, .err, .empty, .soonest .muted, .bk p, .changes, .hours dl div { font-size: 15px; }
+  .changes .mono, .hours dd { font-size: 13px; }
+  .zone select { font-size: 16px; }
+}
+@media (max-width: 420px) {
+  .zone { width: 100%; }
+  .zone select { flex: 1; max-width: none; }
+  .cal { border-spacing: 0; }
+  .when .cal { margin: 0 -8px; width: calc(100% + 16px); }
+  .svc { grid-template-columns: 20px 12px minmax(0, 1fr); }
+  .svc-meta { grid-column: 3; display: flex; flex-wrap: wrap; gap: 0 12px; margin-top: 4px; }
+}
+@media (max-width: 360px) {
+  .tabs [role="tab"] { padding: 0 8px; white-space: normal; line-height: 1.2; }
+  .zone { flex-wrap: wrap; }
+  .zone label { flex-basis: 100%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
