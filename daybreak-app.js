@@ -361,6 +361,8 @@ function blockLabel(item) {
 }
 
 const snap = minutes => Math.round(minutes / 15) * 15;
+// Screen pixels per layout pixel. Very wide screens zoom the page, so pointer distances are scaled back first.
+const clientScale = el => { const set = parseFloat(el.style.height); const shown = el.getBoundingClientRect().height; return set > 0 && shown > 0 ? shown / set : 1; };
 let timelineFrom = 7 * 60;
 let timelinePpm = 1.2;
 let suppressClick = false;
@@ -382,7 +384,7 @@ function moveBlock(item, start) {
 function timelineBlock(item, layout, from, ppm) {
   const start = timeMinutes(item.start);
   const conflicts = overlappingEvents(item, state.events);
-  const block = element("div", `tl-block ${item.calendar}${item.protected ? " is-protected" : ""}${conflicts.length ? " has-overlap" : ""}${item.duration <= 30 ? " is-short" : ""}`);
+  const block = element("div", `tl-block ${item.calendar}${item.protected ? " is-protected" : ""}${conflicts.length ? " has-overlap" : ""}${item.duration <= 30 ? " is-short" : item.duration <= 60 ? " is-mid" : ""}`);
   block.dataset.id = item.id;
   block.style.top = `${(start - from) * ppm}px`;
   block.style.height = `${Math.max(item.duration * ppm, 22)}px`;
@@ -413,13 +415,13 @@ function timelineBlock(item, layout, from, ppm) {
   const begin = event => {
     if (event.button !== 0) return;
     if (event.pointerType !== "mouse" && !event.target.closest(".tl-grip")) return;
-    drag = { y: event.clientY, origin: start, next: start, moved: false, id: event.pointerId };
+    drag = { y: event.clientY, k: clientScale(block), origin: start, next: start, moved: false, id: event.pointerId };
     block.setPointerCapture(event.pointerId);
   };
   block.addEventListener("pointerdown", begin);
   block.addEventListener("pointermove", event => {
     if (!drag || event.pointerId !== drag.id) return;
-    const dy = event.clientY - drag.y;
+    const dy = (event.clientY - drag.y) / drag.k;
     if (!drag.moved && Math.abs(dy) < 5) return;
     drag.moved = true;
     block.classList.add("is-dragging");
@@ -446,7 +448,9 @@ function gapRegion(gap, from, ppm) {
   region.style.top = `${(gap.start - from) * ppm}px`;
   region.style.height = `${gap.minutes * ppm}px`;
   const text = element("p", "gap-text");
-  text.append(element("strong", "", `${formatDuration(gap.minutes)} open`), document.createTextNode(` ${formatMinutes(gap.start)} to ${formatMinutes(gap.end)}`));
+  text.append(element("strong", "", `${formatDuration(gap.minutes)} open`), element("span", "gap-range", ` ${formatMinutes(gap.start)} to ${formatMinutes(gap.end)}`));
+  // A short gap keeps its label and button on one row so the button never spills into the next block.
+  if (gap.minutes * ppm < 100) region.classList.add("is-tight");
   const button = element("button", "gap-button", "Protect it");
   button.type = "button";
   button.setAttribute("aria-label", `Protect ${formatDuration(gap.minutes)} from ${formatMinutes(gap.start)} as focus time`);
@@ -493,7 +497,7 @@ $("#dayTimeline").addEventListener("click", event => {
   const box = $("#dayTimeline .tl-canvas");
   if (!box || event.target.closest("button, .tl-block")) return;
   const rect = box.getBoundingClientRect();
-  const minute = snap(timelineFrom + (event.clientY - rect.top) / timelinePpm);
+  const minute = snap(timelineFrom + (event.clientY - rect.top) / clientScale(box) / timelinePpm);
   if (minute < 0 || minute > 24 * 60 - 15) return;
   openEditor(null, state.selectedDate, minutesToTime(minute), false, 30);
 });

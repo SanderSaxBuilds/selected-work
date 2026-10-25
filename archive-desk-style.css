@@ -35,7 +35,7 @@
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; min-width: 320px; color: var(--ink); background: var(--paper); font: 16px/1.55 var(--body); }
+body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.55 var(--body); }
 button, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
 button:disabled { cursor: not-allowed; opacity: .5; }
@@ -367,3 +367,38 @@ dialog p { margin: 8px 0 20px; color: var(--muted); font-size: 15px; }
 @keyframes seal-draw { to { stroke-dashoffset: 0; } }
 @media (max-width: 640px) { .seal-glyph.in-panel { margin: 0 16px 16px; } }
 @media (prefers-reduced-motion: reduce) { .seal-glyph svg .draw { animation: none; stroke-dashoffset: 0; } }
+
+/* Fit and finish: balanced headings, readable phone copy, a press you can feel,
+   the narrow Fold cover and very wide screens. */
+.site-footer .footer-contact { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 0 20px; max-width: none; padding-top: 12px; border-top: 1px dashed var(--line); }
+.footer-contact span { margin-right: 4px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 13px; }
+.footer-contact a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 600; overflow-wrap: anywhere; }
+h1, h2, h3 { text-wrap: balance; }
+.lede, .section-intro, .sidebar .panel > p, .limits-grid p, .format-card p, .dropzone p { text-wrap: pretty; }
+.button:active:not(:disabled), .text-button:active:not(:disabled), .tabbar button:active { transform: translateY(1px); }
+.button, .text-button { transition: background-color .18s ease-out, border-color .18s ease-out, transform .08s ease-out; }
+@media (max-width: 1023px) {
+  .small, .checklist small, .file-picker small, .selection-meta, .dropzone .limit-note, .seal-glyph small { font-size: 15px; }
+  .panel-footer, .privacy-note, .privacy-note p, .compare-explainer, .panel > p:not(.eyebrow), .sidebar .panel > p:not(.eyebrow), .section-intro, .dropzone p, .notice, .limits-grid p, .format-card p, .status-bar p, #status, #unlocked-summary, dialog p, .result-heading p, .slot-value { font-size: 16px; }
+  .site-footer, .site-footer p { font-size: 16px; }
+}
+@media (max-width: 360px) {
+  .topbar { gap: 10px; }
+  .brand { gap: 8px; font-size: 15px; letter-spacing: .04em; }
+  .brand img { width: 30px; height: 30px; }
+  .tabbar { gap: 3px; }
+  .tabbar button { padding: 6px 2px; font-size: 13px; }
+  .tab-number { font-size: 13px; }
+  .panel-heading { gap: 10px; }
+  .kicker { letter-spacing: .04em; }
+  .dropzone { margin: 0 12px; padding: 20px 12px 16px; }
+  .drop-actions .button { flex-basis: 100%; }
+  .slot-actions .button { flex: 1 1 100%; }
+  .diff-stats strong { font-size: 28px; }
+  .diff-stats > div { padding: 10px 12px; }
+}
+@media (min-width: 2048px) { body { zoom: 1.15; } .topbar { padding-inline: max(16px, calc((100vw / 1.15 - 1248px) / 2)); } }
+@media (min-width: 2400px) { body { zoom: 1.3; } .topbar { padding-inline: max(16px, calc((100vw / 1.3 - 1248px) / 2)); } }
+@media (min-width: 2880px) { body { zoom: 1.5; } .topbar { padding-inline: max(16px, calc((100vw / 1.5 - 1248px) / 2)); } }
+@media (min-width: 3300px) { body { zoom: 1.75; } .topbar { padding-inline: max(16px, calc((100vw / 1.75 - 1248px) / 2)); } }
+@media (min-width: 3700px) { body { zoom: 2; } .topbar { padding-inline: max(16px, calc((100vw / 2 - 1248px) / 2)); } }

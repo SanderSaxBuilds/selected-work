@@ -254,7 +254,7 @@ function jumpTo([a, b]) {
   let end = start; for (let i = a - 1; i < b; i++) end += (lines[i] || "").length + (i < b - 1 ? 1 : 0);
   csv.focus({ preventScroll: true });
   csv.setSelectionRange(start, end);
-  const lh = 22;
+  const lh = parseFloat(getComputedStyle(csv).lineHeight) || 22;
   csv.scrollTop = Math.max(0, (a - 3) * lh);
   if (window.matchMedia("(max-width: 1019px)").matches) $("in-pane").scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   syncScroll();
