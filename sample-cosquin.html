@@ -7,6 +7,16 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%274%27 width=%2710%27 height=%2710%27 fill=%27%231b5d9b%27/%3E%3Crect x=%2718%27 y=%2718%27 width=%2710%27 height=%2710%27 fill=%27none%27 stroke=%27%2314181d%27 stroke-width=%272%27/%3E%3C/svg%3E">
   <title>Señales de mercado en Cosquín</title>
   <meta name="description" content="Relevamiento preliminar de fuentes públicas sobre comercios minoristas de alimentos en Cosquín, Córdoba: ocho comercios para comprobar, precios visibles y los datos que faltan para comparar formatos.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:title" content="Señales de mercado en Cosquín">
+  <meta property="og:description" content="Ocho comercios para comprobar, los precios visibles en línea y los datos que faltan para comparar formatos en Cosquín, Córdoba.">
+  <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sample-cosquin.html">
+  <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/cosquin.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Señales de mercado en Cosquín">
+  <meta name="twitter:description" content="Relevamiento preliminar de fuentes públicas: comercios, precios visibles y datos pendientes.">
+  <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/cosquin.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&display=swap" rel="stylesheet">
@@ -30,8 +40,10 @@
     * { box-sizing: border-box; }
     html { -webkit-text-size-adjust: 100%; scroll-padding-top: 76px; }
     @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-    body { margin: 0; min-width: 320px; color: var(--ink); background: var(--paper); font: 400 18px/1.62 var(--serif); font-optical-sizing: auto; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 400 18px/1.62 var(--serif); font-optical-sizing: auto; }
     h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; }
+    h1, h2, h3 { text-wrap: balance; }
+    p { text-wrap: pretty; }
     img, svg { display: block; max-width: 100%; }
     button { font: inherit; color: inherit; }
     a { color: var(--blue-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
@@ -39,7 +51,7 @@
     :focus-visible { outline: none; box-shadow: var(--focus); }
     [hidden] { display: none !important; }
     .lab { font-family: var(--label); font-stretch: 85%; }
-    .skip-link { position: fixed; z-index: 60; top: 8px; left: 8px; padding: 10px 14px; color: #fff; background: var(--ink); font: 600 15px var(--label); text-decoration: none; transform: translateY(-180%); }
+    .skip-link { position: fixed; z-index: 60; top: 8px; left: 8px; display: inline-flex; align-items: center; min-height: 44px; padding: 10px 14px; color: #fff; background: var(--ink); font: 600 15px var(--label); text-decoration: none; transform: translateY(-180%); }
     .skip-link:focus { transform: none; }
     .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 16px; }
     @media (min-width: 760px) { .wrap { padding: 0 32px; } }
@@ -54,6 +66,9 @@
     @media (max-width: 560px) { .brand small { display: none; } }
     .back-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--ink-2); font: 500 15px var(--label); text-decoration: none; white-space: nowrap; }
     .back-link:hover { color: var(--ink); text-decoration: underline; }
+    .back-link svg { transition: transform .2s ease-out; }
+    .back-link:hover svg { transform: translateX(-3px); }
+    @media (max-width: 359px) { .back-link .more { display: none; } .brand { gap: 8px; font-size: 14px; letter-spacing: .04em; } }
     .back-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
     .progress { position: absolute; left: 0; bottom: -1px; height: 3px; width: 100%; background: var(--blue); transform-origin: 0 50%; transform: scaleX(0); }
 
@@ -68,10 +83,13 @@
     h1 em { display: block; font-weight: 400; color: var(--blue); }
     .lede { max-width: 60ch; margin-top: 22px; color: var(--ink-2); font-size: clamp(18px, 1.7vw, 21px); line-height: 1.55; }
     .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 10px 20px; border: 1.5px solid var(--ink); border-radius: 0; color: var(--ink); background: transparent; font: 600 16px/1.2 var(--label); font-stretch: 90%; letter-spacing: .02em; text-decoration: none; cursor: pointer; transition: background-color .18s ease-out, color .18s ease-out; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 10px 20px; border: 1.5px solid var(--ink); border-radius: 0; color: var(--ink); background: transparent; font: 600 16px/1.2 var(--label); font-stretch: 90%; letter-spacing: .02em; text-decoration: none; cursor: pointer; transition: background-color .18s ease-out, color .18s ease-out, transform .12s ease-out; }
     .button:hover { background: var(--ink); color: var(--paper); }
     .button.solid { background: var(--ink); color: var(--paper); }
     .button.solid:hover { background: var(--blue); border-color: var(--blue); }
+    .button:active { transform: translateY(1px); }
+    .button svg { transition: transform .2s ease-out; }
+    .button.solid:hover svg { transform: translateY(2px); }
     .button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .meta { margin: 0; border-top: 3px solid var(--ink); }
     .meta div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
@@ -114,7 +132,7 @@
     .pending { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; margin-top: 40px; padding: 20px 22px; background: var(--red-soft); border-left: 4px solid var(--red); }
     .pending-mark { color: var(--red); font: 800 26px/1 var(--label); }
     .pending h2 { font: 700 20px/1.3 var(--label); font-stretch: 90%; }
-    .pending p { margin-top: 6px; color: #4c2a26; font-size: 17px; }
+    .pending p { max-width: 72ch; margin-top: 6px; color: #4c2a26; font-size: 17px; }
 
     .section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
     .section:last-child { border-bottom: 0; }
@@ -122,7 +140,7 @@
     .sec-head { display: grid; gap: 10px; max-width: 780px; margin-bottom: 28px; }
     .sec-n { color: var(--blue); font: 700 14px/1 var(--label); font-stretch: 85%; letter-spacing: .14em; }
     .sec-head h2 { font: 600 clamp(30px, 3.8vw, 46px)/1.05 var(--serif); letter-spacing: -.02em; }
-    .sec-head p { color: var(--ink-2); }
+    .sec-head p { max-width: 68ch; color: var(--ink-2); }
 
     /* Section 1: evidence strip that filters, then a ledger */
     .strip-wrap { margin-bottom: 26px; }
@@ -211,7 +229,7 @@
     .context { display: grid; gap: 28px; }
     @media (min-width: 860px) { .context { grid-template-columns: 1.4fr .6fr; gap: 40px; } }
     .context h3 { font: 600 22px/1.25 var(--serif); }
-    .context p { margin-top: 10px; color: var(--ink-2); }
+    .context p { max-width: 68ch; margin-top: 10px; color: var(--ink-2); }
     .context aside { padding: 20px; background: var(--celeste-soft); border-top: 3px solid var(--blue); align-self: start; }
     .context aside p { color: var(--blue-ink); }
     .context .ext { margin-top: 8px; }
@@ -243,6 +261,33 @@
 
     .site-footer { padding: 32px 0 48px; border-top: 3px solid var(--ink); color: var(--ink-2); font-size: 16px; }
     .site-footer p + p { margin-top: 8px; }
+    .site-footer p { max-width: 80ch; }
+    .site-footer .footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 0 20px; max-width: none; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); font: 500 15px/1.3 var(--label); font-stretch: 92%; }
+    .footer-contact span { color: var(--muted); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+    .footer-contact a { display: inline-flex; align-items: center; min-height: 44px; color: var(--blue-ink); font-weight: 600; }
+
+    /* Phones */
+    @media (max-width: 640px) { .price-table caption, .strip-key { font-size: 16px; } }
+    @media (pointer: coarse) {
+      .sources a:not(.back) { display: inline-flex; align-items: center; justify-self: start; min-height: 44px; }
+      .strip-key .reset, .toc a { min-height: 44px; }
+    }
+
+    /* Short landscape phones: keep the title, the summary and both buttons on the first screen */
+    @media (max-height: 500px) and (orientation: landscape) {
+      html { scroll-padding-top: 60px; }
+      .topbar .wrap { min-height: 48px; }
+      .cover-grid { padding-block: 18px 32px; gap: 28px; }
+      .series { padding-bottom: 8px; }
+      h1 { margin-top: 12px; font-size: clamp(34px, 6vw, 52px); line-height: 1.02; }
+      h1 em { display: inline; }
+      .lede { margin-top: 12px; font-size: 17px; line-height: 1.5; }
+      .actions { margin-top: 16px; }
+    }
+
+    /* Very large screens: scale the whole report instead of leaving a narrow column */
+    @media (min-width: 2400px) { body { zoom: 1.3; } html { scroll-padding-top: 100px; } }
+    @media (min-width: 3200px) { body { zoom: 1.6; } html { scroll-padding-top: 122px; } }
 
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
     @media print { .topbar, .toc, .actions, .strip-wrap { display: none; } body { background: #fff; } }
@@ -253,7 +298,7 @@
   <header class="topbar">
     <div class="wrap">
       <a class="brand" href="#contenido"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="8" height="8" fill="#1b5d9b"/><rect x="14" y="14" width="8" height="8" fill="none" stroke="#14181d" stroke-width="2"/><rect x="14" y="2" width="8" height="8" fill="none" stroke="#1b5d9b" stroke-width="2"/></svg>Señales de mercado <small>Informe preliminar</small></a>
-      <a class="back-link" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Trabajos seleccionados</a>
+      <a class="back-link" href="./" aria-label="Trabajos seleccionados"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Trabajos<span class="more">&nbsp;seleccionados</span></a>
     </div>
     <div class="progress" id="progreso" aria-hidden="true"></div>
   </header>
@@ -503,6 +548,7 @@
     <div class="wrap">
       <p><strong>Muestra especulativa de Alexandr Khrustalev</strong>, preparada a partir de un planteo público sobre un posible minimercado Alfred Market en Cosquín. No fue encargada ni revisada por quien publicó el planteo.</p>
       <p>No es una recomendación de inversión. La oferta, los horarios y los precios deben confirmarse con cada comercio.</p>
+      <p class="footer-contact"><span>Contacto</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
     </div>
   </footer>
 
@@ -556,10 +602,12 @@
         const s = document.createElement('strong'); s.textContent = title.textContent;
         const p = document.createElement('span'); p.textContent = desc.textContent;
         peek.append(b, s, p);
+        // On very large screens the body is zoomed: rects come back in screen pixels, styles are set in zoomed pixels.
+        const z = parseFloat(getComputedStyle(document.body).zoom) || 1;
         const r = a.getBoundingClientRect();
-        const w = Math.min(340, innerWidth - 32);
-        peek.style.left = Math.max(16, Math.min(r.left + scrollX, scrollX + innerWidth - w - 16)) + 'px';
-        peek.style.top = (r.bottom + scrollY + 8) + 'px';
+        const w = peek.offsetWidth * z || Math.min(340, innerWidth - 32);
+        peek.style.left = Math.max(16, Math.min(r.left + scrollX, scrollX + innerWidth - w - 16)) / z + 'px';
+        peek.style.top = (r.bottom + scrollY + 8) / z + 'px';
         peek.classList.add('on');
       };
       document.querySelectorAll('a.ref').forEach(a => {

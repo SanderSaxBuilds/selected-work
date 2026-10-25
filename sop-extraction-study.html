@@ -7,6 +7,14 @@
 <meta name="color-scheme" content="light">
 <title>Work instruction extraction</title>
 <meta name="description" content="A Python parser that turns a Word work instruction written to a set template into JSON and CSV steps, keeps a reference to each source paragraph and refuses content it can't read reliably. Edit a document in the browser and run the same rules on it.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Work instruction extraction">
+<meta property="og:description" content="A Python parser that turns a Word work instruction written to a set template into JSON and CSV steps, keeps a reference to each source paragraph and refuses content it can't read reliably. Edit a document in the browser and run the same rules on it.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sop-extraction-study.html">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/sop.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='3' width='20' height='26' fill='%23fff' stroke='%231b2f52' stroke-width='2'/%3E%3Cpath d='M10 10h12M10 15h12M10 20h7' stroke='%231b2f52' stroke-width='2'/%3E%3Cpath d='M3 8v16' stroke='%23b42318' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -346,7 +354,8 @@ Ran 28 tests in 0.558s
 <footer>
   <div class="wrap">
     <p>Independent study by Alexandr Khrustalev. The work instructions are fictional.</p>
-    <a href="index.html">Back to selected work</a>
+    <a href="index.html#sop-extraction">Back to selected work</a>
+    <p class="foot-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
   </div>
 </footer>
 <script type="text/plain" id="fixture-docx">UEsDBBQAAAAIAAAAIVDXeYTq8QAAALgBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbH2QzU7DMBCE730Ky9cqccoBIZSkB36OwKE8wMreJFb9J69b2rdn00KREOVozXwz62nXB+/EHjPZGDq5qhspMOhobBg7+b55ru6koALBgIsBO3lEkut+0W6OCUkwHKiTUynpXinSE3qgOiYMrAwxeyj8zKNKoLcworppmlulYygYSlXmDNkvhGgfcYCdK+LpwMr5loyOpHg4e+e6TkJKzmoorKt9ML+Kqq+SmsmThyabaMkGqa6VzOL1jh/0lSfK1qB4g1xewLNRfcRslIl65xmu/0/649o4DFbjhZ/TUo4aiXh77+qL4sGG71+06jR8/wlQSwMEFAAAAAgAAAAhUCAbhuqyAAAALgEAAAsAAABfcmVscy8ucmVsc43Puw6CMBQG4J2naM4uBQdjDIXFmLAafICmPZRGeklbL7y9HRzEODie23fyN93TzOSOIWpnGdRlBQStcFJbxeAynDZ7IDFxK/nsLDJYMELXFs0ZZ57yTZy0jyQjNjKYUvIHSqOY0PBYOo82T0YXDE+5DIp6Lq5cId1W1Y6GTwPagpAVS3rJIPSyBjIsHv/h3ThqgUcnbgZt+vHlayPLPChMDB4uSCrf7TKzQHNKuorZvgBQSwMEFAAAAAgAAAAhUHWOcao+AQAAzAIAABEAAAB3b3JkL2RvY3VtZW50LnhtbKWSQU7DMBBFrzLynrjtAiGrSRdFSF1QEAWxNs60sZrYxp4mzZE4BxfDTlUBohKobL5l2Xr//9FMZ/umhhZ90NbkbJyNGKBRttRmk7Onx5uLKwaBpCllbQ3mrMfAZsW0E6VVuwYNQQSYILqcVUROcB5UhY0MmXVo4tva+kZSvPoN76wvnbcKQ4j8puaT0eiSN1IblpAvtuzT6ZL4JANdBCdVtHYeA/oWWfFs/RYWJpDfKYrBBTxgq7EDCUE2rkZQcv3+Bh5VdJzyCCqS+kHdnzxWco3Uw9ISBgGr3lCFpBXg/uBgTd1n39CxgOe/YZcW8HWn3TA6HUCb1tYtltmZKQkdjAXcxWFDTHjsf2h+Rr55hWobSZIG3Nc5wuI6JR7+GvpP4ImAW+m3PwPD3KYb4Wl6QEX3qQM/Lgv/XMTiA1BLAQIUABQAAAAIAAAAIVDXeYTq8QAAALgBAAATAAAAAAAAAAAAAACAAQAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAhQAFAAAAAgAAAAhUCAbhuqyAAAALgEAAAsAAAAAAAAAAAAAAIABIgEAAF9yZWxzLy5yZWxzUEsBAhQAFAAAAAgAAAAhUHWOcao+AQAAzAIAABEAAAAAAAAAAAAAAIAB/QEAAHdvcmQvZG9jdW1lbnQueG1sUEsFBgAAAAADAAMAuQAAAGoDAAAAAA==</script>
@@ -382,7 +391,9 @@ function wire(animate) {
   const p = grid.querySelector(`.mp[data-k="${cur}"]`), j = grid.querySelector(`.jk[data-k="${cur}"]`);
   const g = grid.getBoundingClientRect(), a = p.getBoundingClientRect(), b = j.getBoundingClientRect();
   if (getComputedStyle(path.parentNode).display === "none" || !a.width) return;
-  const ax = a.right - g.left, ay = a.top + a.height / 2 - g.top, bx = b.left - g.left, by = b.top + b.height / 2 - g.top;
+  // On very wide screens the page is zoomed. Rects are in screen pixels, the wire is drawn in page pixels.
+  const z = grid.offsetWidth ? g.width / grid.offsetWidth : 1;
+  const ax = (a.right - g.left) / z, ay = (a.top + a.height / 2 - g.top) / z, bx = (b.left - g.left) / z, by = (b.top + b.height / 2 - g.top) / z;
   const mx = (ax + bx) / 2;
   path.setAttribute("d", `M${ax},${ay} C${mx},${ay} ${mx},${by} ${bx},${by}`);
   dotA.setAttribute("cx", ax); dotA.setAttribute("cy", ay); dotB.setAttribute("cx", bx); dotB.setAttribute("cy", by);

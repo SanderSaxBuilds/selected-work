@@ -7,6 +7,15 @@
 <title>Clearline expense review</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123a2c'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23e9f2ec' stroke-width='2.4'/%3E%3Cpath d='M9 24 23 8' stroke='%23e9f2ec' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="description" content="A phone-first expense review app for a small team. Swipe a receipt right to approve it or left to send it back with a reason, with policy checks, budget impact and undo on every card.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Clearline expense review">
+<meta property="og:description" content="Clear the month's receipts with one thumb. Swipe to approve or send back, with policy checks, budget impact and undo on every card.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sample-mobile.html">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/mobile.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Clearline expense review">
+<meta name="twitter:description" content="A phone-first expense review app. Swipe to approve or send back, with undo on every card.">
+<meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/mobile.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Martian+Mono:wdth,wght@75..112.5,400..600&display=swap" rel="stylesheet">
@@ -28,7 +37,7 @@
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; min-width: 320px; color: var(--env-ink); font: 400 16px/1.5 var(--sans); font-stretch: 87.5%; background: var(--env) radial-gradient(90% 60% at 50% 0%, #17463a 0%, rgba(23, 70, 58, 0) 70%) no-repeat; }
+body { margin: 0; color: var(--env-ink); font: 400 16px/1.5 var(--sans); font-stretch: 87.5%; background: var(--env) radial-gradient(90% 60% at 50% 0%, #17463a 0%, rgba(23, 70, 58, 0) 70%) no-repeat; }
 button, input, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: none; box-shadow: var(--focus); }
@@ -57,8 +66,11 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 .back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--env-muted); font-weight: 600; font-size: 15px; text-decoration: none; }
 .back:hover { color: var(--env-ink); }
 .back svg { width: 16px; height: 16px; stroke-width: 2.2; }
+.intro .back svg { transition: transform .2s ease; }
+.intro .back:hover svg { transform: translateX(-3px); }
 .eyebrow { margin-top: 18px; font: 500 11.5px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--env-muted); }
-.intro h1 { margin-top: 14px; max-width: 13ch; font-size: clamp(38px, 4.6vw, 66px); font-weight: 800; line-height: 1; letter-spacing: -.045em; }
+.intro h1 { margin-top: 14px; max-width: 13ch; font-size: clamp(38px, 4.6vw, 66px); font-weight: 800; line-height: 1; letter-spacing: -.045em; text-wrap: balance; }
+@media (max-width: 340px) { .intro h1 { font-size: 32px; } }
 .intro h1 em { font-style: normal; color: var(--mint); }
 .lede { margin-top: 20px; max-width: 46ch; color: #c9d9d0; font-size: 18px; line-height: 1.6; }
 .keys { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 24px 0 0; padding: 0; list-style: none; color: var(--env-muted); font-size: 14px; }
@@ -95,7 +107,7 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 .note-empty { max-width: 520px; margin-top: 12px; padding: 16px 18px; border: 1px dashed rgba(233, 242, 236, .28); border-radius: 14px; color: var(--env-muted); font-size: 15px; }
 .note-empty > p { margin: 0; }
 .note-list.ghost { margin-top: 14px; }
-.note-list.ghost .note { opacity: .62; animation: none; box-shadow: none; }
+.note-list.ghost .note { opacity: .8; animation: none; box-shadow: none; }
 .checks { max-width: 520px; margin-top: 28px; }
 .checks h3 { font: 600 12px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--env-muted); margin-bottom: 4px; }
 .checks ul { margin: 0; padding: 0; list-style: none; }
@@ -114,9 +126,13 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 .about p { margin-top: 8px; }
 .about .text-btn { margin-top: 6px; color: var(--env-ink); text-decoration-color: rgba(233, 242, 236, .4); }
 .about .text-btn:hover { text-decoration-color: var(--env-ink); }
+.about .footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 0 18px; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--env-line); }
+.footer-contact span { font: 500 11.5px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.footer-contact a { display: inline-flex; align-items: center; min-height: 44px; color: var(--env-ink); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(233, 242, 236, .35); text-underline-offset: 4px; }
+.footer-contact a:hover { text-decoration-color: var(--mint); }
 
 /* Device */
-.device { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 404px; height: min(840px, calc(100vh - 48px)); min-height: 660px; margin: 0 auto; overflow: hidden; border: 10px solid #06140f; border-radius: 46px; background: var(--app); box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .8), 0 0 0 1px rgba(233, 242, 236, .12); isolation: isolate; }
+.device { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 404px; height: min(840px, calc(100vh - 48px)); height: min(840px, calc(100svh - 48px)); min-height: 660px; margin: 0 auto; overflow: hidden; border: 10px solid #06140f; border-radius: 46px; background: var(--app); box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .8), 0 0 0 1px rgba(233, 242, 236, .12); isolation: isolate; }
 .viewport { position: relative; flex: 1; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
 .viewport::-webkit-scrollbar { display: none; }
 .app-bar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 18px 10px; background: var(--app); }
@@ -193,7 +209,7 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 .act-row { display: flex; justify-content: center; margin-top: 6px; }
 .text-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px; border: 0; background: transparent; color: var(--ink-2); font-size: 14.5px; font-weight: 600; text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
 .text-btn:hover { text-decoration-color: var(--ink); }
-.hint { margin-top: 2px; text-align: center; color: var(--faint); font-size: 12.5px; }
+.hint { margin-top: 2px; text-align: center; color: var(--muted); font-size: 13px; }
 
 /* Skeleton */
 .skeleton { margin-top: 16px; padding: 18px; background: var(--paper); border-radius: 4px; }
@@ -335,8 +351,8 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 .toast button:hover { background: #42474a; }
 .toast span { min-width: 0; }
 
-/* Phones: the app is the screen, no bezel */
-@media (max-width: 520px) {
+/* Phones, and phones turned sideways: the app is the screen, no bezel, no scroll inside a scroll */
+@media (max-width: 520px), (max-height: 500px) and (max-width: 959px) {
   .page { padding-left: 0; padding-right: 0; gap: 22px; }
   .intro, .notes, .about { padding: 0 16px; }
   .summary { margin: 0 16px; }
@@ -345,8 +361,17 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
   .app-bar { position: static; }
   .tabbar { position: sticky; bottom: 0; padding-bottom: max(10px, env(safe-area-inset-bottom)); }
   .scrim, .sheet, .toast { position: fixed; }
-  .sheet { max-height: 86vh; }
+  .sheet { max-height: 86vh; max-height: 86dvh; }
   .toast { bottom: calc(80px + env(safe-area-inset-bottom)); }
+  .checks li, .note p, .note-empty, .about { font-size: 16px; }
+}
+/* Sideways phones: keep the app at phone width in the middle, with the safe areas clear */
+@media (max-height: 500px) and (min-width: 521px) and (max-width: 959px) {
+  .intro, .notes, .about { padding-left: max(24px, env(safe-area-inset-left)); padding-right: max(24px, env(safe-area-inset-right)); }
+  .summary { margin: 0 max(24px, env(safe-area-inset-left)); }
+  .device { max-width: 480px; box-shadow: 0 0 0 1px var(--line-strong); }
+  .sheet { left: max(0px, calc(50% - 260px)); right: max(0px, calc(50% - 260px)); }
+  .toast { left: max(12px, calc(50% - 240px)); right: max(12px, calc(50% - 240px)); }
 }
 @media (max-width: 360px) {
   .screen { padding-left: 14px; padding-right: 14px; }
@@ -358,6 +383,7 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 /* Large screens: scale the whole scene instead of leaving a small island */
 @media (min-width: 1800px) and (min-height: 1000px) { .page { zoom: 1.2; } }
 @media (min-width: 2300px) and (min-height: 1300px) { .page { zoom: 1.45; } }
+@media (min-width: 3200px) and (min-height: 1800px) { .page { zoom: 1.9; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
@@ -482,7 +508,7 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
     <p class="sum-help">Pick a teammate to open their expenses in the ledger.</p>
   </section>
 
-  <section class="notes" aria-labelledby="notes-title">    <div class="notes-head"><h2 id="notes-title">What the team receives</h2><span class="mono" id="notes-count" style="font-size:12px;color:var(--muted)"></span></div>
+  <section class="notes" aria-labelledby="notes-title">    <div class="notes-head"><h2 id="notes-title">What the team receives</h2><span class="mono" id="notes-count" style="font-size:12px;color:var(--env-muted)"></span></div>
     <div class="note-empty" id="note-empty">
       <p>Nothing sent yet. Each decision you make in the app lands here as the note the teammate gets, worded for them, not for the finance team. This is what they look like:</p>
       <ul class="note-list ghost" aria-label="Example notes">
@@ -507,6 +533,7 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
     <p>A speculative sample for a public brief that asked for a refresh of an existing expense app. It is not the buyer's app and was not commissioned.</p>
     <p>Clearline, the team and every receipt are fictional. Totals, flags and budget figures are worked out from the sample receipts. Decisions stay on this page and nothing is sent anywhere.</p>
     <button type="button" class="text-btn" data-reset>Restore the sample month</button>
+    <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
   </section>
 </main>
 <script>
@@ -833,10 +860,11 @@ function undo() {
 function bindDrag(card) {
   let s = null;
   const clamp = v => Math.max(0, Math.min(1, v));
-  card.addEventListener('pointerdown', e => { if (e.button !== 0 || openSheet) return; s = { x: e.clientX, y: e.clientY, id: e.pointerId, dx: 0, on: false }; });
+  // On large screens the page is zoomed, so pointer travel is divided back into the card's own pixels.
+  card.addEventListener('pointerdown', e => { if (e.button !== 0 || openSheet) return; s = { x: e.clientX, y: e.clientY, id: e.pointerId, dx: 0, on: false, z: parseFloat(getComputedStyle(card.closest('.page')).zoom) || 1 }; });
   card.addEventListener('pointermove', e => {
     if (!s || e.pointerId !== s.id) return;
-    const dx = e.clientX - s.x, dy = e.clientY - s.y;
+    const dx = (e.clientX - s.x) / s.z, dy = (e.clientY - s.y) / s.z;
     if (!s.on) {
       if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) { s.on = true; try { card.setPointerCapture(e.pointerId); } catch {} card.classList.add('dragging'); card.classList.remove('settle'); }
       else if (Math.abs(dy) > 10) { s = null; return; } else return;

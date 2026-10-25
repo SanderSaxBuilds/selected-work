@@ -15,6 +15,8 @@ const MONO = new Set(['id', 'sku', 'dueDate', 'orderDate', 'qty', 'unitCost', 't
 const $ = (s, el = document) => el.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+// Very large screens scale the page with CSS zoom. Pointer and rect values are screen pixels, layout values are not.
+const zoom = () => parseFloat(getComputedStyle(document.body).zoom) || 1;
 const plural = (n, word) => `${formatInt(n)} ${word}${n === 1 ? '' : 's'}`;
 const clone = o => JSON.parse(JSON.stringify(o));
 const today = () => new Date().toISOString().slice(0, 10);
@@ -684,9 +686,9 @@ window.addEventListener('pointermove', e => {
   if (!drag) return;
   drag.lastX = e.clientX; drag.lastY = e.clientY;
   extendDragTo(e.clientX, e.clientY);
-  const rect = grid.getBoundingClientRect();
-  const dy = e.clientY > rect.bottom - 20 ? 24 : e.clientY < rect.top + HEAD_H + 10 ? -24 : 0;
-  const dx = e.clientX > rect.right - 20 ? 24 : e.clientX < rect.left + layout.pinnedWidth + 10 && grid.scrollLeft > 0 ? -24 : 0;
+  const rect = grid.getBoundingClientRect(), z = zoom();
+  const dy = e.clientY > rect.bottom - 20 * z ? 24 : e.clientY < rect.top + (HEAD_H + 10) * z ? -24 : 0;
+  const dx = e.clientX > rect.right - 20 * z ? 24 : e.clientX < rect.left + (layout.pinnedWidth + 10) * z && grid.scrollLeft > 0 ? -24 : 0;
   clearInterval(autoScroll);
   if (dx || dy) autoScroll = setInterval(() => {
     grid.scrollTop += dy; grid.scrollLeft += dx;
@@ -695,8 +697,8 @@ window.addEventListener('pointermove', e => {
 });
 function extendDragTo(x, y) {
   if (!drag) return;
-  const rect = grid.getBoundingClientRect();
-  const p = cellFromPoint(clamp(x, rect.left + 2, rect.right - 14), clamp(y, rect.top + HEAD_H + 2, rect.bottom - 14));
+  const rect = grid.getBoundingClientRect(), z = zoom();
+  const p = cellFromPoint(clamp(x, rect.left + 2 * z, rect.right - 14 * z), clamp(y, rect.top + (HEAD_H + 2) * z, rect.bottom - 14 * z));
   if (p && (p.r !== state.active.r || p.c !== state.active.c)) { state.active = p; renderBody(true); renderSummary(); }
 }
 window.addEventListener('pointerup', () => { drag = null; clearInterval(autoScroll); });
@@ -713,11 +715,11 @@ function startResize(e, c) {
   e.preventDefault(); e.stopPropagation();
   const lc = layout.cols[c];
   const colState = state.cols.find(x => x.key === lc.key);
-  const startX = e.clientX, startW = colState.width;
+  const startX = e.clientX, startW = colState.width, z = zoom();
   grid.classList.add('resizing');
   let raf = 0;
   const move = ev => {
-    colState.width = clamp(Math.round(startW + ev.clientX - startX), 60, 600);
+    colState.width = clamp(Math.round(startW + (ev.clientX - startX) / z), 60, 600);
     if (!raf) raf = requestAnimationFrame(() => { raf = 0; relayout(); renderHeader(); renderBody(true); placeEditor(); });
   };
   const up = () => {
@@ -738,11 +740,11 @@ function startHeaderDrag(e, c) {
   const key = layout.cols[c].key;
   let moved = false, target = null;
   const mark = $('#drop-mark');
-  const rect = grid.getBoundingClientRect();
+  const rect = grid.getBoundingClientRect(), z = zoom();
   const move = ev => {
     if (!moved && Math.abs(ev.clientX - startX) < 6) return;
     moved = true;
-    const x = ev.clientX - rect.left;
+    const x = (ev.clientX - rect.left) / z;
     const src = layout.cols[c];
     // Allowed drop slots are within the same pinned group
     let best = null;
@@ -908,10 +910,10 @@ function openColumnMenu(c, anchorEl = null) {
   $('#pm-filter', colMenu).append(filterControls(key));
   colMenu.hidden = false;
   const btn = hrow.querySelector(`[data-menu="${c}"]`);
-  const ref = (btn || anchorEl || grid).getBoundingClientRect();
+  const ref = (btn || anchorEl || grid).getBoundingClientRect(), z = zoom();
   const w = colMenu.offsetWidth, h = colMenu.offsetHeight;
-  colMenu.style.left = clamp(ref.right - w, 8, window.innerWidth - w - 8) + 'px';
-  colMenu.style.top = clamp(ref.bottom + 4, 8, Math.max(8, window.innerHeight - h - 8)) + 'px';
+  colMenu.style.left = clamp(ref.right / z - w, 8, window.innerWidth / z - w - 8) + 'px';
+  colMenu.style.top = clamp(ref.bottom / z + 4, 8, Math.max(8, window.innerHeight / z - h - 8)) + 'px';
   if (btn) btn.setAttribute('aria-expanded', 'true');
   colMenu.querySelector('button').focus();
 }
@@ -996,10 +998,10 @@ $('#export-open').addEventListener('click', () => {
   if (wasOpen) return;
   exportMenu.hidden = false;
   $('#export-open').setAttribute('aria-expanded', 'true');
-  const ref = $('#export-open').getBoundingClientRect();
+  const ref = $('#export-open').getBoundingClientRect(), z = zoom();
   const w = exportMenu.offsetWidth;
-  exportMenu.style.left = clamp(ref.right - w, 8, window.innerWidth - w - 8) + 'px';
-  exportMenu.style.top = (ref.bottom + 6) + 'px';
+  exportMenu.style.left = clamp(ref.right / z - w, 8, window.innerWidth / z - w - 8) + 'px';
+  exportMenu.style.top = (ref.bottom / z + 6) + 'px';
   exportMenu.querySelector('button').focus();
 });
 exportMenu.addEventListener('keydown', e => {

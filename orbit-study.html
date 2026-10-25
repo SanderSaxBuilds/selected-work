@@ -7,6 +7,15 @@
 <title>Finish study</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23151311'/%3E%3Cellipse cx='16' cy='16' rx='10' ry='6' fill='none' stroke='%23e9dfcf' stroke-width='2.4' transform='rotate(-30 16 16)'/%3E%3C/svg%3E">
 <meta name="description" content="Six surface finishes rendered live in WebGL without libraries. Pick a specimen, change its roughness and metal, move the light and turn the rings by hand.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Finish study, six finishes under one lamp">
+<meta property="og:description" content="Six surface finishes rendered live in WebGL. Pick a specimen, change its roughness and metal, move the lamp and turn the rings by hand.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/orbit-study.html">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/orbit.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Finish study, six finishes under one lamp">
+<meta name="twitter:description" content="Six surface finishes rendered live in WebGL. Pick a specimen, change its roughness and metal, move the lamp and turn the rings by hand.">
+<meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/orbit.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -16,7 +25,7 @@
 :root {
   color-scheme: dark;
   --bg: #141311; --bg-2: #1c1a17; --panel: #211f1b; --line: rgba(236, 228, 214, .12); --line-2: rgba(236, 228, 214, .24);
-  --ink: #ece4d6; --ink-2: #c2baac; --muted: #8f877a; --tag: #d8cfbf;
+  --ink: #ece4d6; --ink-2: #c2baac; --muted: #9b9386; --tag: #d8cfbf;
   --hi: #e8dcc4;
   --display: "Syne", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
@@ -24,7 +33,7 @@
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; min-width: 320px; color: var(--ink); background: var(--bg); font: 400 15px/1.6 var(--mono); }
+body { margin: 0; color: var(--ink); background: var(--bg); font: 400 15px/1.6 var(--mono); }
 button, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--hi); outline-offset: 3px; }
@@ -48,13 +57,13 @@ a { color: inherit; }
 .lab { display: grid; gap: 28px; padding-top: 36px; padding-bottom: 40px; }
 @media (min-width: 1000px) { .lab { grid-template-columns: minmax(330px, .72fr) minmax(0, 1.28fr); gap: 48px; align-items: start; } }
 .kicker { color: var(--muted); font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; }
-h1 { margin-top: 14px; font: 700 clamp(40px, 5.2vw, 76px)/.95 var(--display); letter-spacing: -.02em; }
+h1 { margin-top: 14px; font: 700 clamp(40px, 5.2vw, 76px)/.95 var(--display); letter-spacing: -.02em; text-wrap: pretty; }
 h1 em { font-style: normal; color: var(--hi); }
 .lede { margin-top: 18px; max-width: 46ch; color: var(--ink-2); font-size: 15px; }
 
 .sheet { margin-top: 28px; border: 1px solid var(--line-2); border-radius: 4px; background: linear-gradient(180deg, #24211d, #1d1b18); }
 .sheet-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 14px 16px; border-bottom: 1px dashed var(--line-2); }
-.sheet-code { font-size: 12.5px; letter-spacing: .1em; color: var(--muted); }
+.sheet-code { font-size: 12.5px; letter-spacing: .1em; color: var(--muted); white-space: nowrap; }
 .sheet-name { font: 700 26px/1.1 var(--display); letter-spacing: -.01em; }
 .sheet-note { padding: 12px 16px 0; color: var(--ink-2); font-size: 14px; min-height: 3.6em; }
 .readout { display: grid; grid-template-columns: repeat(3, 1fr); margin: 12px 0 0; border-top: 1px solid var(--line); }
@@ -80,6 +89,7 @@ h1 em { font-style: normal; color: var(--hi); }
 .btn:disabled { opacity: .4; cursor: not-allowed; }
 .btn.solid { border-color: var(--hi); background: var(--hi); color: #1a1815; }
 .btn.solid:hover:not(:disabled) { background: #f4ead6; }
+.btn:active:not(:disabled), .chip:active { transform: translateY(1px); }
 .toggles { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 10px; }
 .toggle { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 13.5px; color: var(--ink-2); cursor: pointer; }
 .toggle input { width: 18px; height: 18px; margin: 0; accent-color: var(--hi); }
@@ -125,13 +135,16 @@ h1 em { font-style: normal; color: var(--hi); }
 @media (min-width: 860px) { .cols { grid-template-columns: repeat(3, 1fr); gap: 36px; } }
 .col { padding-top: 14px; border-top: 1px solid var(--line-2); }
 .col h3 { font: 600 19px/1.2 var(--display); }
-.col p { margin-top: 8px; color: var(--ink-2); font-size: 14px; }
+.col p { max-width: 68ch; margin-top: 8px; color: var(--ink-2); font-size: 14px; }
 .code { margin: 40px 0 0; border: 1px solid var(--line); border-radius: 4px; background: #0f0e0c; }
-.code figcaption { display: flex; justify-content: space-between; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.code figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 .code pre { margin: 0; padding: 16px; overflow-x: auto; color: #d9d0c1; font: 400 13px/1.65 var(--mono); }
 .foot { border-top: 1px solid var(--line); }
 .foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-top: 22px; padding-bottom: 32px; color: var(--muted); font-size: 13px; }
-.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-underline-offset: 4px; }
+.foot a:hover { text-decoration-color: var(--hi); }
+.foot .footer-contact { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 0 22px; padding-top: 8px; border-top: 1px solid var(--line); }
+.footer-contact span { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; }
 
 @media (max-width: 999px) {
   .lab { padding-top: 22px; }
@@ -145,9 +158,42 @@ h1 em { font-style: normal; color: var(--hi); }
   .wrap { width: calc(100% - 32px); }
   .readout dd { font-size: 16px; }
   .readout div { padding-left: 12px; padding-right: 8px; }
+  .lede, .sheet-note, .col p, .foot .wrap { font-size: 16px; }
+  .code pre { font-size: 13.5px; }
 }
-@media (min-width: 1900px) { html { zoom: 1.2; } }
-@media (min-width: 2400px) { html { zoom: 1.4; } }
+@media (max-width: 340px) {
+  h1 { font-size: 36px; }
+  .readout dt { font-size: 10.5px; letter-spacing: .04em; }
+  .readout div { padding-left: 10px; padding-right: 6px; }
+  .tag { left: 10px; bottom: 10px; transform: rotate(-1.4deg) scale(.86); transform-origin: left bottom; }
+  .lamp span { display: none; }
+}
+@media (pointer: coarse) {
+  .dial input { height: 44px; }
+}
+/* Sideways phones: the stage sits beside the specimen sheet, so the rings are on the first screen */
+@media (max-height: 500px) and (orientation: landscape) and (max-width: 999px) {
+  .lab { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; padding-top: 18px; }
+  .sheet-col { display: block; }
+  .stage-col { order: 0; position: sticky; top: 10px; }
+  .stage { width: min(100%, calc(100svh - 64px)); max-height: none; }
+  .sheet { margin-top: 20px; }
+  h1 { font-size: 34px; }
+  .lede { font-size: 14px; }
+}
+/* Large screens are zoomed. Viewport units inside zoomed html are zoomed too, so the stage divides by the factor. */
+@media (min-width: 1900px) {
+  html { zoom: 1.2; }
+  .stage { width: min(100%, calc(100vh / 1.2 - 150px)); }
+}
+@media (min-width: 2400px) {
+  html { zoom: 1.4; }
+  .stage { width: min(100%, calc(100vh / 1.4 - 150px)); }
+}
+@media (min-width: 3200px) {
+  html { zoom: 1.8; }
+  .stage { width: min(100%, calc(100vh / 1.8 - 150px)); }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
 </head>
@@ -246,6 +292,7 @@ gl_FragColor = vec4(tone(diff + refl + top), 1.);</pre>
   <div class="wrap">
     <p>An independent interaction study by Alexandr Khrustalev, October 2026. Not a client commission.</p>
     <a href="index.html">Back to selected work</a>
+    <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
   </div>
 </footer>
 
