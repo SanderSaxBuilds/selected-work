@@ -162,7 +162,13 @@ footer a{color:var(--gold-soft)}
   .fix{grid-template-columns:1fr;gap:6px}
   .fix .arrow{transform:rotate(90deg);justify-self:start}
   .nav a.tel{font-size:14px}
-  .hero::after{left:78%;width:120px;height:120px}
+  .hero{background:
+   radial-gradient(120% 50% at 78% 12%,rgba(232,196,190,.5),transparent 60%),
+   radial-gradient(90% 40% at 10% 0%,rgba(178,160,200,.45),transparent 60%),
+   linear-gradient(180deg,#5d6f8c 0%,#8b8aa6 40%,#c9a6a4 71%,#2a6a70 72%,#123f45 88%,#0c2f33 100%)}
+  .hero::before{height:28%}
+  .hero::after{left:84%;top:71%;width:96px;height:96px;transform:translate(-50%,-62%)}
+  .hero p.lead{text-shadow:0 1px 12px rgba(40,40,70,.35)}
   .brand small{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -184,7 +190,7 @@ footer a{color:var(--gold-soft)}
       <p class="lead">Официальное свадебное агентство полного цикла: от концепции и флористики до авторского кейтеринга и шоу-программы. Слушаем вас, чувствуем ваш стиль и укладываемся в ваш бюджет.</p>
       <div class="cta">
         <a class="btn btn-gold" href="#packages">Выбрать церемонию и дату</a>
-        <a class="btn btn-ghost" href="#story"><span data-yrs>16 лет</span> на острове</a>
+        <a class="btn btn-ghost" href="#story"><span><span data-yrs>16 лет</span> на острове</span></a>
       </div>
       <div class="facts">
         <div><b>2010</b>первое официальное ивент-агентство острова</div>
