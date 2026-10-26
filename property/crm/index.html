@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Заявки агентства, пример CRM</title>
+<meta name="description" content="Все заявки агентства недвижимости в одной доске: этапы, напоминания, воронка, источники и выгрузка в Excel. Пример для агентства в Таиланде.">
+<meta name="theme-color" content="#f2f3ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101311" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f3ef;--panel:#fff;--col:#e6e8e2;--tx:#131915;--hint:#5c665f;--sep:rgba(19,25,21,.12);--field:#f2f3ef;--acc:#17694a;--acctx:#fff;--soft:#dcebe2;--crit:#b3261e;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101311;--panel:#191d1a;--col:#151916;--tx:#e6ebe7;--hint:#9aa59d;--sep:rgba(230,235,231,.12);--field:#222823;--acc:#5cc79a;--acctx:#0b1f15;--soft:#1d3328;--crit:#f2a39c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101311;--panel:#191d1a;--col:#151916;--tx:#e6ebe7;--hint:#9aa59d;--sep:rgba(230,235,231,.12);--field:#222823;--acc:#5cc79a;--acctx:#0b1f15;--soft:#1d3328;--crit:#f2a39c;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 Geologica,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px 32px;flex-wrap:wrap;padding-top:30px;padding-bottom:20px}
+.lbl{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--hint)}
+h1{font-weight:600;font-size:34px;line-height:1.08;letter-spacing:-.025em;margin:8px 0 10px}
+.lede{color:var(--hint);max-width:44em}
+.topbtns{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.toplink{font-weight:500;color:var(--acc);text-decoration:none;border-bottom:1px solid transparent}
+.toplink:hover{border-bottom-color:var(--acc)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:12px 18px;font-weight:500;font-size:15px;cursor:pointer;text-decoration:none;transition:transform .12s,filter .12s,background .12s;position:relative}
+.btn.p{background:var(--acc);color:var(--acctx)}
+.btn.p:hover{filter:brightness(1.08)}
+.btn.s{background:var(--panel);color:var(--tx)}
+.btn.s:hover{background:var(--soft)}
+.btn.sm{padding:8px 14px;font-size:14px;border-radius:10px}
+.btn:active{transform:scale(.97)}
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.kpi{flex:1 1 200px;background:var(--panel);border-radius:14px;padding:14px 16px 12px}
+.kpi>span{display:block;font-size:13px;color:var(--hint)}
+.kpi b{display:block;font:500 30px/1.15 'JetBrains Mono',monospace;letter-spacing:-.02em;margin:2px 0 1px}
+.ks{min-height:20px}
+.late{color:var(--crit);font-weight:500;display:inline-flex;gap:5px;align-items:center}
+.late i{font-style:normal;width:15px;height:15px;border-radius:50%;background:var(--crit);color:var(--panel);font-size:10.5px;line-height:15px;text-align:center;font-weight:700;flex:none}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.search{flex:1 1 220px;max-width:320px;background:var(--panel);border:1px solid transparent;border-radius:10px;padding:8px 12px;font-size:14.5px}
+.search:focus{outline:0;border-color:var(--acc)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--sep);background:transparent;border-radius:999px;padding:6px 12px;font-size:13.5px;cursor:pointer;transition:background .12s,color .12s,border-color .12s}
+.chip:hover{background:var(--panel)}
+.chip[aria-pressed="true"]{background:var(--tx);color:var(--panel);border-color:var(--tx)}
+.sp{flex:1}
+.mini{position:relative;border:1px solid var(--sep);background:transparent;border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;transition:background .12s}
+.mini:hover{background:var(--panel)}
+.board{position:relative;display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;align-items:flex-start;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+.colm{flex:1 0 208px;background:var(--col);border-radius:14px;padding:10px;transition:background .12s,box-shadow .12s;scroll-snap-align:start}
+.colm.over{background:var(--soft);box-shadow:inset 0 0 0 2px var(--acc)}
+.colm header{position:relative;display:flex;justify-content:space-between;align-items:baseline;padding:2px 4px 10px}
+.colm h3{font-size:14px;font-weight:600}
+.cnt{font:500 12.5px 'JetBrains Mono',monospace;color:var(--hint)}
+.cards{display:flex;flex-direction:column;gap:8px;min-height:64px}
+.cd{background:var(--panel);border-radius:10px;padding:10px 12px;cursor:grab;border:1px solid transparent;transition:border-color .12s,box-shadow .12s,opacity .12s;user-select:none;-webkit-user-select:none}
+.cd:hover{border-color:var(--sep);box-shadow:0 6px 16px -8px rgba(0,0,0,.22)}
+.cd:active{cursor:grabbing}
+.cd.drag{opacity:.4}
+.cd.fresh{animation:fresh 1.8s ease-out}
+@keyframes fresh{0%{box-shadow:0 0 0 3px var(--acc);transform:translateY(-8px)}25%{transform:none}100%{box-shadow:0 0 0 0 transparent}}
+.cd1{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.cd1 b{font-weight:600;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.src{font-size:11.5px;color:var(--hint);white-space:nowrap}
+.obj{font-size:13px;color:var(--hint);margin-top:2px;line-height:1.35}
+.cd2{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 8px;margin-top:8px;font-size:12.5px;align-items:center}
+.bud{font-family:'JetBrains Mono',monospace;font-size:12px}
+.nx{color:var(--hint)}
+.nx.now{color:var(--acc);font-weight:500}
+.empty{font-size:13px;color:var(--hint);text-align:center;padding:18px 6px;border:1px dashed var(--sep);border-radius:10px}
+.an{margin-top:34px}
+.an h2,.pitch h2{font-size:22px;font-weight:600;letter-spacing:-.015em;line-height:1.2;margin-bottom:12px}
+.charts{display:flex;gap:12px;flex-wrap:wrap}
+.chart{flex:1 1 320px;background:var(--panel);border-radius:14px;padding:14px 16px 12px;position:relative;min-width:0}
+.chart header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.chart h3{font-size:14.5px;font-weight:600}
+.sub{font-size:12.5px;color:var(--hint)}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:Geologica,sans-serif}
+.chart svg text.v{font-family:'JetBrains Mono',monospace}
+.chart svg path{transition:opacity .12s}
+.chart svg.hov path{opacity:.45}
+.chart svg.hov path.on{opacity:1}
+.tip{position:absolute;pointer-events:none;background:var(--tx);color:var(--panel);font-size:12.5px;line-height:1.4;padding:6px 9px;border-radius:8px;max-width:240px;opacity:0;transition:opacity .1s;z-index:2}
+.chart table{width:100%;border-collapse:collapse;font-size:13.5px}
+.chart th{font-weight:500;color:var(--hint);font-size:12.5px}
+.chart td,.chart th{padding:6px 4px;border-bottom:1px solid var(--sep);text-align:left}
+.chart td+td,.chart th+th{text-align:right}
+.chart td+td{font-family:'JetBrains Mono',monospace}
+.pitch{margin-top:40px;padding-bottom:48px}
+.pitch .in{background:var(--panel);border-radius:18px;padding:26px;display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
+.pitch ul{list-style:none}
+.pitch li{padding:9px 0 9px 20px;border-top:1px solid var(--sep);position:relative;font-size:14.5px}
+.pitch li::before{content:"";position:absolute;left:2px;top:17px;width:8px;height:8px;border-radius:2px;background:var(--acc)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.note{font-size:12.5px;color:var(--hint);margin-top:14px}
+.ov{position:fixed;inset:0;background:rgba(8,12,9,.4);z-index:30}
+.dr{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--panel);z-index:31;display:flex;flex-direction:column;box-shadow:-24px 0 60px -24px rgba(0,0,0,.4);animation:slide .2s ease-out}
+@keyframes slide{from{transform:translateX(28px);opacity:0}}
+.dr>header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--sep)}
+.dr h2{font-size:18px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.x{border:0;background:var(--field);width:34px;height:34px;border-radius:50%;font-size:20px;line-height:1;cursor:pointer;flex:none}
+.drb{flex:1;overflow-y:auto;padding:16px 20px}
+.row{display:flex;gap:10px}
+.row>label{flex:1;min-width:0}
+.drb label{display:block;font-size:13px;color:var(--hint);margin-bottom:10px}
+.drb label>input,.drb label>select,.drb label>textarea,.addh input{display:block;width:100%;margin-top:4px;background:var(--field);border:1px solid transparent;border-radius:10px;padding:9px 11px;font-size:15px;color:var(--tx)}
+.drb label>input:focus,.drb label>select:focus,.drb label>textarea:focus,.addh input:focus{outline:0;border-color:var(--acc);background:var(--panel)}
+.drb textarea{resize:vertical;min-height:70px}
+.drb .lbl{margin-top:6px}
+.stg{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 18px}
+.addh{display:flex;gap:8px;margin:8px 0 12px;align-items:center}
+.addh input{margin-top:0;flex:1}
+.hist{list-style:none;border-left:2px solid var(--sep);margin-left:4px}
+.hist li{position:relative;padding:3px 0 11px 14px;font-size:13.5px}
+.hist li::before{content:"";position:absolute;left:-6px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--panel);border:2px solid var(--acc)}
+.hist time{display:block;font-size:11.5px;color:var(--hint)}
+.dr>footer{padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--sep)}
+.del{border:0;background:transparent;color:var(--crit);font-weight:500;cursor:pointer;padding:6px 0}
+.del.armed{text-decoration:underline}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--tx);color:var(--panel);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:40;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.burst{position:absolute;width:7px;height:7px;border-radius:50%;pointer-events:none;animation:burst .7s ease-out forwards}
+@keyframes burst{from{transform:translate(0,0) scale(1);opacity:1}to{transform:translate(var(--x),var(--y)) scale(.3);opacity:0}}
+@media (max-width:900px){.pitch .in{grid-template-columns:1fr}}
+@media (max-width:700px){
+ .wrap{padding:0 16px}
+ .top{padding-top:22px}
+ h1{font-size:27px}
+ .topbtns{align-items:stretch;width:100%}
+ .topbtns .btn{width:100%}
+ .kpi{flex:1 1 calc(50% - 6px);padding:12px 14px 10px}
+ .kpi b{font-size:24px}
+ .search{max-width:none;flex-basis:100%}
+ .board{scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 12px;scroll-padding:0 16px}
+ .colm{flex:0 0 84%}
+ .pitch .in{padding:20px}
+}
+@media (prefers-reduced-motion:reduce){.cd.fresh,.dr,.burst{animation:none}.burst{display:none}}
+</style>
+</head>
+<body>
+<header class="wrap top">
+ <div>
+  <p class="lbl">Пример для агентства недвижимости</p>
+  <h1>Все заявки в одной доске</h1>
+  <p class="lede">Заявки с сайта, из Telegram и WhatsApp, напоминания, воронка и источники. Перетащите карточку на другой этап или откройте её, чтобы поменять данные и записать шаг.</p>
+ </div>
+ <div class="topbtns">
+  <button class="btn p" type="button" id="sim">Пришла заявка с сайта</button>
+  <a class="toplink" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такую для агентства →</a>
+ </div>
+</header>
+<div class="wrap">
+ <section class="kpis" id="kpis" aria-label="Сводка"></section>
+ <div class="bar">
+  <input class="search" id="q" type="search" placeholder="Поиск по имени, объекту, заметке" aria-label="Поиск по заявкам">
+  <div class="chips" id="srcF" role="group" aria-label="Источник"></div>
+  <button class="chip" type="button" id="todayF" aria-pressed="false">Шаги на сегодня</button>
+  <span class="sp"></span>
+  <button class="btn s sm" type="button" id="add">+ Заявка</button>
+  <button class="mini" type="button" id="csv">Выгрузить в Excel</button>
+  <button class="mini" type="button" id="rs">Сбросить демо</button>
+ </div>
+</div>
+<div class="wrap"><main class="board" id="board" aria-label="Этапы заявок"></main></div>
+<section class="wrap an" aria-label="Аналитика">
+ <h2>Аналитика</h2>
+ <div class="charts">
+  <div class="chart" id="chF"><header><div><h3>Воронка</h3><p class="sub">заявки за 45 дней, сколько дошли до этапа</p></div><button class="mini tb" type="button" aria-pressed="false">Таблица</button></header><div class="plot"></div><div class="tip" aria-hidden="true"></div></div>
+  <div class="chart" id="chW"><header><div><h3>Заявки по неделям</h3><p class="sub">последние 6 недель, по дате заявки</p></div><button class="mini tb" type="button" aria-pressed="false">Таблица</button></header><div class="plot"></div><div class="tip" aria-hidden="true"></div></div>
+  <div class="chart" id="chS"><header><div><h3>Источники</h3><p class="sub">все заявки в доске</p></div><button class="mini tb" type="button" aria-pressed="false">Таблица</button></header><div class="plot"></div><div class="tip" aria-hidden="true"></div></div>
+ </div>
+</section>
+<section class="wrap pitch">
+ <div class="in">
+  <div>
+   <h2>Для агентств</h2>
+   <p>Заявки с сайта агентства, из Telegram-бота и WhatsApp попадают в одну доску сами. Агент видит, кому написать сегодня, руководитель видит воронку и какие каналы приводят клиентов. Можно подключить к сайту и каталогу и выгружать всё в Excel.</p>
+   <div class="cta"><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такую для агентства</a><a class="btn s" href="../">← Сайт для агентства</a></div>
+  </div>
+  <ul>
+   <li>Этапы под ваш процесс: показ, бронь, депозит, сделка</li>
+   <li>Напоминания и просроченные шаги на виду</li>
+   <li>Доступ для агентов и руководителя</li>
+   <li>Выгрузка в Excel и Google Таблицы</li>
+  </ul>
+ </div>
+ <p class="note">Имена, объекты и цифры условные. В этом примере данные хранятся только в вашем браузере.</p>
+</section>
+<div class="ov" id="ov" hidden></div>
+<aside class="dr" id="dr" role="dialog" aria-modal="true" aria-labelledby="drT" hidden>
+ <header><h2 id="drT">Заявка</h2><button class="x" type="button" id="drX" aria-label="Закрыть">×</button></header>
+ <div class="drb">
+  <label>Имя<input id="fName" maxlength="40"></label>
+  <label>Контакт<input id="fContact" maxlength="40" placeholder="Телефон или Telegram"></label>
+  <div class="row"><label>Источник<select id="fSrc"></select></label><label>Запрос<select id="fWant"><option value="buy">Покупка</option><option value="rent">Аренда</option></select></label></div>
+  <label>Объект<select id="fObj"></select></label>
+  <div class="row"><label>Бюджет, ฿<input id="fBud" inputmode="numeric" maxlength="11"></label><label>Следующий шаг<input id="fNext" type="date"></label></div>
+  <label>Заметка<textarea id="fNote" rows="3" maxlength="300"></textarea></label>
+  <p class="lbl">Этап</p>
+  <div class="stg" id="fStage" role="group" aria-label="Этап"></div>
+  <p class="lbl">История</p>
+  <div class="addh"><input id="hTxt" maxlength="140" placeholder="Например, отправил подборку" aria-label="Новая запись"><button class="mini" type="button" id="hAdd">Добавить</button></div>
+  <ol class="hist" id="hist"></ol>
+ </div>
+ <footer><button class="del" type="button" id="del">Удалить заявку</button></footer>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const DAY=864e5;
+const ST=[['new','Новые'],['contact','На связи'],['view','Показ'],['book','Бронь'],['won','Сделка'],['lost','Отказ']];
+const STN={},SI={};ST.forEach((s,i)=>{STN[s[0]]=s[1];SI[s[0]]=i;});
+const SRC=[['site','Сайт'],['tg','Telegram'],['wa','WhatsApp'],['ig','Instagram'],['ref','Рекомендация']];
+const SRCN={};SRC.forEach(s=>{SRCN[s[0]]=s[1];});
+const OBJ={v1:'Вилла с садом в Чернг Талее',v2:'Вилла из тика у Най Харна',v3:'Новая вилла в Банг Тао',v4:'Вилла над морем в Лаяне',v5:'Вилла с бассейном в Раваи',v6:'Закрытая вилла в Сурине',
+ c1:'Квартира в комплексе у Каты',c2:'Квартира с видом на море в Камале',c3:'Квартира в малоэтажном доме у Патонга',any:'Подбор по запросу'};
+/* name, source, stage, object, want, budget, days ago, next step in days, note, furthest stage for lost leads */
+const SEED=[
+ ['Ирина К.','site','new','v2','buy',19000000,0,0,'Спрашивает про лизхолд и рассрочку'],
+ ['Дмитрий С.','tg','new','c2','buy',9500000,0,1,'Нужен вид на море, этаж от третьего'],
+ ['Анна и Павел','wa','new','v5','rent',110000,1,0,'Семья с ребёнком, с декабря на 4 месяца'],
+ ['Виктор А.','site','new','c1','rent',40000,2,-1,'Не отвечает в Telegram, написать в WhatsApp'],
+ ['Полина Ш.','ig','new','v3','buy',24000000,5,0,'Смотрела видео виллы в Instagram'],
+ ['Сергей М.','ig','contact','c1','buy',6500000,3,-1,'Ждёт видеообзор квартиры'],
+ ['Ольга В.','site','contact','v6','rent',150000,4,2,'Сравнивает с вариантом в Банг Тао'],
+ ['Максим Т.','ref','contact','v3','buy',25000000,6,0,'Рекомендация прошлого клиента'],
+ ['Татьяна Е.','tg','contact','v4','buy',60000000,2,1,'Инвестиция, интересует доходность'],
+ ['Елена Р.','tg','view','v1','buy',34000000,8,1,'Показ в четверг в 11:00, встреча у ворот'],
+ ['Артём Б.','site','view','c3','buy',5200000,9,3,'Онлайн-показ по видеосвязи'],
+ ['Наталья Ж.','wa','view','v5','rent',120000,10,-2,'Перенесла показ, уточнить дату'],
+ ['Константин Л.','site','book','v2','buy',18900000,14,2,'Депозит 500 000 бат, проверка документов'],
+ ['Марина Д.','tg','book','c2','rent',65000,12,5,'Бронь на 6 месяцев с 1 декабря'],
+ ['Алексей Ф.','ref','won','v4','buy',89000000,26,null,'Сделка закрыта, передача ключей'],
+ ['Юлия П.','site','won','c1','buy',6200000,21,null,'Оформлено на компанию'],
+ ['Игорь Н.','wa','won','v6','rent',145000,17,null,'Договор аренды на год'],
+ ['Ксения Б.','site','won','v5','rent',115000,33,null,'Продлили аренду ещё на полгода'],
+ ['Мария Л.','wa','won','c3','buy',5100000,40,null,'Покупка с переоформлением договора'],
+ ['Светлана К.','ig','lost','v3','buy',20000000,19,null,'Выбрала новостройку у застройщика',2],
+ ['Роман Г.','site','lost','c3','rent',30000,23,null,'Бюджет ниже рынка',1],
+ ['Андрей Ц.','tg','lost','c2','buy',8000000,37,null,'Отложил покупку до весны',2]];
+let LEADS=[],F={src:'all',q:'',today:false},CUR=null,DB=null;
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const ymd=ts=>{const d=new Date(ts);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};
+const midnight=()=>{const t=new Date();t.setHours(0,0,0,0);return t.getTime();};
+function dd(s){const p=String(s).split('-');if(p.length!==3)return null;const d=new Date(+p[0],+p[1]-1,+p[2]).getTime();return isFinite(d)?Math.round((d-midnight())/DAY):null;}
+function plural(n,a,b,c){n=Math.abs(n)%100;const m=n%10;if(n>10&&n<20)return c;if(m>1&&m<5)return b;if(m===1)return a;return c;}
+const days=n=>n+' '+plural(n,'день','дня','дней');
+function rel(ts){const d=new Date(ts);d.setHours(0,0,0,0);const n=Math.round((midnight()-d.getTime())/DAY);return n<=0?'сегодня':n===1?'вчера':days(n)+' назад';}
+function fmtTs(ts){const d=new Date(ts);return pad(d.getDate())+'.'+pad(d.getMonth()+1)+', '+pad(d.getHours())+':'+pad(d.getMinutes());}
+function money(v,want){v=+v||0;if(!v)return 'без бюджета';let s;if(v>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'').replace('.',',')+' млн';else if(v>=1e3)s=Math.round(v/1e3)+' тыс.';else s=String(v);return s+' ฿'+(want==='rent'?'/мес':'');}
+const byId=id=>LEADS.find(l=>l.id===id);
+const active=l=>l.stage!=='won'&&l.stage!=='lost';
+function seed(){const now=Date.now();return SEED.map((s,i)=>{const [name,src,stage,obj,want,budget,ago,nx,note,lostMax]=s;
+ const created=now-ago*DAY-((i*37)%9)*36e5;const top=stage==='lost'?lostMax:SI[stage];const step=ago*DAY/(top+2);
+ const hist=[{ts:created,t:'Заявка: '+SRCN[src]+', '+OBJ[obj]}];
+ for(let k=1;k<=top;k++)hist.push({ts:created+k*step,t:'Этап: '+ST[k][1],st:ST[k][0]});
+ if(stage==='lost')hist.push({ts:created+(top+1)*step,t:'Этап: Отказ',st:'lost'});
+ return {id:'L'+(i+1),name,contact:'',src,stage,obj,want,budget,created,next:nx==null?'':ymd(now+nx*DAY),note,max:top,hist};});}
+/* browser database */
+function idb(){return new Promise(res=>{let done=false;const fin=v=>{if(!done){done=true;res(v);}};setTimeout(()=>fin(null),1500);
+ try{const r=indexedDB.open('pn_crm',1);r.onupgradeneeded=()=>{r.result.createObjectStore('leads',{keyPath:'id'});};r.onsuccess=()=>fin(r.result);r.onerror=()=>fin(null);r.onblocked=()=>fin(null);}catch(e){fin(null);}});}
+function tx(mode,fn){if(!DB)return Promise.resolve(null);return new Promise(res=>{try{const t=DB.transaction('leads',mode);const rq=fn(t.objectStore('leads'));t.oncomplete=()=>res(rq?rq.result:null);t.onerror=()=>res(null);t.onabort=()=>res(null);}catch(e){res(null);}});}
+const dbAll=()=>tx('readonly',s=>s.getAll());
+const put=l=>tx('readwrite',s=>{s.put(l);});
+const dbDel=id=>tx('readwrite',s=>{s.delete(id);});
+const dbReset=ls=>tx('readwrite',s=>{s.clear();ls.forEach(l=>s.put(l));});
+/* board */
+const board=$('board');
+function visible(l){if(F.src!=='all'&&l.src!==F.src)return false;
+ if(F.today){const d=l.next?dd(l.next):null;if(!active(l)||d===null||d>0)return false;}
+ if(F.q){const s=(l.name+' '+l.contact+' '+(OBJ[l.obj]||'')+' '+l.note).toLowerCase();if(s.indexOf(F.q)<0)return false;}return true;}
+function card(l){let nx='';const d=active(l)&&l.next?dd(l.next):null;
+ if(d!==null){if(d<0)nx='<span class="late"><i aria-hidden="true">!</i>просрочено на '+days(-d)+'</span>';else if(d===0)nx='<span class="nx now">шаг сегодня</span>';else if(d===1)nx='<span class="nx">шаг завтра</span>';else nx='<span class="nx">шаг через '+days(d)+'</span>';}
+ return '<div class="cd" draggable="true" tabindex="0" role="button" data-id="'+l.id+'" aria-label="'+esc(l.name)+', '+STN[l.stage]+'"><div class="cd1"><b>'+esc(l.name)+'</b><span class="src">'+SRCN[l.src]+'</span></div><p class="obj">'+esc(OBJ[l.obj]||'')+', '+rel(l.created)+'</p><div class="cd2"><span class="bud">'+money(l.budget,l.want)+'</span>'+nx+'</div></div>';}
+function drawBoard(){board.innerHTML=ST.map(s=>{const arr=LEADS.filter(l=>l.stage===s[0]&&visible(l)).sort((a,b)=>b.created-a.created);
+ return '<section class="colm" data-st="'+s[0]+'" aria-label="'+s[1]+'"><header><h3>'+s[1]+'</h3><span class="cnt">'+arr.length+'</span></header><div class="cards">'+(arr.length?arr.map(card).join(''):'<p class="empty">Перетащите заявку сюда</p>')+'</div></section>';}).join('');}
+/* summary tiles */
+function wonAt(l){for(let i=l.hist.length-1;i>=0;i--)if(l.hist[i].st==='won')return l.hist[i].ts;return l.created;}
+function tile(label,val,sub){return '<div class="kpi"><span>'+label+'</span><b>'+val+'</b><span class="ks sub">'+sub+'</span></div>';}
+function kpis(){const now=Date.now();
+ const n7=LEADS.filter(l=>l.created>=now-7*DAY).length;
+ const work=LEADS.filter(l=>l.stage==='contact'||l.stage==='view'||l.stage==='book').length;
+ const due=LEADS.filter(l=>{const d=active(l)&&l.next?dd(l.next):null;return d!==null&&d<=0;});const late=due.filter(l=>dd(l.next)<0).length;
+ const won=LEADS.filter(l=>l.stage==='won'&&wonAt(l)>=now-30*DAY);const sum=won.filter(l=>l.want==='buy').reduce((a,l)=>a+(+l.budget||0),0);
+ $('kpis').innerHTML=tile('Новых за 7 дней',n7,'')+tile('В работе',work,'на связи, показ, бронь')+tile('Шаги на сегодня',due.length,late?'<span class="late"><i aria-hidden="true">!</i>просрочено '+late+'</span>':'всё по плану')+tile('Сделок за 30 дней',won.length,sum?'продажи на '+money(sum,'buy'):'');}
+/* charts */
+function hpath(x,y,w,h){const r=Math.min(4,w,h/2);return 'M'+x+','+y+'H'+(x+w-r)+'Q'+(x+w)+','+y+' '+(x+w)+','+(y+r)+'V'+(y+h-r)+'Q'+(x+w)+','+(y+h)+' '+(x+w-r)+','+(y+h)+'H'+x+'Z';}
+function vpath(x,y,w,h){const r=Math.min(4,w/2,h);return 'M'+x+','+(y+h)+'V'+(y+r)+'Q'+x+','+y+' '+(x+r)+','+y+'H'+(x+w-r)+'Q'+(x+w)+','+y+' '+(x+w)+','+(y+r)+'V'+(y+h)+'Z';}
+function hbar(rows,label){const W=360,RH=32,LW=104,H=rows.length*RH,MW=W-LW-40,mx=Math.max(1,...rows.map(r=>r.v));
+ let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+label+'">';
+ rows.forEach((r,i)=>{const y=i*RH+7,h=18,w=r.v?Math.max(3,r.v/mx*MW):0;
+  s+='<text x="'+(LW-10)+'" y="'+(y+13)+'" text-anchor="end" font-size="12.5" fill="var(--hint)">'+esc(r.l)+'</text>';
+  if(w)s+='<path data-p="'+i+'" d="'+hpath(LW,y,w,h)+'" fill="var(--acc)"/>';
+  s+='<text class="v" x="'+(LW+w+6)+'" y="'+(y+13)+'" font-size="12" fill="var(--tx)">'+r.v+'</text>';
+  s+='<rect data-i="'+i+'" x="0" y="'+(i*RH)+'" width="'+W+'" height="'+RH+'" fill="transparent"/>';});
+ return s+'<line x1="'+LW+'" y1="2" x2="'+LW+'" y2="'+(H-2)+'" stroke="var(--sep)"/></svg>';}
+function vbar(rows,label){const W=360,H=176,B=152,T=22,n=rows.length,band=(W-8)/n,bw=Math.min(34,band-14),mx=Math.max(1,...rows.map(r=>r.v));
+ let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+label+'"><line x1="0" y1="'+B+'" x2="'+W+'" y2="'+B+'" stroke="var(--sep)"/>';
+ rows.forEach((r,i)=>{const cx=4+band*i+band/2,h=r.v?Math.max(3,r.v/mx*(B-T)):0,x=cx-bw/2;
+  if(h)s+='<path data-p="'+i+'" d="'+vpath(x,B-h,bw,h)+'" fill="var(--acc)"/>';
+  if(i===n-1)s+='<text class="v" x="'+cx+'" y="'+(B-h-6)+'" text-anchor="middle" font-size="12" fill="var(--tx)">'+r.v+'</text>';
+  s+='<text x="'+cx+'" y="'+(H-5)+'" text-anchor="middle" font-size="11" fill="var(--hint)">'+esc(r.l)+'</text>';
+  s+='<rect data-i="'+i+'" x="'+(cx-band/2)+'" y="0" width="'+band+'" height="'+H+'" fill="transparent"/>';});
+ return s+'</svg>';}
+function drawChart(id,rows,kind,head,label){const el=$(id),pl=el.querySelector('.plot');el._rows=rows;
+ if(el.classList.contains('tbl'))pl.innerHTML='<table><thead><tr><th>'+head[0]+'</th><th>'+head[1]+'</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+esc(r.l)+'</td><td>'+r.v+'</td></tr>').join('')+'</tbody></table>';
+ else pl.innerHTML=kind==='h'?hbar(rows,label):vbar(rows,label);}
+function charts(){const now=Date.now();
+ const rec=LEADS.filter(l=>l.created>=now-45*DAY),fl=['Заявки','На связи','Показ','Бронь','Сделка'];
+ const fv=fl.map((_,i)=>rec.filter(l=>(l.max||0)>=i).length),all=fv[0]||1;
+ drawChart('chF',fl.map((n,i)=>({l:n,v:fv[i],tip:n+': '+fv[i]+', '+Math.round(fv[i]/all*100)+'% от всех заявок'+(i?', '+(fv[i-1]?Math.round(fv[i]/fv[i-1]*100):0)+'% от этапа «'+fl[i-1]+'»':'')})),'h',['Этап','Заявок'],'Воронка заявок за 45 дней');
+ const t0=midnight(),ws0=t0-((new Date(t0).getDay()+6)%7)*DAY,wk=[];
+ for(let k=5;k>=0;k--){const a=ws0-k*7*DAY,b=a+7*DAY,v=LEADS.filter(l=>l.created>=a&&l.created<b).length,d=new Date(a),lab=pad(d.getDate())+'.'+pad(d.getMonth()+1);
+  wk.push({l:lab,v,tip:(k?'Неделя с '+lab:'Эта неделя')+': '+v+' '+plural(v,'заявка','заявки','заявок')});}
+ drawChart('chW',wk,'v',['Неделя с','Заявок'],'Заявки по неделям');
+ const sr=SRC.map(s=>{const a=LEADS.filter(l=>l.src===s[0]),w=a.filter(l=>l.stage==='won').length;return {l:s[1],v:a.length,tip:s[1]+': '+a.length+' '+plural(a.length,'заявка','заявки','заявок')+', '+w+' '+plural(w,'сделка','сделки','сделок')};}).sort((a,b)=>b.v-a.v);
+ drawChart('chS',sr,'h',['Источник','Заявок'],'Заявки по источникам');}
+['chF','chW','chS'].forEach(id=>{const el=$(id),tip=el.querySelector('.tip');
+ const hide=()=>{tip.style.opacity=0;const sv=el.querySelector('svg');if(sv){sv.classList.remove('hov');sv.querySelectorAll('.on').forEach(p=>p.classList.remove('on'));}};
+ el.addEventListener('pointermove',e=>{const t=e.target.closest&&e.target.closest('[data-i]');if(!t||!el._rows){hide();return;}const i=t.dataset.i,r=el._rows[+i];if(!r){hide();return;}
+  const sv=el.querySelector('svg');sv.classList.add('hov');sv.querySelectorAll('path').forEach(p=>p.classList.toggle('on',p.dataset.p===i));
+  tip.textContent=r.tip;tip.style.opacity=1;const b=el.getBoundingClientRect(),tw=tip.offsetWidth,th=tip.offsetHeight;let x=e.clientX-b.left+14,y=e.clientY-b.top-th-10;
+  if(x+tw>b.width-6)x=e.clientX-b.left-tw-14;if(x<6)x=6;if(y<4)y=e.clientY-b.top+16;tip.style.left=x+'px';tip.style.top=y+'px';});
+ el.addEventListener('pointerleave',hide);
+ el.querySelector('.tb').addEventListener('click',e=>{const on=el.classList.toggle('tbl');e.currentTarget.textContent=on?'График':'Таблица';e.currentTarget.setAttribute('aria-pressed',on);hide();charts();});});
+function render(){kpis();drawBoard();charts();}
+/* drag between stages */
+let dragId=null;
+board.addEventListener('dragstart',e=>{const c=e.target.closest('.cd');if(!c)return;dragId=c.dataset.id;c.classList.add('drag');try{e.dataTransfer.setData('text/plain',dragId);e.dataTransfer.effectAllowed='move';}catch(_){}});
+board.addEventListener('dragend',e=>{const c=e.target.closest&&e.target.closest('.cd');if(c)c.classList.remove('drag');board.querySelectorAll('.over').forEach(x=>x.classList.remove('over'));dragId=null;});
+board.addEventListener('dragover',e=>{const col=e.target.closest('.colm');if(!col||!dragId)return;e.preventDefault();board.querySelectorAll('.over').forEach(x=>{if(x!==col)x.classList.remove('over');});col.classList.add('over');});
+board.addEventListener('drop',e=>{const col=e.target.closest('.colm');if(!col||!dragId)return;e.preventDefault();col.classList.remove('over');const l=byId(dragId);dragId=null;if(l)move(l,col.dataset.st,true);});
+board.addEventListener('click',e=>{const c=e.target.closest('.cd');if(c)openL(c.dataset.id);});
+board.addEventListener('keydown',e=>{const c=e.target.closest('.cd');if(c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openL(c.dataset.id);}});
+function move(l,st,fx){if(l.stage===st)return;l.stage=st;if(st!=='lost')l.max=Math.max(l.max||0,SI[st]);l.hist.push({ts:Date.now(),t:'Этап: '+STN[st],st});put(l);render();
+ if(fx){const c=board.querySelector('.cd[data-id="'+l.id+'"]');if(c)c.classList.add('fresh');}
+ if(st==='won'){toast('Сделка: '+l.name);const h=board.querySelector('.colm[data-st="won"] header');if(h)burst(h);}}
+/* lead drawer */
+let lastFocus=null,svT=0,armT=0;
+$('fSrc').innerHTML=SRC.map(s=>'<option value="'+s[0]+'">'+s[1]+'</option>').join('');
+$('fObj').innerHTML=Object.keys(OBJ).map(k=>'<option value="'+k+'">'+OBJ[k]+'</option>').join('');
+function openL(id){const l=byId(id);if(!l)return;CUR=l;if($('dr').hidden)lastFocus=document.activeElement;
+ $('fName').value=l.name;$('fContact').value=l.contact||'';$('fSrc').value=l.src;$('fWant').value=l.want;$('fObj').value=l.obj;$('fBud').value=l.budget?String(l.budget):'';$('fNext').value=l.next||'';$('fNote').value=l.note||'';
+ $('drT').textContent=l.name||'Без имени';drawStages();drawHist();disarm();
+ $('ov').hidden=false;$('dr').hidden=false;document.body.style.overflow='hidden';setTimeout(()=>$('drX').focus(),30);}
+function closeL(){if(!CUR)return;const id=CUR.id;CUR=null;clearTimeout(svT);$('ov').hidden=true;$('dr').hidden=true;document.body.style.overflow='';
+ const c=board.querySelector('.cd[data-id="'+id+'"]');if(c)c.focus();else if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+function drawStages(){$('fStage').innerHTML=ST.map(s=>'<button type="button" class="chip" data-v="'+s[0]+'" aria-pressed="'+(CUR.stage===s[0])+'">'+s[1]+'</button>').join('');}
+function drawHist(){$('hist').innerHTML=CUR.hist.slice().sort((a,b)=>b.ts-a.ts).map(h=>'<li><time>'+fmtTs(h.ts)+'</time>'+esc(h.t)+'</li>').join('');}
+const FIELDS={fName:'name',fContact:'contact',fSrc:'src',fWant:'want',fObj:'obj',fBud:'budget',fNext:'next',fNote:'note'};
+Object.keys(FIELDS).forEach(id=>$(id).addEventListener('input',e=>{if(!CUR)return;const k=FIELDS[id];let v=e.target.value;
+ if(k==='budget'){v=parseInt(String(v).replace(/\D/g,''),10)||0;}
+ CUR[k]=v;if(k==='name')$('drT').textContent=v||'Без имени';const l=CUR;clearTimeout(svT);svT=setTimeout(()=>{put(l);render();},250);}));
+$('fStage').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!CUR)return;move(CUR,b.dataset.v,false);drawStages();drawHist();});
+function addH(){const v=$('hTxt').value.trim();if(!v||!CUR)return;CUR.hist.push({ts:Date.now(),t:v});$('hTxt').value='';put(CUR);drawHist();}
+$('hAdd').addEventListener('click',addH);
+$('hTxt').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addH();}});
+function disarm(){clearTimeout(armT);const b=$('del');b.classList.remove('armed');b.textContent='Удалить заявку';}
+$('del').addEventListener('click',()=>{const b=$('del');if(!CUR)return;
+ if(!b.classList.contains('armed')){b.classList.add('armed');b.textContent='Нажмите ещё раз, чтобы удалить';armT=setTimeout(disarm,3000);return;}
+ const id=CUR.id,nm=CUR.name;LEADS=LEADS.filter(l=>l.id!==id);dbDel(id);disarm();closeL();render();toast('Заявка удалена: '+nm);});
+$('drX').addEventListener('click',closeL);$('ov').addEventListener('click',closeL);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&CUR)closeL();});
+/* toolbar */
+$('srcF').innerHTML=[['all','Все']].concat(SRC).map(s=>'<button type="button" class="chip" data-v="'+s[0]+'">'+s[1]+'</button>').join('');
+function syncF(){document.querySelectorAll('#srcF .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===F.src));$('todayF').setAttribute('aria-pressed',F.today);}
+function resetF(){F={src:'all',q:'',today:false};$('q').value='';syncF();}
+$('srcF').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;F.src=b.dataset.v;syncF();drawBoard();});
+$('todayF').addEventListener('click',()=>{F.today=!F.today;syncF();drawBoard();});
+let qT=0;$('q').addEventListener('input',e=>{clearTimeout(qT);qT=setTimeout(()=>{F.q=e.target.value.trim().toLowerCase();drawBoard();},120);});
+$('add').addEventListener('click',()=>{const now=Date.now();const l={id:'L'+now.toString(36),name:'Новый клиент',contact:'',src:'site',stage:'new',obj:'any',want:'buy',budget:0,created:now,next:ymd(now),note:'',max:0,hist:[{ts:now,t:'Заявка добавлена вручную'}]};
+ LEADS.push(l);put(l);resetF();render();openL(l.id);setTimeout(()=>{$('fName').focus();$('fName').select();},60);});
+const POOL=['Алина','Евгений','Станислав','Вера','Никита','Дарья','Олег','Кира','Тимур','Софья','Григорий','Лилия'],INI='АБВГДЕКЛМНОПРСТ';
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+$('sim').addEventListener('click',e=>{burst(e.currentTarget);const now=Date.now(),obj=pick(Object.keys(OBJ).filter(k=>k!=='any')),villa=obj[0]==='v',want=Math.random()<.6?'buy':'rent';
+ const rnd=(a,b,st)=>Math.round((a+Math.random()*(b-a))/st)*st;
+ const budget=want==='buy'?(villa?rnd(15e6,40e6,1e5):rnd(4e6,10e6,1e5)):(villa?rnd(9e4,18e4,5e3):rnd(3e4,7e4,5e3));
+ const name=pick(POOL)+' '+pick(INI.split(''))+'.';
+ const l={id:'L'+now.toString(36),name,contact:'',src:'site',stage:'new',obj,want,budget,created:now,next:ymd(now),note:want==='buy'?'Оставил заявку на странице объекта, просит подборку похожих':'Спрашивает свободные даты и условия аренды',max:0,hist:[{ts:now,t:'Заявка: Сайт, '+OBJ[obj]}]};
+ LEADS.push(l);put(l);resetF();render();const c=board.querySelector('.cd[data-id="'+l.id+'"]');
+ if(c){c.classList.add('fresh');board.scrollTo({left:0,behavior:'smooth'});const r=c.getBoundingClientRect();if(r.top<0||r.bottom>innerHeight)c.scrollIntoView({block:'center',behavior:'smooth'});}
+ toast('Новая заявка с сайта: '+name+', '+OBJ[obj]);});
+$('csv').addEventListener('click',e=>{burst(e.currentTarget);const H=['Имя','Контакт','Источник','Запрос','Объект','Бюджет, бат','Этап','Создана','Следующий шаг','Заметка'];
+ const q=v=>{v=String(v==null?'':v);if(/^[=+\-@]/.test(v))v="'"+v;return /[";\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+ const rows=LEADS.slice().sort((a,b)=>b.created-a.created).map(l=>[l.name,l.contact,SRCN[l.src],l.want==='rent'?'Аренда':'Покупка',OBJ[l.obj]||'',l.budget||'',STN[l.stage],ymd(l.created),l.next,l.note]);
+ const s='﻿'+[H].concat(rows).map(r=>r.map(q).join(';')).join('\r\n');
+ try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'text/csv;charset=utf-8'}));a.download='zayavki.csv';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);toast('Файл zayavki.csv открывается в Excel');}catch(_){toast('Не получилось выгрузить');}});
+$('rs').addEventListener('click',async()=>{LEADS=seed();await dbReset(LEADS);resetF();render();toast('Демо восстановлено');});
+/* feedback */
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2600);}
+function burst(el){const host=el.style.position||getComputedStyle(el).position!=='static'?el:el.parentElement,r=el.getBoundingClientRect(),hr=host.getBoundingClientRect();
+ for(let i=0;i<14;i++){const d=document.createElement('i');d.className='burst';const a=i/14*Math.PI*2,dist=34+Math.random()*26;d.style.left=(r.left-hr.left+r.width/2-3)+'px';d.style.top=(r.top-hr.top+r.height/2-3)+'px';d.style.background=i%2?'var(--acc)':'#f2c230';d.style.setProperty('--x',Math.cos(a)*dist+'px');d.style.setProperty('--y',Math.sin(a)*dist+'px');host.appendChild(d);setTimeout(()=>d.remove(),750);}}
+/* start */
+syncF();
+(async()=>{DB=await idb();let ls=await dbAll();if(!Array.isArray(ls)||!ls.length){ls=seed();await dbReset(ls);}LEADS=ls;render();})();
+})();
+</script>
+</body>
+</html>
