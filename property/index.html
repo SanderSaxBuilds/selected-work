@@ -778,7 +778,9 @@ function renderMod(){const [a,b]=cmp.map(id=>L.find(x=>x.id===id)),ya=yieldOf(a)
  $('#mAsk').onclick=()=>{askCmp=[a,b];pickD=null;pickUnit=null;$('#vo').value='pick';bubble();lastFocus=null;closeAll();setTimeout(()=>go('#visit'),RM?0:200)};
  $('#mLink').onclick=async()=>{const u=location.href.split('#')[0]+'#cmp='+a.id+','+b.id;
   if(navigator.share&&matchMedia('(pointer:coarse)').matches){try{await navigator.share({title:a.n[lang]+' / '+b.n[lang],url:u});return}catch(e){if(e&&e.name==='AbortError')return}}
-  try{await navigator.clipboard.writeText(u);toast(t('cmpCopied'))}catch(e){toast(u)}}}
+  try{await navigator.clipboard.writeText(u);toast(t('cmpCopied'))}catch(e){toast(copyOld(u)?t('cmpCopied'):u)}}}
+function copyOld(s){const f=document.activeElement;let ok=false;try{const ta=document.createElement('textarea');ta.value=s;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;left:0;opacity:0';
+ document.body.appendChild(ta);ta.select();ok=document.execCommand('copy');ta.remove()}catch(e){}if(f&&f.focus)f.focus({preventScroll:true});return ok}
 $('#ov').onclick=closeAll;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&($('#drw').classList.contains('on')||$('#mod').classList.contains('on')))closeAll()});
 
