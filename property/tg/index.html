@@ -78,11 +78,14 @@ body.intg .rib{display:flex}
 
 /* app */
 .scr{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:84px}
+.scr,.sheet{scrollbar-width:none}
+.scr::-webkit-scrollbar,.sheet::-webkit-scrollbar{display:none}
 .rib{align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;padding:7px 14px;background:var(--sec);color:var(--hint)}
 .rib a,.rib button{color:var(--link);font-weight:600;text-decoration:none;background:none;border:0;padding:0;font-size:12.5px;white-space:nowrap}
 .hd{display:flex;align-items:center;gap:12px;padding:14px 16px 10px}
 .av{width:40px;height:40px;border-radius:50%;background:var(--acc);color:var(--acctx);display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
-.hd h1{font-size:17px;font-weight:650;margin:0;line-height:1.2}
+.hd>div:nth-child(2){min-width:0}
+.hd h1{font-size:17px;font-weight:650;margin:0;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hd p{margin:1px 0 0;font-size:13px;color:var(--hint)}
 .cur{margin-left:auto;display:flex;background:var(--sec);border-radius:10px;padding:2px}
 .cur button{border:0;background:none;min-width:34px;height:30px;border-radius:8px;font-size:14px;color:var(--hint)}
@@ -346,7 +349,7 @@ let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on')
 /* catalog */
 const BUDS=[0,15e6,40e6];
 const visible=x=>(S.type==='all'||x.type===S.type)&&(!S.bud||x.price<=S.bud);
-const ordered=()=>L.filter(visible).sort((a,b)=>b.s[S.goal]-a.s[S.goal]||(S.goal==='live'?b.area-a.area:a.price-b.price));
+const ordered=()=>L.filter(visible).sort((a,b)=>b.s[S.goal]-a.s[S.goal]||a.price-b.price);
 const heart='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
 const metaLine=x=>[DN[x.d],pl(x.bed,'спальня','спальни','спален'),x.area+' м²',dist(x.beach)+' до пляжа'].join(' · ');
 const card=x=>`<article class="card" data-id="${x.id}"><button type="button" class="cimg" data-open="${x.id}" style="background-image:url(../img/t-${x.id}.jpg)" aria-label="${esc(x.n)}, подробнее"><img src="../img/${x.id}.jpg" loading="lazy" alt="">${x.st==='res'?'<span class="badge">Забронировано</span>':''}</button><button type="button" class="heart" data-fav="${x.id}" aria-pressed="${isFav(x.id)}" aria-label="В избранное: ${esc(x.n)}">${heart}</button><div class="cb" data-open="${x.id}"><div class="pr">${money(x.price)}</div><h3>${esc(x.n)}</h3><p class="meta">${metaLine(x)}</p></div></article>`;
@@ -358,7 +361,7 @@ const renderCtl=()=>{
 const renderList=()=>{const o=ordered();
  $('#list').innerHTML=o.length?o.map(card).join(''):'<p class="empty">Под эти условия сейчас ничего нет. Напишите агенту, подберём вне каталога.</p>';
  $('#cnt').textContent=pl(o.length,'объект','объекта','объектов')+(S.goal==='live'?', сначала удобные для жизни':S.goal==='rent'?', сначала лучше сдаются':', сначала выгоднее как вложение');
- $('#hdSub').textContent='каталог агентства · '+pl(L.length,'объект','объекта','объектов')};
+ $('#hdSub').textContent=pl(L.length,'объект','объекта','объектов')+' в каталоге'};
 const renderFavN=()=>{$('#favN').textContent=S.fav.length||''};
 const renderFav=()=>{const f=S.fav.map(byId).filter(Boolean);
  $('#favSub').textContent=f.length?pl(f.length,'объект','объекта','объектов'):'пока пусто';
