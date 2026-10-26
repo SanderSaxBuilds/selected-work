@@ -249,7 +249,7 @@ palm(7.2,7.8,8.5,.12,.4);palm(-6.5,8.4,7.4,-.1,1.2);palm(8.6,1.8,9,.16,-.3);
 const comp=new THREE.Group();scene.add(comp);
 const ring=new THREE.Mesh(new THREE.RingGeometry(17.2,17.42,120),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.5,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.position.y=.04;comp.add(ring);
 function letter(t){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');x.font='600 76px Onest, system-ui, sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillStyle='rgba(14,29,36,.35)';x.fillText(t,66,70);x.fillStyle='#fff';x.fillText(t,64,66);
- const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthWrite:false}));s.scale.set(2.2,2.2,1);return s;}
+ const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthWrite:false}));s.scale.set(2.8,2.8,1);return s;}
 [['С',0],['В',90],['Ю',180],['З',270]].forEach(a=>{const s=letter(a[0]),r=19;s.position.set(Math.sin(a[1]*D2R)*r,1.1,-Math.cos(a[1]*D2R)*r);comp.add(s);});
 /* lights and sun */
 const hemi=new THREE.HemisphereLight(0xdfeaf5,0x6b7a5a,.5);scene.add(hemi);
@@ -322,9 +322,9 @@ function apply(){const P=PLACES[S.p],s=sun(P.lat,P.lon,DOY[S.m],S.t),up=s.el>0,d
 /* best side */
 let bestTok=0,BEST=null;
 function best(){const tok=++bestTok,P=PLACES[S.p],doy=DOY[S.m],ds=[],res=[];let i=0;
- for(let m=310;m<=1190;m+=20){const s=sun(P.lat,P.lon,doy,m/60);if(s.el>.5)ds.push(s);}
+ for(let m=300;m<1200;m+=10){const s=sun(P.lat,P.lon,doy,m/60);if(s.el>.5)ds.push(s);}
  $('bestTxt').textContent='Считаю лучшую сторону…';$('bestBtn').hidden=true;
- (function next(){if(tok!==bestTok)return;const f=i*45;let sm=0;ds.forEach(s=>{sm+=frac(POOL,dirFor(s.az,s.el,f),2)/3;});res.push({f,sm});i++;if(i<8)setTimeout(next,0);else{res.sort((a,b)=>b.sm-a.sm);BEST=res;bestNote();}})();}
+ (function next(){if(tok!==bestTok)return;const f=i*45;let sm=0;ds.forEach(s=>{sm+=frac(POOL,dirFor(s.az,s.el,f))/6;});res.push({f,sm});i++;if(i<8)setTimeout(next,0);else{res.sort((a,b)=>b.sm-a.sm);BEST=res;bestNote();}})();}
 function bestNote(){if(!BEST)return;const b=BEST[0],w=BEST[BEST.length-1];const isBest=di(S.f)===di(b.f);
  $('bestTxt').textContent='В '+MP[S.m]+' больше всего солнца, когда бассейн смотрит на '+DIRS[di(b.f)]+', около '+dur(b.sm)+' в день. Меньше всего на '+DIRS[di(w.f)]+', '+dur(w.sm)+'.'+(isBest?' Сейчас выбрана лучшая сторона.':'');
  $('bestBtn').hidden=isBest;}
