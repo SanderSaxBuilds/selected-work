@@ -527,7 +527,7 @@ const T={ru:{
  cH:'Сколько принесёт аренда',cSub:'Подвиньте ползунки. Считаем по месяцам, высокий сезон с ноября по апрель. Из дохода вычитаем управление и 1% цены в год на обслуживание.',
  cNight:'Цена за ночь',cOcc:'Загрузка за год',cFee:'Управляющей компании',cGross:'Доход за год',cNet:'Чистыми за год',cY:'Чистая доходность',cPay:'Окупаемость',
  mo:['Я','Ф','М','А','М','И','И','А','С','О','Н','Д'],dVisit:'Записаться на показ',cmpOn:'В сравнении',cmpAdd:'Сравнить',
- cmpPick:'Выберите ещё один объект',cmpReady:'Можно сравнивать',cmpGo:'Сравнить',cmpH:'Сравнение',cmpNote:'Отмечено то, что лучше. Доходность при загрузке 60% и управлении 30%.',
+ cmpPick:'Выберите ещё один объект',cmpReady:'Можно сравнивать',cmpGo:'Сравнить',cmpH:'Сравнение',cmpNote:'Отмечено то, что лучше. Доходность при загрузке 60% и управлении 30%.',cmpAsk:'Обсудить с агентом',bCmp:'Сравниваю {a} и {b}. Помогите выбрать?',
  pEb:'Пресейл',pCd:'До закрытия пресейл-цены',pUnit:'Тип квартиры',pDown:'Первый взнос',pBook:'Забронировать по пресейл-цене',pNow:'Сейчас, первый взнос {p}%',pMonthly:'Каждый месяц до сдачи ({n} мес.), всего {p}%',pHand:'При сдаче, {d}, {p}%',pTot:'Всего',pPerM:'за м²',
  pEnded:'Пресейл-цена закрыта. Напишите нам, покажем актуальные цены.',pNote:'График для примера. Точный график и цены даёт застройщик.',bUnit:'Хочу забронировать: {u}, пресейл-цена {p}.'
 },en:{
@@ -564,7 +564,7 @@ const T={ru:{
  cH:'What renting it out earns',cSub:'Move the sliders. We count month by month, with high season from November to April, minus management and 1% of the price a year for upkeep.',
  cNight:'Nightly rate',cOcc:'Occupancy over the year',cFee:'Management company',cGross:'Gross a year',cNet:'Net a year',cY:'Net yield',cPay:'Payback',
  mo:['J','F','M','A','M','J','J','A','S','O','N','D'],dVisit:'Book a viewing',cmpOn:'In comparison',cmpAdd:'Compare',
- cmpPick:'Pick one more property',cmpReady:'Ready to compare',cmpGo:'Compare',cmpH:'Comparison',cmpNote:'The better value is marked. Yield at 60% occupancy and 30% management.',
+ cmpPick:'Pick one more property',cmpReady:'Ready to compare',cmpGo:'Compare',cmpH:'Comparison',cmpNote:'The better value is marked. Yield at 60% occupancy and 30% management.',cmpAsk:'Ask the agent about these two',bCmp:'I am comparing {a} and {b}. Can you help me choose?',
  pEb:'Pre-sale',pCd:'Pre-sale price closes in',pUnit:'Unit type',pDown:'Down payment',pBook:'Reserve at the pre-sale price',pNow:'Now, {p}% down payment',pMonthly:'Monthly until handover ({n} months), {p}% in total',pHand:'On handover, {d}, {p}%',pTot:'Total',pPerM:'per m²',
  pEnded:'The pre-sale price has closed. Message us for current prices.',pNote:'A sample schedule. The developer gives the exact schedule and prices.',bUnit:'I would like to reserve: {u}, pre-sale price {p}.'
 }};
@@ -575,7 +575,7 @@ if(S.D)D.splice(0,D.length,...S.D);
 if(S.patch)L.forEach(x=>Object.assign(x,S.patch[x.id]||{}));
 ['ru','en'].forEach(l=>Object.assign(T[l],(S.T&&S.T[l])||{}));
 const COAST=S.coast||'img/coast.jpg';
-let lang='ru',intent='live',cur='thb',budget=40e6,type='all',dist=null,selD=S.selD||'bangtao',cmp=[],buyType='condo',stepI=0,feeP=14.5e6,vfmt='video',vmsg='tg',open=null,pickD=null,pickUnit=null,lastEdit='c1',dNight=0,dOcc=.6,dFee=.3,dImg=0,lastFocus=null;
+let lang='ru',intent='live',cur='thb',budget=40e6,type='all',dist=null,selD=S.selD||'bangtao',cmp=[],buyType='condo',stepI=0,feeP=14.5e6,vfmt='video',vmsg='tg',open=null,pickD=null,pickUnit=null,askCmp=null,lastEdit='c1',dNight=0,dOcc=.6,dFee=.3,dImg=0,lastFocus=null;
 try{const sl=localStorage.getItem('pp-lang');if(sl==='en'||sl==='ru')lang=sl}catch(e){}
 const t=k=>(T[lang][k]!==undefined?T[lang][k]:T.ru[k]);
 const loc=()=>lang==='ru'?'ru-RU':'en-US';
@@ -656,7 +656,7 @@ function renderStops(){const s=$('#stops');s.querySelectorAll('.stop').forEach(e
  const i=D.findIndex(d=>d.k===selD);$('#rail').style.setProperty('--fill',(i/(D.length-1)*100)+'%')}
 function renderAdet(){const d=D.find(z=>z.k===selD),xs=L.filter(x=>x.d===d.k),img=xs[0]?`img/${xs[0].id}.jpg`:COAST;
  $('#adet').innerHTML=`<div class="aimg"><img src="${img}" alt="" loading="lazy"></div><div class="atx"><h3>${esc(d.n[lang])}</h3><p style="margin:10px 0 0;color:var(--ink2)">${esc(d.tx[lang])}</p><div class="ast"><div><small>${t('aSqm')}</small><b>~${money(d.sqm)}</b></div><div><small>${t('aY')}</small><b>${d.y}</b></div><div><small>${t('aAir')}</small><b>${d.min} ${t('min')}</b></div></div><button type="button" class="go" id="ashow">${xs.length?t('aShow').replace('{n}',xs.length+' '+objWord(xs.length)):t('aPick')}</button></div>`;
- $('#ashow').onclick=()=>{if(xs.length){dist=d.k;type='all';syncTypes();if(xs.some(x=>x.price>budget)){budget=Infinity;$('#bud').value=100;updBud()}renderList(false);go('#list')}else{pickD=d;pickUnit=null;$('#vo').value='pick';bubble();go('#visit')}}}
+ $('#ashow').onclick=()=>{if(xs.length){dist=d.k;type='all';syncTypes();if(xs.some(x=>x.price>budget)){budget=Infinity;$('#bud').value=100;updBud()}renderList(false);go('#list')}else{pickD=d;pickUnit=null;askCmp=null;$('#vo').value='pick';bubble();go('#visit')}}}
 
 /* buy */
 function renderSteps(){const S=STEPS[buyType][lang];
@@ -694,6 +694,7 @@ function fillVisitSel(){const s=$('#vo'),v=s.value;s.innerHTML=`<option value="p
 function bubble(){const x=L.find(z=>z.id===$('#vo').value),name=$('#vn').value.trim(),dt=$('#vd').value,lines=[];
  lines.push(name?t('bHiN').replace('{n}',name):t('bHi'));
  if(x)lines.push(t('bObj').replace('{o}',x.n[lang]+' ('+money(x.price)+')'));
+ else if(askCmp)lines.push(t('bCmp').replace('{a}',askCmp[0].n[lang]).replace('{b}',askCmp[1].n[lang]));
  else if(pickUnit)lines.push(t('bUnit').replace('{u}',pickUnit.n[lang]).replace('{p}',moneyX(pickUnit.price)));
  else if(pickD)lines.push(t('bPickD').replace('{d}',pickD.n[lang]));
  else lines.push(isFinite(budget)?t('bPick').replace('{g}',t('g_'+intent)).replace('{b}',money(budget)):t('bPickN').replace('{g}',t('g_'+intent)));
@@ -703,7 +704,7 @@ function bubble(){const x=L.find(z=>z.id===$('#vo').value),name=$('#vn').value.t
  $('#bub').innerHTML=esc(lines.join('\n'))+`<time>${tm}</time>`;
  $$('#phb .bub.in').forEach(e=>e.remove());
  $('#phone').dataset.m=vmsg;const mn={tg:'Telegram',wa:'WhatsApp',line:'LINE'}[vmsg];$('#send').textContent=t('send').replace('{m}',mn);$('#sendn').textContent=''}
-$('#vo').onchange=()=>{pickD=null;pickUnit=null;bubble()};$('#vd').oninput=bubble;$('#vn').oninput=bubble;
+$('#vo').onchange=()=>{pickD=null;pickUnit=null;askCmp=null;bubble()};$('#vd').oninput=bubble;$('#vn').oninput=bubble;
 $$('#vf button').forEach(b=>b.onclick=()=>{vfmt=b.dataset.v;$$('#vf button').forEach(z=>z.setAttribute('aria-pressed',z===b));bubble()});
 $$('#vm button').forEach(b=>b.onclick=()=>{vmsg=b.dataset.v;$$('#vm button').forEach(z=>z.setAttribute('aria-pressed',z===b));bubble()});
 let replyT;$('#send').onclick=()=>{const mn={tg:'Telegram',wa:'WhatsApp',line:'LINE'}[vmsg];$('#sendn').textContent=t('sendNote').replace('{m}',mn);
@@ -731,7 +732,7 @@ function tick(){if(!P)return;const el=$('#cd'),ms=new Date(P.end)-Date.now();
  const lb=lang==='ru'?[plural(v[0],['день','дня','дней']),plural(v[1],['час','часа','часов']),plural(v[2],['минута','минуты','минут']),plural(v[3],['секунда','секунды','секунд'])]:['days','hours','minutes','seconds'];
  el.className='cd';el.innerHTML=v.map((n,i)=>`<div><b>${String(n).padStart(2,'0')}</b><small>${lb[i]}</small></div>`).join('')}
 if(P){$('#pdown').oninput=e=>{pDown=+e.target.value;plan()};cdT=setInterval(tick,1000);
- $('#pbook').onclick=()=>{pickUnit=P.units[pU];pickD=null;$('#vo').value='pick';bubble();go('#visit')}}
+ $('#pbook').onclick=()=>{pickUnit=P.units[pU];pickD=null;askCmp=null;$('#vo').value='pick';bubble();go('#visit')}}
 
 /* drawer */
 function openDrawer(id,from){open=L.find(x=>x.id===id);lastFocus=from||null;dNight=open.night;dOcc=.6;dFee=.3;dImg=0;renderDrawer();
@@ -752,7 +753,7 @@ function renderDrawer(){const x=open,d=dOf(x),on=cmp.includes(x.id);
  $('#drw .x').onclick=closeAll;
  $$('#drw .dth button').forEach(b=>b.onclick=()=>{dImg=+b.dataset.i;$('#dmain').src=`img/${x.id}${dImg?'b':''}.jpg`;$$('#drw .dth button').forEach(z=>z.setAttribute('aria-pressed',z===b))});
  $('#sN').oninput=e=>{dNight=+e.target.value;updCalc()};$('#sO').oninput=e=>{dOcc=+e.target.value/100;updCalc()};$('#sF').oninput=e=>{dFee=+e.target.value/100;updCalc()};
- $('#dVisit').onclick=()=>{$('#vo').value=x.id;pickD=null;bubble();closeAll();setTimeout(()=>go('#visit'),RM?0:200)};
+ $('#dVisit').onclick=()=>{$('#vo').value=x.id;pickD=null;askCmp=null;bubble();closeAll();setTimeout(()=>go('#visit'),RM?0:200)};
  $('#dCmp').onclick=()=>{toggleCmp(x.id);const o=cmp.includes(x.id);$('#dCmp').setAttribute('aria-pressed',o);$('#dCmp').textContent=o?t('cmpOn')+' ✓':t('cmpAdd')};
  updCalc()}
 function updCalc(){const x=open,r=yieldOf(x,dNight,dOcc,dFee),c=cur,v=dNight*RATE[c],sym={thb:'฿',usd:'$',rub:'₽'}[c];
@@ -772,8 +773,9 @@ $('#cbx').onclick=()=>{cmp=[];toggleCmp('__none');cmp=[];cards.forEach(el=>{cons
 $('#cbgo').onclick=()=>{if(cmp.length<2)return;lastFocus=$('#cbgo');renderMod();$('#ov').classList.add('on');$('#mod').classList.add('on');document.body.style.overflow='hidden';document.body.classList.add('lock');setTimeout(()=>$('#mod .x').focus({preventScroll:true}),60)};
 function renderMod(){const [a,b]=cmp.map(id=>L.find(x=>x.id===id)),ya=yieldOf(a),yb=yieldOf(b);
  const rows=[[t('kPrice'),a.price,b.price,'low',money],[t('kSqm'),a.price/a.area,b.price/b.area,'low',money],[t('kArea'),a.area,b.area,'high',v=>v+' '+t('m2')],[t('kBed'),a.bed,b.bed,'high',v=>v||t('studio')],[t('kBeach'),a.beach,b.beach,'low',distTxt],[t('kAir'),dOf(a).min,dOf(b).min,'low',v=>v+' '+t('min')],[t('cY'),ya.y,yb.y,'high',pct],[t('kOwn'),a.own,b.own,null,v=>v==='free'?t('free'):t('lease')]];
- $('#mod').innerHTML=`<div class="mhd"><h3 class="dsp" style="font-size:24px">${t('cmpH')}</h3><button type="button" class="x" aria-label="${t('close')}">×</button></div><table class="ctab"><tr><th></th>${[a,b].map(x=>`<td class="chd"><img src="img/${x.id}.jpg" alt=""><b>${esc(x.n[lang])}</b></td>`).join('')}</tr>${rows.map(([k,va,vb,best,f])=>{let wa=false,wb=false;if(best&&va!==vb){const ab=best==='low'?va<vb:va>vb;wa=ab;wb=!ab}return `<tr><th>${k}</th><td class="${wa?'win':''}">${f(va)}</td><td class="${wb?'win':''}">${f(vb)}</td></tr>`}).join('')}</table><p class="note" style="padding:0 20px 20px">${t('cmpNote')}</p>`;
- $('#mod .x').onclick=closeAll}
+ $('#mod').innerHTML=`<div class="mhd"><h3 class="dsp" style="font-size:24px">${t('cmpH')}</h3><button type="button" class="x" aria-label="${t('close')}">×</button></div><table class="ctab"><tr><th></th>${[a,b].map(x=>`<td class="chd"><img src="img/${x.id}.jpg" alt=""><b>${esc(x.n[lang])}</b></td>`).join('')}</tr>${rows.map(([k,va,vb,best,f])=>{let wa=false,wb=false;if(best&&va!==vb){const ab=best==='low'?va<vb:va>vb;wa=ab;wb=!ab}return `<tr><th>${k}</th><td class="${wa?'win':''}">${f(va)}</td><td class="${wb?'win':''}">${f(vb)}</td></tr>`}).join('')}</table><p class="note" style="padding:0 20px 12px">${t('cmpNote')}</p><div class="dact" style="padding:0 20px 20px"><button type="button" class="go" id="mAsk">${t('cmpAsk')}</button></div>`;
+ $('#mod .x').onclick=closeAll;
+ $('#mAsk').onclick=()=>{askCmp=[a,b];pickD=null;pickUnit=null;$('#vo').value='pick';bubble();lastFocus=null;closeAll();setTimeout(()=>go('#visit'),RM?0:200)}}
 $('#ov').onclick=closeAll;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&($('#drw').classList.contains('on')||$('#mod').classList.contains('on')))closeAll()});
 
