@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Каталог агентства в Telegram · пример</title>
+<meta name="description" content="Пример каталога агентства недвижимости внутри Telegram. Клиент листает объекты, сохраняет избранное и записывается на показ, не выходя из чата.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Каталог агентства в Telegram · пример">
+<meta property="og:description" content="Объекты, избранное и запись на показ прямо в Telegram. Пример от Sander Sax.">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/property/img/og.jpg">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/property/tg/">
+<meta name="theme-color" content="#0d1619">
+<link rel="icon" href="../../assets/sandersax-icon-32.png">
+<script>if(/tgWebApp(Data|Platform|Version)/.test(location.hash)||window.TelegramWebviewProxy)document.write('<script src="https://telegram.org/js/telegram-web-app.js"><\/script>')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600&display=swap" rel="stylesheet"></noscript>
+<style>
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+:root{
+ --f-bg:#fbfbf8;--f-sec:#eef0ec;--f-tx:#0d1619;--f-hint:#5a6869;--f-acc:#0f6a62;--f-acctx:#fff;--f-sep:rgba(13,22,25,.12);--f-card:#fff;
+ --page:#e6e9e4;--ink:#0d1619;--mut:#4f5d5e;--frame:#0d1619;
+ --bg:var(--tg-theme-bg-color,var(--f-bg));--sec:var(--tg-theme-secondary-bg-color,var(--f-sec));--tx:var(--tg-theme-text-color,var(--f-tx));
+ --hint:var(--tg-theme-hint-color,var(--f-hint));--acc:var(--tg-theme-button-color,var(--f-acc));--acctx:var(--tg-theme-button-text-color,var(--f-acctx));
+ --link:var(--tg-theme-link-color,var(--f-acc));--sep:var(--tg-theme-section-separator-color,var(--f-sep));--card:var(--tg-theme-section-bg-color,var(--f-card));
+ --r:16px
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --f-bg:#101718;--f-sec:#0a1011;--f-tx:#e8ecea;--f-hint:#93a2a1;--f-acc:#3fa597;--f-acctx:#04110f;--f-sep:rgba(232,236,234,.12);--f-card:#172122;
+ --page:#070c0d;--ink:#e8ecea;--mut:#9aa8a7;--frame:#000
+}}
+:root[data-theme="dark"]{
+ --f-bg:#101718;--f-sec:#0a1011;--f-tx:#e8ecea;--f-hint:#93a2a1;--f-acc:#3fa597;--f-acctx:#04110f;--f-sep:rgba(232,236,234,.12);--f-card:#172122;
+ --page:#070c0d;--ink:#e8ecea;--mut:#9aa8a7;--frame:#000
+}
+html,body{margin:0;height:100%}
+body{background:var(--page);color:var(--ink);font:400 15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+body.intg{background:var(--bg)}
+img{display:block;max-width:100%}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* page around the phone, only outside Telegram */
+.stage{min-height:100%;display:flex;align-items:center;justify-content:center;gap:64px;padding:32px 24px}
+.pitch{max-width:440px}
+.pitch .eb{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:0 0 14px}
+.pitch h1{font:600 44px/1.05 Geologica,system-ui,sans-serif;letter-spacing:-.03em;margin:0 0 18px}
+.pitch p{color:var(--mut);font-size:17px;line-height:1.55;margin:0 0 22px}
+.pitch ul{list-style:none;margin:0 0 28px;padding:0}
+.pitch li{padding:11px 0 11px 28px;border-top:1px solid var(--f-sep);position:relative}
+.pitch li:last-child{border-bottom:1px solid var(--f-sep)}
+.pitch li::before{content:"";position:absolute;left:4px;top:19px;width:10px;height:6px;border-left:2px solid var(--f-acc);border-bottom:2px solid var(--f-acc);transform:rotate(-45deg)}
+.pbtns{display:flex;flex-wrap:wrap;gap:10px}
+.pb{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border-radius:999px;text-decoration:none;font-weight:600}
+.pb.p{background:var(--f-acc);color:var(--f-acctx)}
+.pb.s{border:1px solid var(--f-sep);color:var(--ink)}
+.pnote{font-size:13px;color:var(--mut);margin-top:22px}
+.pnote a{color:var(--ink)}
+.phone{position:relative;width:390px;height:min(820px,calc(100vh - 64px));min-height:600px;border:10px solid var(--frame);border-radius:46px;overflow:hidden;background:var(--bg);color:var(--tx);box-shadow:0 30px 70px -30px rgba(0,0,0,.45);flex:none}
+.rib{display:none}
+@media(max-width:899px){
+ .stage{display:block;padding:0}
+ .pitch{display:none}
+ .phone{width:100%;height:100dvh;min-height:0;border:0;border-radius:0;box-shadow:none}
+ .rib{display:flex}
+}
+body.intg .stage{display:block;padding:0}
+body.intg .pitch{display:none}
+body.intg .phone{width:100%;height:var(--tg-viewport-height,100vh);min-height:0;border:0;border-radius:0;box-shadow:none}
+body.intg .rib{display:flex}
+
+/* app */
+.scr{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:84px}
+.rib{align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;padding:7px 14px;background:var(--sec);color:var(--hint)}
+.rib a,.rib button{color:var(--link);font-weight:600;text-decoration:none;background:none;border:0;padding:0;font-size:12.5px;white-space:nowrap}
+.hd{display:flex;align-items:center;gap:12px;padding:14px 16px 10px}
+.av{width:40px;height:40px;border-radius:50%;background:var(--acc);color:var(--acctx);display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
+.hd h1{font-size:17px;font-weight:650;margin:0;line-height:1.2}
+.hd p{margin:1px 0 0;font-size:13px;color:var(--hint)}
+.cur{margin-left:auto;display:flex;background:var(--sec);border-radius:10px;padding:2px}
+.cur button{border:0;background:none;min-width:34px;height:30px;border-radius:8px;font-size:14px;color:var(--hint)}
+.cur button[aria-pressed="true"]{background:var(--card);color:var(--tx);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.seg{display:flex;margin:4px 16px 10px;background:var(--sec);border-radius:12px;padding:3px}
+.seg button{flex:1;border:0;background:none;height:34px;border-radius:9px;font-size:14px;color:var(--hint)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--tx);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 16px 10px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--sep);background:none;border-radius:999px;height:34px;padding:0 14px;font-size:14px;color:var(--tx);white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acctx)}
+.cnt{padding:2px 16px 8px;font-size:13px;color:var(--hint)}
+.list{padding:0 16px;display:flex;flex-direction:column;gap:14px}
+.card{position:relative;background:var(--card);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.cimg{display:block;width:100%;border:0;padding:0;background:var(--sec) center/cover no-repeat;aspect-ratio:16/10;position:relative}
+.cimg img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;left:10px;top:10px;background:rgba(13,22,25,.72);color:#fff;font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px}
+.heart{position:absolute;right:10px;top:10px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;color:#0d1619}
+.heart svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.heart[aria-pressed="true"] svg{fill:#d6455d;stroke:#d6455d}
+.cb{padding:11px 14px 13px;cursor:pointer}
+.pr{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.cb h3{font-size:15px;font-weight:550;margin:2px 0 3px}
+.meta{margin:0;font-size:13px;color:var(--hint)}
+.empty{padding:26px 16px;color:var(--hint);text-align:center}
+.cta{position:absolute;left:12px;right:12px;bottom:72px;height:50px;border:0;border-radius:12px;background:var(--acc);color:var(--acctx);font-weight:600;font-size:15px;z-index:50}
+.phone.sheeted .cta{bottom:14px}
+body.intg .cta{display:none!important}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;background:var(--bg);border-top:1px solid var(--sep);z-index:20;padding-bottom:env(safe-area-inset-bottom)}
+.tabs button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11.5px;color:var(--hint)}
+.tabs svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8}
+.tabs button[aria-current="page"]{color:var(--acc)}
+.tabs .n{font-style:normal;font-weight:700}
+
+/* sheets */
+.sheet{position:absolute;inset:0;z-index:40;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;padding-bottom:140px;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+.sheet.on{transform:none;visibility:visible}
+@media(prefers-reduced-motion:reduce){.sheet{transition:none}}
+.sbar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg);border-bottom:1px solid transparent}
+.x{width:36px;height:36px;border-radius:50%;border:0;background:var(--sec);font-size:20px;line-height:1;color:var(--tx)}
+body.intg .x{display:none}
+.sbar .t{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;background:var(--sec)}
+.gal::-webkit-scrollbar{display:none}
+.gal img{flex:none;width:100%;aspect-ratio:4/3;object-fit:cover;scroll-snap-align:start}
+.galw{position:relative}
+.gn{position:absolute;right:10px;bottom:10px;background:rgba(13,22,25,.72);color:#fff;font-size:12px;padding:3px 8px;border-radius:999px}
+.sb{padding:14px 16px}
+.sb h2{font-size:21px;font-weight:650;letter-spacing:-.015em;margin:0 0 3px;line-height:1.2}
+.sb .sub{color:var(--hint);margin:0 0 12px;font-size:14px}
+.prow{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.prow b{font-size:24px;letter-spacing:-.02em}
+.prow span{color:var(--hint);font-size:13px}
+.kv{background:var(--card);border-radius:14px;padding:2px 14px;margin:0 0 14px}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--sep);font-size:14px}
+.kv div:last-child{border-bottom:0}
+.kv dt{color:var(--hint)}
+.kv dd{margin:0;font-weight:550;text-align:right}
+.own{font-size:13.5px;color:var(--hint);margin:0 0 16px}
+.yl{background:var(--card);border-radius:14px;padding:14px;margin:0 0 14px}
+.yl h3{font-size:15px;margin:0 0 2px}
+.yl p{margin:0 0 10px;font-size:13px;color:var(--hint)}
+.yl label{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px}
+.yl input[type=range]{width:100%;accent-color:var(--acc);margin:0 0 10px}
+.yres{display:flex;gap:10px}
+.yres div{flex:1;background:var(--sec);border-radius:10px;padding:9px 10px}
+.yres small{display:block;font-size:12px;color:var(--hint)}
+.yres b{font-size:16px}
+.acts{display:flex;gap:10px;margin:0 0 6px}
+.ab{flex:1;height:44px;border-radius:12px;border:1px solid var(--sep);background:none;font-size:14px;font-weight:550;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--tx)}
+.ab svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}
+.ab[aria-pressed="true"]{color:#d6455d;border-color:#d6455d}
+.ab[aria-pressed="true"] svg{fill:#d6455d}
+.fl{font-size:13px;color:var(--hint);margin:16px 0 8px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.inp{width:100%;height:44px;border-radius:12px;border:1px solid var(--sep);background:var(--card);padding:0 12px;font-size:15px}
+.bub{background:var(--sec);border-radius:16px 16px 16px 4px;padding:10px 12px;font-size:14.5px;white-space:pre-line;max-width:92%}
+.bub.me{background:var(--acc);color:var(--acctx);border-radius:16px 16px 4px 16px;margin-left:auto}
+.bubw{display:flex;flex-direction:column;gap:8px;margin:6px 0 12px}
+.who{font-size:12px;color:var(--hint);margin:0 0 2px}
+.done{text-align:center;padding:22px 8px 6px}
+.ok{width:56px;height:56px;border-radius:50%;background:var(--acc);color:var(--acctx);display:grid;place-items:center;margin:0 auto 12px}
+.ok svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.6}
+.done h2{font-size:20px;margin:0 0 4px}
+.demo{font-size:13px;color:var(--hint);background:var(--sec);border-radius:12px;padding:10px 12px;margin:10px 0 14px}
+.lk{display:flex;align-items:center;justify-content:center;height:46px;border-radius:12px;border:1px solid var(--sep);text-decoration:none;font-weight:600;font-size:14.5px;margin-top:10px;background:none;width:100%;color:var(--tx)}
+.lk.p{background:var(--acc);border-color:var(--acc);color:var(--acctx)}
+.agent{margin:6px 16px 0;background:var(--card);border-radius:var(--r);padding:16px}
+.agent .row{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.agent .av{width:52px;height:52px;font-size:17px}
+.agent h2{font-size:17px;margin:0}
+.agent p{margin:0;color:var(--hint);font-size:13.5px}
+.forag{margin:16px 16px 0;padding:16px;border-radius:var(--r);border:1px solid var(--sep)}
+.forag h2{font-size:17px;margin:0 0 6px}
+.forag p{margin:0 0 10px;font-size:14px;color:var(--hint)}
+.forag ul{margin:0 0 6px;padding-left:18px;font-size:14px}
+.forag li{margin:4px 0}
+.mini{display:flex;gap:12px;align-items:center;background:var(--card);border-radius:14px;padding:8px;cursor:pointer;border:0;width:100%;text-align:left}
+.mini img{width:72px;height:56px;border-radius:10px;object-fit:cover;flex:none}
+.mini b{display:block;font-size:14.5px}
+.mini span{font-size:13px;color:var(--hint)}
+.toast{position:absolute;left:50%;bottom:150px;transform:translateX(-50%);background:rgba(13,22,25,.88);color:#fff;font-size:13.5px;padding:9px 14px;border-radius:999px;z-index:60;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="stage">
+ <section class="pitch" aria-label="О примере">
+  <p class="eb">Для агентств недвижимости</p>
+  <h1>Ваш каталог прямо в Telegram</h1>
+  <p>Клиенты листают объекты, сохраняют избранное и записываются на показ, не выходя из чата. Заявка с выбранным объектом сразу приходит менеджеру.</p>
+  <ul>
+   <li>Открывается одной кнопкой из вашего канала или бота</li>
+   <li>Цвета подстраиваются под тему Telegram, светлую или тёмную</li>
+   <li>Объекты из той же Google Таблицы, что и сайт агентства</li>
+   <li>По ссылке в браузере работает как обычная страница</li>
+  </ul>
+  <div class="pbtns">
+   <a class="pb p" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такой каталог</a>
+   <a class="pb s" href="../">Сайт агентства</a>
+  </div>
+  <p class="pnote">Пример. Объекты, цены и цифры условные. Фото с Unsplash. Сделал <a href="../../">Sander Sax</a>.</p>
+ </section>
+ <div class="phone" id="phone">
+  <div class="scr" id="scr">
+   <div class="rib"><span>Пример каталога агентства</span><button type="button" id="ribA">Хочу такой</button></div>
+   <section id="vCat">
+    <header class="hd">
+     <div class="av" aria-hidden="true">ПН</div>
+     <div><h1>Пхукет Недвижимость</h1><p id="hdSub">каталог агентства</p></div>
+     <div class="cur" role="group" aria-label="Валюта" id="cur"></div>
+    </header>
+    <div class="seg" role="group" aria-label="Тип объекта" id="seg"></div>
+    <div class="chips" role="group" aria-label="Цель" id="goal"></div>
+    <div class="chips" role="group" aria-label="Бюджет" id="bud"></div>
+    <p class="cnt" id="cnt" aria-live="polite"></p>
+    <div class="list" id="list"></div>
+   </section>
+   <section id="vFav" hidden>
+    <header class="hd"><div><h1>Избранное</h1><p id="favSub"></p></div></header>
+    <div class="list" id="favList"></div>
+   </section>
+   <section id="vAg" hidden>
+    <header class="hd"><div><h1>Ваш агент</h1><p>отвечает в Telegram</p></div></header>
+    <div class="agent">
+     <div class="row"><div class="av" aria-hidden="true">М</div><div><h2>Марина</h2><p>Менеджер агентства, русский и English</p></div></div>
+     <p style="margin-bottom:12px">Обычно отвечает за 15 минут, с 9:00 до 21:00 по Пхукету.</p>
+     <button type="button" class="lk p" id="agMsg">Написать агенту</button>
+    </div>
+    <div class="forag">
+     <h2>Для владельцев агентств</h2>
+     <p>Такой каталог для вашего агентства, с вашими объектами, контактами и цветами.</p>
+     <ul><li>Кнопка в канале или боте открывает каталог</li><li>Объекты из Google Таблицы, без админки</li><li>Заявки с объектом и датой сразу менеджеру</li><li>Идёт вместе с сайтом или отдельно</li></ul>
+     <button type="button" class="lk" id="agOwn">Обсудить с Sander Sax</button>
+    </div>
+   </section>
+  </div>
+  <section class="sheet" id="sDet" role="dialog" aria-modal="true" aria-labelledby="dT">
+   <div class="sbar"><button type="button" class="x" data-close aria-label="Закрыть">×</button><span class="t" id="dBar"></span></div>
+   <div class="galw"><div class="gal" id="dGal"></div><span class="gn" id="dGn">1 / 2</span></div>
+   <div class="sb">
+    <h2 id="dT" tabindex="-1"></h2>
+    <p class="sub" id="dSub"></p>
+    <div class="prow"><b id="dPr"></b><span id="dSqm"></span></div>
+    <dl class="kv" id="dKv"></dl>
+    <p class="own" id="dOwn"></p>
+    <div class="yl">
+     <h3>Если сдавать</h3>
+     <p>Минус 30% управляющей компании и 1% цены в год на обслуживание.</p>
+     <label for="dOcc"><span>Загрузка за год</span><b id="dOccV"></b></label>
+     <input type="range" id="dOcc" min="30" max="85" step="5" value="60">
+     <div class="yres"><div><small>Чистыми за год</small><b id="dNet"></b></div><div><small>Доходность</small><b id="dY"></b></div></div>
+    </div>
+    <div class="acts">
+     <button type="button" class="ab" id="dFav" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>В избранное</span></button>
+     <button type="button" class="ab" id="dShare"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 13v6h14v-6"/></svg>Поделиться</button>
+    </div>
+   </div>
+  </section>
+  <section class="sheet" id="sBook" role="dialog" aria-modal="true" aria-labelledby="bT">
+   <div class="sbar"><button type="button" class="x" data-close aria-label="Назад">×</button><span class="t" id="bT" tabindex="-1"></span></div>
+   <div class="sb" id="bForm">
+    <div id="bDates"><p class="fl">Когда удобно</p><div class="chips" style="padding:0 0 4px;margin:0 -16px 0 0" id="bDay" role="group" aria-label="Дата"></div></div>
+    <div id="bFmtW"><p class="fl">Как смотреть</p><div class="chips" style="padding:0" id="bFmt" role="group" aria-label="Формат"></div></div>
+    <p class="fl"><label for="bName">Как к вам обращаться</label></p>
+    <input class="inp" id="bName" autocomplete="given-name" placeholder="Анна">
+    <p class="fl">Сообщение агенту</p>
+    <div class="bubw"><div class="bub me" id="bMsg"></div></div>
+   </div>
+   <div class="sb" id="bDone" hidden>
+    <div class="done"><div class="ok" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17l9-10"/></svg></div><h2 tabindex="-1" id="bDoneH">Заявка у агента</h2></div>
+    <div class="bubw" id="bChat" aria-live="polite"></div>
+    <p class="demo">Это пример, сообщение никуда не ушло. В каталоге агентства заявка с объектом и датой сразу приходит менеджеру в Telegram.</p>
+    <button type="button" class="lk" id="bBack">Вернуться в каталог</button>
+    <button type="button" class="lk p" id="bOwn">Хочу такой каталог для агентства</button>
+   </div>
+  </section>
+  <button type="button" class="cta" id="cta" hidden></button>
+  <nav class="tabs" aria-label="Разделы">
+   <button type="button" data-tab="cat" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/></svg>Каталог</button>
+   <button type="button" data-tab="fav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>Избранное <em class="n" id="favN"></em></span></button>
+   <button type="button" data-tab="ag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Агент</button>
+  </nav>
+  <div class="toast" id="toast" role="status"></div>
+ </div>
+</div>
+<script>
+(()=>{
+const tg=window.Telegram&&window.Telegram.WebApp,inTG=!!(tg&&tg.initData);
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const BASE='https://sandersaxbuilds.github.io/selected-work/property/tg/';
+const OWNER='https://t.me/sandersax';
+const L=[
+ {id:'v1',type:'villa',d:'bangtao',n:'Вилла с садом в Чернг Талее',bed:4,area:420,land:800,price:32500000,own:'lease',beach:2100,night:12500,s:{live:3,rent:2,inv:2},st:'sale'},
+ {id:'v2',type:'villa',d:'naiharn',n:'Вилла из тика у Най Харна',bed:3,area:260,land:520,price:18900000,own:'lease',beach:900,night:7500,s:{live:3,rent:2,inv:2},st:'sale'},
+ {id:'v3',type:'villa',d:'bangtao',n:'Новая вилла в Банг Тао',bed:3,area:310,land:600,price:24800000,own:'lease',beach:1400,night:9800,s:{live:3,rent:3,inv:2},st:'sale'},
+ {id:'c1',type:'condo',d:'kata',n:'Квартира в комплексе у Каты',bed:1,area:48,price:6200000,own:'free',beach:450,night:2600,s:{live:1,rent:3,inv:3},st:'sale'},
+ {id:'c2',type:'condo',d:'kamala',n:'Квартира с видом на море в Камале',bed:2,area:92,price:14500000,own:'free',beach:600,night:5800,s:{live:2,rent:3,inv:3},st:'sale'},
+ {id:'c3',type:'condo',d:'patong',n:'Квартира в малоэтажном доме у Патонга',bed:1,area:38,price:3900000,own:'free',beach:700,night:1700,s:{live:1,rent:2,inv:3},st:'res'},
+ {id:'v4',type:'villa',d:'bangtao',n:'Вилла над морем в Лаяне',bed:5,area:650,land:1400,price:89000000,own:'lease',beach:300,night:35000,s:{live:3,rent:2,inv:1},st:'sale'},
+ {id:'v5',type:'villa',d:'rawai',n:'Вилла с бассейном в Раваи',bed:2,area:180,land:350,price:11900000,own:'lease',beach:1800,night:4800,s:{live:2,rent:2,inv:2},st:'sale'},
+ {id:'v6',type:'villa',d:'surin',n:'Закрытая вилла в Сурине',bed:3,area:280,land:560,price:39000000,own:'lease',beach:800,night:15000,s:{live:3,rent:2,inv:1},st:'sale'}
+];
+const DN={bangtao:'Банг Тао',naiharn:'Най Харн',kata:'Ката',kamala:'Камала',patong:'Патонг',rawai:'Раваи',surin:'Сурин'};
+const RATE={thb:1,usd:1/33,rub:1/0.41};
+const S={type:'all',goal:'live',bud:0,cur:'thb',tab:'cat',fav:[],occ:60,day:0,fmt:'site',open:null,mode:'one'};
+const nf=(v,d)=>new Intl.NumberFormat('ru-RU',{maximumFractionDigits:d||0,minimumFractionDigits:0}).format(v);
+const money=(thb,cur)=>{cur=cur||S.cur;const v=thb*RATE[cur];let s;
+ if(v>=1e6)s=nf(v/1e6,v>=1e8?0:1)+' млн';else if(v>=1e3)s=nf(Math.round(v/1e3))+' тыс.';else s=nf(Math.round(v));
+ return cur==='usd'?'$'+s:s+(cur==='thb'?' ฿':' ₽')};
+const pl=(n,a,b,c)=>{const m=n%10,h=n%100;return n+' '+(m===1&&h!==11?a:m>=2&&m<=4&&(h<12||h>14)?b:c)};
+const dist=m=>m<1000?m+' м':nf(m/1000,1)+' км';
+const byId=id=>L.find(x=>x.id===id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* telegram helpers */
+const hap=(k,v)=>{try{if(inTG&&tg.HapticFeedback)tg.HapticFeedback[k](v)}catch(e){}};
+const can=v=>inTG&&tg.isVersionAtLeast&&tg.isVersionAtLeast(v);
+const openLink=u=>{if(inTG&&/^https:\/\/t\.me\//.test(u))tg.openTelegramLink(u);else window.open(u,'_blank','noopener')};
+let mainFn=null;
+const setMain=(text,fn)=>{
+ if(inTG){const mb=tg.MainButton;if(mainFn)mb.offClick(mainFn);mainFn=()=>{hap('impactOccurred','medium');fn()};mb.setText(text);mb.onClick(mainFn);mb.show();return}
+ const b=$('#cta');b.textContent=text;b.onclick=fn;b.hidden=false};
+const hideMain=()=>{if(inTG){if(mainFn)tg.MainButton.offClick(mainFn);mainFn=null;tg.MainButton.hide()}else $('#cta').hidden=true};
+
+/* favourites, Telegram cloud storage inside Telegram, local storage in a browser */
+const KEY='pn_fav';
+const saveFav=()=>{const v=JSON.stringify(S.fav);
+ if(can('6.9')&&tg.CloudStorage){try{tg.CloudStorage.setItem(KEY,v)}catch(e){}}
+ try{localStorage.setItem(KEY,v)}catch(e){}};
+const loadFav=cb=>{const fromLocal=()=>{try{const v=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(v))S.fav=v.filter(byId)}catch(e){}cb()};
+ if(can('6.9')&&tg.CloudStorage){try{tg.CloudStorage.getItem(KEY,(err,v)=>{if(!err&&v){try{const a=JSON.parse(v);if(Array.isArray(a)){S.fav=a.filter(byId);cb();return}}catch(e){}}fromLocal()})}catch(e){fromLocal()}}
+ else fromLocal()};
+const isFav=id=>S.fav.includes(id);
+const toggleFav=id=>{S.fav=isFav(id)?S.fav.filter(x=>x!==id):[...S.fav,id];saveFav();hap('impactOccurred','light');renderFavN();
+ $$(`[data-fav="${id}"]`).forEach(b=>b.setAttribute('aria-pressed',isFav(id)));
+ if(S.open===id)syncDetFav();if(S.tab==='fav')renderFav();
+ toast(isFav(id)?'Добавлено в избранное':'Убрано из избранного')};
+
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1600)};
+
+/* catalog */
+const BUDS=[0,15e6,40e6];
+const visible=x=>(S.type==='all'||x.type===S.type)&&(!S.bud||x.price<=S.bud);
+const ordered=()=>L.filter(visible).sort((a,b)=>b.s[S.goal]-a.s[S.goal]||(S.goal==='live'?b.area-a.area:a.price-b.price));
+const heart='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+const metaLine=x=>[DN[x.d],pl(x.bed,'спальня','спальни','спален'),x.area+' м²',dist(x.beach)+' до пляжа'].join(' · ');
+const card=x=>`<article class="card" data-id="${x.id}"><button type="button" class="cimg" data-open="${x.id}" style="background-image:url(../img/t-${x.id}.jpg)" aria-label="${esc(x.n)}, подробнее"><img src="../img/${x.id}.jpg" loading="lazy" alt="">${x.st==='res'?'<span class="badge">Забронировано</span>':''}</button><button type="button" class="heart" data-fav="${x.id}" aria-pressed="${isFav(x.id)}" aria-label="В избранное: ${esc(x.n)}">${heart}</button><div class="cb" data-open="${x.id}"><div class="pr">${money(x.price)}</div><h3>${esc(x.n)}</h3><p class="meta">${metaLine(x)}</p></div></article>`;
+const renderCtl=()=>{
+ $('#cur').innerHTML=[['thb','฿'],['usd','$'],['rub','₽']].map(([k,s])=>`<button type="button" data-cur="${k}" aria-pressed="${S.cur===k}" aria-label="${{thb:'Баты',usd:'Доллары',rub:'Рубли'}[k]}">${s}</button>`).join('');
+ $('#seg').innerHTML=[['all','Все'],['villa','Виллы'],['condo','Квартиры']].map(([k,s])=>`<button type="button" data-type="${k}" aria-pressed="${S.type===k}">${s}</button>`).join('');
+ $('#goal').innerHTML=[['live','Для жизни'],['rent','Для аренды'],['inv','Для вложений']].map(([k,s])=>`<button type="button" class="chip" data-goal="${k}" aria-pressed="${S.goal===k}">${s}</button>`).join('');
+ $('#bud').innerHTML=BUDS.map(b=>`<button type="button" class="chip" data-bud="${b}" aria-pressed="${S.bud===b}">${b?'до '+money(b):'Любой бюджет'}</button>`).join('')};
+const renderList=()=>{const o=ordered();
+ $('#list').innerHTML=o.length?o.map(card).join(''):'<p class="empty">Под эти условия сейчас ничего нет. Напишите агенту, подберём вне каталога.</p>';
+ $('#cnt').textContent=pl(o.length,'объект','объекта','объектов')+(S.goal==='live'?', сначала удобные для жизни':S.goal==='rent'?', сначала лучше сдаются':', сначала выгоднее как вложение');
+ $('#hdSub').textContent='каталог агентства · '+pl(L.length,'объект','объекта','объектов')};
+const renderFavN=()=>{$('#favN').textContent=S.fav.length||''};
+const renderFav=()=>{const f=S.fav.map(byId).filter(Boolean);
+ $('#favSub').textContent=f.length?pl(f.length,'объект','объекта','объектов'):'пока пусто';
+ $('#favList').innerHTML=f.length?f.map(x=>`<button type="button" class="mini" data-open="${x.id}"><img src="../img/t-${x.id}.jpg" alt=""><div><b>${esc(x.n)}</b><span>${money(x.price)} · ${DN[x.d]}</span></div></button>`).join(''):'<p class="empty">Нажмите на сердечко на карточке, и объект появится здесь. Подборку можно отправить агенту одним сообщением.</p>';
+ if(S.tab==='fav'&&!stack.length){f.length?setMain('Отправить подборку агенту',()=>openBook('fav')):hideMain()}};
+
+/* tabs */
+const setTab=t=>{S.tab=t;$('#vCat').hidden=t!=='cat';$('#vFav').hidden=t!=='fav';$('#vAg').hidden=t!=='ag';
+ $$('.tabs button').forEach(b=>b.dataset.tab===t?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
+ $('#scr').scrollTop=0;hap('selectionChanged');
+ if(t==='fav')renderFav();else if(t==='ag')setMain('Написать агенту',()=>openBook('ask'));else hideMain()};
+
+/* sheets and back navigation */
+const stack=[];
+const syncBack=()=>{if(!inTG)return;stack.length?tg.BackButton.show():tg.BackButton.hide()};
+const openSheet=el=>{if(stack[stack.length-1]===el)return;stack.push(el);el.classList.add('on');el.scrollTop=0;$('#phone').classList.add('sheeted');syncBack()};
+const closeTop=()=>{const el=stack.pop();if(!el)return;el.classList.remove('on');if(!stack.length)$('#phone').classList.remove('sheeted');syncBack();
+ if(el.id==='sDet'){S.open=null;if(!inTG)try{history.replaceState(null,'',location.pathname)}catch(e){}}
+ if(stack.length)afterSheet(stack[stack.length-1]);else restoreMain()};
+const restoreMain=()=>{if(S.tab==='fav')renderFav();else if(S.tab==='ag')setMain('Написать агенту',()=>openBook('ask'));else hideMain()};
+const afterSheet=el=>{if(el.id==='sDet')setMain('Записаться на показ',()=>openBook('one'))};
+
+/* detail */
+const syncDetFav=()=>{const b=$('#dFav');b.setAttribute('aria-pressed',isFav(S.open));b.querySelector('span').textContent=isFav(S.open)?'В избранном':'В избранное'};
+const calcY=()=>{const x=byId(S.open);if(!x)return;const occ=S.occ/100,net=x.night*365*occ*.7-x.price*.01;
+ $('#dOccV').textContent=S.occ+'%';$('#dNet').textContent=money(Math.max(net,0));$('#dY').textContent=nf(Math.max(net,0)/x.price*100,1)+'%'};
+const openDet=id=>{const x=byId(id);if(!x)return;S.open=id;S.occ=60;$('#dOcc').value=60;
+ $('#dBar').textContent=x.n;
+ $('#dGal').innerHTML=`<img src="../img/${x.id}.jpg" alt="${esc(x.n)}, фото 1"><img src="../img/${x.id}b.jpg" loading="lazy" alt="${esc(x.n)}, фото 2">`;
+ $('#dGn').textContent='1 / 2';
+ $('#dT').textContent=x.n;$('#dSub').textContent=DN[x.d]+' · '+dist(x.beach)+' до пляжа'+(x.st==='res'?' · забронировано':'');
+ $('#dPr').textContent=money(x.price);$('#dSqm').textContent=money(Math.round(x.price/x.area))+' за м²';
+ const kv=[['Спальни',x.bed],['Площадь',x.area+' м²']];if(x.land)kv.push(['Участок',x.land+' м²']);
+ kv.push(['Право',x.own==='free'?'Фрихолд':'Лизхолд 30+30'],['Аренда за ночь',money(x.night)]);
+ $('#dKv').innerHTML=kv.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+ $('#dOwn').textContent=x.own==='free'?'Квартира оформляется на вас в собственность, в рамках квоты 49% для иностранцев в доме.':'Земля оформляется в аренду на 30 лет с правом продления, договор регистрируется в Земельном департаменте.';
+ syncDetFav();calcY();openSheet($('#sDet'));afterSheet($('#sDet'));
+ if(!inTG)try{history.replaceState(null,'','#'+id)}catch(e){}
+ hap('impactOccurred','light');setTimeout(()=>$('#dT').focus({preventScroll:true}),340)};
+$('#dGal').addEventListener('scroll',e=>{const g=e.currentTarget;$('#dGn').textContent=(Math.round(g.scrollLeft/g.clientWidth)+1)+' / 2'},{passive:true});
+$('#dOcc').addEventListener('input',e=>{S.occ=+e.target.value;calcY()});
+$('#dOcc').addEventListener('change',()=>hap('selectionChanged'));
+$('#dFav').onclick=()=>toggleFav(S.open);
+$('#dShare').onclick=async()=>{const x=byId(S.open);if(!x)return;const url=BASE+'#'+x.id,text=x.n+', '+money(x.price);
+ if(inTG){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text));return}
+ if(navigator.share){try{await navigator.share({title:x.n,text,url});return}catch(e){if(e&&e.name==='AbortError')return}}
+ try{await navigator.clipboard.writeText(url);toast('Ссылка скопирована')}catch(e){toast(url)}};
+
+/* booking and messages */
+const days=()=>{const out=[],d=new Date();for(let i=1;i<=6;i++){const x=new Date(d);x.setDate(d.getDate()+i);out.push(x)}return out};
+const dayLbl=x=>x.toLocaleDateString('ru-RU',{weekday:'short',day:'numeric',month:'short'}).replace('.','');
+const msgText=()=>{const nm=$('#bName').value.trim(),hi=nm?`Здравствуйте! Меня зовут ${nm}.`:'Здравствуйте!';
+ if(S.mode==='ask')return hi+'\nХочу подобрать объект'+(S.bud?', бюджет до '+money(S.bud):'')+'. Можно созвониться?';
+ if(S.mode==='fav'){const f=S.fav.map(byId).filter(Boolean);return hi+'\nМне понравились:\n'+f.map(x=>'· '+x.n+', '+money(x.price)).join('\n')+'\nМожно подробнее и видео?'}
+ const x=byId(S.open);return hi+'\nХочу посмотреть: '+x.n+', '+money(x.price)+'.\nУдобная дата: '+dayLbl(days()[S.day])+'.\n'+(S.fmt==='video'?'Можно по видео, я пока не на Пхукете.':'Приеду на показ лично.')};
+const renderBook=()=>{const one=S.mode==='one';$('#bDates').hidden=!one;$('#bFmtW').hidden=!one;
+ $('#bDay').innerHTML=days().map((x,i)=>`<button type="button" class="chip" data-day="${i}" aria-pressed="${S.day===i}">${dayLbl(x)}</button>`).join('');
+ $('#bFmt').innerHTML=[['site','На месте'],['video','По видео']].map(([k,s])=>`<button type="button" class="chip" data-fmt="${k}" aria-pressed="${S.fmt===k}">${s}</button>`).join('');
+ $('#bMsg').textContent=msgText()};
+const openBook=mode=>{S.mode=mode;$('#bForm').hidden=false;$('#bDone').hidden=true;
+ $('#bT').textContent=mode==='one'?'Показ: '+byId(S.open).n:mode==='fav'?'Подборка агенту':'Сообщение агенту';
+ renderBook();openSheet($('#sBook'));setMain('Отправить агенту',sendBook);setTimeout(()=>$('#bT').focus({preventScroll:true}),340)};
+const sendBook=()=>{const text=msgText();$('#bForm').hidden=true;$('#bDone').hidden=false;hideMain();
+ $('#bChat').innerHTML=`<div class="bub me">${esc(text)}</div>`;hap('notificationOccurred','success');
+ $('#sBook').scrollTop=0;setTimeout(()=>$('#bDoneH').focus({preventScroll:true}),60);
+ setTimeout(()=>{const r=S.mode==='fav'?'Здравствуйте! Отличный выбор. Сегодня пришлю видео по каждому объекту. Удобно созвониться в 15:00?':S.mode==='ask'?'Здравствуйте! Конечно. Расскажите, для жизни или под аренду, и какой район нравится?':'Здравствуйте! Спасибо за заявку. Сегодня пришлю видео и план объекта. Удобно созвониться в 15:00?';
+  $('#bChat').insertAdjacentHTML('beforeend',`<p class="who">Марина, агент</p><div class="bub">${esc(r)}</div>`);hap('impactOccurred','soft')},1300)};
+$('#bName').addEventListener('input',()=>{$('#bMsg').textContent=msgText()});
+$('#bBack').onclick=()=>{while(stack.length)closeTop();setTab('cat')};
+$('#bOwn').onclick=$('#agOwn').onclick=$('#ribA').onclick=()=>openLink(OWNER);
+$('#agMsg').onclick=()=>openBook('ask');
+
+/* events */
+document.addEventListener('click',e=>{const t=e.target.closest('button,[data-open]');if(!t)return;
+ if(t.dataset.fav){e.stopPropagation();toggleFav(t.dataset.fav);return}
+ if(t.dataset.open){openDet(t.dataset.open);return}
+ if(t.dataset.cur){S.cur=t.dataset.cur;hap('selectionChanged');renderCtl();renderList();return}
+ if(t.dataset.type){S.type=t.dataset.type;hap('selectionChanged');renderCtl();renderList();return}
+ if(t.dataset.goal){S.goal=t.dataset.goal;hap('selectionChanged');renderCtl();renderList();return}
+ if(t.dataset.bud!==undefined&&t.classList.contains('chip')){S.bud=+t.dataset.bud;hap('selectionChanged');renderCtl();renderList();return}
+ if(t.dataset.day!==undefined){S.day=+t.dataset.day;hap('selectionChanged');renderBook();return}
+ if(t.dataset.fmt){S.fmt=t.dataset.fmt;hap('selectionChanged');renderBook();return}
+ if(t.dataset.tab){while(stack.length)closeTop();setTab(t.dataset.tab);return}
+ if(t.hasAttribute('data-close')){closeTop();return}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&stack.length)closeTop()});
+
+/* start */
+if(inTG){document.body.classList.add('intg');
+ try{tg.ready();tg.expand();if(can('7.7')&&tg.disableVerticalSwipes)tg.disableVerticalSwipes();if(can('6.1')){tg.setHeaderColor('bg_color');tg.setBackgroundColor('bg_color')}}catch(e){}
+ tg.BackButton.onClick(closeTop);
+ const scheme=()=>document.documentElement.setAttribute('data-theme',tg.colorScheme==='dark'?'dark':'light');scheme();tg.onEvent('themeChanged',scheme)}
+renderCtl();renderList();
+loadFav(()=>{renderFavN();renderList();
+ const sp=(inTG&&tg.initDataUnsafe&&tg.initDataUnsafe.start_param)||location.hash.slice(1);
+ if(sp&&byId(sp))openDet(sp)});
+})();
+</script>
+</body>
+</html>
