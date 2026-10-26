@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Квартиры в Паттайе и на Пхукете · набросок для ATHOME</title>
+<meta name="description" content="Набросок сайта для ATHOME. Новостройки, готовые квартиры и виллы в Паттайе и на Пхукете, реквизиты в одном блоке, подвал с текущим годом и доходность аренды.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Квартиры в Паттайе и на Пхукете · набросок для ATHOME">
+<meta property="og:description" content="Набросок сайта для ATHOME. Новостройки, готовые квартиры и виллы в Паттайе и на Пхукете, реквизиты в одном блоке, подвал с текущим годом и доходность аренды.">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/property/img/og-pattaya.jpg">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/property/athome/">
+<meta name="theme-color" content="#1f1619">
+<link rel="icon" href="../../assets/sandersax-icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../img/hero-pattaya.jpg">
+<style>
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.ag>*,.rq>*,.buyg>*,.box>*,.adet>*{min-width:0}
+:root{--ink:#1f1619;--ink2:#3a2d32;--mut:#6e6166;--stone:#f4eff1;--paper:#fcfafb;--line:rgba(31,22,25,.12);--lag:#8a4f62;--lag2:#6f3e4f;--glass:#ead2da;--r:8px;--sh:0 1px 2px rgba(31,22,25,.06),0 14px 34px -14px rgba(31,22,25,.22)}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--stone);color:var(--ink);font:400 16px/1.55 "Mulish",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+h1,h2,h3,h4,.dsp{font-family:"Bitter","Mulish",sans-serif;font-weight:600;letter-spacing:-.025em;margin:0}
+.wrap{width:min(1240px,calc(100% - 40px));margin-inline:auto}
+@media(max-width:520px){.wrap{width:calc(100% - 32px)}}
+:focus-visible{outline:2px solid var(--lag);outline-offset:2px}
+
+/* header */
+.top{position:fixed;inset:0 0 auto;z-index:50;color:#fff;transition:background .35s,color .35s,box-shadow .35s}
+.rib{font-size:13px;line-height:1.35;text-align:center;padding:8px 16px;background:rgba(31,22,25,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#f1e6ea;max-height:64px;overflow:hidden;transition:max-height .35s,padding .35s}
+.rib a{color:#fff;font-weight:600;white-space:nowrap}
+.nav{display:flex;align-items:center;gap:28px;height:66px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Bitter";font-weight:600;font-size:17px;letter-spacing:-.01em;white-space:nowrap}
+.brand svg{width:28px;height:28px;flex:none}
+.links{display:flex;gap:22px;margin-left:auto;font-size:15px}
+.links a{text-decoration:none;opacity:.85;transition:opacity .2s}
+.links a:hover{opacity:1}
+.lang{display:flex;border:1px solid currentColor;border-radius:99px;padding:2px}
+.lang button{border:0;background:none;padding:4px 10px;border-radius:99px;font-size:13px;font-weight:600}
+.lang button[aria-pressed=true]{background:#fff;color:var(--ink)}
+.tg{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--ink);border-radius:99px;padding:9px 16px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+.top.solid{background:rgba(252,250,251,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.top.solid .rib{max-height:0;padding:0 16px}
+.top.solid .lang button[aria-pressed=true]{background:var(--ink);color:#fff}
+.top.solid .tg{background:var(--ink);color:#fff}
+@media(max-width:960px){.links{display:none}.nav{gap:12px;height:58px}.lang{margin-left:auto}}
+@media(max-width:440px){.tg span{display:none}.tg{padding:9px 11px}.brand{font-size:15px}.brand svg{width:24px;height:24px}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden;background:#1f1619}
+.hero .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.05);transition:opacity .9s ease,transform 1.8s cubic-bezier(.2,.8,.2,1)}
+.hero .ph.on{opacity:1;transform:none}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,22,25,.5) 0%,rgba(31,22,25,.08) 28%,rgba(31,22,25,.22) 52%,rgba(31,22,25,.86) 100%);pointer-events:none}
+.hin{position:relative;z-index:2;padding:160px 0 34px}
+.hero h1{font-size:clamp(42px,7.4vw,100px);line-height:.98;max-width:12.5ch;font-weight:600;text-wrap:balance}
+.hero h1 .w{display:inline-block;color:var(--glass)}
+.hero h1 .w span{display:inline-block;transition:transform .42s cubic-bezier(.2,.8,.2,1),opacity .28s}
+.hero h1 .w.swap span{transform:translateY(.32em);opacity:0}
+.hero .lead{font-size:clamp(16px,1.6vw,19px);max-width:48ch;margin:18px 0 28px;color:rgba(255,255,255,.9)}
+.finder{background:rgba(252,250,251,.96);color:var(--ink);border-radius:24px;padding:18px 20px;display:grid;grid-template-columns:auto minmax(220px,1fr) auto auto;gap:18px 28px;align-items:end;box-shadow:0 30px 60px -30px rgba(0,0,0,.55)}
+.fl{font-size:12.5px;color:var(--mut);margin-bottom:8px;font-weight:600}
+.seg{display:inline-flex;background:var(--stone);border-radius:14px;padding:4px;gap:2px}
+.seg button{border:0;background:none;padding:10px 14px;border-radius:11px;font-weight:600;font-size:15px;white-space:nowrap;transition:background .2s,color .2s}
+.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+.val{font-family:"Bitter";font-size:22px;font-weight:600;line-height:1;margin-bottom:10px;letter-spacing:-.02em}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:none;margin:0;--p:50%}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--lag) var(--p),rgba(31,22,25,.14) var(--p))}
+input[type=range]::-moz-range-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--lag) var(--p),rgba(31,22,25,.14) var(--p))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--lag);margin-top:-9px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--lag)}
+input.dk::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--glass) var(--p),rgba(255,255,255,.2) var(--p))}
+input.dk::-moz-range-track{background:linear-gradient(90deg,var(--glass) var(--p),rgba(255,255,255,.2) var(--p))}
+input.dk::-webkit-slider-thumb{border-color:var(--glass)}
+.cur button{padding:10px 13px;min-width:44px}
+.res{display:flex;align-items:center;gap:14px}
+.res .n{font-family:"Bitter";font-size:32px;font-weight:600;line-height:1}
+.res .nl{font-size:13px;color:var(--mut);line-height:1.2}
+.thumbs{display:flex;min-width:40px}
+.thumbs img{width:40px;height:40px;border-radius:11px;object-fit:cover;border:2px solid var(--paper);margin-left:-12px}
+.thumbs img:first-child{margin-left:0}
+.go{border:0;background:var(--lag);color:#fff;border-radius:14px;padding:14px 20px;font-weight:600;font-size:15px;white-space:nowrap;transition:background .2s,transform .15s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.go:hover{background:var(--lag2)}
+.go:active{transform:scale(.98)}
+@media(max-width:1080px){.finder{grid-template-columns:1fr 1fr}.res{grid-column:1/-1;justify-content:space-between}}
+@media(max-width:640px){.finder{grid-template-columns:1fr;padding:16px;gap:16px}.finder .seg{display:flex}.finder .seg button{flex:1;padding:10px 6px}.hin{padding-top:130px}.res .go{padding:13px 16px}}
+
+/* sections */
+section{padding:100px 0}
+@media(max-width:640px){section{padding:68px 0}}
+.eb{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--lag);margin-bottom:12px}
+.h2{font-size:clamp(32px,4.6vw,56px);line-height:1.03;max-width:17ch;text-wrap:balance}
+.sub{color:var(--mut);max-width:58ch;margin:14px 0 0;font-size:17px}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:34px}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);border-radius:99px;padding:9px 15px;font-size:14px;font-weight:600;transition:background .2s,color .2s}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.x{background:var(--glass);border-color:transparent}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+@media(max-width:360px){.grid{grid-template-columns:1fr}}
+.card{background:var(--paper);border-radius:var(--r);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;position:relative;transition:box-shadow .3s}
+.card:hover{box-shadow:var(--sh)}
+.card.hide{display:none}
+.cimg{position:relative;aspect-ratio:4/3;overflow:hidden;background:#e2d8dc}
+.cimg img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .4s}
+.card:hover .cimg img{transform:scale(1.04)}
+.own{position:absolute;left:12px;top:12px;background:rgba(252,250,251,.93);border-radius:99px;padding:5px 11px;font-size:12.5px;font-weight:700}
+.cmp{position:absolute;right:12px;top:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(252,250,251,.93);display:grid;place-items:center;font-size:20px;font-weight:600;line-height:1;transition:background .2s,color .2s}
+.cmp[aria-pressed=true]{background:var(--lag);color:#fff}
+.stat{position:absolute;inset:auto 0 0 0;background:rgba(31,22,25,.8);color:#fff;font-weight:700;font-size:14px;padding:9px 14px;letter-spacing:.02em;display:none}
+.card[data-st=res] .stat,.card[data-st=sold] .stat{display:block}
+.card[data-st=sold] .cimg img{filter:grayscale(.85)}
+.cb{padding:16px 18px 18px;display:flex;flex-direction:column;gap:7px;flex:1}
+.cmeta{font-size:13.5px;color:var(--mut)}
+.fit{color:var(--lag);font-weight:700}
+.card h3{font-size:19.5px;line-height:1.2}
+.specs{font-size:14px;color:var(--ink2)}
+.crow{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:auto;padding-top:8px}
+.price{font-family:"Bitter";font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.yl{font-size:13px;color:var(--lag);font-weight:700;background:rgba(138,79,98,.09);border-radius:8px;padding:5px 8px;white-space:nowrap}
+.more{border:0;background:none;padding:6px 0 0;font-weight:700;color:var(--lag);font-size:14.5px;text-align:left;align-self:flex-start}
+.more:hover{text-decoration:underline}
+.card.flash{animation:flash 1.6s ease}
+@keyframes flash{0%{box-shadow:0 0 0 4px var(--glass)}100%{box-shadow:0 0 0 0 rgba(234,210,218,0)}}
+.empty{display:none;padding:28px;border:1px solid var(--line);background:var(--paper);border-radius:var(--r);text-align:center;color:var(--mut)}
+.empty a{color:var(--lag);font-weight:700}
+
+/* areas */
+.areas{background:var(--paper)}
+.stops{position:relative;display:flex;justify-content:space-between;margin:6px 0 30px}
+.rail{position:absolute;left:48px;right:48px;top:34px;height:2px;background:linear-gradient(90deg,var(--ink) var(--fill,0%),rgba(31,22,25,.16) var(--fill,0%))}
+.stop{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;border:0;background:none;padding:0;width:96px}
+.stop .m{font-size:12.5px;color:var(--mut);height:18px;line-height:18px;white-space:nowrap}
+.stop .dot{width:16px;height:16px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);transition:transform .25s,background .25s,border-color .25s}
+.stop .nm{font-weight:700;font-size:14.5px;text-align:center;line-height:1.2}
+.stop:hover .dot{transform:scale(1.2)}
+.stop[aria-pressed=true] .dot{background:var(--lag);border-color:var(--lag);transform:scale(1.45)}
+.stop[aria-pressed=true] .nm{color:var(--lag)}
+.air{font-size:13px;color:var(--mut);margin-bottom:6px}
+.adet{display:grid;grid-template-columns:1fr 1fr;background:var(--stone);border-radius:var(--r);overflow:hidden}
+.aimg{min-height:320px;position:relative;background:#e2d8dc}
+.aimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.atx{padding:30px}
+.atx h3{font-size:30px}
+.ast{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}
+.ast div,.kv div,.out div{background:var(--paper);border-radius:12px;padding:10px 12px}
+.ast small,.kv small,.out small{display:block;font-size:12px;color:var(--mut);line-height:1.3}
+.ast b,.kv b{font-family:"Bitter";font-weight:600;font-size:17px}
+@media(max-width:820px){
+ .stops{flex-direction:column;gap:0;margin-left:2px}
+ .rail{left:7px;right:auto;top:22px;bottom:22px;width:2px;height:auto;background:linear-gradient(180deg,var(--ink) var(--fill,0%),rgba(31,22,25,.16) var(--fill,0%))}
+ .stop{flex-direction:row;width:100%;gap:14px;padding:11px 0}
+ .stop .dot{order:1;flex:none}.stop .nm{order:2;text-align:left;font-size:16px}.stop .m{order:3;margin-left:auto}
+ .adet{grid-template-columns:1fr}.aimg{min-height:210px}.atx{padding:22px}
+}
+@media(max-width:420px){.ast{grid-template-columns:1fr 1fr}.ast div:last-child{grid-column:1/-1}}
+
+/* buy */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.step{border:1px solid var(--line);background:var(--paper);border-radius:16px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:4px;transition:background .2s,color .2s,border-color .2s}
+.step b{font-family:"Bitter";font-size:13px;color:var(--mut);font-weight:600}
+.step span{font-weight:700;font-size:15px;line-height:1.25}
+.step[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.step[aria-pressed=true] b{color:var(--glass)}
+.sdet{background:var(--paper);border-radius:var(--r);padding:22px 24px;border:1px solid var(--line);min-height:136px}
+.sdet h3{font-size:22px}
+.buyg{display:grid;grid-template-columns:1.55fr 1fr;gap:22px;align-items:start}
+.fees{background:var(--ink);color:#fff;border-radius:var(--r);padding:22px 24px}
+.fees .fl{color:rgba(255,255,255,.62)}
+.fees .val{font-size:28px}
+.fee{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:14.5px}
+.fee b{font-family:"Bitter";font-weight:600;white-space:nowrap;text-align:right}
+.fee.tot{font-size:16px;border-bottom:0;padding-top:14px}
+.fee.tot b{color:var(--glass);font-size:18px}
+.note{font-size:13px;color:var(--mut);margin:12px 0 0;line-height:1.45}
+.fees .note{color:rgba(255,255,255,.6)}
+@media(max-width:960px){.buyg{grid-template-columns:1fr}.steps{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.steps{grid-template-columns:1fr 1fr}.steps .step:last-child{grid-column:1/-1}.fee{font-size:13.5px}}
+
+/* agency */
+.agency{background:var(--ink);color:#fff}
+.agency .sub{color:rgba(255,255,255,.72)}
+.agency .eb{color:var(--glass)}
+.ag{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:start}
+.sheet{background:#fff;color:#202124;border-radius:16px;overflow:hidden;font-size:14px;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.shbar{display:flex;align-items:center;gap:10px;padding:11px 14px;background:#f1f3f4;border-bottom:1px solid #dadce0;font-size:13px;color:#3c4043;flex-wrap:wrap}
+.shbar i{width:18px;height:18px;border-radius:4px;background:#188038;display:inline-block;flex:none}
+.shbar .sv{margin-left:auto;color:#5f6368}
+.shw{overflow-x:auto}
+table.sh{width:100%;border-collapse:collapse;min-width:440px}
+.sh th{background:#f8f9fa;color:#5f6368;font-weight:500;font-size:12px;border:1px solid #e2e3e5;padding:4px 8px;text-align:center}
+.sh td{border:1px solid #e2e3e5;padding:0;height:42px}
+.sh td.rn{background:#f8f9fa;color:#5f6368;font-size:12px;text-align:center;width:34px}
+.sh td.nm{padding:0 10px;white-space:nowrap}
+.sh td.hd{padding:0 10px;font-weight:700;background:#fff}
+.sh input,.sh select{width:100%;height:42px;border:0;padding:0 10px;background:transparent;font-size:14px;border-radius:0}
+.sh input{font-variant-numeric:tabular-nums}
+.sh input:focus,.sh select:focus{outline:2px solid #1a73e8;outline-offset:-2px}
+.sh tr.ed td{background:#e6f4ea}
+.shhint{font-size:13px;color:rgba(255,255,255,.62);margin:12px 2px 0}
+.mlabel{font-size:13px;color:var(--glass);font-weight:700;margin-bottom:10px;letter-spacing:.02em}
+.mirror .card{color:var(--ink);max-width:420px}
+.live{font-size:14px;color:var(--glass);margin-top:12px;min-height:22px}
+@media(max-width:960px){.ag{grid-template-columns:1fr}}
+@media(max-width:560px){
+ table.sh{min-width:0;table-layout:fixed}
+ .sh th:nth-child(1){width:26px}.sh th:nth-child(3){width:31%}.sh th:nth-child(4){width:30%}
+ .sh td.rn{width:26px;font-size:11px}
+ .sh td.nm,.sh td.hd{white-space:normal;line-height:1.25;padding:6px 8px;font-size:13px}
+ .sh input,.sh select{font-size:13.5px;padding:0 6px;height:52px}
+ .sh td{height:52px}
+}
+
+/* presale */
+.presale{background:var(--paper)}
+.ps{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;align-items:start}
+.ps>*{min-width:0}
+.psl{background:var(--stone);border-radius:var(--r);padding:24px}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.cd div{background:var(--ink);color:#fff;border-radius:14px;padding:14px 4px 10px;text-align:center}
+.cd b{display:block;font-family:"Bitter";font-size:clamp(26px,4vw,42px);font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.cd small{font-size:12px;color:rgba(255,255,255,.66)}
+.cd.end{display:block;background:var(--ink);color:#fff;border-radius:14px;padding:16px 18px;font-weight:600}
+.pprice{margin-top:18px;font-family:"Bitter";font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.pprice small{display:block;font-family:"Mulish";font-size:13.5px;color:var(--mut);font-weight:400;letter-spacing:0;margin-top:4px}
+.psr{background:var(--ink);color:#fff;border-radius:var(--r);padding:24px}
+.psr .fl{color:rgba(255,255,255,.62)}
+.psr .go{width:100%;margin-top:18px;background:var(--glass);color:var(--ink)}
+.psr .note{color:rgba(255,255,255,.6)}
+@media(max-width:860px){.ps{grid-template-columns:1fr}}
+
+/* visit */
+.req{background:var(--paper)}
+.rq{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.form{display:grid;gap:18px}
+.field>label,.field>.fl{display:block;font-size:13px;color:var(--mut);margin-bottom:7px;font-weight:600}
+.inp{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px 14px;font-size:16px;min-height:48px}
+.form .seg{display:flex;flex-wrap:wrap}
+.form .seg button{flex:1}
+.phone{background:#ebe3e6;border-radius:28px;overflow:hidden;border:1px solid var(--line);width:100%;max-width:460px;margin-inline:auto;box-shadow:var(--sh)}
+.ph-h{display:flex;align-items:center;gap:10px;padding:14px 16px;color:#fff;font-weight:700;transition:background .3s;font-size:15px}
+.ph-h .av{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.25);display:grid;place-items:center;font-size:13px;flex:none}
+.ph-h small{display:block;font-weight:400;opacity:.85;font-size:12px}
+.ph-b{padding:22px 14px 24px;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;transition:background .3s}
+.bub{align-self:flex-end;max-width:90%;padding:10px 14px 7px;border-radius:16px 16px 4px 16px;font-size:15px;line-height:1.45;white-space:pre-line;box-shadow:0 1px 1px rgba(0,0,0,.08);transition:background .3s;color:#111}
+.bub time{display:block;text-align:right;font-size:11px;opacity:.6;margin-top:3px}
+.bub.in{align-self:flex-start;background:#fff!important;border-radius:16px 16px 16px 4px;animation:pop .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.phone[data-m=tg] .ph-h{background:#2a9fd8}.phone[data-m=tg] .ph-b{background:#d6e4d2}.phone[data-m=tg] .bub{background:#e2ffc8}
+.phone[data-m=wa] .ph-h{background:#075e54}.phone[data-m=wa] .ph-b{background:#efeae2}.phone[data-m=wa] .bub{background:#d9fdd3}
+.phone[data-m=line] .ph-h{background:#06c755}.phone[data-m=line] .ph-b{background:#9bb3d6}.phone[data-m=line] .bub{background:#86e06b}
+.sendw{max-width:460px;margin:14px auto 0}
+.sendw .go{width:100%}
+.sendn{font-size:13.5px;color:var(--mut);margin:10px 0 0;min-height:20px}
+@media(max-width:900px){.rq{grid-template-columns:1fr}}
+
+/* order */
+.box{background:var(--ink);color:#fff;border-radius:28px;padding:clamp(28px,5vw,60px);display:grid;grid-template-columns:1.15fr 1fr;gap:36px;align-items:start}
+.box .eb{color:var(--glass)}
+.box .sub{color:rgba(255,255,255,.74)}
+.pr{font-family:"Bitter";font-size:clamp(38px,5vw,58px);font-weight:600;line-height:1;letter-spacing:-.03em}
+.pt{color:rgba(255,255,255,.7);margin:8px 0 20px}
+.box ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.box li{display:flex;gap:12px}
+.box li::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--glass);margin-top:9px;flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:14px;padding:13px 18px;font-weight:700;text-decoration:none;font-size:15px}
+.btn.w{background:#fff;color:var(--ink)}
+.btn.o{border:1px solid rgba(255,255,255,.35);color:#fff}
+@media(max-width:860px){.box{grid-template-columns:1fr}}
+footer{padding:10px 0 130px;font-size:13.5px;color:var(--mut)}
+footer p{margin:6px 0}
+
+/* drawer, modal, bar */
+.ov{position:fixed;inset:0;background:rgba(31,22,25,.5);z-index:80;opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.on{opacity:1;pointer-events:auto}
+.drw{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--paper);z-index:90;transform:translateX(103%);transition:transform .45s cubic-bezier(.2,.8,.2,1);overflow-y:auto;overscroll-behavior:contain;visibility:hidden}
+.drw.on{transform:none;visibility:visible}
+.dimg{position:relative;aspect-ratio:4/3;background:#e2d8dc}
+.dimg>img{width:100%;height:100%;object-fit:cover}
+.dth{position:absolute;left:14px;bottom:14px;display:flex;gap:8px}
+.dth button{width:58px;height:44px;border-radius:10px;overflow:hidden;border:2px solid rgba(255,255,255,.55);padding:0;background:none}
+.dth button[aria-pressed=true]{border-color:#fff}
+.dth img{width:100%;height:100%;object-fit:cover}
+.x{position:absolute;right:14px;top:14px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(252,250,251,.95);font-size:24px;line-height:1;display:grid;place-items:center}
+.dbody{padding:22px 24px 34px;display:grid;gap:16px}
+.dbody h3{font-size:27px;line-height:1.12}
+.dbody .price{font-size:30px}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kv div{background:var(--stone)}
+.calc{border:1px solid var(--line);border-radius:18px;padding:18px}
+.calc h4{font-size:19px}
+.sl{margin-top:10px}
+.sl .t{display:flex;justify-content:space-between;gap:10px;font-size:14px}
+.sl .t b{font-weight:700}
+.out{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.out div{background:var(--stone)}
+.out b{font-family:"Bitter";font-size:20px;font-weight:600}
+.out .big{background:var(--lag);color:#fff}
+.out .big small{color:rgba(255,255,255,.78)}
+.months{display:flex;align-items:flex-end;gap:5px;height:96px;margin-top:16px}
+.months div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.months i{display:block;width:100%;background:var(--lag);border-radius:4px 4px 2px 2px;transition:height .35s cubic-bezier(.2,.8,.2,1);min-height:2px}
+.months small{font-size:10.5px;color:var(--mut)}
+.dact{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:640px){.drw{top:auto;height:92svh;width:100%;border-radius:22px 22px 0 0;transform:translateY(103%)}.drw.on{transform:none}.kv{grid-template-columns:1fr 1fr}.dbody{padding:20px 18px 34px}}
+.cbar{position:fixed;left:50%;bottom:16px;transform:translate(-50%,160%);z-index:70;background:var(--paper);border-radius:18px;box-shadow:0 20px 50px -20px rgba(0,0,0,.45),0 0 0 1px var(--line);display:flex;align-items:center;gap:12px;padding:10px;transition:transform .4s cubic-bezier(.2,.8,.2,1);width:max-content;max-width:calc(100% - 24px)}
+.cbar.on{transform:translate(-50%,0)}
+.slots{display:flex;gap:6px}
+.slot{width:46px;height:46px;border-radius:11px;background:var(--stone);overflow:hidden;border:1px solid var(--line);flex:none}
+.slot img{width:100%;height:100%;object-fit:cover}
+.cbar .t{font-size:14px;font-weight:600;line-height:1.25}
+.cbar .go:disabled{opacity:.4;cursor:default}
+.cbx{border:0;background:none;font-size:22px;width:34px;height:34px;color:var(--mut)}
+@media(max-width:440px){.cbar .t{display:none}}
+.mod{position:fixed;left:50%;top:50%;transform:translate(-50%,-47%) scale(.98);opacity:0;pointer-events:none;z-index:90;background:var(--paper);border-radius:22px;width:min(780px,calc(100% - 24px));max-height:calc(100svh - 40px);overflow:auto;transition:opacity .3s,transform .3s;visibility:hidden}
+.mod.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%);visibility:visible}
+.mhd{padding:18px 20px 8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.mhd .x{position:static}
+.ctab{width:100%;border-collapse:collapse;table-layout:fixed}
+body.lock .cbar{transform:translate(-50%,160%)}
+.ctab th,.ctab td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;font-size:15px;vertical-align:top}
+.ctab th{color:var(--mut);font-weight:600;font-size:13px;width:28%}
+.ctab td.win{color:var(--lag);font-weight:700}
+.ctab td.win::after{content:" ✓"}
+.chd img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin-bottom:8px}
+.chd b{font-family:"Bitter";font-weight:600;font-size:16px;line-height:1.2;display:block}
+@media(max-width:520px){.ctab th,.ctab td{padding:10px 8px;font-size:13.5px}.ctab th{font-size:12px}}
+.toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,16px);opacity:0;background:var(--lag);color:#fff;box-shadow:0 12px 30px -12px rgba(0,0,0,.45);padding:12px 16px;border-radius:12px;font-size:14px;z-index:100;transition:opacity .3s,transform .3s;max-width:calc(100% - 32px);pointer-events:none;font-weight:600}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+/* sketch theme */
+body{font-variant-numeric:lining-nums}
+@media(max-width:600px){.top:not(.solid) .rib{max-height:92px}}
+.price,.val,.res .n,.ast b,.kv b,.out b,.fee b,.pr,.cd b,.pprice,.step b,.chd b{font-family:"Mulish",sans-serif;letter-spacing:-.01em}
+.agf{background:var(--ink);color:rgba(255,255,255,.74);font-size:13.5px;line-height:1.5;padding:22px 0}.agf b{color:#fff;font-family:"Bitter",serif;font-size:16px;font-weight:600;margin-right:12px}
+@media(max-width:440px){.brand{min-width:0;flex:0 1 auto}.brand span{overflow:hidden;text-overflow:ellipsis}}
+.hero h1{text-shadow:0 1px 2px rgba(0,0,0,.28),0 4px 30px rgba(0,0,0,.5)}
+</style>
+</head>
+<body>
+<header class="top" id="top">
+ <div class="rib"><span data-t="rib">Набросок сайта для ATHOME от Александра Хрусталева (SanderSax). Это не официальный сайт агентства, объекты и цифры условные.</span> <a href="#order" data-t="ribA">Что здесь поправлено</a></div>
+ <div class="wrap nav">
+  <a class="brand" href="#hero"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1.5" y="1.5" width="25" height="25" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="17.5" cy="12" r="3.2" fill="currentColor"/></svg><span data-t="brand">ATHOME</span></a>
+  <nav class="links"><a href="#list" data-t="n1">Объекты</a><a href="#areas" data-t="n2">Районы</a><a href="#buy" data-t="n3">Как купить</a><a href="#visit" data-t="n4">Показ</a><a href="#agency" data-t="n5">Для агентств</a></nav>
+  <div class="lang" role="group" aria-label="Language"><button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
+  <a class="tg" href="#visit"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 3.6 2.8 10.8c-1.2.5-1.2 1.6 0 2l4.7 1.5 1.8 5.5c.2.6.4.8.8.8.4 0 .6-.2.9-.4l2.4-2.3 4.9 3.6c.9.5 1.5.2 1.8-.8l3.2-15.1c.3-1.3-.5-1.9-1.5-1.5ZM9.6 14.4l9-5.7-7.5 7-.3 3.1-1.2-4.4Z"/></svg><span data-t="tg">Подбор в Telegram</span></a>
+ </div>
+</header>
+
+<section class="hero" id="hero" style="padding:0">
+ <img class="ph on" data-i="live" src="../img/hero-pattaya.jpg" alt="" fetchpriority="high">
+ <img class="ph" data-i="rent" data-src="../img/hero-live.jpg" alt="">
+ <img class="ph" data-i="inv" data-src="../img/hero-invest.jpg" alt="">
+ <div class="wrap hin">
+  <h1><span data-t="h1a">Недвижимость на Пхукете</span> <span data-t="h1b">для</span> <span class="w" id="hw"><span>жизни</span></span></h1>
+  <p class="lead" data-t="lead">Подберём виллу или квартиру под вашу цель, честно посчитаем доход от аренды и проведём сделку с юристом.</p>
+  <div class="finder">
+   <div><div class="fl" data-t="fGoal">Цель</div><div class="seg" id="intent" role="group"><button type="button" data-v="live" aria-pressed="true" data-t="iLive">Жить</button><button type="button" data-v="rent" aria-pressed="false" data-t="iRent">Сдавать</button><button type="button" data-v="inv" aria-pressed="false" data-t="iInv">Вложить</button></div></div>
+   <div><div class="fl" data-t="fBud">Бюджет до</div><div class="val" id="budv"></div><input type="range" id="bud" min="0" max="100" value="74" aria-label="Budget"></div>
+   <div><div class="fl" data-t="fCur">Валюта</div><div class="seg cur" id="cur" role="group"><button type="button" data-v="thb" aria-pressed="true">฿</button><button type="button" data-v="usd" aria-pressed="false">$</button><button type="button" data-v="rub" aria-pressed="false">₽</button></div></div>
+   <div class="res"><div class="thumbs" id="thumbs"></div><div><div class="n" id="rn"></div><div class="nl" id="rnl"></div></div><a class="go" href="#list" data-t="show">Смотреть</a></div>
+  </div>
+ </div>
+</section>
+
+<section class="presale" id="presale" hidden>
+ <div class="wrap">
+  <div class="shead"><div><div class="eb" data-t="pEb">Пресейл</div><h2 class="h2" id="pH"></h2><p class="sub" id="pSub"></p></div></div>
+  <div class="ps">
+   <div class="psl"><div class="fl" data-t="pCd">До закрытия пресейл-цены</div><div class="cd" id="cd"></div><div class="fl" data-t="pUnit">Тип квартиры</div><div class="bar" id="punits"></div><div class="pprice" id="pprice"></div></div>
+   <div class="psr"><div class="fl" data-t="pDown">Первый взнос</div><div class="val" id="pdv"></div><input type="range" class="dk" id="pdown" min="20" max="50" step="5" value="30" aria-label="Down payment"><div id="plan"></div><p class="note" data-t="pNote">График для примера. Точный график и цены даёт застройщик.</p><button type="button" class="go" id="pbook" data-t="pBook">Забронировать по пресейл-цене</button></div>
+  </div>
+ </div>
+</section>
+
+<section id="list">
+ <div class="wrap">
+  <div class="shead"><div><div class="eb" data-t="lEb">Подборка</div><h2 class="h2" data-t="lH">Объекты под вашу цель</h2><p class="sub" id="sortnote"></p></div>
+   <div class="bar" id="types"><button type="button" class="chip" data-v="all" aria-pressed="true" data-t="tAll">Все</button><button type="button" class="chip" data-v="villa" aria-pressed="false" data-t="tVilla">Виллы</button><button type="button" class="chip" data-v="condo" aria-pressed="false" data-t="tCondo">Квартиры</button><button type="button" class="chip x" id="dchip" hidden></button></div></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty"><span data-t="empty">Под эти условия сейчас ничего нет. Оставьте заявку, подберём вне базы.</span> <a href="#visit" data-t="emptyA">Оставить заявку</a></div>
+ </div>
+</section>
+
+<section class="areas" id="areas">
+ <div class="wrap">
+  <div class="shead"><div><div class="eb" data-t="aEb">Районы</div><h2 class="h2" data-t="aH">От аэропорта до юга острова</h2><p class="sub" data-t="aSub">Нажмите на район. Покажем, чем он живёт, сколько стоят квартиры и что есть в подборке.</p></div></div>
+  <div class="air" data-t="air">Время в пути от аэропорта</div>
+  <div class="stops" id="stops"><div class="rail" id="rail"></div></div>
+  <div class="adet rv" id="adet"></div>
+ </div>
+</section>
+
+<section id="buy">
+ <div class="wrap">
+  <div class="shead"><div><div class="eb" data-t="bEb">Покупка</div><h2 class="h2" data-t="bH">Как купить иностранцу</h2><p class="sub" data-t="bSub">Пять шагов от брони до документа на ваше имя. Выберите тип объекта и цену, посчитаем сборы.</p></div>
+   <div class="seg" id="btype" role="group"><button type="button" data-v="condo" aria-pressed="true" data-t="bC">Квартира</button><button type="button" data-v="villa" aria-pressed="false" data-t="bV">Вилла</button></div></div>
+  <div class="buyg rv">
+   <div><div class="steps" id="steps"></div><div class="sdet" id="sdet"></div></div>
+   <div class="fees"><div class="fl" data-t="fPrice">Цена объекта</div><div class="val" id="fpv"></div><input type="range" class="dk" id="fp" min="0" max="100" value="45" aria-label="Price"><div id="feelist"></div><p class="note" id="feeNote"></p></div>
+  </div>
+ </div>
+</section>
+
+<section class="agency" id="agency">
+ <div class="wrap">
+  <div class="shead"><div><div class="eb" data-t="gEb">Для агентства</div><h2 class="h2" data-t="gH">Объекты живут в Google Таблице</h2><p class="sub" data-t="gSub">Агент меняет цену или статус в строке, и карточка на сайте обновляется сама. Без программиста и без сложной админки. Попробуйте прямо здесь.</p></div></div>
+  <div class="ag rv">
+   <div><div class="sheet"><div class="shbar"><i></i><span data-t="shName">Объекты агентства</span><span class="sv" id="shsv" data-t="shSaved">Все изменения сохранены</span></div>
+    <div class="shw"><table class="sh"><thead><tr><th></th><th>A</th><th>B</th><th>C</th></tr></thead><tbody id="shh"></tbody><tbody id="shb"></tbody></table></div></div>
+    <p class="shhint" data-t="shHint">Измените цену и нажмите Enter или выберите другой статус.</p></div>
+   <div class="mirror"><div class="mlabel" data-t="mirrorL">Так карточка выглядит на сайте</div><div id="mirror"></div><div class="live" id="live"></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="req" id="visit">
+ <div class="wrap">
+  <div class="shead"><div><div class="eb" data-t="vEb">Показ</div><h2 class="h2" data-t="vH">Запишитесь на показ</h2><p class="sub" data-t="vSub">На месте или по видео, если вы ещё не на острове. Заявка сразу приходит агенту в мессенджер.</p></div></div>
+  <div class="rq rv">
+   <div class="form">
+    <div class="field"><label for="vo" data-t="vObj">Объект</label><select class="inp" id="vo"></select></div>
+    <div class="field"><label for="vd" data-t="vDate">Дата</label><input class="inp" type="date" id="vd"></div>
+    <div class="field"><div class="fl" data-t="vFmt">Формат</div><div class="seg" id="vf" role="group"><button type="button" data-v="site" aria-pressed="false" data-t="vSite">На месте</button><button type="button" data-v="video" aria-pressed="true" data-t="vVideo">Видео-показ</button></div></div>
+    <div class="field"><div class="fl" data-t="vMsg">Куда ответить</div><div class="seg" id="vm" role="group"><button type="button" data-v="tg" aria-pressed="true">Telegram</button><button type="button" data-v="wa" aria-pressed="false">WhatsApp</button><button type="button" data-v="line" aria-pressed="false">LINE</button></div></div>
+    <div class="field"><label for="vn" data-t="vName">Как к вам обращаться</label><input class="inp" id="vn" autocomplete="off" maxlength="40"></div>
+   </div>
+   <div>
+    <div class="phone" id="phone" data-m="tg"><div class="ph-h"><div class="av">AH</div><div><span data-t="brand">ATHOME</span><small data-t="online">обычно отвечает за 15 минут</small></div></div><div class="ph-b" id="phb"><div class="bub" id="bub"></div></div></div>
+    <div class="sendw"><button type="button" class="go" id="send"></button><p class="sendn" id="sendn"></p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="order">
+ <div class="wrap">
+  <div class="box rv">
+   <div><div class="eb" data-t="oEb">Для владельцев агентств</div><h2 class="h2" data-t="oH">Такой сайт для вашего агентства</h2><p class="sub" data-t="oSub">С вашими объектами, районами и контактами. Первый набросок главной сделаю бесплатно, чтобы вы увидели свой сайт до оплаты.</p></div>
+   <div><div class="pr" data-t="oPr">от $2 400</div><div class="pt" data-t="oTime">Готово за 2-3 недели</div>
+    <ul><li data-t="o1">Объекты из Google Таблицы, без админки</li><li data-t="o2">Русский, английский и тайский</li><li data-t="o3">Подбор по цели и бюджету, калькулятор доходности</li><li data-t="o4">Заявки сразу в Telegram, WhatsApp или LINE</li><li data-t="o5">Быстро открывается на телефоне</li></ul>
+    <div class="btns"><a class="btn w" href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram</a><a class="btn o" href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp</a><a class="btn o" href="mailto:leshadqq@gmail.com">Email</a></div></div>
+  </div>
+ </div>
+</section>
+
+<div class="agf"><div class="wrap"><b>ATHOME</b><span data-t="agf">At Home Real Estate Co., Ltd, Паттайя, TAX ID 0205566020737 · Athome Phuket Co., Ltd, Пхукет, TAX ID 0105568175470 · © 2026 ATHOME</span></div></div>
+<footer><div class="wrap"><p data-t="foot">Набросок для ATHOME от SanderSax, не официальный сайт агентства. Объекты, цены, районы и цифры условные. Фото с Unsplash.</p><p><span data-t="made">Сделал</span> <a href="../../">Sander Sax</a> · <a href="https://t.me/sandersax" target="_blank" rel="noopener">t.me/sandersax</a> · <a href="tel:+66961347329">+66 96 134 7329</a> · <a href="tel:+77776093373">+7 777 609 33 73</a> · <a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p></div></footer>
+
+<div class="ov" id="ov"></div>
+<aside class="drw" id="drw" role="dialog" aria-modal="true" aria-label="Property"></aside>
+<div class="mod" id="mod" role="dialog" aria-modal="true" aria-label="Compare"></div>
+<div class="cbar" id="cbar"><div class="slots" id="slots"></div><span class="t" id="cbt"></span><button type="button" class="go" id="cbgo"></button><button type="button" class="cbx" id="cbx" aria-label="Clear">×</button></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>window.SITE={"L":[{"id":"c1","type":"condo","d":"wongamat","n":{"ru":"Квартира с 1 спальней рядом с пляжем Вонгамат","en":"One-bedroom apartment near Wongamat beach"},"bed":1,"area":34,"price":3150000,"own":"free","beach":350,"night":1700,"s":{"live":1,"rent":3,"inv":3},"st":"sale"},{"id":"c2","type":"condo","d":"jomtien","n":{"ru":"Квартира с видом на море в Джомтьене","en":"Sea-view apartment in Jomtien"},"bed":2,"area":62,"price":6200000,"own":"free","beach":200,"night":3200,"s":{"live":2,"rent":3,"inv":3},"st":"sale"},{"id":"c3","type":"condo","d":"central","n":{"ru":"Студия в центре Паттайи","en":"Studio in central Pattaya"},"bed":0,"area":25,"price":1690000,"own":"free","beach":900,"night":1100,"s":{"live":1,"rent":2,"inv":3},"st":"sale"},{"id":"v1","type":"villa","d":"east","n":{"ru":"Дом с бассейном в Восточной Паттайе","en":"Pool house in East Pattaya"},"bed":3,"area":200,"land":380,"price":8900000,"own":"lease","beach":6500,"night":4200,"s":{"live":3,"rent":1,"inv":2},"st":"sale"},{"id":"v2","type":"villa","d":"ph_bangtao","n":{"ru":"Вилла с бассейном у Банг Тао","en":"Pool villa near Bang Tao"},"bed":3,"area":240,"land":450,"price":21500000,"own":"lease","beach":1800,"night":9000,"s":{"live":3,"rent":2,"inv":2},"st":"sale"},{"id":"v3","type":"villa","d":"ph_rawai","n":{"ru":"Вилла в Раваи","en":"Villa in Rawai"},"bed":2,"area":150,"land":300,"price":10900000,"own":"lease","beach":1500,"night":4500,"s":{"live":2,"rent":2,"inv":3},"st":"sale"},{"id":"v4","type":"villa","d":"pratumnak","n":{"ru":"Вилла на Пратамнаке","en":"Villa on Pratumnak"},"bed":4,"area":380,"land":700,"price":29000000,"own":"lease","beach":600,"night":13000,"s":{"live":3,"rent":2,"inv":1},"st":"res"},{"id":"v5","type":"villa","d":"ph_kamala","n":{"ru":"Таунхаус в Камале","en":"Townhouse in Kamala"},"bed":2,"area":140,"land":160,"price":9500000,"own":"lease","beach":1300,"night":4000,"s":{"live":2,"rent":3,"inv":2},"st":"sale"},{"id":"v6","type":"villa","d":"jomtien","n":{"ru":"Дом в закрытом посёлке у Джомтьена","en":"House in a gated estate near Jomtien"},"bed":3,"area":190,"land":350,"price":7400000,"own":"lease","beach":3500,"night":3600,"s":{"live":3,"rent":1,"inv":2},"st":"sale"}],"D":[{"k":"wongamat","n":{"ru":"Вонгамат","en":"Wongamat"},"min":90,"sqm":120000,"y":"5-6%","tx":{"ru":"Небольшой пляж у Наклуа, кондо с видом на море.","en":"A small beach by Naklua, condos with sea views."}},{"k":"central","n":{"ru":"Центральная Паттайя","en":"Central Pattaya"},"min":95,"sqm":105000,"y":"6-8%","tx":{"ru":"Бич Роуд и Волкинг стрит. Самая высокая загрузка для аренды, но шумно.","en":"Beach Road and Walking Street. The highest rental occupancy, but loud."}},{"k":"east","n":{"ru":"Восточная Паттайя","en":"East Pattaya"},"min":95,"sqm":60000,"y":"4-6%","tx":{"ru":"За Сукхумвитом. Дома с участками, закрытые посёлки и международные школы, тихо и дешевле.","en":"Beyond Sukhumvit. Houses with plots, gated estates and international schools, quiet and cheaper."}},{"k":"pratumnak","n":{"ru":"Пратамнак","en":"Pratumnak"},"min":100,"sqm":110000,"y":"5-7%","tx":{"ru":"Холм между Паттайей и Джомтьеном, тихие улицы и небольшие пляжи.","en":"The hill between Pattaya and Jomtien, quiet streets and small beaches."}},{"k":"jomtien","n":{"ru":"Джомтьен","en":"Jomtien"},"min":100,"sqm":90000,"y":"6-7%","tx":{"ru":"Длинный пляж и набережная, много русскоязычных, кондо под аренду на любой бюджет.","en":"A long beach and promenade, many Russian speakers, rental condos for any budget."}},{"k":"ph_bangtao","n":{"ru":"Пхукет, Банг Тао","en":"Phuket, Bang Tao"},"min":20,"sqm":150000,"y":"5-7%","tx":{"ru":"Лагуна, международные школы и пляжные клубы. Самый высокий спрос на виллы острова.","en":"Laguna, international schools and beach clubs. The strongest demand for villas on the island."}},{"k":"ph_kamala","n":{"ru":"Пхукет, Камала","en":"Phuket, Kamala"},"min":30,"sqm":130000,"y":"5-7%","tx":{"ru":"Спокойная бухта с видом на море между севером острова и Патонгом.","en":"A calm bay with sea views between the north of the island and Patong."}},{"k":"ph_rawai","n":{"ru":"Пхукет, Раваи","en":"Phuket, Rawai"},"min":60,"sqm":90000,"y":"5-6%","tx":{"ru":"Юг острова, пирсы, рынки и большая русскоязычная община.","en":"The south of the island, piers, markets and a large Russian-speaking community."}}],"selD":"wongamat","coast":"../img/coast-pattaya.jpg","full":true,"T":{"ru":{"rib":"Набросок сайта для ATHOME от Александра Хрусталева (SanderSax). Это не официальный сайт агентства, объекты и цифры условные.","ribA":"Что здесь поправлено","n5":"О наброске","oEb":"О наброске","oH":"Набросок для ATHOME","oSub":"Я собрал эту главную, чтобы показать, как может выглядеть ваш сайт. Объекты и цифры условные, в рабочей версии будут ваши.","oPr":"Набросок бесплатно","oTime":"Полный сайт за 2-3 недели","foot":"Набросок для ATHOME от SanderSax, не официальный сайт агентства. Объекты, цены, районы и цифры условные. Фото с Unsplash.","lEb":"Примеры объектов","o1":"Реквизиты двух компаний записаны один раз и одинаково, без расхождения между блоком «Контакты», где у At Home Real Estate стоит «TAX ID 0205566020737», и подвалом, где у неё «TAX ID 0105568175470»","o2":"Название компании без лишних запятых, «Co., Ltd», вместо «Co,, Ltd» и «Co,. Ltd»","o3":"Подвал с текущим годом, «© 2026 ATHOME», вместо «© 2024. Все права защищены.»","o4":"Новостройки, готовые квартиры и виллы в Паттайе и на Пхукете с подбором по цели","o5":"Заявки сразу в Telegram, WhatsApp или LINE","air":"Время в пути от аэропорта, Суварнабхуми для Паттайи и Пхукета для острова","vSub":"На месте или по видео, если вы ещё не в Таиланде. Заявка сразу приходит менеджеру в мессенджер.","bVideo":"Можно по видео, я пока не в Таиланде.","brand":"ATHOME","h1a":"Квартиры в Паттайе и на Пхукете","aH":"Паттайя и Пхукет","lead":"Новостройки от застройщиков, готовые квартиры и виллы в Паттайе и на Пхукете. Подберём под вашу цель, покажем доход от аренды и проведём сделку с юристом.","tVilla":"Виллы и дома","tCondo":"Квартиры","online":"менеджер агентства","title":"Квартиры в Паттайе и на Пхукете · набросок для ATHOME","agf":"At Home Real Estate Co., Ltd, Паттайя, TAX ID 0205566020737 · Athome Phuket Co., Ltd, Пхукет, TAX ID 0105568175470 · © 2026 ATHOME"},"en":{"rib":"A website sketch for ATHOME by Alexandr Khrustalev (SanderSax). Not the agency's official site, listings and figures are illustrative.","ribA":"What is fixed here","n5":"About this sketch","oEb":"About this sketch","oH":"A sketch for ATHOME","oSub":"I built this homepage to show how your site could look. Listings and figures are illustrative, the working version will carry yours.","oPr":"The sketch is free","oTime":"The full site in 2-3 weeks","foot":"A sketch for ATHOME by SanderSax, not the agency's official site. Listings, prices, areas and figures are illustrative. Photos from Unsplash.","lEb":"Sample listings","o1":"The two companies' details written once and the same way, no mismatch between the «Контакты» block, where At Home Real Estate has «TAX ID 0205566020737», and the footer, where it has «TAX ID 0105568175470»","o2":"The company name without stray commas, «Co., Ltd», instead of «Co,, Ltd» and «Co,. Ltd»","o3":"A current footer, «© 2026 ATHOME», instead of «© 2024. Все права защищены.»","o4":"New builds, finished apartments and villas in Pattaya and Phuket with search by goal","o5":"Requests straight to Telegram, WhatsApp or LINE","air":"Driving time from the airport, Suvarnabhumi for Pattaya and Phuket airport for the island","vSub":"On site, or by video if you are not in Thailand yet. The request goes straight to the manager's messenger.","bVideo":"A video tour is fine, I am not in Thailand yet.","brand":"ATHOME","h1a":"Pattaya and Phuket apartments","aH":"Pattaya and Phuket","lead":"New builds from developers, finished apartments and villas in Pattaya and Phuket. We match them to your goal, show the rental numbers and close the deal with a lawyer.","tVilla":"Villas and houses","tCondo":"Apartments","online":"agency manager","title":"Pattaya and Phuket apartments · a sketch for ATHOME","agf":"At Home Real Estate Co., Ltd, Pattaya, TAX ID 0205566020737 · Athome Phuket Co., Ltd, Phuket, TAX ID 0105568175470 · © 2026 ATHOME"}}};</script>
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const RATE={thb:1,usd:1/33,rub:1/0.41};
+const MF=[1.25,1.25,1.15,1,.7,.7,.85,.85,.6,.65,.95,1.3],MAVG=MF.reduce((a,b)=>a+b,0)/12,DAYS=[31,28,31,30,31,30,31,31,30,31,30,31];
+const B0=3e6,B1=100e6;
+
+const L=[
+ {id:'v1',type:'villa',d:'bangtao',n:{ru:'Вилла с садом в Чернг Талее',en:'Garden villa in Cherng Talay'},bed:4,area:420,land:800,price:32500000,own:'lease',beach:2100,night:12500,s:{live:3,rent:2,inv:2},st:'sale'},
+ {id:'v2',type:'villa',d:'naiharn',n:{ru:'Вилла из тика у Най Харна',en:'Teak villa near Nai Harn'},bed:3,area:260,land:520,price:18900000,own:'lease',beach:900,night:7500,s:{live:3,rent:2,inv:2},st:'sale'},
+ {id:'v3',type:'villa',d:'bangtao',n:{ru:'Новая вилла в Банг Тао',en:'New villa in Bang Tao'},bed:3,area:310,land:600,price:24800000,own:'lease',beach:1400,night:9800,s:{live:3,rent:3,inv:2},st:'sale'},
+ {id:'c1',type:'condo',d:'kata',n:{ru:'Квартира в комплексе у Каты',en:'Resort apartment near Kata'},bed:1,area:48,price:6200000,own:'free',beach:450,night:2600,s:{live:1,rent:3,inv:3},st:'sale'},
+ {id:'c2',type:'condo',d:'kamala',n:{ru:'Квартира с видом на море в Камале',en:'Sea-view apartment in Kamala'},bed:2,area:92,price:14500000,own:'free',beach:600,night:5800,s:{live:2,rent:3,inv:3},st:'sale'},
+ {id:'c3',type:'condo',d:'patong',n:{ru:'Квартира в малоэтажном доме у Патонга',en:'Low-rise apartment near Patong'},bed:1,area:38,price:3900000,own:'free',beach:700,night:1700,s:{live:1,rent:2,inv:3},st:'sale'},
+ {id:'v4',type:'villa',d:'bangtao',n:{ru:'Вилла над морем в Лаяне',en:'Ocean villa in Layan'},bed:5,area:650,land:1400,price:89000000,own:'lease',beach:300,night:35000,s:{live:3,rent:2,inv:1},st:'sale'},
+ {id:'v5',type:'villa',d:'rawai',n:{ru:'Вилла с бассейном в Раваи',en:'Pool villa in Rawai'},bed:2,area:180,land:350,price:11900000,own:'lease',beach:1800,night:4800,s:{live:2,rent:2,inv:2},st:'sale'},
+ {id:'v6',type:'villa',d:'surin',n:{ru:'Закрытая вилла в Сурине',en:'Gated villa in Surin'},bed:3,area:280,land:560,price:39000000,own:'lease',beach:800,night:15000,s:{live:3,rent:2,inv:1},st:'sale'}
+];
+const D=[
+ {k:'maikhao',n:{ru:'Май Кхао',en:'Mai Khao'},min:10,sqm:85000,y:'5-6%',tx:{ru:'Длинный тихий пляж у аэропорта и национальный парк. Новые комплексы, цены ниже, чем на западе острова.',en:'A long quiet beach by the airport and a national park. New complexes, prices below the west coast.'}},
+ {k:'bangtao',n:{ru:'Банг Тао и Лаян',en:'Bang Tao & Layan'},min:20,sqm:150000,y:'5-7%',tx:{ru:'Лагуна, международные школы, рестораны у моря. Здесь самые дорогие виллы острова.',en:'Laguna, international schools, beach clubs. The island\'s priciest villas are here.'}},
+ {k:'surin',n:{ru:'Сурин',en:'Surin'},min:25,sqm:170000,y:'4-6%',tx:{ru:'Небольшой дорогой пляж, закрытые виллы на холмах, тихо вне сезона.',en:'A small upscale beach, gated hillside villas, quiet off season.'}},
+ {k:'kamala',n:{ru:'Камала',en:'Kamala'},min:30,sqm:130000,y:'5-7%',tx:{ru:'Спокойная бухта с видами на море, ровно между севером острова и Патонгом.',en:'A calm bay with sea views, halfway between the north and Patong.'}},
+ {k:'patong',n:{ru:'Патонг',en:'Patong'},min:40,sqm:115000,y:'6-8%',tx:{ru:'Главный туристический пляж. Самая высокая загрузка для аренды, но шумно.',en:'The main tourist beach. The highest rental occupancy, but loud.'}},
+ {k:'kata',n:{ru:'Ката и Карон',en:'Kata & Karon'},min:50,sqm:110000,y:'6-7%',tx:{ru:'Семейные пляжи, серфинг в сезон дождей, много квартир под аренду.',en:'Family beaches, surfing in the rainy season, lots of rental apartments.'}},
+ {k:'naiharn',n:{ru:'Най Харн',en:'Nai Harn'},min:60,sqm:125000,y:'5-6%',tx:{ru:'Один из лучших пляжей острова, озеро и зелень. Здесь живут круглый год.',en:'One of the island\'s best beaches, a lake and greenery. People live here all year.'}},
+ {k:'rawai',n:{ru:'Раваи',en:'Rawai'},min:60,sqm:90000,y:'5-6%',tx:{ru:'Юг острова, пирсы, рынки и большая русскоязычная община.',en:'The south tip, piers, markets and a large Russian-speaking community.'}}
+];
+const STEPS={
+ condo:{ru:[['Бронь','Вносите депозит, обычно 100-200 тыс. ฿. Объект снимается с продажи, пока юрист проверяет документы.'],['Проверка','Юрист проверяет титул, долги по взносам за дом и свободную квоту для иностранцев. Если что-то не так, депозит возвращается по договору.'],['Договор','Подписываете договор купли-продажи с графиком платежей. Можно удалённо, по доверенности.'],['Перевод денег','Деньги приходят из-за границы, банк выдаёт справку FET. Без неё квартиру не оформить на иностранца.'],['Регистрация','В Земельном департаменте квартира переоформляется на вас, и вы получаете титул на своё имя.']],
+  en:[['Reservation','You pay a deposit, usually ฿100-200K. The unit comes off the market while a lawyer checks the papers.'],['Due diligence','The lawyer checks the title, building fees owed and the free foreign quota. If something is wrong, the deposit is returned under the agreement.'],['Contract','You sign the sale agreement with a payment schedule. It can be done remotely with a power of attorney.'],['Money transfer','Funds arrive from abroad and the bank issues an FET form. Without it the unit cannot be registered to a foreigner.'],['Registration','At the Land Department the unit is transferred to you and you receive the title in your name.']]},
+ villa:{ru:[['Бронь','Депозит снимает виллу с продажи на время проверки.'],['Проверка','Юрист проверяет титул земли, разрешение на строительство и право продавца сдавать землю в аренду.'],['Договоры','Аренда земли на 30 лет с правом продления и отдельный договор на дом, который можно оформить на себя.'],['Оплата','По графику, при стройке частями по готовности. Деньги идут через банк, с подтверждением перевода.'],['Регистрация','Аренда регистрируется в Земельном департаменте. Без регистрации аренда дольше 3 лет не защищена.']],
+  en:[['Reservation','A deposit takes the villa off the market while it is checked.'],['Due diligence','The lawyer checks the land title, the building permit and the seller\'s right to lease the land.'],['Contracts','A 30-year land lease with renewal rights, plus a separate contract for the house, which can be in your name.'],['Payment','On a schedule, in stages if it is still being built. Funds go through a bank with a transfer record.'],['Registration','The lease is registered at the Land Department. Unregistered, a lease longer than 3 years is not protected.']]}
+};
+const T={ru:{
+ title:'Недвижимость на Пхукете · пример сайта агентства',rib:'Пример сайта для агентства недвижимости. Объекты, цены и цифры условные.',ribA:'Хочу такой сайт',brand:'Пхукет Недвижимость',
+ n1:'Объекты',n2:'Районы',n3:'Как купить',n4:'Показ',n5:'Для агентств',tg:'Подбор в Telegram',
+ h1a:'Недвижимость на Пхукете',h1b:'для',w_live:'жизни',w_rent:'дохода',w_inv:'вложений',
+ lead:'Подберём виллу или квартиру под вашу цель, честно посчитаем доход от аренды и проведём сделку с юристом.',
+ fGoal:'Цель',iLive:'Жить',iRent:'Сдавать',iInv:'Вложить',fBud:'Бюджет до',fCur:'Валюта',show:'Смотреть',anyB:'без ограничений',
+ lEb:'Подборка',lH:'Объекты под вашу цель',tAll:'Все',tVilla:'Виллы',tCondo:'Квартиры',
+ empty:'Под эти условия сейчас ничего нет. Оставьте заявку, подберём вне базы.',emptyA:'Оставить заявку',
+ sn_live:'Сначала то, где удобно жить, с садом, спальнями и в тихих районах.',sn_rent:'Сначала то, что лучше сдаётся, рядом с пляжем и с высокой загрузкой.',sn_inv:'Сначала то, что выгоднее как вложение, по доходности и цене входа.',snB:'Бюджет до {b}.',snBn:'Бюджет без ограничений.',
+ free:'Фрихолд',lease:'Лизхолд 30+30',stRes:'Забронировано',stSold:'Продано',fit_live:'Для жизни',fit_rent:'Для аренды',fit_inv:'Для вложений',
+ minAir:'мин до аэропорта',perYear:'в год',more:'Подробнее и доходность',cmpA:'Добавить к сравнению',
+ aEb:'Районы',aH:'От аэропорта до юга острова',aSub:'Нажмите на район. Покажем, чем он живёт, сколько стоят квартиры и что есть в подборке.',air:'Время в пути от аэропорта',
+ min:'мин',aSqm:'Квартиры, за м²',aY:'Доход от аренды',aAir:'До аэропорта',aShow:'Показать {n}',aPick:'Подобрать в этом районе',
+ bEb:'Покупка',bH:'Как купить иностранцу',bSub:'Пять шагов от брони до документа на ваше имя. Выберите тип объекта и цену, посчитаем сборы.',bC:'Квартира',bV:'Вилла',fPrice:'Цена объекта',
+ fe1:'Сбор за переоформление, 2%',fe2:'Налог на бизнес 3,3% или гербовый сбор 0,5%',fe3:'Налог с продавца, около 1%',fe4:'Регистрация аренды земли, 1%',fe5:'Гербовый сбор, 0,1%',feTot:'Всего при регистрации',
+ feeNoteC:'Кто что платит, решает договор. Часто сбор за переоформление делят пополам, налоги платит продавец. Это ориентир, точные суммы считает юрист.',
+ feeNoteV:'Сбор считается от суммы аренды за весь срок. Если дом оформляется отдельно, добавится сбор за его переоформление. Это ориентир, точные суммы считает юрист.',
+ gEb:'Для агентства',gH:'Объекты живут в Google Таблице',gSub:'Агент меняет цену или статус в строке, и карточка на сайте обновляется сама. Без программиста и без сложной админки. Попробуйте прямо здесь.',
+ shName:'Объекты агентства',shSaved:'Все изменения сохранены',shSaving:'Сохранение...',shObj:'Объект',shPrice:'Цена, ฿',shSt:'Статус',st_sale:'В продаже',st_res:'Бронь',st_sold:'Продано',
+ shHint:'Измените цену и нажмите Enter или выберите другой статус.',mirrorL:'Так карточка выглядит на сайте',liveMsg:'Обновлено на сайте: {n}.',toastSaved:'Сайт обновлён',
+ vEb:'Показ',vH:'Запишитесь на показ',vSub:'На месте или по видео, если вы ещё не на острове. Заявка сразу приходит агенту в мессенджер.',
+ vObj:'Объект',vDate:'Дата',vFmt:'Формат',vSite:'На месте',vVideo:'Видео-показ',vMsg:'Куда ответить',vName:'Как к вам обращаться',vNameP:'Анна',online:'обычно отвечает за 15 минут',vPick:'Подобрать под мою цель',
+ bHi:'Здравствуйте!',bHiN:'Здравствуйте! Меня зовут {n}.',bObj:'Хочу посмотреть: {o}.',bPick:'Подберите, пожалуйста, вариант {g}, бюджет до {b}.',bPickN:'Подберите, пожалуйста, вариант {g}.',bPickD:'Подберите, пожалуйста, вариант в районе {d}.',
+ g_live:'для жизни',g_rent:'для сдачи в аренду',g_inv:'для вложения',bDate:'Удобная дата: {d}.',bVideo:'Можно по видео, я пока не на Пхукете.',bSite:'Приеду на показ лично.',
+ send:'Отправить в {m}',sendNote:'Это демо, сообщение никуда не ушло. На сайте агентства кнопка откроет {m} с этим текстом.',sendToast:'Заявка у агента',
+ reply:'Здравствуйте! Спасибо за заявку. Сегодня пришлю видео и план объекта. Удобно созвониться в 15:00?',
+ oEb:'Для владельцев агентств',oH:'Такой сайт для вашего агентства',oSub:'С вашими объектами, районами и контактами. Первый набросок главной сделаю бесплатно, чтобы вы увидели свой сайт до оплаты.',
+ oPr:'от $2 400',oTime:'Готово за 2-3 недели',o1:'Объекты из Google Таблицы, без админки',o2:'Русский, английский и тайский',o3:'Подбор по цели и бюджету, калькулятор доходности',o4:'Заявки сразу в Telegram, WhatsApp или LINE',o5:'Быстро открывается на телефоне',
+ foot:'Пример сайта. Объекты, цены, районы и цифры доходности условные. Фото с Unsplash.',made:'Сделал',
+ close:'Закрыть',studio:'студия',m2:'м²',kBed:'Спальни',kArea:'Площадь',kBeach:'До пляжа',kLand:'Участок',kSqm:'Цена за м²',kOwn:'Право',kPrice:'Цена',kAir:'До аэропорта',
+ ownFree:'Квартира оформляется на вас в собственность навсегда, в рамках квоты 49% для иностранцев в доме.',ownLease:'Земля оформляется в аренду на 30 лет с правом продления, договор регистрируется в Земельном департаменте.',
+ cH:'Сколько принесёт аренда',cSub:'Подвиньте ползунки. Считаем по месяцам, высокий сезон с ноября по апрель. Из дохода вычитаем управление и 1% цены в год на обслуживание.',
+ cNight:'Цена за ночь',cOcc:'Загрузка за год',cFee:'Управляющей компании',cGross:'Доход за год',cNet:'Чистыми за год',cY:'Чистая доходность',cPay:'Окупаемость',
+ mo:['Я','Ф','М','А','М','И','И','А','С','О','Н','Д'],dVisit:'Записаться на показ',cmpOn:'В сравнении',cmpAdd:'Сравнить',
+ cmpPick:'Выберите ещё один объект',cmpReady:'Можно сравнивать',cmpGo:'Сравнить',cmpH:'Сравнение',cmpNote:'Отмечено то, что лучше. Доходность при загрузке 60% и управлении 30%.',cmpAsk:'Обсудить с агентом',bCmp:'Сравниваю {a} и {b}. Помогите выбрать?',
+ pEb:'Пресейл',pCd:'До закрытия пресейл-цены',pUnit:'Тип квартиры',pDown:'Первый взнос',pBook:'Забронировать по пресейл-цене',pNow:'Сейчас, первый взнос {p}%',pMonthly:'Каждый месяц до сдачи ({n} мес.), всего {p}%',pHand:'При сдаче, {d}, {p}%',pTot:'Всего',pPerM:'за м²',
+ pEnded:'Пресейл-цена закрыта. Напишите нам, покажем актуальные цены.',pNote:'График для примера. Точный график и цены даёт застройщик.',bUnit:'Хочу забронировать: {u}, пресейл-цена {p}.'
+},en:{
+ title:'Phuket property · sample agency website',rib:'A sample website for a property agency. Listings, prices and figures are illustrative.',ribA:'I want this site',brand:'Phuket Property',
+ n1:'Listings',n2:'Areas',n3:'How to buy',n4:'Viewing',n5:'For agencies',tg:'Ask on Telegram',
+ h1a:'Phuket property',h1b:'for',w_live:'living',w_rent:'income',w_inv:'investment',
+ lead:'We match villas and apartments to your goal, show honest rental numbers and close the deal with a lawyer.',
+ fGoal:'Goal',iLive:'Live',iRent:'Rent out',iInv:'Invest',fBud:'Budget up to',fCur:'Currency',show:'View',anyB:'no limit',
+ lEb:'Selection',lH:'Properties for your goal',tAll:'All',tVilla:'Villas',tCondo:'Apartments',
+ empty:'Nothing matches right now. Leave a request and we will search beyond our list.',emptyA:'Leave a request',
+ sn_live:'Best for living first, with gardens, bedrooms and quiet areas.',sn_rent:'Best for renting out first, close to the beach with high occupancy.',sn_inv:'Best investments first, by yield and entry price.',snB:'Budget up to {b}.',snBn:'No budget limit.',
+ free:'Freehold',lease:'Leasehold 30+30',stRes:'Reserved',stSold:'Sold',fit_live:'For living',fit_rent:'For renting',fit_inv:'For investing',
+ minAir:'min to airport',perYear:'a year',more:'Details and yield',cmpA:'Add to compare',
+ aEb:'Areas',aH:'From the airport to the south',aSub:'Tap an area to see what it is like, what apartments cost and what is in the selection.',air:'Driving time from the airport',
+ min:'min',aSqm:'Apartments, per m²',aY:'Rental yield',aAir:'To the airport',aShow:'Show {n}',aPick:'Search in this area',
+ bEb:'Buying',bH:'How a foreigner buys',bSub:'Five steps from reservation to a title in your name. Pick the type and price to see the fees.',bC:'Apartment',bV:'Villa',fPrice:'Property price',
+ fe1:'Transfer fee, 2%',fe2:'Business tax 3.3% or stamp duty 0.5%',fe3:'Seller\'s income tax, about 1%',fe4:'Lease registration, 1%',fe5:'Stamp duty, 0.1%',feTot:'Total at registration',
+ feeNoteC:'The contract decides who pays what. The transfer fee is often split, the taxes are paid by the seller. A guide only, a lawyer calculates the exact amounts.',
+ feeNoteV:'The fee is based on the total rent for the full term. If the house is registered separately, its transfer fee is added. A guide only, a lawyer calculates the exact amounts.',
+ gEb:'For the agency',gH:'Listings live in a Google Sheet',gSub:'An agent changes a price or status in a row and the card on the site updates itself. No developer and no complex admin panel. Try it right here.',
+ shName:'Agency listings',shSaved:'All changes saved',shSaving:'Saving...',shObj:'Property',shPrice:'Price, ฿',shSt:'Status',st_sale:'For sale',st_res:'Reserved',st_sold:'Sold',
+ shHint:'Change a price and press Enter, or pick another status.',mirrorL:'How the card looks on the site',liveMsg:'Updated on the site: {n}.',toastSaved:'Site updated',
+ vEb:'Viewing',vH:'Book a viewing',vSub:'On site, or by video if you are not on the island yet. The request goes straight to the agent\'s messenger.',
+ vObj:'Property',vDate:'Date',vFmt:'Format',vSite:'On site',vVideo:'Video tour',vMsg:'Reply via',vName:'Your name',vNameP:'Anna',online:'usually replies within 15 minutes',vPick:'Find one for my goal',
+ bHi:'Hello!',bHiN:'Hello! My name is {n}.',bObj:'I would like to see: {o}.',bPick:'Please find me something {g}, budget up to {b}.',bPickN:'Please find me something {g}.',bPickD:'Please find me something in {d}.',
+ g_live:'to live in',g_rent:'to rent out',g_inv:'as an investment',bDate:'A good date: {d}.',bVideo:'A video tour is fine, I am not in Phuket yet.',bSite:'I will come to the viewing in person.',
+ send:'Send to {m}',sendNote:'This is a demo, nothing was sent. On the agency site the button opens {m} with this text.',sendToast:'The agent has your request',
+ reply:'Hello! Thanks for your request. I will send a video and the floor plan today. Can we talk at 15:00?',
+ oEb:'For agency owners',oH:'This website for your agency',oSub:'With your listings, areas and contacts. The first homepage sketch is free, so you see your site before you pay.',
+ oPr:'from $2,400',oTime:'Ready in 2-3 weeks',o1:'Listings from a Google Sheet, no admin panel',o2:'Russian, English and Thai',o3:'Search by goal and budget, a rental yield calculator',o4:'Requests straight to Telegram, WhatsApp or LINE',o5:'Fast on phones',
+ foot:'A sample website. Listings, prices, areas and yield figures are illustrative. Photos from Unsplash.',made:'Made by',
+ close:'Close',studio:'studio',m2:'m²',kBed:'Bedrooms',kArea:'Area',kBeach:'To the beach',kLand:'Plot',kSqm:'Price per m²',kOwn:'Title',kPrice:'Price',kAir:'To the airport',
+ ownFree:'The apartment is yours outright, within the 49% foreign quota of the building.',ownLease:'The land is leased for 30 years with renewal rights, the lease is registered at the Land Department.',
+ cH:'What renting it out earns',cSub:'Move the sliders. We count month by month, with high season from November to April, minus management and 1% of the price a year for upkeep.',
+ cNight:'Nightly rate',cOcc:'Occupancy over the year',cFee:'Management company',cGross:'Gross a year',cNet:'Net a year',cY:'Net yield',cPay:'Payback',
+ mo:['J','F','M','A','M','J','J','A','S','O','N','D'],dVisit:'Book a viewing',cmpOn:'In comparison',cmpAdd:'Compare',
+ cmpPick:'Pick one more property',cmpReady:'Ready to compare',cmpGo:'Compare',cmpH:'Comparison',cmpNote:'The better value is marked. Yield at 60% occupancy and 30% management.',cmpAsk:'Ask the agent about these two',bCmp:'I am comparing {a} and {b}. Can you help me choose?',
+ pEb:'Pre-sale',pCd:'Pre-sale price closes in',pUnit:'Unit type',pDown:'Down payment',pBook:'Reserve at the pre-sale price',pNow:'Now, {p}% down payment',pMonthly:'Monthly until handover ({n} months), {p}% in total',pHand:'On handover, {d}, {p}%',pTot:'Total',pPerM:'per m²',
+ pEnded:'The pre-sale price has closed. Message us for current prices.',pNote:'A sample schedule. The developer gives the exact schedule and prices.',bUnit:'I would like to reserve: {u}, pre-sale price {p}.'
+}};
+
+const S=window.SITE||{};
+if(S.L)L.splice(0,L.length,...S.L);
+if(S.D)D.splice(0,D.length,...S.D);
+if(S.patch)L.forEach(x=>Object.assign(x,S.patch[x.id]||{}));
+['ru','en'].forEach(l=>Object.assign(T[l],(S.T&&S.T[l])||{}));
+const COAST=S.coast||'../img/coast.jpg';
+let lang='ru',intent='live',cur='thb',budget=40e6,type='all',dist=null,selD=S.selD||'bangtao',cmp=[],buyType='condo',stepI=0,feeP=14.5e6,vfmt='video',vmsg='tg',open=null,pickD=null,pickUnit=null,askCmp=null,lastEdit='c1',dNight=0,dOcc=.6,dFee=.3,dImg=0,lastFocus=null;
+try{const sl=localStorage.getItem('pp-lang');if(sl==='en'||sl==='ru')lang=sl}catch(e){}
+const t=k=>(T[lang][k]!==undefined?T[lang][k]:T.ru[k]);
+const loc=()=>lang==='ru'?'ru-RU':'en-US';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function plural(n,f){n=Math.abs(n)%100;const a=n%10;if(n>10&&n<20)return f[2];if(a>1&&a<5)return f[1];if(a===1)return f[0];return f[2]}
+const objWord=n=>lang==='ru'?plural(n,['объект','объекта','объектов']):(n===1?'property':'properties');
+const fmtN=n=>Math.round(n).toLocaleString(loc());
+function money(thb,c){c=c||cur;const v=thb*RATE[c],ru=lang==='ru',L2=loc();let s;
+ if(Math.abs(v)>=1e6){const m=v/1e6;s=(Math.abs(m)>=100?Math.round(m):Math.round(m*10)/10).toLocaleString(L2)+(ru?' млн':'M')}
+ else if(Math.abs(v)>=1e4){s=Math.round(v/1e3).toLocaleString(L2)+(ru?' тыс.':'K')}
+ else s=Math.round(v).toLocaleString(L2);
+ const sym={thb:'฿',usd:'$',rub:'₽'}[c];return ru?s+' '+sym:sym+s}
+const moneyX=thb=>{const v=thb*RATE[cur],r=cur==='thb'||v<1e4?1:v<1e6?100:1000,s=(Math.round(v/r)*r).toLocaleString(loc()),sym={thb:'฿',usd:'$',rub:'₽'}[cur];return lang==='ru'?s+' '+sym:sym+s};
+const pct=y=>(Math.round(y*1000)/10).toLocaleString(loc(),{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
+const distTxt=m=>m>=1000?(m/1000).toLocaleString(loc())+(lang==='ru'?' км':' km'):m+(lang==='ru'?' м':' m');
+const p2v=p=>p>=100?Infinity:B0*Math.pow(B1/B0,p/100);
+const roundB=v=>!isFinite(v)?v:v<10e6?Math.round(v/5e5)*5e5:Math.round(v/1e6)*1e6;
+const fill=el=>el&&el.style.setProperty('--p',((el.value-el.min)/(el.max-el.min)*100)+'%');
+const dOf=x=>D.find(z=>z.k===x.d);
+function yieldOf(x,night,occ,fee){night=night||x.night;occ=occ||.6;fee=fee===undefined?.3:fee;
+ const months=MF.map((f,i)=>night*DAYS[i]*Math.min(.97,occ*f/MAVG));
+ const gross=months.reduce((a,b)=>a+b,0),net=gross*(1-fee)-x.price*.01;
+ return {months,gross,net,y:net/x.price,pay:net>0?x.price/net:Infinity}}
+function specs(x){const ru=lang==='ru';const b=x.bed===0?t('studio'):(ru?x.bed+' '+plural(x.bed,['спальня','спальни','спален']):x.bed+' bed');return b+' · '+x.area+' '+t('m2')+' · '+distTxt(x.beach)+(ru?' до пляжа':' to the beach')}
+let toastT;function toast(m){const el=$('#toast');el.textContent=m;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('on'),2200)}
+const go=sel=>{const el=$(sel);if(el)el.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})};
+
+/* cards */
+const grid=$('#grid'),cards=new Map();
+const cardHTML=x=>`<div class="cimg"><img loading="lazy" src="../img/${x.id}.jpg" alt=""><span class="own"></span><button type="button" class="cmp" aria-pressed="false">+</button><div class="stat"></div></div><div class="cb"><div class="cmeta"></div><h3></h3><div class="specs"></div><div class="crow"><div class="price"></div><span class="yl"></span></div><button type="button" class="more"></button></div>`;
+function fillCard(el,x){const d=dOf(x),on=cmp.includes(x.id);el.dataset.st=x.st;
+ el.querySelector('.own').textContent=x.own==='free'?t('free'):t('lease');
+ el.querySelector('.stat').textContent=x.st==='res'?t('stRes'):x.st==='sold'?t('stSold'):'';
+ el.querySelector('.cmeta').innerHTML=(x.s[intent]===3?`<span class="fit">${t('fit_'+intent)}</span> · `:'')+`${esc(d.n[lang])} · ${d.min} ${t('minAir')}`;
+ el.querySelector('h3').textContent=x.n[lang];
+ el.querySelector('.specs').textContent=specs(x);
+ el.querySelector('.price').textContent=S.full?moneyX(x.price):money(x.price);
+ el.querySelector('.yl').textContent=pct(yieldOf(x).y)+' '+t('perYear');
+ const m=el.querySelector('.more');if(m)m.textContent=t('more');
+ const c=el.querySelector('.cmp');if(c){c.setAttribute('aria-pressed',on);c.textContent=on?'✓':'+';c.setAttribute('aria-label',t('cmpA'))}}
+L.forEach(x=>{const el=document.createElement('article');el.className='card';el.innerHTML=cardHTML(x);
+ el.querySelector('.cmp').onclick=e=>{e.stopPropagation();toggleCmp(x.id)};
+ el.querySelector('.more').onclick=()=>openDrawer(x.id,el.querySelector('.more'));
+ el.querySelector('.cimg img').onclick=()=>openDrawer(x.id,el.querySelector('.more'));el.querySelector('.cimg img').style.cursor='pointer';
+ cards.set(x.id,el);grid.appendChild(el)});
+const visible=x=>x.price<=budget&&(type==='all'||x.type===type)&&(!dist||x.d===dist);
+const ordered=()=>[...L].sort((a,b)=>(b.s[intent]-a.s[intent])||(intent==='live'?b.bed-a.bed||a.price-b.price:intent==='inv'?yieldOf(b).y-yieldOf(a).y:yieldOf(b).y-yieldOf(a).y));
+function renderList(anim){const first=new Map();
+ if(anim&&!RM)cards.forEach((el,id)=>{if(!el.classList.contains('hide'))first.set(id,el.getBoundingClientRect())});
+ let n=0;ordered().forEach(x=>{const el=cards.get(x.id);fillCard(el,x);const v=visible(x);el.classList.toggle('hide',!v);if(v)n++;grid.appendChild(el)});
+ $('#empty').style.display=n?'none':'block';
+ if(anim&&!RM)cards.forEach((el,id)=>{if(el.classList.contains('hide'))return;const a=first.get(id),b=el.getBoundingClientRect();
+  if(!a){el.animate([{opacity:0,transform:'scale(.97)'},{opacity:1,transform:'none'}],{duration:380,easing:'ease-out'});return}
+  const dx=a.left-b.left,dy=a.top-b.top;if(Math.abs(dx)>1||Math.abs(dy)>1)el.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:600,easing:'cubic-bezier(.2,.8,.2,1)'})});
+ $('#rn').textContent=n;$('#rnl').textContent=objWord(n);
+ $('#thumbs').innerHTML=ordered().filter(visible).slice(0,4).map(x=>`<img src="../img/t-${x.id}.jpg" alt="">`).join('');
+ $('#sortnote').textContent=t('sn_'+intent)+' '+(isFinite(budget)?t('snB').replace('{b}',money(budget)):t('snBn'));
+ const dc=$('#dchip');if(dist){dc.hidden=false;dc.textContent='× '+D.find(z=>z.k===dist).n[lang]}else dc.hidden=true}
+function updBud(){$('#budv').textContent=isFinite(budget)?money(budget):t('anyB');fill($('#bud'))}
+function swapWord(now){const w=$('#hw'),s=w.firstElementChild,txt=t('w_'+intent);if(s.textContent===txt)return;if(now||RM){s.textContent=txt;return}
+ w.classList.add('swap');setTimeout(()=>{s.textContent=txt;w.classList.remove('swap')},240)}
+function setIntent(v){if(v===intent)return;intent=v;$$('#intent button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));
+ $$('.hero .ph').forEach(im=>{if(im.dataset.i===v&&im.dataset.src){im.src=im.dataset.src;delete im.dataset.src}im.classList.toggle('on',im.dataset.i===v)});
+ swapWord();renderList(true);bubble()}
+$$('#intent button').forEach(b=>b.onclick=()=>setIntent(b.dataset.v));
+$('#bud').oninput=e=>{budget=roundB(p2v(+e.target.value));updBud();renderList(false);bubble()};
+$('#bud').onchange=()=>renderList(true);
+$$('#cur button').forEach(b=>b.onclick=()=>{cur=b.dataset.v;$$('#cur button').forEach(z=>z.setAttribute('aria-pressed',z===b));updBud();renderList(false);renderAdet();fees();renderMirror();fillVisitSel();bubble();renderPresale();if(open)renderDrawer()});
+$$('#types .chip[data-v]').forEach(b=>b.onclick=()=>{type=b.dataset.v;syncTypes();renderList(true)});
+function syncTypes(){$$('#types .chip[data-v]').forEach(z=>z.setAttribute('aria-pressed',z.dataset.v===type))}
+$('#dchip').onclick=()=>{dist=null;renderList(true)};
+
+/* areas */
+function renderStops(){const s=$('#stops');s.querySelectorAll('.stop').forEach(e=>e.remove());
+ D.forEach(d=>{const b=document.createElement('button');b.type='button';b.className='stop';b.setAttribute('aria-pressed',d.k===selD);
+  b.innerHTML=`<span class="m">${d.min} ${t('min')}</span><span class="dot"></span><span class="nm">${esc(d.n[lang])}</span>`;
+  b.onclick=()=>{selD=d.k;renderStops();renderAdet()};s.appendChild(b)});
+ const i=D.findIndex(d=>d.k===selD);$('#rail').style.setProperty('--fill',(i/(D.length-1)*100)+'%')}
+function renderAdet(){const d=D.find(z=>z.k===selD),xs=L.filter(x=>x.d===d.k),img=xs[0]?`../img/${xs[0].id}.jpg`:COAST;
+ $('#adet').innerHTML=`<div class="aimg"><img src="${img}" alt="" loading="lazy"></div><div class="atx"><h3>${esc(d.n[lang])}</h3><p style="margin:10px 0 0;color:var(--ink2)">${esc(d.tx[lang])}</p><div class="ast"><div><small>${t('aSqm')}</small><b>~${money(d.sqm)}</b></div><div><small>${t('aY')}</small><b>${d.y}</b></div><div><small>${t('aAir')}</small><b>${d.min} ${t('min')}</b></div></div><button type="button" class="go" id="ashow">${xs.length?t('aShow').replace('{n}',xs.length+' '+objWord(xs.length)):t('aPick')}</button></div>`;
+ $('#ashow').onclick=()=>{if(xs.length){dist=d.k;type='all';syncTypes();if(xs.some(x=>x.price>budget)){budget=Infinity;$('#bud').value=100;updBud()}renderList(false);go('#list')}else{pickD=d;pickUnit=null;askCmp=null;$('#vo').value='pick';bubble();go('#visit')}}}
+
+/* buy */
+function renderSteps(){const S=STEPS[buyType][lang];
+ $('#steps').innerHTML=S.map((s,i)=>`<button type="button" class="step" aria-pressed="${i===stepI}" data-i="${i}"><b>${i+1}</b><span>${s[0]}</span></button>`).join('');
+ $('#sdet').innerHTML=`<h3>${stepI+1}. ${S[stepI][0]}</h3><p style="margin:8px 0 0;color:var(--ink2)">${S[stepI][1]}</p>`;
+ $$('#steps .step').forEach(b=>b.onclick=()=>{stepI=+b.dataset.i;renderSteps()})}
+function fees(){const p=feeP;$('#fpv').textContent=money(p);fill($('#fp'));let rows,tot;
+ if(buyType==='condo'){rows=[[t('fe1'),p*.02],[t('fe2'),[p*.005,p*.033]],[t('fe3'),p*.01]];tot=[p*.035,p*.063]}
+ else{rows=[[t('fe4'),p*.01],[t('fe5'),p*.001]];tot=[p*.011,p*.011]}
+ const f=v=>Array.isArray(v)?(v[0]===v[1]?money(v[0]):money(v[0])+' - '+money(v[1])):money(v);
+ $('#feelist').innerHTML=rows.map(r=>`<div class="fee"><span>${r[0]}</span><b>${f(r[1])}</b></div>`).join('')+`<div class="fee tot"><span>${t('feTot')}</span><b>${f(tot)}</b></div>`;
+ $('#feeNote').textContent=t(buyType==='condo'?'feeNoteC':'feeNoteV')}
+$$('#btype button').forEach(b=>b.onclick=()=>{buyType=b.dataset.v;stepI=0;$$('#btype button').forEach(z=>z.setAttribute('aria-pressed',z===b));renderSteps();fees()});
+$('#fp').oninput=e=>{feeP=roundB(Math.min(B1,p2v(+e.target.value)));fees()};
+
+/* sheet */
+const SH=S.SH||['c1','v2','c2','v5'];lastEdit=SH[0];
+function renderSheet(){
+ $('#shh').innerHTML=`<tr><td class="rn">1</td><td class="hd">${t('shObj')}</td><td class="hd">${t('shPrice')}</td><td class="hd">${t('shSt')}</td></tr>`;
+ $('#shb').innerHTML=SH.map((id,i)=>{const x=L.find(z=>z.id===id);return `<tr data-id="${id}"><td class="rn">${i+2}</td><td class="nm">${esc(x.n[lang])}</td><td><input inputmode="numeric" value="${fmtN(x.price)}" aria-label="${t('shPrice')}"></td><td><select aria-label="${t('shSt')}">${['sale','res','sold'].map(s=>`<option value="${s}"${x.st===s?' selected':''}>${t('st_'+s)}</option>`).join('')}</select></td></tr>`}).join('');
+ $$('#shb tr').forEach(tr=>{const x=L.find(z=>z.id===tr.dataset.id),inp=tr.querySelector('input'),sel=tr.querySelector('select');
+  inp.onfocus=()=>{lastEdit=x.id;renderMirror()};
+  inp.onchange=()=>{const v=parseInt(inp.value.replace(/\D/g,''),10);if(v>=5e5&&v<=5e8&&v!==x.price){x.price=v;inp.value=fmtN(v);applyEdit(x,tr)}else inp.value=fmtN(x.price)};
+  inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();inp.blur()}};
+  sel.onchange=()=>{x.st=sel.value;applyEdit(x,tr)}})}
+function applyEdit(x,tr){lastEdit=x.id;const sv=$('#shsv');sv.textContent=t('shSaving');tr.classList.add('ed');
+ setTimeout(()=>{sv.textContent=t('shSaved');tr.classList.remove('ed');renderList(false);renderMirror(true);fillVisitSel();bubble();
+  const el=cards.get(x.id);el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+  $('#live').textContent=t('liveMsg').replace('{n}',x.n[lang]);toast(t('toastSaved'))},650)}
+function renderMirror(fl){const x=L.find(z=>z.id===lastEdit),m=$('#mirror');m.innerHTML='';const el=document.createElement('article');el.className='card';el.innerHTML=cardHTML(x);
+ el.querySelector('.cmp').remove();el.querySelector('.more').remove();el.querySelector('img').removeAttribute('loading');fillCard(el,x);m.appendChild(el);if(fl&&!RM)el.classList.add('flash')}
+
+/* visit */
+function fillVisitSel(){const s=$('#vo'),v=s.value;s.innerHTML=`<option value="pick">${t('vPick')}</option>`+ordered().map(x=>`<option value="${x.id}">${esc(x.n[lang])} · ${money(x.price)}</option>`).join('');s.value=v||'pick'}
+function bubble(){const x=L.find(z=>z.id===$('#vo').value),name=$('#vn').value.trim(),dt=$('#vd').value,lines=[];
+ lines.push(name?t('bHiN').replace('{n}',name):t('bHi'));
+ if(x)lines.push(t('bObj').replace('{o}',x.n[lang]+' ('+money(x.price)+')'));
+ else if(askCmp)lines.push(t('bCmp').replace('{a}',askCmp[0].n[lang]).replace('{b}',askCmp[1].n[lang]));
+ else if(pickUnit)lines.push(t('bUnit').replace('{u}',pickUnit.n[lang]).replace('{p}',moneyX(pickUnit.price)));
+ else if(pickD)lines.push(t('bPickD').replace('{d}',pickD.n[lang]));
+ else lines.push(isFinite(budget)?t('bPick').replace('{g}',t('g_'+intent)).replace('{b}',money(budget)):t('bPickN').replace('{g}',t('g_'+intent)));
+ if(dt){const ds=new Date(dt+'T12:00').toLocaleDateString(loc(),{weekday:'short',day:'numeric',month:'long'});lines.push(t('bDate').replace('{d}',ds))}
+ lines.push(vfmt==='video'?t('bVideo'):t('bSite'));
+ const tm=new Date().toLocaleTimeString(loc(),{hour:'2-digit',minute:'2-digit'});
+ $('#bub').innerHTML=esc(lines.join('\n'))+`<time>${tm}</time>`;
+ $$('#phb .bub.in').forEach(e=>e.remove());
+ $('#phone').dataset.m=vmsg;const mn={tg:'Telegram',wa:'WhatsApp',line:'LINE'}[vmsg];$('#send').textContent=t('send').replace('{m}',mn);$('#sendn').textContent=''}
+$('#vo').onchange=()=>{pickD=null;pickUnit=null;askCmp=null;bubble()};$('#vd').oninput=bubble;$('#vn').oninput=bubble;
+$$('#vf button').forEach(b=>b.onclick=()=>{vfmt=b.dataset.v;$$('#vf button').forEach(z=>z.setAttribute('aria-pressed',z===b));bubble()});
+$$('#vm button').forEach(b=>b.onclick=()=>{vmsg=b.dataset.v;$$('#vm button').forEach(z=>z.setAttribute('aria-pressed',z===b));bubble()});
+let replyT;$('#send').onclick=()=>{const mn={tg:'Telegram',wa:'WhatsApp',line:'LINE'}[vmsg];$('#sendn').textContent=t('sendNote').replace('{m}',mn);
+ $$('#phb .bub.in').forEach(e=>e.remove());clearTimeout(replyT);
+ replyT=setTimeout(()=>{const r=document.createElement('div');r.className='bub in';r.innerHTML=esc(t('reply'))+`<time>${new Date().toLocaleTimeString(loc(),{hour:'2-digit',minute:'2-digit'})}</time>`;$('#phb').appendChild(r);toast(t('sendToast'))},RM?0:900)};
+(()=>{const d=new Date();d.setDate(d.getDate()+3);const iso=d.toISOString().slice(0,10);$('#vd').value=iso;$('#vd').min=new Date().toISOString().slice(0,10)})();
+
+/* presale */
+const P=S.presale;let pU=0,pDown=30,cdT;
+function renderPresale(){if(!P)return;$('#presale').hidden=false;
+ $('#pH').textContent=P.h[lang];$('#pSub').textContent=P.sub[lang];
+ $('#punits').innerHTML=P.units.map((u,i)=>`<button type="button" class="chip" aria-pressed="${i===pU}" data-i="${i}">${esc(u.n[lang])}</button>`).join('');
+ $$('#punits .chip').forEach(b=>b.onclick=()=>{pU=+b.dataset.i;renderPresale()});
+ const u=P.units[pU];$('#pprice').innerHTML=`${moneyX(u.price)}<small>${u.area} ${t('m2')} · ${moneyX(u.price/u.area)} ${t('pPerM')}</small>`;
+ plan();tick()}
+function plan(){const u=P.units[pU],now=new Date(),[hy,hm]=P.handover.split('-').map(Number),months=Math.max(1,(hy-now.getFullYear())*12+(hm-1-now.getMonth())),hand=P.hand||30,inst=100-pDown-hand;
+ $('#pdv').textContent=pDown+'% · '+moneyX(u.price*pDown/100);fill($('#pdown'));
+ const hd=new Date(hy,hm-1,1).toLocaleDateString(loc(),{month:'long',year:'numeric'}).replace(' г.',''),rows=[[t('pNow').replace('{p}',pDown),u.price*pDown/100]];
+ if(inst>0)rows.push([t('pMonthly').replace('{n}',months).replace('{p}',inst),u.price*inst/100/months]);
+ rows.push([t('pHand').replace('{d}',hd).replace('{p}',hand),u.price*hand/100]);
+ $('#plan').innerHTML=rows.map(r=>`<div class="fee"><span>${r[0]}</span><b>${moneyX(r[1])}</b></div>`).join('')+`<div class="fee tot"><span>${t('pTot')}</span><b>${moneyX(u.price)}</b></div>`}
+function tick(){if(!P)return;const el=$('#cd'),ms=new Date(P.end)-Date.now();
+ if(ms<=0){el.className='cd end';el.textContent=t('pEnded');clearInterval(cdT);return}
+ const s=Math.floor(ms/1000),v=[Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),s%60];
+ const lb=lang==='ru'?[plural(v[0],['день','дня','дней']),plural(v[1],['час','часа','часов']),plural(v[2],['минута','минуты','минут']),plural(v[3],['секунда','секунды','секунд'])]:['days','hours','minutes','seconds'];
+ el.className='cd';el.innerHTML=v.map((n,i)=>`<div><b>${String(n).padStart(2,'0')}</b><small>${lb[i]}</small></div>`).join('')}
+if(P){$('#pdown').oninput=e=>{pDown=+e.target.value;plan()};cdT=setInterval(tick,1000);
+ $('#pbook').onclick=()=>{pickUnit=P.units[pU];pickD=null;askCmp=null;$('#vo').value='pick';bubble();go('#visit')}}
+
+/* drawer */
+function openDrawer(id,from){open=L.find(x=>x.id===id);lastFocus=from||null;dNight=open.night;dOcc=.6;dFee=.3;dImg=0;renderDrawer();
+ $('#ov').classList.add('on');$('#drw').classList.add('on');$('#drw').scrollTop=0;document.body.style.overflow='hidden';document.body.classList.add('lock');setTimeout(()=>{const c=$('#drw .x');if(c)c.focus({preventScroll:true})},60)}
+function closeAll(){$('#ov').classList.remove('on');$('#drw').classList.remove('on');$('#mod').classList.remove('on');document.body.style.overflow='';document.body.classList.remove('lock');open=null;if(lastFocus){lastFocus.focus({preventScroll:true});lastFocus=null}}
+function renderDrawer(){const x=open,d=dOf(x),on=cmp.includes(x.id);
+ $('#drw').innerHTML=`<div class="dimg"><img id="dmain" src="../img/${x.id}${dImg?'b':''}.jpg" alt=""><div class="dth"><button type="button" aria-pressed="${!dImg}" data-i="0"><img src="../img/${x.id}.jpg" alt=""></button><button type="button" aria-pressed="${!!dImg}" data-i="1"><img src="../img/${x.id}b.jpg" alt=""></button></div><button type="button" class="x" aria-label="${t('close')}">×</button></div>
+ <div class="dbody"><div class="cmeta">${esc(d.n[lang])} · ${d.min} ${t('minAir')}</div><h3>${esc(x.n[lang])}</h3><div class="price">${money(x.price)}</div>
+ <div class="kv"><div><small>${t('kBed')}</small><b>${x.bed||t('studio')}</b></div><div><small>${t('kArea')}</small><b>${x.area} ${t('m2')}</b></div><div><small>${t('kBeach')}</small><b>${distTxt(x.beach)}</b></div>${x.land?`<div><small>${t('kLand')}</small><b>${x.land} ${t('m2')}</b></div>`:''}<div><small>${t('kSqm')}</small><b>${money(x.price/x.area)}</b></div><div><small>${t('kOwn')}</small><b>${x.own==='free'?t('free'):t('lease')}</b></div></div>
+ <p style="margin:0;color:var(--ink2)">${t(x.own==='free'?'ownFree':'ownLease')}</p>
+ <div class="calc"><h4>${t('cH')}</h4><p class="note" style="margin:6px 0 4px">${t('cSub')}</p>
+  <div class="sl"><div class="t"><span>${t('cNight')}</span><b id="oN"></b></div><input type="range" id="sN" min="${Math.round(x.night*.5/100)*100}" max="${Math.round(x.night*1.6/100)*100}" step="100" value="${dNight}" aria-label="${t('cNight')}"></div>
+  <div class="sl"><div class="t"><span>${t('cOcc')}</span><b id="oO"></b></div><input type="range" id="sO" min="30" max="90" step="1" value="${Math.round(dOcc*100)}" aria-label="${t('cOcc')}"></div>
+  <div class="sl"><div class="t"><span>${t('cFee')}</span><b id="oF"></b></div><input type="range" id="sF" min="15" max="35" step="1" value="${Math.round(dFee*100)}" aria-label="${t('cFee')}"></div>
+  <div class="out"><div><small>${t('cGross')}</small><b id="oG"></b></div><div><small>${t('cNet')}</small><b id="oNet"></b></div><div class="big"><small>${t('cY')}</small><b id="oY"></b></div><div><small>${t('cPay')}</small><b id="oP"></b></div></div>
+  <div class="months" id="mo">${t('mo').map(m=>`<div><i></i><small>${m}</small></div>`).join('')}</div></div>
+ <div class="dact"><button type="button" class="go" id="dVisit">${t('dVisit')}</button><button type="button" class="chip" id="dCmp" aria-pressed="${on}">${on?t('cmpOn')+' ✓':t('cmpAdd')}</button></div></div>`;
+ $('#drw .x').onclick=closeAll;
+ $$('#drw .dth button').forEach(b=>b.onclick=()=>{dImg=+b.dataset.i;$('#dmain').src=`../img/${x.id}${dImg?'b':''}.jpg`;$$('#drw .dth button').forEach(z=>z.setAttribute('aria-pressed',z===b))});
+ $('#sN').oninput=e=>{dNight=+e.target.value;updCalc()};$('#sO').oninput=e=>{dOcc=+e.target.value/100;updCalc()};$('#sF').oninput=e=>{dFee=+e.target.value/100;updCalc()};
+ $('#dVisit').onclick=()=>{$('#vo').value=x.id;pickD=null;askCmp=null;bubble();closeAll();setTimeout(()=>go('#visit'),RM?0:200)};
+ $('#dCmp').onclick=()=>{toggleCmp(x.id);const o=cmp.includes(x.id);$('#dCmp').setAttribute('aria-pressed',o);$('#dCmp').textContent=o?t('cmpOn')+' ✓':t('cmpAdd')};
+ updCalc()}
+function updCalc(){const x=open,r=yieldOf(x,dNight,dOcc,dFee),c=cur,v=dNight*RATE[c],sym={thb:'฿',usd:'$',rub:'₽'}[c];
+ $('#oN').textContent=lang==='ru'?fmtN(v)+' '+sym:sym+fmtN(v);$('#oO').textContent=Math.round(dOcc*100)+'%';$('#oF').textContent=Math.round(dFee*100)+'%';
+ $('#oG').textContent=money(r.gross);$('#oNet').textContent=money(r.net);$('#oY').textContent=pct(r.y);
+ const py=Math.round(r.pay);$('#oP').textContent=isFinite(r.pay)&&py<100?py+' '+(lang==='ru'?plural(py,['год','года','лет']):(py===1?'year':'years')):'-';
+ const mx=Math.max(...r.months);$$('#mo i').forEach((el,i)=>el.style.height=Math.max(2,r.months[i]/mx*74)+'px');
+ ['#sN','#sO','#sF'].forEach(s=>fill($(s)))}
+
+/* compare */
+function toggleCmp(id){const i=cmp.indexOf(id);if(i>=0)cmp.splice(i,1);else{if(cmp.length>=2)cmp.shift();cmp.push(id)}
+ cards.forEach((el,k)=>{const b=el.querySelector('.cmp'),on=cmp.includes(k);b.setAttribute('aria-pressed',on);b.textContent=on?'✓':'+'});renderCbar()}
+function renderCbar(){$('#cbar').classList.toggle('on',cmp.length>0);
+ $('#slots').innerHTML=[0,1].map(i=>cmp[i]?`<div class="slot"><img src="../img/t-${cmp[i]}.jpg" alt=""></div>`:'<div class="slot"></div>').join('');
+ $('#cbt').textContent=cmp.length<2?t('cmpPick'):t('cmpReady');$('#cbgo').textContent=t('cmpGo');$('#cbgo').disabled=cmp.length<2}
+$('#cbx').onclick=()=>{cmp=[];toggleCmp('__none');cmp=[];cards.forEach(el=>{const b=el.querySelector('.cmp');b.setAttribute('aria-pressed',false);b.textContent='+'});renderCbar()};
+$('#cbgo').onclick=()=>{if(cmp.length<2)return;lastFocus=$('#cbgo');renderMod();$('#ov').classList.add('on');$('#mod').classList.add('on');document.body.style.overflow='hidden';document.body.classList.add('lock');setTimeout(()=>$('#mod .x').focus({preventScroll:true}),60)};
+function renderMod(){const [a,b]=cmp.map(id=>L.find(x=>x.id===id)),ya=yieldOf(a),yb=yieldOf(b);
+ const rows=[[t('kPrice'),a.price,b.price,'low',money],[t('kSqm'),a.price/a.area,b.price/b.area,'low',money],[t('kArea'),a.area,b.area,'high',v=>v+' '+t('m2')],[t('kBed'),a.bed,b.bed,'high',v=>v||t('studio')],[t('kBeach'),a.beach,b.beach,'low',distTxt],[t('kAir'),dOf(a).min,dOf(b).min,'low',v=>v+' '+t('min')],[t('cY'),ya.y,yb.y,'high',pct],[t('kOwn'),a.own,b.own,null,v=>v==='free'?t('free'):t('lease')]];
+ $('#mod').innerHTML=`<div class="mhd"><h3 class="dsp" style="font-size:24px">${t('cmpH')}</h3><button type="button" class="x" aria-label="${t('close')}">×</button></div><table class="ctab"><tr><th></th>${[a,b].map(x=>`<td class="chd"><img src="../img/${x.id}.jpg" alt=""><b>${esc(x.n[lang])}</b></td>`).join('')}</tr>${rows.map(([k,va,vb,best,f])=>{let wa=false,wb=false;if(best&&va!==vb){const ab=best==='low'?va<vb:va>vb;wa=ab;wb=!ab}return `<tr><th>${k}</th><td class="${wa?'win':''}">${f(va)}</td><td class="${wb?'win':''}">${f(vb)}</td></tr>`}).join('')}</table><p class="note" style="padding:0 20px 12px">${t('cmpNote')}</p><div class="dact" style="padding:0 20px 20px"><button type="button" class="go" id="mAsk">${t('cmpAsk')}</button></div>`;
+ $('#mod .x').onclick=closeAll;
+ $('#mAsk').onclick=()=>{askCmp=[a,b];pickD=null;pickUnit=null;$('#vo').value='pick';bubble();lastFocus=null;closeAll();setTimeout(()=>go('#visit'),RM?0:200)}}
+$('#ov').onclick=closeAll;
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&($('#drw').classList.contains('on')||$('#mod').classList.contains('on')))closeAll()});
+
+/* language */
+function setLang(l){lang=l;document.documentElement.lang=l;document.title=t('title');
+ $$('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
+ $$('[data-t]').forEach(el=>{const v=t(el.dataset.t);if(typeof v==='string')el.textContent=v});
+ $('#vn').placeholder=t('vNameP');swapWord(true);updBud();renderList(false);renderStops();renderAdet();renderSteps();fees();renderSheet();renderMirror();fillVisitSel();bubble();renderCbar();renderPresale();
+ if($('#mod').classList.contains('on'))renderMod();if(open)renderDrawer();
+ try{localStorage.setItem('pp-lang',l)}catch(e){}}
+$$('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+
+/* header and reveal */
+const top=$('#top');const onScroll=()=>top.classList.toggle('solid',scrollY>60);addEventListener('scroll',onScroll,{passive:true});onScroll();
+if('IntersectionObserver' in window&&!RM){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});$$('.rv').forEach(el=>io.observe(el))}else $$('.rv').forEach(el=>el.classList.add('in'));
+addEventListener('load',()=>setTimeout(()=>$$('.hero .ph[data-src]').forEach(im=>{const i=new Image();i.src=im.dataset.src}),1200));
+
+budget=roundB(p2v(+$('#bud').value));feeP=roundB(p2v(+$('#fp').value));
+setLang(lang);
+})();
+</script>
+</body>
+</html>
