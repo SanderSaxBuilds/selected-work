@@ -112,7 +112,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.45}
 .s-qr:empty{display:none}
 .s-top,.s-body{min-width:0}
 /* classic */
-.t-classic{grid-template-columns:1fr;grid-template-rows:430px auto 1fr 150px 116px;grid-template-areas:"hero" "top" "body" "gal" "agent"}
+.t-classic{grid-template-columns:1fr;grid-template-rows:400px auto 1fr 150px 116px;grid-template-areas:"hero" "top" "body" "gal" "agent"}
 .t-classic .s-top{grid-area:top;padding:26px 46px 0;display:grid;grid-template-columns:1fr auto;column-gap:30px;grid-template-areas:"head price" "facts facts"}
 .t-classic .s-head{grid-area:head}
 .t-classic .s-price{grid-area:price;text-align:right;align-self:end}
@@ -254,18 +254,22 @@ textarea{resize:vertical;min-height:96px;line-height:1.45}
 (function(){
 const $=id=>document.getElementById(id);
 const form=$('form'),sheet=$('sheet');
-const DEF={title:'Вилла из тика у Най Харна',loc:'Най Харн, Пхукет',kind:'villa',deal:'sale',price:'18900000',cur:'thb',bed:'3',bath:'3',area:'260',land:'520',beach:'900',own:'Лизхолд 30+30 лет',
+const TXT={ru:{title:'Вилла из тика у Най Харна',loc:'Най Харн, Пхукет',own:'Лизхолд 30+30 лет',
  desc:'Тиковая вилла на тихой улице в 900 метрах от пляжа Най Харн. Три спальни с ванными, гостиная с выходом к бассейну, крытая сала для ужинов на воздухе. Продаётся с мебелью, можно сдавать с первого дня.',
- feat:'Бассейн 4 x 10 м\nСад с тропическими растениями\nПарковка на 2 машины\nУправляющая компания рядом\nДоходность аренды около 5% в год',
- agency:'Ваше агентство',agent:'Александр',phone:'+66 96 134 7329',link:'t.me/sandersax',tpl:'classic',lang:'ru',ac:'#6a2c70'};
+ feat:'Бассейн 4 x 10 м\nСад с тропическими растениями\nПарковка на 2 машины\nУправляющая компания рядом\nДоходность аренды около 5% в год',agency:'Ваше агентство',agent:'Александр'},
+ en:{title:'Teak villa near Nai Harn',loc:'Nai Harn, Phuket',own:'Leasehold 30+30 years',
+ desc:'A teak villa on a quiet lane 900 metres from Nai Harn beach. Three en-suite bedrooms, a living room opening onto the pool and a covered sala for dinners outside. Sold furnished and ready to rent from day one.',
+ feat:'Pool 4 x 10 m\nTropical garden\nParking for 2 cars\nManagement company nearby\nRental yield around 5% a year',agency:'Your agency',agent:'Alexandr'}};
+const DEF=Object.assign({kind:'villa',deal:'sale',price:'18900000',cur:'thb',bed:'3',bath:'3',area:'260',land:'520',beach:'900',
+ phone:'+66 96 134 7329',link:'t.me/sandersax',tpl:'classic',lang:'ru',ac:'#6a2c70'},TXT.ru);
 const PDEF=['../img/v2.jpg','../img/v2b.jpg','../img/v1.jpg','../img/v4.jpg'];
 const PH=PDEF.slice();let LOGO='';
 const RATE={thb:1,usd:1/33,rub:2.44};
 const SYM={thb:'฿',usd:'$',rub:'₽'};
 const ACS=['#6a2c70','#1f2a44','#1d5c45','#3a3a40'];
 const L={
- ru:{kind:{villa:'Вилла',condo:'Кондо',town:'Таунхаус',land:'Земля'},deal:{sale:'Продажа',rent:'Аренда'},bed:'спальни',bath:'ванные',area:'площадь',land:'участок',beach:'до пляжа',own:'собственность',about:'Об объекте',feat:'Особенности',agent:'Ваш агент',approx:'ориентировочно',mo:'/мес',mark:'Пример буклета, объект условный',m:'м',km:'км'},
- en:{kind:{villa:'Villa',condo:'Condo',town:'Townhouse',land:'Land'},deal:{sale:'For sale',rent:'For rent'},bed:'bedrooms',bath:'bathrooms',area:'living area',land:'land plot',beach:'to the beach',own:'ownership',about:'About',feat:'Highlights',agent:'Your agent',approx:'approx.',mo:'/mo',mark:'Sample brochure, fictional property',m:'m',km:'km'}};
+ ru:{kind:{villa:'Вилла',condo:'Кондо',town:'Таунхаус',land:'Земля'},deal:{sale:'Продажа',rent:'Аренда'},bed:'спальни',bath:'ванные',area:'площадь',land:'участок',beach:'до пляжа',own:'собственность',about:'Об объекте',feat:'Особенности',agent:'Ваш агент',approx:'ориентировочно',mo:'/мес',mark:'Пример буклета, объект условный',m:'м',km:'км',sq:'м²'},
+ en:{kind:{villa:'Villa',condo:'Condo',town:'Townhouse',land:'Land'},deal:{sale:'For sale',rent:'For rent'},bed:'bedrooms',bath:'bathrooms',area:'living area',land:'land plot',beach:'to the beach',own:'ownership',about:'About',feat:'Highlights',agent:'Your agent',approx:'approx.',mo:'/mo',mark:'Sample brochure, fictional property',m:'m',km:'km',sq:'m²'}};
 let S=Object.assign({},DEF);
 try{const sv=JSON.parse(localStorage.getItem('pn_brochure')||'null');if(sv&&typeof sv==='object')Object.keys(DEF).forEach(k=>{if(typeof sv[k]==='string')S[k]=sv[k];});}catch(e){}
 const num=v=>{const n=parseFloat(String(v||'').replace(/[^\d.,]/g,'').replace(',','.'));return isFinite(n)?n:0;};
@@ -278,7 +282,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 function linkUrl(v){v=String(v||'').trim();if(!v)return '';if(/^@/.test(v))return 'https://t.me/'+v.slice(1);if(/^https?:\/\//i.test(v))return v;if(/^(t\.me|wa\.me|line\.me)\//i.test(v))return 'https://'+v;if(/^\+?\d[\d\s-]{6,}$/.test(v))return 'https://wa.me/'+v.replace(/\D/g,'');return '';}
 function facts(lg){const T=L[lg],o=[];
  if(num(S.bed))o.push([S.bed,T.bed]);if(num(S.bath))o.push([S.bath,T.bath]);
- if(num(S.area))o.push([num(S.area)+' м²',T.area]);if(num(S.land))o.push([num(S.land)+' м²',T.land]);
+ if(num(S.area))o.push([num(S.area)+' '+T.sq,T.area]);if(num(S.land))o.push([num(S.land)+' '+T.sq,T.land]);
  const b=num(S.beach);if(b)o.push([b>=1000?(b/1000).toFixed(1).replace(/\.0$/,'').replace('.',lg==='en'?'.':',')+' '+T.km:b+' '+T.m,T.beach]);
  if(S.own.trim()&&o.length<6)o.push([S.own.trim(),T.own]);
  return o;}
@@ -306,7 +310,10 @@ function render(){const lg=S.lang,T=L[lg];
  document.querySelectorAll('#tpl button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.tpl));
  document.querySelectorAll('#lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.lang));
  document.querySelectorAll('#sw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.ac));
- drawPhotos();save();}
+ drawPhotos();fit();save();}
+/* shrink long text so nothing is cut off the A4 page */
+function fit(){const b=sheet.querySelector('.s-body');let fs=13;b.style.fontSize='';while(b.scrollHeight>b.clientHeight+1&&fs>10){fs-=.5;b.style.fontSize=fs+'px';}}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
 function fill(){[...form.elements].forEach(el=>{if(el.name&&S[el.name]!==undefined)el.value=S[el.name];});}
 let svT=0;function save(){clearTimeout(svT);svT=setTimeout(()=>{try{localStorage.setItem('pn_brochure',JSON.stringify(S));}catch(e){}},300);}
 form.addEventListener('input',e=>{const el=e.target;if(el.name&&S[el.name]!==undefined){S[el.name]=el.value;render();}});
@@ -322,10 +329,13 @@ $('file').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0
   const url=slot===9?c.toDataURL('image/png'):c.toDataURL('image/jpeg',.86);if(slot===9)LOGO=url;else if(slot>=0)PH[slot]=url;render();};img.src=r.result;};r.readAsDataURL(f);});
 /* toggles */
 $('tpl').addEventListener('click',e=>{const b=e.target.closest('button');if(b){S.tpl=b.dataset.v;render();}});
-$('lang').addEventListener('click',e=>{const b=e.target.closest('button');if(b){S.lang=b.dataset.v;render();}});
+$('lang').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.v===S.lang)return;
+ /* untouched sample text follows the language, the agent's own text stays */
+ const from=TXT[S.lang],to=TXT[b.dataset.v];Object.keys(to).forEach(k=>{if(S[k]===from[k])S[k]=to[k];});
+ S.lang=b.dataset.v;fill();render();});
 $('sw').innerHTML=ACS.map(c=>'<button type="button" data-v="'+c+'" style="background:'+c+'" aria-label="Цвет '+c+'"></button>').join('');
 $('sw').addEventListener('click',e=>{const b=e.target.closest('button');if(b){S.ac=b.dataset.v;render();}});
-$('reset').addEventListener('click',()=>{S=Object.assign({},DEF);PDEF.forEach((p,i)=>PH[i]=p);LOGO='';fill();render();toast('Пример восстановлен');});
+$('reset').addEventListener('click',()=>{const lg=S.lang;S=Object.assign({},DEF,TXT[lg],{lang:lg});PDEF.forEach((p,i)=>PH[i]=p);LOGO='';fill();render();toast('Пример восстановлен');});
 /* scale preview */
 const wrap=$('pvwrap');
 function scale(){const w=wrap.clientWidth,k=Math.min(1,w/794);sheet.style.transform='scale('+k+')';wrap.style.height=Math.ceil(1123*k)+'px';}
