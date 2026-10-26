@@ -88,7 +88,7 @@ input.dk::-webkit-slider-thumb{border-color:var(--glass)}
 .thumbs img:first-child{margin-left:0}
 .go{border:0;background:var(--lag);color:#fff;border-radius:14px;padding:14px 20px;font-weight:600;font-size:15px;white-space:nowrap;transition:background .2s,transform .15s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
 .go:hover{background:var(--lag2)}
-.go:active{transform:scale(.98)}
+.go:active{transform:scale(.98)} .go.ln{background:transparent;color:var(--lag);box-shadow:inset 0 0 0 1.5px var(--lag)} .go.ln:hover{background:var(--paper)}
 @media(max-width:1080px){.finder{grid-template-columns:1fr 1fr}.res{grid-column:1/-1;justify-content:space-between}}
 @media(max-width:640px){.finder{grid-template-columns:1fr;padding:16px;gap:16px}.finder .seg{display:flex}.finder .seg button{flex:1;padding:10px 6px}.hin{padding-top:130px}.res .go{padding:13px 16px}}
 
@@ -527,7 +527,7 @@ const T={ru:{
  cH:'Сколько принесёт аренда',cSub:'Подвиньте ползунки. Считаем по месяцам, высокий сезон с ноября по апрель. Из дохода вычитаем управление и 1% цены в год на обслуживание.',
  cNight:'Цена за ночь',cOcc:'Загрузка за год',cFee:'Управляющей компании',cGross:'Доход за год',cNet:'Чистыми за год',cY:'Чистая доходность',cPay:'Окупаемость',
  mo:['Я','Ф','М','А','М','И','И','А','С','О','Н','Д'],dVisit:'Записаться на показ',cmpOn:'В сравнении',cmpAdd:'Сравнить',
- cmpPick:'Выберите ещё один объект',cmpReady:'Можно сравнивать',cmpGo:'Сравнить',cmpH:'Сравнение',cmpNote:'Отмечено то, что лучше. Доходность при загрузке 60% и управлении 30%.',cmpAsk:'Обсудить с агентом',bCmp:'Сравниваю {a} и {b}. Помогите выбрать?',
+ cmpPick:'Выберите ещё один объект',cmpReady:'Можно сравнивать',cmpGo:'Сравнить',cmpH:'Сравнение',cmpNote:'Отмечено то, что лучше. Доходность при загрузке 60% и управлении 30%.',cmpAsk:'Обсудить с агентом',cmpLink:'Поделиться сравнением',cmpCopied:'Ссылка на сравнение скопирована',bCmp:'Сравниваю {a} и {b}. Помогите выбрать?',
  pEb:'Пресейл',pCd:'До закрытия пресейл-цены',pUnit:'Тип квартиры',pDown:'Первый взнос',pBook:'Забронировать по пресейл-цене',pNow:'Сейчас, первый взнос {p}%',pMonthly:'Каждый месяц до сдачи ({n} мес.), всего {p}%',pHand:'При сдаче, {d}, {p}%',pTot:'Всего',pPerM:'за м²',
  pEnded:'Пресейл-цена закрыта. Напишите нам, покажем актуальные цены.',pNote:'График для примера. Точный график и цены даёт застройщик.',bUnit:'Хочу забронировать: {u}, пресейл-цена {p}.'
 },en:{
@@ -564,7 +564,7 @@ const T={ru:{
  cH:'What renting it out earns',cSub:'Move the sliders. We count month by month, with high season from November to April, minus management and 1% of the price a year for upkeep.',
  cNight:'Nightly rate',cOcc:'Occupancy over the year',cFee:'Management company',cGross:'Gross a year',cNet:'Net a year',cY:'Net yield',cPay:'Payback',
  mo:['J','F','M','A','M','J','J','A','S','O','N','D'],dVisit:'Book a viewing',cmpOn:'In comparison',cmpAdd:'Compare',
- cmpPick:'Pick one more property',cmpReady:'Ready to compare',cmpGo:'Compare',cmpH:'Comparison',cmpNote:'The better value is marked. Yield at 60% occupancy and 30% management.',cmpAsk:'Ask the agent about these two',bCmp:'I am comparing {a} and {b}. Can you help me choose?',
+ cmpPick:'Pick one more property',cmpReady:'Ready to compare',cmpGo:'Compare',cmpH:'Comparison',cmpNote:'The better value is marked. Yield at 60% occupancy and 30% management.',cmpAsk:'Ask the agent about these two',cmpLink:'Share this comparison',cmpCopied:'Link to this comparison copied',bCmp:'I am comparing {a} and {b}. Can you help me choose?',
  pEb:'Pre-sale',pCd:'Pre-sale price closes in',pUnit:'Unit type',pDown:'Down payment',pBook:'Reserve at the pre-sale price',pNow:'Now, {p}% down payment',pMonthly:'Monthly until handover ({n} months), {p}% in total',pHand:'On handover, {d}, {p}%',pTot:'Total',pPerM:'per m²',
  pEnded:'The pre-sale price has closed. Message us for current prices.',pNote:'A sample schedule. The developer gives the exact schedule and prices.',bUnit:'I would like to reserve: {u}, pre-sale price {p}.'
 }};
@@ -773,9 +773,12 @@ $('#cbx').onclick=()=>{cmp=[];toggleCmp('__none');cmp=[];cards.forEach(el=>{cons
 $('#cbgo').onclick=()=>{if(cmp.length<2)return;lastFocus=$('#cbgo');renderMod();$('#ov').classList.add('on');$('#mod').classList.add('on');document.body.style.overflow='hidden';document.body.classList.add('lock');setTimeout(()=>$('#mod .x').focus({preventScroll:true}),60)};
 function renderMod(){const [a,b]=cmp.map(id=>L.find(x=>x.id===id)),ya=yieldOf(a),yb=yieldOf(b);
  const rows=[[t('kPrice'),a.price,b.price,'low',money],[t('kSqm'),a.price/a.area,b.price/b.area,'low',money],[t('kArea'),a.area,b.area,'high',v=>v+' '+t('m2')],[t('kBed'),a.bed,b.bed,'high',v=>v||t('studio')],[t('kBeach'),a.beach,b.beach,'low',distTxt],[t('kAir'),dOf(a).min,dOf(b).min,'low',v=>v+' '+t('min')],[t('cY'),ya.y,yb.y,'high',pct],[t('kOwn'),a.own,b.own,null,v=>v==='free'?t('free'):t('lease')]];
- $('#mod').innerHTML=`<div class="mhd"><h3 class="dsp" style="font-size:24px">${t('cmpH')}</h3><button type="button" class="x" aria-label="${t('close')}">×</button></div><table class="ctab"><tr><th></th>${[a,b].map(x=>`<td class="chd"><img src="img/${x.id}.jpg" alt=""><b>${esc(x.n[lang])}</b></td>`).join('')}</tr>${rows.map(([k,va,vb,best,f])=>{let wa=false,wb=false;if(best&&va!==vb){const ab=best==='low'?va<vb:va>vb;wa=ab;wb=!ab}return `<tr><th>${k}</th><td class="${wa?'win':''}">${f(va)}</td><td class="${wb?'win':''}">${f(vb)}</td></tr>`}).join('')}</table><p class="note" style="padding:0 20px 12px">${t('cmpNote')}</p><div class="dact" style="padding:0 20px 20px"><button type="button" class="go" id="mAsk">${t('cmpAsk')}</button></div>`;
+ $('#mod').innerHTML=`<div class="mhd"><h3 class="dsp" style="font-size:24px">${t('cmpH')}</h3><button type="button" class="x" aria-label="${t('close')}">×</button></div><table class="ctab"><tr><th></th>${[a,b].map(x=>`<td class="chd"><img src="img/${x.id}.jpg" alt=""><b>${esc(x.n[lang])}</b></td>`).join('')}</tr>${rows.map(([k,va,vb,best,f])=>{let wa=false,wb=false;if(best&&va!==vb){const ab=best==='low'?va<vb:va>vb;wa=ab;wb=!ab}return `<tr><th>${k}</th><td class="${wa?'win':''}">${f(va)}</td><td class="${wb?'win':''}">${f(vb)}</td></tr>`}).join('')}</table><p class="note" style="padding:0 20px 12px">${t('cmpNote')}</p><div class="dact" style="padding:0 20px 20px"><button type="button" class="go" id="mAsk">${t('cmpAsk')}</button><button type="button" class="go ln" id="mLink">${t('cmpLink')}</button></div>`;
  $('#mod .x').onclick=closeAll;
- $('#mAsk').onclick=()=>{askCmp=[a,b];pickD=null;pickUnit=null;$('#vo').value='pick';bubble();lastFocus=null;closeAll();setTimeout(()=>go('#visit'),RM?0:200)}}
+ $('#mAsk').onclick=()=>{askCmp=[a,b];pickD=null;pickUnit=null;$('#vo').value='pick';bubble();lastFocus=null;closeAll();setTimeout(()=>go('#visit'),RM?0:200)};
+ $('#mLink').onclick=async()=>{const u=location.href.split('#')[0]+'#cmp='+a.id+','+b.id;
+  if(navigator.share&&matchMedia('(pointer:coarse)').matches){try{await navigator.share({title:a.n[lang]+' / '+b.n[lang],url:u});return}catch(e){if(e&&e.name==='AbortError')return}}
+  try{await navigator.clipboard.writeText(u);toast(t('cmpCopied'))}catch(e){toast(u)}}}
 $('#ov').onclick=closeAll;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&($('#drw').classList.contains('on')||$('#mod').classList.contains('on')))closeAll()});
 
@@ -795,6 +798,9 @@ addEventListener('load',()=>setTimeout(()=>$$('.hero .ph[data-src]').forEach(im=
 
 budget=roundB(p2v(+$('#bud').value));feeP=roundB(p2v(+$('#fp').value));
 setLang(lang);
+const hm=/^#cmp=([\w-]+),([\w-]+)$/.exec(location.hash);
+if(hm&&hm[1]!==hm[2]&&L.some(x=>x.id===hm[1])&&L.some(x=>x.id===hm[2])){cmp=[hm[1],hm[2]];
+ cards.forEach((el,id)=>{const b=el.querySelector('.cmp'),on=cmp.includes(id);b.setAttribute('aria-pressed',on);b.textContent=on?'✓':'+'});renderCbar();$('#cbgo').click()}
 })();
 </script>
 </body>
