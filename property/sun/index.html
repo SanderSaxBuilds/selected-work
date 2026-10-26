@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Солнце на вилле, пример для агентства</title>
+<meta name="description" content="3D модель виллы: где будет солнце и тень в любой месяц и час на Пхукете, Самуи, в Паттайе, Хуахине и Бангкоке. Пример для сайта агентства недвижимости.">
+<meta name="theme-color" content="#f3f6f6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1418" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f6f6;--panel:#fbfcfc;--tx:#0e1d24;--hint:#566a72;--sep:rgba(14,29,36,.12);--acc:#0b6e99;--acctx:#fff;--chip:#e8eff0;--chiph:#dbe6e8;--sun:#f2c230;--glass:rgba(251,252,252,.8);--sky:#86bbe8;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1418;--panel:#0f191e;--tx:#e6eef0;--hint:#93a7ad;--sep:rgba(230,238,240,.12);--acc:#3a9fc8;--acctx:#04121a;--chip:#17252b;--chiph:#1f3038;--glass:rgba(15,25,30,.76);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1418;--panel:#0f191e;--tx:#e6eef0;--hint:#93a7ad;--sep:rgba(230,238,240,.12);--acc:#3a9fc8;--acctx:#04121a;--chip:#17252b;--chiph:#1f3038;--glass:rgba(15,25,30,.76);color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--panel);color:var(--tx);font:15px/1.5 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.app{display:grid;grid-template-columns:minmax(360px,420px) 1fr;grid-template-rows:auto 1fr;grid-template-areas:"top view" "side view";height:100vh;height:100dvh;background:var(--panel)}
+.top{grid-area:top;padding:22px 26px 16px;background:linear-gradient(180deg,color-mix(in srgb,var(--sky) 24%,var(--panel)),var(--panel));transition:background .3s}
+.side{grid-area:side;overflow-y:auto;padding:0 26px 30px;scrollbar-width:thin}
+.view{grid-area:view;position:relative;overflow:hidden;background:var(--sky)}
+canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+canvas:active{cursor:grabbing}
+.lbl{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--hint)}
+h1{font-weight:600;font-size:29px;line-height:1.1;letter-spacing:-.025em;margin:8px 0 9px}
+.lede{color:var(--hint);font-size:14.5px;max-width:34em}
+.toplink{display:inline-flex;gap:6px;margin-top:12px;font-weight:500;font-size:14px;color:var(--acc);text-decoration:none;border-bottom:1px solid transparent}
+.toplink:hover{border-bottom-color:var(--acc)}
+.blk{padding:18px 0;border-top:1px solid var(--sep)}
+.blk h2{font-size:13px;font-weight:500;color:var(--hint);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ctl h2:not(:first-child){margin-top:20px}
+.stat{display:flex;align-items:baseline;gap:10px}
+.stat b{font:500 46px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:-.04em}
+.stat span{color:var(--hint);font-size:14px}
+.meter{height:8px;border-radius:4px;background:var(--chip);overflow:hidden;margin:13px 0 10px}
+.meter i{display:block;height:100%;width:0;background:var(--acc);border-radius:4px;transition:width .2s}
+.kv{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:4px 0}
+.kv span{color:var(--hint)}
+.kv b{font-weight:500;text-align:right}
+.play{border:0;background:var(--acc);color:var(--acctx);font-weight:500;font-size:13px;padding:7px 13px;border-radius:999px;cursor:pointer;transition:transform .12s,filter .12s}
+.play:hover{filter:brightness(1.08)}
+.play:active{transform:scale(.96)}
+.chart{width:100%;height:auto;display:block;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.chart text{font:11px Onest,system-ui,sans-serif;fill:var(--hint)}
+.chart .ax{stroke:var(--sep);stroke-width:1}
+.chart .elev{fill:none;stroke:var(--hint);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.chart .bar{fill:var(--acc)}
+.chart .hit{fill:transparent}
+.chart .cur{stroke:var(--tx);stroke-width:1.5;opacity:.5}
+.chart .sd{fill:var(--sun);stroke:var(--tx);stroke-width:1.5}
+.sum{font-size:14px;margin-top:10px}
+.tbl{margin-top:10px;font-size:13px;color:var(--hint)}
+.tbl summary{cursor:pointer;width:max-content}
+.tbl table{border-collapse:collapse;margin-top:8px;width:100%}
+.tbl td,.tbl th{padding:3px 0;border-bottom:1px solid var(--sep);text-align:left;font-weight:400}
+.tbl td:last-child,.tbl th:last-child{text-align:right;font-family:'IBM Plex Mono',ui-monospace,monospace}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:0;background:var(--chip);font-weight:500;font-size:13.5px;padding:7px 12px;border-radius:999px;cursor:pointer;transition:background .12s,transform .12s}
+.chip:hover{background:var(--chiph)}
+.chip:active{transform:scale(.96)}
+.chip[aria-pressed="true"]{background:var(--tx);color:var(--panel)}
+.months{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.months .chip{padding:7px 0}
+.orient{display:flex;gap:16px;align-items:center}
+.dial{width:116px;height:116px;flex:none;touch-action:none;cursor:grab;border-radius:50%}
+.dial .dr{fill:var(--chip)}
+.dial .dt{stroke:var(--sep);stroke-width:1.5}
+.dial .dl{font:600 11px Onest,system-ui,sans-serif;fill:var(--hint)}
+.dial .da{stroke:var(--acc);stroke-width:2.5;stroke-linecap:round}
+.dial .dk{fill:var(--acc)}
+.dial .dh{fill:var(--tx);opacity:.78}
+.dial .dp{fill:#2b9fbf}
+.ori b{display:block;font-weight:500;font-size:16px}
+.small{font-size:13.5px;color:var(--hint);margin-top:6px}
+.ori .chip{margin-top:10px}
+.pitch p{font-size:14.5px}
+.pitch ul{list-style:none;margin:12px 0 0}
+.pitch li{padding:9px 0 9px 22px;border-top:1px solid var(--sep);position:relative;font-size:14px}
+.pitch li::before{content:"";position:absolute;left:3px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 1.5px var(--tx) inset}
+.cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 16px;border-radius:12px;font-weight:500;font-size:14.5px;text-decoration:none;transition:transform .12s,filter .12s,background .12s}
+.btn.p{background:var(--acc);color:var(--acctx)}
+.btn.p:hover{filter:brightness(1.08)}
+.btn.s{border:1px solid var(--sep)}
+.btn.s:hover{background:var(--chip)}
+.btn:active{transform:scale(.97)}
+.note{font-size:12.5px;color:var(--hint);margin-top:14px}
+.hud{position:absolute;left:14px;top:14px;background:var(--glass);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:14px;padding:10px 14px 11px;pointer-events:none;max-width:calc(100% - 28px)}
+.hud b{display:block;font:500 26px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:-.03em}
+.hud span{display:block;font-size:13px;color:var(--hint);margin-top:5px}
+.hint3d{position:absolute;right:14px;bottom:12px;font-size:12.5px;background:var(--glass);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:999px;padding:6px 11px;pointer-events:none;transition:opacity .4s}
+.hint3d.off{opacity:0}
+.nogl{display:none;position:absolute;inset:0;place-items:center;text-align:center;padding:24px;color:#0e1d24}
+.view.err .nogl{display:grid}
+.view.err canvas,.view.err .hint3d{display:none}
+.tip{position:fixed;left:0;top:0;pointer-events:none;background:var(--tx);color:var(--panel);font-size:12.5px;padding:6px 9px;border-radius:8px;opacity:0;transition:opacity .12s;z-index:9;white-space:nowrap}
+.tip.on{opacity:1}
+@media (max-width:899px){
+ .app{display:block;height:auto}
+ .top{padding:18px 16px 14px}
+ h1{font-size:25px}
+ .view{height:56vh;height:56svh;min-height:320px}
+ .side{overflow:visible;padding:0 16px 34px}
+ .hud b{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+ <header class="top">
+  <p class="lbl">Пример для агентства недвижимости</p>
+  <h1>Где будет солнце на вилле</h1>
+  <p class="lede">Выберите место, месяц и время, поверните участок. Тени и часы солнца в бассейне считаются по реальному положению солнца.</p>
+  <a class="toplink" href="https://t.me/sandersax" target="_blank" rel="noopener">Сделать для своего объекта →</a>
+ </header>
+ <section class="view" id="view" aria-label="3D модель виллы">
+  <canvas id="c"></canvas>
+  <div class="hud"><b id="hT">10:00</b><span id="hS"></span></div>
+  <div class="hint3d" id="hint">Вращайте модель</div>
+  <div class="nogl">3D не открылось на этом устройстве. Расчёт солнца ниже всё равно работает.</div>
+ </section>
+ <aside class="side">
+  <div class="blk now">
+   <h2>Сейчас</h2>
+   <div class="stat"><b id="pPct">0%</b><span id="pLbl">бассейна на солнце</span></div>
+   <div class="meter"><i id="pBar"></i></div>
+   <div class="kv"><span>Терраса у дома</span><b id="tTxt"></b></div>
+   <div class="kv"><span>Солнце</span><b id="sTxt"></b></div>
+  </div>
+  <div class="blk day">
+   <h2><span>День</span><button class="play" id="play" type="button">▶ Прокрутить день</button></h2>
+   <svg class="chart" id="chart" viewBox="0 0 340 160" role="img"></svg>
+   <p class="sum" id="daySum"></p>
+   <details class="tbl"><summary>Таблица по часам</summary><table id="tbl"></table></details>
+  </div>
+  <div class="blk ctl">
+   <h2>Где</h2>
+   <div class="chips" id="places"></div>
+   <h2>Месяц</h2>
+   <div class="months" id="months"></div>
+   <h2>Куда смотрит бассейн</h2>
+   <div class="orient">
+    <svg class="dial" id="dial" viewBox="0 0 120 120" role="slider" tabindex="0" aria-label="Направление бассейна" aria-valuemin="0" aria-valuemax="359"></svg>
+    <div class="ori"><b id="fTxt"></b><p class="small" id="bestTxt">Считаю лучшую сторону…</p><button class="chip" id="bestBtn" type="button" hidden>Повернуть так</button></div>
+   </div>
+  </div>
+  <div class="blk pitch">
+   <h2>Для агентств</h2>
+   <p>Такую модель можно собрать для любого объекта из каталога и встроить в карточку на сайте. Покупатель сам смотрит солнце и тень в нужный месяц, без выезда на объект.</p>
+   <ul>
+    <li>Реальное положение солнца для Пхукета, Самуи, Паттайи, Хуахина и Бангкока</li>
+    <li>Часы солнца в бассейне по месяцам и сторонам света</li>
+    <li>Открывается на телефоне, без приложений</li>
+   </ul>
+   <div class="cta"><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такую для объекта</a><a class="btn s" href="../">← Сайт для агентства</a></div>
+   <p class="note">Модель виллы условная, это пример. Положение солнца по формулам NOAA, время по Бангкоку (UTC+7), 15 число месяца.</p>
+  </div>
+ </aside>
+</div>
+<div class="tip" id="tip"></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const view=$('view');
+if(!window.THREE){view.classList.add('err');$('bestTxt').textContent='';return;}
+const D2R=Math.PI/180;
+const PLACES={phuket:{n:'Пхукет',lat:7.88,lon:98.39},samui:{n:'Самуи',lat:9.51,lon:100.01},pattaya:{n:'Паттайя',lat:12.93,lon:100.88},huahin:{n:'Хуахин',lat:12.57,lon:99.96},bangkok:{n:'Бангкок',lat:13.75,lon:100.5}};
+const MS=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+const MG=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const MP=['январе','феврале','марте','апреле','мае','июне','июле','августе','сентябре','октябре','ноябре','декабре'];
+const DOY=[15,46,74,105,135,166,196,227,258,288,319,349];
+const DIRS=['север','северо-восток','восток','юго-восток','юг','юго-запад','запад','северо-запад'];
+const DIRG=['севера','северо-востока','востока','юго-востока','юга','юго-запада','запада','северо-запада'];
+const S={p:'phuket',m:new Date().getMonth(),t:10,f:180};
+try{const q=new URLSearchParams(location.hash.slice(1));
+ if(PLACES[q.get('p')])S.p=q.get('p');
+ const m=+q.get('m');if(m>=1&&m<=12)S.m=m-1;
+ const t=q.get('t');if(/^\d{3,4}$/.test(t||'')){const v=+t.slice(0,-2)+(+t.slice(-2))/60;if(v>=5&&v<=20)S.t=v;}
+ const f=+q.get('f');if(q.get('f')!==null&&f>=0&&f<360)S.f=Math.round(f/15)*15%360;}catch(e){}
+
+function sun(lat,lon,doy,h){
+ const g=2*Math.PI/365*(doy-1+(h-12)/24);
+ const eot=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));
+ const dec=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);
+ const ha=((h*60+eot+4*lon-420)/4-180)*D2R,la=lat*D2R;
+ const cz=Math.min(1,Math.max(-1,Math.sin(la)*Math.sin(dec)+Math.cos(la)*Math.cos(dec)*Math.cos(ha)));
+ const az=Math.atan2(Math.sin(ha),Math.cos(ha)*Math.sin(la)-Math.tan(dec)*Math.cos(la))/D2R+180;
+ return {el:90-Math.acos(cz)/D2R,az:(az+360)%360};
+}
+function riseSet(P,doy){let r=null,s=null,prev=sun(P.lat,P.lon,doy,4).el;
+ for(let m=242;m<=1260;m+=2){const h=m/60,e=sun(P.lat,P.lon,doy,h).el;
+  if(r===null&&prev<-0.833&&e>=-0.833)r=h-2/60*(e+0.833)/(e-prev);
+  if(prev>=-0.833&&e<-0.833)s=h-2/60*(e+0.833)/(e-prev);
+  prev=e;}
+ return {r,s};}
+const fmt=h=>{const m=Math.round(h*60);return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');};
+const dur=h=>{const m=Math.round(h*6)*10,H=Math.floor(m/60),M=m%60;return (H?H+' ч':'')+(H&&M?' ':'')+(M?M+' мин':'')||'0 мин';};
+const di=a=>Math.round(((a%360)+360)%360/45)%8;
+
+/* scene */
+const cv=$('c');let renderer=null;
+try{renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;}catch(e){renderer=null;view.classList.add('err');}
+const scene=new THREE.Scene();
+scene.fog=new THREE.Fog(0x86bbe8,85,175);
+const cam=new THREE.PerspectiveCamera(38,1,0.5,420);
+const TARGET=new THREE.Vector3(0,1.2,-0.5),BASE=new THREE.Vector3(22,17,26);
+cam.position.copy(TARGET).add(BASE);
+const occ=[];
+const M=(c,o)=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.9,metalness:0},o||{}));
+const mPl=M(0xefede8),mGl=M(0x33464f,{roughness:.25,metalness:.35}),mRf=M(0xd2cfc7),mDk=M(0xa88763,{roughness:.8}),mCp=M(0xf2f1ec),mTl=M(0xbfe2e8,{roughness:.6}),mWl=M(0xd9d4ca),mHd=M(0x4d6e45),mTr=M(0x8a7556),mLf=M(0x4c7a3f,{side:THREE.DoubleSide}),mLn=M(0xf4f2ee),mLw=M(0x7d9468);
+function box(w,h,d,x,y,z,m,o){const g=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);g.position.set(x,y,z);g.castShadow=o.c!==false;g.receiveShadow=true;scene.add(g);if(o.occ)occ.push(g);return g;}
+/* lawn with a hole for the deck */
+const shp=new THREE.Shape();shp.moveTo(-100,-100);shp.lineTo(100,-100);shp.lineTo(100,100);shp.lineTo(-100,100);shp.lineTo(-100,-100);
+const hole=new THREE.Path();hole.moveTo(-8,-7);hole.lineTo(8,-7);hole.lineTo(8,1.5);hole.lineTo(-8,1.5);hole.lineTo(-8,-7);shp.holes.push(hole);
+const lg=new THREE.ShapeGeometry(shp);lg.rotateX(-Math.PI/2);const lawn=new THREE.Mesh(lg,mLw);lawn.receiveShadow=true;scene.add(lawn);
+/* deck around the pool, pool x -5..5, z 1..5 */
+[[16,2.5,0,-.25],[16,2,0,6],[3,4,-6.5,3],[3,4,6.5,3]].forEach(a=>box(a[0],.3,a[1],a[2],-.11,a[3],mDk,{c:false}));
+box(10,.1,4,0,-1.45,3,mTl,{c:false});
+[[10,.1,0,1.05],[10,.1,0,4.95],[.1,4,-4.95,3],[.1,4,4.95,3]].forEach(a=>box(a[0],1.45,a[1],a[2],-.72,a[3],mTl,{c:false}));
+const water=new THREE.Mesh(new THREE.PlaneGeometry(10,4),M(0x2b9fbf,{roughness:.08,metalness:.1,transparent:true,opacity:.84}));
+water.rotation.x=-Math.PI/2;water.position.set(0,-.1,3);water.receiveShadow=true;scene.add(water);
+[[10.6,.3,0,.85],[10.6,.3,0,5.15],[.3,4,-5.15,3],[.3,4,5.15,3]].forEach(a=>box(a[0],.06,a[1],a[2],.07,a[3],mCp,{c:false}));
+/* house */
+box(15,3.2,7.5,0,1.6,-5.25,mPl,{occ:1});
+box(11,2.5,.06,1,1.35,-1.47,mGl,{c:false});
+[-7.7,7.7].forEach(x=>box(.25,3.2,.25,x,1.6,.3,mPl,{occ:1}));
+box(16.6,.3,10.2,0,3.35,-4.6,mRf,{occ:1});
+box(9,3,6.4,-2.5,5,-6.2,mPl,{occ:1});
+box(6,2.2,.06,-2.5,4.9,-2.98,mGl,{c:false});
+box(10.4,.28,7.6,-2.5,6.64,-6,mRf,{occ:1});
+box(.3,2.2,18.5,-10,1.1,-1.75,mWl,{occ:1});
+box(1.2,2.8,18.5,10.4,1.4,-1.75,mHd,{occ:1});
+[-3,-1.2,.6].forEach(x=>box(.7,.32,1.8,x,.2,6.1,mLn,{}));
+/* palms */
+function palm(x,z,h,lean,ry){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=ry;scene.add(g);
+ const tg=new THREE.CylinderGeometry(.17,.28,h,8);tg.translate(0,h/2,0);const tr=new THREE.Mesh(tg,mTr);tr.rotation.z=lean;tr.castShadow=true;g.add(tr);occ.push(tr);
+ const cr=new THREE.Group();cr.position.set(-Math.sin(lean)*h,Math.cos(lean)*h,0);g.add(cr);
+ for(let i=0;i<9;i++){const lgm=new THREE.BoxGeometry(.6,.05,3.4);lgm.translate(0,0,1.7);const lf=new THREE.Mesh(lgm,mLf);lf.rotation.order='YXZ';lf.rotation.y=i*2*Math.PI/9+(i%2)*.2;lf.rotation.x=.22+(i%3)*.14;lf.castShadow=true;cr.add(lf);occ.push(lf);}}
+palm(7.2,7.8,8.5,.12,.4);palm(-6.5,8.4,7.4,-.1,1.2);palm(8.6,1.8,9,.16,-.3);
+[[-13,.9,10,1.3],[13.5,1,9,1.5],[-14,1.1,-12,1.7],[14.5,1.1,-9,1.6],[1,.8,12.5,1.1],[-4,1,-13.5,1.6],[5,1,-13,1.4]].forEach(a=>{const s=new THREE.Mesh(new THREE.SphereGeometry(a[3],14,10),mHd);s.position.set(a[0],a[1],a[2]);s.scale.y=.8;s.castShadow=true;scene.add(s);});
+/* compass ring */
+const comp=new THREE.Group();scene.add(comp);
+const ring=new THREE.Mesh(new THREE.RingGeometry(17.2,17.42,120),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.5,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.position.y=.04;comp.add(ring);
+function letter(t){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');x.font='600 76px Onest, system-ui, sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillStyle='rgba(14,29,36,.35)';x.fillText(t,66,70);x.fillStyle='#fff';x.fillText(t,64,66);
+ const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthWrite:false}));s.scale.set(2.2,2.2,1);return s;}
+[['С',0],['В',90],['Ю',180],['З',270]].forEach(a=>{const s=letter(a[0]),r=19;s.position.set(Math.sin(a[1]*D2R)*r,1.1,-Math.cos(a[1]*D2R)*r);comp.add(s);});
+/* lights and sun */
+const hemi=new THREE.HemisphereLight(0xdfeaf5,0x6b7a5a,.5);scene.add(hemi);
+const sunL=new THREE.DirectionalLight(0xffffff,1);sunL.castShadow=true;
+const SM=window.innerWidth<700?1024:2048;sunL.shadow.mapSize.set(SM,SM);
+const sc=sunL.shadow.camera;sc.left=-24;sc.right=24;sc.top=24;sc.bottom=-24;sc.near=1;sc.far=160;sunL.shadow.bias=-.0004;sunL.shadow.normalBias=.03;
+sunL.target.position.set(0,0,-1);scene.add(sunL);scene.add(sunL.target);
+const sunMesh=new THREE.Mesh(new THREE.SphereGeometry(2.4,20,14),new THREE.MeshBasicMaterial({color:0xfff2c2,fog:false}));scene.add(sunMesh);
+scene.updateMatrixWorld(true);
+
+/* shade sampling */
+const ray=new THREE.Raycaster();ray.far=300;
+const POOL=[],TER=[];
+for(let i=0;i<10;i++)for(let j=0;j<4;j++)POOL.push(new THREE.Vector3(-4.5+i,-.08,1.5+j));
+for(let i=0;i<6;i++)for(let j=0;j<2;j++)TER.push(new THREE.Vector3(-6+i*2.4,.1,-1+j*1.1));
+function dirFor(az,el,f){const a=(az-f+180)*D2R,e=el*D2R;return new THREE.Vector3(Math.sin(a)*Math.cos(e),Math.sin(e),-Math.cos(a)*Math.cos(e));}
+function frac(pts,dir,st){let lit=0,n=0;for(let k=0;k<pts.length;k+=st||1){n++;ray.set(pts[k],dir);if(!ray.intersectObjects(occ,false).length)lit++;}return lit/n;}
+
+/* day profile */
+let PR=null;
+function profile(){const P=PLACES[S.p],doy=DOY[S.m],samp=[],hrs=[];let sum=0,first=null,last=null;
+ for(let m=300;m<=1200;m+=10){const h=m/60,s=sun(P.lat,P.lon,doy,h);const fr=s.el>.5?frac(POOL,dirFor(s.az,s.el,S.f)):0;samp.push({h,el:s.el,fr});if(m<1200)sum+=fr/6;if(fr>=.5){if(first===null)first=h;last=h;}}
+ for(let H=6;H<19;H++){const xs=samp.filter(o=>o.h>=H&&o.h<H+1);hrs.push(xs.reduce((a,o)=>a+o.fr,0)/xs.length);}
+ PR={rs:riseSet(P,doy),samp,hrs,sum,first,last};}
+
+/* chart */
+const chart=$('chart'),X0=10,X1=330,H0=5,H1=20,EB=64,BB=136;
+const X=h=>X0+(h-H0)/(H1-H0)*(X1-X0);
+const EY=e=>EB-Math.max(0,e)/90*46;
+function barPath(x,y,w,h,r){r=Math.min(r,h,w/2);return 'M'+x+','+(y+h)+'V'+(y+r)+'Q'+x+','+y+' '+(x+r)+','+y+'H'+(x+w-r)+'Q'+(x+w)+','+y+' '+(x+w)+','+(y+r)+'V'+(y+h)+'Z';}
+function drawChart(){const rs=PR.rs;let s='<text x="'+X0+'" y="11">Высота солнца</text><line class="ax" x1="'+X0+'" x2="'+X1+'" y1="'+EB+'" y2="'+EB+'"/>';
+ const pts=[];if(rs.r!==null)pts.push([X(rs.r),EB]);PR.samp.forEach(o=>{if(o.el>0&&(rs.r===null||o.h>rs.r)&&(rs.s===null||o.h<rs.s))pts.push([X(o.h),EY(o.el)]);});if(rs.s!==null)pts.push([X(rs.s),EB]);
+ s+='<path class="elev" d="'+pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join('')+'"/>';
+ s+='<text x="'+X0+'" y="84">Бассейн на солнце, по часам</text>';
+ PR.hrs.forEach((v,i)=>{const H=6+i,x=X(H)+1,w=X(H+1)-X(H)-2,h=v>0?Math.max(2,v*44):0;if(h)s+='<path class="bar" d="'+barPath(x,BB-h,w,h,4)+'"/>';});
+ s+='<line class="ax" x1="'+X0+'" x2="'+X1+'" y1="'+BB+'" y2="'+BB+'"/>';
+ [6,9,12,15,18].forEach(H=>{s+='<text x="'+X(H)+'" y="153" text-anchor="middle">'+H+':00</text>';});
+ s+='<line class="cur" id="cur" y1="16" y2="'+BB+'"/><circle class="sd" id="sd" r="5.5"/>';
+ chart.innerHTML=s;
+ chart.setAttribute('aria-label','Высота солнца и доля бассейна на солнце по часам, '+PLACES[S.p].n+', 15 '+MG[S.m]+'. Солнце в бассейне около '+dur(PR.sum)+' за день.');
+ let t='<tr><th>Час</th><th>Бассейн на солнце</th></tr>';PR.hrs.forEach((v,i)=>{t+='<tr><td>'+(6+i)+':00–'+(7+i)+':00</td><td>'+Math.round(v*100)+'%</td></tr>';});$('tbl').innerHTML=t;
+ const P=PLACES[S.p];
+ $('daySum').textContent='Солнце в бассейне около '+dur(PR.sum)+' за день'+(PR.first!==null?', больше половины воды освещено с '+fmt(PR.first)+' до '+fmt(PR.last+1/6):'')+'. Восход '+fmt(rs.r)+', закат '+fmt(rs.s)+'.';}
+
+/* now */
+const LOW=new THREE.Color(0xffe3c4),HIGH=new THREE.Color(0xfffaf2),tA=new THREE.Color(),tB=new THREE.Color();
+const SK=[[-90,'#0e1a28'],[-6,'#16263b'],[-1,'#b5a8c8'],[4,'#c3d0e4'],[12,'#a4c8e7'],[35,'#88bce8'],[90,'#79b2e6']];
+function skyCol(e){for(let i=1;i<SK.length;i++)if(e<=SK[i][0]){const a=SK[i-1],b=SK[i];return tA.set(a[1]).lerp(tB.set(b[1]),(e-a[0])/(b[0]-a[0])).clone();}return new THREE.Color(SK[SK.length-1][1]);}
+let dirty=true;
+function apply(){const P=PLACES[S.p],s=sun(P.lat,P.lon,DOY[S.m],S.t),up=s.el>0,dir=dirFor(s.az,s.el,S.f);
+ const sky=skyCol(s.el);scene.background=sky;scene.fog.color.copy(sky);document.documentElement.style.setProperty('--sky','#'+sky.getHexString());
+ const k=Math.min(1,Math.max(0,s.el/35));
+ sunL.intensity=up?Math.min(1,.3+s.el/28):0;sunL.color.copy(LOW).lerp(HIGH,k);
+ hemi.intensity=up?.4+.2*k:Math.max(.12,.4+s.el/15);hemi.color.copy(sky).lerp(HIGH,.5);
+ sunL.position.copy(sunL.target.position).addScaledVector(dir,70);
+ sunMesh.visible=s.el>-2;sunMesh.position.copy(dir).multiplyScalar(130);
+ comp.rotation.y=(S.f-180)*D2R;
+ const pf=up?frac(POOL,dir):0,tf=up?frac(TER,dir):0;
+ $('hT').textContent=fmt(S.t);
+ $('hS').textContent='15 '+MG[S.m]+', '+P.n;
+ $('pPct').textContent=Math.round(pf*100)+'%';
+ $('pLbl').textContent=up?'бассейна на солнце':'солнце за горизонтом';
+ $('pBar').style.width=Math.round(pf*100)+'%';
+ $('tTxt').textContent=!up?'ночь':tf>=.85?'на солнце':tf<=.15?'в тени':Math.round(tf*100)+'% на солнце';
+ $('sTxt').textContent=up?Math.round(s.el)+'° над горизонтом, с '+DIRG[di(s.az)]:'за горизонтом';
+ const cx=X(Math.min(H1,Math.max(H0,S.t))),cur=$('cur'),sd=$('sd');
+ if(cur){cur.setAttribute('x1',cx);cur.setAttribute('x2',cx);sd.setAttribute('cx',cx);sd.setAttribute('cy',EY(s.el));sd.style.display=up?'':'none';}
+ dirty=true;saveHash();}
+
+/* best side */
+let bestTok=0,BEST=null;
+function best(){const tok=++bestTok,P=PLACES[S.p],doy=DOY[S.m],ds=[],res=[];let i=0;
+ for(let m=310;m<=1190;m+=20){const s=sun(P.lat,P.lon,doy,m/60);if(s.el>.5)ds.push(s);}
+ $('bestTxt').textContent='Считаю лучшую сторону…';$('bestBtn').hidden=true;
+ (function next(){if(tok!==bestTok)return;const f=i*45;let sm=0;ds.forEach(s=>{sm+=frac(POOL,dirFor(s.az,s.el,f),2)/3;});res.push({f,sm});i++;if(i<8)setTimeout(next,0);else{res.sort((a,b)=>b.sm-a.sm);BEST=res;bestNote();}})();}
+function bestNote(){if(!BEST)return;const b=BEST[0],w=BEST[BEST.length-1];const isBest=di(S.f)===di(b.f);
+ $('bestTxt').textContent='В '+MP[S.m]+' больше всего солнца, когда бассейн смотрит на '+DIRS[di(b.f)]+', около '+dur(b.sm)+' в день. Меньше всего на '+DIRS[di(w.f)]+', '+dur(w.sm)+'.'+(isBest?' Сейчас выбрана лучшая сторона.':'');
+ $('bestBtn').hidden=isBest;}
+$('bestBtn').addEventListener('click',()=>{if(BEST)setF(BEST[0].f);});
+
+/* controls */
+const pl=$('places');Object.keys(PLACES).forEach(k=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=PLACES[k].n;b.dataset.k=k;b.addEventListener('click',()=>{S.p=k;mark();recalc(true);});pl.appendChild(b);});
+const ms=$('months');MS.forEach((n,i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=n;b.dataset.m=i;b.addEventListener('click',()=>{S.m=i;mark();recalc(true);});ms.appendChild(b);});
+function mark(){pl.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===S.p));ms.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.m===S.m));}
+let rcT=0;
+function recalc(withBest){profile();drawChart();apply();if(withBest)best();else bestNote();}
+function recalcSoon(){clearTimeout(rcT);rcT=setTimeout(()=>recalc(false),70);}
+const dial=$('dial');
+function drawDial(){const f=S.f*D2R;let s='<circle class="dr" cx="60" cy="60" r="56"/>';
+ for(let a=0;a<360;a+=45){const r1=a%90?50:48;s+='<line class="dt" x1="'+(60+Math.sin(a*D2R)*r1)+'" y1="'+(60-Math.cos(a*D2R)*r1)+'" x2="'+(60+Math.sin(a*D2R)*53)+'" y2="'+(60-Math.cos(a*D2R)*53)+'"/>';}
+ [['С',0],['В',90],['Ю',180],['З',270]].forEach(a=>{s+='<text class="dl" text-anchor="middle" x="'+(60+Math.sin(a[1]*D2R)*40).toFixed(1)+'" y="'+(64-Math.cos(a[1]*D2R)*40).toFixed(1)+'">'+a[0]+'</text>';});
+ s+='<g transform="rotate('+(S.f-180)+' 60 60)"><rect class="dh" x="49" y="44" width="22" height="10" rx="2"/><rect class="dp" x="52" y="58" width="16" height="8" rx="2"/></g>';
+ const ax=60+Math.sin(f)*29,ay=60-Math.cos(f)*29;
+ s+='<line class="da" x1="'+(60+Math.sin(f)*14).toFixed(1)+'" y1="'+(60-Math.cos(f)*14).toFixed(1)+'" x2="'+ax.toFixed(1)+'" y2="'+ay.toFixed(1)+'"/><circle class="dk" cx="'+ax.toFixed(1)+'" cy="'+ay.toFixed(1)+'" r="6"/>';
+ dial.innerHTML=s;dial.setAttribute('aria-valuenow',S.f);dial.setAttribute('aria-valuetext','на '+DIRS[di(S.f)]+', '+S.f+'°');
+ $('fTxt').textContent='На '+DIRS[di(S.f)]+', '+S.f+'°';}
+function setF(v,soon){v=((Math.round(v/15)*15)%360+360)%360;if(v===S.f&&!soon)return;S.f=v;drawDial();apply();if(soon)recalcSoon();else recalc(false);}
+let dDrag=false;
+function dAng(e){const r=dial.getBoundingClientRect();return (Math.atan2(e.clientX-r.left-r.width/2,-(e.clientY-r.top-r.height/2))/D2R+360)%360;}
+dial.addEventListener('pointerdown',e=>{dDrag=true;dial.setPointerCapture(e.pointerId);setF(dAng(e),true);});
+dial.addEventListener('pointermove',e=>{if(dDrag)setF(dAng(e),true);});
+dial.addEventListener('pointerup',()=>{dDrag=false;});
+dial.addEventListener('pointercancel',()=>{dDrag=false;});
+dial.addEventListener('keydown',e=>{const d={ArrowRight:15,ArrowUp:15,ArrowLeft:-15,ArrowDown:-15}[e.key];if(d){e.preventDefault();setF(S.f+d,true);}});
+
+/* time scrubbing and tooltip */
+const tip=$('tip');let scrub=false;
+function tAt(e){const r=chart.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*340;return Math.min(H1,Math.max(H0,H0+(x-X0)/(X1-X0)*(H1-H0)));}
+function setT(t,snap){S.t=snap===false?t:Math.round(t*12)/12;apply();}
+chart.addEventListener('pointerdown',e=>{scrub=true;stopPlay();try{chart.setPointerCapture(e.pointerId);}catch(_){}setT(tAt(e));});
+chart.addEventListener('pointermove',e=>{if(scrub)setT(tAt(e));
+ if(e.pointerType!=='mouse'){tip.classList.remove('on');return;}
+ const r=chart.getBoundingClientRect(),y=(e.clientY-r.top)/r.height*160,t=tAt(e),P=PLACES[S.p];let txt='';
+ if(y>74){const H=Math.floor(t);if(H>=6&&H<=18)txt=H+':00–'+(H+1)+':00, бассейн на солнце '+Math.round(PR.hrs[H-6]*100)+'%';}
+ else{const s=sun(P.lat,P.lon,DOY[S.m],t);txt=fmt(t)+', '+(s.el>0?'солнце '+Math.round(s.el)+'°':'солнце за горизонтом');}
+ if(!txt){tip.classList.remove('on');return;}
+ tip.textContent=txt;tip.style.transform='translate('+Math.min(e.clientX+12,window.innerWidth-tip.offsetWidth-8)+'px,'+(e.clientY-36)+'px)';tip.classList.add('on');});
+chart.addEventListener('pointerleave',()=>tip.classList.remove('on'));
+chart.addEventListener('pointerup',()=>{scrub=false;});
+chart.addEventListener('pointercancel',()=>{scrub=false;});
+
+/* play */
+const playB=$('play');let playing=false,p0=0,pFrom=0,pTo=0;
+function startPlay(){const rs=PR.rs;pTo=rs.s+.25;pFrom=(S.t<rs.r-.25||S.t>=rs.s)?rs.r-.25:S.t;p0=performance.now();playing=true;playB.textContent='❚❚ Пауза';}
+function stopPlay(){if(!playing)return;playing=false;playB.textContent='▶ Прокрутить день';}
+playB.addEventListener('click',()=>{playing?stopPlay():startPlay();});
+function stepPlay(now){const t=pFrom+(now-p0)/1000*1.3;if(t>=pTo){setT(pTo,false);stopPlay();return;}setT(t,false);}
+
+/* hash */
+let hT=0;function saveHash(){clearTimeout(hT);hT=setTimeout(()=>{try{history.replaceState(null,'','#p='+S.p+'&m='+(S.m+1)+'&t='+fmt(S.t).replace(':','')+'&f='+S.f);}catch(e){}},400);}
+
+/* render */
+let ctr=null,touched=false;
+if(renderer&&THREE.OrbitControls){ctr=new THREE.OrbitControls(cam,cv);ctr.target.copy(TARGET);ctr.enableDamping=true;ctr.dampingFactor=.08;ctr.enablePan=false;ctr.minDistance=14;ctr.maxDistance=95;ctr.maxPolarAngle=1.42;
+ ctr.addEventListener('start',()=>{touched=true;$('hint').classList.add('off');});ctr.update();}
+function size(){const w=view.clientWidth,h=view.clientHeight;if(!w||!h)return;cam.aspect=w/h;
+ if(!touched){const k=cam.aspect<1.25?1.25/cam.aspect:1;cam.position.copy(TARGET).addScaledVector(BASE,Math.min(k,2.1));if(ctr)ctr.update();}
+ cam.updateProjectionMatrix();if(renderer)renderer.setSize(w,h,false);dirty=true;}
+if(window.ResizeObserver)new ResizeObserver(size).observe(view);else window.addEventListener('resize',size);
+size();
+function loop(now){requestAnimationFrame(loop);if(playing)stepPlay(now);const moved=ctr?ctr.update():false;if(renderer&&(dirty||moved)){renderer.render(scene,cam);dirty=false;}}
+
+mark();drawDial();recalc(true);requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
