@@ -220,6 +220,24 @@ table.sh{width:100%;border-collapse:collapse;min-width:440px}
  .sh td{height:52px}
 }
 
+/* presale */
+.presale{background:var(--paper)}
+.ps{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;align-items:start}
+.ps>*{min-width:0}
+.psl{background:var(--stone);border-radius:var(--r);padding:24px}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.cd div{background:var(--ink);color:#fff;border-radius:14px;padding:14px 4px 10px;text-align:center}
+.cd b{display:block;font-family:Geologica;font-size:clamp(26px,4vw,42px);font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.cd small{font-size:12px;color:rgba(255,255,255,.66)}
+.cd.end{display:block;background:var(--ink);color:#fff;border-radius:14px;padding:16px 18px;font-weight:600}
+.pprice{margin-top:18px;font-family:Geologica;font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.pprice small{display:block;font-family:Onest;font-size:13.5px;color:var(--mut);font-weight:400;letter-spacing:0;margin-top:4px}
+.psr{background:var(--ink);color:#fff;border-radius:var(--r);padding:24px}
+.psr .fl{color:rgba(255,255,255,.62)}
+.psr .go{width:100%;margin-top:18px;background:var(--glass);color:var(--ink)}
+.psr .note{color:rgba(255,255,255,.6)}
+@media(max-width:860px){.ps{grid-template-columns:1fr}}
+
 /* visit */
 .req{background:var(--paper)}
 .rq{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
@@ -347,6 +365,16 @@ body.lock .cbar{transform:translate(-50%,160%)}
    <div><div class="fl" data-t="fBud">Бюджет до</div><div class="val" id="budv"></div><input type="range" id="bud" min="0" max="100" value="74" aria-label="Budget"></div>
    <div><div class="fl" data-t="fCur">Валюта</div><div class="seg cur" id="cur" role="group"><button type="button" data-v="thb" aria-pressed="true">฿</button><button type="button" data-v="usd" aria-pressed="false">$</button><button type="button" data-v="rub" aria-pressed="false">₽</button></div></div>
    <div class="res"><div class="thumbs" id="thumbs"></div><div><div class="n" id="rn"></div><div class="nl" id="rnl"></div></div><a class="go" href="#list" data-t="show">Смотреть</a></div>
+  </div>
+ </div>
+</section>
+
+<section class="presale" id="presale" hidden>
+ <div class="wrap">
+  <div class="shead"><div><div class="eb" data-t="pEb">Пресейл</div><h2 class="h2" id="pH"></h2><p class="sub" id="pSub"></p></div></div>
+  <div class="ps">
+   <div class="psl"><div class="fl" data-t="pCd">До закрытия пресейл-цены</div><div class="cd" id="cd"></div><div class="fl" data-t="pUnit">Тип квартиры</div><div class="bar" id="punits"></div><div class="pprice" id="pprice"></div></div>
+   <div class="psr"><div class="fl" data-t="pDown">Первый взнос</div><div class="val" id="pdv"></div><input type="range" class="dk" id="pdown" min="20" max="50" step="5" value="30" aria-label="Down payment"><div id="plan"></div><p class="note" data-t="pNote">График для примера. Точный график и цены даёт застройщик.</p><button type="button" class="go" id="pbook" data-t="pBook">Забронировать по пресейл-цене</button></div>
   </div>
  </div>
 </section>
@@ -499,7 +527,9 @@ const T={ru:{
  cH:'Сколько принесёт аренда',cSub:'Подвиньте ползунки. Считаем по месяцам, высокий сезон с ноября по апрель. Из дохода вычитаем управление и 1% цены в год на обслуживание.',
  cNight:'Цена за ночь',cOcc:'Загрузка за год',cFee:'Управляющей компании',cGross:'Доход за год',cNet:'Чистыми за год',cY:'Чистая доходность',cPay:'Окупаемость',
  mo:['Я','Ф','М','А','М','И','И','А','С','О','Н','Д'],dVisit:'Записаться на показ',cmpOn:'В сравнении',cmpAdd:'Сравнить',
- cmpPick:'Выберите ещё один объект',cmpReady:'Можно сравнивать',cmpGo:'Сравнить',cmpH:'Сравнение',cmpNote:'Отмечено то, что лучше. Доходность при загрузке 60% и управлении 30%.'
+ cmpPick:'Выберите ещё один объект',cmpReady:'Можно сравнивать',cmpGo:'Сравнить',cmpH:'Сравнение',cmpNote:'Отмечено то, что лучше. Доходность при загрузке 60% и управлении 30%.',
+ pEb:'Пресейл',pCd:'До закрытия пресейл-цены',pUnit:'Тип квартиры',pDown:'Первый взнос',pBook:'Забронировать по пресейл-цене',pNow:'Сейчас, первый взнос {p}%',pMonthly:'Каждый месяц до сдачи ({n} мес.), всего {p}%',pHand:'При сдаче, {d}, {p}%',pTot:'Всего',pPerM:'за м²',
+ pEnded:'Пресейл-цена закрыта. Напишите нам, покажем актуальные цены.',pNote:'График для примера. Точный график и цены даёт застройщик.',bUnit:'Хочу забронировать: {u}, пресейл-цена {p}.'
 },en:{
  title:'Phuket property · sample agency website',rib:'A sample website for a property agency. Listings, prices and figures are illustrative.',ribA:'I want this site',brand:'Phuket Property',
  n1:'Listings',n2:'Areas',n3:'How to buy',n4:'Viewing',n5:'For agencies',tg:'Ask on Telegram',
@@ -534,10 +564,18 @@ const T={ru:{
  cH:'What renting it out earns',cSub:'Move the sliders. We count month by month, with high season from November to April, minus management and 1% of the price a year for upkeep.',
  cNight:'Nightly rate',cOcc:'Occupancy over the year',cFee:'Management company',cGross:'Gross a year',cNet:'Net a year',cY:'Net yield',cPay:'Payback',
  mo:['J','F','M','A','M','J','J','A','S','O','N','D'],dVisit:'Book a viewing',cmpOn:'In comparison',cmpAdd:'Compare',
- cmpPick:'Pick one more property',cmpReady:'Ready to compare',cmpGo:'Compare',cmpH:'Comparison',cmpNote:'The better value is marked. Yield at 60% occupancy and 30% management.'
+ cmpPick:'Pick one more property',cmpReady:'Ready to compare',cmpGo:'Compare',cmpH:'Comparison',cmpNote:'The better value is marked. Yield at 60% occupancy and 30% management.',
+ pEb:'Pre-sale',pCd:'Pre-sale price closes in',pUnit:'Unit type',pDown:'Down payment',pBook:'Reserve at the pre-sale price',pNow:'Now, {p}% down payment',pMonthly:'Monthly until handover ({n} months), {p}% in total',pHand:'On handover, {d}, {p}%',pTot:'Total',pPerM:'per m²',
+ pEnded:'The pre-sale price has closed. Message us for current prices.',pNote:'A sample schedule. The developer gives the exact schedule and prices.',bUnit:'I would like to reserve: {u}, pre-sale price {p}.'
 }};
 
-let lang='ru',intent='live',cur='thb',budget=40e6,type='all',dist=null,selD='bangtao',cmp=[],buyType='condo',stepI=0,feeP=14.5e6,vfmt='video',vmsg='tg',open=null,pickD=null,lastEdit='c1',dNight=0,dOcc=.6,dFee=.3,dImg=0,lastFocus=null;
+const S=window.SITE||{};
+if(S.L)L.splice(0,L.length,...S.L);
+if(S.D)D.splice(0,D.length,...S.D);
+if(S.patch)L.forEach(x=>Object.assign(x,S.patch[x.id]||{}));
+['ru','en'].forEach(l=>Object.assign(T[l],(S.T&&S.T[l])||{}));
+const COAST=S.coast||'img/coast.jpg';
+let lang='ru',intent='live',cur='thb',budget=40e6,type='all',dist=null,selD=S.selD||'bangtao',cmp=[],buyType='condo',stepI=0,feeP=14.5e6,vfmt='video',vmsg='tg',open=null,pickD=null,pickUnit=null,lastEdit='c1',dNight=0,dOcc=.6,dFee=.3,dImg=0,lastFocus=null;
 try{const sl=localStorage.getItem('pp-lang');if(sl==='en'||sl==='ru')lang=sl}catch(e){}
 const t=k=>(T[lang][k]!==undefined?T[lang][k]:T.ru[k]);
 const loc=()=>lang==='ru'?'ru-RU':'en-US';
@@ -550,6 +588,7 @@ function money(thb,c){c=c||cur;const v=thb*RATE[c],ru=lang==='ru',L2=loc();let s
  else if(Math.abs(v)>=1e4){s=Math.round(v/1e3).toLocaleString(L2)+(ru?' тыс.':'K')}
  else s=Math.round(v).toLocaleString(L2);
  const sym={thb:'฿',usd:'$',rub:'₽'}[c];return ru?s+' '+sym:sym+s}
+const moneyX=thb=>{const v=thb*RATE[cur],r=cur==='thb'||v<1e4?1:v<1e6?100:1000,s=(Math.round(v/r)*r).toLocaleString(loc()),sym={thb:'฿',usd:'$',rub:'₽'}[cur];return lang==='ru'?s+' '+sym:sym+s};
 const pct=y=>(Math.round(y*1000)/10).toLocaleString(loc(),{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
 const distTxt=m=>m>=1000?(m/1000).toLocaleString(loc())+(lang==='ru'?' км':' km'):m+(lang==='ru'?' м':' m');
 const p2v=p=>p>=100?Infinity:B0*Math.pow(B1/B0,p/100);
@@ -573,7 +612,7 @@ function fillCard(el,x){const d=dOf(x),on=cmp.includes(x.id);el.dataset.st=x.st;
  el.querySelector('.cmeta').innerHTML=(x.s[intent]===3?`<span class="fit">${t('fit_'+intent)}</span> · `:'')+`${esc(d.n[lang])} · ${d.min} ${t('minAir')}`;
  el.querySelector('h3').textContent=x.n[lang];
  el.querySelector('.specs').textContent=specs(x);
- el.querySelector('.price').textContent=money(x.price);
+ el.querySelector('.price').textContent=S.full?moneyX(x.price):money(x.price);
  el.querySelector('.yl').textContent=pct(yieldOf(x).y)+' '+t('perYear');
  const m=el.querySelector('.more');if(m)m.textContent=t('more');
  const c=el.querySelector('.cmp');if(c){c.setAttribute('aria-pressed',on);c.textContent=on?'✓':'+';c.setAttribute('aria-label',t('cmpA'))}}
@@ -604,7 +643,7 @@ function setIntent(v){if(v===intent)return;intent=v;$$('#intent button').forEach
 $$('#intent button').forEach(b=>b.onclick=()=>setIntent(b.dataset.v));
 $('#bud').oninput=e=>{budget=roundB(p2v(+e.target.value));updBud();renderList(false);bubble()};
 $('#bud').onchange=()=>renderList(true);
-$$('#cur button').forEach(b=>b.onclick=()=>{cur=b.dataset.v;$$('#cur button').forEach(z=>z.setAttribute('aria-pressed',z===b));updBud();renderList(false);renderAdet();fees();renderMirror();fillVisitSel();bubble();if(open)renderDrawer()});
+$$('#cur button').forEach(b=>b.onclick=()=>{cur=b.dataset.v;$$('#cur button').forEach(z=>z.setAttribute('aria-pressed',z===b));updBud();renderList(false);renderAdet();fees();renderMirror();fillVisitSel();bubble();renderPresale();if(open)renderDrawer()});
 $$('#types .chip[data-v]').forEach(b=>b.onclick=()=>{type=b.dataset.v;syncTypes();renderList(true)});
 function syncTypes(){$$('#types .chip[data-v]').forEach(z=>z.setAttribute('aria-pressed',z.dataset.v===type))}
 $('#dchip').onclick=()=>{dist=null;renderList(true)};
@@ -615,9 +654,9 @@ function renderStops(){const s=$('#stops');s.querySelectorAll('.stop').forEach(e
   b.innerHTML=`<span class="m">${d.min} ${t('min')}</span><span class="dot"></span><span class="nm">${esc(d.n[lang])}</span>`;
   b.onclick=()=>{selD=d.k;renderStops();renderAdet()};s.appendChild(b)});
  const i=D.findIndex(d=>d.k===selD);$('#rail').style.setProperty('--fill',(i/(D.length-1)*100)+'%')}
-function renderAdet(){const d=D.find(z=>z.k===selD),xs=L.filter(x=>x.d===d.k),img=xs[0]?`img/${xs[0].id}.jpg`:'img/coast.jpg';
+function renderAdet(){const d=D.find(z=>z.k===selD),xs=L.filter(x=>x.d===d.k),img=xs[0]?`img/${xs[0].id}.jpg`:COAST;
  $('#adet').innerHTML=`<div class="aimg"><img src="${img}" alt="" loading="lazy"></div><div class="atx"><h3>${esc(d.n[lang])}</h3><p style="margin:10px 0 0;color:var(--ink2)">${esc(d.tx[lang])}</p><div class="ast"><div><small>${t('aSqm')}</small><b>~${money(d.sqm)}</b></div><div><small>${t('aY')}</small><b>${d.y}</b></div><div><small>${t('aAir')}</small><b>${d.min} ${t('min')}</b></div></div><button type="button" class="go" id="ashow">${xs.length?t('aShow').replace('{n}',xs.length+' '+objWord(xs.length)):t('aPick')}</button></div>`;
- $('#ashow').onclick=()=>{if(xs.length){dist=d.k;type='all';syncTypes();if(xs.some(x=>x.price>budget)){budget=Infinity;$('#bud').value=100;updBud()}renderList(false);go('#list')}else{pickD=d;$('#vo').value='pick';bubble();go('#visit')}}}
+ $('#ashow').onclick=()=>{if(xs.length){dist=d.k;type='all';syncTypes();if(xs.some(x=>x.price>budget)){budget=Infinity;$('#bud').value=100;updBud()}renderList(false);go('#list')}else{pickD=d;pickUnit=null;$('#vo').value='pick';bubble();go('#visit')}}}
 
 /* buy */
 function renderSteps(){const S=STEPS[buyType][lang];
@@ -634,7 +673,7 @@ $$('#btype button').forEach(b=>b.onclick=()=>{buyType=b.dataset.v;stepI=0;$$('#b
 $('#fp').oninput=e=>{feeP=roundB(Math.min(B1,p2v(+e.target.value)));fees()};
 
 /* sheet */
-const SH=['c1','v2','c2','v5'];
+const SH=S.SH||['c1','v2','c2','v5'];lastEdit=SH[0];
 function renderSheet(){
  $('#shh').innerHTML=`<tr><td class="rn">1</td><td class="hd">${t('shObj')}</td><td class="hd">${t('shPrice')}</td><td class="hd">${t('shSt')}</td></tr>`;
  $('#shb').innerHTML=SH.map((id,i)=>{const x=L.find(z=>z.id===id);return `<tr data-id="${id}"><td class="rn">${i+2}</td><td class="nm">${esc(x.n[lang])}</td><td><input inputmode="numeric" value="${fmtN(x.price)}" aria-label="${t('shPrice')}"></td><td><select aria-label="${t('shSt')}">${['sale','res','sold'].map(s=>`<option value="${s}"${x.st===s?' selected':''}>${t('st_'+s)}</option>`).join('')}</select></td></tr>`}).join('');
@@ -655,6 +694,7 @@ function fillVisitSel(){const s=$('#vo'),v=s.value;s.innerHTML=`<option value="p
 function bubble(){const x=L.find(z=>z.id===$('#vo').value),name=$('#vn').value.trim(),dt=$('#vd').value,lines=[];
  lines.push(name?t('bHiN').replace('{n}',name):t('bHi'));
  if(x)lines.push(t('bObj').replace('{o}',x.n[lang]+' ('+money(x.price)+')'));
+ else if(pickUnit)lines.push(t('bUnit').replace('{u}',pickUnit.n[lang]).replace('{p}',moneyX(pickUnit.price)));
  else if(pickD)lines.push(t('bPickD').replace('{d}',pickD.n[lang]));
  else lines.push(isFinite(budget)?t('bPick').replace('{g}',t('g_'+intent)).replace('{b}',money(budget)):t('bPickN').replace('{g}',t('g_'+intent)));
  if(dt){const ds=new Date(dt+'T12:00').toLocaleDateString(loc(),{weekday:'short',day:'numeric',month:'long'});lines.push(t('bDate').replace('{d}',ds))}
@@ -663,13 +703,35 @@ function bubble(){const x=L.find(z=>z.id===$('#vo').value),name=$('#vn').value.t
  $('#bub').innerHTML=esc(lines.join('\n'))+`<time>${tm}</time>`;
  $$('#phb .bub.in').forEach(e=>e.remove());
  $('#phone').dataset.m=vmsg;const mn={tg:'Telegram',wa:'WhatsApp',line:'LINE'}[vmsg];$('#send').textContent=t('send').replace('{m}',mn);$('#sendn').textContent=''}
-$('#vo').onchange=()=>{pickD=null;bubble()};$('#vd').oninput=bubble;$('#vn').oninput=bubble;
+$('#vo').onchange=()=>{pickD=null;pickUnit=null;bubble()};$('#vd').oninput=bubble;$('#vn').oninput=bubble;
 $$('#vf button').forEach(b=>b.onclick=()=>{vfmt=b.dataset.v;$$('#vf button').forEach(z=>z.setAttribute('aria-pressed',z===b));bubble()});
 $$('#vm button').forEach(b=>b.onclick=()=>{vmsg=b.dataset.v;$$('#vm button').forEach(z=>z.setAttribute('aria-pressed',z===b));bubble()});
 let replyT;$('#send').onclick=()=>{const mn={tg:'Telegram',wa:'WhatsApp',line:'LINE'}[vmsg];$('#sendn').textContent=t('sendNote').replace('{m}',mn);
  $$('#phb .bub.in').forEach(e=>e.remove());clearTimeout(replyT);
  replyT=setTimeout(()=>{const r=document.createElement('div');r.className='bub in';r.innerHTML=esc(t('reply'))+`<time>${new Date().toLocaleTimeString(loc(),{hour:'2-digit',minute:'2-digit'})}</time>`;$('#phb').appendChild(r);toast(t('sendToast'))},RM?0:900)};
 (()=>{const d=new Date();d.setDate(d.getDate()+3);const iso=d.toISOString().slice(0,10);$('#vd').value=iso;$('#vd').min=new Date().toISOString().slice(0,10)})();
+
+/* presale */
+const P=S.presale;let pU=0,pDown=30,cdT;
+function renderPresale(){if(!P)return;$('#presale').hidden=false;
+ $('#pH').textContent=P.h[lang];$('#pSub').textContent=P.sub[lang];
+ $('#punits').innerHTML=P.units.map((u,i)=>`<button type="button" class="chip" aria-pressed="${i===pU}" data-i="${i}">${esc(u.n[lang])}</button>`).join('');
+ $$('#punits .chip').forEach(b=>b.onclick=()=>{pU=+b.dataset.i;renderPresale()});
+ const u=P.units[pU];$('#pprice').innerHTML=`${moneyX(u.price)}<small>${u.area} ${t('m2')} · ${moneyX(u.price/u.area)} ${t('pPerM')}</small>`;
+ plan();tick()}
+function plan(){const u=P.units[pU],now=new Date(),[hy,hm]=P.handover.split('-').map(Number),months=Math.max(1,(hy-now.getFullYear())*12+(hm-1-now.getMonth())),hand=P.hand||30,inst=100-pDown-hand;
+ $('#pdv').textContent=pDown+'% · '+moneyX(u.price*pDown/100);fill($('#pdown'));
+ const hd=new Date(hy,hm-1,1).toLocaleDateString(loc(),{month:'long',year:'numeric'}).replace(' г.',''),rows=[[t('pNow').replace('{p}',pDown),u.price*pDown/100]];
+ if(inst>0)rows.push([t('pMonthly').replace('{n}',months).replace('{p}',inst),u.price*inst/100/months]);
+ rows.push([t('pHand').replace('{d}',hd).replace('{p}',hand),u.price*hand/100]);
+ $('#plan').innerHTML=rows.map(r=>`<div class="fee"><span>${r[0]}</span><b>${moneyX(r[1])}</b></div>`).join('')+`<div class="fee tot"><span>${t('pTot')}</span><b>${moneyX(u.price)}</b></div>`}
+function tick(){if(!P)return;const el=$('#cd'),ms=new Date(P.end)-Date.now();
+ if(ms<=0){el.className='cd end';el.textContent=t('pEnded');clearInterval(cdT);return}
+ const s=Math.floor(ms/1000),v=[Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),s%60];
+ const lb=lang==='ru'?[plural(v[0],['день','дня','дней']),plural(v[1],['час','часа','часов']),plural(v[2],['минута','минуты','минут']),plural(v[3],['секунда','секунды','секунд'])]:['days','hours','minutes','seconds'];
+ el.className='cd';el.innerHTML=v.map((n,i)=>`<div><b>${String(n).padStart(2,'0')}</b><small>${lb[i]}</small></div>`).join('')}
+if(P){$('#pdown').oninput=e=>{pDown=+e.target.value;plan()};cdT=setInterval(tick,1000);
+ $('#pbook').onclick=()=>{pickUnit=P.units[pU];pickD=null;$('#vo').value='pick';bubble();go('#visit')}}
 
 /* drawer */
 function openDrawer(id,from){open=L.find(x=>x.id===id);lastFocus=from||null;dNight=open.night;dOcc=.6;dFee=.3;dImg=0;renderDrawer();
@@ -719,7 +781,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&($('#drw').classLis
 function setLang(l){lang=l;document.documentElement.lang=l;document.title=t('title');
  $$('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
  $$('[data-t]').forEach(el=>{const v=t(el.dataset.t);if(typeof v==='string')el.textContent=v});
- $('#vn').placeholder=t('vNameP');swapWord(true);updBud();renderList(false);renderStops();renderAdet();renderSteps();fees();renderSheet();renderMirror();fillVisitSel();bubble();renderCbar();
+ $('#vn').placeholder=t('vNameP');swapWord(true);updBud();renderList(false);renderStops();renderAdet();renderSteps();fees();renderSheet();renderMirror();fillVisitSel();bubble();renderCbar();renderPresale();
  if($('#mod').classList.contains('on'))renderMod();if(open)renderDrawer();
  try{localStorage.setItem('pp-lang',l)}catch(e){}}
 $$('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
