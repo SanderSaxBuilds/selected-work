@@ -15,7 +15,8 @@
 <link rel="icon" href="../../assets/sandersax-icon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Ubuntu:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
 <link rel="preload" as="image" href="../img/hero-live.jpg">
 <style>
 *{box-sizing:border-box}
@@ -52,7 +53,7 @@ h1,h2,h3,h4,.dsp{font-family:"Comfortaa","Ubuntu",sans-serif;font-weight:600;let
 .top.solid .lang button[aria-pressed=true]{background:var(--ink);color:#fff}
 .top.solid .tg{background:var(--ink);color:#fff}
 @media(max-width:960px){.links{display:none}.nav{gap:12px;height:58px}.lang{margin-left:auto}}
-@media(max-width:440px){.tg span{display:none}.tg{padding:9px 11px}.brand{font-size:15px}.brand svg{width:24px;height:24px}}
+@media(max-width:440px){.tg span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}.tg{padding:9px 11px}.brand{font-size:15px}.brand svg{width:24px;height:24px}}
 
 /* hero */
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden;background:#171d19}
@@ -198,10 +199,10 @@ section{padding:100px 0}
 .shw{overflow-x:auto}
 table.sh{width:100%;border-collapse:collapse;min-width:440px}
 .sh th{background:#f8f9fa;color:#5f6368;font-weight:500;font-size:12px;border:1px solid #e2e3e5;padding:4px 8px;text-align:center}
-.sh td{border:1px solid #e2e3e5;padding:0;height:42px}
-.sh td.rn{background:#f8f9fa;color:#5f6368;font-size:12px;text-align:center;width:34px}
+.sh td,.sh tbody th{border:1px solid #e2e3e5;padding:0;height:42px}
+.sh .rn{background:#f8f9fa;color:#5f6368;font-size:12px;font-weight:400;text-align:center;width:34px}
 .sh td.nm{padding:0 10px;white-space:nowrap}
-.sh td.hd{padding:0 10px;font-weight:700;background:#fff}
+.sh .hd{padding:0 10px;font-weight:700;background:#fff;color:inherit;font-size:inherit;text-align:left}
 .sh input,.sh select{width:100%;height:42px;border:0;padding:0 10px;background:transparent;font-size:14px;border-radius:0}
 .sh input{font-variant-numeric:tabular-nums}
 .sh input:focus,.sh select:focus{outline:2px solid #1a73e8;outline-offset:-2px}
@@ -214,10 +215,10 @@ table.sh{width:100%;border-collapse:collapse;min-width:440px}
 @media(max-width:560px){
  table.sh{min-width:0;table-layout:fixed}
  .sh th:nth-child(1){width:26px}.sh th:nth-child(3){width:31%}.sh th:nth-child(4){width:30%}
- .sh td.rn{width:26px;font-size:11px}
- .sh td.nm,.sh td.hd{white-space:normal;line-height:1.25;padding:6px 8px;font-size:13px}
+ .sh .rn{width:26px;font-size:11px}
+ .sh td.nm,.sh .hd{white-space:normal;line-height:1.25;padding:6px 8px;font-size:13px}
  .sh input,.sh select{font-size:13.5px;padding:0 6px;height:52px}
- .sh td{height:52px}
+ .sh td,.sh tbody th{height:52px}
 }
 
 /* presale */
@@ -684,8 +685,8 @@ $('#fp').oninput=e=>{feeP=roundB(Math.min(B1,p2v(+e.target.value)));fees()};
 /* sheet */
 const SH=S.SH||['c1','v2','c2','v5'];lastEdit=SH[0];
 function renderSheet(){
- $('#shh').innerHTML=`<tr><td class="rn">1</td><td class="hd">${t('shObj')}</td><td class="hd">${t('shPrice')}</td><td class="hd">${t('shSt')}</td></tr>`;
- $('#shb').innerHTML=SH.map((id,i)=>{const x=L.find(z=>z.id===id);return `<tr data-id="${id}"><td class="rn">${i+2}</td><td class="nm">${esc(x.n[lang])}</td><td><input inputmode="numeric" value="${fmtN(x.price)}" aria-label="${t('shPrice')}"></td><td><select aria-label="${t('shSt')}">${['sale','res','sold'].map(s=>`<option value="${s}"${x.st===s?' selected':''}>${t('st_'+s)}</option>`).join('')}</select></td></tr>`}).join('');
+ $('#shh').innerHTML=`<tr><th class="rn">1</th><th scope="col" class="hd">${t('shObj')}</th><th scope="col" class="hd">${t('shPrice')}</th><th scope="col" class="hd">${t('shSt')}</th></tr>`;
+ $('#shb').innerHTML=SH.map((id,i)=>{const x=L.find(z=>z.id===id);return `<tr data-id="${id}"><th scope="row" class="rn">${i+2}</th><td class="nm">${esc(x.n[lang])}</td><td><input inputmode="numeric" value="${fmtN(x.price)}" aria-label="${t('shPrice')}"></td><td><select aria-label="${t('shSt')}">${['sale','res','sold'].map(s=>`<option value="${s}"${x.st===s?' selected':''}>${t('st_'+s)}</option>`).join('')}</select></td></tr>`}).join('');
  $$('#shb tr').forEach(tr=>{const x=L.find(z=>z.id===tr.dataset.id),inp=tr.querySelector('input'),sel=tr.querySelector('select');
   inp.onfocus=()=>{lastEdit=x.id;renderMirror()};
   inp.onchange=()=>{const v=parseInt(inp.value.replace(/\D/g,''),10);if(v>=5e5&&v<=5e8&&v!==x.price){x.price=v;inp.value=fmtN(v);applyEdit(x,tr)}else inp.value=fmtN(x.price)};
