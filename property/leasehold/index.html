@@ -187,6 +187,7 @@ if(!RATE[S.cur])S.cur='thb';
 const grp=n=>String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 const fm=v=>(v<0?'−':'')+(S.cur==='thb'?'':'≈ ')+grp(v*RATE[S.cur])+' '+SYM[S.cur];
 const short=v=>{const x=Math.abs(v*RATE[S.cur]),s=v<0?'−':'';return s+(x>=1e9?(x/1e9).toFixed(x>=1e10?0:1).replace('.',',')+' млрд':x>=1e6?(x/1e6).toFixed(x>=1e7?0:1).replace('.',',')+' млн':x>=1e3?Math.round(x/1e3)+' тыс.':String(Math.round(x)));};
+const fk=v=>S.cur==='idr'?(v<0?'−':'')+'≈\u00a0'+short(Math.abs(v))+'\u00a0Rp':fm(v);
 const num=(v,d)=>{const x=parseFloat(String(v).replace(',','.').replace(/[^\d.]/g,''));return isFinite(x)?x:d;};
 function plural(n,a,b,c){n=Math.abs(n)%100;const m=n%10;if(n>10&&n<20)return c;if(m>1&&m<5)return b;if(m===1)return a;return c;}
 const yr=n=>n+' '+plural(n,'год','года','лет');
@@ -201,10 +202,10 @@ let M=null,TBL=false;
 function render(){M=model();const m=M;
  document.querySelectorAll('.cs').forEach(e=>e.textContent=SYM[S.cur]);
  $('occV').textContent=S.occ+'%';
- const kp=[['Год владения',fm(m.perYear),'цена'+(m.X?' и продление':'')+' за '+yr(m.T)],
-  ['Чистый доход в 1-й год',fm(m.first.net),'доходность '+(m.yield*100).toFixed(1).replace('.',',')+'% в год'],
+ const kp=[['Год владения',fk(m.perYear),'цена'+(m.X?' и продление':'')+' за '+yr(m.T)],
+  ['Чистый доход в 1-й год',fk(m.first.net),'доходность '+(m.yield*100).toFixed(1).replace('.',',')+'% в год'],
   ['Окупаемость',m.pay?'на '+m.pay+'-й год':'не окупается',m.pay?'из '+yr(m.T)+' срока':'за '+yr(m.T)+' при этих цифрах'],
-  ['Итог за весь срок',(m.end>=0?'+':'')+fm(m.end),m.end>=0?'чистыми сверх всех вложений':'аренда не покрывает вложения']];
+  ['Итог за весь срок',(m.end>=0?'+':'')+fk(m.end),m.end>=0?'чистыми сверх всех вложений':'аренда не покрывает вложения']];
  $('kp').innerHTML=kp.map(k=>'<div><span>'+k[0]+'</span><b>'+k[1]+'</b><small>'+k[2]+'</small></div>').join('');
  const f=[['Покупка',fm(m.P)],m.X?['Продление на '+yr(m.E)+', через '+yr(m.L),fm(m.X)]:null,['Срок владения',yr(m.T)],['Доход от аренды за срок, чистыми',fm(m.rows.reduce((a,r)=>a+(r.net||0),0))],['Средний доход в месяц, 1-й год',fm(m.first.net/12)],['Загрузка и цена ночи',S.occ+'%, '+fm(S.night)]].filter(Boolean);
  $('facts').innerHTML=f.map(x=>'<li><span>'+x[0]+'</span><span>'+x[1]+'</span></li>').join('');
