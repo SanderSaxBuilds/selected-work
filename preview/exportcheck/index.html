@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="../../">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1b2e">
+<meta name="color-scheme" content="light">
+<title>ExportCheck CSV preflight</title>
+<meta name="description" content="ExportCheck checks a CSV against a JSON rules file, writes the rows that pass to one file and every rejected row with its reasons to another. Run the same checks on your own CSV in the browser, or read the recorded runs.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ExportCheck CSV preflight">
+<meta property="og:description" content="ExportCheck checks a CSV against a JSON rules file, writes the rows that pass to one file and every rejected row with its reasons to another. Run the same checks on your own CSV in the browser, or read the recorded runs.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/exportcheck-study.html">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/export.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230c0d0f'/%3E%3Crect x='9' y='7' width='6' height='18' fill='%23fff'/%3E%3Crect x='18' y='13' width='6' height='12' fill='%23c4213a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Chivo+Mono:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="exportcheck-style.css">
+<style>
+/* ExportCheck preview. A carbon copy form: pale blue duplicate paper, navy-black print, a stamp green for
+   rows that pass, a crimson for rows held back, violet for a refusal. Chivo for the form headings,
+   Chivo Mono for everything the tool prints. The hero splits, with the four exit codes stacked down the right. */
+:root {
+  --floor: #d9e6f2; --sheet: #e8f0f7; --sheet-2: #cbdbea; --ink: #0d1b2e; --ink-2: #26364c; --muted: #4c5d72;
+  --rule: #b6c8db; --rule-2: #8aa1ba;
+  --pass: #17734a; --pass-bg: #d8eedf; --reject: #b01f45; --reject-bg: #f6dce4; --fail: #0d1b2e; --refuse: #5b3d9c; --refuse-bg: #e6def4;
+  --hl: #fbf3c4;
+  --sans: "Chivo", "Arial", system-ui, sans-serif; --mono: "Chivo Mono", ui-monospace, Consolas, monospace;
+}
+body { background: var(--floor); font-stretch: normal; }
+h1, h2, .gate .t, .verdict h3, h3.small-h, .btn { font-stretch: normal !important; }
+
+/* Run bar: navy strip, the name alone, the exit code as plain text */
+.runbar { background: var(--ink); }
+.runbar .mark i { display: none; }
+.runbar .mark { font: 700 14px/1 var(--mono); letter-spacing: .24em; text-transform: uppercase; }
+.runbar .mark span { color: #9fb4cc; letter-spacing: .08em; }
+.runbar .live .lv-code { background: transparent !important; padding: 0; min-width: 0; margin-left: 6px; color: #fff; font-weight: 700; }
+
+/* Hero: words on the left, the exit codes as a stacked column on the right */
+.hero { padding-top: clamp(40px, 6vw, 80px); }
+.kicker { color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-size: 12px; }
+h1 { font-weight: 900; font-size: clamp(38px, 5.6vw, 92px); line-height: .92; letter-spacing: -.04em; text-transform: none; }
+h1 .cut { color: var(--reject); font-style: italic; font-weight: 300; transform: translateX(var(--cx, 0px)); transition: transform .2s ease-out; }
+.lede code { background: var(--sheet); border-color: var(--rule-2); }
+.cmd { background: transparent; color: var(--ink); border: 0; border-top: 2px dashed var(--ink); border-bottom: 2px dashed var(--ink); padding: 14px 0; }
+.cmd .p { color: var(--muted); }
+.cmd .f { color: var(--ink); }
+@media (min-width: 1100px) {
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(340px, .8fr); column-gap: 56px; align-items: start; }
+  .hero .kicker, .hero h1, .hero .hero-row { grid-column: 1; }
+  .hero-row { grid-template-columns: minmax(0, 1fr) !important; }
+  .gates { grid-column: 2; grid-row: 1 / span 3; margin-top: 0; grid-template-columns: minmax(0, 1fr); border-top: 0; border-bottom: 0; border-left: 2px solid var(--ink); }
+  .gate { grid-template-columns: 96px minmax(0, 1fr); grid-template-rows: auto auto; min-height: 0; padding: 18px 0 18px 22px; border-left: 0; border-top: 1px solid var(--rule-2); column-gap: 14px; }
+  .gate:first-child { border-top: 0; }
+  .gate .n { grid-row: 1 / span 2; font-size: 72px; }
+  .gate .go { grid-column: 2; }
+  .gate::before { left: -2px; right: auto; top: 0; bottom: 0; width: 6px; height: auto; transform-origin: top; transform: scaleY(.2); }
+  .gate:hover::before, .gate:focus-visible::before, .gate[aria-current="true"]::before { transform: scaleY(1); }
+}
+.gate { background: transparent; }
+.gate[aria-current="true"] { background: var(--sheet); }
+.gate .n { font-family: var(--sans); font-weight: 900; }
+.gate .t { font-weight: 800; letter-spacing: .02em; }
+.gates { border-color: var(--ink); }
+
+/* Section heads: a form number and a heading, no black sign block */
+.sec-head { border-top: 2px solid var(--ink); }
+.sign { padding: 0; background: transparent; color: var(--reject); letter-spacing: .2em; }
+h2 { font-weight: 900; text-transform: none; letter-spacing: -.035em; font-size: clamp(30px, 3.8vw, 58px); }
+
+/* Bench: result on the left, input on the right */
+.bench { border: 2px solid var(--ink); background: var(--sheet); }
+@media (min-width: 1020px) {
+  .bench { grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); }
+  #out-pane { order: -1; }
+  .pane + .pane { border-left: 0; }
+  #in-pane { border-left: 2px solid var(--ink); }
+}
+@media (max-width: 1019px) { .pane + .pane { border-top: 2px solid var(--ink); } }
+.pane-bar { background: transparent; color: var(--ink); border-bottom: 2px solid var(--ink); }
+.pane-bar span:last-child { color: var(--muted); }
+.files { background: var(--floor); }
+.files button[aria-pressed="true"] { background: var(--sheet); box-shadow: inset 0 -3px 0 var(--reject); }
+.gutter { background: var(--floor); color: var(--muted); }
+.field textarea { background: #f3f7fb; }
+.editor-foot { color: var(--muted); }
+.rules { border-top: 2px solid var(--ink); }
+.rules textarea { background: #f3f7fb; }
+.btn { border-width: 2px; background: transparent; letter-spacing: .08em; }
+.btn:hover { background: var(--ink); color: var(--floor); }
+
+.code-num { font-family: var(--sans); font-weight: 900; }
+.verdict h3 { font-weight: 900; text-transform: none; font-size: 26px; letter-spacing: -.02em; }
+.verdict .err { background: var(--ink); }
+.slot { background: var(--floor); }
+.tally b { font-family: var(--sans); font-weight: 900; font-size: 30px; }
+.ledger-head { background: var(--sheet); }
+.rec .cells mark { outline-color: #e3a5b6; }
+.outs { border-top: 2px solid var(--ink); }
+.out-tabs { background: var(--floor); }
+.out-tabs [role=tab][aria-selected=true] { background: var(--sheet); box-shadow: inset 0 -3px 0 var(--reject); }
+.out-file { background: #f3f7fb; }
+
+/* Parity board and refusal */
+.parity, .hashes { background: var(--sheet); border: 2px solid var(--ink); }
+.parity thead th { background: transparent; color: var(--ink); border-bottom: 2px solid var(--ink); }
+.parity .st::before { display: none; }
+.parity .st { text-transform: uppercase; letter-spacing: .08em; }
+.parity .st.diff { text-decoration: underline; }
+.parity-verdict b { background: transparent !important; padding: 0; color: var(--muted); font-size: 15px; }
+.parity-verdict[data-ok="true"] b { color: var(--pass); }
+.parity-verdict[data-ok="false"] b { color: var(--reject); }
+.term { background: #0f1e33; border: 2px solid var(--ink); }
+.term-bar span:last-child { background: transparent; color: #c9b8f0; padding: 0; }
+.limits { border-top: 2px solid var(--ink); }
+.limits li::before { width: 14px; height: 2px; }
+.needs { background: var(--sheet); border-left: 0; border-top: 6px solid var(--pass); }
+h3.small-h { text-transform: none; font-weight: 900; font-size: 24px; }
+.foot { background: var(--ink); color: #a9bad0; }
+.foot .foot-contact { border-top-color: #2a3a52; }
+.foot-contact span { color: #9fb4cc; }
+</style>
+</head>
+<body>
+<a class="skip" href="#bench">Skip to the bench</a>
+<header class="runbar">
+  <div class="wrap">
+    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg><span>Selected work</span></a>
+    <span class="mark"><i aria-hidden="true"><b></b><b></b></i>ExportCheck <span>1.0.0</span></span>
+    <span class="live" aria-live="polite"><span class="lv-txt">bench: <b id="lv-name">clean.csv</b> exit</span><span class="lv-code" id="lv-code">0</span></span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="title">
+    <div class="wrap">
+      <p class="kicker"><b>CSV preflight</b>, a command-line tool in Python</p>
+      <h1 id="title"><span class="ln">Check the CSV</span><span class="ln">before it leaves.</span><span class="ln cut">Keep the rows that fail.</span></h1>
+      <div class="hero-row">
+        <p class="lede">ExportCheck reads one CSV against a small JSON rules file. Rows that pass go to <code>clean.csv</code>. Every rejected row goes to <code>row-errors.csv</code> with each reason and the full original row, so nothing quietly disappears. A <code>summary.json</code> keeps the counts.</p>
+        <pre class="cmd" aria-label="Command"><span class="p">$ </span>python <span class="f">exportcheck.py</span> --input orders.csv \
+    --rules rules.json --output runs/orders</pre>
+      </div>
+      <div class="gates" role="group" aria-label="Exit codes. Each one runs its sample on the bench.">
+        <button type="button" class="gate g0" data-gate="clean"><span class="n">0</span><span><span class="t">Every row passed</span><span class="d">clean.csv holds all of them.</span></span><span class="go">Run clean.csv</span></button>
+        <button type="button" class="gate g1" data-gate="mixed_row_failures"><span class="n">1</span><span><span class="t">Split</span><span class="d">Bad rows held back with reasons, the rest written.</span></span><span class="go">Run mixed rows</span></button>
+        <button type="button" class="gate g2" data-gate="duplicate_header_file_failure"><span class="n">2</span><span><span class="t">Stopped</span><span class="d">The file is unusable. Nothing is written.</span></span><span class="go">Run a bad header</span></button>
+        <button type="button" class="gate g3" data-gate="refusal"><span class="n">3</span><span><span class="t">Refused</span><span class="d">The output folder exists or can't be written.</span></span><span class="go">See the refusal</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="bench" aria-labelledby="bench-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <div><span class="sign">Bench</span><h2 id="bench-title">Edit a file and watch it split.</h2></div>
+        <p>The same checks run in your browser. Change a cell, paste your own export or open a CSV from your computer. Nothing is uploaded. Point at a record in either tray or in the list to find its lines in the input.</p>
+      </header>
+
+      <div class="bench" id="bench-box">
+        <div class="pane" id="in-pane">
+          <div class="pane-bar"><span>Input</span><span id="in-name">clean.csv</span></div>
+          <div class="files" role="group" aria-label="Input file">
+            <button type="button" data-file="clean" aria-pressed="true">clean.csv</button>
+            <button type="button" data-file="mixed_row_failures" aria-pressed="false">mixed-row-failures.csv</button>
+            <button type="button" data-file="duplicate_header_file_failure" aria-pressed="false">duplicate-headers.csv</button>
+            <button type="button" data-file="blank" aria-pressed="false">Empty file</button>
+            <label>Open a CSV<input type="file" id="open-file" accept=".csv,.txt,text/csv,text/plain"></label>
+          </div>
+          <div class="editor" id="editor">
+            <div class="gutter" id="gutter" aria-hidden="true"></div>
+            <div class="field">
+              <pre id="mirror" aria-hidden="true"></pre>
+              <textarea id="csv" spellcheck="false" autocomplete="off" autocapitalize="off" wrap="off" aria-label="CSV input, edit to re-run the checks"></textarea>
+            </div>
+          </div>
+          <div class="bigfile" id="bigfile"></div>
+          <div class="editor-foot"><span id="in-stats">0 bytes</span><span id="in-hash">SHA-256</span></div>
+          <details class="rules" id="rules-box">
+            <summary><span>rules.json <span class="small" id="rules-state">sample rules, unchanged</span></span></summary>
+            <div class="rules-body">
+              <dl class="rule-list" id="rule-list"></dl>
+              <label class="small" for="rules-text">Edit the rules. The bench re-runs as you type.</label>
+              <textarea id="rules-text" spellcheck="false" autocomplete="off" wrap="off"></textarea>
+              <div class="rules-actions"><button class="btn" type="button" id="rules-reset">Reset the rules</button><span class="small" id="rules-hash"></span></div>
+            </div>
+          </details>
+        </div>
+
+        <div class="pane" id="out-pane" aria-live="polite" aria-atomic="false">
+          <div class="pane-bar"><span>Result</span><span id="out-dir">runs/clean</span></div>
+          <div class="verdict">
+            <div class="code-num" id="code-num" aria-hidden="true">0</div>
+            <div><h3 id="verdict-title">Every row passed</h3><p id="verdict-text"></p><div class="err" id="verdict-err" hidden></div></div>
+          </div>
+          <div class="sorter" id="sorter" aria-label="Where each record went"></div>
+          <div class="tally" id="tally"></div>
+          <div class="ledger" id="ledger" tabindex="-1"></div>
+          <div class="outs" id="outs">
+            <div class="out-tabs" role="tablist" aria-label="Result files">
+              <button type="button" role="tab" id="ot-clean" aria-selected="true" aria-controls="out-file">clean.csv</button>
+              <button type="button" role="tab" id="ot-errors" aria-selected="false" aria-controls="out-file" tabindex="-1">row-errors.csv</button>
+              <button type="button" role="tab" id="ot-summary" aria-selected="false" aria-controls="out-file" tabindex="-1">summary.json</button>
+              <button type="button" class="btn dl" id="download"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Download</span></button>
+            </div>
+            <pre class="out-file" id="out-file" role="tabpanel" tabindex="0" aria-labelledby="ot-clean"></pre>
+          </div>
+        </div>
+      </div>
+      <noscript><p class="parity-note">The bench needs JavaScript. The recorded runs and the refusal below are plain text.</p></noscript>
+    </div>
+  </section>
+
+  <section class="sec" id="parity" aria-labelledby="parity-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <div><span class="sign">Recorded runs</span><h2 id="parity-title">Same bytes as the Python run.</h2></div>
+        <p>The three sample files were run through ExportCheck 1.0.0 on the command line and the result files saved. When this page loads, the bench runs the same inputs again and compares every output file with the recorded one, byte for byte.</p>
+      </header>
+      <p class="parity-verdict" id="parity-verdict" aria-live="polite"><b>...</b><span>Comparing the recorded runs.</span></p>
+      <table class="parity" id="parity-table">
+        <caption class="sr">Recorded Python output compared with this page's output</caption>
+        <thead><tr><th scope="col">Input</th><th scope="col">Exit</th><th scope="col">clean.csv</th><th scope="col">row-errors.csv</th><th scope="col">summary.json</th></tr></thead>
+        <tbody><tr><td colspan="5">Comparing the recorded runs.</td></tr></tbody>
+      </table>
+      <p class="parity-note">I also ran 1,500 generated CSV files and 44 rules files through both the Python tool and this bench. Every exit code, message and output file matched. The one difference is order: when a record has several missing values or bad dates, Python lists those issues in set order, which can change between runs. The bench keeps the order of the rules file.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="refusal" aria-labelledby="refusal-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <div><span class="sign">Exit 3</span><h2 id="refusal-title">Run it twice and the first results stay put.</h2></div>
+        <p>After the clean run created its result folder, I pointed ExportCheck at the same folder again. It refused with exit code 3. The three result files had the same paths, sizes and SHA-256 hashes before and after. This one only happens on disk, so it is recorded here rather than run in the bench.</p>
+      </header>
+      <div class="refusal">
+        <div class="term">
+          <div class="term-bar"><span>stderr</span><span id="refusal-exit">exit 3</span></div>
+          <pre id="refusal-msg"></pre>
+        </div>
+        <table class="hashes" id="hashes">
+          <caption>Result files in runs/clean, checked before and after the second run</caption>
+          <thead><tr><th scope="col">File</th><th scope="col" class="num">Bytes</th><th scope="col">SHA-256, unchanged</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="limits-title">
+    <div class="wrap limits">
+      <div>
+        <h2 id="limits-title">Where this stops</h2>
+        <p style="margin-top:14px">ExportCheck 1.0.0 has been tested on synthetic files only and has no customer use yet. The bench is a JavaScript port of the same checks, written so the tool can be tried without installing anything.</p>
+        <ul>
+          <li>Amounts are checked as exact decimals within a range. It doesn't infer currency or reconcile totals.</li>
+          <li>It doesn't repair rows, guess delimiters or read Excel files.</li>
+          <li>It doesn't connect to an ERP or send the file anywhere.</li>
+        </ul>
+      </div>
+      <div class="needs">
+        <h3 class="small-h">What it needs</h3>
+        <p>Python 3.10 or newer and nothing else. The standard library covers the CSV reading, decimal checks and file writing. Inputs up to 5,000,000 bytes and 10,000 rows by default, adjustable in the rules file.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Independent work by Alexandr Khrustalev. The sample files are synthetic.</p>
+    <a href="index.html#exportcheck-study">Back to selected work</a>
+    <p class="foot-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
+  </div>
+</footer>
+
+<script id="proof-data" type="application/json">{"version":"1.0.0 candidate","rules":{"sha256":"74f2d6e54fa4017fba3cafaef50209e6418f2b50c0808dcdd97e8d6f57ee9ed8","text":"{\n  \"schema_version\": 1,\n  \"required_headers\": [\n    \"order_id\",\n    \"customer\",\n    \"status\",\n    \"ordered_on\",\n    \"amount\",\n    \"notes\"\n  ],\n  \"unique_key\": \"order_id\",\n  \"required_values\": [\n    \"order_id\",\n    \"customer\",\n    \"status\",\n    \"ordered_on\",\n    \"amount\"\n  ],\n  \"string_enums\": {\n    \"status\": [\n      \"open\",\n      \"paid\",\n      \"cancelled\"\n    ]\n  },\n  \"iso_dates\": [\n    \"ordered_on\"\n  ],\n  \"decimals\": {\n    \"amount\": {\n      \"min\": \"-999999.99\",\n      \"max\": \"999999.99\",\n      \"max_scale\": 2\n    }\n  },\n  \"limits\": {\n    \"max_rows\": 10000,\n    \"max_bytes\": 5000000,\n    \"max_output_bytes\": 20000000\n  }\n}\n"},"rule_facts":[{"title":"Headers","detail":"All 6 required names must match exactly, including case."},{"title":"Unique key","detail":"order_id must be present and unique across data rows."},{"title":"Required values","detail":"order_id, customer, status, ordered_on, and amount cannot be blank."},{"title":"Status values","detail":"The only configured choices are open, paid, and cancelled."},{"title":"ISO dates","detail":"ordered_on must be a valid calendar date written as YYYY-MM-DD."},{"title":"Exact decimals","detail":"amount must be finite, within -999999.99 to 999999.99, with no more than 2 decimal places."}],"cases":{"clean":{"label":"Clean data","state":"pass","summary_title":"All three rows passed the configured rules.","input_note":"The negative amount remains valid under the configured range. The formula-like note is prefixed in clean.csv.","exit_code":0,"input":{"name":"clean.csv","text":"order_id,customer,status,ordered_on,amount,notes\nORD-2001,Demo Wholesale,open,2026-10-12,1250.00,Ready for review\nORD-2002,\"Sample, Retail\",paid,2026-10-13,-49.50,\"Credit note, retained\"\nORD-2003,Harbor Sample,cancelled,2026-10-14,0,\"=SUM(1,2)\"\n","bytes":245,"sha256":"4c52ad8e9649af36f503845ef759386fa2d6cb1d432401f1420e8afaad433f53","data_record_count":3},"output_directory_created":true,"file_failure":null,"outputs":{"clean_csv":"order_id,customer,status,ordered_on,amount,notes\nORD-2001,Demo Wholesale,open,2026-10-12,1250.00,Ready for review\nORD-2002,\"Sample, Retail\",paid,2026-10-13,-49.50,\"Credit note, retained\"\nORD-2003,Harbor Sample,cancelled,2026-10-14,0,\"'=SUM(1,2)\"\n","row_errors_csv":"row_number,column,code,message,raw_value,original_row_json\n","summary_json":"{\n  \"summary_version\": 1,\n  \"tool\": \"ExportCheck\",\n  \"status\": \"completed\",\n  \"input\": {\n    \"file_name\": \"clean.csv\",\n    \"sha256\": \"4c52ad8e9649af36f503845ef759386fa2d6cb1d432401f1420e8afaad433f53\",\n    \"bytes\": 245\n  },\n  \"limits\": {\n    \"max_rows\": 10000,\n    \"max_input_bytes\": 5000000,\n    \"max_output_bytes\": 20000000,\n    \"hard_max_rows\": 100000,\n    \"hard_max_input_bytes\": 50000000,\n    \"hard_max_output_bytes\": 50000000,\n    \"max_columns\": 256,\n    \"max_field_characters\": 256000\n  },\n  \"records\": {\n    \"data_rows\": 3,\n    \"accepted_rows\": 3,\n    \"rejected_rows\": 0,\n    \"row_error_entries\": 0\n  },\n  \"outputs\": {\n    \"clean_csv\": \"clean.csv\",\n    \"row_errors_csv\": \"row-errors.csv\",\n    \"summary_json\": \"summary.json\"\n  },\n  \"transformations\": {\n    \"formula_safe_prefixes\": 1,\n    \"formula_safety\": \"Formula-like text is prefixed with an apostrophe. Strict signed decimal text is left unchanged.\",\n    \"cell_normalization\": \"None. Cell values are preserved except for formula-safe prefixes.\",\n    \"csv_serialization\": \"Rows are reserialized with Python CSV quoting. Quoting style may differ while parsed cell values stay the same.\",\n    \"csv_encoding\": \"UTF-8 without a byte-order mark.\",\n    \"csv_record_terminator\": \"LF. Input line endings are normalized by CSV output writing.\",\n    \"rejected_rows\": \"Every rejected data row appears in row-errors.csv and in the rejected row count.\"\n  }\n}\n"},"counts":[["Data rows",3],["Accepted rows",3],["Rejected rows",0],["Issue entries",0]],"error_groups":[],"output_directory":"runs/clean","formula_safe_prefixes":1},"mixed_row_failures":{"label":"Mixed row failures","state":"reject","summary_title":"One row passed. Four rejected rows have eight recorded issues.","input_note":"The last note is quoted across two physical lines. The reader counts it as one CSV record, reported as record 6.","exit_code":1,"input":{"name":"mixed-row-failures.csv","text":"order_id,customer,status,ordered_on,amount,notes\nORD-3001,Demo Wholesale,open,2026-10-14,12.50,Valid row\nORD-3001,,pending,2026-02-30,1.234,\"=SUM(1,2)\"\nORD-3003,Boundary Demo,paid,2026-10-15,1000000.00,Outside inclusive maximum\nORD-3004,Number Demo,open,2026-10-16,NaN,Non-finite decimal\nORD-3005,Line Break Demo,open,2026-10-17,Infinity,\"First line\nSecond line, with comma\"\n","bytes":375,"sha256":"03fcdf6ec34f9394a30d14c2aa14c40eba11c62f3b93619698b9a4b16a1f27b1","data_record_count":5},"output_directory_created":true,"file_failure":null,"outputs":{"clean_csv":"order_id,customer,status,ordered_on,amount,notes\nORD-3001,Demo Wholesale,open,2026-10-14,12.50,Valid row\n","row_errors_csv":"row_number,column,code,message,raw_value,original_row_json\n3,customer,required_value_missing,A value is required.,,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,order_id,duplicate_unique_key,The unique key already appeared on record 2.,ORD-3001,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,status,enum_value_invalid,The value is not one of the configured choices.,pending,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,ordered_on,iso_date_invalid,Use a valid date in YYYY-MM-DD form.,2026-02-30,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n3,amount,decimal_scale,Use no more than 2 digits after the decimal point.,1.234,\"[\"\"ORD-3001\"\",\"\"\"\",\"\"pending\"\",\"\"2026-02-30\"\",\"\"1.234\"\",\"\"=SUM(1,2)\"\"]\"\n4,amount,decimal_out_of_range,The value is outside the configured inclusive range.,1000000.00,\"[\"\"ORD-3003\"\",\"\"Boundary Demo\"\",\"\"paid\"\",\"\"2026-10-15\"\",\"\"1000000.00\"\",\"\"Outside inclusive maximum\"\"]\"\n5,amount,invalid_decimal,Use a finite decimal without exponent notation.,NaN,\"[\"\"ORD-3004\"\",\"\"Number Demo\"\",\"\"open\"\",\"\"2026-10-16\"\",\"\"NaN\"\",\"\"Non-finite decimal\"\"]\"\n6,amount,invalid_decimal,Use a finite decimal without exponent notation.,Infinity,\"[\"\"ORD-3005\"\",\"\"Line Break Demo\"\",\"\"open\"\",\"\"2026-10-17\"\",\"\"Infinity\"\",\"\"First line\\nSecond line, with comma\"\"]\"\n","summary_json":"{\n  \"summary_version\": 1,\n  \"tool\": \"ExportCheck\",\n  \"status\": \"completed_with_rejected_rows\",\n  \"input\": {\n    \"file_name\": \"mixed-row-failures.csv\",\n    \"sha256\": \"03fcdf6ec34f9394a30d14c2aa14c40eba11c62f3b93619698b9a4b16a1f27b1\",\n    \"bytes\": 375\n  },\n  \"limits\": {\n    \"max_rows\": 10000,\n    \"max_input_bytes\": 5000000,\n    \"max_output_bytes\": 20000000,\n    \"hard_max_rows\": 100000,\n    \"hard_max_input_bytes\": 50000000,\n    \"hard_max_output_bytes\": 50000000,\n    \"max_columns\": 256,\n    \"max_field_characters\": 256000\n  },\n  \"records\": {\n    \"data_rows\": 5,\n    \"accepted_rows\": 1,\n    \"rejected_rows\": 4,\n    \"row_error_entries\": 8\n  },\n  \"outputs\": {\n    \"clean_csv\": \"clean.csv\",\n    \"row_errors_csv\": \"row-errors.csv\",\n    \"summary_json\": \"summary.json\"\n  },\n  \"transformations\": {\n    \"formula_safe_prefixes\": 0,\n    \"formula_safety\": \"Formula-like text is prefixed with an apostrophe. Strict signed decimal text is left unchanged.\",\n    \"cell_normalization\": \"None. Cell values are preserved except for formula-safe prefixes.\",\n    \"csv_serialization\": \"Rows are reserialized with Python CSV quoting. Quoting style may differ while parsed cell values stay the same.\",\n    \"csv_encoding\": \"UTF-8 without a byte-order mark.\",\n    \"csv_record_terminator\": \"LF. Input line endings are normalized by CSV output writing.\",\n    \"rejected_rows\": \"Every rejected data row appears in row-errors.csv and in the rejected row count.\"\n  }\n}\n"},"counts":[["Data rows",5],["Accepted rows",1],["Rejected rows",4],["Issue entries",8]],"error_groups":[{"row_number":"3","issues":[{"column":"customer","code":"required_value_missing","message":"A value is required.","raw_value":""},{"column":"order_id","code":"duplicate_unique_key","message":"The unique key already appeared on record 2.","raw_value":"ORD-3001"},{"column":"status","code":"enum_value_invalid","message":"The value is not one of the configured choices.","raw_value":"pending"},{"column":"ordered_on","code":"iso_date_invalid","message":"Use a valid date in YYYY-MM-DD form.","raw_value":"2026-02-30"},{"column":"amount","code":"decimal_scale","message":"Use no more than 2 digits after the decimal point.","raw_value":"1.234"}],"original_fields":[["order_id","ORD-3001"],["customer",""],["status","pending"],["ordered_on","2026-02-30"],["amount","1.234"],["notes","=SUM(1,2)"]]},{"row_number":"4","issues":[{"column":"amount","code":"decimal_out_of_range","message":"The value is outside the configured inclusive range.","raw_value":"1000000.00"}],"original_fields":[["order_id","ORD-3003"],["customer","Boundary Demo"],["status","paid"],["ordered_on","2026-10-15"],["amount","1000000.00"],["notes","Outside inclusive maximum"]]},{"row_number":"5","issues":[{"column":"amount","code":"invalid_decimal","message":"Use a finite decimal without exponent notation.","raw_value":"NaN"}],"original_fields":[["order_id","ORD-3004"],["customer","Number Demo"],["status","open"],["ordered_on","2026-10-16"],["amount","NaN"],["notes","Non-finite decimal"]]},{"row_number":"6","issues":[{"column":"amount","code":"invalid_decimal","message":"Use a finite decimal without exponent notation.","raw_value":"Infinity"}],"original_fields":[["order_id","ORD-3005"],["customer","Line Break Demo"],["status","open"],["ordered_on","2026-10-17"],["amount","Infinity"],["notes","First line\nSecond line, with comma"]]}],"output_directory":"runs/mixed","formula_safe_prefixes":0},"duplicate_header_file_failure":{"label":"Duplicate header","state":"fail","summary_title":"Duplicate column names stopped this file before row processing.","input_note":"The final two column names are both notes. Duplicate headers are a file-level error.","exit_code":2,"input":{"name":"duplicate-headers.csv","text":"order_id,customer,status,ordered_on,amount,notes,notes\nORD-4001,Header Demo,paid,2026-10-18,25.00,first notes,second notes\n","bytes":123,"sha256":"9746c9601cf7794759b7a639434078d88c67216f1b67056fea4a18d4b7e7403b","data_record_count":1},"output_directory_created":false,"file_failure":{"code":"duplicate_headers","message":"The CSV header contains duplicate names.","exact_stderr":"ExportCheck file failure [duplicate_headers]: The CSV header contains duplicate names."},"outputs":null,"counts":[],"error_groups":[]}},"existing_output_refusal":{"exit_code":3,"exact_stderr":"ExportCheck output failure [output_exists]: The output path already exists. Choose a new directory name.","manifest_sha256":"da478a333dde9d9626adeb2ae863e0c1f367a3e2e0a763794855b668f527a452","unchanged":true,"files":[{"path":"clean.csv","bytes":246,"sha256":"cd3b49788de566398d86e4680777fb61975a1c032c46c05160aea49d9eabf2ed"},{"path":"row-errors.csv","bytes":59,"sha256":"a2085e481575ac926d485bbdf052cae8067e25a1257274f1bd009cd7c08fb275"},{"path":"summary.json","bytes":1406,"sha256":"c4a439f101a6a64eabff4e083bccc6a0c274899c350101d352dcc77e33f4664d"}]}}</script>
+<script type="module" src="exportcheck-page.mjs"></script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(0+(90-0)*x).toFixed(2)+'px';document.querySelectorAll('.hero h1 .cut').forEach(function(n){n.style.setProperty('--cx',v)})})},{passive:true})})();</script>
+</body>
+</html>

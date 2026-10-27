@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<base href="../../">
+<meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#23260f">
+  <meta name="description" content="Pack a project into a checked ZIP, reopen the saved copy file by file, see what changed since and export recovered files. Runs in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Archive Desk | Project backups you can check">
+  <meta property="og:description" content="Pack a project into a checked ZIP, reopen the saved copy file by file, see what changed since and export recovered files. Runs in your browser.">
+  <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/archive-desk.html">
+  <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/archive.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="750">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Archive Desk | Project backups you can check</title>
+  <link rel="icon" href="archive-desk-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,200..900&family=Overpass:wght@300..800&family=Overpass+Mono:wght@400..700&display=swap">
+  <link rel="stylesheet" href="archive-desk-style.css">
+<link rel="stylesheet" href="preview/archive-desk/app.css">
+  <script type="module" src="archive-desk-app.mjs"></script>
+</head>
+<body>
+<a class="skip-link" href="#workspace">Skip to the workspace</a>
+<header class="topbar">
+  <a class="brand" href="#workspace"><img src="archive-desk-mark.svg" alt="" width="36" height="36">Archive Desk</a>
+  <div class="topbar-right"><span class="local-badge"><span></span>Runs in your browser</span><a class="topbar-link" href="index.html#archive-desk">Selected work</a></div>
+</header>
+<main class="shell">
+  <section class="page-heading" aria-labelledby="page-title">
+    <div>
+      <p class="kicker">Project backups</p>
+      <h1 id="page-title">A backup you can inspect.</h1>
+      <p class="lede">Before you hand over or archive a project, pack the folder into a ZIP, prove the saved copy is intact file by file and see exactly what changed since. Nothing leaves your browser.</p>
+    </div>
+    <div class="heading-actions"><button class="button primary" id="run-tour" type="button">Watch a sample backup</button><button class="button secondary" id="load-demo" type="button">Load sample files</button></div>
+  </section>
+
+  <div class="tabbar" role="tablist" aria-label="Backup workspace">
+    <button role="tab" type="button" id="tab-create" aria-controls="panel-create" aria-selected="true" tabindex="0" data-mode="create"><span class="tab-number">01</span><span>Create<span class="tab-extra"> backup</span></span></button>
+    <button role="tab" type="button" id="tab-verify" aria-controls="panel-verify" aria-selected="false" tabindex="-1" data-mode="verify"><span class="tab-number">02</span><span>Verify<span class="tab-extra"> a ZIP</span></span></button>
+    <button role="tab" type="button" id="tab-compare" aria-controls="panel-compare" aria-selected="false" tabindex="-1" data-mode="compare"><span class="tab-number">03</span><span>Compare<span class="tab-extra"> versions</span></span></button>
+  </div>
+
+  <div class="status-bar" id="status-bar"><span class="status-label" aria-hidden="true">Desk log</span><p id="status" role="status" aria-live="polite">Ready. Watch the sample backup, or choose the project you want to keep.</p></div>
+
+  <div id="workspace" tabindex="-1">
+    <section id="panel-create" role="tabpanel" aria-labelledby="tab-create">
+      <div class="workspace-grid">
+        <section class="panel selection-panel" aria-labelledby="selection-title">
+          <div class="panel-heading"><div><p class="eyebrow">Current selection</p><h2 id="selection-title">Your project files</h2></div><button class="text-button" id="clear-selection" type="button" disabled>Clear</button></div>
+          <div class="dropzone" id="dropzone">
+            <div class="drop-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7.5V18a1.5 1.5 0 0 0 1.5 1.5h15A1.5 1.5 0 0 0 21 18V9a1.5 1.5 0 0 0-1.5-1.5h-7.2L10.5 5H4.5A1.5 1.5 0 0 0 3 6.5z"/><path d="M12 11v5M9.5 13.5h5"/></svg></div>
+            <h3>Bring the whole small project.</h3>
+            <p>Drop a folder here, or choose one to keep its relative paths. You can also pick single files.</p>
+            <div class="drop-actions"><button class="button primary" id="choose-folder" type="button">Choose folder</button><button class="button secondary" id="choose-files" type="button">Choose files</button></div>
+            <p class="limit-note">Up to <strong>500</strong> files and <strong>50 MiB</strong> in total, with <strong>20 MiB</strong> per file.</p>
+          </div>
+          <input class="visually-hidden" type="file" id="files-input" multiple tabindex="-1" aria-label="Project files">
+          <input class="visually-hidden" type="file" id="folder-input" webkitdirectory directory multiple tabindex="-1" aria-label="Project folder">
+          <div class="selection-meta"><span id="file-count">0 files selected</span><span id="file-bytes">0 B</span></div>
+          <p class="notice amber" id="sensitive-notice" hidden>This selection includes a filename often used for passwords or private keys. The backup ZIP is not encrypted, so keep it somewhere private.</p>
+          <div class="table-wrap"><table><caption class="visually-hidden">Files included in this backup</caption><thead><tr><th scope="col">Relative path</th><th scope="col">Size</th><th scope="col" class="date-column">Modified</th></tr></thead><tbody id="selection-rows"><tr class="empty-row"><td colspan="3">No files yet. Try the sample files or choose a project.</td></tr></tbody></table></div>
+          <div class="panel-footer"><span class="tiny-dot" aria-hidden="true"></span>Files stay in this browser tab. A new selection replaces this list and never changes the originals.</div>
+        </section>
+        <aside class="sidebar" aria-label="Create a backup">
+          <section class="panel build-card" aria-labelledby="build-title">
+            <h2 id="build-title">Create the backup ZIP</h2>
+            <p>Every backup carries a manifest with the size and SHA-256 fingerprint of each file.</p>
+            <label for="archive-name">Backup name</label>
+            <input id="archive-name" type="text" value="project-backup" maxlength="60" autocomplete="off" spellcheck="false">
+            <button class="button primary full" id="build-archive" type="button" disabled>Create backup</button>
+            <div id="created-result" hidden>
+              <div class="success-label"><span aria-hidden="true">✓</span>Created and checked</div>
+              <p class="file-name" id="created-name"></p>
+              <p id="created-size" class="muted"></p>
+              <div class="seal-glyph" id="created-seal" hidden></div>
+              <button class="button primary full" id="download-backup" type="button">Download backup ZIP</button>
+              <details class="hash-details"><summary>Archive SHA-256</summary><code id="created-hash"></code></details>
+              <p class="small muted">Open the downloaded file in Verify to check the saved copy.</p>
+            </div>
+          </section>
+          <section class="panel checklist" aria-labelledby="checks-title">
+            <h2 id="checks-title">Three checks</h2>
+            <ol>
+              <li id="check-selection"><span>1</span><div><strong>Select the files</strong><small>Check the paths and total size.</small></div></li>
+              <li id="check-created"><span>2</span><div><strong>Create the ZIP</strong><small>Every file and its fingerprint is recorded.</small></div></li>
+              <li id="check-reopened"><span>3</span><div><strong>Reopen the saved copy</strong><small>Verify it before you rely on it.</small></div></li>
+            </ol>
+          </section>
+          <div class="privacy-note"><strong>Plain ZIP, nothing uploaded.</strong><p>The page has no upload endpoint and the ZIP is not encrypted. Download it to keep a copy after you close this tab.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="panel-verify" role="tabpanel" aria-labelledby="tab-verify" hidden>
+      <div class="workspace-grid">
+        <section class="panel verify-panel" aria-labelledby="verify-title">
+          <div class="panel-heading"><div><p class="eyebrow">Check a saved copy</p><h2 id="verify-title">Verify the archive, file by file</h2></div></div>
+          <p class="section-intro">Open a backup made by Archive Desk. The check reads the ZIP structure, each CRC value and every SHA-256 fingerprint before it offers the files back.</p>
+          <label class="file-picker" for="verify-input"><span class="picker-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 15v3.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V15"/></svg></span><span><strong>Choose a backup ZIP</strong><small id="verify-file-name">No archive selected</small></span></label>
+          <input class="visually-hidden" type="file" id="verify-input" accept=".zip,application/zip" aria-label="Backup ZIP to verify">
+          <div class="verify-alt"><button class="button secondary" id="verify-created" type="button" disabled>Check the backup made in this tab</button><span class="small muted">Quick check before you download. Only the saved file completes check 3.</span></div>
+          <div id="verified-result" hidden>
+            <div class="result-heading"><span class="result-check" aria-hidden="true">✓</span><div><h3>Every file matches the manifest.</h3><p id="verified-summary"></p></div></div>
+            <div class="seal-glyph in-panel" id="verified-seal" aria-live="polite" hidden></div>
+            <dl class="archive-facts"><div><dt>Created</dt><dd id="verified-date"></dd></div><div><dt>Format</dt><dd>Archive Desk ZIP v1</dd></div><div><dt>Archive size</dt><dd id="verified-bytes"></dd></div></dl>
+            <div class="table-wrap"><table><caption class="visually-hidden">Verified archive files</caption><thead><tr><th scope="col">Relative path</th><th scope="col">Size</th><th scope="col">SHA-256</th></tr></thead><tbody id="verified-rows"></tbody></table></div>
+          </div>
+        </section>
+        <aside class="sidebar" aria-label="Recover files">
+          <section class="panel recovery-card" aria-labelledby="recovery-title">
+            <h2 id="recovery-title">Take the checked files with you</h2>
+            <p>The recovery ZIP holds the original relative paths and file bytes. Extract it into a new folder and look through the result.</p>
+            <button class="button primary full" id="download-recovered" type="button" disabled>Download recovered files</button>
+            <p class="small muted">Nothing is written into your original project folder.</p>
+          </section>
+          <section class="panel format-card" aria-labelledby="format-title">
+            <span class="format-tag">ZIP, stored</span>
+            <h3 id="format-title">One deliberate format</h3>
+            <p>Archive Desk opens its own uncompressed backups. Compressed, encrypted and ZIP64 archives are not supported.</p>
+            <p>Keep a second copy of important work somewhere else.</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section id="panel-compare" role="tabpanel" aria-labelledby="tab-compare" hidden>
+      <section class="panel compare-panel" aria-labelledby="compare-title">
+        <div class="panel-heading"><div><p class="eyebrow">Before and after</p><h2 id="compare-title">What changed since the backup?</h2></div></div>
+        <div class="compare-inputs">
+          <div class="compare-slot">
+            <div class="slot-head"><span class="input-step" aria-hidden="true">A</span>Saved backup</div>
+            <p class="slot-value" id="compare-baseline-name">No backup chosen yet.</p>
+            <div class="slot-actions"><button class="button secondary" id="choose-compare" type="button">Choose a ZIP</button><button class="button secondary" id="use-created" type="button" disabled>Use the backup just created</button></div>
+            <input class="visually-hidden" type="file" id="compare-input" accept=".zip,application/zip" tabindex="-1" aria-label="Saved backup to compare against">
+          </div>
+          <div class="compare-slot">
+            <div class="slot-head"><span class="input-step" aria-hidden="true">B</span>Current files</div>
+            <p class="slot-value" id="compare-current">0 files selected</p>
+            <div class="slot-actions"><button class="button secondary" id="back-to-files" type="button">Choose files</button><button class="button secondary" id="load-changed-demo" type="button">Load a changed sample</button></div>
+          </div>
+          <button class="button primary" id="compare-button" type="button" disabled>Compare</button>
+        </div>
+        <p class="compare-explainer">Removed means the file is missing from the current selection. Comparing never edits or deletes a file.</p>
+        <div id="comparison-result" hidden>
+          <div class="diff-stats"><div class="added"><strong id="count-added">0</strong><span>Added</span></div><div class="changed"><strong id="count-changed">0</strong><span>Changed</span></div><div class="removed"><strong id="count-removed">0</strong><span>Removed</span></div><div class="unchanged"><strong id="count-unchanged">0</strong><span>Unchanged</span></div></div>
+          <div class="diff-toolbar"><label class="check-option"><input type="checkbox" id="show-unchanged">Show unchanged files</label><button class="text-button" id="download-report" type="button">Download JSON report</button></div>
+          <div class="table-wrap"><table><caption class="visually-hidden">Differences between the backup and the current files</caption><thead><tr><th scope="col">Relative path</th><th scope="col">Change</th><th scope="col">Before</th><th scope="col">Now</th></tr></thead><tbody id="comparison-rows"></tbody></table></div>
+        </div>
+      </section>
+    </section>
+  </div>
+
+
+  <footer class="site-footer">
+    <nav aria-label="More from Archive Desk"><a href="preview/archive-desk/protection.html">Encrypted copies</a><a href="preview/archive-desk/cli.html">Command line</a><a href="preview/archive-desk/history.html">Workbench for Windows</a><a href="archive-desk-source.zip" download>Source code</a></nav>
+    <p class="footer-about">Built by SanderSaxBuilds. The sample files are fictional, and your own files never leave this tab.</p>
+    <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
+  </footer>
+</main>
+<dialog id="replace-dialog" aria-labelledby="replace-title" aria-describedby="replace-description"><h2 id="replace-title">Replace this selection?</h2><p id="replace-description">Download any backup you want to keep first. This only replaces the files held in this tab. Your original files stay as they are.</p><div class="dialog-actions"><button class="button secondary" id="replace-no" type="button" autofocus>Keep current files</button><button class="button primary" id="replace-yes" type="button">Replace</button></div></dialog>
+<script src="preview/archive-desk/motion.js"></script>
+</body>
+</html>
