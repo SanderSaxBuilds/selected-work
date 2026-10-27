@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="../../email-kit/">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#2b1f16">
+<title>Inkpost email templates</title>
+<meta name="description" content="An email design studio for four responsive HTML emails for a fictional coffee roaster, with Outlook fallbacks, fluid hybrid columns, dark mode and plain text versions, previewed in webmail and phone mail frames.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Inkpost email templates">
+<meta property="og:description" content="Four responsive HTML emails for a fictional coffee roaster, with Outlook fallbacks, dark mode and plain text versions, previewed in webmail and phone mail frames.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/email-kit/">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/email.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Inkpost email templates">
+<meta name="twitter:description" content="Four responsive HTML emails with Outlook fallbacks, dark mode and plain text versions, previewed in webmail and phone mail frames.">
+<meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/email.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233341d6'/%3E%3Cpath d='M7 10.5h18v12H7z' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cpath d='M7 11l9 7 9-7' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="preview.css?v=20261025q">
+<style>
+/* preview: "Kraft and post office". Brown kraft desk, espresso ink, one teal postmark colour.
+   The inbox becomes a letter rack of envelopes on the right, the notes become a typed
+   delivery slip on the left, and the email sits in the middle on a sorting table. */
+:root{
+  --desk:#e7d9bf;--desk-2:#dccaa9;--surface:#f6eedd;--surface-2:#efe3cb;
+  --ink:#2b1f16;--ink-2:#4a3a2c;--muted:#6f5c49;--faint:#9a866f;
+  --rule:#d2bf9d;--rule-2:#b9a37f;
+  --accent:#0b6e78;--accent-2:#085860;--accent-soft:#d6e4dc;--accent-ink:#f6eedd;
+  --code-bg:#2b1f16;--code-ink:#f1e5cf;
+  --sans:"Fraunces",Georgia,"Times New Roman",serif;
+  --mono:"Courier Prime","Courier New",ui-monospace,monospace;
+  --win:none;
+}
+body{background:var(--desk);color:var(--ink);font-family:var(--sans);font-optical-sizing:auto}
+::selection{background:var(--accent);color:var(--accent-ink)}
+:focus-visible{outline-color:var(--accent)}
+
+/* masthead: a rubber stamped word, no pill and no badge */
+.appbar,.masthead{background:var(--ink);border-bottom:0;color:var(--surface)}
+.logo-mark{background:transparent;border:1.5px solid var(--surface);border-radius:2px}
+.logo-mark svg{stroke:var(--surface)}
+.logo-w{font-family:var(--sans);font-weight:800;font-style:italic;font-size:22px;letter-spacing:-.01em;color:var(--surface)}
+.logo-t{border:0!important;border-radius:0!important;padding:0!important;background:none!important;color:#cbb895;font-family:var(--mono);font-size:13px}
+.appnav a,.topbar a,.quiet{color:#efe3cb}
+.quiet:hover{color:#fff}
+
+/* layout: slip left, sorting table centre, letter rack right */
+@media (min-width:1000px){
+  .studio{grid-template-columns:minmax(0,1fr) 320px}
+  .inbox{order:2}
+  .desk{order:1}
+}
+@media (min-width:1400px){
+  .panel{grid-template-columns:320px minmax(0,1fr)}
+  .details{order:-1}
+}
+@media (min-width:2000px){
+  .studio{grid-template-columns:minmax(0,1fr) 400px}
+  .panel{grid-template-columns:400px minmax(0,1fr)}
+}
+
+/* the letter rack */
+.inbox{background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible}
+.intro{padding:4px 2px 18px;border-bottom:2px solid var(--ink)}
+.intro h1{font-family:var(--sans);font-weight:800;font-size:38px;line-height:.98;letter-spacing:-.025em;font-variation-settings:"SOFT" 100,"WONK" 1}
+.lede{font-family:var(--sans);color:var(--ink-2)}
+.inbox-h{padding:14px 2px 10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+.inbox-h .num{background:none;color:var(--accent);padding:0;border-radius:0;font-size:12px}
+.tabs{padding:0;gap:12px}
+.tabs [role="tab"]{background:#f3e8d2;border:1.5px solid #c3ad86;border-radius:3px;padding:16px 14px 14px;box-shadow:0 2px 0 #c3ad86;
+  background-image:linear-gradient(160deg,transparent 0 46%,rgba(43,31,22,.06) 46% 47%,transparent 47%),linear-gradient(20deg,transparent 0 53%,rgba(43,31,22,.06) 53% 54%,transparent 54%);
+  transform:rotate(var(--tilt,0deg));transition:transform .25s ease,background-color .15s ease,box-shadow .2s ease}
+.tabs [role="tab"]:nth-child(2n){--tilt0:-.6deg}
+.tabs [role="tab"]:hover{background-color:#f8efdd;box-shadow:0 6px 0 #c3ad86}
+.tabs [role="tab"][aria-selected="true"]{background-color:#fbf5e8;border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.av{border-radius:0;width:36px;height:42px;background:var(--accent);color:var(--accent-ink);font-family:var(--sans);font-weight:800;outline:1.5px dashed var(--accent);outline-offset:2px}
+.tabs [role="tab"][aria-selected="true"] .av{background:var(--ink);outline-color:var(--ink)}
+.from{font-family:var(--sans);font-weight:700;font-size:15px}
+.tab-size{font-family:var(--mono);color:var(--muted)}
+.subj{font-family:var(--sans);font-weight:600}
+.pre{font-family:var(--sans);color:var(--muted)}
+.tab-name{border:0!important;border-radius:0!important;padding:0!important;background:none!important;font-family:var(--mono);color:var(--accent-2)!important;text-decoration:underline;text-underline-offset:3px}
+
+/* controls as typewriter keys */
+.seg legend{font-family:var(--mono);color:var(--muted);letter-spacing:.08em}
+.seg span{background:var(--surface);border:1.5px solid var(--ink);font-family:var(--mono);font-weight:700;font-size:13px;color:var(--ink)}
+.seg label + label span{border-left:0}
+.seg label:first-of-type span{border-radius:2px 0 0 2px}
+.seg label:last-of-type span{border-radius:0 2px 2px 0}
+.seg span:hover{background:var(--surface-2)}
+.seg input:checked + span{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.seg-client input:checked + span{background:var(--accent);border-color:var(--ink);color:var(--accent-ink)}
+
+/* sorting table */
+.stage{background:var(--desk-2);border:0;border-top:2px solid var(--ink);border-radius:0;
+  background-image:linear-gradient(180deg,rgba(255,255,255,.18),transparent 120px)}
+.scale-note{font-family:var(--mono);color:var(--muted)}
+.client[data-client="web"]{border-radius:2px;border:1.5px solid var(--ink);box-shadow:10px 10px 0 rgba(43,31,22,.85)}
+.client[data-client="none"]{box-shadow:10px 10px 0 rgba(43,31,22,.85)}
+.client[data-client="phone"]{box-shadow:0 0 0 1.5px #2b1f16,12px 12px 0 rgba(43,31,22,.8)}
+.client[data-client="phone"] .cl-nav{color:var(--accent)}
+.client[data-client="phone"][data-theme="dark"] .cl-nav{color:#7cc6cd}
+.cl-dots i,.cl-sys i{display:none!important}
+.cl-subj{font-family:var(--sans)}
+.cl-av{background:var(--accent);color:var(--accent-ink);border-radius:0}
+
+/* delivery slip */
+.details{background:#fbf5e8;border:1.5px solid var(--ink);border-radius:0;box-shadow:none;padding:22px 22px 24px;
+  background-image:repeating-linear-gradient(180deg,transparent 0 27px,rgba(11,110,120,.12) 27px 28px)}
+.d-k{font-family:var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.1em}
+.details h2{font-family:var(--sans);font-weight:800;font-size:30px;letter-spacing:-.02em;font-variation-settings:"SOFT" 100,"WONK" 1}
+.summary{font-family:var(--sans)}
+.meta{border-top:1.5px solid var(--ink)}
+.meta div{border-bottom:1px dashed var(--rule-2)}
+.meta dt{font-family:var(--mono);color:var(--muted)}
+.meta dd{font-family:var(--mono);font-size:14px}
+.clip{border-radius:0;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--ink)}
+.clip i{border-radius:0;background:var(--accent)}
+.details h3{font-family:var(--sans);font-weight:700}
+.checks li::before{border-color:var(--accent)}
+.action{border:1.5px solid var(--ink);border-radius:2px;background:var(--surface);font-family:var(--mono);font-weight:700}
+.action:hover{border-color:var(--ink);background:var(--surface-2);color:var(--ink)}
+.action[aria-expanded="true"]{background:var(--ink);color:var(--surface)}
+.actions .action:first-child{background:var(--accent);border-color:var(--ink);color:var(--accent-ink)}
+.actions .action:first-child:hover{background:var(--accent-2)}
+.source-head{font-family:var(--mono)}
+.source pre{border-radius:0;background:var(--code-bg);color:var(--code-ink);font-family:var(--mono)}
+.foot{color:var(--muted);font-family:var(--sans)}
+.foot .footer-contact{border-top:2px solid var(--ink)}
+.footer-contact span{font-family:var(--mono)}
+.footer-contact a{color:var(--ink)}
+.footer-contact a:hover{color:var(--accent)}
+.sample h1{font-family:var(--sans);font-weight:800}
+@media (max-width:720px){.intro h1{font-size:30px}.details h2{font-size:25px}}
+@media (prefers-reduced-motion:reduce){.tabs [role="tab"]{transform:none!important}}
+</style>
+<script type="module">
+// Inkpost preview: the inbox list, client frames (bare canvas, webmail window,
+// phone mail), phone and desktop widths, light and dark mode, and the source
+// view. The emails load into same-origin iframes so the page can
+// size them and switch their dark mode rules on and off.
+
+// The built emails point their images and links at the published kit. On a
+// local copy, rewrite those URLs to this folder so the preview works before
+// the kit is published.
+const PUBLISHED = 'https://sandersaxbuilds.github.io/selected-work/email-kit/';
+const HERE = new URL('./', document.baseURI).href;
+const LOCAL = !location.href.startsWith(PUBLISHED);
+
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+const state = {
+  width: innerWidth < 720 ? 375 : 680,
+  client: innerWidth < 720 ? 'none' : 'web',
+  theme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+};
+const frames = new Map(panels.map(p => [p.dataset.id, {
+  id: p.dataset.id,
+  panel: p,
+  stage: p.querySelector('.stage'),
+  box: p.querySelector('.frame-box'),
+  client: p.querySelector('.client'),
+  frame: p.querySelector('iframe'),
+  note: p.querySelector('.scale-note'),
+  darkRules: [],
+  ready: null
+}]));
+
+function setRadio(name, value) {
+  const input = document.querySelector(`input[name="${name}"][value="${value}"]`);
+  if (input) input.checked = true;
+}
+
+function load(f) {
+  if (f.ready) return f.ready;
+  f.ready = new Promise(resolve => {
+    f.frame.addEventListener('load', () => { prepare(f); resolve(); }, { once: true });
+    const src = f.frame.dataset.src;
+    if (LOCAL) {
+      fetch(src)
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(html => { f.frame.srcdoc = html.split(PUBLISHED).join(HERE); })
+        .catch(() => { f.note.textContent = 'This email could not be loaded. Open the page through a web server.'; resolve(); });
+    } else {
+      f.frame.src = src;
+    }
+  });
+  return f.ready;
+}
+
+function prepare(f) {
+  const doc = f.frame.contentDocument;
+  if (!doc) return;
+  f.darkRules = [];
+  for (const sheet of doc.styleSheets) {
+    let rules;
+    try { rules = sheet.cssRules; } catch { continue; }
+    for (const rule of rules) {
+      if (rule.media && /prefers-color-scheme:\s*dark/.test(rule.media.mediaText)) f.darkRules.push(rule);
+    }
+  }
+  doc.querySelectorAll('a[href]').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });
+  const article = doc.querySelector('[role="article"]') || doc.body;
+  new f.frame.contentWindow.ResizeObserver(() => size(f)).observe(article);
+  applyTheme(f);
+  size(f);
+}
+
+// Dark mode in the email is a prefers-color-scheme media query. Rewriting
+// its media text to "all" or "not all" forces it on or off, whatever the
+// viewer's own system setting is.
+function applyTheme(f) {
+  for (const rule of f.darkRules) rule.media.mediaText = state.theme === 'dark' ? 'all' : 'not all';
+  f.client.dataset.theme = state.theme;
+}
+
+// The client frame is drawn around the real email: its chrome follows the
+// light or dark mode, and the phone frame holds the email in its own scroll.
+function applyClient(f) {
+  f.client.dataset.client = state.client;
+  f.client.dataset.theme = state.theme;
+}
+
+// Horizontal room the client frame itself takes, so the email inside keeps
+// its true width or scales down as a whole.
+function chromeX(f) {
+  let x = 0;
+  for (const el of [f.client, f.client.querySelector('.cl-body')]) {
+    const s = getComputedStyle(el);
+    x += parseFloat(s.paddingLeft) + parseFloat(s.paddingRight) + parseFloat(s.borderLeftWidth) + parseFloat(s.borderRightWidth);
+  }
+  return x;
+}
+
+function size(f) {
+  const doc = f.frame.contentDocument;
+  if (!doc || f.panel.hidden) return;
+  const cs = getComputedStyle(f.stage);
+  const avail = f.stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - chromeX(f);
+  const scale = Math.min(1, avail / state.width);
+  f.frame.style.width = state.width + 'px';
+  const article = doc.querySelector('[role="article"]');
+  const height = Math.ceil(article ? article.getBoundingClientRect().height : doc.documentElement.scrollHeight);
+  f.frame.style.height = height + 'px';
+  f.frame.style.transform = scale < 1 ? `scale(${scale})` : '';
+  f.box.style.width = Math.floor(state.width * scale) + 'px';
+  f.box.style.height = Math.ceil(height * scale) + 'px';
+  f.client.style.width = Math.floor(state.width * scale) + chromeX(f) + 'px';
+  const where = { none: 'on the bare canvas', web: 'in a webmail window', phone: 'in a phone mail app' }[state.client];
+  f.note.textContent = scale < 1
+    ? `${state.width} pixels wide ${where}, shown at ${Math.round(scale * 100)}% to fit this screen`
+    : `${state.width} pixels wide ${where}`;
+}
+
+async function select(id, { focus = false, updateHash = true } = {}) {
+  tabs.forEach(t => {
+    const on = t.dataset.id === id;
+    t.setAttribute('aria-selected', String(on));
+    t.tabIndex = on ? 0 : -1;
+    if (on && focus) t.focus();
+  });
+  panels.forEach(p => { p.hidden = p.dataset.id !== id; });
+  if (updateHash) history.replaceState(null, '', location.pathname + location.search + '#' + id);
+  const f = frames.get(id);
+  size(f);
+  await load(f);
+  size(f);
+}
+
+document.querySelector('[role="tablist"]').addEventListener('keydown', e => {
+  const i = tabs.indexOf(document.activeElement);
+  if (i < 0) return;
+  const next = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+  if (next === undefined) return;
+  e.preventDefault();
+  select(tabs[(next + tabs.length) % tabs.length].dataset.id, { focus: true });
+});
+tabs.forEach(t => t.addEventListener('click', () => select(t.dataset.id)));
+
+document.querySelectorAll('input[name="width"]').forEach(r => r.addEventListener('change', () => {
+  state.width = Number(r.value);
+  // a phone mail app never shows the desktop width, so the frame steps up to webmail
+  if (state.width === 680 && state.client === 'phone') { state.client = 'web'; setRadio('client', 'web'); }
+  frames.forEach(f => { applyClient(f); size(f); });
+}));
+document.querySelectorAll('input[name="client"]').forEach(r => r.addEventListener('change', () => {
+  const was = state.client;
+  state.client = r.value;
+  if (state.client === 'phone') state.width = 375;
+  else if (was === 'phone') state.width = 680;
+  setRadio('width', state.width);
+  frames.forEach(f => { applyClient(f); size(f); });
+}));
+document.querySelectorAll('input[name="theme"]').forEach(r => r.addEventListener('change', () => {
+  state.theme = r.value;
+  frames.forEach(f => applyTheme(f));
+}));
+
+document.querySelectorAll('[data-source]').forEach(btn => btn.addEventListener('click', async () => {
+  const box = document.getElementById(btn.getAttribute('aria-controls'));
+  const open = btn.getAttribute('aria-expanded') !== 'true';
+  btn.setAttribute('aria-expanded', String(open));
+  box.hidden = !open;
+  const code = box.querySelector('code');
+  if (open && !code.textContent) {
+    try { code.textContent = await (await fetch(btn.dataset.source)).text(); }
+    catch { code.textContent = 'The source could not be loaded.'; }
+  }
+}));
+
+addEventListener('hashchange', () => {
+  const id = location.hash.slice(1);
+  if (frames.has(id)) select(id, { updateHash: false });
+});
+
+let resizeTimer;
+addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => frames.forEach(f => size(f)), 80);
+});
+
+setRadio('width', state.width);
+setRadio('theme', state.theme);
+setRadio('client', state.client);
+frames.forEach(f => applyClient(f));
+const fromHash = location.hash.slice(1);
+const first = frames.has(fromHash) ? fromHash : tabs[0].dataset.id;
+await select(first, { updateHash: frames.has(fromHash) });
+document.documentElement.dataset.ready = 'true';
+</script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;document.addEventListener('pointermove',function(e){var t=e.target.closest&&e.target.closest('.tabs [role="tab"]');document.querySelectorAll('.tabs [role="tab"]').forEach(function(n){if(n!==t)n.style.removeProperty('--tilt')});if(!t)return;var r=t.getBoundingClientRect();var k=((e.clientX-r.left)/r.width-.5)*2;t.style.setProperty('--tilt',(k*1.6).toFixed(2)+'deg')},{passive:true})})();</script>
+</head>
+<body>
+<a class="skip" href="#viewer">Skip to the preview</a>
+<header class="appbar">
+<div class="appbar-in">
+<p class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4z"/><path d="M4 7.5l8 6 8-6"/></svg></span><span class="logo-w">Inkpost</span><span class="logo-t">Email studio</span></p>
+<nav class="appnav" aria-label="Links">
+<a class="quiet" href="../">Selected work</a>
+<a class="quiet" href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source on GitHub</a>
+</nav>
+</div>
+</header>
+<main id="viewer" class="studio" tabindex="-1">
+<aside class="inbox" aria-labelledby="inbox-h">
+<div class="intro">
+<h1>Four emails, one layout</h1>
+<p class="lede">Built for Kettlewick Coffee Roasters, a fictional roaster, by a small Node script with its own CSS inliner. Each one carries Outlook fallbacks, stacks on phones and has a dark mode. Pick an email, then look at it in a webmail window or on a phone.</p>
+</div>
+<h2 class="inbox-h" id="inbox-h">Inbox <span class="num">4</span></h2>
+<div class="tabs" role="tablist" aria-label="Emails" aria-orientation="vertical">
+<button type="button" role="tab" id="tab-welcome" aria-controls="panel-welcome" aria-selected="true" tabindex="0" data-id="welcome"><span class="av" aria-hidden="true">K</span><span class="mail"><span class="mail-top"><span class="from">Kettlewick</span><span class="tab-size">19.2 KB</span></span><span class="subj">Welcome to Kettlewick</span><span class="pre">Your code for 15% off the first bag, and what to expect from us.</span><span class="tab-name">Welcome</span></span></button>
+<button type="button" role="tab" id="tab-order-confirmation" aria-controls="panel-order-confirmation" aria-selected="false" tabindex="-1" data-id="order-confirmation"><span class="av" aria-hidden="true">K</span><span class="mail"><span class="mail-top"><span class="from">Kettlewick</span><span class="tab-size">22.7 KB</span></span><span class="subj">Order KW-20418 is confirmed</span><span class="pre">Thanks, Jamie. We roast your coffee on Tuesday and post it on Wednesday morning.</span><span class="tab-name">Order confirmation</span></span></button>
+<button type="button" role="tab" id="tab-shipping-update" aria-controls="panel-shipping-update" aria-selected="false" tabindex="-1" data-id="shipping-update"><span class="av" aria-hidden="true">K</span><span class="mail"><span class="mail-top"><span class="from">Kettlewick</span><span class="tab-size">21.0 KB</span></span><span class="subj">Your coffee is on its way</span><span class="pre">Order KW-20418 left the roastery today. Harbour Post expects to deliver it on Friday 23 October.</span><span class="tab-name">Shipping update</span></span></button>
+<button type="button" role="tab" id="tab-newsletter" aria-controls="panel-newsletter" aria-selected="false" tabindex="-1" data-id="newsletter"><span class="av" aria-hidden="true">K</span><span class="mail"><span class="mail-top"><span class="from">Kettlewick</span><span class="tab-size">28.8 KB</span></span><span class="subj">Roast notes: a Kenya and a Guatemala for November</span><span class="pre">Two new coffees, the brew ratio we use on the bar and a free cupping on Saturday 14 November.</span><span class="tab-name">Newsletter</span></span></button>
+</div>
+</aside>
+<section class="desk" aria-label="Preview">
+<div class="controls">
+<fieldset class="seg seg-client">
+<legend>Client</legend>
+<label><input type="radio" name="client" value="none"><span>Canvas</span></label>
+<label><input type="radio" name="client" value="web" checked><span>Webmail</span></label>
+<label><input type="radio" name="client" value="phone"><span>Phone mail</span></label>
+</fieldset>
+<div class="toggles">
+<fieldset class="seg">
+<legend>Width</legend>
+<label><input type="radio" name="width" value="375"><span>375</span></label>
+<label><input type="radio" name="width" value="680" checked><span>680</span></label>
+</fieldset>
+<fieldset class="seg">
+<legend>Mode</legend>
+<label><input type="radio" name="theme" value="light" checked><span>Light</span></label>
+<label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+</fieldset>
+</div>
+</div>
+<section class="panel" role="tabpanel" id="panel-welcome" aria-labelledby="tab-welcome" data-id="welcome">
+<div class="stage">
+<div class="client" data-client="web" data-theme="light">
+<div class="cl-bar" aria-hidden="true"><span class="cl-time">9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span><span class="cl-dots"><i></i><i></i><i></i></span></div>
+<div class="cl-head">
+<p class="cl-subj">Welcome to Kettlewick</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
+<div class="frame-box"><iframe title="Welcome email" data-src="dist/welcome.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+</div>
+</div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<p class="d-k">Email 1 of 4</p>
+<h2>Welcome</h2>
+<p class="summary">Sent once, straight after someone joins the list.</p>
+<dl class="meta">
+<div><dt>Subject</dt><dd>Welcome to Kettlewick</dd></div>
+<div><dt>Preview text</dt><dd>Your code for 15% off the first bag, and what to expect from us.</dd></div>
+<div><dt>Built size</dt><dd><span class="num">19.2 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(19.2 / 102 * 100%)"></i></span></dd></div>
+</dl>
+<h3>What it handles</h3>
+<ul class="checks">
+<li>Hidden preheader followed by spacer characters, so the inbox preview stops where it should</li>
+<li>VML roundrect button for Outlook on Windows, with a styled link for every other client</li>
+<li>Logo badge with its own background, readable in light and dark inboxes</li>
+<li>Dashed code box and numbered steps built from table cells, so they show with images off</li>
+<li>Dark mode through prefers-color-scheme, repeated for Outlook.com with data-ogsc and data-ogsb</li>
+<li>Plain text version with every link written out</li>
+</ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-welcome" data-source="dist/welcome.html">View source</button>
+<a class="action" href="dist/welcome.html" download="kettlewick-welcome.html">Download HTML</a>
+<a class="action" href="dist/welcome.txt" download="kettlewick-welcome.txt">Download plain text</a>
+<a class="action" href="dist/welcome.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-welcome" hidden>
+<p class="source-head"><span>dist/welcome.html</span><span class="num">19652 bytes</span></p>
+<pre tabindex="0" aria-label="Built HTML of the Welcome email"><code></code></pre>
+</div>
+</section>
+<section class="panel" role="tabpanel" id="panel-order-confirmation" aria-labelledby="tab-order-confirmation" data-id="order-confirmation">
+<div class="stage">
+<div class="client" data-client="web" data-theme="light">
+<div class="cl-bar" aria-hidden="true"><span class="cl-time">9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span><span class="cl-dots"><i></i><i></i><i></i></span></div>
+<div class="cl-head">
+<p class="cl-subj">Order KW-20418 is confirmed</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
+<div class="frame-box"><iframe title="Order confirmation email" data-src="dist/order-confirmation.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+</div>
+</div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<p class="d-k">Email 2 of 4</p>
+<h2>Order confirmation</h2>
+<p class="summary">Sent when an order is paid. Lists the items, the totals and where the order is going.</p>
+<dl class="meta">
+<div><dt>Subject</dt><dd>Order KW-20418 is confirmed</dd></div>
+<div><dt>Preview text</dt><dd>Thanks, Jamie. We roast your coffee on Tuesday and post it on Wednesday morning.</dd></div>
+<div><dt>Built size</dt><dd><span class="num">22.7 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(22.7 / 102 * 100%)"></i></span></dd></div>
+</dl>
+<h3>What it handles</h3>
+<ul class="checks">
+<li>Line items in a real data table with column and row headers, so a screen reader can follow it</li>
+<li>Line totals, the discount and the total worked out at build time from unit prices, then checked again by the tests</li>
+<li>Delivery and payment details in two fluid hybrid columns that stack on phones without a media query</li>
+<li>Ghost tables in Outlook conditional comments keep those columns side by side in Outlook</li>
+<li>Thumbnails sized by width and height attributes, so Outlook on a high DPI screen keeps them at 56 pixels</li>
+<li>Figures right aligned with tabular numbers</li>
+</ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-order-confirmation" data-source="dist/order-confirmation.html">View source</button>
+<a class="action" href="dist/order-confirmation.html" download="kettlewick-order-confirmation.html">Download HTML</a>
+<a class="action" href="dist/order-confirmation.txt" download="kettlewick-order-confirmation.txt">Download plain text</a>
+<a class="action" href="dist/order-confirmation.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-order-confirmation" hidden>
+<p class="source-head"><span>dist/order-confirmation.html</span><span class="num">23256 bytes</span></p>
+<pre tabindex="0" aria-label="Built HTML of the Order confirmation email"><code></code></pre>
+</div>
+</section>
+<section class="panel" role="tabpanel" id="panel-shipping-update" aria-labelledby="tab-shipping-update" data-id="shipping-update">
+<div class="stage">
+<div class="client" data-client="web" data-theme="light">
+<div class="cl-bar" aria-hidden="true"><span class="cl-time">9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span><span class="cl-dots"><i></i><i></i><i></i></span></div>
+<div class="cl-head">
+<p class="cl-subj">Your coffee is on its way</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
+<div class="frame-box"><iframe title="Shipping update email" data-src="dist/shipping-update.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+</div>
+</div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<p class="d-k">Email 3 of 4</p>
+<h2>Shipping update</h2>
+<p class="summary">Sent when the parcel is handed to the carrier, with tracking and a delivery estimate.</p>
+<dl class="meta">
+<div><dt>Subject</dt><dd>Your coffee is on its way</dd></div>
+<div><dt>Preview text</dt><dd>Order KW-20418 left the roastery today. Harbour Post expects to deliver it on Friday 23 October.</dd></div>
+<div><dt>Built size</dt><dd><span class="num">21.0 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(21.0 / 102 * 100%)"></i></span></dd></div>
+</dl>
+<h3>What it handles</h3>
+<ul class="checks">
+<li>Tracking button in VML for Outlook and a 48 pixel tall link everywhere else</li>
+<li>Four step progress bar made of table cells with bgcolor, so it shows with images off</li>
+<li>Tracking number in a monospaced face with letter spacing, and format detection off so iOS leaves it alone</li>
+<li>Brew tip callout with its own dark mode colours</li>
+<li>Every link and button is at least 44 pixels tall</li>
+</ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-shipping-update" data-source="dist/shipping-update.html">View source</button>
+<a class="action" href="dist/shipping-update.html" download="kettlewick-shipping-update.html">Download HTML</a>
+<a class="action" href="dist/shipping-update.txt" download="kettlewick-shipping-update.txt">Download plain text</a>
+<a class="action" href="dist/shipping-update.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-shipping-update" hidden>
+<p class="source-head"><span>dist/shipping-update.html</span><span class="num">21519 bytes</span></p>
+<pre tabindex="0" aria-label="Built HTML of the Shipping update email"><code></code></pre>
+</div>
+</section>
+<section class="panel" role="tabpanel" id="panel-newsletter" aria-labelledby="tab-newsletter" data-id="newsletter">
+<div class="stage">
+<div class="client" data-client="web" data-theme="light">
+<div class="cl-bar" aria-hidden="true"><span class="cl-time">9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span><span class="cl-dots"><i></i><i></i><i></i></span></div>
+<div class="cl-head">
+<p class="cl-subj">Roast notes: a Kenya and a Guatemala for November</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
+<div class="frame-box"><iframe title="Newsletter email" data-src="dist/newsletter.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+</div>
+</div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<p class="d-k">Email 4 of 4</p>
+<h2>Newsletter</h2>
+<p class="summary">Roast notes, the monthly email. A hero, a product grid, a brew tip and an event.</p>
+<dl class="meta">
+<div><dt>Subject</dt><dd>Roast notes: a Kenya and a Guatemala for November</dd></div>
+<div><dt>Preview text</dt><dd>Two new coffees, the brew ratio we use on the bar and a free cupping on Saturday 14 November.</dd></div>
+<div><dt>Built size</dt><dd><span class="num">28.8 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(28.8 / 102 * 100%)"></i></span></dd></div>
+</dl>
+<h3>What it handles</h3>
+<ul class="checks">
+<li>Two column product grid in fluid hybrid columns, side by side at 600 pixels and stacked on phones even when a client strips media queries</li>
+<li>Media queries widen the stacked cards and images to the full width as an enhancement</li>
+<li>Young Serif headings where web fonts load, with Georgia as the fallback that Outlook is held to</li>
+<li>Full width hero that scales with height auto, sized for Outlook by its width and height attributes</li>
+<li>Outline buttons in VML as well, so all six buttons stay buttons in Outlook</li>
+<li>Unsubscribe and preference links in the footer, each a full size tap target</li>
+</ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-newsletter" data-source="dist/newsletter.html">View source</button>
+<a class="action" href="dist/newsletter.html" download="kettlewick-newsletter.html">Download HTML</a>
+<a class="action" href="dist/newsletter.txt" download="kettlewick-newsletter.txt">Download plain text</a>
+<a class="action" href="dist/newsletter.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-newsletter" hidden>
+<p class="source-head"><span>dist/newsletter.html</span><span class="num">29501 bytes</span></p>
+<pre tabindex="0" aria-label="Built HTML of the Newsletter email"><code></code></pre>
+</div>
+</section>
+</section>
+</main>
+<footer class="foot">
+<p>Kettlewick Coffee Roasters is a fictional business. Its people, orders and prices are sample content made for this portfolio piece, not client work. The webmail and phone frames are drawings around the real built email, not screenshots of a mail app. Rendering was checked in Chromium only. Outlook, Gmail and Apple Mail were not opened, so the Outlook code is checked by tests on its structure.</p>
+<p><a class="quiet" href="../">Back to selected work</a></p>
+<p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
+</footer>
+</body>
+</html>

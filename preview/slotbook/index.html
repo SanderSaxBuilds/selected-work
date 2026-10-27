@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="../../slotbook/">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slotbook booking page sample</title>
+<meta name="description" content="Slotbook is a sample appointment booking page for a fictional bike workshop in Chiang Mai. Pick a service, a day and a time on a day timeline, then download the booking for your calendar. Staff move bookings by dragging them in the diary.">
+<meta property="og:title" content="Slotbook booking page sample">
+<meta property="og:description" content="Weekly hours, date overrides, buffers and time zone aware slots for a fictional bike workshop, with a drag to reschedule diary.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/slotbook/">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/slotbook.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/slotbook/">
+<meta name="theme-color" content="#2a1230">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315171a'/%3E%3Crect x='8' y='7' width='16' height='5' rx='2' fill='%232b78c5'/%3E%3Crect x='8' y='14' width='16' height='11' rx='2' fill='%2314866d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css?v=20261025t">
+<style>
+/* preview: "Aubergine timetable". Cream timetable paper, aubergine ink, powder blue chalk.
+   The header becomes a deep aubergine band with a big wide title, the ticket moves to the left
+   as a printed dark ticket, services run across the top like timetable columns. */
+:root{
+  --canvas:#f7f0e6;--sheet:#fffaf3;--sheet-2:#f6ede0;
+  --ink:#2a1230;--ink-2:#4a3350;--muted:#6e5a70;--faint:#a2919f;
+  --line:#eadfd0;--line-2:#d7c6b4;--shut:#efe5d7;
+  --now:#6d2a63;--ok:#2f6e8e;--bad:#b0283a;--tone:#6d2a63;
+  --sans:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --mono:"DM Mono",ui-monospace,Consolas,monospace;
+  --r:6px;--shadow:none;
+  --band:#2a1230;--band-2:#3b1b42;--chalk:#bcd8f2;--plum:#6d2a63;
+}
+/* service tones, remapped from the inline values the script writes */
+[style*="2b78c5"]{--tone:#3d6fa3!important}
+[style*="14866d"]{--tone:#2f6e8e!important}
+[style*="7a55c9"]{--tone:#8a4f9a!important}
+[style*="b8406f"]{--tone:#6d2a63!important}
+.stub{--tone:#2f6e8e}
+body{background:var(--canvas);color:var(--ink);font-family:var(--sans)}
+::selection{background:var(--chalk);color:var(--ink)}
+:focus-visible{outline-color:var(--plum)}
+
+/* the band */
+.top{background:var(--band);border-bottom:0;color:#f7f0e6}
+.mark{color:#f7f0e6}
+.mark rect:nth-child(2){fill:var(--chalk)}
+.mark rect:nth-child(3){fill:#b98bb1}
+.mark rect:first-child{fill:#3b1b42}
+.brand-name{font-family:var(--sans);font-weight:700;font-size:17px;letter-spacing:-.01em;color:#fffaf3}
+.brand-sub{color:#cdb9cb}
+.tabs{background:transparent;border:1.5px solid #6e4a72;border-radius:999px}
+.tabs [role="tab"]{color:#cdb9cb;border-radius:999px;font-family:var(--mono);font-size:13px;letter-spacing:.02em}
+.tabs [role="tab"]:hover{color:#fffaf3}
+.tabs [role="tab"][aria-selected="true"]{color:var(--ink)}
+.tab-thumb{background:var(--chalk);border-radius:999px;box-shadow:none}
+.intro{max-width:none;margin:0;background:var(--band);color:#e9dce7;padding:6px max(var(--gutter),calc((100% - 1680px)/2 + var(--gutter))) 28px;border-bottom:6px solid var(--chalk)}
+.intro-lead{color:#e9dce7;font-size:17px;line-height:1.55}
+.sample-note{color:#cdb9cb}
+.tag{background:none!important;border:0!important;padding:0!important;color:var(--chalk)!important;font-family:var(--mono);font-weight:500;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+
+/* titles and steps */
+.page-title{font-family:var(--sans);font-weight:800;font-size:clamp(34px,4.4vw,64px);line-height:.92;letter-spacing:-.045em;color:var(--ink);font-variation-settings:"wdth" var(--wd,100),"opsz" 96;transition:font-variation-settings .3s ease}
+.step-h{font-family:var(--sans);font-size:20px;font-weight:700;letter-spacing:-.02em;gap:12px}
+.num{display:inline-block;white-space:nowrap;width:auto;height:auto;background:none;color:var(--plum);border-radius:0;font:500 28px/1 var(--mono);letter-spacing:-.04em}
+.num::before{content:"0"}
+.small-h,.ticket-k,.perks h2,.soonest-label{font-family:var(--mono);letter-spacing:.1em}
+
+/* panels: ruled timetable sheets, no soft cards */
+.step,.hours,.ticket{background:var(--sheet);border:0;border-top:3px solid var(--ink);border-radius:0;box-shadow:none}
+.hours summary{border-radius:0;font-family:var(--sans);font-weight:700}
+.hours summary::after{border-color:var(--ink)}
+
+/* wide layout: ticket on the left, services across the top, month on the right */
+@media (min-width:1100px){
+  .book{grid-template-columns:minmax(0,370px) minmax(0,1fr) minmax(0,350px);gap:24px}
+  .ticket-col{grid-column:1;grid-row:1 / span 3;top:24px}
+  .services{grid-column:2 / 4;grid-row:1}
+  .times{grid-column:2;grid-row:2 / span 2}
+  .when{grid-column:3;grid-row:2}
+  .hours{grid-column:3;grid-row:3}
+}
+
+/* services as timetable columns */
+.svc{border:1.5px solid var(--line-2);border-radius:0;background:var(--sheet)}
+.svc:hover{background:var(--sheet-2);border-color:var(--ink)}
+.svc:has(input:checked){background:color-mix(in srgb,var(--tone) 10%,#fffaf3);border-color:var(--tone);box-shadow:inset 0 -4px 0 var(--tone)}
+.svc-block{border-radius:0}
+.svc:has(input:checked) .svc-block{box-shadow:none}
+.svc-name{font-weight:700;font-size:17px;letter-spacing:-.01em}
+.svc-meta{font-family:var(--mono)}
+
+/* perks list with dashes instead of squares */
+.perks{border:0;border-top:1.5px dashed var(--line-2);border-radius:0;padding:16px 4px}
+.perks li::before{content:"\2013";width:auto;height:auto;margin:0;background:none!important;border-radius:0;opacity:1;color:var(--plum);font-family:var(--mono);font-weight:500}
+
+/* month */
+select,input,textarea{background:#fffdf9;border:1.5px solid var(--line-2);border-radius:4px;color:var(--ink)}
+input:focus-visible,select:focus-visible,textarea:focus-visible{border-color:var(--ink);box-shadow:0 0 0 3px rgba(188,216,242,.9)}
+.cal-title{font-family:var(--sans);font-weight:700;font-size:18px}
+.cal td{border-radius:0}
+.cal td.open:hover{background:#efe3f0}
+.cal td.today .dnum{color:var(--plum);text-decoration:underline;text-underline-offset:3px}
+.cal td.override:not([aria-selected="true"])::before{top:auto;bottom:auto;top:6px;right:auto;left:50%;width:14px;height:2px;margin-left:-7px;border-radius:0;background:var(--plum)}
+.cal td[aria-selected="true"]{background:var(--ink);color:#fffaf3}
+.cal td[aria-selected="true"] .dnum{color:#fffaf3}
+.cal td[aria-selected="true"] .dbar::after{background:var(--chalk)}
+.icon-btn{border-radius:0}
+.icon-btn:hover:not(:disabled){background:var(--chalk)}
+.icon-btn.sm{border:1.5px solid var(--ink)}
+
+/* day timeline */
+.times-for strong{font-family:var(--sans);font-weight:800;font-size:26px;letter-spacing:-.03em}
+.tl{border-top:2px solid var(--ink)}
+.row .t{font-family:var(--mono)}
+.row.closed{background:repeating-linear-gradient(135deg,transparent 0 7px,rgba(42,18,48,.06) 7px 8px),var(--shut)}
+.slot:hover{background:color-mix(in srgb,var(--tone) 8%,#fffaf3)}
+.tl .blk{border-radius:0}
+.tl .busy{background:#eee3d6;border-color:#dccbb8}
+.tl .mine{box-shadow:6px 6px 0 var(--ink)}
+.tl .mine.lift{box-shadow:10px 10px 0 var(--ink)}
+.soonest{border-radius:0;background:var(--band);border:0;color:#f7f0e6}
+.soonest-label{color:var(--chalk)}
+.soonest .muted{color:#cdb9cb}
+.soonest .btn.primary{background:var(--chalk);color:var(--ink)}
+
+/* the ticket: a dark printed stub on top of the form */
+.ticket{border-top:0}
+.ticket-top{background:var(--band);color:#f7f0e6;border-top:0;padding:22px 20px 18px;
+  --line:#53335a;--line-2:#7c5c80;--muted:#cdb9cb;--faint:#9c859e}
+.ticket-k{color:var(--chalk)}
+.ticket-steps .tk{font-family:var(--mono)}
+.ticket-steps .tk::before{width:12px;height:2px;border:0;border-radius:0;background:#7c5c80}
+.ticket-steps .is-done .tk::before{background:var(--chalk);border:0}
+.ticket-steps .tv{font-family:var(--sans);font-weight:700;font-size:16px}
+.details{background:var(--sheet);border-top:0}
+.field label{font-weight:600}
+.btn{border-radius:0;font-family:var(--sans);font-weight:700}
+.btn.primary{background:var(--ink);color:#fffaf3;box-shadow:4px 4px 0 var(--chalk)}
+.btn.primary:hover{background:var(--plum)}
+.btn.line{background:transparent;border:1.5px solid var(--ink)}
+.btn.line:hover{background:var(--chalk)}
+.errors{border-radius:0;background:#fbeff1}
+
+/* confirmation stub */
+.stub{border-radius:0;border:2px solid var(--ink);box-shadow:10px 10px 0 var(--ink)}
+.stub h2{font-family:var(--sans);font-weight:800;letter-spacing:-.04em;font-size:34px}
+.stub-d{font-family:var(--sans);font-weight:800}
+.stub-tear::before,.stub-tear::after{background:var(--canvas)}
+
+/* staff diary */
+.staff-head .page-title{margin-bottom:6px}
+.dh.today .dh-d{color:var(--plum)}
+.dh.on .dh-d{background:var(--ink);color:#fffaf3;border-radius:0}
+.now::before{display:none!important}
+.now{background:var(--plum);height:2px}
+.diary .blk{border-radius:0}
+.bk{border-radius:0}
+.bk-time{font-family:var(--mono)}
+.toast{border-radius:0;background:var(--ink);color:#f7f0e6}
+.toast-act{color:var(--chalk)}
+.foot{border-top:3px solid var(--ink);background:var(--canvas)}
+.foot a{color:var(--ink);text-decoration-color:var(--plum)}
+.foot a:hover{background:var(--chalk)}
+.skip{background:var(--ink);color:var(--chalk)}
+@media (prefers-reduced-motion:reduce){.page-title{transition:none}}
+</style>
+<link rel="modulepreload" href="src/app.mjs?v=20261024u">
+<link rel="modulepreload" href="src/core.mjs">
+<link rel="modulepreload" href="src/data.mjs">
+</head>
+<body>
+<a class="skip" href="#main">Skip to booking</a>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><rect x="8" y="7" width="16" height="5" rx="2" fill="#2b78c5"/><rect x="8" y="14" width="16" height="11" rx="2" fill="#14866d"/></svg>
+      <div>
+        <p class="brand-name">Lamyai Cycle Workshop</p>
+        <p class="brand-sub">Slotbook, bench bookings in Chiang Mai</p>
+      </div>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Views">
+      <button type="button" role="tab" id="tab-book" aria-controls="panel-book" aria-selected="true">Book a slot</button>
+      <button type="button" role="tab" id="tab-staff" aria-controls="panel-staff" aria-selected="false" tabindex="-1">Workshop diary</button>
+      <span class="tab-thumb" aria-hidden="true"></span>
+    </div>
+  </div>
+</header>
+
+<div class="intro">
+  <p class="intro-lead">A booking page for a one-bench repair workshop. Customers only see start times where the whole job fits, after opening hours, the lunch break and a 15 minute buffer. Staff move bookings by dragging them in the diary.</p>
+  <p class="sample-note"><span class="tag">Sample</span> Lamyai Cycle Workshop is a fictional business. Bookings are sample data kept only in this browser and no message is sent.</p>
+</div>
+
+<main id="main" tabindex="-1">
+  <section id="panel-book" role="tabpanel" aria-labelledby="tab-book">
+    <div class="book" id="book">
+      <div class="side">
+        <section class="step services" aria-labelledby="h-service">
+          <h1 class="page-title">Book a workshop slot</h1>
+          <h2 id="h-service" class="step-h"><span class="num">1</span>Service</h2>
+          <div class="service-list" id="services" role="radiogroup" aria-labelledby="h-service"></div>
+        </section>
+
+        <section class="step when" aria-labelledby="h-day">
+          <div class="when-head">
+            <h2 id="h-day" class="step-h"><span class="num">2</span>Day</h2>
+            <div class="zone">
+              <label for="zone">Times in</label>
+              <select id="zone"></select>
+            </div>
+          </div>
+          <p class="zone-note" id="zone-note" hidden></p>
+          <div class="cal-wrap">
+            <div class="cal-head">
+              <button type="button" class="icon-btn" id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+              <h3 id="cal-title" class="cal-title" aria-live="polite"></h3>
+              <button type="button" class="icon-btn" id="cal-next" aria-label="Next month"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+            </div>
+            <table class="cal" id="cal" role="grid" aria-labelledby="cal-title">
+              <thead><tr id="cal-dow"></tr></thead>
+              <tbody id="cal-body"></tbody>
+            </table>
+            <p class="cal-help" id="cal-help">Arrow keys move by day and week. Page Up and Page Down change month. Enter picks the day.</p>
+          </div>
+        </section>
+
+        <details class="hours" id="hours-box">
+          <summary>Workshop hours and changes</summary>
+          <div class="hours-in">
+            <h2 class="small-h">Every week</h2>
+            <dl id="weekly"></dl>
+            <h2 class="small-h">Changes to normal hours</h2>
+            <ul id="changes" class="changes"></ul>
+          </div>
+        </details>
+      </div>
+
+      <section class="step times" aria-labelledby="h-time">
+        <div class="times-head">
+          <h2 id="h-time" class="step-h"><span class="num">3</span>Time</h2>
+          <div class="day-step">
+            <button type="button" class="icon-btn sm" id="day-prev" aria-label="Previous day with open times"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+            <button type="button" class="icon-btn sm" id="day-next" aria-label="Next day with open times"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+          </div>
+        </div>
+        <p class="times-for" id="times-for">Pick a day to see open times.</p>
+        <p class="tl-help" id="tl-help" hidden>Each row is a start time. The shaded block shows how long the service takes. After you pick, drag your block up or down to change the time.</p>
+        <div id="slots" class="slots"></div>
+      </section>
+
+      <section class="ticket-col" aria-label="Your booking">
+        <div class="ticket" id="ticket">
+          <div class="ticket-top">
+            <p class="ticket-k">Your booking</p>
+            <ol class="ticket-steps" id="ticket-steps"></ol>
+          </div>
+          <section class="step details" id="details" aria-labelledby="h-details" hidden>
+            <h2 id="h-details" class="step-h" tabindex="-1"><span class="num">4</span>Your details</h2>
+            <div class="summary" id="summary"></div>
+            <form id="form" novalidate>
+              <div class="errors" id="errors" tabindex="-1" hidden></div>
+              <div class="fields">
+                <div class="field">
+                  <label for="f-name">Name</label>
+                  <input id="f-name" name="name" autocomplete="name" aria-describedby="e-name" required>
+                  <p class="err" id="e-name"></p>
+                </div>
+                <div class="field">
+                  <label for="f-email">Email</label>
+                  <input id="f-email" name="email" type="email" autocomplete="email" aria-describedby="e-email" required>
+                  <p class="err" id="e-email"></p>
+                </div>
+                <div class="field">
+                  <label for="f-phone">Phone</label>
+                  <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="h-phone e-phone" required>
+                  <p class="hint" id="h-phone">The workshop calls if a part needs ordering.</p>
+                  <p class="err" id="e-phone"></p>
+                </div>
+                <div class="field">
+                  <label for="f-bike">Bike</label>
+                  <select id="f-bike" name="bike" aria-describedby="e-bike" required></select>
+                  <p class="err" id="e-bike"></p>
+                </div>
+                <div class="field wide">
+                  <label for="f-notes">What needs looking at? <span class="opt">Optional</span></label>
+                  <textarea id="f-notes" name="notes" rows="3" maxlength="600" aria-describedby="h-notes e-notes"></textarea>
+                  <p class="hint" id="h-notes">Up to 500 characters.</p>
+                  <p class="err" id="e-notes"></p>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn primary" id="submit"><span>Confirm booking</span></button>
+                <button type="button" class="btn line" id="change-time">Change time</button>
+              </div>
+            </form>
+          </section>
+        </div>
+        <section class="perks" aria-labelledby="perks-h">
+          <h2 id="perks-h">Already handled for the workshop</h2>
+          <ul>
+            <li><span><b>Real opening hours.</b> Weekly hours, the lunch break and one-off changes like a late night or a training day.</span></li>
+            <li><span><b>No double booking.</b> A 15 minute buffer is kept around every job, and a booking needs three hours notice.</span></li>
+            <li><span><b>Visitors abroad.</b> Set Times in to London or New York and every time converts, clock changes included.</span></li>
+            <li><span><b>A calendar file.</b> The customer downloads the booking for their own calendar.</span></li>
+            <li><span><b>A diary for staff.</b> Drag a booking to another time or day in Workshop diary.</span></li>
+          </ul>
+        </section>
+      </section>
+    </div>
+
+    <section class="done" id="done" aria-labelledby="h-done" hidden>
+      <div class="stub" id="stub">
+        <div class="stub-main">
+          <p class="ticket-k">Booking confirmed</p>
+          <h2 id="h-done" tabindex="-1">See you at the bench</h2>
+          <div id="done-body"></div>
+        </div>
+        <div class="stub-tear" aria-hidden="true"></div>
+        <div class="stub-side" id="stub-side"></div>
+      </div>
+      <div class="form-actions">
+        <a class="btn primary" id="ics" download>Add to calendar</a>
+        <button type="button" class="btn line" id="see-diary">See it in the diary</button>
+        <button type="button" class="btn line" id="again">Book another slot</button>
+      </div>
+      <p class="fine">This is a sample. No email or text was sent and the workshop is fictional.</p>
+    </section>
+  </section>
+
+  <section id="panel-staff" role="tabpanel" aria-labelledby="tab-staff" hidden>
+    <div class="staff">
+      <div class="staff-head">
+        <div>
+          <h1 class="page-title">Workshop diary</h1>
+          <p class="staff-sub">Drag a booking to another time or day. With the keyboard, focus a booking, use the arrow keys, then Enter to place it or Escape to put it back.</p>
+        </div>
+        <div class="day-nav">
+          <button type="button" class="icon-btn" id="staff-prev" aria-label="Previous day"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+          <p class="staff-date" id="staff-date" aria-live="polite"></p>
+          <button type="button" class="icon-btn" id="staff-next" aria-label="Next day"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+          <button type="button" class="btn line sm" id="staff-today">Today</button>
+        </div>
+      </div>
+      <div class="diary-wrap">
+        <div class="diary" id="diary"></div>
+        <aside class="agenda" aria-labelledby="agenda-h">
+          <h2 class="agenda-h" id="agenda-h">Day list</h2>
+          <p class="staff-hours" id="staff-hours"></p>
+          <p class="fine">Times are workshop time in Chiang Mai, UTC+7.</p>
+          <ol class="bookings" id="staff-list"></ol>
+          <p class="empty" id="staff-empty" hidden>No bookings on this day.</p>
+          <div class="reset">
+            <button type="button" class="btn line sm" id="reset">Reset sample data</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <a href="../">All work</a>
+    <span>Sample booking page built by Sander Sax.</span>
+    <nav aria-label="Contacts"><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></nav>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div class="sr" id="live" aria-live="polite"></div>
+<script type="module" src="src/app.mjs?v=20261024u"></script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(100+(75-100)*x).toFixed(2)+'';document.querySelectorAll('.page-title').forEach(function(n){n.style.setProperty('--wd',v)})})},{passive:true})})();</script>
+</body>
+</html>

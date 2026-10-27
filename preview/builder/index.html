@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="../../builder/">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site builder · Booking sites for businesses in Thailand · Alexandr Khrustalev</title>
+<meta name="description" content="Build a fast one page booking site for a local business in Thailand. Services in baht, opening hours and booking requests through WhatsApp, LINE or Telegram, in English, Russian and Thai. Edit, preview and download a ready static site.">
+<meta property="og:title" content="Site builder for businesses in Thailand">
+<meta property="og:description" content="Fill in a business, watch its booking site change live, then download it ready to host.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/builder/">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/builder.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/builder/">
+<meta name="theme-color" content="#efe9da">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/sandersax-icon-32.png">
+<link rel="apple-touch-icon" href="../assets/sandersax-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geologica:slnt,wght@-12..0,100..900&family=Martian+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Geologica:slnt,wght@-12..0,100..900&family=Martian+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="studio.css?v=20261025b">
+<style>
+/* preview: "Olive press seed catalogue". Oat paper, olive black ink, one chartreuse highlighter.
+   The editor becomes a long printed order form on the left, the site sits on an olive press bed on the right. */
+:root{
+  --app:#efe9da;--chrome:#efe9da;--panel:#f6f1e3;--panel-2:#ebe4cf;--field:#fffdf5;--field-2:#f2ecdb;
+  --canvas:#363e14;--canvas-2:#2c3310;
+  --ink:#1f230d;--muted:#55583f;--dim:#6a6c52;
+  --line:#ddd5bd;--line-2:#c9bf9f;--line-3:#a39a7b;
+  --accent:#d4eb55;--accent-2:#4b5a0e;--on-accent:#1f230d;--accent-soft:rgba(212,235,85,.42);--ring:rgba(75,90,14,.38);
+  --ok:#2d7139;--ok-soft:rgba(45,113,57,.12);--danger:#b0281f;--warn:#7d6200;
+  --display:"Geologica","Noto Sans Thai",system-ui,sans-serif;
+  --body:"Geologica","Noto Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Martian Mono",ui-monospace,Consolas,monospace;
+  --hl:#d4eb55;
+  color-scheme:light;
+}
+html,body{background:var(--app);color:var(--ink)}
+body{font-family:var(--body)}
+::selection{background:var(--hl);color:var(--ink)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* masthead: a printed rule, no marks next to the name */
+.top{background:var(--app);border-bottom:2px solid var(--ink)}
+.brand-mark{display:none!important}
+.brand-w{font-family:var(--display);font-weight:800;letter-spacing:.02em;color:var(--ink)}
+@media (max-width:760px){.brand-w{display:inline!important;font-size:14px;letter-spacing:0}}
+.brand-tag{background:none!important;border:0!important;padding:0!important;color:var(--accent-2);font-family:var(--mono);font-weight:500;text-transform:lowercase}
+.top-note{color:var(--muted);font-style:italic}
+.btn{border-radius:12px;font-family:var(--display);font-weight:600}
+.btn-primary{background:var(--ink);color:var(--hl);box-shadow:none}
+.btn-primary:hover{background:#353b18;color:var(--hl)}
+.btn-primary .ext{color:#c4c9a2}
+.btn-quiet{background:transparent;border:1.5px solid var(--ink);color:var(--ink)}
+.btn-quiet:hover{background:var(--hl)}
+.seg{background:transparent;border:1.5px solid var(--ink);border-radius:12px}
+.seg button{color:var(--ink);border-radius:9px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--hl);box-shadow:none}
+.seg button:hover:not([aria-pressed="true"]){background:var(--accent-soft)}
+
+/* order form on the left, press bed on the right */
+@media (min-width:1024px){
+  .studio{grid-template-columns:minmax(420px,520px) minmax(0,1fr)}
+  .panel{order:1;border-left:0;border-right:2px solid var(--ink);padding:36px 34px 48px}
+  .preview{order:2}
+  .bar{margin:22px -34px 0;padding:10px 34px}
+}
+@media (min-width:1800px){.studio{grid-template-columns:560px minmax(0,1fr)}}
+.panel{background:var(--panel)}
+
+.eyebrow{font-family:var(--mono);color:var(--accent-2);text-transform:uppercase;letter-spacing:.08em;font-size:10.5px}
+.p-head h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,3.3vw,52px);line-height:.98;letter-spacing:-.035em;color:var(--ink);font-variation-settings:"slnt" var(--sl,0);transition:font-variation-settings .35s var(--ease)}
+html[lang="ru"] .p-head h1{font-size:clamp(30px,2.8vw,44px)}
+.p-head h1 em{font-style:normal;color:var(--accent-2)}
+.type-w{background:var(--hl);color:var(--ink)!important;-webkit-text-fill-color:var(--ink)!important;padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.p-lead{font-size:15px;color:var(--muted);line-height:1.55}
+
+.ready{background:var(--field);border:1.5px solid var(--ink);border-radius:14px}
+.ready.is-full{border-color:var(--ok)}
+.ring-v{stroke:var(--accent-2)}
+.bar{background:var(--panel)}
+.bar.is-stuck{border-bottom-color:var(--ink)}
+.jump a{color:var(--muted);font-weight:500}
+.jump a:hover{background:var(--panel-2);color:var(--ink)}
+.jump a.is-on{background:var(--hl);color:var(--ink);box-shadow:none}
+
+/* each section is a numbered page of the catalogue */
+.card{border-top:2px solid var(--ink);padding:26px 0 30px;gap:18px}
+.card-h{align-items:baseline;gap:14px}
+.card-h .num{font-family:var(--mono);font-size:38px;line-height:1;font-weight:600;color:transparent;-webkit-text-stroke:1.2px var(--accent-2);letter-spacing:-.04em}
+.card-h h2{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:-.02em}
+.card-h .count{background:none;border:0;color:var(--accent-2);font-size:12px}
+.lab{color:var(--ink);font-weight:600;font-size:13px}
+.lt{background:none;color:var(--accent-2);padding:0;border-bottom:1px solid currentColor;border-radius:0}
+.help,.bar-hint{color:var(--dim)}
+input[type="text"],input[type="url"],input[type="tel"],input[type="number"],input[type="time"],textarea,select,.affix{background:var(--field);border:1.5px solid var(--line-3);border-radius:10px;color:var(--ink)}
+input:hover,textarea:hover,select:hover,.affix:hover{border-color:var(--ink)}
+input:focus,textarea:focus,select:focus,.affix:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px var(--accent-soft)}
+.affix input{border:0!important;box-shadow:none!important}
+.affix .pre{color:var(--muted)}
+select option{background:#fff;color:var(--ink)}
+.preset{background:var(--field);border:1.5px solid var(--line-2);border-radius:14px}
+.preset:hover{border-color:var(--ink)}
+.preset[aria-pressed="true"]{background:var(--hl);border-color:var(--ink);box-shadow:none}
+.preset[aria-pressed="true"]::after{background-color:#fffdf5;box-shadow:0 0 0 1.5px var(--ink)}
+.preset-i{background:var(--panel-2);color:var(--ink)}
+.preset[aria-pressed="true"] .preset-i{background:var(--ink);color:var(--hl)}
+.switch{background:var(--line-2)}
+.switch[aria-checked="true"]{background:var(--ink)}
+.switch .knob,.switch[aria-checked="true"] .knob{background:var(--hl)}
+.lng{background:var(--field);border:1.5px solid var(--line-2);border-radius:12px}
+.lng[aria-pressed="true"]{border-color:var(--ink);background:var(--accent-soft)}
+.lng[aria-pressed="true"] .box{background:var(--ink);border-color:var(--ink)}
+.lng[aria-pressed="true"] .box .i{color:var(--hl)}
+.color-in{border:1.5px solid var(--line-2);background:var(--field);border-radius:10px}
+.row{background:var(--field);border:1.5px solid var(--line-2);border-radius:14px}
+.row:focus-within{border-color:var(--ink)}
+.row-n{font-family:var(--mono);color:var(--accent-2)}
+.ib{border-radius:10px}
+.ib:hover{background:var(--hl);color:var(--ink)}
+.btn-add{border:1.5px dashed var(--ink);background:transparent;color:var(--ink);border-radius:12px}
+.btn-add:hover{background:var(--hl);border-style:solid}
+.hrow{border-bottom:1px solid var(--line)}
+.tog .track{background:var(--line-2)}
+.tog input:checked+.track{background:var(--ink)}
+.tog .track::after{background:#fff}
+.tog input:checked+.track::after{background:var(--hl)}
+.p-foot{border-top:2px solid var(--ink);color:var(--muted)}
+.p-links a,.linkbtn{color:var(--ink);text-decoration-color:var(--accent-2)}
+.p-links a:hover,.linkbtn:hover{background:var(--hl);color:var(--ink)}
+
+/* the press bed */
+.preview{background:var(--canvas);
+  --ink:#f3efdf;--muted:#cfd1ad;--dim:#b4b791;--line:#4d5622;--line-2:#5d672a;--line-3:#7a8540;
+  --field:#2b3210;--field-2:#323a13;--panel-2:#2b3210;--panel:#30381200;color:var(--ink)}
+.pv-bar{background:var(--canvas-2);border-bottom:1px solid #4d5622}
+.pv-bar .seg{border-color:#cfd1ad}
+.pv-bar .seg button{color:#f3efdf}
+.pv-bar .seg button[aria-pressed="true"]{background:var(--hl);color:#1f230d}
+.pv-status i,.pv-chrome i{display:none!important}
+.pv-status{font-family:var(--mono);color:#cfd1ad;text-transform:lowercase}
+.pv-meta{font-family:var(--mono);color:#cfd1ad;border-color:#5d672a;background:transparent}
+.pv-board b{color:var(--hl)}
+.pv-device{border-radius:18px;box-shadow:0 30px 70px -30px rgba(0,0,0,.6);outline:2px solid #1f230d}
+.pv-chrome{background:#efe9da;color:#1f230d;justify-content:center}
+.pv-url{background:#fffdf5;color:#1f230d;font-family:var(--mono)}
+.pv-grip i{background:#cfd1ad}
+.pv-try{background:var(--hl);color:#1f230d;border:2px solid #1f230d;border-radius:14px;box-shadow:none}
+.pv-try:hover{background:#e3f57a}
+.pv-try-i{background:#1f230d;color:var(--hl)}
+.pv-note{background:#efe9da;color:#1f230d;border:2px solid #1f230d}
+.pv-err{color:#f3efdf}
+
+/* tablet and phone tab bar */
+.tabs{background:var(--app);border-bottom:2px solid var(--ink)}
+.tabs button{color:var(--ink)}
+.tabs button[aria-selected="true"]{color:var(--hl)}
+.tab-pill{background:var(--ink)}
+.toast{background:var(--ink);color:#f3efdf;border:0}
+.skip{background:var(--ink);color:var(--hl)}
+@media (prefers-reduced-motion:reduce){.p-head h1{transition:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#panel" data-i18n="skip">Skip to settings</a>
+
+<header class="top">
+  <a class="brand" href="../thailand/" aria-label="SanderSax, site builder">
+    <span class="brand-mark" aria-hidden="true"></span><span class="brand-w" aria-hidden="true">[SANDERSAX]</span><span class="brand-tag" aria-hidden="true" data-i18n="brandTag">Site builder</span>
+  </a>
+  <p class="top-note" data-i18n="topNote">Website kit for local businesses in Thailand</p>
+  <div class="top-r">
+    <div class="seg seg-ui" role="group" aria-label="Interface language" data-i18n-aria="uiLang">
+      <button type="button" data-ui="en" aria-pressed="true" lang="en">EN</button>
+      <button type="button" data-ui="ru" aria-pressed="false" lang="ru">RU</button>
+    </div>
+    <button type="button" class="btn btn-quiet" id="copyCfg" aria-label="Copy config" data-i18n-aria="copyCfg">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/></svg>
+      <span class="lbl" data-i18n="copyCfg">Copy config</span>
+    </button>
+    <button type="button" class="btn btn-primary" id="dl">
+      <svg class="i i-dl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14"/></svg>
+      <span class="spin" aria-hidden="true"></span>
+      <span class="lbl" data-i18n="download">Download site</span><span class="ext">.zip</span>
+    </button>
+  </div>
+</header>
+
+<div class="tabs" id="tabs" role="tablist" aria-label="View" data-i18n-aria="viewLabel">
+  <button type="button" role="tab" id="tabEdit" aria-controls="panel" aria-selected="true" data-view="edit">
+    <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>
+    <span data-i18n="tabEdit">Edit</span>
+  </button>
+  <button type="button" role="tab" id="tabPreview" aria-controls="preview" aria-selected="false" data-view="preview" tabindex="-1">
+    <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+    <span data-i18n="tabPreview">Preview</span>
+  </button>
+  <span class="tab-pill" aria-hidden="true"></span>
+</div>
+
+<main class="studio" id="studio" data-view="edit">
+  <section class="panel" id="panel" aria-labelledby="pTitle" tabindex="-1">
+    <div class="p-head">
+      <p class="eyebrow"><span data-i18n="eyebrow">Personal project by Alexandr Khrustalev</span></p>
+      <h1 id="pTitle"><span data-i18n="h1">Booking sites for</span> <span class="type-w" id="typeWord">local businesses</span> <span data-i18n="h1in">in</span> <em data-i18n="h1em">Thailand</em></h1>
+      <p class="p-lead" data-i18n="lead">Fill in the business, watch the site change, then download it ready to host. No sign up, and nothing leaves your browser.</p>
+      <div class="ready" id="ready" aria-live="polite"></div>
+    </div>
+
+    <div class="bar" id="bar">
+      <div class="seg seg-lang" id="editLangSeg" role="group" aria-label="Text language" data-i18n-aria="textLang"></div>
+      <nav class="jump" id="jump" aria-label="Sections" data-i18n-aria="sections">
+        <a href="#c-business" data-i18n="cBusiness">Business</a>
+        <a href="#c-look" data-i18n="cLook">Look</a>
+        <a href="#c-services" data-i18n="cServices">Services</a>
+        <a href="#c-hours" data-i18n="cHours">Hours</a>
+        <a href="#c-contact" data-i18n="cContact">Booking</a>
+        <a href="#c-location" data-i18n="cLocation">Location</a>
+        <a href="#c-faq" data-i18n="cFaq">FAQ</a>
+      </nav>
+    </div>
+    <p class="bar-hint" data-i18n="textLangHint">Text fields edit the language picked above. Empty ones show English.</p>
+
+    <section class="card" id="c-business" aria-labelledby="h-business">
+      <header class="card-h"><span class="num">01</span><h2 id="h-business" data-i18n="hBusiness">Business</h2></header>
+      <div class="fld">
+        <span class="lab" id="typeLabel" data-i18n="fType">Type of business</span>
+        <div class="presets" id="presets" role="group" aria-labelledby="typeLabel"></div>
+        <p class="help" data-i18n="fTypeHelp">Fills in sample services, questions and hours. You can undo it.</p>
+      </div>
+      <div class="fld">
+        <label class="lab" for="f-name"><span data-i18n="fName">Business name</span><i class="lt" data-lt></i></label>
+        <input id="f-name" type="text" data-tx="name" maxlength="60" autocomplete="off">
+      </div>
+      <div class="fld">
+        <label class="lab" for="f-tagline"><span data-i18n="fTagline">Headline</span><i class="lt" data-lt></i></label>
+        <input id="f-tagline" type="text" data-tx="tagline" maxlength="90" autocomplete="off" aria-describedby="taglineHelp">
+        <p class="help" id="taglineHelp" data-i18n="fTaglineHelp">What you do and where, in one line. Shown large at the top.</p>
+      </div>
+      <div class="fld">
+        <label class="lab" for="f-sub"><span data-i18n="fSub">Sub line</span><i class="lt" data-lt></i></label>
+        <textarea id="f-sub" rows="3" data-tx="sub" maxlength="240"></textarea>
+      </div>
+      <div class="fld fld-switch">
+        <div>
+          <span class="lab" id="sampleLabel" data-i18n="fSample">Sample banner</span>
+          <p class="help" id="sampleHelp" data-i18n="fSampleHelp">Marks the site as a demo. Turn it off for a real client.</p>
+        </div>
+        <button type="button" class="switch" id="f-sample" role="switch" aria-checked="true" aria-labelledby="sampleLabel" aria-describedby="sampleHelp"><span class="knob"></span></button>
+      </div>
+    </section>
+
+    <section class="card" id="c-look" aria-labelledby="h-look">
+      <header class="card-h"><span class="num">02</span><h2 id="h-look" data-i18n="hLook">Look and languages</h2></header>
+      <div class="fld">
+        <span class="lab" id="accLabel" data-i18n="fAccent">Accent colour</span>
+        <div class="swatches" id="swatches" role="group" aria-labelledby="accLabel"></div>
+        <div class="custom">
+          <label class="color-in" id="colorWrap">
+            <input type="color" id="f-color" aria-label="Custom colour" data-i18n-aria="fCustom">
+            <span class="color-dot" aria-hidden="true"></span>
+            <span data-i18n="fCustom">Custom colour</span>
+          </label>
+          <input type="text" id="f-hex" class="hex" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Hex code" data-i18n-aria="fHex" aria-describedby="hexErr">
+        </div>
+        <p class="state is-err" id="hexErr" hidden data-i18n="hexErr">Use a hex code like #1f5c46.</p>
+      </div>
+      <div class="fld">
+        <span class="lab" id="themeLabel" data-i18n="fTheme">Theme</span>
+        <div class="seg seg-wide" role="group" aria-labelledby="themeLabel" id="themeSeg">
+          <button type="button" data-theme-set="light" aria-pressed="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><span data-i18n="light">Light</span></button>
+          <button type="button" data-theme-set="dark" aria-pressed="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span data-i18n="dark">Dark</span></button>
+        </div>
+      </div>
+      <div class="fld">
+        <span class="lab" id="langsLabel" data-i18n="fLangs">Site languages</span>
+        <div class="langs" id="langs" role="group" aria-labelledby="langsLabel" aria-describedby="langsHelp"></div>
+        <p class="help" id="langsHelp" data-i18n="fLangsHelp">Visitors can switch between these. At least one stays on.</p>
+      </div>
+      <div class="fld">
+        <label class="lab" for="f-default" data-i18n="fDefault">Default language</label>
+        <div class="select"><select id="f-default" aria-describedby="defaultHelp"></select></div>
+        <p class="help" id="defaultHelp" data-i18n="fDefaultHelp">Used by search engines and when the browser language of a visitor is not on the list.</p>
+      </div>
+    </section>
+
+    <section class="card" id="c-services" aria-labelledby="h-services">
+      <header class="card-h"><span class="num">03</span><h2 id="h-services" data-i18n="hServices">Services and prices</h2><span class="count" id="svcCount"></span></header>
+      <ol class="rows" id="svcList"></ol>
+      <div class="empty-st" id="svcEmpty" hidden>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h5"/></svg>
+        <strong data-i18n="svcEmptyT">No services yet</strong>
+        <p data-i18n="svcEmptyP">Add the first one, for example Thai massage, 60 minutes, 400 baht.</p>
+      </div>
+      <button type="button" class="btn btn-add" id="addSvc"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="addSvc">Add service</span></button>
+      <p class="help" data-i18n="svcHelp">Prices in Thai baht, 0 shows as free. For rentals, 1440 minutes is one day.</p>
+    </section>
+
+    <section class="card" id="c-hours" aria-labelledby="h-hours">
+      <header class="card-h"><span class="num">04</span><h2 id="h-hours" data-i18n="hHours">Opening hours</h2></header>
+      <div class="hours" id="hoursList"></div>
+      <button type="button" class="btn btn-quiet btn-sm" id="copyMon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/></svg><span data-i18n="copyMon">Use Monday hours for every open day</span></button>
+      <div class="fld">
+        <label class="lab" for="f-slot" data-i18n="fSlot">Time slot length</label>
+        <div class="select"><select id="f-slot" aria-describedby="slotHelp"></select></div>
+        <p class="help" id="slotHelp" data-i18n="fSlotHelp">Start times are this far apart. Only times where the service ends before closing are offered.</p>
+      </div>
+    </section>
+
+    <section class="card" id="c-contact" aria-labelledby="h-contact">
+      <header class="card-h"><span class="num">05</span><h2 id="h-contact" data-i18n="hContact">Booking channel</h2></header>
+      <div class="fld">
+        <span class="lab" id="chLabel" data-i18n="fChannel">Requests open in</span>
+        <div class="seg seg-wide seg-ch" role="group" aria-labelledby="chLabel" id="chSeg">
+          <button type="button" data-ch="whatsapp" aria-pressed="false">WhatsApp</button>
+          <button type="button" data-ch="line" aria-pressed="false">LINE</button>
+          <button type="button" data-ch="telegram" aria-pressed="false">Telegram</button>
+        </div>
+      </div>
+      <div class="fld">
+        <label class="lab" for="f-handle" id="handleLabel">WhatsApp number</label>
+        <div class="affix"><span class="pre" id="handlePre" aria-hidden="true">+</span><input id="f-handle" type="text" autocomplete="off" spellcheck="false" aria-describedby="handleHelp handleState"></div>
+        <p class="help" id="handleHelp"></p>
+        <p class="state" id="handleState" aria-live="polite"></p>
+      </div>
+      <div class="fld">
+        <label class="lab" for="f-phone"><span data-i18n="fPhone">Phone</span><small data-i18n="optional">optional</small></label>
+        <input id="f-phone" type="tel" autocomplete="off" placeholder="+66 81 234 5678">
+      </div>
+    </section>
+
+    <section class="card" id="c-location" aria-labelledby="h-location">
+      <header class="card-h"><span class="num">06</span><h2 id="h-location" data-i18n="hLocation">Location</h2></header>
+      <div class="fld">
+        <label class="lab" for="f-city"><span data-i18n="fCity">Area or city</span><i class="lt" data-lt></i></label>
+        <input id="f-city" type="text" data-tx="address.city" maxlength="60" autocomplete="off">
+      </div>
+      <div class="fld">
+        <label class="lab" for="f-address"><span data-i18n="fAddress">Address</span><i class="lt" data-lt></i></label>
+        <textarea id="f-address" rows="2" data-tx="address.text" maxlength="200"></textarea>
+      </div>
+      <div class="fld">
+        <label class="lab" for="f-maps" data-i18n="fMaps">Google Maps link</label>
+        <input id="f-maps" type="url" inputmode="url" placeholder="https://maps.app.goo.gl/" spellcheck="false" autocomplete="off" aria-describedby="mapsHelp mapsState">
+        <p class="help" id="mapsHelp" data-i18n="fMapsHelp">In Google Maps, open the place, press Share and copy the link.</p>
+        <p class="state" id="mapsState" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="card" id="c-faq" aria-labelledby="h-faq">
+      <header class="card-h"><span class="num">07</span><h2 id="h-faq" data-i18n="hFaq">Questions and answers</h2><span class="count" id="faqCount"></span></header>
+      <ol class="rows" id="faqList"></ol>
+      <div class="empty-st" id="faqEmpty" hidden>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6M12 16.8v.2"/></svg>
+        <strong data-i18n="faqEmptyT">No questions yet</strong>
+        <p data-i18n="faqEmptyP">Short answers to what people ask in chat save time every day.</p>
+      </div>
+      <button type="button" class="btn btn-add" id="addFaq"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="addFaq">Add question</span></button>
+    </section>
+
+    <footer class="p-foot">
+      <p data-i18n="foot1">This site builder is a personal freelance project by Alexandr Khrustalev. The downloaded site is plain HTML, CSS and JavaScript that any static host can serve.</p>
+      <div class="p-links">
+        <a href="kit/site.html" target="_blank" rel="noopener" data-i18n="kitDemo">Open the kit demo</a>
+        <a href="README.md" target="_blank" rel="noopener" data-i18n="readme">Read the guide</a>
+        <button type="button" class="linkbtn" id="resetAll" data-i18n="reset">Start over</button>
+      </div>
+      <div class="p-links p-contacts"><a href="../" data-i18n="allWork">All work</a><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></div>
+    </footer>
+  </section>
+
+  <section class="preview" id="preview" aria-labelledby="pvTitle">
+    <h2 class="sr" id="pvTitle" data-i18n="pvTitle">Preview</h2>
+    <div class="pv-bar">
+      <div class="seg" role="group" aria-label="Preview size" data-i18n-aria="pvSize" id="devSeg">
+        <button type="button" data-dev="desktop" aria-pressed="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M9 20h6M12 16.5V20"/></svg><span data-i18n="desktop">Desktop</span></button>
+        <button type="button" data-dev="tablet" aria-pressed="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="3" width="15" height="18" rx="2.5"/><path d="M11 18h2"/></svg><span data-i18n="tablet">Tablet</span></button>
+        <button type="button" data-dev="phone" aria-pressed="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg><span data-i18n="phone">Phone</span></button>
+      </div>
+      <p class="pv-status" id="pvStatus"><i aria-hidden="true"></i><span id="pvStatusT" data-i18n="pvLive">Preview</span></p>
+      <p class="pv-meta" id="pvMeta"></p>
+    </div>
+    <div class="pv-stage" id="stage">
+      <div class="pv-box" id="pvBox">
+        <p class="pv-board" id="pvBoard" aria-hidden="true"></p>
+        <button type="button" class="pv-grip" id="pvGrip" role="slider" aria-orientation="horizontal" aria-valuemin="320" aria-valuemax="1440" aria-valuenow="1280" aria-label="Preview width, drag or use the arrow keys"><i aria-hidden="true"></i></button>
+        <div class="pv-device" id="device" data-dev="desktop">
+          <div class="pv-chrome" aria-hidden="true"><i></i><i></i><i></i><span class="pv-url" id="pvUrl">your-business.com</span></div>
+          <iframe id="frame" src="kit/site.html?lanta-preview=1&amp;v=20261025c" title="Site preview" data-i18n-title="pvFrame"></iframe>
+        </div>
+      </div>
+      <button type="button" class="pv-try" id="pvTry"><span class="pv-try-i" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9 11.5V5.8a1.8 1.8 0 0 1 3.6 0v4.7M12.6 10V8.6a1.8 1.8 0 0 1 3.6 0V11M16.2 10.6a1.8 1.8 0 0 1 3.3 1v3.2a6.2 6.2 0 0 1-6.2 6.2h-1.2a6.2 6.2 0 0 1-4.9-2.4l-3-3.9a1.7 1.7 0 0 1 2.6-2.2L9 13.9"/></svg></span><span data-i18n="tryIt">Try it like a customer: book a time in the preview</span></button>
+      <div class="pv-note" id="pvNote" hidden role="status" aria-live="polite"></div>
+      <div class="burst" id="burst" aria-hidden="true"></div>
+      <div class="pv-load" id="pvLoad" aria-hidden="true"><span class="spin"></span></div>
+      <div class="pv-err" id="pvErr" hidden role="alert">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l9 16H3L12 4z"/><path d="M12 10v4M12 17v.2"/></svg>
+        <h3 data-i18n="pvErrT">The preview could not start</h3>
+        <p data-i18n="pvErrP">Open the studio from a web server, for example GitHub Pages or a local static server, not straight from a file on disk.</p>
+        <button type="button" class="btn btn-quiet btn-sm" id="pvRetry" data-i18n="retry">Try again</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+<script src="studio.js?v=20261025a"></script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(0+(-12-0)*x).toFixed(2)+'';document.querySelectorAll('.p-head h1').forEach(function(n){n.style.setProperty('--sl',v)})})},{passive:true})})();</script>
+</body>
+</html>
