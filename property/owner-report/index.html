@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Отчёт собственнику, пример</title>
+<meta name="description" content="Ежемесячный отчёт собственнику виллы от управляющей компании: календарь броней, расходы, комиссия, выплата и PDF. Пример для агентства в Таиланде.">
+<meta name="theme-color" content="#eef0f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1118" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef0f5;--paper:#fff;--tx:#161a2b;--hint:#5d6378;--sep:rgba(22,26,43,.12);--field:#f1f2f6;--free:#eff0f5;--acc:#34408f;--acc2:#5966b8;--acctx:#fff;--soft:#e3e6f6;--crit:#b3261e;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1118;--paper:#181b26;--tx:#e7e9f2;--hint:#9ba1b8;--sep:rgba(231,233,242,.12);--field:#20243a;--free:#1f2230;--acc:#9aa6f2;--acc2:#7a87d6;--acctx:#11142a;--soft:#262b45;--crit:#f2a39c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1118;--paper:#181b26;--tx:#e7e9f2;--hint:#9ba1b8;--sep:rgba(231,233,242,.12);--field:#20243a;--free:#1f2230;--acc:#9aa6f2;--acc2:#7a87d6;--acctx:#11142a;--soft:#262b45;--crit:#f2a39c;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+.top{padding-top:30px;padding-bottom:18px}
+.lbl{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--hint)}
+h1{font:600 34px/1.1 Literata,Georgia,serif;letter-spacing:-.015em;margin:8px 0 10px}
+.lede{color:var(--hint);max-width:44em}
+.toplink{display:inline-block;margin-top:12px;font-weight:500;color:var(--acc);text-decoration:none;border-bottom:1px solid transparent}
+.toplink:hover{border-bottom-color:var(--acc)}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:flex-end;margin-bottom:18px}
+.ctl label{display:block;font-size:12.5px;color:var(--hint);flex:1 1 150px;min-width:0}
+.ctl label.w{flex:2 1 220px}
+.ctl label.n{flex:0 1 120px}
+.ctl input,.ctl select{display:block;width:100%;margin-top:4px;background:var(--paper);border:1px solid transparent;border-radius:10px;padding:8px 10px;font-size:14.5px}
+.ctl input:focus,.ctl select:focus{outline:0;border-color:var(--acc)}
+.seg{display:inline-flex;background:var(--paper);border-radius:10px;padding:3px}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;color:var(--hint);transition:background .12s,color .12s}
+.seg button[aria-pressed="true"]{background:var(--tx);color:var(--paper)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:11px 17px;font-weight:500;font-size:15px;cursor:pointer;text-decoration:none;transition:transform .12s,filter .12s,background .12s;position:relative}
+.btn.p{background:var(--acc);color:var(--acctx)}
+.btn.p:hover{filter:brightness(1.08)}
+.btn.s{background:var(--paper);color:var(--tx)}
+.btn.s:hover{background:var(--soft)}
+.btn:active{transform:scale(.97)}
+.mini{position:relative;border:1px solid var(--sep);background:transparent;border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;transition:background .12s}
+.mini:hover{background:var(--paper)}
+.sheet{background:var(--paper);border-radius:6px;padding:40px 44px 34px;box-shadow:0 1px 2px rgba(0,0,0,.06),0 22px 60px -24px rgba(20,24,50,.3)}
+.sh-h{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding-bottom:18px;border-bottom:2px solid var(--tx)}
+.co{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.sh-h h2{font:600 28px/1.15 Literata,Georgia,serif;letter-spacing:-.01em;margin-top:8px}
+.own{color:var(--hint);font-size:14px;margin-top:4px}
+.per{text-align:right;flex:none}
+.per b{display:block;font:600 20px/1.2 Literata,Georgia,serif}
+.per span{display:block;font-size:12.5px;color:var(--hint);margin-top:4px}
+.kp{display:flex;flex-wrap:wrap;margin:22px 0 6px}
+.kp div{flex:1 1 150px;padding:4px 18px 10px;border-left:1px solid var(--sep)}
+.kp div:first-child{border-left:0;padding-left:0}
+.kp span{display:block;font-size:12.5px;color:var(--hint)}
+.kp b{display:block;font-size:24px;font-weight:600;letter-spacing:-.015em;line-height:1.25;margin:2px 0}
+.kp small{display:block;font-size:12.5px;color:var(--hint)}
+.kp .net b{color:var(--acc)}
+.sec{margin-top:28px;break-inside:avoid}
+.sec h3{font:600 17px/1.3 Literata,Georgia,serif;margin-bottom:10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.lg{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--hint);margin-right:14px}
+.sw{width:12px;height:12px;border-radius:3px;background:var(--free);display:inline-block}
+.sw.o{background:var(--acc)}
+.legend{margin-bottom:8px}
+.dw,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.dw span{font-size:11px;color:var(--hint);text-align:center;padding-bottom:3px}
+.dc{border:0;border-radius:6px;background:var(--free);font-size:12.5px;cursor:pointer;color:var(--tx);height:34px;transition:background .1s,box-shadow .1s}
+.dc:hover{background:var(--soft)}
+.dc.blank{background:transparent;cursor:default}
+.dc.occ{background:var(--acc);color:var(--acctx)}
+.dc.occ.alt{background:var(--acc2)}
+.dc.occ.sel{background:var(--tx);color:var(--paper)}
+.dc.pend,.dc.pv{background:var(--soft);box-shadow:inset 0 0 0 2px var(--acc)}
+.hint{font-size:12.5px;color:var(--hint);margin-top:8px;min-height:38px}
+.led div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--sep);font-size:14.5px}
+.led div span:last-child{white-space:nowrap}
+.led .tot{border-bottom:0;border-top:2px solid var(--tx);margin-top:6px;padding-top:12px;align-items:baseline}
+.led .tot span{font-weight:600}
+.led .tot b{font-size:24px;font-weight:600;color:var(--acc);white-space:nowrap}
+.tw{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{font-weight:500;color:var(--hint);font-size:12px;text-align:left;padding:6px 6px;border-bottom:1px solid var(--sep);white-space:nowrap}
+.tbl td{padding:5px 6px;border-bottom:1px solid var(--sep);white-space:nowrap}
+.tbl .r{text-align:right}
+.tbl tr.sel td{background:var(--soft)}
+.tbl tbody tr{cursor:pointer}
+.tbl tfoot td{font-weight:600;border-bottom:0;padding-top:9px}
+.tbl input,.tbl select{background:transparent;border:1px solid transparent;border-radius:6px;padding:3px 6px;font-size:13.5px}
+.tbl input{width:84px;text-align:right}
+.tbl input:hover,.tbl select:hover{border-color:var(--sep)}
+.tbl input:focus,.tbl select:focus{outline:0;border-color:var(--acc);background:var(--paper)}
+.xb{border:0;background:transparent;color:var(--hint);font-size:18px;line-height:1;width:26px;height:26px;border-radius:50%;cursor:pointer}
+.xb:hover{background:var(--field);color:var(--crit)}
+.empty{color:var(--hint);font-size:13.5px;padding:10px 0}
+.chart{position:relative}
+.chart header{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:Inter,sans-serif}
+.chart svg .bar{cursor:pointer;transition:opacity .12s}
+.chart svg .dim{opacity:.35}
+.chart svg.hov .bar{opacity:.35}
+.chart svg.hov .bar.on{opacity:1}
+.tip{position:absolute;pointer-events:none;background:var(--tx);color:var(--paper);font-size:12.5px;line-height:1.4;padding:6px 9px;border-radius:8px;max-width:240px;opacity:0;transition:opacity .1s;z-index:2}
+.foot{margin-top:26px;padding-top:12px;border-top:1px solid var(--sep);font-size:12px;color:var(--hint);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pitch{margin-top:36px;padding-bottom:48px}
+.pitch .in{background:var(--paper);border-radius:18px;padding:26px;display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
+.pitch h2{font:600 22px/1.2 Literata,Georgia,serif;margin-bottom:10px}
+.pitch ul{list-style:none}
+.pitch li{padding:9px 0 9px 20px;border-top:1px solid var(--sep);position:relative;font-size:14.5px}
+.pitch li::before{content:"";position:absolute;left:2px;top:17px;width:8px;height:8px;border-radius:2px;background:var(--acc)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.note{font-size:12.5px;color:var(--hint);margin-top:14px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--tx);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:40;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.burst{position:absolute;width:7px;height:7px;border-radius:50%;pointer-events:none;animation:burst .7s ease-out forwards}
+@keyframes burst{from{transform:translate(0,0) scale(1);opacity:1}to{transform:translate(var(--x),var(--y)) scale(.3);opacity:0}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:760px){
+ .wrap{padding:0 16px}
+ .top{padding-top:22px}
+ h1{font-size:27px}
+ .sheet{padding:22px 16px 20px;border-radius:12px}
+ .sh-h{flex-direction:column;gap:10px}
+ .per{text-align:left}
+ .sh-h h2{font-size:23px}
+ .kp div{flex:1 1 calc(50% - 1px);padding:8px 12px 10px}
+ .kp div:nth-child(3){border-left:0;padding-left:0}
+ .kp b{font-size:20px}
+ .two{grid-template-columns:1fr;gap:6px}
+ .pitch .in{grid-template-columns:1fr;padding:20px}
+ .acts .btn{flex:1}
+}
+@media (prefers-reduced-motion:reduce){.burst{display:none}}
+@media print{
+ @page{size:A4;margin:12mm}
+ :root,:root[data-theme="dark"]{--bg:#fff;--paper:#fff;--tx:#161a2b;--hint:#5d6378;--sep:rgba(22,26,43,.14);--free:#eff0f5;--acc:#34408f;--acc2:#5966b8;--acctx:#fff;--soft:#e3e6f6;color-scheme:light}
+ html,body{background:#fff}
+ body{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:12.5px}
+ .noprint,.top,.pitch,.toast,.ctl{display:none!important}
+ .wrap{max-width:none;padding:0}
+ .sheet{box-shadow:none;padding:0;border-radius:0}
+ .tbl input,.tbl select{border:0;padding:0;appearance:none;-webkit-appearance:none}
+ .hint{display:none}
+}
+</style>
+</head>
+<body>
+<header class="wrap top">
+ <p class="lbl">Пример для управляющей компании</p>
+ <h1>Отчёт собственнику за месяц</h1>
+ <p class="lede">Календарь броней, расходы по вилле, комиссия управляющей и выплата собственнику на одной странице. Добавьте бронь прямо в календаре, поменяйте цену или расход, и итог пересчитается.</p>
+ <a class="toplink" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такие отчёты для своих собственников →</a>
+</header>
+<div class="wrap ctl" role="group" aria-label="Настройки отчёта">
+ <label class="w">Объект<select id="vSel"></select></label>
+ <label>Месяц<select id="mon"></select></label>
+ <label class="n">Управляющей, %<input id="fee" inputmode="numeric" maxlength="2"></label>
+ <div><span class="sr">Валюта</span><div class="seg" id="curS"><button type="button" data-v="thb">฿</button><button type="button" data-v="usd">$</button><button type="button" data-v="rub">₽</button></div></div>
+ <label class="w">Управляющая компания<input id="co" maxlength="40"></label>
+ <label class="w">Собственник<input id="owner" maxlength="40"></label>
+ <div class="acts"><button class="btn p" type="button" id="pdf">Скачать PDF</button><button class="btn s" type="button" id="copy">Текст собственнику</button><button class="mini" type="button" id="rs">Сбросить правки</button></div>
+</div>
+<main class="wrap">
+ <article class="sheet" id="sheet">
+  <header class="sh-h">
+   <div><p class="co" id="pCo"></p><h2 id="pTitle"></h2><p class="own" id="pOwner"></p></div>
+   <div class="per"><span>Отчёт собственнику</span><b id="pPeriod"></b><span id="pIssued"></span></div>
+  </header>
+  <div class="kp" id="kp"></div>
+  <div class="two">
+   <section class="sec">
+    <h3>Календарь броней</h3>
+    <p class="legend"><span class="lg"><i class="sw o"></i>Занято</span><span class="lg"><i class="sw"></i>Свободно</span></p>
+    <div id="cal"></div>
+    <p class="hint noprint" id="calHint" aria-live="polite"></p>
+   </section>
+   <section class="sec">
+    <h3>Итог месяца</h3>
+    <div class="led" id="led"></div>
+   </section>
+  </div>
+  <section class="sec">
+   <h3>Брони</h3>
+   <div class="tw"><table class="tbl" id="bkT"></table></div>
+  </section>
+  <div class="two">
+   <section class="sec">
+    <h3>Расходы по объекту</h3>
+    <div class="tw"><table class="tbl" id="exT"></table></div>
+   </section>
+   <section class="sec chart" id="ch">
+    <header><h3>Выплаты за 12 месяцев</h3><button class="mini noprint" type="button" id="chTb" aria-pressed="false">Таблица</button></header>
+    <div id="chP"></div>
+    <div class="tip" aria-hidden="true"></div>
+   </section>
+  </div>
+  <footer class="foot"><span>Пример отчёта, объект, гости и цифры условные.</span><span id="fx"></span></footer>
+ </article>
+</main>
+<section class="wrap pitch">
+ <div class="in">
+  <div>
+   <h2>Для управляющих компаний</h2>
+   <p>Отчёт собирается сам из календаря броней и расходов. Собственник каждый месяц получает понятный PDF и короткое сообщение в WhatsApp или Telegram, а менеджер не сидит над таблицами.</p>
+   <div class="cta"><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такие отчёты</a><a class="btn s" href="../">← Сайт для агентства</a></div>
+  </div>
+  <ul>
+   <li>Брони из Airbnb, Booking и прямых продаж в одном календаре</li>
+   <li>Комиссии, расходы и вознаграждение считаются сами</li>
+   <li>PDF и сообщение собственнику в один клик</li>
+   <li>Кабинет собственника с отчётами за все месяцы</li>
+  </ul>
+ </div>
+ <p class="note">Объект, гости и цифры условные, курс валют условный. Правки хранятся только в вашем браузере.</p>
+</section>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const MS=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+const MG=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const RATE={thb:1,usd:1/33,rub:2.44},SYM={thb:'฿',usd:'$',rub:'₽'};
+const CH={abnb:['Airbnb',.15],bkg:['Booking',.15],dir:['Прямое',0],agt:['Агентство',.1]};
+const VIL={v5:{n:'Вилла с бассейном в Раваи',k:1,pool:'Бассейн и сад'},v2:{n:'Вилла из тика у Най Харна',k:1.35,pool:'Бассейн и сад'},c2:{n:'Квартира с видом на море в Камале',k:.6,pool:'Обслуживание комплекса'}};
+const pad=n=>String(n).padStart(2,'0');
+const mkey=(y,m)=>y+'-'+pad(m+1);
+const now=new Date(),MONTHS=[];
+for(let i=12;i>=1;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);MONTHS.push([d.getFullYear(),d.getMonth()]);}
+const DEF={v:'v5',key:mkey(MONTHS[11][0],MONTHS[11][1]),fee:'20',cur:'thb',co:'Ваша управляющая компания',owner:'Собственник виллы'};
+let S=Object.assign({ed:{}},DEF);
+try{const sv=JSON.parse(localStorage.getItem('pn_owner')||'null');if(sv&&typeof sv==='object'){Object.keys(DEF).forEach(k=>{if(typeof sv[k]==='string')S[k]=sv[k];});if(sv.ed&&typeof sv.ed==='object')S.ed=sv.ed;}}catch(e){}
+if(!VIL[S.v])S.v=DEF.v;if(!RATE[S.cur])S.cur=DEF.cur;if(!MONTHS.some(x=>mkey(x[0],x[1])===S.key))S.key=DEF.key;
+function plural(n,a,b,c){n=Math.abs(n)%100;const m=n%10;if(n>10&&n<20)return c;if(m>1&&m<5)return b;if(m===1)return a;return c;}
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const grp=n=>String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+function fm(v){const c=S.cur;return (v<0?'−':'')+(c==='thb'?'':'≈ ')+grp(v*RATE[c])+' '+SYM[c];}
+function short(v){const x=v*RATE[S.cur];return x>=1e6?(x/1e6).toFixed(1).replace('.',',')+' млн':x>=1e3?Math.round(x/1e3)+' тыс.':String(Math.round(x));}
+/* deterministic sample month */
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const seedOf=(v,y,m)=>(v.charCodeAt(0)*131+v.charCodeAt(1)*17)*1000+y*12+m;
+const daysIn=(y,m)=>new Date(y,m+1,0).getDate();
+const season=m=>[11,0,1,2].indexOf(m)>=0?0:[3,10].indexOf(m)>=0?1:2;
+const nightly=(v,m)=>Math.round([9500,7000,5500][season(m)]*VIL[v].k/100)*100;
+const target=m=>[.86,.66,.5][season(m)];
+const GI='АБВГДЕЖЗИКЛМНОПРСТ';
+function gen(v,y,m){const r=rng(seedOf(v,y,m)),nd=daysIn(y,m),tg=target(m),out=[];let d=1+Math.floor(r()*2);
+ while(d<=nd){if(r()<tg+.1){const len=2+Math.floor(r()*9),e=Math.min(nd,d+len-1),x=r(),ch=x<.42?'abnb':x<.67?'bkg':x<.86?'dir':'agt';
+   out.push({id:'g'+out.length,s:d,n:e-d+1,ch,rate:Math.round(nightly(v,m)*(.9+r()*.25)/100)*100,g:'Гость '+GI[Math.floor(r()*GI.length)]+'. '+GI[Math.floor(r()*GI.length)]+'.'});
+   d=e+1+(r()<tg?0:1+Math.floor(r()*3));}
+  else d+=1+Math.floor(r()*2);}
+ return out;}
+function baseEx(v,y,m,bk){const r=rng(seedOf(v,y,m)+7),k=VIL[v].k,n=bk.reduce((a,b)=>a+b.n,0),r10=x=>Math.round(x/10)*10;
+ return [['pool',VIL[v].pool,r10(4500*k)],['power','Электричество',r10((1400+n*420)*k)],['water','Вода',r10((300+n*35)*k)],['clean','Уборка после гостей',r10(bk.length*1200*k)],['laundry','Бельё и прачечная',r10(bk.length*600*k)],['net','Интернет',1100],['fix','Мелкий ремонт',Math.round(r()*40)*100]];}
+function calc(v,y,m){const key=v+':'+mkey(y,m),o=S.ed[key]||{},bk=o.bk||gen(v,y,m),nd=daysIn(y,m);
+ const ex=baseEx(v,y,m,bk).map(e=>({id:e[0],l:e[1],a:o.ex&&typeof o.ex[e[0]]==='number'?o.ex[e[0]]:e[2]}));
+ const nights=bk.reduce((a,b)=>a+b.n,0),gross=bk.reduce((a,b)=>a+b.n*b.rate,0),comm=Math.round(bk.reduce((a,b)=>a+b.n*b.rate*CH[b.ch][1],0)),exp=ex.reduce((a,e)=>a+e.a,0),base=gross-comm,fee=Math.round(base*(+S.fee||0)/100);
+ return {key,y,m,bk,ex,nd,nights,occ:nights/nd,adr:nights?Math.round(gross/nights):0,gross,comm,exp,fee,net:base-exp-fee};}
+function own(c){if(!S.ed[c.key])S.ed[c.key]={};const o=S.ed[c.key];if(!o.bk)o.bk=c.bk.map(b=>Object.assign({},b));return o;}
+let C=null,PEND=null,SEL=null,TBL=false;
+function current(){const p=S.key.split('-');return calc(S.v,+p[0],+p[1]-1);}
+/* render */
+function render(){C=current();
+ $('pCo').textContent=S.co;$('pTitle').textContent=VIL[S.v].n;$('pOwner').textContent='Собственник: '+S.owner;
+ $('pPeriod').textContent=MN[C.m]+' '+C.y;$('pIssued').textContent='сформирован '+pad(now.getDate())+'.'+pad(now.getMonth()+1)+'.'+now.getFullYear();
+ $('fx').textContent=S.cur==='thb'?'Суммы в батах.':'Пересчёт из батов по условному курсу.';
+ const nn=C.nights,bn=C.bk.length;
+ $('kp').innerHTML=[['Загрузка',Math.round(C.occ*100)+'%',nn+' '+plural(nn,'ночь','ночи','ночей')+' из '+C.nd,''],['Средняя цена ночи',fm(C.adr),bn+' '+plural(bn,'бронь','брони','броней'),''],['Доход от гостей',fm(C.gross),'до комиссий и расходов',''],['К выплате',fm(C.net),'собственнику','net']]
+  .map(k=>'<div class="'+k[3]+'"><span>'+k[0]+'</span><b>'+k[1]+'</b><small>'+k[2]+'</small></div>').join('');
+ drawCal();
+ const row=(a,b)=>'<div><span>'+a+'</span><span>'+b+'</span></div>';
+ $('led').innerHTML=row('Доход от гостей',fm(C.gross))+row('Комиссии площадок','−'+fm(C.comm))+row('Расходы по объекту','−'+fm(C.exp))+row('Вознаграждение управляющей, '+(+S.fee||0)+'%','−'+fm(C.fee))+'<div class="tot"><span>К выплате собственнику</span><b>'+fm(C.net)+'</b></div>';
+ drawBk();drawEx();drawChart();save();}
+function ddm(d){return d>C.nd?(d-C.nd)+' '+MS[(C.m+1)%12]:d+' '+MS[C.m];}
+function drawCal(){const first=(new Date(C.y,C.m,1).getDay()+6)%7,occ={};
+ C.bk.forEach((b,i)=>{for(let k=0;k<b.n;k++)occ[b.s+k]={b,i};});
+ let h='<div class="dw" aria-hidden="true">'+['пн','вт','ср','чт','пт','сб','вс'].map(x=>'<span>'+x+'</span>').join('')+'</div><div class="days">';
+ for(let i=0;i<first;i++)h+='<span class="dc blank"></span>';
+ for(let d=1;d<=C.nd;d++){const o=occ[d];let cls='dc',lab=d+' '+MG[C.m];
+  if(o){cls+=' occ'+(o.i%2?' alt':'')+(SEL===o.b.id?' sel':'');lab+=', занято, '+CH[o.b.ch][0]+', '+o.b.g;}
+  else{lab+=', свободно';if(d===PEND)cls+=' pend';}
+  h+='<button type="button" class="'+cls+'" data-d="'+d+'" aria-label="'+esc(lab)+'">'+d+'</button>';}
+ $('cal').innerHTML=h+'</div>';
+ $('calHint').textContent=PEND!==null?'Начало брони '+PEND+' '+MG[C.m]+'. Теперь нажмите на последнюю ночь.':'Нажмите на свободный день, затем на последнюю ночь, чтобы добавить бронь. Нажмите на занятый день, чтобы выделить бронь.';}
+function drawBk(){if(!C.bk.length){$('bkT').innerHTML='<tbody><tr><td class="empty">В этом месяце броней нет. Добавьте бронь в календаре.</td></tr></tbody>';return;}
+ $('bkT').innerHTML='<thead><tr><th>Гость</th><th>Канал</th><th>Заезд, выезд</th><th class="r">Ночей</th><th class="r">Ночь, ฿</th><th class="r">Сумма</th><th class="noprint"><span class="sr">Удалить</span></th></tr></thead><tbody>'+
+ C.bk.map(b=>'<tr data-id="'+b.id+'"'+(SEL===b.id?' class="sel"':'')+'><td>'+esc(b.g)+'</td><td><select data-k="ch" aria-label="Канал">'+Object.keys(CH).map(k=>'<option value="'+k+'"'+(k===b.ch?' selected':'')+'>'+CH[k][0]+'</option>').join('')+'</select></td><td>'+ddm(b.s)+' - '+ddm(b.s+b.n)+'</td><td class="r">'+b.n+'</td><td class="r"><input data-k="rate" inputmode="numeric" maxlength="6" value="'+b.rate+'" aria-label="Цена ночи в батах"></td><td class="r">'+fm(b.n*b.rate)+'</td><td class="noprint"><button class="xb" type="button" data-k="del" aria-label="Удалить бронь">×</button></td></tr>').join('')+
+ '</tbody><tfoot><tr><td colspan="3">Итого</td><td class="r">'+C.nights+'</td><td></td><td class="r">'+fm(C.gross)+'</td><td class="noprint"></td></tr></tfoot>';}
+function drawEx(){$('exT').innerHTML='<thead><tr><th>Статья</th><th class="r">Сумма, ฿</th></tr></thead><tbody>'+C.ex.map(e=>'<tr><td>'+e.l+'</td><td class="r"><input data-ex="'+e.id+'" inputmode="numeric" maxlength="7" value="'+e.a+'" aria-label="'+e.l+', бат"></td></tr>').join('')+'</tbody><tfoot><tr><td>Итого</td><td class="r">'+fm(C.exp)+'</td></tr></tfoot>';}
+/* 12 month payouts */
+function vpath(x,y,w,h){const r=Math.min(4,w/2,h);return 'M'+x+','+(y+h)+'V'+(y+r)+'Q'+x+','+y+' '+(x+r)+','+y+'H'+(x+w-r)+'Q'+(x+w)+','+y+' '+(x+w)+','+(y+r)+'V'+(y+h)+'Z';}
+function drawChart(){const rows=MONTHS.map(p=>{const c=calc(S.v,p[0],p[1]);return {k:mkey(p[0],p[1]),l:MS[p[1]],v:c.net,tip:MN[p[1]]+' '+p[0]+': к выплате '+fm(c.net)+', загрузка '+Math.round(c.occ*100)+'%'};});
+ const el=$('ch');el._rows=rows;
+ if(TBL){$('chP').innerHTML='<table class="tbl"><thead><tr><th>Месяц</th><th class="r">К выплате</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr><td>'+MN[MONTHS[i][1]]+' '+MONTHS[i][0]+'</td><td class="r">'+fm(r.v)+'</td></tr>').join('')+'</tbody></table>';return;}
+ const W=360,H=176,B=150,T=22,n=rows.length,band=(W-4)/n,bw=band-8,mx=Math.max(1,...rows.map(r=>r.v));
+ let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Выплаты собственнику за 12 месяцев"><line x1="0" y1="'+B+'" x2="'+W+'" y2="'+B+'" stroke="var(--sep)"/>';
+ rows.forEach((r,i)=>{const cx=2+band*i+band/2,h=r.v>0?Math.max(3,r.v/mx*(B-T)):0,x=cx-bw/2,on=r.k===S.key;
+  if(h)s+='<path class="bar'+(on?'':' dim')+'" data-p="'+i+'" d="'+vpath(x,B-h,bw,h)+'" fill="var(--acc)"/>';
+  if(on)s+='<text x="'+cx+'" y="'+(B-h-6)+'" text-anchor="middle" font-size="11" font-weight="600" fill="var(--tx)">'+short(r.v)+'</text>';
+  s+='<text x="'+cx+'" y="'+(H-5)+'" text-anchor="middle" font-size="10.5" fill="'+(on?'var(--tx)':'var(--hint)')+'">'+r.l+'</text>';
+  s+='<rect data-i="'+i+'" x="'+(cx-band/2)+'" y="0" width="'+band+'" height="'+H+'" fill="transparent" style="cursor:pointer"/>';});
+ $('chP').innerHTML=s+'</svg>';}
+(function(){const el=$('ch'),tip=el.querySelector('.tip');
+ const hide=()=>{tip.style.opacity=0;const sv=el.querySelector('svg');if(sv){sv.classList.remove('hov');sv.querySelectorAll('.on').forEach(p=>p.classList.remove('on'));}};
+ el.addEventListener('pointermove',e=>{const t=e.target.closest&&e.target.closest('[data-i]');if(!t){hide();return;}const i=t.dataset.i,r=el._rows[+i];if(!r){hide();return;}
+  const sv=el.querySelector('svg');sv.classList.add('hov');sv.querySelectorAll('.bar').forEach(p=>p.classList.toggle('on',p.dataset.p===i));
+  tip.textContent=r.tip+'. Нажмите, чтобы открыть месяц';tip.style.opacity=1;const b=el.getBoundingClientRect(),tw=tip.offsetWidth,th=tip.offsetHeight;let x=e.clientX-b.left+14,y=e.clientY-b.top-th-10;
+  if(x+tw>b.width-4)x=e.clientX-b.left-tw-14;if(x<0)x=0;if(y<0)y=e.clientY-b.top+16;tip.style.left=x+'px';tip.style.top=y+'px';});
+ el.addEventListener('pointerleave',hide);
+ el.addEventListener('click',e=>{const t=e.target.closest('[data-i]');if(!t||!el._rows)return;const r=el._rows[+t.dataset.i];if(!r||r.k===S.key)return;S.key=r.k;$('mon').value=S.key;PEND=null;SEL=null;hide();render();});
+ $('chTb').addEventListener('click',e=>{TBL=!TBL;e.currentTarget.textContent=TBL?'График':'Таблица';e.currentTarget.setAttribute('aria-pressed',TBL);hide();drawChart();});})();
+/* calendar editing */
+$('cal').addEventListener('click',e=>{const b=e.target.closest('.dc[data-d]');if(!b)return;const d=+b.dataset.d,bk=C.bk.find(x=>d>=x.s&&d<x.s+x.n);
+ if(bk){PEND=null;SEL=SEL===bk.id?null:bk.id;drawCal();drawBk();return;}
+ if(PEND===null||d<PEND){PEND=d;SEL=null;drawCal();drawBk();return;}
+ if(C.bk.some(x=>x.s<=d&&x.s+x.n-1>=PEND)){PEND=null;drawCal();toast('Даты пересекаются с другой бронью');return;}
+ const o=own(C),id='u'+Date.now().toString(36),n=d-PEND+1;o.bk.push({id,s:PEND,n,ch:'dir',rate:nightly(S.v,C.m),g:'Новый гость'});o.bk.sort((a,b)=>a.s-b.s);
+ PEND=null;SEL=id;render();toast('Бронь добавлена: '+n+' '+plural(n,'ночь','ночи','ночей')+', доход пересчитан');
+ const c=$('cal').querySelector('.dc.sel');if(c)burst(c);});
+$('cal').addEventListener('mouseover',e=>{if(PEND===null)return;const b=e.target.closest('.dc[data-d]'),d=b?+b.dataset.d:0;
+ $('cal').querySelectorAll('.dc[data-d]').forEach(c=>{const x=+c.dataset.d;c.classList.toggle('pv',d>=PEND&&x>PEND&&x<=d&&!c.classList.contains('occ'));});});
+/* table editing */
+function bkById(id){const o=own(C);return [o,o.bk.find(b=>b.id===id)];}
+$('bkT').addEventListener('change',e=>{const tr=e.target.closest('tr[data-id]');if(!tr)return;const [,b]=bkById(tr.dataset.id);if(!b)return;
+ if(e.target.dataset.k==='ch')b.ch=e.target.value;
+ if(e.target.dataset.k==='rate'){const v=parseInt(String(e.target.value).replace(/\D/g,''),10);if(v>0)b.rate=Math.min(v,999999);}
+ render();});
+$('bkT').addEventListener('click',e=>{const tr=e.target.closest('tr[data-id]');if(!tr)return;
+ if(e.target.closest('[data-k="del"]')){const [o,b]=bkById(tr.dataset.id);if(!b)return;o.bk=o.bk.filter(x=>x!==b);if(SEL===b.id)SEL=null;render();toast('Бронь удалена: '+b.g);return;}
+ if(e.target.closest('select,input,button'))return;SEL=SEL===tr.dataset.id?null:tr.dataset.id;drawCal();drawBk();});
+$('exT').addEventListener('change',e=>{const id=e.target.dataset.ex;if(!id)return;const v=parseInt(String(e.target.value).replace(/\D/g,''),10);const o=own(C);o.ex=o.ex||{};o.ex[id]=isFinite(v)?Math.min(v,9999999):0;render();});
+/* controls */
+$('vSel').innerHTML=Object.keys(VIL).map(k=>'<option value="'+k+'">'+VIL[k].n+'</option>').join('');
+$('mon').innerHTML=MONTHS.slice().reverse().map(p=>'<option value="'+mkey(p[0],p[1])+'">'+MN[p[1]]+' '+p[0]+'</option>').join('');
+function fillCtl(){$('vSel').value=S.v;$('mon').value=S.key;$('fee').value=S.fee;$('co').value=S.co;$('owner').value=S.owner;document.querySelectorAll('#curS button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.cur));}
+$('vSel').addEventListener('change',e=>{S.v=e.target.value;PEND=null;SEL=null;render();});
+$('mon').addEventListener('change',e=>{S.key=e.target.value;PEND=null;SEL=null;render();});
+$('fee').addEventListener('input',e=>{const v=parseInt(String(e.target.value).replace(/\D/g,''),10);S.fee=String(isFinite(v)?Math.min(v,50):0);render();});
+$('co').addEventListener('input',e=>{S.co=e.target.value;$('pCo').textContent=S.co;save();});
+$('owner').addEventListener('input',e=>{S.owner=e.target.value;$('pOwner').textContent='Собственник: '+S.owner;save();});
+$('curS').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.cur=b.dataset.v;fillCtl();render();});
+$('rs').addEventListener('click',()=>{const v=S.v,key=S.key;S=Object.assign({ed:{}},DEF,{v,key});PEND=null;SEL=null;fillCtl();render();toast('Правки сброшены, пример восстановлен');});
+let svT=0;function save(){clearTimeout(svT);svT=setTimeout(()=>{try{localStorage.setItem('pn_owner',JSON.stringify(S));}catch(e){}},300);}
+/* outputs */
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2600);}
+function burst(el){const host=getComputedStyle(el).position!=='static'?el:el.parentElement,r=el.getBoundingClientRect(),hr=host.getBoundingClientRect();if(getComputedStyle(host).position==='static')host.style.position='relative';
+ for(let i=0;i<14;i++){const d=document.createElement('i');d.className='burst';const a=i/14*Math.PI*2,dist=30+Math.random()*24;d.style.left=(r.left-hr.left+r.width/2-3)+'px';d.style.top=(r.top-hr.top+r.height/2-3)+'px';d.style.background=i%2?'var(--acc)':'#f2c230';d.style.setProperty('--x',Math.cos(a)*dist+'px');d.style.setProperty('--y',Math.sin(a)*dist+'px');host.appendChild(d);setTimeout(()=>d.remove(),750);}}
+function msgText(){const c=C,nn=c.nights,bn=c.bk.length;return ['Отчёт за '+MN[c.m].toLowerCase()+' '+c.y+', '+VIL[S.v].n,'',
+ 'Загрузка '+Math.round(c.occ*100)+'%, '+nn+' '+plural(nn,'ночь','ночи','ночей')+' из '+c.nd+', '+bn+' '+plural(bn,'бронь','брони','броней'),
+ 'Доход от гостей: '+fm(c.gross),'Комиссии площадок: '+fm(c.comm),'Расходы по объекту: '+fm(c.exp),'Вознаграждение управляющей, '+(+S.fee||0)+'%: '+fm(c.fee),'К выплате: '+fm(c.net),'','Полный отчёт в PDF во вложении.',S.co].join('\n');}
+$('copy').addEventListener('click',async e=>{burst(e.currentTarget);const t=msgText();let ok=false;
+ try{await navigator.clipboard.writeText(t);ok=true;}catch(_){try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();ok=document.execCommand('copy');ta.remove();}catch(__){}}
+ toast(ok?'Текст скопирован, вставьте в чат собственнику':'Не получилось скопировать');});
+$('pdf').addEventListener('click',e=>{burst(e.currentTarget);PEND=null;drawCal();const old=document.title;document.title='Отчет '+MN[C.m]+' '+C.y+' '+VIL[S.v].n;setTimeout(()=>{window.print();document.title=old;},400);});
+fillCtl();render();
+})();
+</script>
+</body>
+</html>
