@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Смета свадьбы, пример</title>
+<meta name="description" content="Пара собирает свадьбу на Самуи и сразу видит смету по статьям, цену на гостя и предоплату. Пример для свадебного агентства.">
+<meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11131a" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f2ec;--paper:#fffdf9;--tx:#1b1f2c;--hint:#636674;--sep:rgba(27,31,44,.12);--field:#f2efe8;--acc:#23324f;--acctx:#fffdf9;--soft:#e7e9f0;--bar:#3b4f7a;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11131a;--paper:#1a1d27;--tx:#ebe8e1;--hint:#a3a5b1;--sep:rgba(235,232,225,.12);--field:#232734;--acc:#a9b8db;--acctx:#141a2b;--soft:#283048;--bar:#8195c4;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11131a;--paper:#1a1d27;--tx:#ebe8e1;--hint:#a3a5b1;--sep:rgba(235,232,225,.12);--field:#232734;--acc:#a9b8db;--acctx:#141a2b;--soft:#283048;--bar:#8195c4;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.55 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.top{padding-top:36px;padding-bottom:24px;text-align:center}
+.lbl{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--hint)}
+h1{font:500 44px/1.08 'Cormorant Garamond',Georgia,serif;margin:12px auto 12px;max-width:14em}
+.lede{color:var(--hint);max-width:38em;margin:0 auto}
+.toplink{display:inline-block;margin-top:14px;font-weight:600;color:var(--acc);text-decoration:none;border-bottom:1px solid transparent}
+.toplink:hover{border-bottom-color:var(--acc)}
+.lay{display:grid;grid-template-columns:1fr 380px;gap:20px;align-items:start}
+.lay>*,.pair>*{min-width:0}
+.panel{background:var(--paper);border-radius:22px;padding:22px}
+h2{font:600 22px/1.2 'Cormorant Garamond',Georgia,serif;margin-bottom:12px}
+.grp{padding:14px 0;border-top:1px solid var(--sep)}
+.grp:first-of-type{border-top:0;padding-top:0}
+.gl{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:600;margin-bottom:8px}
+.gl small{font-weight:500;color:var(--hint);font-size:13px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{border:1px solid var(--sep);background:transparent;border-radius:999px;padding:7px 13px;font-size:14px;cursor:pointer;transition:background .12s,border-color .12s,color .12s}
+.opt:hover{border-color:var(--hint)}
+.opt[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acctx)}
+.rng{width:100%;accent-color:var(--acc)}
+.tog{display:flex;flex-wrap:wrap;gap:6px}
+select.sel{width:100%;background:var(--field);border:1px solid transparent;border-radius:10px;padding:9px 11px;font-size:15px}
+select.sel:focus{outline:0;border-color:var(--acc)}
+.sum{position:sticky;top:16px}
+.tot span{display:block;font-size:13px;color:var(--hint)}
+.tot b{display:block;font:600 40px/1.1 'Cormorant Garamond',Georgia,serif;letter-spacing:-.01em;margin:4px 0 2px;transition:transform .15s}
+.tot b.bump{transform:scale(1.04)}
+.tri{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 18px}
+.tri div{background:var(--field);border-radius:14px;padding:10px 12px}
+.tri span{display:block;font-size:12.5px;color:var(--hint)}
+.tri b{font-size:17px;font-weight:700}
+.hb{position:relative}
+.hb .row{display:grid;grid-template-columns:118px 1fr auto;gap:8px;align-items:center;font-size:13.5px;padding:4px 0;cursor:default}
+.hb .row .tr{height:12px}
+.hb .row i{display:block;height:12px;border-radius:0 4px 4px 0;background:var(--bar);min-width:2px;transition:width .25s ease,opacity .12s}
+.hb .row b{font-weight:600;white-space:nowrap}
+.hb.hov .row i{opacity:.35}
+.hb.hov .row.on i{opacity:1}
+.tip{position:absolute;pointer-events:none;background:var(--tx);color:var(--paper);font-size:12.5px;line-height:1.45;padding:6px 9px;border-radius:8px;max-width:250px;opacity:0;transition:opacity .1s;z-index:2}
+.items{list-style:none;margin-top:16px;font-size:14px}
+.items li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--sep)}
+.items li span:last-child{white-space:nowrap;font-weight:600}
+.items li small{display:block;color:var(--hint);font-size:12.5px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:11px 16px;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;transition:transform .12s,filter .12s,background .12s;position:relative;flex:1}
+.btn.p{background:var(--acc);color:var(--acctx)}
+.btn.p:hover{filter:brightness(1.1)}
+.btn.s{background:var(--field);color:var(--tx)}
+.btn.s:hover{background:var(--soft)}
+.btn:active{transform:scale(.97)}
+.cur{display:flex;gap:4px;justify-content:flex-end;margin-bottom:8px}
+.cur button{border:0;background:transparent;color:var(--hint);font-weight:700;font-size:14px;padding:4px 9px;border-radius:8px;cursor:pointer}
+.cur button[aria-pressed="true"]{background:var(--field);color:var(--tx)}
+.prt{display:none}
+.pitch{margin-top:24px;padding-bottom:48px}
+.pitch .in{background:var(--paper);border-radius:22px;padding:26px;display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
+.pitch ul{list-style:none}
+.pitch li{padding:9px 0 9px 20px;border-top:1px solid var(--sep);position:relative;font-size:14.5px}
+.pitch li::before{content:"";position:absolute;left:2px;top:17px;width:7px;height:7px;border-radius:50%;background:var(--acc)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.cta .btn{flex:0 1 auto}
+.note{font-size:12.5px;color:var(--hint);margin-top:14px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--tx);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:40;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.petal{position:absolute;width:8px;height:8px;border-radius:50% 0;pointer-events:none;animation:petal .9s ease-out forwards}
+@keyframes petal{from{transform:translate(0,0) rotate(0) scale(1);opacity:1}to{transform:translate(var(--x),var(--y)) rotate(160deg) scale(.4);opacity:0}}
+@media (max-width:900px){.lay{grid-template-columns:1fr}.sum{position:static}}
+@media (max-width:560px){.wrap{padding:0 16px}.top{padding-top:24px}h1{font-size:33px}.panel{padding:18px}.pitch .in{grid-template-columns:1fr;padding:20px}.hb .row{grid-template-columns:98px 1fr auto}.tot b{font-size:34px}}
+@media (prefers-reduced-motion:reduce){.petal{display:none}.tot b{transition:none}}
+@media print{
+ @page{size:A4;margin:14mm}
+ :root,:root[data-theme="dark"]{--bg:#fff;--paper:#fff;--tx:#1b1f2c;--hint:#636674;--sep:rgba(27,31,44,.16);--field:#f2efe8;--acc:#23324f;--bar:#3b4f7a;color-scheme:light}
+ html,body{background:#fff}
+ body{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:12.5px}
+ .top,.pick,.pitch,.toast,.acts,.cur{display:none!important}
+ .wrap{max-width:none;padding:0}.lay{display:block}.panel{padding:0}
+ .prt{display:block;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #1b1f2c}
+ .prt b{display:block;font:600 26px/1.2 'Cormorant Garamond',serif}
+}
+</style>
+</head>
+<body>
+<header class="wrap top">
+ <p class="lbl">Пример для свадебного агентства на Самуи</p>
+ <h1>Соберите свадьбу и сразу увидите смету</h1>
+ <p class="lede">Пара выбирает церемонию, место, число гостей и детали. Сумма, цена на гостя и предоплата пересчитываются на глазах, а готовую смету можно отправить агентству или партнёру.</p>
+ <a class="toplink" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такую смету на сайт агентства →</a>
+</header>
+<main class="wrap lay">
+ <section class="panel pick" aria-label="Выбор">
+  <h2>Ваша свадьба</h2>
+  <div class="grp"><div class="gl">Церемония</div><div class="opts" data-k="cer"></div></div>
+  <div class="grp"><div class="gl">Место</div><div class="opts" data-k="ven"></div></div>
+  <div class="grp"><div class="gl"><span>Гостей</span><small id="gv"></small></div><input class="rng" type="range" id="guests" min="2" max="80" step="1" aria-label="Число гостей"></div>
+  <div class="grp"><div class="gl">Месяц</div><select class="sel" id="mon" aria-label="Месяц свадьбы"></select></div>
+  <div class="grp"><div class="gl">Декор и флористика</div><div class="opts" data-k="dec"></div></div>
+  <div class="grp"><div class="gl"><span>Фотограф</span><small id="phv"></small></div><input class="rng" type="range" id="ph" min="0" max="10" step="1" aria-label="Часов фотографа"></div>
+  <div class="grp"><div class="gl">Видео</div><div class="opts" data-k="vid"></div></div>
+  <div class="grp"><div class="gl">Ужин</div><div class="opts" data-k="din"></div></div>
+  <div class="grp"><div class="gl">Напитки</div><div class="opts" data-k="drk"></div></div>
+  <div class="grp"><div class="gl">Причёска и макияж</div><div class="opts" data-k="bty"></div></div>
+  <div class="grp"><div class="gl">Музыка</div><div class="opts" data-k="mus"></div></div>
+  <div class="grp"><div class="gl">Ещё</div><div class="opts tog" data-k="ext"></div></div>
+ </section>
+ <aside class="panel sum" aria-label="Смета">
+  <div class="prt" id="prt"></div>
+  <div class="cur" id="cur" role="group" aria-label="Валюта"><button type="button" data-v="thb">฿</button><button type="button" data-v="usd">$</button><button type="button" data-v="rub">₽</button></div>
+  <div class="tot"><span>Смета свадьбы</span><b id="total" aria-live="polite"></b><span id="sub"></span></div>
+  <div class="tri"><div><span>На одного гостя</span><b id="pg"></b></div><div><span>Предоплата 30%, чтобы закрепить дату</span><b id="dep"></b></div></div>
+  <div class="hb" id="hb"><div class="tip" aria-hidden="true"></div><div id="hbR"></div></div>
+  <ul class="items" id="items"></ul>
+  <div class="acts"><button class="btn p" type="button" id="send">Отправить смету</button><button class="btn s" type="button" id="share">Ссылка партнёру</button><button class="btn s" type="button" id="pdf">PDF</button></div>
+ </aside>
+</main>
+<section class="wrap pitch">
+ <div class="in">
+  <div>
+   <h2>Для свадебных агентств</h2>
+   <p>Пары из России и Казахстана первым делом спрашивают, сколько это стоит. Смета на сайте отвечает честно и сразу, а агентство получает заявку уже с датой, числом гостей и выбранными деталями.</p>
+   <div class="cta"><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такую смету</a><a class="btn s" href="../">← Набросок сайта</a></div>
+  </div>
+  <ul>
+   <li>Ваши пакеты, площадки и реальные цены</li>
+   <li>Смета приходит менеджеру в Telegram или WhatsApp</li>
+   <li>Ссылка, по которой пара открывает ту же смету</li>
+   <li>Рубли, доллары, тенге и баты</li>
+  </ul>
+ </div>
+ <p class="note">Это пример. Цены, пакеты и курс валют условные, они не относятся к конкретному агентству.</p>
+</section>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const RATE={thb:1,usd:1/33,rub:2.44},SYM={thb:'฿',usd:'$',rub:'₽'};
+const MN=['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+const HIGH=[0,1,2,3,6,7,11];
+const O={
+ cer:[['beach','На пляже'],['villa','На вилле'],['legal','Официальная и символическая']],
+ ven:[['std','Стандарт'],['prem','Премиум']],
+ dec:[['light','Лёгкий'],['classic','Классика'],['lush','Пышный']],
+ vid:[['none','Без видео'],['clip','Клип 3 минуты'],['film','Фильм 15 минут']],
+ din:[['none','Без ужина'],['bbq','Барбекю'],['set','Сет-меню'],['prem','Премиум']],
+ drk:[['none','Без напитков'],['soft','Безалкогольные'],['wine','Вино и пиво'],['bar','Открытый бар']],
+ bty:[['none','Не нужно'],['bride','Невеста'],['two','Невеста и жених'],['four','Плюс 2 гостьи']],
+ mus:[['none','Без музыки'],['dj','Диджей'],['sax','Живой саксофон'],['both','Диджей и саксофон']],
+ ext:[['fire','Огненное шоу'],['drone','Съёмка с дрона'],['cake','Торт'],['trans','Трансфер гостей']]};
+const P={cer:{beach:45000,villa:60000,legal:60000},docs:18000,ven:{beach:{std:15000,prem:45000},villa:{std:60000,prem:140000}},
+ dec:{light:25000,classic:55000,lush:110000},decG:{light:0,classic:600,lush:1200},ph:4500,vid:{none:0,clip:25000,film:55000},
+ din:{none:0,bbq:1400,set:2200,prem:3500},drk:{none:0,soft:400,wine:1100,bar:1900},bty:{none:0,bride:9000,two:12000,four:18000},
+ mus:{none:0,dj:18000,sax:22000,both:35000},fire:12000,drone:9000,cake:3500,cakeG:120,trans:3000};
+const now=new Date(),MONTHS=[];for(let i=2;i<14;i++){const d=new Date(now.getFullYear(),now.getMonth()+i,1);MONTHS.push(d.getFullYear()+'-'+(d.getMonth()+1));}
+const DEF={cer:'beach',ven:'std',guests:20,mon:MONTHS[2],dec:'classic',ph:4,vid:'clip',din:'set',drk:'wine',bty:'bride',mus:'sax',ext:['cake','trans'],cur:'thb'};
+function valid(s){const o=Object.assign({},DEF,{ext:DEF.ext.slice()});if(!s||typeof s!=='object')return o;
+ ['cer','ven','dec','vid','din','drk','bty','mus'].forEach(k=>{if(O[k].some(x=>x[0]===s[k]))o[k]=s[k];});
+ const g=parseInt(s.guests,10);if(g>=2&&g<=80)o.guests=g;const h=parseInt(s.ph,10);if(h>=0&&h<=10)o.ph=h;
+ if(MONTHS.indexOf(s.mon)>=0)o.mon=s.mon;if(RATE[s.cur])o.cur=s.cur;
+ const ex=Array.isArray(s.ext)?s.ext:typeof s.ext==='string'?s.ext.split('.').filter(Boolean):null;if(ex)o.ext=ex.filter(e=>O.ext.some(x=>x[0]===e));return o;}
+let S=Object.assign({},DEF);
+const hp=new URLSearchParams(location.hash.slice(1));
+if(hp.has('cer')){const o={};hp.forEach((v,k)=>o[k]=v);S=valid(o);}
+else{try{S=valid(JSON.parse(localStorage.getItem('pn_wed')||'null'));}catch(e){}}
+const grp=n=>String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+const fm=v=>(S.cur==='thb'?'':'≈ ')+grp(v*RATE[S.cur])+' '+SYM[S.cur];
+function plural(n,a,b,c){n=Math.abs(n)%100;const m=n%10;if(n>10&&n<20)return c;if(m>1&&m<5)return b;if(m===1)return a;return c;}
+const lab=(k,v)=>(O[k].find(x=>x[0]===v)||['',''])[1];
+const monL=m=>{const p=m.split('-');return MN[+p[1]-1]+' '+p[0];};
+const isHigh=m=>HIGH.indexOf(+m.split('-')[1]-1)>=0;
+/* estimate lines {c:category,l,n,a} */
+function calc(){const g=S.guests,L=[],add=(c,l,a,n)=>{if(a>0)L.push({c,l,a:Math.round(a),n:n||''});};
+ const vk=S.cer==='beach'?'beach':'villa',hi=isHigh(S.mon);
+ add('Церемония','Церемония: '+lab('cer',S.cer).toLowerCase(),P.cer[S.cer],'координатор, ведущий, арка, звук');
+ if(S.cer==='legal')add('Церемония','Документы для официального брака',P.docs,'перевод, легализация, регистрация');
+ add('Площадка',(vk==='beach'?'Пляж, ':'Вилла, ')+lab('ven',S.ven).toLowerCase(),P.ven[vk][S.ven]*(hi?1.2:1),hi?'высокий сезон, плюс 20%':'низкий сезон');
+ add('Декор',lab('dec',S.dec)+' декор и цветы',P.dec[S.dec]+P.decG[S.dec]*g,P.decG[S.dec]?'с оформлением столов на '+g+' '+plural(g,'гостя','гостей','гостей'):'');
+ if(S.ph)add('Фото и видео','Фотограф, '+S.ph+' '+plural(S.ph,'час','часа','часов'),P.ph*S.ph,'');
+ add('Фото и видео','Видео: '+lab('vid',S.vid).toLowerCase(),P.vid[S.vid],'');
+ if(S.ext.indexOf('drone')>=0)add('Фото и видео','Съёмка с дрона',P.drone,'');
+ add('Банкет','Ужин: '+lab('din',S.din).toLowerCase(),P.din[S.din]*g,grp(P.din[S.din])+' ฿ на гостя');
+ add('Банкет','Напитки: '+lab('drk',S.drk).toLowerCase(),P.drk[S.drk]*g,grp(P.drk[S.drk])+' ฿ на гостя');
+ if(S.ext.indexOf('cake')>=0)add('Банкет','Торт',P.cake+P.cakeG*g,'');
+ add('Красота','Причёска и макияж: '+lab('bty',S.bty).toLowerCase(),P.bty[S.bty],'');
+ add('Музыка и шоу',lab('mus',S.mus),P.mus[S.mus],'');
+ if(S.ext.indexOf('fire')>=0)add('Музыка и шоу','Огненное шоу',P.fire,'');
+ if(S.ext.indexOf('trans')>=0){const n=Math.ceil(g/10);add('Трансфер','Трансфер гостей, '+n+' '+plural(n,'минивэн','минивэна','минивэнов'),P.trans*n,'');}
+ const tot=L.reduce((a,x)=>a+x.a,0),cats={};L.forEach(x=>cats[x.c]=(cats[x.c]||0)+x.a);
+ return {L,tot,cats:Object.keys(cats).map(k=>({k,a:cats[k]})).sort((a,b)=>b.a-a.a)};}
+let E=null,lastTot=0;
+function opts(){document.querySelectorAll('.opts').forEach(box=>{const k=box.dataset.k;box.innerHTML=O[k].map(x=>{const on=k==='ext'?S.ext.indexOf(x[0])>=0:S[k]===x[0];return '<button type="button" class="opt" data-v="'+x[0]+'" aria-pressed="'+on+'">'+x[1]+'</button>';}).join('');});
+ $('guests').value=S.guests;$('ph').value=S.ph;$('mon').value=S.mon;document.querySelectorAll('#cur button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.cur));}
+function render(){E=calc();const g=S.guests;
+ $('gv').textContent=g+' '+plural(g,'гость','гостя','гостей');$('phv').textContent=S.ph?S.ph+' '+plural(S.ph,'час','часа','часов'):'без фотографа';
+ const t=$('total');t.textContent=fm(E.tot);if(lastTot&&lastTot!==E.tot){t.classList.add('bump');setTimeout(()=>t.classList.remove('bump'),160);}lastTot=E.tot;
+ $('sub').textContent=monL(S.mon)+', '+(isHigh(S.mon)?'высокий сезон':'низкий сезон')+', '+g+' '+plural(g,'гость','гостя','гостей');
+ $('pg').textContent=fm(E.tot/(g+2));$('dep').textContent=fm(Math.round(E.tot*.3/100)*100);
+ const mx=E.cats[0]?E.cats[0].a:1;
+ $('hbR').innerHTML=E.cats.map((c,i)=>'<div class="row" data-i="'+i+'"><span>'+c.k+'</span><span class="tr"><i style="width:'+(c.a/mx*100).toFixed(1)+'%"></i></span><b>'+Math.round(c.a/E.tot*100)+'%</b></div>').join('');
+ $('items').innerHTML=E.L.map(x=>'<li><span>'+x.l+(x.n?'<small>'+x.n+'</small>':'')+'</span><span>'+fm(x.a)+'</span></li>').join('')+'<li><span><b>Итого</b><small>на '+g+' '+plural(g,'гостя','гостей','гостей')+' и пару</small></span><span>'+fm(E.tot)+'</span></li>';
+ $('prt').innerHTML='<b>Смета свадьбы на Самуи</b>'+lab('cer',S.cer)+', '+monL(S.mon)+', '+g+' '+plural(g,'гость','гостя','гостей')+'. Пример, цены условные.';
+ save();}
+(function(){const el=$('hb'),tip=el.querySelector('.tip');
+ el.addEventListener('pointermove',e=>{const r=e.target.closest('.row');if(!r){el.classList.remove('hov');tip.style.opacity=0;return;}const c=E.cats[+r.dataset.i];
+  el.classList.add('hov');el.querySelectorAll('.row').forEach(x=>x.classList.toggle('on',x===r));
+  tip.textContent=c.k+': '+fm(c.a)+', '+Math.round(c.a/E.tot*100)+'% сметы';tip.style.opacity=1;const b=el.getBoundingClientRect(),rr=r.getBoundingClientRect();
+  let x=e.clientX-b.left+12;if(x+tip.offsetWidth>b.width)x=b.width-tip.offsetWidth;tip.style.left=Math.max(0,x)+'px';tip.style.top=(rr.top-b.top-tip.offsetHeight-6)+'px';});
+ el.addEventListener('pointerleave',()=>{el.classList.remove('hov');el.querySelectorAll('.row.on').forEach(x=>x.classList.remove('on'));tip.style.opacity=0;});})();
+document.querySelector('.pick').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;const k=b.parentElement.dataset.k,v=b.dataset.v;
+ if(k==='ext'){const i=S.ext.indexOf(v);if(i>=0)S.ext.splice(i,1);else{S.ext.push(v);petals(b);}}else{if(S[k]===v)return;S[k]=v;petals(b);}
+ opts();render();});
+$('guests').addEventListener('input',e=>{S.guests=+e.target.value;render();});
+$('ph').addEventListener('input',e=>{S.ph=+e.target.value;render();});
+$('mon').innerHTML=MONTHS.map(m=>'<option value="'+m+'">'+monL(m)+(isHigh(m)?', высокий сезон':'')+'</option>').join('');
+$('mon').addEventListener('change',e=>{S.mon=e.target.value;render();});
+$('cur').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.cur=b.dataset.v;opts();render();});
+let svT=0;function save(){clearTimeout(svT);svT=setTimeout(()=>{try{localStorage.setItem('pn_wed',JSON.stringify(S));}catch(e){}},300);}
+function link(){const p=new URLSearchParams();['cer','ven','guests','mon','dec','ph','vid','din','drk','bty','mus','cur'].forEach(k=>p.set(k,S[k]));p.set('ext',S.ext.join('.'));return location.origin+location.pathname+'#'+p.toString();}
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2600);}
+function petals(el){if(getComputedStyle(el).position==='static')el.style.position='relative';const r=el.getBoundingClientRect(),cols=['#e9b9c4','#f3e3b5','#c9d4ee'];
+ for(let i=0;i<10;i++){const d=document.createElement('i');d.className='petal';const a=-Math.PI/2+(Math.random()-.5)*2.4,dist=24+Math.random()*26;d.style.left=(r.width/2-4)+'px';d.style.top=(r.height/2-4)+'px';d.style.background=cols[i%3];d.style.setProperty('--x',Math.cos(a)*dist+'px');d.style.setProperty('--y',Math.sin(a)*dist+'px');el.appendChild(d);setTimeout(()=>d.remove(),950);}}
+async function copy(t){try{await navigator.clipboard.writeText(t);return true;}catch(_){try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();return ok;}catch(__){return false;}}}
+function msgText(){const g=S.guests;return ['Смета свадьбы на Самуи',lab('cer',S.cer)+', '+monL(S.mon)+', '+g+' '+plural(g,'гость','гостя','гостей'),'',
+ ...E.L.map(x=>'- '+x.l+': '+fm(x.a)),'','Итого: '+fm(E.tot),'Предоплата 30%: '+fm(Math.round(E.tot*.3/100)*100),'','Открыть смету: '+link()].join('\n');}
+$('send').addEventListener('click',async e=>{petals(e.currentTarget);toast(await copy(msgText())?'Смета скопирована, вставьте в чат агентству':'Не получилось скопировать');});
+$('share').addEventListener('click',async e=>{petals(e.currentTarget);history.replaceState(null,'',link());toast(await copy(link())?'Ссылка скопирована, партнёр увидит эту же смету':'Не получилось скопировать');});
+$('pdf').addEventListener('click',()=>{const old=document.title;document.title='Смета свадьбы '+monL(S.mon);setTimeout(()=>{window.print();document.title=old;},300);});
+opts();render();
+})();
+</script>
+</body>
+</html>
