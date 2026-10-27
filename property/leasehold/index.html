@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Калькулятор лизхолда, пример</title>
+<meta name="description" content="Сколько стоит год владения виллой в лизхолд, когда она окупится и что останется к концу срока. Пример для агентств на Пхукете и Бали.">
+<meta name="theme-color" content="#f1f0ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121410" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f0ea;--paper:#fff;--tx:#1c1f15;--hint:#5f6352;--sep:rgba(28,31,21,.12);--field:#f3f3ee;--acc:#55691c;--acctx:#fff;--soft:#e6ead6;--s1:#55691c;--s2:#3f6fa8;--grid:rgba(28,31,21,.08);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121410;--paper:#1b1d16;--tx:#e7e9de;--hint:#a3a795;--sep:rgba(231,233,222,.12);--field:#24271d;--acc:#b4c96a;--acctx:#1a1f0b;--soft:#2b3220;--s1:#7f9636;--s2:#5e95dc;--grid:rgba(231,233,222,.08);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121410;--paper:#1b1d16;--tx:#e7e9de;--hint:#a3a795;--sep:rgba(231,233,222,.12);--field:#24271d;--acc:#b4c96a;--acctx:#1a1f0b;--soft:#2b3220;--s1:#7f9636;--s2:#5e95dc;--grid:rgba(231,233,222,.08);color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:15.5px/1.5 'Nunito Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.top{padding-top:34px;padding-bottom:22px}
+.lbl{font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--hint)}
+h1{font:400 38px/1.12 Prata,Georgia,serif;letter-spacing:-.01em;margin:10px 0 12px;max-width:15em}
+.lede{color:var(--hint);max-width:44em}
+.toplink{display:inline-block;margin-top:12px;font-weight:700;color:var(--acc);text-decoration:none;border-bottom:1px solid transparent}
+.toplink:hover{border-bottom-color:var(--acc)}
+.lay{display:grid;grid-template-columns:310px 1fr;gap:20px;align-items:start}
+.lay>*,.kp>*,.pair>*{min-width:0}
+.panel{background:var(--paper);border-radius:20px;padding:18px}
+.side{position:sticky;top:16px}
+h2{font:400 19px/1.25 Prata,Georgia,serif;margin-bottom:12px}
+.seg{display:flex;background:var(--field);border-radius:12px;padding:3px;margin:4px 0 14px}
+.seg button{flex:1;border:0;background:transparent;padding:7px 8px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;color:var(--hint);transition:background .12s,color .12s}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--tx);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.field{display:block;font-size:13px;color:var(--hint);margin-bottom:12px}
+.field input[type=text],.field input:not([type]){display:block;width:100%;margin-top:4px;background:var(--field);border:1px solid transparent;border-radius:10px;padding:9px 11px;font-size:15px;color:var(--tx)}
+.field input:focus{outline:0;border-color:var(--acc)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rng{display:block;font-size:13px;color:var(--hint);margin-bottom:14px}
+.rng span{display:flex;justify-content:space-between}
+.rng b{color:var(--tx);font-weight:700}
+.rng input{width:100%;margin-top:6px;accent-color:var(--acc)}
+.chk{display:flex;gap:8px;align-items:center;font-size:14px;margin:-2px 0 12px;cursor:pointer}
+.chk input{accent-color:var(--acc);width:16px;height:16px}
+.sub{font-size:12.5px;color:var(--hint);margin:-6px 0 12px}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.kp div{background:var(--paper);border-radius:16px;padding:13px 14px}
+.kp span{display:block;font-size:12.5px;color:var(--hint)}
+.kp b{display:block;font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.25;margin:3px 0 1px}
+.kp small{display:block;font-size:12.5px;color:var(--hint)}
+.box{background:var(--paper);border-radius:20px;padding:18px;margin-bottom:16px}
+.box header{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.box header h2{margin:0}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--hint);margin:8px 0 4px}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.mini{position:relative;border:1px solid var(--sep);background:transparent;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;transition:background .12s}
+.mini:hover{background:var(--field)}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible;touch-action:pan-y}
+.chart svg text{font-family:'Nunito Sans',sans-serif}
+.tip{position:absolute;pointer-events:none;background:var(--tx);color:var(--paper);font-size:12.5px;line-height:1.45;padding:7px 10px;border-radius:9px;min-width:170px;opacity:0;transition:opacity .1s;z-index:2}
+.tip i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.cap{font-size:12.5px;color:var(--hint);margin-top:6px}
+.tw{overflow:auto;position:relative;max-height:420px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{font-weight:600;color:var(--hint);font-size:12.5px;text-align:left;padding:7px 8px;border-bottom:1px solid var(--sep);white-space:nowrap;position:sticky;top:0;background:var(--paper)}
+.tbl td{padding:7px 8px;border-bottom:1px solid var(--sep);white-space:nowrap}
+.tbl .r{text-align:right}
+.tbl tr.pb td{background:var(--soft)}
+.facts{list-style:none;font-size:14.5px}
+.facts li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--sep)}
+.facts li:last-child{border-bottom:0}
+.facts li span:last-child{font-weight:700;white-space:nowrap}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:11px 17px;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;transition:transform .12s,filter .12s,background .12s;position:relative}
+.btn.p{background:var(--acc);color:var(--acctx)}
+.btn.p:hover{filter:brightness(1.08)}
+.btn.s{background:var(--field);color:var(--tx)}
+.btn.s:hover{background:var(--soft)}
+.btn:active{transform:scale(.97)}
+.prt{display:none}
+.pitch{margin-top:20px;padding-bottom:48px}
+.pitch .in{background:var(--paper);border-radius:20px;padding:26px;display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
+.pitch ul{list-style:none}
+.pitch li{padding:9px 0 9px 20px;border-top:1px solid var(--sep);position:relative;font-size:14.5px}
+.pitch li::before{content:"";position:absolute;left:2px;top:17px;width:8px;height:8px;border-radius:50%;background:var(--acc)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.note{font-size:12.5px;color:var(--hint);margin-top:14px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--tx);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:40;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.burst{position:absolute;width:7px;height:7px;border-radius:50%;pointer-events:none;animation:burst .7s ease-out forwards}
+@keyframes burst{from{transform:translate(0,0) scale(1);opacity:1}to{transform:translate(var(--x),var(--y)) scale(.3);opacity:0}}
+@media (max-width:900px){.lay{grid-template-columns:1fr}.side{position:static}.kp{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.wrap{padding:0 16px}.top{padding-top:22px}h1{font-size:29px}.kp b{font-size:19px}.pitch .in{grid-template-columns:1fr;padding:20px}.acts .btn{flex:1}}
+@media (prefers-reduced-motion:reduce){.burst{display:none}}
+@media print{
+ @page{size:A4;margin:14mm}
+ :root,:root[data-theme="dark"]{--bg:#fff;--paper:#fff;--tx:#1c1f15;--hint:#5f6352;--sep:rgba(28,31,21,.16);--field:#f3f3ee;--acc:#55691c;--soft:#e6ead6;--s1:#55691c;--s2:#3f6fa8;--grid:rgba(28,31,21,.1);color-scheme:light}
+ html,body{background:#fff}
+ body{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:12.5px}
+ .top,.side,.pitch,.toast,.acts,.mini,.cap,#tblBox{display:none!important}
+ .wrap{max-width:none;padding:0}.lay{display:block}
+ .prt{display:block;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #1c1f15}
+ .prt b{display:block;font:400 22px/1.2 Prata,serif}
+ .box,.kp div{padding:8px 0;border-radius:0}
+}
+</style>
+</head>
+<body>
+<header class="wrap top">
+ <p class="lbl">Пример для агентства, Пхукет и Бали</p>
+ <h1>Сколько стоит год владения виллой в лизхолд</h1>
+ <p class="lede">Главный вопрос покупателя лизхолда: окупится ли вилла до конца срока и что останется после. Двигайте загрузку и цену ночи, и график ответит сразу.</p>
+ <a class="toplink" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такой калькулятор на свой сайт →</a>
+</header>
+<main class="wrap lay">
+ <aside class="panel side" aria-label="Параметры">
+  <h2>Объект</h2>
+  <div class="seg" id="pre" role="group" aria-label="Пример"><button type="button" data-v="ph">Пхукет 30+30</button><button type="button" data-v="bl">Бали 25 лет</button></div>
+  <label class="field">Цена виллы, <span class="cs"></span><input id="price" inputmode="numeric" maxlength="13"></label>
+  <div class="pair">
+   <label class="field">Осталось лет<input id="left" inputmode="numeric" maxlength="2"></label>
+   <label class="field">Продление, лет<input id="ext" inputmode="numeric" maxlength="2"></label>
+  </div>
+  <label class="chk"><input type="checkbox" id="useExt"> Учитывать продление</label>
+  <label class="field">Цена продления, % от цены виллы<input id="extC" inputmode="decimal" maxlength="4"></label>
+  <h2>Аренда</h2>
+  <label class="field">Цена ночи, <span class="cs"></span><input id="night" inputmode="numeric" maxlength="7"></label>
+  <label class="rng"><span>Загрузка за год <b id="occV"></b></span><input type="range" id="occ" min="20" max="95" step="1" aria-describedby="occV"></label>
+  <div class="pair">
+   <label class="field">Управляющей, %<input id="mg" inputmode="decimal" maxlength="4"></label>
+   <label class="field">Рост цены ночи, %/год<input id="gr" inputmode="decimal" maxlength="4"></label>
+  </div>
+  <label class="field">Расходы в год, <span class="cs"></span><input id="cost" inputmode="numeric" maxlength="9"></label>
+  <p class="sub">Бассейн, сад, свет, налог на аренду, ремонт.</p>
+  <div class="field">Показать в<div class="seg" id="cur"><button type="button" data-v="thb">฿</button><button type="button" data-v="usd">$</button><button type="button" data-v="rub">₽</button></div></div>
+  <button class="mini" type="button" id="rs">Сбросить к примеру</button>
+ </aside>
+ <section aria-label="Расчёт">
+  <div class="prt" id="prt"></div>
+  <div class="kp" id="kp"></div>
+  <div class="box chart" id="ch">
+   <header><h2>Деньги за весь срок</h2><button class="mini" type="button" id="tb" aria-pressed="false">Таблица</button></header>
+   <div class="legend"><span><i style="background:var(--s1)"></i>Вложено и получено от аренды</span><span><i style="background:var(--s2)"></i>Стоимость оставшегося срока</span></div>
+   <div id="chP"></div>
+   <div class="tip" aria-hidden="true"></div>
+   <p class="cap">Наведите на график, чтобы увидеть любой год. Стоимость срока уменьшается вместе с оставшимися годами, это упрощённая оценка.</p>
+  </div>
+  <div class="box" id="tblBox" hidden><header><h2>По годам</h2></header><div class="tw"><table class="tbl" id="yt"></table></div></div>
+  <div class="box">
+   <header><h2>Итог для покупателя</h2></header>
+   <ul class="facts" id="facts"></ul>
+   <div class="acts"><button class="btn p" type="button" id="copy">Отправить клиенту</button><button class="btn s" type="button" id="pdf">Скачать PDF</button></div>
+  </div>
+ </section>
+</main>
+<section class="wrap pitch">
+ <div class="in">
+  <div>
+   <h2>Для агентств, которые продают лизхолд</h2>
+   <p>Покупатель из России или Казахстана не понимает, за что платит, если земля не переходит в собственность. Калькулятор показывает это честно и на его языке, а менеджер отправляет расчёт одной кнопкой.</p>
+   <div class="cta"><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такой калькулятор</a><a class="btn s" href="../">← Сайт для агентства</a></div>
+  </div>
+  <ul>
+   <li>Ваши объекты, сроки и цены продления</li>
+   <li>Реальная загрузка по району из ваших данных</li>
+   <li>Расчёт в мессенджер и PDF с логотипом</li>
+   <li>Заявка с выбранной виллой сразу менеджеру</li>
+  </ul>
+ </div>
+ <p class="note">Цены, загрузка, расходы и курс валют условные. Расчёт упрощённый, это не оферта и не финансовая или юридическая консультация.</p>
+</section>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const RATE={thb:1,usd:1/33,rub:2.44},SYM={thb:'฿',usd:'$',rub:'₽'};
+const PRE={ph:{n:'Вилла на Пхукете, лизхолд 30+30',price:14500000,left:30,ext:30,useExt:true,extC:1,night:7500,occ:65,mg:25,gr:3,cost:180000,cur:'thb'},
+ bl:{n:'Вилла на Бали, лизхолд 25 лет',price:9405000,left:25,ext:25,useExt:false,extC:40,night:5280,occ:70,mg:20,gr:3,cost:198000,cur:'usd'}};
+const KEYS=['price','left','ext','useExt','extC','night','occ','mg','gr','cost','cur'];
+function preset(k){return Object.assign({pre:k},PRE[k]);}
+let S=preset('ph');
+try{const sv=JSON.parse(localStorage.getItem('pn_lease')||'null');if(sv&&PRE[sv.pre]){S=preset(sv.pre);KEYS.forEach(k=>{if(typeof sv[k]===typeof S[k])S[k]=sv[k];});}}catch(e){}
+if(!RATE[S.cur])S.cur='thb';
+const grp=n=>String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+const fm=v=>(v<0?'−':'')+(S.cur==='thb'?'':'≈ ')+grp(v*RATE[S.cur])+' '+SYM[S.cur];
+const short=v=>{const x=Math.abs(v*RATE[S.cur]),s=v<0?'−':'';return s+(x>=1e6?(x/1e6).toFixed(x>=1e7?0:1).replace('.',',')+' млн':x>=1e3?Math.round(x/1e3)+' тыс.':String(Math.round(x)));};
+const num=(v,d)=>{const x=parseFloat(String(v).replace(',','.').replace(/[^\d.]/g,''));return isFinite(x)?x:d;};
+function plural(n,a,b,c){n=Math.abs(n)%100;const m=n%10;if(n>10&&n<20)return c;if(m>1&&m<5)return b;if(m===1)return a;return c;}
+const yr=n=>n+' '+plural(n,'год','года','лет');
+/* model, all money in THB */
+function model(){const P=Math.max(1e5,S.price),L=Math.max(1,Math.min(Math.round(S.left),99)),E=S.useExt?Math.max(0,Math.min(Math.round(S.ext),99)):0,T=L+E,X=S.useExt?P*S.extC/100:0;
+ const rows=[{y:0,inc:0,cum:-P,val:P}];let cum=-P,pay=null;
+ for(let y=1;y<=T;y++){const gross=S.night*Math.pow(1+S.gr/100,y-1)*365*S.occ/100,net=gross*(1-S.mg/100)-S.cost*Math.pow(1.03,y-1);
+  cum+=net;if(E&&y===L+1)cum-=X;const rem=T-y,base=Math.max(L,E||L),val=P*Math.min(1,rem/base);
+  rows.push({y,gross,net,cum,val,ext:E&&y===L+1});if(pay===null&&cum>=0)pay=y;}
+ const first=rows[1],paid=P+X;return {P,L,E,T,X,rows,pay,first,paid,end:cum,perYear:paid/T,yield:first.net/P};}
+let M=null,TBL=false;
+function render(){M=model();const m=M;
+ document.querySelectorAll('.cs').forEach(e=>e.textContent=SYM[S.cur]);
+ $('occV').textContent=S.occ+'%';
+ const kp=[['Год владения',fm(m.perYear),'цена'+(m.X?' и продление':'')+' за '+yr(m.T)],
+  ['Чистый доход в 1-й год',fm(m.first.net),'доходность '+(m.yield*100).toFixed(1).replace('.',',')+'% в год'],
+  ['Окупаемость',m.pay?'на '+m.pay+'-й год':'не окупается',m.pay?'из '+yr(m.T)+' срока':'за '+yr(m.T)+' при этих цифрах'],
+  ['Итог за весь срок',(m.end>=0?'+':'')+fm(m.end),m.end>=0?'чистыми сверх всех вложений':'аренда не покрывает вложения']];
+ $('kp').innerHTML=kp.map(k=>'<div><span>'+k[0]+'</span><b>'+k[1]+'</b><small>'+k[2]+'</small></div>').join('');
+ const f=[['Покупка',fm(m.P)],m.X?['Продление на '+yr(m.E)+', через '+yr(m.L),fm(m.X)]:null,['Срок владения',yr(m.T)],['Доход от аренды за срок, чистыми',fm(m.rows.reduce((a,r)=>a+(r.net||0),0))],['Средний доход в месяц, 1-й год',fm(m.first.net/12)],['Загрузка и цена ночи',S.occ+'%, '+fm(S.night)]].filter(Boolean);
+ $('facts').innerHTML=f.map(x=>'<li><span>'+x[0]+'</span><span>'+x[1]+'</span></li>').join('');
+ $('prt').innerHTML='<b>'+PRE[S.pre].n+'</b>Расчёт для покупателя, цифры условные.';
+ drawChart();drawTable();save();}
+function drawTable(){$('tblBox').hidden=!TBL;if(!TBL)return;
+ $('yt').innerHTML='<thead><tr><th>Год</th><th class="r">Чистый доход</th><th class="r">Итого с начала</th><th class="r">Стоимость срока</th></tr></thead><tbody>'+M.rows.slice(1).map(r=>'<tr'+(r.y===M.pay?' class="pb"':'')+'><td>'+r.y+(r.ext?', продление':'')+(r.y===M.pay?', окупаемость':'')+'</td><td class="r">'+fm(r.net)+'</td><td class="r">'+fm(r.cum)+'</td><td class="r">'+fm(r.val)+'</td></tr>').join('')+'</tbody>';}
+function drawChart(){const R=M.rows,W=660,H=270,L=58,Rt=W-92,T=16,B=H-30;
+ const vals=R.flatMap(r=>[r.cum,r.val]);let lo=Math.min(0,...vals),hi=Math.max(0,...vals);const pad=(hi-lo)*.06;lo-=pad;hi+=pad;
+ const X=y=>L+(Rt-L)*y/M.T,Y=v=>T+(B-T)*(hi-v)/(hi-lo);
+ const ticks=[];const st=Math.pow(10,Math.floor(Math.log10((hi-lo)/4)));const step=[1,2,2.5,5,10].map(k=>k*st).find(s=>(hi-lo)/s<=5);for(let v=Math.ceil(lo/step)*step;v<=hi;v+=step)ticks.push(v);
+ let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Деньги по годам. Окупаемость '+(M.pay?'на '+M.pay+'-й год':'не наступает')+', итог '+fm(M.end)+'">';
+ ticks.forEach(v=>{s+='<line x1="'+L+'" x2="'+Rt+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="'+(Math.abs(v)<1e-6?'var(--hint)':'var(--grid)')+'"'+(Math.abs(v)<1e-6?' stroke-width="1"':'')+'/><text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end" font-size="11" fill="var(--hint)">'+short(v)+'</text>';});
+ const xs=M.T>40?10:M.T>20?5:M.T>10?2:1;for(let y=0;y<=M.T;y+=xs)s+='<text x="'+X(y)+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="var(--hint)">'+(y===0?'сейчас':y+(y===xs?' '+plural(y,'год','года','лет'):''))+'</text>';
+ if(M.E)s+='<line x1="'+X(M.L)+'" x2="'+X(M.L)+'" y1="'+T+'" y2="'+B+'" stroke="var(--sep)" stroke-dasharray="3 3"/><text x="'+(X(M.L)+5)+'" y="'+(T+10)+'" font-size="11" fill="var(--hint)">продление</text>';
+ const path=k=>R.map((r,i)=>(i?'L':'M')+X(r.y).toFixed(1)+','+Y(r[k]).toFixed(1)).join('');
+ s+='<path d="'+path('val')+'" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round"/>';
+ s+='<path d="'+path('cum')+'" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round"/>';
+ const e=R[R.length-1];s+='<text x="'+(Rt+8)+'" y="'+(Y(e.cum)+4)+'" font-size="11.5" font-weight="700" fill="var(--tx)">'+(e.cum>=0?'+':'')+short(e.cum)+'</text>';
+ if(Math.abs(Y(e.val)-Y(e.cum))>14)s+='<text x="'+(Rt+8)+'" y="'+(Y(e.val)+4)+'" font-size="11.5" fill="var(--hint)">'+short(e.val)+'</text>';
+ if(M.pay){const p=R[M.pay];s+='<circle cx="'+X(p.y)+'" cy="'+Y(p.cum)+'" r="5" fill="var(--s1)" stroke="var(--paper)" stroke-width="2"/><text x="'+X(p.y)+'" y="'+(Y(p.cum)-12)+'" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--tx)">окупаемость, '+M.pay+'-й год</text>';}
+ s+='<g id="cross" style="display:none"><line id="cx" y1="'+T+'" y2="'+B+'" stroke="var(--hint)" stroke-width="1"/><circle id="c1" r="4.5" fill="var(--s1)" stroke="var(--paper)" stroke-width="2"/><circle id="c2" r="4.5" fill="var(--s2)" stroke="var(--paper)" stroke-width="2"/></g>';
+ s+='<rect id="hit" x="'+L+'" y="0" width="'+(Rt-L)+'" height="'+H+'" fill="transparent"/>';
+ $('chP').innerHTML=s+'</svg>';
+ const sv=$('chP').querySelector('svg'),tip=$('ch').querySelector('.tip'),box=$('ch');
+ const move=ev=>{const b=sv.getBoundingClientRect(),vx=(ev.clientX-b.left)*W/b.width;const y=Math.max(0,Math.min(M.T,Math.round((vx-L)/(Rt-L)*M.T))),r=R[y];
+  const g=sv.querySelector('#cross');g.style.display='';sv.querySelector('#cx').setAttribute('x1',X(y));sv.querySelector('#cx').setAttribute('x2',X(y));
+  sv.querySelector('#c1').setAttribute('cx',X(y));sv.querySelector('#c1').setAttribute('cy',Y(r.cum));sv.querySelector('#c2').setAttribute('cx',X(y));sv.querySelector('#c2').setAttribute('cy',Y(r.val));
+  tip.innerHTML='<b>'+(y===0?'Сейчас, покупка':y+'-й год'+(r.ext?', продление':''))+'</b><br><i style="background:var(--s1)"></i>Итого с начала '+fm(r.cum)+'<br><i style="background:var(--s2)"></i>Стоимость срока '+fm(r.val)+(y?'<br>Доход за год '+fm(r.net):'');
+  tip.style.opacity=1;const bb=box.getBoundingClientRect(),tw=tip.offsetWidth;let px=ev.clientX-bb.left+14;if(px+tw>bb.width-6)px=ev.clientX-bb.left-tw-14;tip.style.left=Math.max(0,px)+'px';tip.style.top=(b.top-bb.top+10)+'px';};
+ sv.addEventListener('pointermove',move);sv.addEventListener('pointerdown',move);
+ sv.addEventListener('pointerleave',()=>{tip.style.opacity=0;sv.querySelector('#cross').style.display='none';});}
+/* controls */
+const MONEY=['price','night','cost'];
+function fillCtl(){document.querySelectorAll('#pre button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.pre));document.querySelectorAll('#cur button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.cur));
+ MONEY.forEach(k=>$(k).value=grp(S[k]*RATE[S.cur]));['left','ext','extC','mg','gr'].forEach(k=>$(k).value=String(S[k]).replace('.',','));$('occ').value=S.occ;$('useExt').checked=S.useExt;$('ext').disabled=$('extC').disabled=!S.useExt;}
+MONEY.forEach(k=>{$(k).addEventListener('input',e=>{S[k]=num(e.target.value.replace(/\s/g,''),0)/RATE[S.cur];render();});$(k).addEventListener('blur',fillCtl);});
+['left','ext'].forEach(k=>$(k).addEventListener('input',e=>{S[k]=Math.max(1,Math.min(99,Math.round(num(e.target.value,1))));render();}));
+[['extC',100],['mg',90],['gr',20]].forEach(([k,mx])=>$(k).addEventListener('input',e=>{S[k]=Math.min(mx,num(e.target.value,0));render();}));
+$('occ').addEventListener('input',e=>{S.occ=+e.target.value;render();});
+$('useExt').addEventListener('change',e=>{S.useExt=e.target.checked;fillCtl();render();});
+$('pre').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.v===S.pre)return;S=preset(b.dataset.v);fillCtl();render();toast(PRE[S.pre].n);});
+$('cur').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.cur=b.dataset.v;fillCtl();render();});
+$('tb').addEventListener('click',e=>{TBL=!TBL;e.currentTarget.textContent=TBL?'Скрыть таблицу':'Таблица';e.currentTarget.setAttribute('aria-pressed',TBL);drawTable();});
+$('rs').addEventListener('click',()=>{S=preset(S.pre);fillCtl();render();toast('Вернули пример');});
+let svT=0;function save(){clearTimeout(svT);svT=setTimeout(()=>{try{localStorage.setItem('pn_lease',JSON.stringify(S));}catch(e){}},300);}
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2600);}
+function burst(el){const r=el.getBoundingClientRect();for(let i=0;i<14;i++){const d=document.createElement('i');d.className='burst';const a=i/14*Math.PI*2,dist=30+Math.random()*24;d.style.left=(r.width/2-3)+'px';d.style.top=(r.height/2-3)+'px';d.style.background=i%2?'var(--s1)':'#e3c45a';d.style.setProperty('--x',Math.cos(a)*dist+'px');d.style.setProperty('--y',Math.sin(a)*dist+'px');el.appendChild(d);setTimeout(()=>d.remove(),750);}}
+function msgText(){const m=M;return [PRE[S.pre].n,'Цена '+fm(m.P)+(m.X?', продление на '+yr(m.E)+' '+fm(m.X):'')+', срок '+yr(m.T),'Загрузка '+S.occ+'%, ночь '+fm(S.night),'',
+ 'Год владения обходится в '+fm(m.perYear),'Чистый доход в первый год: '+fm(m.first.net)+' ('+(m.yield*100).toFixed(1).replace('.',',')+'%)',
+ m.pay?'Окупаемость на '+m.pay+'-й год':'При этих цифрах вилла не окупается за срок','Итог за весь срок: '+(m.end>=0?'+':'')+fm(m.end),'','Расчёт предварительный, цифры условные.'].join('\n');}
+$('copy').addEventListener('click',async e=>{burst(e.currentTarget);const t=msgText();let ok=false;
+ try{await navigator.clipboard.writeText(t);ok=true;}catch(_){try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();ok=document.execCommand('copy');ta.remove();}catch(__){}}
+ toast(ok?'Расчёт скопирован, вставьте в чат клиенту':'Не получилось скопировать');});
+$('pdf').addEventListener('click',e=>{burst(e.currentTarget);const old=document.title;document.title='Расчет лизхолда '+PRE[S.pre].n;setTimeout(()=>{window.print();document.title=old;},400);});
+fillCtl();render();
+})();
+</script>
+</body>
+</html>
