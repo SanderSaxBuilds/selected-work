@@ -186,6 +186,16 @@ body.intg .x{display:none}
 .mini img{width:72px;height:56px;border-radius:10px;object-fit:cover;flex:none}
 .mini b{display:block;font-size:14.5px}
 .mini span{font-size:13px;color:var(--hint)}
+.pick{display:flex;flex-direction:column;gap:8px}
+.pick .mini[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--acc)}
+.ck{margin-left:auto;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--sep);flex:none;display:grid;place-items:center;transition:background .15s,border-color .15s}
+.ck svg{width:14px;height:14px;stroke:var(--acctx);fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.mini[aria-pressed="true"] .ck{background:var(--acc);border-color:var(--acc)}
+.mini[aria-pressed="true"] .ck svg{opacity:1}
+.ta{display:block;width:100%;min-height:72px;border-radius:12px;border:1px solid var(--sep);background:var(--card);padding:10px 12px;font:inherit;font-size:15px;color:inherit;resize:vertical}
+.plnk{font-size:12.5px;color:var(--hint);word-break:break-all;background:var(--sec);border-radius:12px;padding:10px 12px;margin-top:14px}
+.lk:disabled{opacity:.45;cursor:default}
+.selnote{margin:2px 16px 14px}
 .toast{position:absolute;left:50%;bottom:150px;transform:translateX(-50%);background:rgba(13,22,25,.88);color:#fff;font-size:13.5px;padding:9px 14px;border-radius:999px;z-index:60;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
 .toast.on{opacity:1}
 </style>
@@ -200,6 +210,7 @@ body.intg .x{display:none}
    <li>Открывается одной кнопкой из вашего канала или бота</li>
    <li>Цвета подстраиваются под тему Telegram, светлую или тёмную</li>
    <li>Объекты из той же Google Таблицы, что и сайт агентства</li>
+   <li>Агент собирает клиенту подборку и отправляет её одной ссылкой</li>
    <li>По ссылке в браузере работает как обычная страница</li>
   </ul>
   <div class="pbtns">
@@ -235,11 +246,21 @@ body.intg .x{display:none}
      <button type="button" class="lk p" id="agMsg">Написать агенту</button>
     </div>
     <div class="forag">
+     <h2>Подборка клиенту за минуту</h2>
+     <p>Агент отмечает объекты, пишет пару слов, и клиент получает ссылку на свою подборку прямо в Telegram.</p>
+     <button type="button" class="lk" id="agPick">Собрать подборку как агент</button>
+    </div>
+    <div class="forag">
      <h2>Для владельцев агентств</h2>
      <p>Такой каталог для вашего агентства, с вашими объектами, контактами и цветами.</p>
      <ul><li>Кнопка в канале или боте открывает каталог</li><li>Объекты из Google Таблицы, без админки</li><li>Заявки с объектом и датой сразу менеджеру</li><li>Идёт вместе с сайтом или отдельно</li></ul>
      <button type="button" class="lk" id="agOwn">Обсудить с Sander Sax</button>
     </div>
+   </section>
+   <section id="vSel" hidden>
+    <header class="hd"><div class="av" aria-hidden="true">М</div><div><h1 id="selH">Подборка для вас</h1><p id="selSub"></p></div></header>
+    <div class="selnote" id="selNote" hidden><p class="who">Марина, агент</p><div class="bub" id="selMsg"></div></div>
+    <div class="list" id="selList"></div>
    </section>
   </div>
   <section class="sheet" id="sDet" role="dialog" aria-modal="true" aria-labelledby="dT">
@@ -282,6 +303,20 @@ body.intg .x{display:none}
     <button type="button" class="lk p" id="bOwn">Хочу такой каталог для агентства</button>
    </div>
   </section>
+  <section class="sheet" id="sPick" role="dialog" aria-modal="true" aria-labelledby="pT">
+   <div class="sbar"><button type="button" class="x" data-close aria-label="Закрыть">×</button><span class="t" id="pT" tabindex="-1">Подборка клиенту</span></div>
+   <div class="sb">
+    <p class="sub">Режим агента. Отметьте объекты, и ссылка для клиента соберётся сама.</p>
+    <p class="fl"><label for="pName">Имя клиента</label></p>
+    <input class="inp" id="pName" maxlength="30" autocomplete="off" placeholder="Анна">
+    <p class="fl"><label for="pNote">Пара слов клиенту</label></p>
+    <textarea class="ta" id="pNote" maxlength="160">Собрала три варианта под ваш бюджет, все рядом с пляжем. Посмотрите и напишите, что понравилось.</textarea>
+    <p class="fl" id="pCnt" aria-live="polite"></p>
+    <div class="pick" id="pList"></div>
+    <p class="plnk" id="pLink"></p>
+    <button type="button" class="lk" id="pView">Посмотреть глазами клиента</button>
+   </div>
+  </section>
   <button type="button" class="cta" id="cta" hidden></button>
   <nav class="tabs" aria-label="Разделы">
    <button type="button" data-tab="cat" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/></svg>Каталог</button>
@@ -310,7 +345,7 @@ const L=[
 ];
 const DN={bangtao:'Банг Тао',naiharn:'Най Харн',kata:'Ката',kamala:'Камала',patong:'Патонг',rawai:'Раваи',surin:'Сурин'};
 const RATE={thb:1,usd:1/33,rub:1/0.41};
-const S={type:'all',goal:'live',bud:0,cur:'thb',tab:'cat',fav:[],occ:60,day:0,fmt:'site',open:null,mode:'one'};
+const S={type:'all',goal:'live',bud:0,cur:'thb',tab:'cat',fav:[],sel:null,pick:['v2','c2','v5'],occ:60,day:0,fmt:'site',open:null,mode:'one'};
 const nf=(v,d)=>new Intl.NumberFormat('ru-RU',{maximumFractionDigits:d||0,minimumFractionDigits:0}).format(v);
 const money=(thb,cur)=>{cur=cur||S.cur;const v=thb*RATE[cur];let s;
  if(v>=1e6)s=nf(v/1e6,v>=1e8?0:1)+' млн';else if(v>=1e3)s=nf(Math.round(v/1e3))+' тыс.';else s=nf(Math.round(v));
@@ -369,10 +404,32 @@ const renderFav=()=>{const f=S.fav.map(byId).filter(Boolean);
  if(S.tab==='fav'&&!stack.length){f.length?setMain('Отправить подборку агенту',()=>openBook('fav')):hideMain()}};
 
 /* tabs */
-const setTab=t=>{S.tab=t;$('#vCat').hidden=t!=='cat';$('#vFav').hidden=t!=='fav';$('#vAg').hidden=t!=='ag';
+const setTab=t=>{S.tab=t;$('#vCat').hidden=t!=='cat';$('#vFav').hidden=t!=='fav';$('#vAg').hidden=t!=='ag';$('#vSel').hidden=t!=='sel';
  $$('.tabs button').forEach(b=>b.dataset.tab===t?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
  $('#scr').scrollTop=0;hap('selectionChanged');
- if(t==='fav')renderFav();else if(t==='ag')setMain('Написать агенту',()=>openBook('ask'));else hideMain()};
+ if(t==='fav')renderFav();else if(t==='sel')renderSel();else if(t==='ag')setMain('Написать агенту',()=>openBook('ask'));else hideMain()};
+
+/* agent selection, the agent ticks objects and sends the client one link */
+const parseSel=sp=>{let ids=[],to='',m='';
+ if(/^sel_/.test(sp))ids=sp.slice(4).split('_');
+ else if(/^sel=/.test(sp)){const q=new URLSearchParams(sp);ids=(q.get('sel')||'').split('.');to=(q.get('to')||'').trim().slice(0,30);m=(q.get('m')||'').trim().slice(0,160)}
+ ids=[...new Set(ids)].filter(byId).slice(0,9);return ids.length?{ids,to,m}:null};
+const pickLink=()=>{const to=$('#pName').value.trim().slice(0,30),m=$('#pNote').value.trim().slice(0,160);
+ return BASE+'#sel='+S.pick.join('.')+(to?'&to='+encodeURIComponent(to):'')+(m?'&m='+encodeURIComponent(m):'')};
+const renderSel=()=>{const o=S.sel;if(!o)return;const f=o.ids.map(byId);
+ $('#selH').textContent=o.to?'Подборка для '+o.to:'Подборка для вас';
+ $('#selSub').textContent='от Марины, '+pl(f.length,'объект','объекта','объектов');
+ $('#selNote').hidden=!o.m;$('#selMsg').textContent=o.m;
+ $('#selList').innerHTML=f.map(card).join('');
+ if(!stack.length)setMain('Обсудить подборку с агентом',()=>openBook('sel'))};
+const showSel=o=>{S.sel=o;setTab('sel')};
+const syncPick=()=>{const n=S.pick.length;
+ $('#pCnt').textContent=n?'Выбрано: '+pl(n,'объект','объекта','объектов'):'Отметьте объекты';
+ $('#pLink').textContent=n?pickLink():'Ссылка появится, когда отметите хотя бы один объект.';
+ $('#pView').disabled=!n;
+ if(stack[stack.length-1]===$('#sPick'))n?setMain('Отправить ссылку клиенту',()=>{const to=$('#pName').value.trim();shareUrl(pickLink(),(to?to+', вот':'Вот')+' подборка объектов на Пхукете от Марины','Подборка объектов')}):hideMain()};
+const renderPick=()=>{$('#pList').innerHTML=L.map(x=>`<button type="button" class="mini" data-pick="${x.id}" aria-pressed="${S.pick.includes(x.id)}"><img src="../img/t-${x.id}.jpg" alt=""><div><b>${esc(x.n)}</b><span>${money(x.price)} · ${DN[x.d]}</span></div><i class="ck" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17l9-10"/></svg></i></button>`).join('')};
+const openPick=()=>{renderPick();openSheet($('#sPick'));syncPick();setTimeout(()=>$('#pT').focus({preventScroll:true}),340)};
 
 /* sheets and back navigation */
 const stack=[];
@@ -381,8 +438,8 @@ const openSheet=el=>{if(stack[stack.length-1]===el)return;stack.push(el);el.clas
 const closeTop=()=>{const el=stack.pop();if(!el)return;el.classList.remove('on');if(!stack.length)$('#phone').classList.remove('sheeted');syncBack();
  if(el.id==='sDet'){S.open=null;if(!inTG)try{history.replaceState(null,'',location.pathname)}catch(e){}}
  if(stack.length)afterSheet(stack[stack.length-1]);else restoreMain()};
-const restoreMain=()=>{if(S.tab==='fav')renderFav();else if(S.tab==='ag')setMain('Написать агенту',()=>openBook('ask'));else hideMain()};
-const afterSheet=el=>{if(el.id==='sDet')setMain('Записаться на показ',()=>openBook('one'))};
+const restoreMain=()=>{if(S.tab==='fav')renderFav();else if(S.tab==='sel')renderSel();else if(S.tab==='ag')setMain('Написать агенту',()=>openBook('ask'));else hideMain()};
+const afterSheet=el=>{if(el.id==='sDet')setMain('Записаться на показ',()=>openBook('one'));else if(el.id==='sPick')syncPick()};
 
 /* detail */
 const syncDetFav=()=>{const b=$('#dFav');b.setAttribute('aria-pressed',isFav(S.open));b.querySelector('span').textContent=isFav(S.open)?'В избранном':'В избранное'};
@@ -405,16 +462,18 @@ $('#dGal').addEventListener('scroll',e=>{const g=e.currentTarget;$('#dGn').textC
 $('#dOcc').addEventListener('input',e=>{S.occ=+e.target.value;calcY()});
 $('#dOcc').addEventListener('change',()=>hap('selectionChanged'));
 $('#dFav').onclick=()=>toggleFav(S.open);
-$('#dShare').onclick=async()=>{const x=byId(S.open);if(!x)return;const url=BASE+'#'+x.id,text=x.n+', '+money(x.price);
+const shareUrl=async(url,text,title)=>{
  if(inTG){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text));return}
- if(navigator.share){try{await navigator.share({title:x.n,text,url});return}catch(e){if(e&&e.name==='AbortError')return}}
+ if(navigator.share){try{await navigator.share({title,text,url});return}catch(e){if(e&&e.name==='AbortError')return}}
  try{await navigator.clipboard.writeText(url);toast('Ссылка скопирована')}catch(e){toast(url)}};
+$('#dShare').onclick=()=>{const x=byId(S.open);if(x)shareUrl(BASE+'#'+x.id,x.n+', '+money(x.price),x.n)};
 
 /* booking and messages */
 const days=()=>{const out=[],d=new Date();for(let i=1;i<=6;i++){const x=new Date(d);x.setDate(d.getDate()+i);out.push(x)}return out};
 const dayLbl=x=>x.toLocaleDateString('ru-RU',{weekday:'short',day:'numeric',month:'short'}).replace('.','');
 const msgText=()=>{const nm=$('#bName').value.trim(),hi=nm?`Здравствуйте! Меня зовут ${nm}.`:'Здравствуйте!';
  if(S.mode==='ask')return hi+'\nХочу подобрать объект'+(S.bud?', бюджет до '+money(S.bud):'')+'. Можно созвониться?';
+ if(S.mode==='sel'){const f=S.sel.ids.map(byId);return hi+'\nСпасибо за подборку:\n'+f.map(x=>'· '+x.n+', '+money(x.price)).join('\n')+'\nМожно посмотреть их в один день?'}
  if(S.mode==='fav'){const f=S.fav.map(byId).filter(Boolean);return hi+'\nМне понравились:\n'+f.map(x=>'· '+x.n+', '+money(x.price)).join('\n')+'\nМожно подробнее и видео?'}
  const x=byId(S.open);return hi+'\nХочу посмотреть: '+x.n+', '+money(x.price)+'.\nУдобная дата: '+dayLbl(days()[S.day])+'.\n'+(S.fmt==='video'?'Можно по видео, я пока не на Пхукете.':'Приеду на показ лично.')};
 const renderBook=()=>{const one=S.mode==='one';$('#bDates').hidden=!one;$('#bFmtW').hidden=!one;
@@ -422,21 +481,25 @@ const renderBook=()=>{const one=S.mode==='one';$('#bDates').hidden=!one;$('#bFmt
  $('#bFmt').innerHTML=[['site','На месте'],['video','По видео']].map(([k,s])=>`<button type="button" class="chip" data-fmt="${k}" aria-pressed="${S.fmt===k}">${s}</button>`).join('');
  $('#bMsg').textContent=msgText()};
 const openBook=mode=>{S.mode=mode;$('#bForm').hidden=false;$('#bDone').hidden=true;
- $('#bT').textContent=mode==='one'?'Показ: '+byId(S.open).n:mode==='fav'?'Подборка агенту':'Сообщение агенту';
+ $('#bT').textContent=mode==='one'?'Показ: '+byId(S.open).n:mode==='fav'?'Подборка агенту':mode==='sel'?'Ответ на подборку':'Сообщение агенту';
  renderBook();openSheet($('#sBook'));setMain('Отправить агенту',sendBook);setTimeout(()=>$('#bT').focus({preventScroll:true}),340)};
 const sendBook=()=>{const text=msgText();$('#bForm').hidden=true;$('#bDone').hidden=false;hideMain();
  $('#bChat').innerHTML=`<div class="bub me">${esc(text)}</div>`;hap('notificationOccurred','success');
  $('#sBook').scrollTop=0;setTimeout(()=>$('#bDoneH').focus({preventScroll:true}),60);
- setTimeout(()=>{const r=S.mode==='fav'?'Здравствуйте! Отличный выбор. Сегодня пришлю видео по каждому объекту. Удобно созвониться в 15:00?':S.mode==='ask'?'Здравствуйте! Конечно. Расскажите, для жизни или под аренду, и какой район нравится?':'Здравствуйте! Спасибо за заявку. Сегодня пришлю видео и план объекта. Удобно созвониться в 15:00?';
+ setTimeout(()=>{const r=S.mode==='sel'?'Отлично! Поставлю все показы на один день, чтобы не ездить дважды. Удобно созвониться в 15:00?':S.mode==='fav'?'Здравствуйте! Отличный выбор. Сегодня пришлю видео по каждому объекту. Удобно созвониться в 15:00?':S.mode==='ask'?'Здравствуйте! Конечно. Расскажите, для жизни или под аренду, и какой район нравится?':'Здравствуйте! Спасибо за заявку. Сегодня пришлю видео и план объекта. Удобно созвониться в 15:00?';
   $('#bChat').insertAdjacentHTML('beforeend',`<p class="who">Марина, агент</p><div class="bub">${esc(r)}</div>`);hap('impactOccurred','soft')},1300)};
 $('#bName').addEventListener('input',()=>{$('#bMsg').textContent=msgText()});
 $('#bBack').onclick=()=>{while(stack.length)closeTop();setTab('cat')};
 $('#bOwn').onclick=$('#agOwn').onclick=$('#ribA').onclick=()=>openLink(OWNER);
 $('#agMsg').onclick=()=>openBook('ask');
+$('#agPick').onclick=openPick;
+$('#pName').addEventListener('input',syncPick);$('#pNote').addEventListener('input',syncPick);
+$('#pView').onclick=()=>{if(!S.pick.length)return;const o=parseSel(pickLink().split('#')[1]);while(stack.length)closeTop();showSel(o);toast('Так подборку увидит клиент')};
 
 /* events */
 document.addEventListener('click',e=>{const t=e.target.closest('button,[data-open]');if(!t)return;
  if(t.dataset.fav){e.stopPropagation();toggleFav(t.dataset.fav);return}
+ if(t.dataset.pick){const id=t.dataset.pick;S.pick=S.pick.includes(id)?S.pick.filter(x=>x!==id):[...S.pick,id];t.setAttribute('aria-pressed',S.pick.includes(id));hap('selectionChanged');syncPick();return}
  if(t.dataset.open){openDet(t.dataset.open);return}
  if(t.dataset.cur){S.cur=t.dataset.cur;hap('selectionChanged');renderCtl();renderList();return}
  if(t.dataset.type){S.type=t.dataset.type;hap('selectionChanged');renderCtl();renderList();return}
@@ -456,7 +519,7 @@ if(inTG){document.body.classList.add('intg');
 renderCtl();renderList();
 loadFav(()=>{renderFavN();renderList();
  const sp=(inTG&&tg.initDataUnsafe&&tg.initDataUnsafe.start_param)||location.hash.slice(1);
- if(sp&&byId(sp))openDet(sp)});
+ const o=sp&&parseSel(sp);if(o)showSel(o);else if(sp&&byId(sp))openDet(sp)});
 })();
 </script>
 </body>
