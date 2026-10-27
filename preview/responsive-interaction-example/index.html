@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<base href="../../responsive-interaction-example/">
+<meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#b5c0aa">
+  <title>Hemline atelier</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111'/%3E%3Cpath d='M6 20h20' stroke='%23c4121b' stroke-width='2' stroke-dasharray='3 2'/%3E%3Cpath d='M10 7v18M22 7v18' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E">
+  <meta name="description" content="A responsive page for a fictional alterations atelier. Prices by garment, a fitting sketch that shows exactly where the work goes, and a ticket you build item by item with a live total and a ready date. HTML, CSS and jQuery.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hemline atelier, a responsive ticket builder">
+  <meta property="og:description" content="Prices by garment, a fitting sketch that shows where the work goes, and a ticket with a live total and a ready date.">
+  <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/responsive-interaction-example/">
+  <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/orbit.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hemline atelier, a responsive ticket builder">
+  <meta name="twitter:description" content="Prices by garment, a fitting sketch that shows where the work goes, and a ticket with a live total and a ready date.">
+  <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/orbit.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Gloock&family=Schibsted+Grotesk:wght@400..800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Gloock&family=Schibsted+Grotesk:wght@400..800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="style.css?v=20261025b">
+<style>
+/* Hemline preview. The cutting table: sage felt under everything, pale calico cards, a forest ink,
+   one violet tailor's thread for the work, the errors and the booked stamp. Gloock for the voice,
+   Schibsted Grotesk for prices. The sketch leads the hero and the ticket stands on the left of the builder. */
+:root {
+  --white: #f3f2ea; --paper: #e3e5d9; --ink: #18211a; --ink-2: #2e3a30; --muted: #4c5a4d;
+  --line: #c7cdbd; --line-2: #9fa992;
+  --thread: #5a22c8; --thread-deep: #431896; --thread-soft: rgba(90, 34, 200, .1);
+  --felt: #b5c0aa;
+  --serif: "Gloock", Georgia, serif;
+  --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+body { background: var(--felt); }
+
+/* Header: a calico band with the name set large */
+.site-header { background: rgba(243, 242, 234, .96); border-bottom: 2px solid var(--ink); }
+.brand { font-size: 34px; letter-spacing: -.01em; }
+.brand-sub { color: var(--thread); }
+.nav-count { display: inline; min-width: 0; height: auto; padding: 0; border-radius: 0; background: transparent; color: inherit; font: 600 14px/1 var(--sans); }
+.nav-count::before { content: "("; }
+.nav-count::after { content: ")"; }
+#site-nav .nav-cta { background: var(--thread); }
+#site-nav .nav-cta:hover { background: var(--ink); }
+#site-nav { background: transparent; }
+
+/* Hero: the flat on a calico card on the left, the words on the right */
+.hero h1 { font-weight: 400; font-size: clamp(48px, 7.4vw, 124px); line-height: .9; letter-spacing: -.03em; }
+.hero h1 em { display: inline-block; font-style: normal; color: var(--thread); transform: skewX(var(--sk, 0deg)); transition: transform .2s ease-out; }
+.intro { color: var(--ink); }
+.label { color: var(--ink-2); }
+@media (min-width: 901px) {
+  .hero { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: center; padding-top: 56px; }
+  .hero-flat { order: -1; align-self: stretch; padding: 36px 28px 24px; border-left: 0; background: var(--white); border: 2px solid var(--ink); }
+}
+.hero-flat figcaption, .fitting figcaption { font-family: var(--sans); font-style: normal; font-size: 14px; letter-spacing: .04em; }
+.hours { border-top: 2px solid var(--ink); }
+.hours dd { font-size: 24px; }
+.tape { background: var(--white); border-block: 2px solid var(--ink); }
+
+/* Prices: the forest ink card, prices in a single long column with large serif names */
+.prices { background: var(--ink); color: var(--white); margin-top: 72px; }
+.prices .label { color: #b7c2b0; }
+.section-head h2 { font-size: clamp(64px, 10vw, 168px); line-height: .85; }
+.section-head p:last-child { color: #d5dccf; }
+.group-toggle { color: var(--white); border-bottom: 2px solid var(--white); font-size: 34px; }
+.price { color: var(--white); }
+.price:hover .p-cost, .price.added { color: #c9b2ff; }
+.p-days { color: #a9b5a4; }
+
+/* How: numbers as big violet serifs */
+.how h2 { font-size: clamp(44px, 5.6vw, 88px); }
+.steps li { border-top: 2px solid var(--ink); color: var(--ink); }
+.step-n { font-style: normal; font-size: 64px; }
+
+/* Builder: the swing ticket stands left, the fitting room fills the right */
+.builder { border-top: 2px solid var(--ink); }
+@media (min-width: 1181px) {
+  .builder { grid-template-columns: 380px minmax(0, 1fr); }
+  .tag-wrap { order: -1; }
+  .tag { margin-top: 0; top: 96px; }
+}
+.builder-main h2 { font-size: clamp(48px, 6vw, 96px); }
+.fitting { background: var(--white); border: 2px solid var(--ink); }
+.pick span::before { width: 16px; height: 3px; border: 0; border-radius: 0; background: var(--line-2); }
+.pick input:checked + span::before { width: 24px; background: var(--thread); box-shadow: none; }
+.pick:active span::before { box-shadow: none; }
+.field input { border-bottom: 2px solid var(--ink); }
+.option input { accent-color: var(--thread); }
+.button { border-radius: 0; border-width: 2px; }
+.button:hover { background: var(--thread); border-color: var(--thread); }
+.tag { background: var(--white); border: 2px solid var(--ink); border-radius: 0; padding-top: 28px; box-shadow: 10px 10px 0 rgba(24, 33, 26, .2); }
+.tag-hole, .tag-thread { display: none; }
+.tag-head { border-bottom: 2px solid var(--ink); }
+.tag-head h3 { letter-spacing: .02em; text-transform: none; font-size: 40px; }
+.tag-ready { border: 0; border-left: 4px solid var(--thread); background: var(--thread-soft); text-align: left; }
+.remove { border-radius: 0; }
+.stamp { border-width: 3px; font-style: normal; }
+.fine { color: var(--ink-2); }
+.tag-empty, .option em { font-style: normal; }
+.mini-total { background: var(--ink); }
+.mini-link { background: var(--thread); }
+.site-footer { border-top: 2px solid var(--ink); color: var(--ink-2); }
+.footer-contact span { color: var(--ink-2); }
+input[type="range"]::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(90, 34, 200, .16); }
+
+@media (max-width: 720px) {
+  #site-nav { background: var(--white); }
+  .brand { font-size: 28px; }
+  .section-head h2 { font-size: clamp(56px, 18vw, 88px); }
+  .group-toggle { font-size: 26px; }
+  .hero-flat { background: var(--white); border: 2px solid var(--ink); padding: 20px 16px; }
+}
+</style>
+  <script src="jquery-4.0.0.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#ticket">Skip to the ticket builder</a>
+  <header class="site-header">
+    <div class="bar">
+      <a class="brand" href="#top" aria-label="Hemline, back to the top">Hemline<span class="brand-sub" aria-hidden="true">Atelier</span></a>
+      <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Menu</span></button>
+      <nav id="site-nav" aria-label="Page sections">
+        <a href="#prices">Prices</a>
+        <a href="#how">How it works</a>
+        <a href="#ticket" class="nav-cta">Build a ticket <span class="nav-count" id="nav-count" hidden></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="label">No. 14, alterations and repairs</p>
+        <h1 id="hero-title">Trousers taken up <em id="hero-day">in three working days</em>.</h1>
+        <p class="intro">Pick the jobs, see the price, the day it is ready and exactly where the needle goes, before anything is cut. Bring it to the counter or leave it in the drop box.</p>
+        <a class="button" href="#ticket">Build a ticket</a>
+      </div>
+      <figure class="hero-flat" aria-hidden="true">
+        <svg viewBox="0 0 300 380" class="flat">
+          <g class="cloth">
+            <path d="M92 30h116v20H92z"/>
+            <path d="M92 50 80 350h62l8-232 8 232h62L208 50z"/>
+          </g>
+          <g class="detail">
+            <path d="M150 50v62c0 8-4 12-10 14"/><path d="M104 50c4 24 14 34 32 36"/><path d="M196 50c-4 24-14 34-32 36"/>
+            <path d="M110 30v20M140 30v20M160 30v20M190 30v20"/>
+            <path d="M81 336h60M159 336h60"/>
+          </g>
+          <g class="redline"><path d="M74 318h158" class="cut"/><path d="M246 336v-18" class="dim"/><path d="M242 322l4-4 4 4M242 332l4 4 4-4" class="dim"/></g>
+          <text x="252" y="331" class="dim-text">3 cm</text>
+        </svg>
+        <figcaption>Fig. 1, trousers, hem taken up 3 cm</figcaption>
+      </figure>
+      <dl class="hours" aria-label="Opening hours">
+        <div><dt>Mon to Fri</dt><dd>08:30 to 18:00</dd></div>
+        <div><dt>Saturday</dt><dd>09:00 to 14:00</dd></div>
+        <div><dt>Sunday</dt><dd>Closed</dd></div>
+        <div><dt>Express</dt><dd>Next working day, plus half</dd></div>
+      </dl>
+      <div class="tape" aria-hidden="true"><div class="tape-strip" id="tape-strip"></div></div>
+    </section>
+
+    <section id="prices" class="prices" aria-labelledby="prices-title" tabindex="-1">
+      <div class="section-head">
+        <p class="label">The list</p>
+        <h2 id="prices-title">Prices</h2>
+        <p>Per garment, labour and thread included. Tap a price to put it on your ticket.</p>
+      </div>
+      <div class="price-groups" id="price-groups"></div>
+    </section>
+
+    <section id="how" class="how" aria-labelledby="how-title" tabindex="-1">
+      <h2 id="how-title">How a ticket works</h2>
+      <ol class="steps">
+        <li><span class="step-n">i.</span><b>Build it here</b> Add each garment and job. The sketch, the total and the ready day update as you go.</li>
+        <li><span class="step-n">ii.</span><b>Drop it off</b> Show the ticket number at the counter, or write it on the bag for the drop box.</li>
+        <li><span class="step-n">iii.</span><b>Try it on</b> Fittings are free. If the length is wrong, it goes back on the bench at no cost.</li>
+      </ol>
+    </section>
+
+    <section id="ticket" class="builder" aria-labelledby="ticket-title" tabindex="-1">
+      <div class="builder-main">
+        <p class="label">The fitting room</p>
+        <h2 id="ticket-title">Build a ticket</h2>
+        <form id="add-form" class="add-form" novalidate>
+          <div class="picks-col">
+            <fieldset class="garments">
+              <legend>Garment</legend>
+              <div class="garment-list" id="garment-list"></div>
+            </fieldset>
+            <fieldset class="jobs">
+              <legend>Job</legend>
+              <div class="job-list" id="job-list"></div>
+            </fieldset>
+          </div>
+          <figure class="fitting" id="fitting">
+            <div class="fitting-art" id="fitting-art"></div>
+            <figcaption id="fitting-cap" aria-live="polite">Pick a job to see where the work goes.</figcaption>
+            <div class="measure" id="measure" hidden>
+              <label for="shorten">Shorten by <output id="shorten-out" for="shorten">3 cm</output></label>
+              <input type="range" id="shorten" min="1" max="15" step="0.5" value="3" aria-describedby="shorten-help">
+              <p id="shorten-help" class="help">Measured from the current hem. Drag the slider or use the arrow keys, the red line follows.</p>
+            </div>
+          </figure>
+          <div class="add-row">
+            <p class="field-error" id="add-error" role="alert" hidden>Pick a job for this garment first.</p>
+            <button class="button" type="submit" id="add-btn">Add to ticket</button>
+          </div>
+        </form>
+
+        <form id="book-form" class="book-form" novalidate>
+          <h3>Your details</h3>
+          <div class="error-summary" id="error-summary" role="alert" tabindex="-1" hidden>
+            <p>Check these before booking:</p>
+            <ul id="error-list"></ul>
+          </div>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" maxlength="60" aria-describedby="name-error">
+            <p class="field-error" id="name-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="phone">Phone, for the ready message</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="phone-help phone-error">
+            <p class="help" id="phone-help">At least 7 digits. Spaces and a leading plus are fine.</p>
+            <p class="field-error" id="phone-error" hidden></p>
+          </div>
+          <fieldset class="handover">
+            <legend>Hand over</legend>
+            <label class="option"><input type="radio" name="handover" value="counter" checked><span>At the counter</span></label>
+            <label class="option"><input type="radio" name="handover" value="box"><span>Drop box, any time</span></label>
+          </fieldset>
+          <label class="option express"><input type="checkbox" id="express"><span>Express, ready the next working day <em>plus half the price</em></span></label>
+          <p class="help" id="express-note" hidden>Lining jobs take a full week and cannot go express.</p>
+          <button class="button button-book" type="submit" id="book-btn"><span class="spinner" aria-hidden="true"></span><span class="book-label">Book this ticket</span></button>
+        </form>
+      </div>
+
+      <aside class="tag-wrap" aria-labelledby="tag-title">
+        <div class="tag" id="tag">
+          <span class="tag-hole" aria-hidden="true"></span>
+          <svg class="tag-thread" viewBox="0 0 40 84" aria-hidden="true"><path d="M20 82C10 62 32 50 20 32S12 6 26 0"/></svg>
+          <div class="tag-head">
+            <h3 id="tag-title">Ticket</h3>
+            <span class="tag-no" id="tag-no">Not booked yet</span>
+          </div>
+          <p class="tag-empty" id="tag-empty">Empty for now. Pick a garment and a job, or tap any price above.</p>
+          <ul class="tag-lines" id="tag-lines" aria-live="polite"></ul>
+          <div class="tag-foot" id="tag-foot" hidden>
+            <div class="tag-row"><span>Labour</span><span id="tag-sub"></span></div>
+            <div class="tag-row" id="tag-express-row" hidden><span>Express</span><span id="tag-express"></span></div>
+            <div class="tag-row tag-total"><span>Total</span><strong id="tag-total"></strong></div>
+            <p class="tag-ready">Ready <b id="tag-ready"></b></p>
+          </div>
+          <div class="tag-done" id="tag-done" hidden>
+            <p class="stamp" aria-hidden="true">Booked</p>
+            <p id="tag-done-text"></p>
+            <button type="button" class="button button-quiet" id="new-ticket">Start another ticket</button>
+          </div>
+        </div>
+        <p class="fine">Hemline is fictional. Nothing on this page is sent or stored, and the ticket number only lives in this tab.</p>
+      </aside>
+    </section>
+  </main>
+
+  <div class="mini-total" id="mini-total" hidden><span id="mini-text"></span><a href="#tag-title" class="mini-link">See ticket</a></div>
+
+  <footer class="site-footer">
+    <p>A responsive example in HTML, CSS and jQuery by Alexandr Khrustalev. Not client work.</p>
+    <a href="../index.html">Back to selected work</a>
+    <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
+  </footer>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=((-12)+((12)-(-12))*x).toFixed(2)+'deg';document.querySelectorAll('.hero h1 em').forEach(function(n){n.style.setProperty('--sk',v)})})},{passive:true})})();</script>
+</body>
+</html>
