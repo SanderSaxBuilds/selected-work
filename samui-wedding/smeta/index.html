@@ -193,7 +193,7 @@ function calc(){const g=S.guests,L=[],add=(c,l,a,n)=>{if(a>0)L.push({c,l,a:Math.
  add('Церемония','Церемония: '+lab('cer',S.cer).toLowerCase(),P.cer[S.cer],'координатор, ведущий, арка, звук');
  if(S.cer==='legal')add('Церемония','Документы для официального брака',P.docs,'перевод, легализация, регистрация');
  add('Площадка',(vk==='beach'?'Пляж, ':'Вилла, ')+lab('ven',S.ven).toLowerCase(),P.ven[vk][S.ven]*(hi?1.2:1),hi?'высокий сезон, плюс 20%':'низкий сезон');
- add('Декор',lab('dec',S.dec)+' декор и цветы',P.dec[S.dec]+P.decG[S.dec]*g,P.decG[S.dec]?'с оформлением столов на '+g+' '+plural(g,'гостя','гостей','гостей'):'');
+ add('Декор','Декор и цветы: '+lab('dec',S.dec).toLowerCase(),P.dec[S.dec]+P.decG[S.dec]*g,P.decG[S.dec]?'с оформлением столов на '+g+' '+plural(g,'гостя','гостей','гостей'):'');
  if(S.ph)add('Фото и видео','Фотограф, '+S.ph+' '+plural(S.ph,'час','часа','часов'),P.ph*S.ph,'');
  add('Фото и видео','Видео: '+lab('vid',S.vid).toLowerCase(),P.vid[S.vid],'');
  if(S.ext.indexOf('drone')>=0)add('Фото и видео','Съёмка с дрона',P.drone,'');
