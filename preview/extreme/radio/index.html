@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Kluen, cocktail bar, Charoen Krung</title>
+<meta name="description" content="Kluen is a cocktail bar on Charoen Krung, Bangkok. Tune the radio to find the menu, the week's programme, the way there and a table.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Chakra+Petch:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235B1A22'/%3E%3Cpath d='M4 18c4-8 6 8 10 0s6-8 10 0 4 4 4 4' stroke='%23C9A75A' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{
+  --night:#2A0B10; --cab:#5B1A22; --cab-hi:#7A2630; --cab-lo:#3E0F16; --brass:#C9A75A; --brass-lo:#8E7236;
+  --glass:#EFE6CF; --glass-ink:#2B1A12; --needle:#D6283B; --ivory:#F6EEDC; --screen:#1C2B26; --screen-ink:#E8F0E2; --green:#9FD3B4;
+  --disp:"Bodoni Moda",Didot,serif; --ui:"Chakra Petch",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--night);color:var(--ivory);font:400 16px/1.5 var(--ui);overflow-x:hidden}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--brass);color:var(--night);padding:10px 14px;z-index:99;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
+
+.radio{max-width:1240px;margin:18px auto 0;padding:0 16px 40px}
+.cabinet{position:relative;background:var(--cab);border-radius:38px 38px 24px 24px;padding:22px clamp(14px,2.4vw,30px) 26px;
+  box-shadow:inset 0 2px 0 var(--cab-hi),inset 0 -6px 0 var(--cab-lo),0 30px 60px -20px #000,0 10px 0 -2px var(--cab-lo)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.logo{display:flex;align-items:center;gap:12px;color:var(--brass);text-decoration:none}
+.logo svg{width:48px;height:48px}
+.logo b{font:italic 800 38px/1 var(--disp);letter-spacing:-.01em}
+.logo span{display:block;font:500 13px var(--ui);letter-spacing:.06em;color:var(--brass)}
+.sound{display:flex;align-items:center;gap:10px;background:var(--cab-lo);border:1px solid var(--brass-lo);border-radius:30px;padding:6px 14px 6px 8px;cursor:pointer;color:var(--brass);font-weight:600}
+.sound i{width:34px;height:20px;border-radius:12px;background:#2a0a0f;position:relative;border:1px solid var(--brass-lo)}
+.sound i::after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--brass-lo);transition:transform .2s,background .2s}
+.sound[aria-pressed=true] i::after{transform:translateX(14px);background:var(--brass)}
+
+/* dial glass */
+.glass{position:relative;background:var(--glass);border-radius:14px;border:3px solid var(--brass);height:150px;overflow:hidden;cursor:ew-resize;touch-action:none;
+  box-shadow:inset 0 0 0 2px var(--brass-lo),inset 0 12px 30px -10px rgba(91,26,34,.35)}
+.glass.lit{background:#F4EBD3}
+.glass svg{position:absolute;inset:0;width:100%;height:100%}
+.glass .stn{font:700 15px var(--ui);fill:var(--glass-ink)}
+.glass .stn.on{fill:var(--needle)}
+.glass .num{font:500 13px var(--ui);fill:#6B5544}
+.glass .mhz{font:italic 600 13px var(--disp);fill:#6B5544}
+.needle{position:absolute;top:6px;bottom:6px;width:3px;margin-left:-1.5px;background:var(--needle);border-radius:2px;box-shadow:2px 0 4px rgba(0,0,0,.25);pointer-events:none}
+.needle::before{content:"";position:absolute;left:-6px;top:-6px;width:15px;height:10px;background:var(--needle);border-radius:3px}
+.freqread{margin-left:auto;background:var(--screen);border:2px solid var(--brass);border-radius:8px;padding:4px 12px 3px;font:700 30px/1 var(--ui);color:var(--green);font-variant-numeric:tabular-nums;min-width:132px;text-align:right;box-shadow:inset 0 6px 12px -6px #000}
+.freqread small{font-size:12px;margin-left:4px;color:var(--brass)}
+.glass::after{content:"";position:absolute;left:-10%;top:-60%;width:30%;height:220%;background:rgba(255,255,255,.22);transform:rotate(18deg);pointer-events:none}
+
+/* lower deck */
+.deck{display:grid;grid-template-columns:230px 1fr;gap:22px;margin-top:20px;align-items:stretch}
+.controls{display:flex;flex-direction:column;gap:18px;align-items:center}
+.vu{width:100%;background:var(--ivory);border:3px solid var(--brass);border-radius:12px;padding:6px 8px 2px}
+.vu svg{display:block;width:100%;height:auto}
+.vu .lbl{font:600 10px var(--ui);fill:#6B5544}
+.vu .big{font:italic 700 15px var(--disp);fill:var(--glass-ink)}
+.knobwrap{position:relative;width:170px;height:170px}
+.knob{width:170px;height:170px;border-radius:50%;cursor:grab;touch-action:none;position:relative;
+  background:radial-gradient(circle at 38% 32%,#8A3440 0,#5B1A22 46%,#3A0E15 100%);box-shadow:0 10px 0 -2px #250709,0 18px 30px -8px #000,inset 0 2px 0 rgba(255,255,255,.12)}
+.knob:active{cursor:grabbing}
+.knob .cap{position:absolute;inset:26px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#E2C680,#C9A75A 50%,#8E7236);box-shadow:inset 0 -3px 6px rgba(0,0,0,.3)}
+.knob .mark{position:absolute;left:50%;top:10px;width:6px;height:28px;margin-left:-3px;border-radius:3px;background:var(--ivory)}
+.knob .grip{position:absolute;inset:0;border-radius:50%}
+.knob .grip::before{content:"";position:absolute;inset:4px;border-radius:50%;border:2px dashed rgba(201,167,90,.35)}
+.knob .grip i{position:absolute;left:50%;top:0;width:2px;height:14px;margin-left:-1px;background:#2a0a0f;transform-origin:1px 85px}
+.knob-lbl{text-align:center;font-size:13px;color:var(--brass);margin:22px 0 0}
+
+/* the speaker screen */
+.screen{position:relative;background:var(--screen);color:var(--screen-ink);border-radius:18px;border:3px solid var(--brass);min-height:430px;overflow:hidden;
+  box-shadow:inset 0 0 0 6px #14201C,inset 0 30px 60px -30px #000}
+.station{position:relative;padding:26px clamp(16px,3vw,36px) 28px;height:100%}
+.station[hidden]{display:none}
+#static{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;mix-blend-mode:screen}
+.tuning .station{filter:blur(var(--blur,0px));transform:translateX(var(--jit,0px))}
+.lost{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font:italic 700 clamp(28px,4vw,48px) var(--disp);color:var(--screen-ink);opacity:0;pointer-events:none}
+.screen.nosignal .lost{opacity:.85}
+.screen.nosignal .station{opacity:.12}
+
+.sthead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 18px}
+.sthead h2{font:italic 800 clamp(40px,5.6vw,78px)/.9 var(--disp);margin:0;letter-spacing:-.02em;color:var(--ivory)}
+.sthead .fq{font:700 18px var(--ui);color:var(--green)}
+
+/* on air */
+.onair{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:end}
+.onair .hero{font:italic 900 clamp(84px,13vw,190px)/.78 var(--disp);color:var(--ivory);margin:0;letter-spacing:-.04em}
+.onair .th{font:700 clamp(40px,6vw,84px)/1 var(--ui);color:var(--brass);margin:8px 0 0}
+.tonight{border:2px solid var(--green);border-radius:10px;padding:14px 16px}
+.tonight small{color:var(--green);font-weight:600}
+.tonight b{display:block;font:italic 700 28px/1.1 var(--disp);margin:2px 0 4px}
+.hours{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.hours span{border:1px solid var(--brass-lo);border-radius:6px;padding:4px 10px;font-weight:600;color:var(--brass)}
+
+/* menu */
+.drinks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:4px 22px}
+.drinks li{display:grid;grid-template-columns:44px 1fr;gap:4px 12px;padding:12px 0;border-top:1px solid #2F4640}
+.drinks svg{width:44px;height:56px;grid-row:1/3;stroke:var(--brass);fill:none;stroke-width:1.6;stroke-linejoin:round}
+.drinks b{font:italic 700 24px/1.05 var(--disp)}
+.drinks span{font-size:13.5px;color:#B9C8BE}
+.drinks em{font-style:normal;color:var(--green);font-weight:700;margin-left:6px;font-size:15px}
+.drinks li.zero b{color:var(--green)}
+
+/* events */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{border:1px solid #2F4640;border-radius:10px;padding:10px 10px 12px;min-height:150px;display:flex;flex-direction:column;gap:4px;background:#1F302A}
+.day small{font-weight:700;color:var(--green)}
+.day b{font:italic 700 20px/1.05 var(--disp)}
+.day span{font-size:13px;color:#B9C8BE;margin-top:auto}
+.day.off{opacity:.45}
+.day.today{border-color:var(--brass);background:#2A3A30}
+.day.today small::after{content:", tonight";color:var(--brass)}
+
+/* find us */
+.find{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;align-items:center}
+.find svg{width:100%;height:auto;display:block;border-radius:12px;background:#22342E}
+.find dl{margin:0;display:grid;gap:10px}
+.find dt{font-size:12.5px;color:var(--green);font-weight:600}
+.find dd{margin:0;font:italic 600 22px/1.15 var(--disp)}
+
+/* booking */
+.bookf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:760px}
+.bookf label{display:grid;gap:4px;font-size:13px;color:var(--green);font-weight:600}
+.bookf input,.bookf select{background:#12201C;border:1px solid #3B544C;border-radius:8px;padding:10px;color:var(--screen-ink);min-width:0;width:100%;font-size:16px;color-scheme:dark}
+.bookf .wide{grid-column:span 2}
+.bookf button{grid-column:span 2;align-self:end;background:var(--brass);color:var(--night);border:0;border-radius:8px;padding:12px;font-weight:700;cursor:pointer;font-size:16px}
+.bookf button:active{transform:translateY(2px)}
+.bookmsg{margin-top:16px;max-width:760px;border:2px dashed var(--brass);border-radius:10px;padding:14px 16px}
+.bookmsg b{font:italic 700 26px var(--disp);display:block}
+.err{color:#FFB3BC;font-size:14px;grid-column:1/-1;margin:0}
+
+/* presets */
+.presets{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:20px}
+.presets button{background:var(--ivory);color:var(--glass-ink);border:0;border-radius:8px 8px 12px 12px;padding:12px 6px 10px;cursor:pointer;font-weight:700;
+  box-shadow:0 7px 0 #B9AE95,0 12px 16px -6px #000;transition:transform .08s,box-shadow .08s;display:flex;flex-direction:column;align-items:center;gap:0}
+.presets button small{font-weight:500;font-size:12px;color:#6B5544}
+.presets button:active,.presets button[aria-pressed=true]{transform:translateY(5px);box-shadow:0 2px 0 #B9AE95,0 4px 8px -4px #000}
+.presets button[aria-pressed=true]{background:var(--brass)}
+.feet{display:flex;justify-content:space-between;padding:0 50px}
+.feet i{width:70px;height:16px;background:var(--cab-lo);border-radius:0 0 10px 10px}
+
+#plain{max-width:760px;margin:40px auto 0;padding:30px 16px 70px;color:var(--ivory)}
+#plain h2{font:italic 800 40px var(--disp);margin:0 0 10px;color:var(--brass)}
+#plain h3{font:italic 700 24px var(--disp);margin:26px 0 6px}
+#plain p,#plain li{color:#E3D6C0;max-width:66ch}
+
+@media (max-width:900px){
+  .deck{grid-template-columns:1fr}
+  .controls{flex-direction:row;justify-content:center;gap:14px}
+  .vu{max-width:220px}
+  .knobwrap,.knob{width:130px;height:130px}
+  .knob .grip i{transform-origin:1px 65px}
+  .drinks{grid-template-columns:1fr 1fr}
+  .week{grid-template-columns:repeat(4,1fr)}
+  .onair,.find{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .radio{padding:0 8px 30px;margin-top:8px}
+  .cabinet{border-radius:26px 26px 18px 18px;padding:14px 12px 18px}
+  .logo b{font-size:30px}.logo svg{width:38px;height:38px}
+  .top{flex-wrap:wrap}
+  .logo span span{display:none}
+  .freqread{font-size:22px;min-width:96px;padding:4px 8px 3px}
+  .sound{padding:5px 10px 5px 6px;font-size:14px}
+  .glass{height:124px}
+  .controls{gap:8px}
+  .vu{max-width:none;flex:1}
+  .knobwrap,.knob{width:112px;height:112px;flex:none}
+  .knob .cap{inset:20px}
+  .knob .grip i{transform-origin:1px 56px}
+  .knob-lbl{display:none}
+  .screen{min-height:0}
+  .drinks{grid-template-columns:1fr}
+  .week{grid-template-columns:1fr 1fr}
+  .day{min-height:0}
+  .bookf{grid-template-columns:1fr 1fr}
+  .bookf .wide,.bookf button{grid-column:1/-1}
+  .presets{gap:6px}
+  .presets button{font-size:13px;padding:10px 2px 8px}
+  .presets button small{font-size:11px}
+  .feet{padding:0 30px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#plain">Skip to menu, hours and address</a>
+
+<main class="radio" id="radio">
+  <div class="cabinet">
+    <div class="top">
+      <a class="logo" href="#radio" aria-label="Kluen, home">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#C9A75A" stroke-width="2"/><path d="M6 27c5-12 8 10 13 0s7-12 12-1 6 6 11 1" fill="none" stroke="#C9A75A" stroke-width="2.6" stroke-linecap="round"/><path d="M24 3v6M24 39v6" stroke="#C9A75A" stroke-width="2"/></svg>
+        <span><b>Kluen</b><span>Charoen Krung, Bangkok</span></span>
+      </a>
+      <div class="freqread" id="freqread" aria-hidden="true">89.1<small>MHz</small></div>
+      <button class="sound" id="sound" type="button" aria-pressed="false"><i aria-hidden="true"></i>Sound</button>
+    </div>
+
+    <div class="glass" id="glass" role="slider" tabindex="0" aria-label="Tuning dial" aria-valuemin="88" aria-valuemax="108" aria-valuenow="89.1" aria-valuetext="89.1 megahertz, On air">
+      <svg id="scale" aria-hidden="true"></svg>
+      <div class="needle" id="needle"></div>
+    </div>
+
+    <div class="deck">
+      <div class="controls">
+        <div class="vu" aria-hidden="true">
+          <svg viewBox="0 0 200 116">
+            <path id="vuarc" fill="none" stroke="#2B1A12" stroke-width="1.2"/>
+            <path id="vured" fill="none" stroke="#D6283B" stroke-width="5"/>
+            <g id="vuticks"></g>
+            <text class="big" x="16" y="108">VU</text>
+            <text class="lbl" x="184" y="108" text-anchor="end">signal</text>
+            <line id="vuneedle" x1="100" y1="106" x2="100" y2="42" stroke="#2B1A12" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="100" cy="106" r="7" fill="#5B1A22"/>
+          </svg>
+        </div>
+        <div>
+          <div class="knobwrap"><div class="knob" id="knob" aria-hidden="true"><div class="cap"></div><div class="grip" id="grip"><div class="mark"></div></div></div></div>
+          <p class="knob-lbl">Turn to tune</p>
+        </div>
+      </div>
+
+      <div class="screen" id="screen" aria-live="polite">
+        <section class="station" data-st="0" aria-label="On air">
+          <div class="onair">
+            <div>
+              <p class="hero">Kluen</p>
+              <p class="th" lang="th">คลื่น</p>
+            </div>
+            <div>
+              <div class="tonight" id="tonight"></div>
+              <div class="hours"><span>Tue to Sun</span><span>18:00 to 01:00</span><span>Mon off air</span></div>
+            </div>
+          </div>
+        </section>
+        <section class="station" data-st="1" aria-label="Menu" hidden>
+          <div class="sthead"><h2>The menu</h2><span class="fq">93.5</span></div>
+          <ul class="drinks" id="drinks"></ul>
+        </section>
+        <section class="station" data-st="2" aria-label="This week" hidden>
+          <div class="sthead"><h2>This week</h2><span class="fq">98.3</span></div>
+          <div class="week" id="week"></div>
+        </section>
+        <section class="station" data-st="3" aria-label="Find us" hidden>
+          <div class="sthead"><h2>Find us</h2><span class="fq">102.7</span></div>
+          <div class="find">
+            <svg viewBox="0 0 420 260" role="img" aria-label="Map. Kluen is on Charoen Krung Soi 32, between the river and Saphan Taksin station.">
+              <path d="M300 -10C270 60 300 110 250 160S210 240 230 280H440V-10z" fill="#2E4E5C"/>
+              <text x="350" y="120" fill="#9FC3CF" font-family="Bodoni Moda,serif" font-style="italic" font-size="16" transform="rotate(68 350 120)">Chao Phraya</text>
+              <path d="M150 -10C170 70 150 150 140 280" fill="none" stroke="#C9A75A" stroke-width="7"/>
+              <text x="118" y="40" fill="#C9A75A" font-family="Chakra Petch,sans-serif" font-size="12" font-weight="600" transform="rotate(84 118 40)">Charoen Krung</text>
+              <path d="M152 112H266M147 170H236M156 60H290" stroke="#5E7A70" stroke-width="3"/>
+              <path d="M30 220H200" stroke="#9FD3B4" stroke-width="4" stroke-dasharray="10 6"/>
+              <rect x="180" y="210" width="34" height="20" rx="4" fill="#9FD3B4"/><text x="197" y="224" text-anchor="middle" fill="#1C2B26" font-family="Chakra Petch,sans-serif" font-size="11" font-weight="700">BTS</text>
+              <text x="30" y="248" fill="#9FD3B4" font-family="Chakra Petch,sans-serif" font-size="12">Saphan Taksin</text>
+              <path d="M236 170h22v10h-22z" fill="#F6EEDC"/><text x="262" y="196" fill="#F6EEDC" font-family="Chakra Petch,sans-serif" font-size="11">Pier</text>
+              <g transform="translate(196 112)">
+                <path d="M-14 -46L0 -10 14 -46" fill="none" stroke="#D6283B" stroke-width="3"/>
+                <path d="M-22 -58a28 28 0 0 1 44 0M-14 -52a18 18 0 0 1 28 0" fill="none" stroke="#D6283B" stroke-width="2.4"/>
+                <circle cy="-46" r="4" fill="#D6283B"/>
+              </g>
+              <text x="216" y="100" fill="#F6EEDC" font-family="Bodoni Moda,serif" font-style="italic" font-weight="700" font-size="20">Kluen</text>
+              <text x="160" y="106" fill="#B9C8BE" font-family="Chakra Petch,sans-serif" font-size="10">Soi 32</text>
+            </svg>
+            <dl>
+              <div><dt>Address</dt><dd>1/7 Charoen Krung Soi 32, Bang Rak</dd></div>
+              <div><dt>From the BTS</dt><dd>Saphan Taksin, 8 minutes on foot</dd></div>
+              <div><dt>By boat</dt><dd>Oriental pier, 4 minutes</dd></div>
+              <div><dt>Look for</dt><dd>A red door and a radio in the window</dd></div>
+            </dl>
+          </div>
+        </section>
+        <section class="station" data-st="4" aria-label="Book a table" hidden>
+          <div class="sthead"><h2>Book a table</h2><span class="fq">106.1</span></div>
+          <form class="bookf" id="bookf" novalidate>
+            <label>Date<input type="date" name="date" required></label>
+            <label>Time<select name="time"></select></label>
+            <label>People<select name="ppl"><option>2</option><option>1</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
+            <label>Seat<select name="seat"><option>Bar</option><option>Booth</option><option>Window</option></select></label>
+            <label class="wide">Name<input name="name" autocomplete="name" required></label>
+            <button type="submit">Request the table</button>
+            <p class="err" id="berr" aria-live="polite"></p>
+          </form>
+          <div id="bookmsg"></div>
+        </section>
+        <canvas id="static" aria-hidden="true"></canvas>
+        <p class="lost" aria-hidden="true">Between stations</p>
+      </div>
+    </div>
+
+    <div class="presets" id="presets" role="group" aria-label="Stations"></div>
+  </div>
+  <div class="feet" aria-hidden="true"><i></i><i></i></div>
+</main>
+
+<section id="plain" tabindex="-1" aria-labelledby="plain-h">
+  <h2 id="plain-h">Kluen, plainly</h2>
+  <p>Cocktail bar at 1/7 Charoen Krung Soi 32, Bang Rak, Bangkok. Tuesday to Sunday, 18:00 to 01:00, closed Monday. 8 minutes on foot from Saphan Taksin BTS, 4 minutes from Oriental pier.</p>
+  <h3>Menu</h3>
+  <ul id="plain-drinks"></ul>
+  <h3>This week</h3>
+  <ul id="plain-week"></ul>
+  <h3>Bookings</h3>
+  <p>Use the Book a table station above, or message +66 00 000 0000 on LINE. Kluen is a concept bar made for a portfolio, so the number is a placeholder.</p>
+</section>
+
+<script>
+(function(){
+"use strict";
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MIN = 88, MAX = 108;
+const ST = [
+  {f:89.1, n:"On air", s:"Hours"},
+  {f:93.5, n:"Menu", s:"Drinks"},
+  {f:98.3, n:"This week", s:"Music"},
+  {f:102.7, n:"Find us", s:"Map"},
+  {f:106.1, n:"Book", s:"Table"}
+];
+const LOCK = .3, SNAP = 1.3;
+
+/* ---------- content ---------- */
+const GLASS = {
+  rocks:'<path d="M8 20h28l-3 32H11z"/><path d="M12 30h20"/><rect x="14" y="32" width="10" height="10" rx="2"/>',
+  coupe:'<path d="M4 14h36c0 12-8 18-18 18S4 26 4 14z"/><path d="M22 32v18M12 52h20"/>',
+  high:'<path d="M10 4h24l-2 50H12z"/><path d="M12 18h20"/><path d="M26 0l-4 28"/>',
+  nick:'<path d="M8 10h28c0 14-6 20-14 20S8 24 8 10z"/><path d="M22 30v20M13 52h18"/><circle cx="28" cy="16" r="3"/>'
+};
+const DRINKS = [
+  {n:"Night Ferry", d:"Mekhong, tamarind, smoked salt", p:380, g:"rocks"},
+  {n:"Soi 32 Sour", d:"Thai rum, pandan, lime", p:360, g:"coupe"},
+  {n:"Long Wave", d:"Gin, lemongrass, makrut tonic", p:340, g:"high"},
+  {n:"Static", d:"Mezcal, roselle, bird's eye chilli", p:420, g:"nick"},
+  {n:"Midnight Edition", d:"Bourbon, Thai coffee, coconut", p:400, g:"rocks"},
+  {n:"Dead Air", d:"Zero proof. Butterfly pea, yuzu, soda", p:220, g:"high", zero:true}
+];
+const WEEK = [
+  {d:"Mon", n:"Off air", s:"Closed"},
+  {d:"Tue", n:"Vinyl requests", s:"Bring a record, from 19:00"},
+  {d:"Wed", n:"Luk thung duo", s:"Live, 21:00"},
+  {d:"Thu", n:"Jazz trio", s:"Live, 20:30"},
+  {d:"Fri", n:"Mor lam set", s:"DJ, 22:00"},
+  {d:"Sat", n:"Guest bartender", s:"New menu each week"},
+  {d:"Sun", n:"Slow tunes", s:"Zero proof half price before 20:00"}
+];
+$("#drinks").innerHTML = DRINKS.map(d => `<li class="${d.zero?"zero":""}"><svg viewBox="0 0 44 56" aria-hidden="true">${GLASS[d.g]}</svg><b>${esc(d.n)}<em>${d.p}</em></b><span>${esc(d.d)}</span></li>`).join("");
+const bkkDay = new Date().toLocaleDateString("en-GB",{timeZone:"Asia/Bangkok",weekday:"short"});
+$("#week").innerHTML = WEEK.map(w => `<div class="day ${w.d==="Mon"?"off":""} ${w.d===bkkDay?"today":""}"><small>${w.d}</small><b>${esc(w.n)}</b><span>${esc(w.s)}</span></div>`).join("");
+const tw = WEEK.find(w => w.d === bkkDay) || WEEK[1];
+$("#tonight").innerHTML = tw.d === "Mon" ? `<small>Tonight</small><b>Off air</b><span>Back tomorrow at 18:00</span>` : `<small>Tonight</small><b>${esc(tw.n)}</b><span>${esc(tw.s)}</span>`;
+$("#plain-drinks").innerHTML = DRINKS.map(d => `<li>${esc(d.n)}, ${esc(d.d.replace("Zero proof. ","zero proof, "))}, ${d.p} THB</li>`).join("") + "<li>Bottled beer from 180 THB, bar snacks from 120 THB</li>";
+$("#plain-week").innerHTML = WEEK.map(w => `<li>${w.d}, ${esc(w.n)}, ${esc(w.s)}</li>`).join("");
+
+/* presets */
+const presets = $("#presets");
+ST.forEach((s,i) => {
+  const b = document.createElement("button"); b.type = "button";
+  b.innerHTML = `${s.n}<small>${s.f}</small>`; b.setAttribute("aria-pressed", i===0);
+  b.onclick = () => sweepTo(s.f);
+  presets.appendChild(b);
+});
+
+/* ---------- dial ---------- */
+const glass = $("#glass"), scale = $("#scale"), needle = $("#needle"), readout = $("#freqread");
+let W = 0, H = 0, PAD = 30;
+function x(f){ return PAD + (f - MIN) / (MAX - MIN) * (W - 2*PAD); }
+function drawScale(){
+  W = glass.clientWidth; H = glass.clientHeight; PAD = W < 500 ? 18 : 34;
+  const small = W < 500;
+  let s = `<svg viewBox="0 0 ${W} ${H}">`;
+  // station names printed on the glass
+  ST.forEach((st,i) => {
+    const y = small ? (i % 2 ? 46 : 26) : 34;
+    s += `<text class="stn" data-i="${i}" x="${x(st.f)}" y="${y}" text-anchor="middle" font-size="${small?12:15}">${esc(st.n)}</text>`;
+    s += `<line x1="${x(st.f)}" y1="${y+6}" x2="${x(st.f)}" y2="${H-50}" stroke="#C9A75A" stroke-width="1.5"/>`;
+  });
+  for (let f = MIN; f <= MAX + .001; f += .5) {
+    const major = Math.abs(f - Math.round(f)) < .01 && Math.round(f) % 2 === 0;
+    const mid = Math.abs(f - Math.round(f)) < .01;
+    const len = major ? 22 : mid ? 14 : 8;
+    s += `<line x1="${x(f)}" x2="${x(f)}" y1="${H-48}" y2="${H-48+len}" stroke="#2B1A12" stroke-width="${major?1.6:1}"/>`;
+    if (major && (!small || Math.round(f) % 4 === 0)) s += `<text class="num" x="${x(f)}" y="${H-12}" text-anchor="middle">${Math.round(f)}</text>`;
+  }
+  s += `<text class="mhz" x="${PAD}" y="${H-12}" text-anchor="start" opacity="0">MHz</text></svg>`;
+  $("#scale").outerHTML = s.replace("<svg", '<svg id="scale" aria-hidden="true"');
+  render();
+}
+
+/* ---------- state ---------- */
+let freq = 89.1, current = 0, lastF = freq, energy = 0, vuVal = 0, raf = 0, tuningUntil = 0, sweepAnim = 0;
+const screen = $("#screen"), stations = [...document.querySelectorAll(".station")], cv = $("#static"), ctx = cv.getContext("2d");
+
+function nearest(f){ let b = 0, d = 99; ST.forEach((s,i) => { const dd = Math.abs(s.f - f); if (dd < d) { d = dd; b = i; } }); return {i:b, d}; }
+function signal(f){ const {d} = nearest(f); return d <= LOCK ? 1 : Math.max(0, 1 - (d - LOCK) / 1.2); }
+
+function setFreq(f, user){
+  f = Math.max(MIN, Math.min(MAX, f));
+  energy = Math.min(1, energy + Math.abs(f - freq) * 1.6);
+  freq = f;
+  tuningUntil = performance.now() + 160;
+  render();
+  kick();
+}
+function render(){
+  needle.style.left = x(freq) + "px";
+  readout.innerHTML = freq.toFixed(1) + "<small>MHz</small>";
+  const n = nearest(freq), sig = signal(freq);
+  const locked = n.d <= LOCK;
+  if (n.i !== current && sig > .25) {
+    current = n.i;
+    stations.forEach((s,i) => s.hidden = i !== current);
+    presets.querySelectorAll("button").forEach((b,i) => b.setAttribute("aria-pressed", i === current && locked));
+  }
+  presets.querySelectorAll("button").forEach((b,i) => b.setAttribute("aria-pressed", i === current && locked));
+  document.querySelectorAll("#scale .stn").forEach((t,i) => t.classList.toggle("on", i === n.i && locked));
+  screen.classList.toggle("nosignal", sig <= .25);
+  const noise = 1 - sig;
+  screen.style.setProperty("--blur", reduce ? "0px" : (noise * 6).toFixed(1) + "px");
+  glass.setAttribute("aria-valuenow", freq.toFixed(1));
+  glass.setAttribute("aria-valuetext", `${freq.toFixed(1)} megahertz, ${locked ? ST[n.i].n : "between stations"}`);
+  glass.classList.toggle("lit", locked);
+  if (audio) audio.update(sig);
+  $("#grip").style.transform = `rotate(${(freq - MIN) * 36}deg)`;
+}
+
+/* static and VU only run while the visitor is tuning, then stop */
+function kick(){ if (!raf) raf = requestAnimationFrame(loop); }
+function loop(t){
+  raf = 0;
+  const tuning = t < tuningUntil;
+  const sig = signal(freq);
+  const noise = (1 - sig);
+  // static
+  if (tuning && noise > .05 && !reduce) {
+    screen.classList.add("tuning");
+    drawStatic(noise);
+    cv.style.opacity = (.25 + noise * .6).toFixed(2);
+    screen.style.setProperty("--jit", ((Math.random() - .5) * noise * 10).toFixed(1) + "px");
+  } else {
+    cv.style.opacity = 0;
+    screen.classList.remove("tuning");
+    screen.style.setProperty("--jit", "0px");
+  }
+  // VU: signal strength plus the energy of the hand on the dial
+  energy *= .9;
+  const target = Math.min(1, sig * .55 + energy * .9 + (tuning ? noise * .25 * Math.random() : 0));
+  vuVal += (target - vuVal) * (reduce ? 1 : .25);
+  vuNeedle.setAttribute("transform", `rotate(${-52 + vuVal * 104} 100 106)`);
+  const settled = !tuning && energy < .01 && Math.abs(target - vuVal) < .005;
+  if (!settled) kick(); else if (!dragging) maybeSnap();
+}
+function drawStatic(n){
+  const w = cv.width = Math.ceil(screen.clientWidth / 3), h = cv.height = Math.ceil(screen.clientHeight / 3);
+  const img = ctx.createImageData(w, h), d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const v = Math.random() < n * .9 ? (Math.random() * 255) | 0 : 0;
+    d[i] = v * .8; d[i+1] = v; d[i+2] = v * .85; d[i+3] = v ? 200 : 0;
+  }
+  // a rolling band, like a bad signal
+  const band = (Math.random() * h) | 0;
+  for (let y = band; y < Math.min(h, band + 4); y++) for (let xx = 0; xx < w; xx++) { const k = (y*w+xx)*4; d[k]=d[k+1]=d[k+2]=230; d[k+3]=160*n; }
+  ctx.putImageData(img, 0, 0);
+}
+const vuNeedle = $("#vuneedle");
+(function vuTicks(){
+  const C = [100,106], R = 70, pt = (deg, r) => { const a = deg * Math.PI / 180; return [(C[0] + Math.sin(a) * r).toFixed(1), (C[1] - Math.cos(a) * r).toFixed(1)]; };
+  const arc = (a0, a1, r) => { const p0 = pt(a0, r), p1 = pt(a1, r); return `M${p0[0]} ${p0[1]}A${r} ${r} 0 0 1 ${p1[0]} ${p1[1]}`; };
+  $("#vuarc").setAttribute("d", arc(-52, 52, R));
+  $("#vured").setAttribute("d", arc(52 - 104/6 * 1.2, 52, R + 3));
+  let s = "";
+  const labels = ["20","10","7","5","3","0","+3"];
+  labels.forEach((l,i) => {
+    const deg = -52 + i * (104/6);
+    const p1 = pt(deg, R), p2 = pt(deg, R + 8), t = pt(deg, R + 18);
+    s += `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="${i>4?"#D6283B":"#2B1A12"}" stroke-width="1.4"/><text class="lbl" x="${t[0]}" y="${(+t[1] + 3).toFixed(1)}" text-anchor="middle">${l}</text>`;
+    if (i < 6) { const m1 = pt(deg + 104/12, R), m2 = pt(deg + 104/12, R + 4); s += `<line x1="${m1[0]}" y1="${m1[1]}" x2="${m2[0]}" y2="${m2[1]}" stroke="#2B1A12"/>`; }
+  });
+  $("#vuticks").innerHTML = s;
+  vuNeedle.setAttribute("transform","rotate(-52 100 106)");
+})();
+
+/* snapping to a nearby station after the hand lets go */
+let keyTuning = false;
+function maybeSnap(){
+  if (keyTuning) return;
+  const n = nearest(freq);
+  if (n.d > 0.01 && n.d < SNAP) glide(ST[n.i].f, 260);
+}
+function glide(to, ms){
+  cancelAnimationFrame(sweepAnim);
+  if (reduce) { setFreq(to); return; }
+  const from = freq, t0 = performance.now();
+  const step = t => {
+    const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+    setFreq(from + (to - from) * e);
+    if (k < 1) sweepAnim = requestAnimationFrame(step);
+  };
+  sweepAnim = requestAnimationFrame(step);
+}
+function sweepTo(f){ glide(f, Math.min(1100, 250 + Math.abs(f - freq) * 60)); }
+
+/* input: drag the glass */
+let dragging = false;
+glass.addEventListener("pointerdown", e => {
+  dragging = true; try { glass.setPointerCapture(e.pointerId); } catch (_) {} cancelAnimationFrame(sweepAnim);
+  const r = glass.getBoundingClientRect();
+  setFreq(MIN + (e.clientX - r.left - PAD) / (W - 2*PAD) * (MAX - MIN), true);
+});
+glass.addEventListener("pointermove", e => {
+  if (!dragging) return;
+  const r = glass.getBoundingClientRect();
+  setFreq(MIN + (e.clientX - r.left - PAD) / (W - 2*PAD) * (MAX - MIN), true);
+});
+const endDrag = () => { if (!dragging) return; dragging = false; kick(); };
+glass.addEventListener("pointerup", endDrag); glass.addEventListener("pointercancel", endDrag);
+
+/* input: turn the knob */
+const knob = $("#knob");
+let kAng = null;
+function ang(e){ const r = knob.getBoundingClientRect(); return Math.atan2(e.clientY - (r.top + r.height/2), e.clientX - (r.left + r.width/2)); }
+knob.addEventListener("pointerdown", e => { dragging = true; try { knob.setPointerCapture(e.pointerId); } catch (_) {} kAng = ang(e); cancelAnimationFrame(sweepAnim); });
+knob.addEventListener("pointermove", e => {
+  if (kAng === null) return;
+  const a = ang(e); let d = a - kAng; if (d > Math.PI) d -= 2*Math.PI; if (d < -Math.PI) d += 2*Math.PI;
+  kAng = a; setFreq(freq + d * 180 / Math.PI / 36, true);
+});
+const endKnob = () => { if (kAng === null) return; kAng = null; dragging = false; kick(); };
+knob.addEventListener("pointerup", endKnob); knob.addEventListener("pointercancel", endKnob);
+
+/* input: wheel over the dial or knob */
+let wheelT = 0;
+[glass, knob].forEach(el => el.addEventListener("wheel", e => {
+  e.preventDefault(); cancelAnimationFrame(sweepAnim);
+  dragging = true; clearTimeout(wheelT); wheelT = setTimeout(() => { dragging = false; kick(); }, 220);
+  setFreq(freq + (e.deltaY + e.deltaX) * .006, true);
+}, {passive:false}));
+
+/* input: keyboard on the dial */
+[glass, knob].forEach(el => el.addEventListener("pointerdown", () => { keyTuning = false; }));
+glass.addEventListener("wheel", () => { keyTuning = false; });
+knob.addEventListener("wheel", () => { keyTuning = false; });
+presets.addEventListener("click", () => { keyTuning = false; });
+glass.addEventListener("keydown", e => {
+  keyTuning = true;
+  if (e.key === "ArrowRight" || e.key === "ArrowUp") { setFreq(freq + .1, true); e.preventDefault(); }
+  else if (e.key === "ArrowLeft" || e.key === "ArrowDown") { setFreq(freq - .1, true); e.preventDefault(); }
+  else if (e.key === "PageUp" || e.key === "]") { const nx = ST.find(s => s.f > freq + .05); if (nx) sweepTo(nx.f); e.preventDefault(); }
+  else if (e.key === "PageDown" || e.key === "[") { const pv = [...ST].reverse().find(s => s.f < freq - .05); if (pv) sweepTo(pv.f); e.preventDefault(); }
+  else if (e.key === "Home") { sweepTo(ST[0].f); e.preventDefault(); }
+  else if (e.key === "End") { sweepTo(ST[ST.length-1].f); e.preventDefault(); }
+});
+
+/* ---------- sound, built from oscillators and generated noise ---------- */
+let audio = null;
+const soundBtn = $("#sound");
+soundBtn.addEventListener("click", () => {
+  const on = soundBtn.getAttribute("aria-pressed") !== "true";
+  soundBtn.setAttribute("aria-pressed", on);
+  if (on) { if (!audio) audio = makeAudio(); if (audio) { audio.ctx.resume(); audio.update(signal(freq)); } }
+  else if (audio) audio.ctx.suspend();
+});
+function makeAudio(){
+  const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+  const ac = new AC(), master = ac.createGain(); master.gain.value = .5; master.connect(ac.destination);
+  const buf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate), ch = buf.getChannelData(0);
+  for (let i = 0; i < ch.length; i++) ch[i] = Math.random() * 2 - 1;
+  const src = ac.createBufferSource(); src.buffer = buf; src.loop = true;
+  const bp = ac.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 2400; bp.Q.value = .6;
+  const ng = ac.createGain(); ng.gain.value = 0; src.connect(bp).connect(ng).connect(master); src.start();
+  // a soft chord per station
+  const CHORDS = [[220,277.2,329.6],[196,246.9,293.7],[174.6,220,261.6],[233.1,293.7,349.2],[261.6,329.6,392]];
+  const tg = ac.createGain(); tg.gain.value = 0; const lp = ac.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 1200;
+  tg.connect(lp).connect(master);
+  const oscs = [0,1,2].map(i => { const o = ac.createOscillator(); o.type = i ? "sine" : "triangle"; const g = ac.createGain(); g.gain.value = .12; o.connect(g).connect(tg); o.start(); return o; });
+  let lastChord = -1;
+  return {ctx:ac, update(sig){
+    const now = ac.currentTime, n = nearest(freq);
+    ng.gain.setTargetAtTime((1 - sig) * .22 + .01, now, .03);
+    tg.gain.setTargetAtTime(sig * .5, now, .08);
+    bp.frequency.setTargetAtTime(1200 + (freq - MIN) * 120, now, .05);
+    if (n.i !== lastChord) { lastChord = n.i; CHORDS[n.i].forEach((f,i) => oscs[i].frequency.setTargetAtTime(f, now, .05)); }
+    oscs.forEach((o,i) => o.detune.setTargetAtTime((freq - ST[n.i].f) * 120 * (i+1), now, .03));
+  }};
+}
+
+/* ---------- booking ---------- */
+const bf = $("#bookf");
+const iso = d => new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+bf.date.min = iso(new Date()); bf.date.value = iso(new Date());
+["18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00"].forEach(t => { const o = document.createElement("option"); o.textContent = t; bf.time.appendChild(o); });
+bf.time.value = "20:00";
+bf.addEventListener("submit", e => {
+  e.preventDefault();
+  const err = $("#berr"); err.textContent = "";
+  if (!bf.name.value.trim()) { err.textContent = "Add a name for the table."; bf.name.focus(); return; }
+  const d = new Date(bf.date.value + "T12:00");
+  if (d.getDay() === 1) { err.textContent = "Mondays are off air. Pick another day."; return; }
+  const day = d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
+  $("#bookmsg").innerHTML = `<div class="bookmsg"><b>Request ready, ${esc(bf.name.value.trim())}</b>${bf.ppl.value} at the ${bf.seat.value.toLowerCase()}, ${day}, ${bf.time.value}. A real bar would confirm on LINE. This is a concept bar and +66 00 000 0000 is a placeholder.</div>`;
+});
+
+/* start */
+addEventListener("resize", () => { clearTimeout(window.__rz); window.__rz = setTimeout(drawScale, 120); });
+drawScale();
+stations.forEach((s,i) => s.hidden = i !== 0);
+})();
+</script>
+</body>
+</html>

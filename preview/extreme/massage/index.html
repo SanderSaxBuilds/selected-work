@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Sen Thong Massage, Rawai</title>
+<meta name="description" content="Sen Thong is a Thai massage shop in Rawai, Phuket. Press the body map to choose treatments, set the pressure and build a booking request.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23E3EAE4' stroke='%231D3532' stroke-width='2'/%3E%3Cpath d='M6 20c6-10 14 2 20-8' stroke='%239A7C30' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#DCE6DF; --bg2:#CFDCD3; --paper:#F5F7F3; --ink:#1D3532; --soft:#4F6662; --gold:#94762B; --gold-l:#E2D3A2; --rose:#8C3B47; --line:#B3C4BA; --mat:#C9D7CE;
+  --serif:"Cormorant Garamond",Georgia,serif; --ui:"Bai Jamjuree",system-ui,sans-serif;
+  --w:1.4; --sink:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--ui);overflow-x:hidden;font-variant-numeric:tabular-nums}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--paper);padding:10px 14px;z-index:99;text-decoration:none;border-radius:2px}
+.skip:focus{top:12px}
+
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px clamp(16px,3vw,40px)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand svg{width:46px;height:46px;flex:none}
+.brand b{display:block;font:500 30px/0.9 var(--serif)}
+.brand span{font-size:12.5px;color:var(--soft);letter-spacing:.02em}
+.open{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--soft)}
+.open svg{width:22px;height:22px}
+
+.app{display:grid;grid-template-columns:minmax(290px,.9fr) minmax(320px,1.15fr) minmax(270px,.75fr);gap:clamp(14px,2.2vw,36px);padding:4px clamp(16px,3vw,40px) 60px;align-items:start}
+
+/* left column */
+h1{font:300 clamp(44px,4.6vw,76px)/.92 var(--serif);margin:6px 0 22px;letter-spacing:-.01em}
+h1 i{display:block;font-weight:400;color:var(--gold)}
+.pressure{margin:0 0 24px}
+.hands{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.hands button{border:0;background:none;padding:8px 2px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--soft);font-size:13px;border-radius:12px;transition:color .2s,background .2s}
+.hands svg{width:44px;height:44px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.hands button[aria-pressed=true]{color:var(--ink);background:var(--paper)}
+.hands button[aria-pressed=true] svg{transform:translateY(3px) scale(1.08);stroke-width:2}
+.pressure input{width:100%;margin:6px 0 0;accent-color:var(--ink);height:26px}
+.pressure p{margin:4px 0 0;font:italic 400 21px/1.25 var(--serif);min-height:2.5em}
+
+.zonepick{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.zonepick button{border:1px solid var(--line);background:transparent;border-radius:30px;padding:4px 13px;font-size:13.5px;cursor:pointer}
+.zonepick button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+.stones{display:flex;flex-wrap:wrap;gap:12px;min-height:120px}
+.stone{position:relative;width:calc(50% - 6px);min-height:132px;border:0;cursor:pointer;text-align:left;padding:14px 16px 14px;background:var(--paper);color:var(--ink);
+  border-radius:46% 54% 42% 58% / 58% 44% 56% 42%;box-shadow:0 1px 0 #fff inset,0 10px 0 -4px var(--bg2),0 16px 26px -10px rgba(29,53,50,.35);transition:transform .18s,box-shadow .18s,background .2s,color .2s}
+.stone:nth-child(2n){border-radius:56% 44% 58% 42% / 44% 58% 42% 56%}
+.stone:nth-child(3n){border-radius:50% 50% 40% 60% / 60% 40% 60% 40%}
+.stone:hover{transform:translateY(-3px)}
+.stone:active{transform:translateY(5px);box-shadow:0 1px 0 #fff inset,0 3px 0 -2px var(--bg2),0 6px 10px -6px rgba(29,53,50,.35)}
+.stone[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.stone .min{display:block;font:300 52px/.85 var(--serif);margin-left:6px}
+.stone .min small{font:500 13px var(--ui);margin-left:4px}
+.stone .nm{display:block;font-size:14px;line-height:1.25;font-weight:500;margin:6px 6px 0}
+.stone .pr{display:block;font-size:13px;color:var(--gold);margin:2px 6px 0;font-weight:600}
+.stone[aria-pressed=true] .pr{color:var(--gold-l)}
+.stone .th{position:absolute;right:30px;top:20px;font-size:12px;opacity:.65}
+.stones .hint{font:italic 400 22px/1.3 var(--serif);color:var(--soft);padding:10px 0}
+.stones.enter .stone{animation:rise .35s cubic-bezier(.2,.8,.3,1.2) backwards}
+.stones.enter .stone:nth-child(2){animation-delay:.05s}.stones.enter .stone:nth-child(3){animation-delay:.1s}.stones.enter .stone:nth-child(4){animation-delay:.15s}
+@keyframes rise{from{transform:translateY(24px) scale(.9);opacity:0}}
+
+/* centre: figure on mat */
+.stage{position:relative;min-height:600px}
+.bigword{position:absolute;inset:0;pointer-events:none;z-index:0}
+.bigword span{position:absolute;left:0;top:0;writing-mode:vertical-rl;transform:rotate(180deg);font:italic 300 clamp(110px,10vw,180px)/.8 var(--serif);color:var(--gold);opacity:.55;white-space:nowrap;transition:opacity .3s,translate .4s}
+.bigword em{position:absolute;right:0;top:0;writing-mode:vertical-rl;font:700 clamp(64px,6vw,110px)/1 var(--ui);color:var(--bg2);font-style:normal;white-space:nowrap;transition:opacity .3s,translate .4s}
+.bigword.swap span,.bigword.swap em{opacity:0;translate:0 30px}
+.figwrap{position:relative;z-index:1;max-width:400px;margin:0 auto}
+#fig{width:100%;height:auto;display:block;max-height:calc(100vh - 120px);touch-action:manipulation;overflow:visible}
+#fig .matshape{fill:var(--mat);stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke;filter:drop-shadow(0 var(--sink) 0 var(--bg2)) drop-shadow(0 calc(var(--sink) * 2) 22px rgba(29,53,50,.25));transition:filter .4s}
+#fig .stitch{fill:none;stroke:var(--paper);stroke-width:1;stroke-dasharray:6 5;vector-effect:non-scaling-stroke;opacity:.9}
+#fig .pillow{fill:var(--paper);stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+#fig .flower path{fill:var(--paper);stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+#fig .flower circle{fill:var(--gold)}
+#fig .body path,#fig .body ellipse,#fig .body circle{fill:none;stroke:var(--ink);stroke-width:var(--w);stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;transition:stroke-width .35s ease}
+#fig .body .skin{fill:var(--paper);stroke:none}
+#fig .body .fine{stroke-width:calc(var(--w) * .55);opacity:.85}
+#fig .sen path{fill:none;stroke:var(--gold);stroke-width:calc(var(--w) * .8);stroke-dasharray:2 7;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke-width .35s}
+#fig .sen.lit path{stroke-dasharray:none;opacity:1}
+#fig .zone{fill:var(--gold);fill-opacity:0;cursor:pointer;transition:fill-opacity .25s;outline:none}
+#fig .zone:hover{fill-opacity:.14}
+#fig .zone.on{fill-opacity:.26}
+#fig .zone:focus-visible{fill-opacity:.2;stroke:var(--gold);stroke-width:2;vector-effect:non-scaling-stroke}
+#fig .ripple{fill:none;stroke:var(--gold);vector-effect:non-scaling-stroke;pointer-events:none}
+.tag{position:absolute;pointer-events:none;font:italic 500 19px var(--serif);background:var(--ink);color:var(--paper);padding:2px 12px;border-radius:20px;white-space:nowrap;transform:translate(-50%,-50%);opacity:0;transition:opacity .2s}
+.tag.show{opacity:1}
+
+/* receipt */
+.receipt{position:sticky;top:12px;background:var(--paper);padding:18px 18px 30px;box-shadow:0 18px 30px -18px rgba(29,53,50,.4);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),95% 100%,90% calc(100% - 10px),85% 100%,80% calc(100% - 10px),75% 100%,70% calc(100% - 10px),65% 100%,60% calc(100% - 10px),55% 100%,50% calc(100% - 10px),45% 100%,40% calc(100% - 10px),35% 100%,30% calc(100% - 10px),25% 100%,20% calc(100% - 10px),15% 100%,10% calc(100% - 10px),5% 100%,0 calc(100% - 10px))}
+.receipt .logo{display:block;margin:0 auto 2px;width:34px}
+.receipt h2{font:500 22px var(--serif);text-align:center;margin:0}
+.rule{border:0;border-top:1px dashed var(--soft);margin:10px 0}
+.lines-r{list-style:none;margin:0;padding:0;font-size:14px}
+.lines-r li{display:grid;grid-template-columns:1fr auto 22px;gap:6px;align-items:baseline;padding:3px 0}
+.lines-r li.new{animation:inkin .6s ease-out}
+@keyframes inkin{from{background:var(--gold-l)}}
+.lines-r .x{border:0;background:none;color:var(--rose);cursor:pointer;padding:0;font-size:16px;line-height:1}
+.lines-r .none{display:block;color:var(--soft);text-align:center;padding:6px 0;font:italic 19px var(--serif)}
+.tot{display:flex;justify-content:space-between;font-size:14px}
+.big{display:flex;justify-content:space-between;align-items:baseline;margin-top:4px}
+.big span:first-child{font-size:14px;font-weight:600}
+.big b{font:500 40px/1 var(--serif)}
+.big b small{font:600 13px var(--ui);margin-left:3px}
+.big.bump b{animation:bump .35s}
+@keyframes bump{40%{transform:scale(1.12);color:var(--gold)}}
+.book{display:grid;gap:8px}
+.book label{display:grid;gap:2px;font-size:12.5px;color:var(--soft)}
+.book input,.book select{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 9px;color:var(--ink);width:100%;min-width:0;font-size:15px}
+.book .row3{display:grid;grid-template-columns:1.3fr 1fr .7fr;gap:8px}
+.send{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.send button{border:0;border-radius:30px;padding:10px 8px;font-weight:600;cursor:pointer;color:#fff;display:flex;gap:6px;align-items:center;justify-content:center}
+.send svg{width:18px;height:18px}
+.send .line{background:#06803E}
+.send .wa{background:#0E6B5C}
+.fake{font-size:12px;color:var(--soft);text-align:center;margin:6px 0 0}
+.err{color:var(--rose);font-size:13px;margin:0;min-height:0}
+.out{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13.5px;background:#fff}
+.out pre{white-space:pre-wrap;font:inherit;margin:6px 0 8px}
+.out button{border:1px solid var(--ink);background:none;border-radius:20px;padding:4px 12px;cursor:pointer}
+
+.fly{position:fixed;z-index:50;pointer-events:none;font:300 44px/1 var(--serif);color:var(--ink);background:var(--gold-l);border-radius:50%;width:64px;height:64px;display:grid;place-items:center}
+
+#info{background:var(--paper);padding:40px clamp(16px,3vw,40px) 70px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px 40px}
+#info h2{font:300 44px/1 var(--serif);margin:0 0 6px;grid-column:1/-1}
+#info h3{font:500 22px var(--serif);margin:0 0 4px}
+#info p,#info li{font-size:15px;margin:0 0 4px;max-width:58ch}
+#info ul{padding-left:18px;margin:0}
+
+@media (max-width:1150px){
+  .app{grid-template-columns:1fr 1fr}
+  .stage{grid-row:1/3;grid-column:2}
+  .receiptcol{grid-column:1}
+}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr;gap:10px}
+  .stage{grid-row:auto;grid-column:auto;min-height:0}
+  .receiptcol{grid-column:auto}
+  .receipt{position:static}
+  .figwrap{max-width:300px}
+  #fig{max-height:none}
+  .open span{display:none}
+  .left{display:contents}
+  .left h1{order:1}
+  .pressure{order:2;margin:0}
+  .stage{order:3}
+  .zonepick{order:4;margin:6px 0 0}
+  .stones{order:5}
+  .receiptcol{order:6;margin-top:16px}
+  .bigword span{font-size:96px}
+  .bigword em{font-size:64px}
+  .stone .min{font-size:44px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#info">Skip to prices and booking info</a>
+<header>
+  <a class="brand" href="#top" aria-label="Sen Thong Massage, home">
+    <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="#F5F7F3" stroke="#1D3532" stroke-width="1.2"/><path d="M22 7c-5 0-7 4-6 8 1 5 8 6 8 12 0 4-3 7-6 9" fill="none" stroke="#1D3532" stroke-width="1.3" stroke-linecap="round"/><path d="M6 27c7-9 13 4 17-4s10-9 15-2" fill="none" stroke="#94762B" stroke-width="2" stroke-linecap="round"/></svg>
+    <span><b>Sen Thong</b><span>Rawai, Phuket</span></span>
+  </a>
+  <div class="open"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#1D3532" stroke-width="1.3"/><path d="M12 7v5l3 2" fill="none" stroke="#94762B" stroke-width="1.6" stroke-linecap="round"/></svg><span>Daily</span> 10:00 to 22:00</div>
+</header>
+
+<main class="app" id="top">
+  <section class="left" aria-label="Pressure and treatments">
+    <h1>Press where<i>it hurts.</i></h1>
+    <div class="pressure">
+      <div class="hands" role="group" aria-label="Pressure" id="hands"></div>
+      <input type="range" id="press" min="1" max="4" step="1" value="2" aria-label="Pressure" aria-valuetext="Medium">
+      <p id="press-copy" aria-live="polite"></p>
+    </div>
+    <div class="zonepick" role="group" aria-label="Choose an area" id="zonepick"></div>
+    <div class="stones" id="stones" aria-live="polite"></div>
+  </section>
+
+  <section class="stage" aria-label="Body map">
+    <div class="bigword" id="bigword" aria-hidden="true"><span>Sen Thong</span><em lang="th">เส้นทอง</em></div>
+    <div class="figwrap">
+      <svg id="fig" viewBox="0 0 400 1010" role="group" aria-label="Body lying face down on a mat. Choose an area.">
+        <rect class="matshape" x="56" y="6" width="288" height="996" rx="22"/>
+        <rect class="stitch" x="68" y="18" width="264" height="972" rx="14"/>
+        <path class="pillow" d="M128 22h144c10 0 14 6 14 14v12c0 8-4 14-14 14H128c-10 0-14-6-14-14V36c0-8 4-14 14-14z"/>
+        <g class="flower" transform="translate(310 58) rotate(18)" aria-hidden="true">
+          <path d="M0 0c-4-10-2-20 6-22 6 2 6 12-6 22zM0 0c10-4 20-2 22 6-2 6-12 6-22-6zM0 0c4 10 2 20-6 22-6-2-6-12 6-22zM0 0c-10 4-20 2-22-6 2-6 12-6 22 6zM0 0c-8-6-10-16-4-20 6 0 8 10 4 20z"/>
+          <circle r="3"/>
+        </g>
+        <g transform="translate(26 0) scale(.87 1)">
+        <g class="body" aria-hidden="true">
+          <path class="skin" d="M183 146c1 12 0 22-4 32-22 6-50 12-72 26-14 10-18 30-16 50 2 34 12 62 16 94 4 30 0 56 6 84 4 22 18 40 22 62 4 22 2 44-4 62h138c-6-18-8-40-4-62 4-22 18-40 22-62 6-28 2-54 6-84 4-32 14-60 16-94 2-20-2-40-16-50-22-14-50-20-72-26-4-10-5-20-4-32z"/>
+          <ellipse class="skin" cx="200" cy="96" rx="44" ry="54"/>
+          <ellipse cx="200" cy="96" rx="44" ry="54"/>
+          <circle class="fine" cx="200" cy="44" r="15"/>
+          <path class="fine" d="M200 59c-2 20 3 40 0 62M178 66c-12 18-14 40-8 62M222 66c12 18 14 40 8 62"/>
+          <path d="M156 92c-6 0-8 10-3 16M244 92c6 0 8 10 3 16"/>
+          <path d="M183 146c1 12 0 22-4 32-22 6-50 12-72 26-14 10-18 30-16 50 2 34 12 62 16 94 4 30 0 56 6 84 4 22 18 40 22 62 4 22 2 44-4 62"/>
+          <path d="M217 146c-1 12 0 22 4 32 22 6 50 12 72 26 14 10 18 30 16 50-2 34-12 62-16 94-4 30 0 56-6 84-4 22-18 40-22 62-4 22-2 44 4 62"/>
+          <path class="fine" d="M200 186c-2 60 3 120 0 180s2 90 0 120"/>
+          <path class="fine" d="M150 222c14 18 30 40 34 64M250 222c-14 18-30 40-34 64"/>
+          <path class="fine" d="M184 446c-6 6-14 8-22 6M216 446c6 6 14 8 22 6"/>
+          <path class="skin" d="M126 476c26 10 50 12 74 10s50-2 74-12l2 86c-24 6-50 8-76 6-26 2-52 0-76-6z" style="fill:var(--gold-l)"/>
+          <path d="M126 476c26 10 50 12 74 10s50-2 74-12M124 560c24 6 50 8 76 6 26 2 52 0 76-6"/>
+          <path class="fine" d="M146 486c4 26 2 52-2 76M176 490c2 24 2 50 0 74M224 490c-2 24-2 50 0 74M254 486c-4 26-2 52 2 76"/>
+          <path class="skin" d="M107 204c-18 6-28 22-30 42-2 32 0 62 2 94 2 30-2 56 0 84 2 26 8 50 10 72 2 14-2 26-2 36 0 14 4 26 10 32 6 4 12 2 14-4 2-10 0-20 2-30 2-14 4-30 2-44-2-24-6-46-6-72 0-30 6-58 8-88z"/>
+          <path class="skin" d="M293 204c18 6 28 22 30 42 2 32 0 62-2 94-2 30 2 56 0 84-2 26-8 50-10 72-2 14 2 26 2 36 0 14-4 26-10 32-6 4-12 2-14-4-2-10 0-20-2-30-2-14-4-30-2-44 2-24 6-46 6-72 0-30-6-58-8-88z"/>
+          <path d="M107 204c-18 6-28 22-30 42-2 32 0 62 2 94 2 30-2 56 0 84 2 26 8 50 10 72 2 14-2 26-2 36 0 14 4 26 10 32 6 4 12 2 14-4 2-10 0-20 2-30 2-14 4-30 2-44-2-24-6-46-6-72 0-30 6-58 8-88"/>
+          <path d="M293 204c18 6 28 22 30 42 2 32 0 62-2 94-2 30 2 56 0 84-2 26-8 50-10 72-2 14 2 26 2 36 0 14-4 26-10 32-6 4-12 2-14-4-2-10 0-20-2-30-2-14-4-30-2-44 2-24 6-46 6-72 0-30-6-58-8-88"/>
+          <path class="fine" d="M84 414c6 4 14 4 20 0M316 414c-6 4-14 4-20 0M100 604l2 22M108 602l1 24M300 604l-2 22M292 602l-1 24"/>
+          <path class="skin" d="M138 566c-4 30-6 62-4 94 2 28 8 52 12 78 4 22 0 42 2 64 2 26 10 50 12 74 2 18 0 30 2 42h58c0-14-2-26-2-40 0-26-6-50-6-78 0-22 6-42 8-64 2-28-2-54 0-84 2-28 10-54 16-80z"/>
+          <path class="skin" d="M262 566c4 30 6 62 4 94-2 28-8 52-12 78-4 22 0 42-2 64-2 26-10 50-12 74-2 18 0 30-2 42h-38c0-14 2-26 2-40 0-26 6-50 6-78 0-22-6-42-8-64-2-28 2-54 0-84-2-28-10-54-16-80z"/>
+          <path d="M138 566c-4 30-6 62-4 94 2 28 8 52 12 78 4 22 0 42 2 64 2 26 10 50 12 74 2 18 0 30 2 42"/>
+          <path d="M262 566c4 30 6 62 4 94-2 28-8 52-12 78-4 22 0 42-2 64-2 26-10 50-12 74-2 18 0 30-2 42"/>
+          <path d="M200 572c-6 26-14 52-16 80-2 30 2 56 0 84-2 22-8 42-8 64 0 28 6 52 6 78 0 14-2 26-2 40"/>
+          <path d="M200 572c6 26 14 52 16 80 2 30-2 56 0 84 2 22 8 42 8 64 0 28-6 52-6 78 0 14 2 26 2 40"/>
+          <path class="fine" d="M152 742c8 6 18 6 26 0M248 742c-8 6-18 6-26 0"/>
+          <path class="skin" d="M162 918c-6 12-10 30-8 46 2 18 10 30 20 32 12 2 18-10 18-26 0-18-6-36-12-52zM238 918c6 12 10 30 8 46-2 18-10 30-20 32-12 2-18-10-18-26 0-18 6-36 12-52z"/>
+          <path d="M162 918c-6 12-10 30-8 46 2 18 10 30 20 32 12 2 18-10 18-26 0-18-6-36-12-52"/>
+          <path d="M238 918c6 12 10 30 8 46-2 18-10 30-20 32-12 2-18-10-18-26 0-18 6-36 12-52"/>
+          <path class="fine" d="M162 980c6 4 18 6 26 2M238 980c-6 4-18 6-26 2M170 944c4 6 10 8 16 6M230 944c-4 6-10 8-16 6"/>
+        </g>
+        <g class="sen" id="sen" aria-hidden="true">
+          <path data-z="back" d="M188 190c-4 70 0 150-2 230M212 190c4 70 0 150 2 230"/>
+          <path data-z="legs" d="M164 600c-2 60 4 120 2 180s4 100 6 130M236 600c2 60-4 120-2 180s-4 100-6 130"/>
+          <path data-z="arms" d="M96 250c-2 80 4 160 4 250M304 250c2 80-4 160-4 250"/>
+          <path data-z="shoulders" d="M150 196c20 4 34 8 50 8s30-4 50-8"/>
+          <path data-z="head" d="M200 64c-2 20 2 40 0 60"/>
+          <path data-z="feet" d="M172 930c-2 16 0 34 4 50M228 930c2 16 0 34-4 50"/>
+        </g>
+        <g id="zones">
+          <path class="zone" data-z="head" tabindex="0" role="button" aria-label="Head" d="M150 96a50 62 0 1 0 100 0a50 62 0 1 0-100 0z M185 26a15 15 0 1 0 30 0a15 15 0 1 0-30 0z"/>
+          <path class="zone" data-z="shoulders" tabindex="0" role="button" aria-label="Neck and shoulders" d="M180 146h40l4 32c26 6 56 12 78 28l-6 40c-30-10-66-12-96-12s-66 2-96 12l-6-40c22-16 52-22 78-28z"/>
+          <path class="zone" data-z="back" tabindex="0" role="button" aria-label="Back" d="M104 248c30-12 66-14 96-14s66 2 96 14c-2 34-10 62-14 92-4 30 0 56-6 84-4 22-14 38-16 52-20 8-40 10-60 10s-40-2-60-10c-2-14-12-30-16-52-6-28-2-54-6-84-4-30-12-58-14-92z"/>
+          <path class="zone" data-z="arms" tabindex="0" role="button" aria-label="Arms and hands" d="M74 246c2-24 16-38 32-42l14 50c-2 30-8 58-8 88 0 26 4 48 6 72 2 14 0 30-2 44-2 10 0 20-2 30-2 8-12 12-20 6-8-6-12-20-12-34 0-10 4-22 2-36-2-22-8-46-10-72-2-28 2-54 0-84zM326 246c-2-24-16-38-32-42l-14 50c2 30 8 58 8 88 0 26-4 48-6 72-2 14 0 30 2 44 2 10 0 20 2 30 2 8 12 12 20 6 8-6 12-20 12-34 0-10-4-22-2-36 2-22 8-46 10-72 2-28-2-54 0-84z"/>
+          <path class="zone" data-z="legs" tabindex="0" role="button" aria-label="Hips and legs" d="M124 476c26 10 50 12 76 10s50-2 76-12c6 30 4 60 2 92-4 30-6 62-4 94-2 28-8 52-12 78-4 22 0 42-2 64-2 26-10 50-12 74l-96 0c-2-24-10-48-12-74-2-22 2-42-2-64-4-26-10-50-12-78-2-32 0-64-4-94-2-32-4-62 2-92z"/>
+          <path class="zone" data-z="feet" tabindex="0" role="button" aria-label="Feet" d="M150 912h52l0 56c0 20-8 34-22 32-14-2-26-16-28-36-2-20-4-36-2-52zM198 912h52c2 16 0 32-2 52-2 20-14 34-28 36-14 2-22-12-22-32z"/>
+        </g>
+        <g id="ripples"></g>
+        </g>
+      </svg>
+      <div class="tag" id="tag" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <aside class="receiptcol" aria-labelledby="rc-h">
+    <div class="receipt" id="receipt">
+      <svg class="logo" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="none" stroke="#1D3532" stroke-width="1.2"/><path d="M6 27c7-9 13 4 17-4s10-9 15-2" fill="none" stroke="#94762B" stroke-width="2" stroke-linecap="round"/></svg>
+      <h2 id="rc-h">Your visit</h2>
+      <hr class="rule">
+      <ul class="lines-r" id="rlines"></ul>
+      <hr class="rule">
+      <div class="tot"><span>Pressure</span><span id="r-press">Medium</span></div>
+      <div class="tot"><span>On the mat</span><span id="r-time">0 min</span></div>
+      <div class="big" id="r-big"><span>Total</span><b id="r-total">0<small>THB</small></b></div>
+      <hr class="rule">
+      <form class="book" id="book" novalidate>
+        <label>Name<input name="name" autocomplete="given-name" required></label>
+        <div class="row3">
+          <label>Date<input type="date" name="date" required></label>
+          <label>Time<select name="time"></select></label>
+          <label>People<select name="people"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+        </div>
+        <p class="err" id="err" aria-live="polite"></p>
+        <div class="send">
+          <button type="submit" class="line" data-via="LINE"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9l-.6 2.6c-.1.4.3.7.7.5l3.4-2.4C19 19 22 15.4 22 11c0-4.4-4.5-8-10-8z" fill="#fff"/></svg>LINE</button>
+          <button type="submit" class="wa" data-via="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M9 8c-.5 0-1 .6-1 1.4 0 2.6 3.5 6.6 6.6 6.6.8 0 1.4-.5 1.4-1l-.2-.8-1.8-.8-.8.9c-1.2-.5-2.3-1.6-2.8-2.8l.9-.8-.8-1.8z" fill="#fff"/></svg>WhatsApp</button>
+        </div>
+        <p class="fake">+66 00 000 0000 is a placeholder. Concept shop.</p>
+      </form>
+      <div class="out" id="out" hidden></div>
+    </div>
+  </aside>
+</main>
+
+<section id="info" tabindex="-1" aria-labelledby="info-h">
+  <h2 id="info-h">Treatments and prices</h2>
+  <div id="plainlist" style="display:contents"></div>
+  <div>
+    <h3>Visit</h3>
+    <p>Soi Saiyuan, Rawai, Phuket 83130.</p>
+    <p>Daily 10:00 to 22:00, last booking 21:00.</p>
+    <p>LINE and WhatsApp +66 00 000 0000, a placeholder. Sen Thong is a concept shop.</p>
+    <p>Cash, PromptPay or card. Tell us about injuries or pregnancy when you book.</p>
+  </div>
+</section>
+
+<script>
+(function(){
+"use strict";
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt = n => n.toLocaleString("en-US");
+
+const PRESS = [null,
+  {n:"Gentle", w:0.8, s:4,  c:"Fingertips and long, slow strokes.",
+   i:'<path d="M18 40V14a3 3 0 0 1 6 0v18"/><path d="M24 22a3 3 0 0 1 6 0v12"/><path d="M14 30c-2 2-1 6 2 10"/><circle cx="21" cy="8" r="1.5"/>'},
+  {n:"Medium", w:1.4, s:10, c:"Thumbs along the sen lines.",
+   i:'<path d="M14 40c-2-8 0-14 4-18l6-10c2-3 6-2 6 2l-3 9h8c3 0 4 3 3 5l-4 10c-1 2-3 3-5 3H18"/><path d="M27 6l2-2"/>'},
+  {n:"Firm", w:2.2, s:16, c:"Palms and slow, held stretches.",
+   i:'<path d="M12 42V24c0-2 4-2 4 0v-12c0-3 4-3 4 0v-4c0-3 4-3 4 0v4c0-3 4-3 4 0v6c0-3 4-3 4 0v16c0 6-4 10-10 10h-4c-4 0-6-2-6-4z"/>'},
+  {n:"Deep", w:3.2, s:24, c:"Elbows and knees. You will feel it tomorrow.",
+   i:'<path d="M5 10l17 28c1 2 3 2 4 0l17-28"/><path d="M13 7l11 19 11-19"/><path d="M14 44h20"/>'}
+];
+const ZONES = {
+  head:{t:"Head", th:"ศีรษะ", items:[
+    {id:"h1", n:"Thai head massage", th:"นวดศีรษะ", m:30, p:350},
+    {id:"h2", n:"Face and scalp, coconut oil", th:"นวดหน้า", m:45, p:550},
+    {id:"h3", n:"Hot towel scalp wrap", th:"ผ้าร้อน", m:20, p:250}]},
+  shoulders:{t:"Shoulders", th:"บ่า ไหล่", items:[
+    {id:"s1", n:"Neck and shoulder release", th:"คอบ่าไหล่", m:30, p:350},
+    {id:"s2", n:"Desk neck, herbal compress", th:"ลูกประคบ", m:60, p:650}]},
+  back:{t:"Back", th:"หลัง", items:[
+    {id:"b1", n:"Traditional Thai massage", th:"นวดแผนไทย", m:60, p:450},
+    {id:"b2", n:"Traditional Thai, long", th:"นวดแผนไทย", m:90, p:650},
+    {id:"b3", n:"Back, coconut oil", th:"นวดน้ำมัน", m:45, p:500},
+    {id:"b4", n:"Herbal compress back", th:"ลูกประคบ", m:60, p:750}]},
+  arms:{t:"Arms", th:"แขน มือ", items:[
+    {id:"a1", n:"Arm and hand", th:"นวดแขน", m:30, p:300},
+    {id:"a2", n:"Wrists after diving", th:"นวดมือ", m:45, p:450}]},
+  legs:{t:"Legs", th:"ขา", items:[
+    {id:"l1", n:"Legs after a hike", th:"นวดขา", m:45, p:450},
+    {id:"l2", n:"Tiger balm legs", th:"ยาหม่อง", m:30, p:350}]},
+  feet:{t:"Feet", th:"เท้า", items:[
+    {id:"f1", n:"Thai foot massage", th:"นวดเท้า", m:30, p:300},
+    {id:"f2", n:"Foot massage, long", th:"นวดเท้า", m:60, p:450},
+    {id:"f3", n:"Tamarind foot scrub", th:"ขัดเท้า", m:45, p:500}]}
+};
+const ALL = Object.values(ZONES).flatMap(z => z.items);
+
+let pressure = 2, zone = null;
+const chosen = [];
+const fig = $("#fig"), stones = $("#stones"), tag = $("#tag"), big = $("#bigword");
+
+/* pressure hands */
+const hands = $("#hands");
+PRESS.slice(1).forEach((P,i) => {
+  const b = document.createElement("button"); b.type = "button";
+  b.innerHTML = `<svg viewBox="0 0 48 48" aria-hidden="true">${P.i}</svg>${P.n}`;
+  b.onclick = () => { press.value = i+1; setPressure(i+1); };
+  hands.appendChild(b);
+});
+
+/* zone chips */
+const pick = $("#zonepick");
+Object.entries(ZONES).forEach(([k,z]) => {
+  const b = document.createElement("button"); b.type = "button"; b.textContent = z.t; b.dataset.z = k; b.setAttribute("aria-pressed","false");
+  b.onclick = () => choose(k); pick.appendChild(b);
+});
+
+/* figure */
+fig.querySelectorAll(".zone").forEach(el => {
+  el.addEventListener("click", e => { ripple(e); choose(el.dataset.z, true); });
+  el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); choose(el.dataset.z, true); } });
+  el.addEventListener("pointerenter", () => showTag(el));
+  el.addEventListener("pointerleave", () => tag.classList.remove("show"));
+  el.addEventListener("focus", () => showTag(el));
+  el.addEventListener("blur", () => tag.classList.remove("show"));
+});
+function showTag(el){
+  const r = el.getBoundingClientRect(), w = $(".figwrap").getBoundingClientRect();
+  tag.textContent = ZONES[el.dataset.z].t;
+  tag.style.left = (r.left + r.width/2 - w.left) + "px";
+  tag.style.top = (r.top + Math.min(r.height/2, 50) - w.top) + "px";
+  tag.classList.add("show");
+}
+function ripple(e){
+  if (reduce) return;
+  const g = $("#ripples"), pt = fig.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+  const p = pt.matrixTransform(g.getScreenCTM().inverse());
+  const rings = pressure;
+  for (let n = 0; n < rings; n++) {
+    const c = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    c.setAttribute("class","ripple"); c.setAttribute("cx",p.x); c.setAttribute("cy",p.y); c.setAttribute("r",2);
+    c.style.strokeWidth = PRESS[pressure].w;
+    g.appendChild(c);
+    const max = 30 + pressure * 16, t0 = performance.now() + n * 110;
+    (function step(t){
+      const k = Math.max(0, Math.min(1,(t - t0)/700));
+      c.setAttribute("r", 2 + (max-2) * (1 - Math.pow(1-k,3)));
+      c.style.opacity = k === 0 ? 0 : 1 - k;
+      if (k < 1) requestAnimationFrame(step); else c.remove();
+    })(performance.now());
+  }
+}
+function choose(k, fromMap){
+  const changed = zone !== k;
+  zone = k;
+  fig.querySelectorAll(".zone").forEach(z => z.classList.toggle("on", z.dataset.z === k));
+  fig.querySelectorAll("#sen path").forEach(s => s.parentNode && (s.style.strokeDasharray = s.dataset.z === k ? "none" : ""));
+  pick.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.z === k));
+  if (changed) swapWord(ZONES[k].t, ZONES[k].th);
+  renderStones(changed);
+  if (fromMap && matchMedia("(max-width:760px)").matches) stones.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"center"});
+}
+function swapWord(a, b){
+  const set = () => { big.querySelector("span").textContent = a; big.querySelector("em").textContent = b; };
+  if (reduce) return set();
+  big.classList.add("swap");
+  setTimeout(() => { set(); big.classList.remove("swap"); }, 220);
+}
+function renderStones(enter){
+  if (!zone) { stones.innerHTML = `<p class="hint">Tap the body to see what we do there.</p>`; return; }
+  const z = ZONES[zone];
+  stones.classList.toggle("enter", !!enter && !reduce);
+  stones.innerHTML = z.items.map(i => {
+    const on = chosen.some(c => c.id === i.id);
+    return `<button type="button" class="stone" data-id="${i.id}" aria-pressed="${on}" aria-label="${esc(i.n)}, ${i.m} minutes, ${i.p} baht${on?", added":""}">
+      <span class="th" lang="th" aria-hidden="true">${i.th}</span><span class="min">${i.m}<small>min</small></span><span class="nm">${esc(i.n)}</span><span class="pr">${fmt(i.p)} THB</span></button>`;
+  }).join("");
+  stones.querySelectorAll(".stone").forEach(b => b.onclick = () => toggleItem(b.dataset.id, b));
+}
+function toggleItem(id, from){
+  const i = chosen.findIndex(c => c.id === id);
+  if (i >= 0) chosen.splice(i,1); else { chosen.push(ALL.find(a => a.id === id)); if (from) fly(from); }
+  renderStones(false); renderReceipt(i < 0 ? id : null);
+  const again = stones.querySelector(`[data-id="${id}"]`); if (again) again.focus({preventScroll:true});
+}
+function fly(from){
+  if (reduce) return;
+  const a = from.getBoundingClientRect(), b = $("#r-total").getBoundingClientRect();
+  if (b.top > innerHeight || b.bottom < 0) return;
+  const d = document.createElement("div"); d.className = "fly"; d.textContent = from.querySelector(".min").firstChild.textContent;
+  document.body.appendChild(d);
+  const x0 = a.left + 20, y0 = a.top + 10, x1 = b.left, y1 = b.top - 10;
+  d.animate([{transform:`translate(${x0}px,${y0}px) scale(1)`,opacity:1},{transform:`translate(${(x0+x1)/2}px,${Math.min(y0,y1)-80}px) scale(.8)`,opacity:1,offset:.5},{transform:`translate(${x1}px,${y1}px) scale(.3)`,opacity:.2}],{duration:620,easing:"cubic-bezier(.4,0,.2,1)"}).onfinish = () => d.remove();
+}
+function renderReceipt(newId){
+  const ul = $("#rlines");
+  if (!chosen.length) ul.innerHTML = `<li><span class="none">Empty. Tap the body.</span></li>`;
+  else ul.innerHTML = chosen.map(c => `<li class="${c.id===newId && !reduce ? "new" : ""}"><span>${esc(c.n)}, ${c.m}</span><span>${fmt(c.p)}</span><button type="button" class="x" data-id="${c.id}" aria-label="Remove ${esc(c.n)}">&times;</button></li>`).join("");
+  ul.querySelectorAll(".x").forEach(b => b.onclick = () => toggleItem(b.dataset.id));
+  const ppl = +$("#book").people.value;
+  const mins = chosen.reduce((a,c)=>a+c.m,0), thb = chosen.reduce((a,c)=>a+c.p,0) * ppl;
+  $("#r-time").textContent = mins >= 60 ? `${Math.floor(mins/60)} h${mins%60 ? " " + mins%60 + " min" : ""}` : mins + " min";
+  $("#r-total").innerHTML = fmt(thb) + "<small>THB</small>";
+  $("#r-press").textContent = PRESS[pressure].n;
+  if (newId && !reduce) { const r = $("#r-big"); r.classList.remove("bump"); void r.offsetWidth; r.classList.add("bump"); }
+}
+
+/* pressure */
+const press = $("#press");
+function setPressure(v){
+  pressure = v;
+  const P = PRESS[v];
+  document.documentElement.style.setProperty("--w", P.w);
+  document.documentElement.style.setProperty("--sink", P.s + "px");
+  press.setAttribute("aria-valuetext", P.n);
+  $("#press-copy").textContent = P.c;
+  hands.querySelectorAll("button").forEach((b,i) => b.setAttribute("aria-pressed", i+1 === v));
+  renderReceipt();
+}
+press.addEventListener("input", () => setPressure(+press.value));
+
+/* booking */
+const form = $("#book");
+const iso = d => new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+const today = new Date();
+form.date.min = iso(today); form.date.value = iso(new Date(today.getTime() + 86400000));
+for (let h = 10; h <= 21; h++) for (const m of ["00","30"]) { if (h === 21 && m === "30") continue; const o = document.createElement("option"); o.textContent = `${String(h).padStart(2,"0")}:${m}`; form.time.appendChild(o); }
+form.time.value = "16:00";
+form.people.addEventListener("change", () => renderReceipt());
+let via = "LINE";
+form.querySelectorAll("[data-via]").forEach(b => b.addEventListener("click", () => via = b.dataset.via));
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const err = $("#err"); err.textContent = "";
+  if (!chosen.length) { err.textContent = "Tap the body and add a treatment first."; return; }
+  if (!form.name.value.trim()) { err.textContent = "Add your name."; form.name.focus(); return; }
+  if (!form.date.value) { err.textContent = "Pick a date."; return; }
+  const d = new Date(form.date.value + "T12:00").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
+  const total = chosen.reduce((a,c)=>a+c.p,0) * +form.people.value;
+  const msg = `Hello Sen Thong, this is ${form.name.value.trim()}.
+Booking for ${form.people.value}, ${d} at ${form.time.value}.
+${chosen.map(c => `- ${c.n}, ${c.m} min, ${fmt(c.p)} THB`).join("\n")}
+Pressure: ${PRESS[pressure].n.toLowerCase()}. Total ${fmt(total)} THB.`;
+  const out = $("#out"); out.hidden = false;
+  out.innerHTML = `<strong>${via} message ready</strong><pre>${esc(msg)}</pre><button type="button">Copy</button>`;
+  const cb = out.querySelector("button");
+  cb.onclick = async () => { try { await navigator.clipboard.writeText(msg); cb.textContent = "Copied"; } catch(_) { cb.textContent = "Select the text to copy"; } };
+  out.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"nearest"});
+});
+
+$("#plainlist").innerHTML = Object.values(ZONES).map(z => `<div><h3>${esc(z.t)}</h3><ul>${z.items.map(i => `<li>${esc(i.n)}, ${i.m} min, ${fmt(i.p)} THB</li>`).join("")}</ul></div>`).join("");
+
+setPressure(2); renderStones(false); renderReceipt();
+})();
+</script>
+</body>
+</html>
