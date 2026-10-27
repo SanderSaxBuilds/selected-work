@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Thermocline Pictures</title>
+<meta name="description" content="Thermocline Pictures is a small scuba school on Koh Tao. Its courses play like a film, from Discover Scuba to Divemaster.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230b3446'/%3E%3Cpath d='M2 15h28a14 14 0 0 0-28 0z' fill='%238fd3d6'/%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%23e8d49a' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Arimo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --abyss:#04141c; --deep:#0b3446; --mid:#145e73; --surface:#8fd3d6; --foam:#dfeff0;
+  --film:#e8d49a; --silver:#dfe6e8; --sub:#f6f0c4; --coral:#d9667e;
+  --serif:"EB Garamond",Georgia,serif; --title:"Cinzel",Georgia,serif; --subf:"Arimo",Arial,sans-serif;
+  --bar:9vh;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:auto}
+html,body{margin:0}
+body{background:var(--abyss);color:var(--silver);font-family:var(--serif);font-size:19px;line-height:1.5;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--film);outline-offset:3px}
+.skip{position:fixed;left:12px;top:-80px;z-index:100;background:var(--film);color:var(--abyss);padding:10px 14px;font-family:var(--subf);font-weight:700;font-size:15px;text-decoration:none}
+.skip:focus{top:12px}
+.btn{font-family:var(--subf);font-weight:700;font-size:14px;letter-spacing:.02em;background:transparent;color:var(--silver);border:1.5px solid rgba(223,230,232,.55);padding:9px 14px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{border-color:var(--film);color:var(--film)}
+.btn.solid{background:var(--film);color:var(--abyss);border-color:var(--film)}
+.btn.solid:hover{background:#f3e3b0;color:var(--abyss)}
+
+/* ---------- ident ---------- */
+.ident{position:fixed;inset:0;z-index:90;background:#000;display:grid;place-items:center;cursor:pointer;transition:opacity .8s}
+.ident.out{opacity:0;pointer-events:none}
+.ident svg{width:min(520px,80vw);height:auto;overflow:visible}
+.ident .ring{stroke-dasharray:440;stroke-dashoffset:440;animation:draw 1.3s .2s cubic-bezier(.6,0,.2,1) forwards}
+.ident .water{transform:translateY(120px);animation:fill 1.2s .9s cubic-bezier(.3,0,.2,1) forwards}
+.ident .line{transform:scaleX(0);transform-origin:center;animation:line .7s 1.7s ease-out forwards}
+.ident .name{opacity:0;letter-spacing:.6em;animation:name 1.4s 1.6s ease-out forwards}
+.ident .tag{opacity:0;animation:fade 1s 2.4s forwards}
+.ident .skipi{position:absolute;right:20px;bottom:20px}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fill{to{transform:translateY(0)}}
+@keyframes line{to{transform:scaleX(1)}}
+@keyframes name{to{opacity:1;letter-spacing:.32em}}
+@keyframes fade{to{opacity:1}}
+
+/* ---------- film ---------- */
+#film{position:relative}
+.screen{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--abyss)}
+.sea{position:absolute;inset:0;background:linear-gradient(180deg,var(--c1,#3f9fb0) 0%,var(--c2,#145e73) 55%,var(--c3,#0b3446) 100%)}
+.layer{position:absolute;left:0;right:0;will-change:transform}
+.rays{top:0;height:100%;mix-blend-mode:screen}
+.surface{top:0;height:30%}
+.reef{bottom:0;height:46%}
+.reef svg,.rays svg,.surface svg{width:100%;height:100%;display:block}
+.fishes{top:30%;height:30%;width:100%}
+.diver{position:absolute;left:72%;top:0;width:min(240px,34vw);will-change:transform}
+.bubbles{position:absolute;inset:0;pointer-events:none}
+.bubbles i{position:absolute;border:1.5px solid rgba(223,239,240,.6);border-radius:50%}
+.bar{position:absolute;left:0;right:0;height:var(--bar);background:#000;z-index:5;transform-origin:top}
+.bar.t{top:0}.bar.b{bottom:0;transform-origin:bottom}
+.grain{position:absolute;inset:-50%;z-index:6;pointer-events:none;opacity:.16;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+body.nograin .grain{display:none}
+.vignette{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+
+.scene{position:absolute;inset:var(--bar) 0;z-index:7;display:grid;place-items:center;padding:24px 6vw;opacity:0;pointer-events:none}
+.scene.on{pointer-events:auto}
+.credit{text-align:center;font-family:var(--title);color:var(--film)}
+.credit .s{display:block;font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.2vw,26px);color:var(--silver);letter-spacing:.02em;margin-bottom:.5em}
+.credit .l{display:block;font-weight:600;font-size:clamp(26px,4.6vw,64px);letter-spacing:.24em;line-height:1.1;text-indent:.24em}
+.credit .l small{display:block;font-size:.38em;letter-spacing:.5em;margin-top:.8em;color:var(--silver);font-weight:400}
+.titlecard{text-align:center}
+.titlecard h1{margin:0;font-family:var(--title);font-weight:900;font-size:clamp(46px,11vw,170px);line-height:.86;letter-spacing:.04em;color:var(--foam);text-shadow:0 0 40px rgba(143,211,214,.35)}
+.titlecard h1 span{display:block;font-weight:400;font-size:.32em;letter-spacing:.6em;text-indent:.6em;color:var(--film);margin-bottom:.35em}
+.titlecard p{font-style:italic;font-size:clamp(18px,2.4vw,28px);margin:.6em 0 0;color:var(--silver)}
+.chapter{width:100%;max-width:1200px;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:4vw}
+.numeral{font-family:var(--title);font-weight:900;font-size:clamp(120px,24vw,360px);line-height:.8;color:transparent;-webkit-text-stroke:2px rgba(232,212,154,.75);user-select:none}
+.ch-body{min-width:0}
+.ch-kicker{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2vw,24px);color:var(--film);margin:0}
+.ch-title{font-family:var(--title);font-weight:800;font-size:clamp(38px,6.4vw,96px);line-height:.92;margin:.1em 0 .25em;color:var(--foam);letter-spacing:.01em}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.rating{display:inline-flex;align-items:center;gap:8px;font-family:var(--subf);font-size:13px;font-weight:700;border:1.5px solid var(--silver);padding:4px 10px 4px 4px}
+.rating b{background:var(--silver);color:var(--abyss);padding:2px 7px;font-size:14px}
+.ch-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.commentary{display:none;margin:16px 0 0;max-width:520px;border-left:3px solid var(--coral);padding:8px 0 8px 14px;font-style:italic;font-size:19px;color:var(--foam);background:linear-gradient(90deg,rgba(4,20,28,.55),transparent)}
+.commentary b{font-style:normal;font-family:var(--title);font-weight:800;font-size:28px;color:var(--film);display:block;line-height:1.1}
+.commentary em{font-family:var(--subf);font-style:normal;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--coral);display:block;margin-bottom:2px}
+body.commentary-on .commentary{display:block}
+
+.subs{position:absolute;left:0;right:0;bottom:calc(var(--bar) + 18px);z-index:8;text-align:center;padding:0 16px;pointer-events:none}
+.subs span{display:inline-block;font-family:var(--subf);font-size:clamp(17px,2vw,24px);color:var(--sub);text-shadow:0 0 3px #000,0 2px 2px #000,0 0 1px #000;max-width:900px}
+body.nosubs .subs{display:none}
+.hud{position:absolute;z-index:9;font-family:var(--subf);font-size:12px;color:rgba(223,230,232,.8);letter-spacing:.08em}
+.tc{left:18px;bottom:calc(var(--bar) + 16px)}
+.gauge{right:16px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:8px}
+.gauge .scale{position:relative;width:2px;height:40vh;background:rgba(223,230,232,.35)}
+.gauge .scale i{position:absolute;left:-4px;width:10px;height:1px;background:rgba(223,230,232,.6)}
+.gauge .needle{position:absolute;left:-7px;width:16px;height:2px;background:var(--film);transition:none}
+.gauge .read{font-family:var(--title);font-weight:800;font-size:28px;color:var(--film);letter-spacing:0;min-width:3.2ch;text-align:right}
+.gauge .read small{font-family:var(--subf);font-size:11px;font-weight:400;display:block;color:var(--silver)}
+
+/* player controls */
+.controls{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:6px;background:rgba(4,20,28,.82);backdrop-filter:blur(6px);border:1px solid rgba(223,230,232,.18);padding:6px;max-width:calc(100vw - 24px)}
+.controls button{font-family:var(--subf);font-weight:700;font-size:12px;letter-spacing:.04em;background:transparent;color:var(--silver);border:1px solid transparent;padding:7px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.controls button svg{width:18px;height:18px}
+.controls button[aria-pressed="true"]{border-color:rgba(232,212,154,.7);color:var(--film)}
+.controls button:hover{color:var(--film)}
+.scrub{position:relative;width:180px;height:24px;cursor:pointer;margin:0 6px}
+.scrub::before{content:"";position:absolute;left:0;right:0;top:11px;height:2px;background:rgba(223,230,232,.25)}
+.scrub .fill{position:absolute;left:0;top:11px;height:2px;background:var(--film);width:0}
+.scrub .tick{position:absolute;top:7px;width:1px;height:10px;background:rgba(223,230,232,.5)}
+.scrub .knob{position:absolute;top:6px;width:12px;height:12px;border-radius:50%;background:var(--film);transform:translateX(-6px)}
+
+/* ---------- after the film ---------- */
+.after{position:relative;background:var(--abyss);padding:110px 16px 120px;border-top:1px solid rgba(232,212,154,.2)}
+.wrap{max-width:1180px;margin:0 auto}
+.sec-title{font-family:var(--title);font-weight:800;font-size:clamp(40px,7vw,96px);line-height:.9;margin:0 0 30px;color:var(--foam);letter-spacing:.02em}
+.sec-title span{display:block;font-family:var(--serif);font-style:italic;font-weight:400;font-size:.3em;letter-spacing:0;color:var(--film);margin-bottom:.3em}
+.cast{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;list-style:none;margin:0;padding:0}
+.member{position:relative;cursor:default}
+.portrait{aspect-ratio:3/4;position:relative;overflow:hidden;border:1px solid rgba(223,230,232,.18);background:linear-gradient(180deg,var(--p1),var(--p2))}
+.portrait svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.member:hover .portrait svg,.member:focus-within .portrait svg{transform:scale(1.06)}
+.dives{position:absolute;left:10px;top:8px;font-family:var(--title);font-weight:900;font-size:34px;line-height:1;color:var(--foam);text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.dives small{display:block;font-family:var(--subf);font-weight:700;font-size:10px;letter-spacing:.1em;color:var(--film)}
+.member h3{margin:12px 0 0;font-family:var(--title);font-weight:600;font-size:19px;line-height:1.15;color:var(--foam)}
+.member .as{font-style:italic;color:var(--film);font-size:18px;margin:0}
+.langs{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.langs span{font-family:var(--subf);font-size:10px;font-weight:700;border:1px solid rgba(223,230,232,.4);padding:1px 5px;letter-spacing:.06em}
+
+.booth{margin-top:120px}
+.marquee{border:2px solid var(--film);padding:22px;position:relative;background:linear-gradient(180deg,#071d27,#04141c)}
+.marquee::before{content:"Now showing at Mae Haad, Koh Tao";position:absolute;top:-13px;left:20px;background:var(--abyss);padding:0 10px;font-family:var(--title);font-weight:600;font-size:14px;letter-spacing:.2em;color:var(--film)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.tabs button{font-family:var(--title);font-weight:600;font-size:15px;letter-spacing:.06em;background:transparent;color:var(--silver);border:1px solid rgba(223,230,232,.3);padding:8px 14px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--film);color:var(--abyss);border-color:var(--film)}
+.showtimes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.show{font-family:inherit;text-align:left;background:transparent;color:var(--silver);border:1px solid rgba(223,230,232,.3);padding:12px 12px 10px;cursor:pointer;position:relative}
+.show:hover{border-color:var(--film)}
+.show[aria-pressed="true"]{border-color:var(--film);background:rgba(232,212,154,.1);box-shadow:inset 0 0 0 1px var(--film)}
+.show .dd{font-family:var(--title);font-weight:900;font-size:40px;line-height:.9;color:var(--foam)}
+.show .mm{font-family:var(--subf);font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--film)}
+.show .seats{display:flex;gap:3px;margin-top:8px}
+.show .seats i{width:10px;height:10px;border:1px solid var(--silver)}
+.show .seats i.t{background:rgba(223,230,232,.25);border-color:transparent}
+.show.full{opacity:.4;cursor:not-allowed}
+.seatmap{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.screen-line{font-family:var(--subf);font-size:11px;letter-spacing:.3em;text-align:center;color:var(--film);border-top:2px solid var(--film);border-radius:50% 50% 0 0/14px 14px 0 0;padding-top:8px;margin-bottom:18px}
+.seat-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.seat{width:58px;height:62px;background:transparent;border:0;padding:0;cursor:pointer;color:var(--silver)}
+.seat svg{width:100%;height:100%}
+.seat[disabled]{cursor:not-allowed;opacity:.3}
+.seat[aria-pressed="true"]{color:var(--film)}
+.seat-key{display:flex;gap:16px;justify-content:center;font-family:var(--subf);font-size:12px;margin-top:10px;color:rgba(223,230,232,.75)}
+.form{display:grid;gap:10px}
+.form label{display:grid;gap:4px;font-family:var(--subf);font-size:12px;font-weight:700;letter-spacing:.06em}
+input{font:inherit;font-family:var(--subf);font-size:16px;background:rgba(223,230,232,.06);color:var(--foam);border:1px solid rgba(223,230,232,.4);padding:10px 12px;width:100%;min-width:0;border-radius:0}
+input:focus{border-color:var(--film);outline:none}
+.err{color:var(--coral);font-family:var(--subf);font-size:14px;min-height:1.2em;margin:0}
+.summary-line{display:flex;justify-content:space-between;gap:10px;font-family:var(--subf);font-size:14px;border-bottom:1px dashed rgba(223,230,232,.25);padding:6px 0}
+.summary-line b{font-family:var(--title);font-size:22px;color:var(--film)}
+.ticket{margin-top:30px;display:flex;max-width:760px;color:#1b2a30;background:#efe6c8;position:relative;transform-origin:left center}
+.ticket.print{animation:print .7s cubic-bezier(.2,.8,.2,1)}
+@keyframes print{0%{transform:translateY(-30px) rotate(-2deg);opacity:0}100%{transform:none;opacity:1}}
+.ticket .main{flex:1;padding:22px 24px;border-right:2px dashed #b9a978;min-width:0}
+.ticket .stub{width:150px;padding:22px 16px;display:grid;align-content:space-between;text-align:center}
+.ticket .t-brand{font-family:var(--title);font-weight:600;letter-spacing:.2em;font-size:12px}
+.ticket h4{font-family:var(--title);font-weight:900;font-size:clamp(26px,4vw,40px);margin:.2em 0 .2em;line-height:.95}
+.ticket .grid{display:grid;grid-template-columns:repeat(3,auto);gap:4px 18px;font-family:var(--subf);font-size:12px;margin-top:10px}
+.ticket .grid b{display:block;font-family:var(--title);font-size:18px}
+.ticket .admit{font-family:var(--title);font-weight:900;font-size:44px;line-height:.9}
+.ticket .fine{font-family:var(--serif);font-style:italic;font-size:15px;margin:12px 0 0}
+.ticket::before,.ticket::after{content:"";position:absolute;right:141px;width:18px;height:18px;border-radius:50%;background:var(--abyss)}
+.ticket::before{top:-9px}.ticket::after{bottom:-9px}
+
+.boxoffice{margin-top:120px}
+.prices{width:100%;border-collapse:collapse;font-size:17px}
+.prices th,.prices td{text-align:left;padding:12px 10px;border-bottom:1px solid rgba(223,230,232,.18);vertical-align:top}
+.prices th{font-family:var(--subf);font-size:12px;letter-spacing:.1em;color:var(--film);font-weight:700}
+.prices td.n{text-align:right;font-family:var(--title);font-weight:800;font-size:22px;white-space:nowrap;color:var(--foam)}
+.prices td:first-child{font-family:var(--title);font-weight:600;color:var(--foam)}
+.tablewrap{overflow-x:auto}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px;font-size:17px}
+.notes b{display:block;font-family:var(--title);color:var(--film);font-size:16px;letter-spacing:.06em}
+footer{padding:40px 16px 100px;text-align:center;font-family:var(--subf);font-size:12px;color:rgba(223,230,232,.6);letter-spacing:.04em}
+footer .logo{display:inline-flex;align-items:center;gap:10px;font-family:var(--title);font-weight:600;letter-spacing:.24em;color:var(--film);font-size:14px;margin-bottom:10px}
+
+@media (max-width:900px){
+  .cast{grid-template-columns:repeat(2,1fr)}
+  .cast li:last-child{grid-column:1/-1;max-width:50%}
+  .seatmap{grid-template-columns:1fr}
+  .notes{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  :root{--bar:6vh}
+  body{font-size:18px}
+  .chapter{grid-template-columns:1fr;gap:0}
+  .numeral{font-size:96px;-webkit-text-stroke:1.5px rgba(232,212,154,.75)}
+  .gauge{right:8px}
+  .gauge .scale{height:26vh}
+  .gauge .read{font-size:20px}
+  .scene{padding:12px 50px 12px 18px}
+  .controls{gap:2px;padding:4px;bottom:8px}
+  .controls button{padding:7px 6px;font-size:11px}
+  .controls .lbl{display:none}
+  .scrub{width:64px;margin:0 2px}
+  .tc{display:none}
+  .ticket{flex-direction:column}
+  .ticket .main{border-right:0;border-bottom:2px dashed #b9a978}
+  .ticket .stub{width:auto;display:flex;justify-content:space-between;align-items:center;text-align:left}
+  .ticket::before,.ticket::after{display:none}
+  .ticket .grid{grid-template-columns:repeat(2,auto)}
+  .cast li:last-child{max-width:none}
+  .seat{width:52px;height:56px}
+  .after{padding-top:80px}
+  .marquee{padding:30px 14px 16px}
+  .marquee::before{font-size:11px;letter-spacing:.12em;right:14px;left:14px;text-align:center}
+  .prices thead{display:none}
+  .prices tr{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:14px 0;border-bottom:1px solid rgba(223,230,232,.18)}
+  .prices td{display:block;border:0;padding:0;font-size:16px}
+  .prices td:first-child{grid-column:1;font-size:20px}
+  .prices td.n{grid-column:2;grid-row:1}
+  .prices td:nth-child(2),.prices td:nth-child(3){grid-column:1/-1;display:inline;font-family:var(--subf);font-size:13px;color:var(--film)}
+  .prices td:nth-child(4){grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){
+  .ident{display:none}
+  #film{height:auto!important}
+  .screen{position:relative;height:auto;overflow:visible;background:linear-gradient(180deg,#3f9fb0,#0b3446 30%,#04141c)}
+  .sea,.layer,.diver,.bubbles,.bar,.vignette,.gauge,.tc,.fishes{display:none}
+  .scene{position:relative;inset:auto;opacity:1!important;pointer-events:auto;min-height:70vh;transform:none!important}
+  .scene *{transform:none!important}
+  .subs{position:static;padding:0 0 30px}
+  .scrub{display:none}
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#boxoffice">Skip the film, go to courses and prices</a>
+
+<div class="ident" id="ident" role="presentation">
+  <svg viewBox="0 0 400 300" aria-hidden="true">
+    <defs><clipPath id="lens"><circle cx="200" cy="110" r="70"/></clipPath></defs>
+    <g clip-path="url(#lens)">
+      <rect x="120" y="30" width="160" height="160" fill="#04141c"/>
+      <g class="water"><rect x="120" y="104" width="160" height="90" fill="#145e73"/><rect x="120" y="40" width="160" height="64" fill="#8fd3d6"/></g>
+    </g>
+    <rect class="line" x="110" y="103" width="180" height="2" fill="#e8d49a"/>
+    <circle class="ring" cx="200" cy="110" r="70" fill="none" stroke="#e8d49a" stroke-width="2"/>
+    <text class="name" x="200" y="232" text-anchor="middle" font-family="Cinzel, serif" font-weight="600" font-size="22" fill="#e8d49a">THERMOCLINE</text>
+    <text class="tag" x="200" y="262" text-anchor="middle" font-family="Cinzel, serif" font-size="12" letter-spacing="8" fill="#dfe6e8">PICTURES  .  KOH TAO</text>
+  </svg>
+  <button class="btn skipi" id="skipIntro" type="button">Skip intro</button>
+</div>
+
+<section id="film" aria-label="The film, scroll to play">
+  <div class="screen" id="screen">
+    <div class="sea" id="sea"></div>
+    <div class="layer surface" id="surface"><svg viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true"><defs><radialGradient id="sun" cx="50%" cy="0%" r="60%"><stop offset="0" stop-color="#fff9de" stop-opacity=".9"/><stop offset="1" stop-color="#fff9de" stop-opacity="0"/></radialGradient></defs><rect width="1200" height="300" fill="url(#sun)"/><path d="M0 40 Q 60 28 120 40 T 240 40 T 360 40 T 480 40 T 600 40 T 720 40 T 840 40 T 960 40 T 1080 40 T 1200 40 V0 H0z" fill="#dff4f2" opacity=".55"/></svg></div>
+    <div class="layer rays" id="rays"><svg viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="ray" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><polygon points="420,0 500,0 330,800 180,800" fill="url(#ray)"/><polygon points="620,0 660,0 640,800 520,800" fill="url(#ray)" opacity=".7"/><polygon points="760,0 830,0 1050,800 900,800" fill="url(#ray)" opacity=".8"/><polygon points="230,0 260,0 60,800 0,800" fill="url(#ray)" opacity=".5"/></svg></div>
+    <svg class="layer fishes" id="fishes" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+    <div class="layer reef" id="reef"><svg viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 400 V250 C60 230 90 180 140 200 C170 120 210 150 230 190 C260 160 300 170 320 210 C380 200 420 120 470 160 C520 190 540 230 600 220 C640 150 700 170 720 200 C760 180 800 120 850 170 C900 210 930 190 980 210 C1020 140 1070 160 1100 200 C1140 190 1170 210 1200 230 V400Z" fill="#0a2b38"/>
+      <path d="M0 400 V320 C80 300 120 280 200 300 C260 270 320 290 380 310 C460 280 520 300 600 290 C680 270 760 300 840 290 C920 270 1000 300 1080 280 C1140 290 1170 300 1200 300 V400Z" fill="#061d27"/>
+      <g fill="none" stroke="#123f4f" stroke-width="6" stroke-linecap="round"><path d="M170 210 V120 M170 160 L140 130 M170 150 L200 110"/><path d="M880 180 V100 M880 140 L850 110 M880 130 L915 95"/></g>
+      <g fill="#0d3443"><ellipse cx="520" cy="230" rx="60" ry="20"/><ellipse cx="1040" cy="215" rx="40" ry="14"/></g>
+    </svg></div>
+    <svg class="diver" id="diver" viewBox="0 0 300 120" aria-hidden="true">
+      <g fill="#03121a" opacity=".85">
+        <ellipse cx="150" cy="60" rx="70" ry="17"/>
+        <circle cx="232" cy="52" r="15"/>
+        <rect x="110" y="30" width="80" height="16" rx="8"/>
+        <path d="M84 56 L20 30 L36 62 L18 92 L84 66Z"/>
+        <path d="M200 66 L248 92 L252 84 L210 60Z"/>
+        <path d="M240 46 L262 40 L262 56 L240 56Z" fill="#0b3446"/>
+      </g>
+    </svg>
+    <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+    <div class="vignette"></div>
+    <div class="grain" id="grain"></div>
+    <div class="bar t" id="barT"></div><div class="bar b" id="barB"></div>
+
+    <div id="scenes"></div>
+
+    <div class="subs" aria-live="polite"><span id="subline"></span></div>
+    <div class="hud tc" id="tc" aria-hidden="true">00:00:00:00</div>
+    <div class="hud gauge" aria-hidden="true">
+      <div class="read" id="depthRead">0<small>metres</small></div>
+      <div class="scale" id="scale"><span class="needle" id="needle"></span></div>
+    </div>
+  </div>
+</section>
+
+<nav class="controls" aria-label="Film controls">
+  <button type="button" id="ccBtn" aria-pressed="true" title="Subtitles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M10.5 10.5a2 2 0 1 0 0 3M16.5 10.5a2 2 0 1 0 0 3"/></svg><span class="lbl">Subtitles</span></button>
+  <button type="button" id="grainBtn" aria-pressed="true" title="Film grain"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="7" r="1.2"/><circle cx="12" cy="5" r=".9"/><circle cx="17" cy="9" r="1.3"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="15" r=".9"/><circle cx="6" cy="18" r="1.1"/><circle cx="19" cy="18" r="1"/><circle cx="12" cy="20" r=".8"/></svg><span class="lbl">Grain</span></button>
+  <button type="button" id="dcBtn" aria-pressed="false" title="Director's commentary, shows prices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span class="lbl">Commentary and prices</span></button>
+  <div class="scrub" id="scrub" role="slider" tabindex="0" aria-label="Film position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="fill" id="fill"></span><span class="knob" id="knob"></span></div>
+  <button type="button" id="ticketsBtn" title="Tickets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M14 7v10" stroke-dasharray="2 2"/></svg><span class="lbl">Tickets</span></button>
+</nav>
+
+<div class="after">
+  <div class="wrap">
+    <section id="cast" aria-labelledby="castT">
+      <h2 class="sec-title" id="castT"><span>Starring</span>The cast</h2>
+      <ul class="cast" id="castList"></ul>
+    </section>
+
+    <section class="booth" id="booth" aria-labelledby="boothT">
+      <h2 class="sec-title" id="boothT"><span>Ticket booth</span>Pick a showing</h2>
+      <div class="marquee">
+        <div class="tabs" role="tablist" id="tabs"></div>
+        <div class="showtimes" id="showtimes"></div>
+        <div class="seatmap" id="seatmap" hidden>
+          <div>
+            <div class="screen-line">Your instructor</div>
+            <div class="seat-row" id="seats"></div>
+            <div class="seat-key"><span>Max 4 students per instructor</span></div>
+          </div>
+          <div>
+            <div id="sumLines"></div>
+            <div class="form" style="margin-top:14px">
+              <label>Name<input id="nm" autocomplete="name"></label>
+              <label>Email or WhatsApp<input id="ct"></label>
+              <p class="err" id="err" role="alert"></p>
+              <button class="btn solid" id="printBtn" type="button">Print my ticket</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="ticketOut" aria-live="polite"></div>
+    </section>
+
+    <section class="boxoffice" id="boxoffice" tabindex="-1" aria-labelledby="boxT">
+      <h2 class="sec-title" id="boxT"><span>Box office</span>Courses and prices</h2>
+      <div class="tablewrap"><table class="prices"><thead><tr><th>Course</th><th>Length</th><th>Max depth</th><th>Included</th><th style="text-align:right">Price</th></tr></thead><tbody id="priceRows"></tbody></table></div>
+      <div class="notes">
+        <div><b>Fun dives</b>1,000 THB a dive, 900 THB from the sixth. Gear 200 THB a day.</div>
+        <div><b>Where</b>Mae Haad, Koh Tao, two minutes from the ferry pier. Open 7:30 to 19:00.</div>
+        <div><b>Paying</b>Nothing up front. Pay on day one, cash, card or Thai QR.</div>
+      </div>
+    </section>
+  </div>
+</div>
+<footer>
+  <div class="logo"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#0b3446"/><path d="M2 15h28a14 14 0 0 0-28 0z" fill="#8fd3d6"/><circle cx="16" cy="16" r="14" fill="none" stroke="#e8d49a" stroke-width="2"/></svg>THERMOCLINE PICTURES</div>
+  <div>A dive school on Koh Tao. A fictional business made for a portfolio.</div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+const REDUCED=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt=n=>n.toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+const COURSES=[
+  {id:'dsd',num:'I',kicker:'Chapter one',name:'Discover Scuba',len:'1 day',lenShort:'1 day',depth:12,rating:'Rated 12 m',min:'Age 10 and up',pre:['10+','age'],price:3200,inc:'Gear, pool session, one guided ocean dive, photos',cm:'Gear, pool, one guided dive and photos from Kenji. No licence.'},
+  {id:'ow',num:'II',kicker:'Chapter two',name:'Open Water',len:'3.5 days',lenShort:'3.5 days',depth:18,rating:'Rated 18 m',min:'Swim 200 m',pre:['200 m','swim test'],price:11500,inc:'Book, gear, 4 ocean dives, card fee, 3 nights fan room',cm:'Book, gear, four ocean dives, card fee and three nights in a fan room.'},
+  {id:'aow',num:'III',kicker:'Chapter three',name:'Advanced',len:'2 days',lenShort:'2 days',depth:30,rating:'Rated 30 m',min:'Open Water card',pre:['OW','card needed'],price:10500,inc:'5 dives incl. deep and night, 2 nights room',cm:'Five dives, deep and night included, plus two nights of room.'},
+  {id:'rescue',num:'IV',kicker:'Chapter four',name:'Rescue Diver',len:'3 days',lenShort:'3 days',depth:18,rating:'Rated 18 m',min:'Advanced card',pre:['AOW','card needed'],price:12500,inc:'Emergency First Response, gear, 4 nights room',cm:'Emergency First Response included, gear and four nights of room.'},
+  {id:'dm',num:'V',kicker:'Chapter five',name:'Divemaster',len:'4 to 6 weeks',lenShort:'4-6 wks',depth:40,rating:'Rated 40 m',min:'Rescue card, 40 logged dives',pre:['40','dives logged'],price:38000,inc:'Unlimited dives, crew shirt, mentoring. Insurance extra',cm:'Unlimited dives, mentoring and a crew shirt. Insurance is extra.'}
+];
+const SCENES=[
+  {type:'credit',s:'Thermocline Pictures',l:'presents',depth:0,sub:'[Waves. A longtail engine fades out.]'},
+  {type:'credit',s:'a film shot entirely at',l:'Koh Tao',small:'Gulf of Thailand',depth:3,sub:'Nok: Everyone thinks the hard part is going down.'},
+  {type:'title',depth:6,sub:'Nok: The hard part is breathing slowly.'},
+  {type:'chapter',c:0,depth:12,sub:'Nok: One day. Twelve metres. No licence needed.'},
+  {type:'chapter',c:1,depth:18,sub:'Hanna: Three and a half days, then you can dive anywhere on earth.'},
+  {type:'chapter',c:2,depth:26,sub:'Mateo: Thirty metres, a night dive, a wreck. Bring a torch.'},
+  {type:'chapter',c:3,depth:30,sub:'Pim: This is the one where you stop thinking about yourself.'},
+  {type:'chapter',c:4,depth:36,sub:'Nok: Six weeks. Then the students are yours.'},
+  {type:'credit',s:'in cinemas never.',l:'In the water',small:'every morning at 8:00',depth:40,sub:'[Bubbles rise. Cut to black.]',end:true}
+];
+const CAST=[
+  {name:'Nok Saengthong',as:'The Calm One',role:'Course director',dives:4100,langs:['TH','EN'],p1:'#1d6f80',p2:'#0b3446',hair:'#14100c'},
+  {name:'Hanna Lindqvist',as:'The Patient One',role:'Open Water',dives:1900,langs:['SV','EN','DE'],p1:'#2c7f8a',p2:'#0b3446',hair:'#d9c58f'},
+  {name:'Mateo Ferrante',as:'The Night Diver',role:'Advanced',dives:2600,langs:['IT','ES','EN'],p1:'#183f5a',p2:'#04141c',hair:'#2a1a12'},
+  {name:'Pim Rattanakul',as:'The Rescue',role:'Rescue and first aid',dives:3300,langs:['TH','EN'],p1:'#5b3f62',p2:'#0b3446',hair:'#14100c'},
+  {name:'Kenji Arai',as:'The Camera',role:'Underwater video',dives:2200,langs:['JA','EN'],p1:'#145e73',p2:'#061d27',hair:'#0f0f12'}
+];
+const SHOWS={
+  dsd:['2026-11-02','2026-11-04','2026-11-07','2026-11-11','2026-11-14','2026-11-18'],
+  ow:['2026-11-02','2026-11-09','2026-11-16','2026-11-23','2026-11-30','2026-12-07'],
+  aow:['2026-11-06','2026-11-13','2026-11-20','2026-12-04','2026-12-11'],
+  rescue:['2026-11-10','2026-12-01','2026-12-15'],
+  dm:['2026-12-01','2027-01-05','2027-02-02']
+};
+function hash(s){ let h=0; for(const c of s) h=(h*31+c.charCodeAt(0))>>>0; return h; }
+function taken(course,date){ const h=hash(course+date); return [0,1,2,3].filter(i=>((h>>(i*3))&7)<2+(i===3?2:0)); }
+
+/* ---------- scenes ---------- */
+const scenesEl=$('scenes');
+scenesEl.innerHTML=SCENES.map((s,i)=>{
+  if(s.type==='credit') return '<div class="scene" data-i="'+i+'"><div class="credit"><span class="s">'+s.s+'</span><span class="l">'+s.l+(s.small?'<small>'+s.small+'</small>':'')+'</span>'+(s.end?'<p style="margin-top:28px"><a class="btn solid" href="#booth">Get tickets</a></p>':'')+'</div></div>';
+  if(s.type==='title') return '<div class="scene" data-i="'+i+'"><div class="titlecard"><h1><span>a Thermocline picture</span>Breathe<br>Slowly</h1><p>Five courses. One island. Forty metres.</p><div class="commentary" style="margin:18px auto 0;text-align:left"><em>Director&#8217;s commentary</em><b>1,000 THB</b>That is one fun dive if you already have a card. 900 from the sixth.</div></div></div>';
+  const c=COURSES[s.c];
+  return '<div class="scene" data-i="'+i+'"><div class="chapter"><div class="numeral" aria-hidden="true">'+c.num+'</div><div class="ch-body"><p class="ch-kicker">'+c.kicker+'</p><h2 class="ch-title">'+c.name+'</h2>'+
+    '<div class="meta"><span class="rating"><b>'+c.depth+' m</b>max depth</span><span class="rating"><b>'+c.lenShort+'</b>runtime</span><span class="rating"><b>'+c.pre[0]+'</b>'+c.pre[1]+'</span></div>'+
+    '<div class="ch-actions"><button class="btn solid" type="button" data-book="'+c.id+'">Book this showing</button><button class="btn" type="button" data-comm>'+'Hear the price'+'</button></div>'+
+    '<div class="commentary"><em>Director&#8217;s commentary</em><b>'+fmt(c.price)+' THB</b>'+c.cm+'</div></div></div></div>';
+}).join('');
+const sceneEls=[...scenesEl.querySelectorAll('.scene')];
+
+// fish and bubbles
+(function(){ let f=''; for(let i=0;i<34;i++){ const x=(hash('f'+i)%1100)+40, y=(hash('y'+i)%220)+30, s=0.6+(hash('s'+i)%60)/100; f+='<g transform="translate('+x+' '+y+') scale('+s+')" fill="#06202b" opacity=".75"><ellipse cx="0" cy="0" rx="14" ry="5"/><path d="M12 0 L22 -6 L22 6Z"/></g>'; } $('fishes').innerHTML=f;
+  let b=''; for(let i=0;i<22;i++){ const sz=4+hash('b'+i)%10; b+='<i data-x="'+(hash('bx'+i)%40)+'" data-o="'+(hash('bo'+i)%100)+'" style="width:'+sz+'px;height:'+sz+'px"></i>'; } $('bubbles').innerHTML=b;
+  let t=''; for(let m=0;m<=40;m+=5) t+='<i style="top:'+(m/40*100)+'%"></i>'; $('scale').insertAdjacentHTML('afterbegin',t);
+})();
+const bubbleEls=[...document.querySelectorAll('#bubbles i')];
+
+/* ---------- scrub ---------- */
+const film=$('film');
+const N=SCENES.length;
+function setHeights(){ film.style.height=(N*110)+'vh'; }
+if(!REDUCED) setHeights();
+const lerp=(a,b,t)=>a+(b-a)*t;
+function mix(c1,c2,t){ const a=parseInt(c1.slice(1),16), b=parseInt(c2.slice(1),16); const r=Math.round(lerp(a>>16,b>>16,t)), g=Math.round(lerp((a>>8)&255,(b>>8)&255,t)), bl=Math.round(lerp(a&255,b&255,t)); return 'rgb('+r+','+g+','+bl+')'; }
+let lastSub=-1, ticking=false;
+function progress(){ const r=film.getBoundingClientRect(); const total=film.offsetHeight-window.innerHeight; return Math.max(0,Math.min(1,-r.top/Math.max(1,total))); }
+function frame(){
+  ticking=false;
+  const f=progress(), pos=f*N, idx=Math.min(N-1,Math.floor(pos)), local=pos-idx;
+  // depth interpolated between scene depths
+  const d0=SCENES[idx].depth, d1=SCENES[Math.min(N-1,idx+1)].depth, depth=lerp(d0,d1,Math.max(0,(local-0.6)/0.4));
+  const k=depth/40;
+  const sea=$('sea');
+  sea.style.setProperty('--c1',mix('#5fb8c4','#0b3446',Math.min(1,k*1.4)));
+  sea.style.setProperty('--c2',mix('#1f7f95','#061d27',k));
+  sea.style.setProperty('--c3',mix('#0b3446','#020b10',k));
+  const vh=window.innerHeight;
+  $('surface').style.transform='translateY('+(-k*vh*1.8)+'px)';
+  $('rays').style.opacity=String(Math.max(0,1-k*1.6));
+  $('rays').style.transform='translateY('+(-k*vh*0.3)+'px)';
+  $('reef').style.transform='translateY('+((1-Math.min(1,k*1.2))*60)+'%)';
+  $('fishes').style.transform='translateX('+(-f*60)+'%) translateY('+(-k*20)+'%)';
+  const dv=$('diver'); const dy=vh*(0.12+k*0.5)+Math.sin(f*Math.PI*6)*12;
+  dv.style.transform='translate('+(Math.sin(f*Math.PI*2)*-8)+'vw,'+dy+'px) rotate('+(8+Math.sin(f*Math.PI*4)*6)+'deg)';
+  const dr=dv.getBoundingClientRect();
+  bubbleEls.forEach((b,i)=>{ const o=+b.dataset.o/100; const rise=((f*N*0.9+o)%1); b.style.left=(dr.left+dr.width*0.78+(+b.dataset.x-20)+Math.sin((rise+o)*9)*10)+'px'; b.style.top=(dr.top+dr.height*0.3-rise*vh*0.9)+'px'; b.style.opacity=String((1-rise)*0.9); });
+  // letterbox bars arrive during the first scene
+  const barK=Math.min(1,f*N*1.5); $('barT').style.transform='scaleY('+barK+')'; $('barB').style.transform='scaleY('+barK+')';
+  // scenes
+  sceneEls.forEach((el,i)=>{ let o=0; if(i===idx){ o = local<0.18?local/0.18 : local>0.82?(1-local)/0.18 : 1; if(i===0&&local<0.18) o=1; if(i===N-1&&local>0.82) o=1; }
+    el.style.opacity=o.toFixed(3); el.classList.toggle('on',o>0.5);
+    const inner=el.firstElementChild; if(i===idx) inner.style.transform='scale('+(1+local*0.05).toFixed(4)+') translateY('+((0.5-local)*14).toFixed(1)+'px)';
+    const num=el.querySelector('.numeral'); if(num&&i===idx) num.style.transform='translateY('+((0.5-local)*60).toFixed(1)+'px)'; });
+  if(idx!==lastSub){ lastSub=idx; $('subline').textContent=SCENES[idx].sub; }
+  // hud
+  $('depthRead').firstChild.nodeValue=String(Math.round(depth));
+  $('needle').style.top=(depth/40*100)+'%';
+  const secs=f*(102*60); const h=Math.floor(secs/3600), m=Math.floor(secs/60)%60, s=Math.floor(secs)%60, fr=Math.floor((secs%1)*24);
+  $('tc').textContent=[h,m,s,fr].map(n=>String(n).padStart(2,'0')).join(':');
+  $('fill').style.width=(f*100)+'%'; $('knob').style.left=(f*100)+'%'; $('scrub').setAttribute('aria-valuenow',String(Math.round(f*100)));
+  // grain reacts to scroll
+  $('grain').style.transform='translate('+((hash('g'+Math.round(window.scrollY/6))%40)-20)+'px,'+((hash('h'+Math.round(window.scrollY/6))%40)-20)+'px)';
+}
+function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
+if(!REDUCED){ window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll); frame(); }
+else { sceneEls.forEach(el=>el.style.opacity='1'); $('subline').textContent='Subtitles appear here while the film plays.'; }
+
+// scrub bar
+const scrub=$('scrub');
+(function ticks(){ let t=''; for(let i=1;i<N;i++) t+='<span class="tick" style="left:'+(i/N*100)+'%"></span>'; scrub.insertAdjacentHTML('afterbegin',t); })();
+function seek(f){ const total=film.offsetHeight-window.innerHeight; window.scrollTo({top:film.offsetTop+f*total,behavior:REDUCED?'auto':'smooth'}); }
+let dragging=false;
+function seekFromEvent(e){ const r=scrub.getBoundingClientRect(); const f=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)); const total=film.offsetHeight-window.innerHeight; window.scrollTo(0,film.offsetTop+f*total); }
+scrub.addEventListener('pointerdown',e=>{ dragging=true; scrub.setPointerCapture(e.pointerId); seekFromEvent(e); });
+scrub.addEventListener('pointermove',e=>{ if(dragging) seekFromEvent(e); });
+scrub.addEventListener('pointerup',()=>dragging=false);
+scrub.addEventListener('keydown',e=>{ const f=progress(); if(e.key==='ArrowRight'){ e.preventDefault(); seek(Math.min(1,(Math.floor(f*N+0.01)+1.5)/N)); } if(e.key==='ArrowLeft'){ e.preventDefault(); seek(Math.max(0,(Math.floor(f*N-0.01)-0.5)/N)); } });
+
+/* ---------- toggles ---------- */
+function toggle(btn,cls,invert){ const on=btn.getAttribute('aria-pressed')!=='true'; btn.setAttribute('aria-pressed',String(on)); document.body.classList.toggle(cls,invert?!on:on); return on; }
+$('ccBtn').addEventListener('click',e=>toggle(e.currentTarget,'nosubs',true));
+$('grainBtn').addEventListener('click',e=>toggle(e.currentTarget,'nograin',true));
+function setComm(on){ $('dcBtn').setAttribute('aria-pressed',String(on)); document.body.classList.toggle('commentary-on',on); document.querySelectorAll('[data-comm]').forEach(b=>b.textContent=on?'Hide the price':'Hear the price'); }
+$('dcBtn').addEventListener('click',()=>setComm(!document.body.classList.contains('commentary-on')));
+scenesEl.addEventListener('click',e=>{ const c=e.target.closest('[data-comm]'); if(c) setComm(!document.body.classList.contains('commentary-on')); const b=e.target.closest('[data-book]'); if(b) goBook(b.dataset.book); });
+$('ticketsBtn').addEventListener('click',()=>goBook(null));
+
+/* ---------- ident ---------- */
+const ident=$('ident');
+function endIdent(){ if(ident.classList.contains('out')) return; ident.classList.add('out'); setTimeout(()=>ident.hidden=true,800); }
+if(REDUCED) ident.hidden=true;
+else { setTimeout(endIdent,3600); ident.addEventListener('click',endIdent); window.addEventListener('keydown',endIdent,{once:true}); window.addEventListener('wheel',endIdent,{once:true,passive:true}); window.addEventListener('touchstart',endIdent,{once:true,passive:true}); }
+
+/* ---------- cast ---------- */
+function portrait(m,i){
+  const skin=['#c08b62','#e3bfa0','#d9a57f','#b9805a','#e0b48e'][i];
+  return '<svg viewBox="0 0 150 200" aria-hidden="true"><defs><linearGradient id="lg'+i+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".25"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs>'+
+    '<polygon points="40,0 70,0 40,200 0,200" fill="url(#lg'+i+')"/>'+
+    '<path d="M20 200 C22 150 45 132 75 132 C105 132 128 150 130 200Z" fill="#06202b"/>'+
+    '<path d="M60 132 L75 160 L90 132" fill="'+(['#e8d49a','#8fd3d6','#d9667e','#e8d49a','#8fd3d6'][i])+'" opacity=".9"/>'+
+    '<rect x="64" y="112" width="22" height="24" fill="'+skin+'"/>'+
+    '<ellipse cx="75" cy="88" rx="27" ry="32" fill="'+skin+'"/>'+
+    '<path d="M47 84 C46 56 60 50 75 50 C92 50 105 58 103 86 C99 70 90 66 75 66 C62 66 52 72 47 84Z" fill="'+m.hair+'"/>'+
+    (i===1?'<path d="M47 84 C42 110 50 128 56 132 L56 90Z M103 86 C108 110 100 128 94 132 L94 90Z" fill="'+m.hair+'"/>':'')+
+    '<g fill="none" stroke="#04141c" stroke-width="3"><rect x="50" y="78" width="50" height="20" rx="8" fill="#8fd3d6" fill-opacity=".55"/><path d="M50 86 H42 M100 86 H108"/></g>'+
+    (i===4?'<rect x="98" y="150" width="34" height="24" rx="3" fill="#04141c"/><circle cx="115" cy="162" r="8" fill="#145e73" stroke="#e8d49a" stroke-width="2"/>':'')+
+    '</svg>';
+}
+$('castList').innerHTML=CAST.map((m,i)=>'<li class="member" style="--p1:'+m.p1+';--p2:'+m.p2+'"><div class="portrait">'+portrait(m,i)+'<span class="dives">'+fmt(m.dives)+'<small>DIVES LOGGED</small></span></div><h3>'+m.name+'</h3><p class="as">as '+m.as+'</p><div class="langs">'+m.langs.map(l=>'<span>'+l+'</span>').join('')+'<span>'+m.role+'</span></div></li>').join('');
+
+/* ---------- ticket booth ---------- */
+let cur='ow', pick=null, seats=[];
+function dateParts(s){ const d=new Date(s+'T00:00:00'); return {dd:d.getDate(),mm:d.toLocaleDateString('en-GB',{month:'short'}),wd:d.toLocaleDateString('en-GB',{weekday:'short'}),full:d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}; }
+function renderTabs(){ $('tabs').innerHTML=COURSES.map(c=>'<button role="tab" type="button" aria-selected="'+(c.id===cur)+'" data-tab="'+c.id+'">'+c.num+'. '+c.name+'</button>').join(''); }
+function renderShows(){ $('showtimes').innerHTML=SHOWS[cur].map(d=>{ const p=dateParts(d), t=taken(cur,d), full=t.length>=4;
+  return '<button type="button" class="show'+(full?' full':'')+'" data-date="'+d+'" aria-pressed="'+(pick===d)+'"'+(full?' disabled':'')+' aria-label="'+p.full+', '+(4-t.length)+' places left"><span class="mm">'+p.wd+' '+p.mm+'</span><div class="dd">'+p.dd+'</div><span class="mm">08:00</span><div class="seats">'+[0,1,2,3].map(i=>'<i class="'+(t.includes(i)?'t':'')+'"></i>').join('')+'</div></button>'; }).join(''); }
+const SEAT_SVG='<svg viewBox="0 0 60 64" aria-hidden="true"><path d="M10 30 V14 a6 6 0 0 1 6-6 h28 a6 6 0 0 1 6 6 V30" fill="none" stroke="currentColor" stroke-width="3"/><rect x="6" y="30" width="48" height="14" rx="3" fill="currentColor" fill-opacity=".25" stroke="currentColor" stroke-width="3"/><path d="M12 44 V56 M48 44 V56" stroke="currentColor" stroke-width="3"/></svg>';
+function renderSeats(){ const t=taken(cur,pick); $('seats').innerHTML=[0,1,2,3].map(i=>'<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+seats.includes(i)+'"'+(t.includes(i)?' disabled aria-label="Seat '+(i+1)+', taken"':' aria-label="Seat '+(i+1)+'"')+'>'+SEAT_SVG+'</button>').join(''); renderSum(); }
+function renderSum(){ const c=COURSES.find(x=>x.id===cur), p=dateParts(pick);
+  $('sumLines').innerHTML='<div class="summary-line"><span>'+c.name+'</span><span>'+p.wd+' '+p.dd+' '+p.mm+', 08:00</span></div><div class="summary-line"><span>Seats</span><span>'+(seats.length||'Tap a seat')+'</span></div><div class="summary-line"><span>Total</span><b>'+fmt(c.price*Math.max(1,seats.length))+' THB</b></div>'; }
+$('tabs').addEventListener('click',e=>{ const b=e.target.closest('[data-tab]'); if(!b) return; cur=b.dataset.tab; pick=null; seats=[]; $('seatmap').hidden=true; renderTabs(); renderShows(); });
+$('showtimes').addEventListener('click',e=>{ const b=e.target.closest('[data-date]'); if(!b||b.disabled) return; pick=b.dataset.date; seats=[]; const t=taken(cur,pick); const free=[0,1,2,3].find(i=>!t.includes(i)); seats=[free]; renderShows(); $('seatmap').hidden=false; renderSeats(); });
+$('seats').addEventListener('click',e=>{ const b=e.target.closest('[data-seat]'); if(!b||b.disabled) return; const i=+b.dataset.seat; seats=seats.includes(i)?seats.filter(x=>x!==i):seats.concat(i).sort(); renderSeats(); });
+$('printBtn').addEventListener('click',()=>{
+  const nm=$('nm').value.trim(), ct=$('ct').value.trim(), err=$('err'); err.textContent='';
+  if(!seats.length){ err.textContent='Tap at least one free seat.'; return; }
+  if(!nm||!ct){ err.textContent='Add your name and an email or WhatsApp number.'; return; }
+  const c=COURSES.find(x=>x.id===cur), p=dateParts(pick), id='TP-'+pick.slice(2).replace(/-/g,'')+'-'+String(hash(nm+ct+pick)%9000+1000);
+  $('ticketOut').innerHTML='<div class="ticket print"><div class="main"><div class="t-brand">THERMOCLINE PICTURES PRESENTS</div><h4>'+c.name+'</h4><div style="font-style:italic">'+p.full+', 08:00 at Mae Haad</div>'+
+    '<div class="grid"><span>Seats<b>'+seats.map(s=>'S'+(s+1)).join(' ')+'</b></span><span>Runtime<b>'+c.len+'</b></span><span>Total<b>'+fmt(c.price*seats.length)+' THB</b></span><span>Name<b>'+esc(nm)+'</b></span><span>Contact<b>'+esc(ct)+'</b></span><span>Ref<b>'+id+'</b></span></div>'+
+    '<p class="fine">A booking request. We reply within a few hours. Pay on day one.</p></div><div class="stub"><div class="t-brand">ADMIT</div><div class="admit">'+seats.length+'</div><div class="t-brand">'+p.dd+' '+p.mm.toUpperCase()+'</div></div></div>'+
+    '<p style="margin-top:14px"><button class="btn" id="copyT" type="button">Copy ticket text</button></p>';
+  $('copyT').addEventListener('click',()=>{ const txt='Thermocline Pictures booking '+id+'\n'+c.name+', '+p.full+', 08:00\nSeats: '+seats.length+'\nTotal: '+fmt(c.price*seats.length)+' THB\nName: '+nm+'\nContact: '+ct;
+    if(navigator.clipboard) navigator.clipboard.writeText(txt).then(()=>{$('copyT').textContent='Copied';},()=>{$('copyT').textContent='Copy blocked';}); });
+  $('ticketOut').scrollIntoView({behavior:REDUCED?'auto':'smooth',block:'nearest'});
+});
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function goBook(id){ if(id){ cur=id; pick=null; seats=[]; $('seatmap').hidden=true; renderTabs(); renderShows(); } $('booth').scrollIntoView({behavior:REDUCED?'auto':'smooth'}); }
+renderTabs(); renderShows();
+
+/* ---------- box office ---------- */
+$('priceRows').innerHTML=COURSES.map(c=>'<tr><td>'+c.name+'</td><td>'+c.len+'</td><td>'+c.depth+' m</td><td>'+c.inc+'. '+c.min+'.</td><td class="n">'+fmt(c.price)+' THB</td></tr>').join('');
+})();
+</script>
+</body>
+</html>
