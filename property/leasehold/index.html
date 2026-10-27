@@ -124,14 +124,14 @@ h2{font:400 19px/1.25 Prata,Georgia,serif;margin-bottom:12px}
    <label class="field">Осталось лет<input id="left" inputmode="numeric" maxlength="2"></label>
    <label class="field">Продление, лет<input id="ext" inputmode="numeric" maxlength="2"></label>
   </div>
-  <label class="chk"><input type="checkbox" id="useExt"> Учитывать продление</label>
+  <label class="chk"><input type="checkbox" id="useExt"> Учитывать продление</label><p class="sub" id="extNote"></p>
   <label class="field">Цена продления, % от цены виллы<input id="extC" inputmode="decimal" maxlength="4"></label>
   <h2>Аренда</h2>
   <label class="field">Цена ночи, <span class="cs"></span><input id="night" inputmode="numeric" maxlength="7"></label>
   <label class="rng"><span>Загрузка за год <b id="occV"></b></span><input type="range" id="occ" min="20" max="95" step="1" aria-describedby="occV"></label>
   <div class="pair">
    <label class="field">Управляющей, %<input id="mg" inputmode="decimal" maxlength="4"></label>
-   <label class="field">Рост цены ночи, %/год<input id="gr" inputmode="decimal" maxlength="4"></label>
+   <label class="field">Рост ночи сверх инфляции, %<input id="gr" inputmode="decimal" maxlength="4"></label>
   </div>
   <label class="field">Расходы в год, <span class="cs"></span><input id="cost" inputmode="numeric" maxlength="9"></label>
   <p class="sub">Бассейн, сад, свет, налог на аренду, ремонт.</p>
@@ -146,7 +146,7 @@ h2{font:400 19px/1.25 Prata,Georgia,serif;margin-bottom:12px}
    <div class="legend"><span><i style="background:var(--s1)"></i>Вложено и получено от аренды</span><span><i style="background:var(--s2)"></i>Стоимость оставшегося срока</span></div>
    <div id="chP"></div>
    <div class="tip" aria-hidden="true"></div>
-   <p class="cap">Наведите на график, чтобы увидеть любой год. Стоимость срока уменьшается вместе с оставшимися годами, это упрощённая оценка.</p>
+   <p class="cap">Наведите на график, чтобы увидеть любой год. Все суммы в сегодняшних ценах. Стоимость срока уменьшается вместе с оставшимися годами, это упрощённая оценка.</p>
   </div>
   <div class="box" id="tblBox" hidden><header><h2>По годам</h2></header><div class="tw"><table class="tbl" id="yt"></table></div></div>
   <div class="box">
@@ -177,8 +177,8 @@ h2{font:400 19px/1.25 Prata,Georgia,serif;margin-bottom:12px}
 (function(){
 const $=id=>document.getElementById(id);
 const RATE={thb:1,usd:1/33,rub:2.44},SYM={thb:'฿',usd:'$',rub:'₽'};
-const PRE={ph:{n:'Вилла на Пхукете, лизхолд 30+30',price:14500000,left:30,ext:30,useExt:true,extC:1,night:7500,occ:65,mg:25,gr:3,cost:180000,cur:'thb'},
- bl:{n:'Вилла на Бали, лизхолд 25 лет',price:9405000,left:25,ext:25,useExt:false,extC:40,night:5280,occ:70,mg:20,gr:3,cost:198000,cur:'usd'}};
+const PRE={ph:{n:'Вилла на Пхукете, лизхолд 30+30',price:14500000,left:30,ext:30,useExt:false,extC:1,night:7500,occ:65,mg:25,gr:0,cost:180000,cur:'thb',note:'На Пхукете закон регистрирует аренду на 30 лет, продление прописывается в договоре и зависит от него.'},
+ bl:{n:'Вилла на Бали, лизхолд 25 лет',price:9405000,left:25,ext:25,useExt:false,extC:40,night:5280,occ:70,mg:20,gr:0,cost:198000,cur:'usd',note:'На Бали цену продления обычно обсуждают с владельцем земли, заранее она не гарантирована.'}};
 const KEYS=['price','left','ext','useExt','extC','night','occ','mg','gr','cost','cur'];
 function preset(k){return Object.assign({pre:k},PRE[k]);}
 let S=preset('ph');
@@ -193,7 +193,7 @@ const yr=n=>n+' '+plural(n,'год','года','лет');
 /* model, all money in THB */
 function model(){const P=Math.max(1e5,S.price),L=Math.max(1,Math.min(Math.round(S.left),99)),E=S.useExt?Math.max(0,Math.min(Math.round(S.ext),99)):0,T=L+E,X=S.useExt?P*S.extC/100:0;
  const rows=[{y:0,inc:0,cum:-P,val:P}];let cum=-P,pay=null;
- for(let y=1;y<=T;y++){const gross=S.night*Math.pow(1+S.gr/100,y-1)*365*S.occ/100,net=gross*(1-S.mg/100)-S.cost*Math.pow(1.03,y-1);
+ for(let y=1;y<=T;y++){const gross=S.night*Math.pow(1+S.gr/100,y-1)*365*S.occ/100,net=gross*(1-S.mg/100)-S.cost;
   cum+=net;if(E&&y===L+1)cum-=X;const rem=T-y,base=Math.max(L,E||L),val=P*Math.min(1,rem/base);
   rows.push({y,gross,net,cum,val,ext:E&&y===L+1});if(pay===null&&cum>=0)pay=y;}
  const first=rows[1],paid=P+X;return {P,L,E,T,X,rows,pay,first,paid,end:cum,perYear:paid/T,yield:first.net/P};}
@@ -240,7 +240,7 @@ function drawChart(){const R=M.rows,W=660,H=270,L=58,Rt=W-92,T=16,B=H-30;
 /* controls */
 const MONEY=['price','night','cost'];
 function fillCtl(){document.querySelectorAll('#pre button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.pre));document.querySelectorAll('#cur button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.cur));
- MONEY.forEach(k=>$(k).value=grp(S[k]*RATE[S.cur]));['left','ext','extC','mg','gr'].forEach(k=>$(k).value=String(S[k]).replace('.',','));$('occ').value=S.occ;$('useExt').checked=S.useExt;$('ext').disabled=$('extC').disabled=!S.useExt;}
+ MONEY.forEach(k=>$(k).value=grp(S[k]*RATE[S.cur]));['left','ext','extC','mg','gr'].forEach(k=>$(k).value=String(S[k]).replace('.',','));$('occ').value=S.occ;$('extNote').textContent=PRE[S.pre].note;$('useExt').checked=S.useExt;$('ext').disabled=$('extC').disabled=!S.useExt;}
 MONEY.forEach(k=>{$(k).addEventListener('input',e=>{S[k]=num(e.target.value.replace(/\s/g,''),0)/RATE[S.cur];render();});$(k).addEventListener('blur',fillCtl);});
 ['left','ext'].forEach(k=>$(k).addEventListener('input',e=>{S[k]=Math.max(1,Math.min(99,Math.round(num(e.target.value,1))));render();}));
 [['extC',100],['mg',90],['gr',20]].forEach(([k,mx])=>$(k).addEventListener('input',e=>{S[k]=Math.min(mx,num(e.target.value,0));render();}));
