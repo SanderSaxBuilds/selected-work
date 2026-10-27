@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="../../">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#23260f">
+<title>Archive Desk command line | Backups from the terminal</title>
+<meta name="description" content="Four Node.js commands to create, verify, compare and restore Archive Desk project backups from the terminal. Source download and setup.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Archive Desk command line | Backups from the terminal">
+<meta property="og:description" content="Four Node.js commands to create, verify, compare and restore Archive Desk project backups from the terminal. Source download and setup.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/archive-desk-cli.html">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/archive.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="archive-desk-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,200..900&family=Overpass:wght@300..800&family=Overpass+Mono:wght@400..700&display=swap">
+<link rel="stylesheet" href="archive-desk-guide.css">
+<link rel="stylesheet" href="preview/archive-desk/guide.css">
+</head>
+<body>
+<a class="skip-link" href="#commands">Skip to the commands</a>
+<header class="g-top">
+  <div class="wrap g-bar"><a class="g-brand" href="preview/archive-desk/"><img src="archive-desk-mark.svg" alt="" width="34" height="34">Archive Desk</a><a class="g-back" href="index.html#archive-desk">Selected work</a></div>
+  <nav class="wrap g-nav" aria-label="Archive Desk"><a href="preview/archive-desk/">Browser app</a><a href="preview/archive-desk/protection.html">Encrypted copies</a><a href="preview/archive-desk/cli.html" aria-current="page">Command line</a><a href="preview/archive-desk/history.html">Workbench</a></nav>
+</header>
+
+<main class="wrap">
+  <section class="g-hero" aria-labelledby="page-title">
+    <p class="kicker">Archive Desk for the terminal</p>
+    <h1 id="page-title">Back up a project folder from the terminal.</h1>
+    <p class="lede">Create an Archive Desk ZIP, check the saved copy and compare a later version of the folder. Restore a checked backup into a new folder, or open it in the browser app.</p>
+    <div class="actions"><a class="button primary" href="archive-desk-cli-source.zip" download>Download the command line source</a><a class="button secondary" href="preview/archive-desk/">Open the browser app</a></div>
+    <p class="meta">Needs Node.js 24 and nothing else. Tested on Windows with Node.js 24.19.0.</p>
+  </section>
+
+  <section id="commands" class="g-split" aria-labelledby="commands-title">
+    <div>
+      <div class="section-head"><h2 id="commands-title">Four commands, one saved baseline</h2></div>
+      <p class="note">Extract the source into a new folder and open a terminal in its ArchiveDeskCLI folder. Type your own folders below and the four commands are rewritten to match. Pick an existing output folder outside the project and close editors that might change its files.</p>
+      <form class="paths" id="paths" autocomplete="off" novalidate>
+        <div class="field"><label for="p-project">Project folder</label><input id="p-project" type="text" spellcheck="false" value="C:\Projects\MyProject" data-default="C:\Projects\MyProject" data-name="project folder"></div>
+        <div class="field"><label for="p-backups">Backup folder</label><input id="p-backups" type="text" spellcheck="false" value="C:\Backups" data-default="C:\Backups" data-name="backup folder"></div>
+        <div class="field"><label for="p-recovered">Restore into</label><input id="p-recovered" type="text" spellcheck="false" value="C:\Recovered" data-default="C:\Recovered" data-name="restore folder"></div>
+        <div class="field"><label for="p-name">Backup name</label><input id="p-name" type="text" spellcheck="false" value="project-new" data-default="project-new" data-name="backup name"></div>
+        <div class="paths-foot"><p id="paths-note" class="paths-note" role="status" aria-live="polite">Showing the example paths.</p><button class="button secondary" type="reset">Reset to the example</button></div>
+      </form>
+      <ol class="cmd-list">
+        <li><span class="step-no">1</span><div><h3>Create and verify a backup</h3>
+<div class="cmd"><pre class="code" data-cmd="backup">node cli.mjs backup "C:\Projects\MyProject" --out "C:\Backups\project-new.zip"</pre><button class="copy" type="button" hidden>Copy</button></div>
+          <p>Reads the regular project files, saves a new ZIP and verifies the bytes it reads back from disk. An existing output file is refused.</p></div></li>
+        <li><span class="step-no">2</span><div><h3>Check a saved copy again</h3>
+<div class="cmd"><pre class="code" data-cmd="verify">node cli.mjs verify "C:\Backups\project-new.zip"</pre><button class="copy" type="button" hidden>Copy</button></div>
+          <p>Reads the ZIP records, CRC values and every manifest fingerprint. Keep another checked copy somewhere else.</p></div></li>
+        <li><span class="step-no">3</span><div><h3>Compare the project later</h3>
+<div class="cmd"><pre class="code" data-cmd="compare">node cli.mjs compare "C:\Backups\project-new.zip" "C:\Projects\MyProject" --report "C:\Backups\project-new-comparison.json"</pre><button class="copy" type="button" hidden>Copy</button></div>
+          <p>The JSON report lists added, removed, changed and unchanged paths, plus the SHA-256 of the exact backup it compared against.</p></div></li>
+        <li><span class="step-no">4</span><div><h3>Restore into a new folder</h3>
+<div class="cmd"><pre class="code" data-cmd="restore">node cli.mjs restore "C:\Backups\project-new.zip" --out "C:\Recovered\project-new"</pre><button class="copy" type="button" hidden>Copy</button></div>
+          <p>The parent folder must exist and the destination must be new. Each file is written, synced and read back against the manifest. Existing destinations and linked parent paths are refused.</p>
+          <p>If a restore stops partway, the command reports the exact folder and leaves the partial files there for you to inspect. Timestamps, empty folders and permissions are not restored.</p></div></li>
+      </ol>
+      <p class="result-line">In the sample comparison: 1 added, 1 removed, 1 changed and 2 unchanged. The project files stayed untouched.</p>
+    </div>
+    <aside aria-label="Limits and source">
+      <div class="card">
+        <h3>Working limits</h3>
+        <dl class="spec">
+          <div><dt>Files</dt><dd>500</dd></div>
+          <div><dt>Per file</dt><dd>20 MiB</dd></div>
+          <div><dt>Total file content</dt><dd>50 MiB</dd></div>
+          <div><dt>Saved archive input</dt><dd>52 MiB</dd></div>
+          <div><dt>Format</dt><dd>ZIP, stored</dd></div>
+        </dl>
+        <p class="note">Source ZIP, 22,858 bytes.</p>
+        <code class="hash">SHA-256 a2c133efa3a12d58f668a93f532870d79498e6ca3c78d93d84215d92bcf27dd4</code>
+      </div>
+      <div class="card">
+        <h3>Recover in the browser</h3>
+        <p class="note">Open <a href="preview/archive-desk/">Archive Desk</a>, choose Verify and pick the ZIP the command saved. Once it passes, download the recovery ZIP and extract it into a new folder.</p>
+        <p class="note">The command line makes unencrypted ZIPs. For a locked copy, use the <a href="preview/archive-desk/protection.html">encrypted copies preview</a>.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="g-section g-split even" aria-labelledby="included-title">
+    <div class="prose">
+      <h2 id="included-title">Check what gets included</h2>
+      <p>The command lists every skipped path. By default it leaves out common dependency and credential names:</p>
+      <ul class="limits">
+        <li><code>.git</code>, <code>node_modules</code> and <code>.ssh</code></li>
+        <li><code>.env</code>, <code>.env.*</code> and <code>credentials.json</code></li>
+        <li>Files ending in <code>.pem</code>, <code>.key</code>, <code>.p12</code> or <code>.pfx</code></li>
+      </ul>
+      <p>These are filename patterns, not a scan of file contents, so review the project before you share a backup. Symlinks, junctions and special files are refused. Empty files are kept. Empty folders and permissions are not.</p>
+      <p>The command watches for changes while it scans and reads, but it is a manual capture, not an atomic snapshot. Close anything that writes to the project before you run it.</p>
+    </div>
+    <div class="card">
+      <h2>What has been checked</h2>
+      <ul class="checks">
+        <li>Twelve command tests pass, five of them for restore: saved-file recovery, existing destinations, corrupt and path-traversal archives, linked paths and kept partial output.</li>
+        <li>A separate script checked a five-file restore with nested Unicode names, an empty file, binary data and a UTF-8 byte-order mark. All 1,351 bytes matched.</li>
+        <li>Refused restores left existing files and folders alone, and corrupt or traversal archives created no destination.</li>
+      </ul>
+      <p class="note">Tested on Windows only. Linux and macOS have not been checked. There is no installer or scheduled sync.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="g-footer"><div class="wrap">
+  <nav aria-label="More from Archive Desk"><a href="preview/archive-desk/">Browser app</a><a href="preview/archive-desk/protection.html">Encrypted copies</a><a href="preview/archive-desk/history.html">Workbench for Windows</a></nav>
+  <p>Built by SanderSaxBuilds with Node.js built-in modules and no third-party runtime packages. The sample project is fictional.</p>
+  <p class="g-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
+</div></footer>
+<script>
+// Rewrites the four example commands from the folders typed above. Nothing leaves the page.
+(() => {
+  const $ = id => document.getElementById(id)
+  const form = $('paths'), note = $('paths-note')
+  const fields = { project: $('p-project'), backups: $('p-backups'), recovered: $('p-recovered'), name: $('p-name') }
+  const trim = v => v.trim().replace(/^"(.*)"$/, '$1').replace(/[\\/]+$/, '')
+  const sep = v => (v.includes('/') && !v.includes('\\')) ? '/' : '\\'
+  const join = (dir, leaf) => dir + sep(dir) + leaf
+  const norm = v => v.replace(/\//g, '\\').toLowerCase()
+  const inside = (child, parent) => { const c = norm(child), p = norm(parent); return c === p || c.startsWith(p + '\\') }
+  function render() {
+    const v = {}, used = []
+    for (const [k, el] of Object.entries(fields)) {
+      v[k] = trim(el.value)
+      if (!v[k]) { v[k] = el.dataset.default; used.push(el.dataset.name) }
+    }
+    const problems = []
+    for (const el of Object.values(fields)) el.removeAttribute('aria-invalid')
+    const quoted = Object.keys(fields).filter(k => v[k].includes('"'))
+    if (quoted.length) { problems.push('Folder and file names cannot contain a double quote.'); for (const k of quoted) fields[k].setAttribute('aria-invalid', 'true') }
+    if (/[\\/:*?<>|]/.test(v.name)) { problems.push('The backup name is a file name, so leave out slashes and the characters : * ? < > |.'); fields.name.setAttribute('aria-invalid', 'true') }
+    if (inside(v.backups, v.project)) { problems.push('The backup folder sits inside the project, so each backup would include the last one. Choose a folder outside it.'); fields.backups.setAttribute('aria-invalid', 'true') }
+    if (inside(v.recovered, v.project)) { problems.push('Restoring inside the project mixes recovered files with the originals. Choose a folder outside it.'); fields.recovered.setAttribute('aria-invalid', 'true') }
+    const zip = join(v.backups, v.name + '.zip')
+    const cmds = {
+      backup: `node cli.mjs backup "${v.project}" --out "${zip}"`,
+      verify: `node cli.mjs verify "${zip}"`,
+      compare: `node cli.mjs compare "${zip}" "${v.project}" --report "${join(v.backups, v.name + '-comparison.json')}"`,
+      restore: `node cli.mjs restore "${zip}" --out "${join(v.recovered, v.name)}"`
+    }
+    for (const pre of document.querySelectorAll('pre[data-cmd]')) { pre.textContent = cmds[pre.dataset.cmd]; pre.closest('.cmd').classList.toggle('blocked', problems.length > 0) }
+    const changed = Object.values(fields).some(el => el.value !== el.dataset.default)
+    note.classList.toggle('bad', problems.length > 0)
+    note.textContent = problems.length ? problems.join(' ') : !changed ? 'Showing the example paths.' : used.length ? `Using the example for the empty ${used.join(' and ')}.` : 'Commands updated for your folders.'
+  }
+  form.addEventListener('input', render)
+  form.addEventListener('reset', () => setTimeout(render))
+  form.addEventListener('submit', e => e.preventDefault())
+  async function copy(text) {
+    try { await navigator.clipboard.writeText(text); return true } catch {}
+    const t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0'; document.body.append(t); t.select()
+    let ok = false; try { ok = document.execCommand('copy') } catch {} t.remove(); return ok
+  }
+  for (const b of document.querySelectorAll('.cmd .copy')) {
+    b.hidden = false
+    b.addEventListener('click', async () => {
+      const pre = b.previousElementSibling
+      b.textContent = (await copy(pre.textContent)) ? 'Copied' : 'Selected'
+      if (b.textContent !== 'Copied') { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r) }
+      clearTimeout(b._t); b._t = setTimeout(() => { b.textContent = 'Copy' }, 1800)
+    })
+  }
+  render()
+})()
+</script>
+<script src="preview/archive-desk/motion.js"></script>
+</body>
+</html>

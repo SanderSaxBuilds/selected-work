@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="../../">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#23260f">
+<title>Back up several folders | Archive Desk Workbench</title>
+<meta name="description" content="Save a set of project folders, review their current files and create a separate verified backup for each, with a clear result for every source. Archive Desk Workbench guide.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Back up several folders | Archive Desk Workbench">
+<meta property="og:description" content="Save a set of project folders, review their current files and create a separate verified backup for each, with a clear result for every source. Archive Desk Workbench guide.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/archive-desk-workbench-sets.html">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/archive.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="archive-desk-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,200..900&family=Overpass:wght@300..800&family=Overpass+Mono:wght@400..700&display=swap">
+<link rel="stylesheet" href="archive-desk-guide.css">
+<link rel="stylesheet" href="preview/archive-desk/guide.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to the content</a>
+<header class="g-top">
+  <div class="wrap g-bar"><a class="g-brand" href="preview/archive-desk/history.html"><img src="archive-desk-mark.svg" alt="" width="34" height="34">Archive Desk <span>Workbench</span></a><a class="g-back" href="index.html#archive-desk">Selected work</a></div>
+  <nav class="wrap g-nav" aria-label="Workbench guides"><a href="preview/archive-desk/history.html">Overview</a><a href="preview/archive-desk/workbench.html">Backups</a><a href="preview/archive-desk/import.html">Import</a><a href="preview/archive-desk/recovery.html">Recovery</a><a href="preview/archive-desk/library-check.html">Library check</a><a href="preview/archive-desk/sets.html" aria-current="page">Backup sets</a><a href="preview/archive-desk/history.html#history">Run history</a></nav>
+</header>
+
+<main id="main" class="wrap">
+  <section class="g-hero" aria-labelledby="page-title">
+    <p class="kicker">Workbench guide</p>
+    <h1 id="page-title">Several projects. One clear review.</h1>
+    <p class="lede">Save the folders you back up together. Review their current files, create a separate verified copy of each and see exactly which ones completed.</p>
+    <div class="actions"><a class="button primary" href="https://github.com/SanderSaxBuilds/selected-work/releases/tag/archive-desk-workbench-0.6-windows-r2">Download for Windows x64</a><a class="button secondary" href="preview/archive-desk/history.html#start">How to start</a></div>
+  </section>
+
+  <figure class="g-shot lead">
+    <div class="frame"><img src="archive-desk-sets-review-crop.webp" alt="A saved three-folder set where the website and report folders are ready and the missing delivery folder has its own failed row" width="1130" height="550"></div>
+    <figcaption>A review of three fictional folders. Two are ready, the missing one fails on its own row, and no archive has been created yet.</figcaption>
+  </figure>
+
+  <ol class="g-steps">
+    <li><span class="step-no">01</span><h3>Keep the folder list.</h3><p>Name a set and add folders from your workspace. Save up to 12 sets with up to 8 separate folders each. Saving a list does not start a backup.</p></li>
+    <li><span class="step-no">02</span><h3>Check each source first.</h3><p>Review file paths, sizes, fingerprints and exclusions. A missing or unsafe folder fails its own row. Editing the set needs a new review, and a review expires after ten minutes.</p></li>
+    <li><span class="step-no">03</span><h3>Partial stays partial.</h3><p>Ready folders are checked again and each new archive is verified. A folder that changed since the review fails, and a folder that failed review is skipped.</p></li>
+  </ol>
+
+  <figure class="g-shot g-section">
+    <div class="frame"><img src="archive-desk-sets-result-crop.webp" alt="The run result with one saved and verified website archive, one changed-file failure and one skipped missing folder" width="1130" height="545" loading="lazy"></div>
+    <figcaption>A CSV file was edited after the review, so that folder was refused. The website archive still completed and the missing folder was skipped.</figcaption>
+  </figure>
+
+  <section class="g-section g-split" aria-labelledby="try-title">
+    <div class="card">
+      <h2 id="try-title">Try it</h2>
+      <ol class="how">
+        <li><span>Start the app. The <a href="preview/archive-desk/history.html#start">overview</a> shows how.</span></li>
+        <li><span>Choose <span class="ui">Backup sets</span>. Enter a set name, then a label and relative folder for each project.</span></li>
+        <li><span>Save the set and select <span class="ui">Review this set</span>.</span></li>
+        <li><span>Read every ready and failed row, then select <span class="ui">Back up ready sources</span>. The result is saved to <a href="preview/archive-desk/history.html#history">run history</a>.</span></li>
+      </ol>
+    </div>
+    <div class="phone-frame tall"><img src="archive-desk-sets-phone.png" alt="Long backup labels and each result row wrapping cleanly at phone width" width="375" height="1058" loading="lazy"></div>
+  </section>
+
+  <section class="g-section g-split even" aria-labelledby="know-title">
+    <div class="prose">
+      <h2 id="know-title">Changed files need a fresh review</h2>
+      <p>Each folder is rescanned and its fingerprints recalculated right before the backup. The finished archive must match the reviewed paths, sizes and fingerprints before it joins the library. One failed folder never hides the other results.</p>
+      <p>Each review is used once. Restarting the app clears pending reviews, while saved sets and library records stay.</p>
+      <p>To recover, <span class="ui">Open saved backup</span> selects the exact completed copy. From there you can verify it, compare changes or <a href="preview/archive-desk/recovery.html">review a recovery</a> into a new folder.</p>
+    </div>
+    <div class="card">
+      <h3>Limits</h3>
+      <ul class="limits">
+        <li>Up to 500 files, 20 MiB per file, 50 MiB of source data and a 52 MiB archive for each folder.</li>
+        <li>Exclusions work by filename, so check the included paths yourself.</li>
+        <li>No schedule, retention cleanup or cloud sync, and source files are never edited.</li>
+        <li>Close programs that might change files during the run. A scan is not an atomic snapshot.</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="pager" aria-label="More guides"><a href="preview/archive-desk/library-check.html"><span>Previous</span><strong>Check the whole library</strong></a><a class="next" href="preview/archive-desk/history.html#history"><span>Next guide</span><strong>Reopen run history</strong></a></nav>
+</main>
+
+<footer class="g-footer"><div class="wrap">
+  <nav aria-label="More from Archive Desk"><a href="preview/archive-desk/">Browser app</a><a href="preview/archive-desk/protection.html">Encrypted copies</a><a href="preview/archive-desk/cli.html">Command line</a></nav>
+  <p>Built by SanderSaxBuilds. The projects in these screenshots are fictional sample data.</p>
+  <p class="g-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
+</div></footer>
+<script src="preview/archive-desk/motion.js"></script>
+</body>
+</html>
