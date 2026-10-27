@@ -8,14 +8,14 @@
   <meta name="theme-color" content="#0b2730">
   <meta name="description" content="Plan your day and week in time blocks, drag them into place, see open stretches at a glance, protect focus time and run a focus timer. Works in the browser without an account.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Daybreak planner">
+  <meta property="og:title" content="Brightfold planner">
   <meta property="og:description" content="Plan your day and week in time blocks, drag them into place, see open stretches at a glance, protect focus time and run a focus timer. Works in the browser without an account.">
   <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/daybreak.html">
   <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/daybreak.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="750">
   <meta name="twitter:card" content="summary_large_image">
-  <title>Daybreak planner</title>
+  <title>Brightfold planner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -216,13 +216,13 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 }
 </style>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%2716%27 fill=%27%23c9dcf2%27/%3E%3Ccircle cx=%2716%27 cy=%2720%27 r=%276%27 fill=%27%23fff6e8%27/%3E%3Cpath d=%27M5 22h22%27 stroke=%27%231d2346%27 stroke-width=%272%27/%3E%3C/svg%3E">
-</head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--dawn)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.mobile-brand{display:inline-flex;align-items:center}.mobile-brand .sb-logo{--sb-h:24px}.sidebar .brand .sb-logo{x:0}</style></head>
 <body>
   <a class="skip-link" href="#main">Skip to planner</a>
   <div class="shell">
     <aside class="sidebar" id="sidebar" aria-label="Planner menu">
       <div class="sidebar-top">
-        <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M4 22h24"/><path d="M9 22a7 7 0 0 1 14 0"/><path d="M16 5v4M7 9.5l2.6 2.6M25 9.5l-2.6 2.6"/></svg></span><span>Daybreak</span></div>
+        <div class="brand"><svg class="sb-logo sb-h" data-sb="brightfold" viewBox="0 0 152 32" width="142.5" height="30" role="img" aria-label="Brightfold" focusable="false"><g aria-hidden="true"><path d="M6 20a10 10 0 0 1 20 0z" fill="currentColor" class="f-a s-n"/><path d="M3 20h26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M9 25.5h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Young Serif'" font-weight="400" font-size="21" letter-spacing="0em">Brightfold</text></svg></div>
         <button type="button" class="icon-button sidebar-close" id="closeMenu" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
 
@@ -236,7 +236,7 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
         <label class="filter work"><input type="checkbox" data-calendar="work" checked><span class="filter-name">Work</span><span class="filter-count" id="count-work"></span></label>
         <label class="filter personal"><input type="checkbox" data-calendar="personal" checked><span class="filter-name">Personal</span><span class="filter-count" id="count-personal"></span></label>
         <label class="filter family"><input type="checkbox" data-calendar="family" checked><span class="filter-name">Family</span><span class="filter-count" id="count-family"></span></label>
-        <p class="side-note">Hidden calendars still count when Daybreak looks for overlaps and open time.</p>
+        <p class="side-note">Hidden calendars still count when Brightfold looks for overlaps and open time.</p>
       </section>
 
       <section class="side-block week-load" aria-labelledby="loadHeading">
@@ -260,7 +260,7 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
     <main id="main" tabindex="-1">
       <header class="sky" id="sky">
         <div class="sky-bar">
-          <button id="mobileMenu" type="button" class="icon-button mobile-menu" aria-controls="sidebar" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h11"/></svg></button><span class="mobile-brand" aria-hidden="true">Daybreak</span>
+          <button id="mobileMenu" type="button" class="icon-button mobile-menu" aria-controls="sidebar" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h11"/></svg></button><span class="mobile-brand" aria-hidden="true"><svg class="sb-logo sb-h" data-sb="brightfold" viewBox="0 0 152 32" width="114.0" height="24" role="img" aria-label="Brightfold" focusable="false"><g aria-hidden="true"><path d="M6 20a10 10 0 0 1 20 0z" fill="currentColor" class="f-a s-n"/><path d="M3 20h26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M9 25.5h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Young Serif'" font-weight="400" font-size="21" letter-spacing="0em">Brightfold</text></svg></span>
           <div class="controls">
             <div class="date-nav" role="group" aria-label="Change date">
               <button id="previousDate" type="button" class="icon-button" aria-label="Previous day"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -342,11 +342,11 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
           </section>
         </aside>
       </div>
-      <footer class="page-footer">
+      <footer class="page-footer"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="brightfold" viewBox="0 0 152 32" width="123.5" height="26" role="img" aria-label="Brightfold" focusable="false"><g aria-hidden="true"><path d="M6 20a10 10 0 0 1 20 0z" fill="currentColor" class="f-a s-n"/><path d="M3 20h26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M9 25.5h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Young Serif'" font-weight="400" font-size="21" letter-spacing="0em">Brightfold</text></svg></div>
         <p>Independent concept for the public Daybreak brief, not affiliated with Daybreak. The sample week is fictional and your changes stay in this browser.</p>
         <p class="footer-links footer-back"><a href="index.html#06-daybreak">Back to selected work</a></p>
         <p class="footer-links"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-      </footer>
+      <p class="sb-label">Sample site, fictional brand</p></footer>
     </main>
   </div>
 
@@ -375,5 +375,6 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
   <script type="module" src="daybreak-app.js"></script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
 <script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(8+(92-8)*x).toFixed(2)+'%';document.querySelectorAll('.sky').forEach(function(n){n.style.setProperty('--hz',v)})})},{passive:true})})();</script>
+<script>(function(){var t=document.querySelector('title');if(!t)return;function f(){if(document.title.indexOf('Daybreak planner')>-1)document.title=document.title.replace('Daybreak planner','Brightfold planner')}new MutationObserver(f).observe(t,{childList:true,characterData:true,subtree:true});f()})();</script>
 </body>
 </html>

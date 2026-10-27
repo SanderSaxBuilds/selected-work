@@ -134,11 +134,11 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
 }
 </style>
   <script type="module" src="countback-app.mjs"></script>
-</head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--yellow)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.topbar .brand{gap:0}</style></head>
 <body>
   <a class="skip-link" href="#receipt">Skip to the receipt</a>
   <header class="topbar">
-    <a class="brand" href="#main"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span>Countback</a>
+    <a class="brand" href="#main" aria-label="Countback"><svg class="sb-logo sb-h" data-sb="countback" viewBox="0 0 144 32" width="135.0" height="30" role="img" aria-label="Countback" focusable="false"><g aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="currentColor" class="f-a s-n"/><rect x="7" y="8" width="4.5" height="17" rx="1" fill="currentColor" class="f-i s-n"/><rect x="13.75" y="12" width="4.5" height="13" rx="1" fill="currentColor" class="f-i s-n"/><rect x="20.5" y="16" width="4.5" height="9" rx="1" fill="currentColor" class="f-i s-n"/></g><text x="42" y="25.7" fill="currentColor" font-family="'Saira Extra Condensed'" font-weight="700" font-size="27" letter-spacing="0.02em">COUNTBACK</text></svg></a>
     <div class="topbar-actions">
       <button class="button button-quiet" id="reset" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg><span>New receipt</span></button>
     </div>
@@ -207,11 +207,11 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
       </section>
     </div>
   </main>
-  <footer class="page-footer">
+  <footer class="page-footer"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="countback" viewBox="0 0 144 32" width="117.0" height="26" role="img" aria-label="Countback" focusable="false"><g aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="currentColor" class="f-a s-n"/><rect x="7" y="8" width="4.5" height="17" rx="1" fill="currentColor" class="f-i s-n"/><rect x="13.75" y="12" width="4.5" height="13" rx="1" fill="currentColor" class="f-i s-n"/><rect x="20.5" y="16" width="4.5" height="9" rx="1" fill="currentColor" class="f-i s-n"/></g><text x="42" y="25.7" fill="currentColor" font-family="'Saira Extra Condensed'" font-weight="700" font-size="27" letter-spacing="0.02em">COUNTBACK</text></svg></div>
     <p>Countback is an independent prototype. The order, supplier and café are fictional. The draft is kept in this browser only, and nothing on this page is sent anywhere.</p>
     <p class="footer-back"><a href="index.html#08-countback">Back to selected work</a></p>
     <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-  </footer>
+  <p class="sb-label">Sample site, fictional brand</p></footer>
 
   <dialog id="edit-dialog" aria-labelledby="edit-title">
     <form id="edit-form" novalidate>

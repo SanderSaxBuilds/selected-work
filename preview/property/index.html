@@ -368,12 +368,12 @@ body.lock .cbar{transform:translate(-50%,160%)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
 
 </style>
-</head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--lag)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.nav .brand .sb-logo{x:0}</style></head>
 <body>
 <header class="top" id="top">
  <div class="rib"><span data-t="rib">Пример сайта для агентства недвижимости. Объекты, цены и цифры условные.</span> <a href="#order" data-t="ribA">Хочу такой сайт</a></div>
  <div class="wrap nav">
-  <a class="brand" href="#hero"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1.5" y="1.5" width="25" height="25" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="17.5" cy="12" r="3.2" fill="currentColor"/></svg><span data-t="brand">Пхукет Недвижимость</span></a>
+  <a class="brand" href="#hero" aria-label="Kamala Keystone"><svg class="sb-logo sb-h" data-sb="keystone" viewBox="0 0 218 32" width="204.4" height="30" role="img" aria-label="Kamala Keystone" focusable="false"><g aria-hidden="true"><path d="M4 29V16a12 12 0 0 1 24 0v13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12.6 1.5h6.8l-1.4 8h-4z" fill="currentColor" class="f-a s-n"/><path d="M9 23c2.4-2 4.6-2 7 0s4.6 2 7 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Prata'" font-weight="400" font-size="21" letter-spacing="0em">Kamala Keystone</text></svg></a>
   <nav class="links"><a href="#list" data-t="n1">Объекты</a><a href="#areas" data-t="n2">Районы</a><a href="#buy" data-t="n3">Как купить</a><a href="#visit" data-t="n4">Показ</a><a href="#agency" data-t="n5">Для агентств</a></nav>
   <div class="lang" role="group" aria-label="Language"><button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
   <a class="tg" href="#visit"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 3.6 2.8 10.8c-1.2.5-1.2 1.6 0 2l4.7 1.5 1.8 5.5c.2.6.4.8.8.8.4 0 .6-.2.9-.4l2.4-2.3 4.9 3.6c.9.5 1.5.2 1.8-.8l3.2-15.1c.3-1.3-.5-1.9-1.5-1.5ZM9.6 14.4l9-5.7-7.5 7-.3 3.1-1.2-4.4Z"/></svg><span data-t="tg">Подбор в Telegram</span></a>
@@ -459,7 +459,7 @@ body.lock .cbar{transform:translate(-50%,160%)}
     <div class="field"><label for="vn" data-t="vName">Как к вам обращаться</label><input class="inp" id="vn" autocomplete="off" maxlength="40"></div>
    </div>
    <div>
-    <div class="phone" id="phone" data-m="tg"><div class="ph-h"><div class="av">PP</div><div><span data-t="brand">Пхукет Недвижимость</span><small data-t="online">обычно отвечает за 15 минут</small></div></div><div class="ph-b" id="phb"><div class="bub" id="bub"></div></div></div>
+    <div class="phone" id="phone" data-m="tg"><div class="ph-h"><div class="av">KK</div><div><span data-t="brand">Kamala Keystone</span><small data-t="online">обычно отвечает за 15 минут</small></div></div><div class="ph-b" id="phb"><div class="bub" id="bub"></div></div></div>
     <div class="sendw"><button type="button" class="go" id="send"></button><p class="sendn" id="sendn"></p></div>
    </div>
   </div>
@@ -477,7 +477,7 @@ body.lock .cbar{transform:translate(-50%,160%)}
  </div>
 </section>
 
-<footer><div class="wrap"><p data-t="foot">Пример сайта. Объекты, цены, районы и цифры доходности условные. Фото с Unsplash.</p><p><span data-t="made">Сделал</span> <a href="../../">Sander Sax</a> · <a href="https://t.me/sandersax" target="_blank" rel="noopener">t.me/sandersax</a></p></div></footer>
+<footer><div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="keystone" viewBox="0 0 218 32" width="177.1" height="26" role="img" aria-label="Kamala Keystone" focusable="false"><g aria-hidden="true"><path d="M4 29V16a12 12 0 0 1 24 0v13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12.6 1.5h6.8l-1.4 8h-4z" fill="currentColor" class="f-a s-n"/><path d="M9 23c2.4-2 4.6-2 7 0s4.6 2 7 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Prata'" font-weight="400" font-size="21" letter-spacing="0em">Kamala Keystone</text></svg></div><p data-t="foot">Пример сайта. Объекты, цены, районы и цифры доходности условные. Фото с Unsplash.</p><p><span data-t="made">Сделал</span> <a href="../../">Sander Sax</a> · <a href="https://t.me/sandersax" target="_blank" rel="noopener">t.me/sandersax</a></p><p class="sb-label">Sample site, fictional brand</p></div></footer>
 
 <div class="ov" id="ov"></div>
 <aside class="drw" id="drw" role="dialog" aria-modal="true" aria-label="Property"></aside>
@@ -521,7 +521,7 @@ const STEPS={
   en:[['Reservation','A deposit takes the villa off the market while it is checked.'],['Due diligence','The lawyer checks the land title, the building permit and the seller\'s right to lease the land.'],['Contracts','A 30-year land lease with renewal rights, plus a separate contract for the house, which can be in your name.'],['Payment','On a schedule, in stages if it is still being built. Funds go through a bank with a transfer record.'],['Registration','The lease is registered at the Land Department. Unregistered, a lease longer than 3 years is not protected.']]}
 };
 const T={ru:{
- title:'Недвижимость на Пхукете · пример сайта агентства',rib:'Пример сайта для агентства недвижимости. Объекты, цены и цифры условные.',ribA:'Хочу такой сайт',brand:'Пхукет Недвижимость',
+ title:'Недвижимость на Пхукете · пример сайта агентства',rib:'Пример сайта для агентства недвижимости. Объекты, цены и цифры условные.',ribA:'Хочу такой сайт',brand:'Kamala Keystone',
  n1:'Объекты',n2:'Районы',n3:'Как купить',n4:'Показ',n5:'Для агентств',tg:'Подбор в Telegram',
  h1a:'Недвижимость на Пхукете',h1b:'для',w_live:'жизни',w_rent:'дохода',w_inv:'вложений',
  lead:'Подберём виллу или квартиру под вашу цель, честно посчитаем доход от аренды и проведём сделку с юристом.',
@@ -558,7 +558,7 @@ const T={ru:{
  pEb:'Пресейл',pCd:'До закрытия пресейл-цены',pUnit:'Тип квартиры',pDown:'Первый взнос',pBook:'Забронировать по пресейл-цене',pNow:'Сейчас, первый взнос {p}%',pMonthly:'Каждый месяц до сдачи ({n} мес.), всего {p}%',pHand:'При сдаче, {d}, {p}%',pTot:'Всего',pPerM:'за м²',
  pEnded:'Пресейл-цена закрыта. Напишите нам, покажем актуальные цены.',pNote:'График для примера. Точный график и цены даёт застройщик.',bUnit:'Хочу забронировать: {u}, пресейл-цена {p}.'
 },en:{
- title:'Phuket property · sample agency website',rib:'A sample website for a property agency. Listings, prices and figures are illustrative.',ribA:'I want this site',brand:'Phuket Property',
+ title:'Phuket property · sample agency website',rib:'A sample website for a property agency. Listings, prices and figures are illustrative.',ribA:'I want this site',brand:'Kamala Keystone',
  n1:'Listings',n2:'Areas',n3:'How to buy',n4:'Viewing',n5:'For agencies',tg:'Ask on Telegram',
  h1a:'Phuket property',h1b:'for',w_live:'living',w_rent:'income',w_inv:'investment',
  lead:'We match villas and apartments to your goal, show honest rental numbers and close the deal with a lawyer.',
