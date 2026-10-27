@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Chalerm &amp; Voss</title>
+<meta name="description" content="Chalerm and Voss is a visa, work permit and company law firm in Sathorn, Bangkok. The site is a live presentation with a visa checker at the end.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%23b3263a' stroke-width='3'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Georgia' font-size='13' font-weight='700' fill='%23b3263a'%3EC%26V%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Figtree:wght@400;500;700;800&family=Cutive+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eef0ec; --paper2:#e2e6df; --ink:#13201c; --ink2:#43524c; --jade:#1f5c4a; --jade2:#2f7a63;
+  --red:#b3263a; --gold:#b48a3c; --sky:#cfe3e8; --room:#1a211e;
+  --disp:"Libre Caslon Display",Georgia,serif; --serif:"Libre Caslon Text",Georgia,serif; --sans:"Figtree",system-ui,sans-serif; --mono:"Cutive Mono",monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%}
+body{background:var(--room);color:var(--ink);font-family:var(--sans);overflow:hidden}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.skip{position:fixed;left:12px;top:-80px;z-index:200;background:var(--paper);color:var(--ink);padding:10px 14px;font-weight:700;text-decoration:none;font-size:15px}
+.skip:focus{top:12px}
+
+/* ---------- room and deck ---------- */
+.room{position:fixed;inset:0 0 56px 0;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse 70% 60% at 50% 45%,#26302b 0%,var(--room) 70%)}
+.deck{position:relative;width:1600px;height:900px;flex:0 0 auto;transform-origin:center center;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.slide{position:absolute;inset:0;background:var(--paper);color:var(--ink);overflow:hidden;visibility:hidden;container-type:inline-size;container-name:slide}
+.slide.current{visibility:visible;z-index:2}
+.slide.leaving{visibility:visible;z-index:1}
+.s-in{position:absolute;inset:0;padding:80px 96px}
+.slide.enter-f{animation:enterF .5s cubic-bezier(.2,.8,.2,1)}
+.slide.enter-b{animation:enterB .5s cubic-bezier(.2,.8,.2,1)}
+.slide.leaving.f{animation:leaveF .5s cubic-bezier(.2,.8,.2,1) forwards}
+.slide.leaving.b{animation:leaveB .5s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes enterF{from{transform:translateX(6%);opacity:0}to{transform:none;opacity:1}}
+@keyframes enterB{from{transform:translateX(-6%);opacity:0}to{transform:none;opacity:1}}
+@keyframes leaveF{to{transform:translateX(-4%);opacity:0}}
+@keyframes leaveB{to{transform:translateX(4%);opacity:0}}
+
+/* builds */
+[data-b]{opacity:0}
+[data-b].in{opacity:1}
+.fx-stamp{transform:rotate(var(--r,-4deg))}
+.fx-stamp.in.anim{animation:stamp .42s cubic-bezier(.2,1.5,.35,1)}
+@keyframes stamp{0%{transform:scale(1.9) rotate(calc(var(--r,-4deg) - 10deg));opacity:0}60%{opacity:1}100%{transform:scale(1) rotate(var(--r,-4deg));opacity:1}}
+.fx-rise.in.anim{animation:rise .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{transform:translateY(28px);opacity:0}to{transform:none;opacity:1}}
+.fx-print.in.anim{animation:print .35s steps(5)}
+@keyframes print{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.fx-draw .fill{width:0}
+.fx-draw.in .fill{width:var(--w)}
+.fx-draw.in.anim .fill{transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.all [data-b]{opacity:1}
+.all .fx-draw .fill{width:var(--w)}
+
+/* common slide type */
+.kick{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--jade);margin:0 0 10px}
+.h{font-family:var(--disp);font-weight:400;font-size:96px;line-height:.95;margin:0;letter-spacing:-.01em}
+.pageno{position:absolute;right:40px;bottom:30px;font-family:var(--mono);font-size:18px;color:var(--ink2)}
+.firm{position:absolute;left:40px;bottom:30px;display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:16px;color:var(--ink2)}
+.firm svg{width:34px;height:34px}
+.stampbox{display:inline-block;border:4px solid var(--red);color:var(--red);font-family:var(--sans);font-weight:800;letter-spacing:.08em;padding:8px 16px;filter:url(#ink);mix-blend-mode:multiply}
+
+/* slide 1 title */
+.s1 .s-in{display:grid;grid-template-columns:1.25fr 1fr;align-items:center;gap:60px}
+.s1 .h{font-size:176px;line-height:.82}
+.s1 .h .amp{font-family:var(--serif);font-style:italic;color:var(--red);font-size:.7em;display:inline-block;margin:0 .05em}
+.s1 .lede{font-family:var(--serif);font-size:30px;line-height:1.35;margin:40px 0 0;max-width:620px;color:var(--ink2)}
+.s1 .cue{margin-top:50px;font-family:var(--sans);font-size:18px;color:var(--ink2);display:flex;align-items:center;gap:10px}
+.s1 .cue kbd{font-family:var(--sans);font-weight:700;border:2px solid var(--ink);padding:3px 10px;font-size:16px;color:var(--ink)}
+.passport{position:relative;width:520px;height:700px;justify-self:center}
+.pp-page{position:absolute;inset:0;background:#f7f5ee;border:1px solid #cfcab8;box-shadow:0 20px 40px rgba(19,32,28,.18);padding:40px 34px;overflow:hidden}
+.pp-page::before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 120% 40%,transparent 0 14px,rgba(31,92,74,.06) 14px 15px)}
+.pp-head{position:relative;font-family:var(--sans);font-size:14px;letter-spacing:.14em;color:var(--jade);display:flex;justify-content:space-between}
+.mrz{position:absolute;left:34px;right:34px;bottom:30px;font-family:var(--mono);font-size:19px;line-height:1.35;color:#2a3330;white-space:nowrap;overflow:hidden;letter-spacing:.02em}
+.visa-label{position:absolute;left:34px;right:34px;top:90px;height:300px;background:linear-gradient(135deg,#d9ebe4,#cfe3e8 60%,#e8e0c9);border:1px solid #9fb8ad;padding:20px 24px;overflow:hidden}
+.visa-label svg.gl{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.visa-label .vl{position:relative;font-family:var(--sans);font-size:13px;letter-spacing:.12em;color:var(--jade)}
+.visa-label .vt{position:relative;font-family:var(--disp);font-size:58px;line-height:1;margin:8px 0;color:var(--ink)}
+.visa-label .vg{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;font-family:var(--mono);font-size:17px}
+.visa-label .vg span{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.1em;color:var(--ink2)}
+.pp-stamp{position:absolute;right:30px;bottom:110px;--r:-12deg}
+.round-stamp{width:200px;height:200px}
+.pp-stamp2{position:absolute;left:40px;bottom:120px;--r:8deg}
+
+/* slide 2 personas */
+.persona-row{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:60px}
+.persona{background:#fff;border:2px solid var(--ink);padding:28px 26px 26px;position:relative;min-height:440px;display:flex;flex-direction:column}
+.persona svg.ico{width:96px;height:96px;margin-bottom:22px}
+.persona h3{font-family:var(--disp);font-weight:400;font-size:46px;line-height:1;margin:0 0 10px}
+.persona p{font-family:var(--serif);font-size:21px;line-height:1.35;margin:0;color:var(--ink2)}
+.persona .tag{margin-top:auto;align-self:flex-start;font-size:18px;--r:-3deg}
+.persona:nth-child(2) .tag{--r:2deg}.persona:nth-child(3) .tag{--r:-6deg}.persona:nth-child(4) .tag{--r:4deg}
+
+/* slide 3 numbers */
+.s3 .s-in{display:grid;grid-template-rows:auto 1fr}
+.nums{display:grid;grid-template-columns:repeat(4,1fr);align-items:end;gap:0;margin-top:30px;border-top:2px solid var(--ink)}
+.num{padding:30px 26px 0 0}
+.num b{display:block;font-family:var(--disp);font-weight:400;font-size:190px;line-height:.85;letter-spacing:-.04em;color:var(--jade)}
+.num b small{font-size:.45em;letter-spacing:0}
+.num span{display:block;font-family:var(--serif);font-size:24px;line-height:1.3;margin-top:16px;max-width:300px}
+.num:nth-child(2) b{color:var(--ink)}.num:nth-child(3) b{color:var(--red)}.num:nth-child(4) b{color:var(--gold)}
+
+/* slide 4 visa stickers */
+.stickers{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.sticker{position:relative;height:250px;border:1px solid #9fb8ad;padding:22px 24px;overflow:hidden;background:linear-gradient(135deg,var(--a),var(--b))}
+.sticker svg.gl{position:absolute;inset:0;width:100%;height:100%;opacity:.3}
+.sticker .code{position:relative;font-family:var(--disp);font-size:84px;line-height:.9;margin:0}
+.sticker .nm{position:relative;font-family:var(--serif);font-size:22px;margin:6px 0 18px}
+.sticker .facts{position:relative;display:flex;gap:26px;font-family:var(--mono);font-size:20px}
+.sticker .facts span{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.12em;color:var(--ink2)}
+.sticker .chip{position:absolute;right:22px;top:22px;width:56px;height:44px;border-radius:6px;background:linear-gradient(135deg,#d9bf7f,#a9873f);box-shadow:inset 0 0 0 2px rgba(0,0,0,.15)}
+
+/* slide 5 process */
+.track{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-top:80px}
+.track::before{content:"";position:absolute;left:40px;right:40px;top:44px;height:3px;background:var(--ink)}
+.stepc{position:relative}
+.stepc .dot{width:90px;height:90px;border-radius:50%;background:var(--paper);border:3px solid var(--ink);display:grid;place-items:center;font-family:var(--disp);font-size:52px;line-height:1}
+.stepc.done .dot{background:var(--jade);color:#fff;border-color:var(--jade)}
+.stepc h3{font-family:var(--disp);font-weight:400;font-size:44px;line-height:1;margin:30px 0 12px}
+.stepc p{font-family:var(--serif);font-size:21px;line-height:1.35;margin:0;color:var(--ink2);max-width:320px}
+.dur{display:inline-block;margin-top:18px;font-family:var(--sans);font-weight:800;font-size:18px;background:var(--ink);color:var(--paper);padding:6px 12px}
+.req{margin-top:70px;display:flex;gap:20px;align-items:center;font-family:var(--serif);font-size:24px}
+.req .stampbox{font-size:18px;--r:-2deg}
+
+/* slide 6 fees receipt */
+.s6 .s-in{display:grid;grid-template-columns:1fr 760px;gap:70px;align-items:start}
+.receipt{background:#fff;padding:44px 44px 34px;font-family:var(--mono);font-size:26px;position:relative;box-shadow:0 14px 30px rgba(19,32,28,.12);clip-path:polygon(0 0,100% 0,100% 100%,96% 98.5%,92% 100%,88% 98.5%,84% 100%,80% 98.5%,76% 100%,72% 98.5%,68% 100%,64% 98.5%,60% 100%,56% 98.5%,52% 100%,48% 98.5%,44% 100%,40% 98.5%,36% 100%,32% 98.5%,28% 100%,24% 98.5%,20% 100%,16% 98.5%,12% 100%,8% 98.5%,4% 100%,0 98.5%)}
+.receipt .rh{text-align:center;font-family:var(--disp);font-size:34px;margin-bottom:6px}
+.receipt .rs{text-align:center;font-size:16px;color:var(--ink2);margin-bottom:22px}
+.line{display:flex;align-items:baseline;gap:10px;padding:14px 0}
+.line .lead{flex:1;border-bottom:2px dotted #9aa59f;transform:translateY(-6px)}
+.line .p{white-space:nowrap}
+.receipt .foot{border-top:2px dashed var(--ink);margin-top:14px;padding-top:14px;font-size:17px;color:var(--ink2)}
+.fees-side .h{font-size:110px}
+.fees-side p{font-family:var(--serif);font-size:26px;line-height:1.4;color:var(--ink2);max-width:520px}
+.paid{margin-top:30px;font-size:22px;--r:-8deg}
+
+/* slide 7 gantt */
+.gantt{margin-top:56px;display:grid;gap:22px}
+.grow{display:grid;grid-template-columns:330px 1fr;align-items:center;gap:20px}
+.grow b{font-family:var(--disp);font-weight:400;font-size:36px;line-height:1}
+.grow .barw{position:relative;height:54px;background:var(--paper2)}
+.grow .fill{position:absolute;left:0;top:0;bottom:0;background:var(--jade);display:flex;align-items:center;justify-content:flex-end;padding-right:14px;color:#fff;font-weight:800;font-size:20px;white-space:nowrap;overflow:hidden}
+.grow:nth-child(2) .fill{background:var(--jade2)}.grow:nth-child(3) .fill{background:var(--ink)}.grow:nth-child(4) .fill{background:var(--red)}.grow:nth-child(5) .fill{background:var(--gold)}
+.scale-wk{display:grid;grid-template-columns:330px 1fr;gap:20px;font-family:var(--mono);font-size:18px;color:var(--ink2)}
+.scale-wk div{display:flex;justify-content:space-between}
+
+/* slide 8 team */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:60px}
+.person{text-align:left}
+.seal{width:250px;height:250px}
+.person h3{font-family:var(--disp);font-weight:400;font-size:40px;line-height:1.02;margin:22px 0 6px}
+.person p{font-family:var(--serif);font-style:italic;font-size:22px;margin:0;color:var(--jade)}
+.person .lang{display:flex;gap:6px;margin-top:14px}
+.person .lang span{font-weight:800;font-size:14px;border:2px solid var(--ink);padding:2px 8px}
+
+/* slide 9 checklist */
+.s9 .s-in{display:grid;grid-template-columns:600px 1fr;gap:80px}
+.checks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:20px 30px;align-content:start;margin-top:20px}
+.checks li{display:flex;gap:18px;align-items:center;font-family:var(--serif);font-size:26px;line-height:1.2;border-bottom:2px solid var(--paper2);padding:0 0 18px}
+.checks li .box{flex:0 0 52px;height:52px;border:3px solid var(--ink);position:relative}
+.checks li .box svg{position:absolute;inset:-12px;width:76px;height:76px;opacity:0}
+.checks li.in .box svg{opacity:1}
+.checks li.in.anim .box svg{animation:stamp .35s cubic-bezier(.2,1.5,.35,1)}
+.checks li[data-b]{opacity:1}
+.checks li small{display:block;font-family:var(--sans);font-size:16px;color:var(--ink2);margin-top:4px}
+
+/* slide 10 office */
+.s10 .s-in{display:grid;grid-template-columns:1fr 820px;gap:60px;align-items:center}
+.map{width:820px;height:640px;background:#e5e9e2;border:2px solid var(--ink);position:relative;overflow:hidden}
+.map svg{width:100%;height:100%;display:block}
+.addr{font-family:var(--serif);font-size:28px;line-height:1.45}
+.addr b{font-family:var(--disp);font-weight:400;font-size:56px;display:block;line-height:1;margin-bottom:12px}
+.hours{margin-top:30px;display:grid;grid-template-columns:auto 1fr;gap:6px 24px;font-size:22px}
+.hours span{font-weight:800}
+.trains{display:flex;gap:10px;margin-top:26px}
+.trains span{font-weight:800;font-size:17px;padding:6px 12px;color:#fff}
+
+/* slide 11 checker */
+.s11 .s-in{display:grid;grid-template-columns:520px 1fr;gap:70px}
+.q-side .h{font-size:104px}
+.q-side p{font-family:var(--serif);font-size:24px;color:var(--ink2);line-height:1.4}
+.pips{display:flex;gap:10px;margin-top:30px}
+.pips i{width:46px;height:8px;background:var(--paper2)}
+.pips i.on{background:var(--jade)}
+.qcard{background:#fff;border:2px solid var(--ink);padding:40px 44px;min-height:700px;position:relative}
+.qn{font-family:var(--mono);font-size:20px;color:var(--ink2)}
+.qt{font-family:var(--disp);font-weight:400;font-size:62px;line-height:1;margin:10px 0 30px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opt{font-family:var(--sans);font-weight:700;font-size:24px;text-align:left;background:var(--paper);border:2px solid var(--ink);padding:20px 22px;cursor:pointer;color:var(--ink);display:flex;align-items:center;gap:14px;line-height:1.15}
+.opt:hover{background:var(--sky)}
+.opt svg{width:40px;height:40px;flex:0 0 40px}
+.opt[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.qnav{display:flex;justify-content:space-between;margin-top:26px}
+.lnk{font-family:var(--sans);font-weight:700;font-size:20px;background:none;border:0;color:var(--jade);cursor:pointer;padding:6px 0;text-decoration:underline;text-underline-offset:4px}
+.result .sticker{height:auto;min-height:280px}
+.result .why{font-family:var(--serif);font-size:23px;line-height:1.4;margin:24px 0 0}
+.feegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:24px;border:2px solid var(--ink)}
+.feegrid div{padding:14px 16px;border-right:2px solid var(--ink)}
+.feegrid div:last-child{border-right:0}
+.feegrid span{display:block;font-size:14px;letter-spacing:.06em;color:var(--ink2);font-weight:700}
+.feegrid b{font-family:var(--disp);font-weight:400;font-size:28px;line-height:1.15;display:block;margin-top:4px}
+.cta{display:flex;gap:18px;align-items:center;margin-top:26px;flex-wrap:wrap}
+.btn{font-family:var(--sans);font-weight:800;font-size:20px;background:var(--red);color:#fff;border:0;padding:16px 24px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{background:#951d30}
+.fine{font-size:15px;color:var(--ink2);margin-top:16px}
+.qcard .verdict{position:absolute;right:30px;top:-26px;font-size:22px;--r:6deg;background:#fff}
+
+/* ---------- control bar ---------- */
+.bar{position:fixed;left:0;right:0;bottom:0;height:56px;background:#0f1412;color:#cfd8d3;display:flex;align-items:center;gap:6px;padding:0 12px;z-index:20}
+.bar button{font-family:var(--sans);font-weight:700;font-size:14px;background:transparent;color:#cfd8d3;border:1px solid #39443f;padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.bar button:hover{border-color:#cfd8d3;color:#fff}
+.bar kbd{font-family:var(--sans);font-size:11px;border:1px solid #5a6862;padding:0 5px;color:#9fb0a8}
+.bar .count{font-family:var(--mono);font-size:16px;min-width:76px;text-align:center;white-space:nowrap}
+.bar .prog{flex:1;height:3px;background:#2a3330;position:relative;margin:0 10px}
+.bar .prog i{position:absolute;left:0;top:0;bottom:0;background:var(--gold);transition:width .3s}
+.bar .brand{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-size:15px;color:#e8ece9;margin-right:6px}
+.bar .brand svg{width:28px;height:28px}
+
+/* ---------- overview and presenter ---------- */
+.overlay{position:fixed;inset:0;z-index:100;background:#0f1412;color:#e8ece9;overflow:auto}
+.ov-head{display:flex;justify-content:space-between;align-items:center;padding:18px 24px}
+.ov-head h2{font-family:var(--disp);font-weight:400;font-size:34px;margin:0}
+.ov-head button{font-family:var(--sans);font-weight:700;font-size:14px;background:transparent;color:#e8ece9;border:1px solid #5a6862;padding:8px 12px;cursor:pointer}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;padding:0 24px 40px}
+.thumbbtn{background:none;border:0;padding:0;cursor:pointer;color:#cfd8d3;text-align:left;font-family:var(--sans);font-size:14px}
+.thumbbtn .tw{display:block;position:relative;overflow:hidden;border:2px solid transparent;background:var(--paper)}
+.thumbbtn[aria-current="true"] .tw{border-color:var(--gold)}
+.thumbbtn:hover .tw{border-color:#9fb0a8}
+.thumbbtn .lab{display:flex;gap:8px;margin-top:8px}
+.thumbbtn .lab b{font-family:var(--mono);font-weight:400;color:var(--gold)}
+.tw .slide{visibility:visible;position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;pointer-events:none}
+.pv{display:grid;grid-template-columns:1.6fr 1fr;grid-template-rows:auto 1fr;gap:20px;padding:0 24px 24px;min-height:calc(100vh - 80px)}
+.pv-cur{grid-row:1/3}
+.pv .lbl{font-family:var(--sans);font-size:13px;letter-spacing:.08em;color:#9fb0a8;margin-bottom:8px;font-weight:700}
+.pv .tw{position:relative;overflow:hidden;background:var(--paper)}
+.pv-notes{font-family:var(--serif);font-size:24px;line-height:1.5;color:#e8ece9;background:#1d2522;padding:18px 22px;border-left:4px solid var(--gold)}
+.timer{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.timer .t{font-family:var(--mono);font-size:56px;line-height:1;color:#fff}
+.timer .clock{font-family:var(--mono);font-size:22px;color:#9fb0a8}
+.timer button{font-family:var(--sans);font-weight:700;font-size:13px;background:transparent;color:#e8ece9;border:1px solid #5a6862;padding:7px 10px;cursor:pointer}
+.pv-nav{display:flex;gap:8px;margin-top:14px}
+.pv-nav button{font-family:var(--sans);font-weight:700;font-size:15px;background:#e8ece9;color:#0f1412;border:0;padding:10px 16px;cursor:pointer}
+
+/* ---------- doc mode (skip path) ---------- */
+body.doc{overflow:auto;background:var(--paper2)}
+body.doc .room{position:static;display:block;background:none;padding:16px 0 80px}
+body.doc .deck{width:auto;height:auto;transform:none!important;box-shadow:none;display:grid;gap:24px;justify-items:center}
+body.doc .slide{position:relative;visibility:visible;inset:auto;width:1600px;height:900px;animation:none!important;box-shadow:0 6px 20px rgba(0,0,0,.12)}
+body.doc .bar .navonly{display:none}
+.doc-note{display:none}
+body.doc .doc-note{display:block;max-width:900px;margin:0 auto 16px;padding:0 16px;font-family:var(--serif);font-size:18px}
+
+/* ---------- narrow slides ---------- */
+@container slide (max-width:760px){
+  .s-in{position:relative;inset:auto;padding:28px 18px 70px;min-height:100%}
+  .kick{font-size:17px}
+  .h{font-size:44px}
+  .pageno,.firm{display:none}
+  .s-in{padding-bottom:36px}
+  .s1 .s-in{display:block}
+  .s1 .h{font-size:68px}
+  .s1 .lede{font-size:19px;margin-top:18px}
+  .s1 .cue{margin-top:18px;font-size:14px}
+  .passport{width:100%;max-width:340px;height:440px;margin:26px auto 0}
+  .pp-page{padding:22px 18px}
+  .visa-label{left:18px;right:18px;top:56px;height:200px;padding:14px}
+  .visa-label .vt{font-size:34px}
+  .visa-label .vg{font-size:13px;gap:4px 10px}
+  .mrz{left:18px;right:18px;font-size:11px;bottom:16px}
+  .round-stamp{width:100px;height:100px}
+  .pp-stamp{right:10px;bottom:84px}
+  .pp-stamp2{left:14px;bottom:70px}
+  .pp-stamp2 .stampbox{font-size:13px!important;padding:5px 9px;border-width:3px}
+  .persona-row{grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .persona{min-height:0;padding:14px}
+  .persona svg.ico{width:52px;height:52px;margin-bottom:10px}
+  .persona h3{font-size:26px}
+  .persona p{font-size:15px;margin-bottom:12px}
+  .persona .tag{font-size:12px;padding:5px 8px;border-width:3px}
+  .s3 .s-in{display:block}
+  .nums{grid-template-columns:1fr 1fr;gap:14px;margin-top:18px;align-items:start}
+  .num{padding:16px 0 0}
+  .num b{font-size:76px}
+  .num span{font-size:16px;margin-top:6px}
+  .stickers{grid-template-columns:1fr;gap:12px;margin-top:20px}
+  .sticker{height:auto;padding:14px 16px}
+  .sticker .code{font-size:48px}
+  .sticker .nm{font-size:17px;margin-bottom:10px}
+  .sticker .facts{font-size:15px;gap:16px;flex-wrap:wrap}
+  .sticker .chip{width:40px;height:32px;right:14px;top:14px}
+  .track{grid-template-columns:1fr;gap:22px;margin-top:26px}
+  .track::before{left:34px;right:auto;top:20px;bottom:20px;width:3px;height:auto}
+  .stepc{display:grid;grid-template-columns:70px 1fr;gap:0 14px}
+  .stepc .dot{width:70px;height:70px;font-size:36px;grid-row:1/4}
+  .stepc h3{font-size:28px;margin:6px 0 6px}
+  .stepc p{font-size:16px}
+  .dur{font-size:14px;margin-top:8px;justify-self:start}
+  .req{flex-direction:column;align-items:flex-start;font-size:17px;margin-top:26px;gap:10px}
+  .s6 .s-in{display:block}
+  .fees-side .h{font-size:52px}
+  .fees-side p{font-size:17px}
+  .receipt{padding:22px 18px 22px;font-size:15px;margin-top:20px}
+  .receipt .rh{font-size:24px}
+  .paid{font-size:15px;margin-top:10px}
+  .gantt{margin-top:24px;gap:14px}
+  .grow{grid-template-columns:1fr;gap:6px}
+  .grow b{font-size:22px}
+  .grow .barw{height:40px}
+  .grow .fill{font-size:15px}
+  .scale-wk{grid-template-columns:1fr;font-size:13px}
+  .scale-wk>span{display:none}
+  .team{grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+  .seal{width:130px;height:130px}
+  .person h3{font-size:22px;margin-top:10px}
+  .person p{font-size:15px}
+  .person .lang span{font-size:11px}
+  .s9 .s-in{display:block}
+  .checks{grid-template-columns:1fr;gap:12px;margin-top:18px}
+  .checks li{font-size:18px;padding-bottom:10px}
+  .checks li .box{flex-basis:38px;height:38px}
+  .checks li .box svg{width:56px;height:56px;inset:-9px}
+  .checks li small{font-size:13px}
+  .s10 .s-in{display:block}
+  .map{width:100%;height:300px;margin-top:20px}
+  .addr{font-size:18px}
+  .addr b{font-size:32px}
+  .hours{font-size:16px;margin-top:16px}
+  .trains span{font-size:13px}
+  .s11 .s-in{display:block}
+  .q-side .h{font-size:46px}
+  .q-side p{font-size:16px}
+  .pips{margin:14px 0 18px}
+  .qcard{padding:22px 16px;min-height:0}
+  .qt{font-size:32px;margin-bottom:18px}
+  .opts{grid-template-columns:1fr;gap:10px}
+  .opt{font-size:17px;padding:13px 14px}
+  .opt svg{width:30px;height:30px;flex-basis:30px}
+  .feegrid{grid-template-columns:1fr}
+  .feegrid div{border-right:0;border-bottom:2px solid var(--ink)}
+  .feegrid div:last-child{border-bottom:0}
+  .feegrid b{font-size:26px}
+  .result .why{font-size:16px}
+  .btn{font-size:16px;padding:12px 16px}
+  .qcard .verdict{font-size:14px;top:-18px;right:14px}
+}
+
+/* narrow viewport */
+body.narrow .room{inset:0 0 56px 0;display:block}
+body.narrow .deck{width:100%;height:100%;transform:none!important;box-shadow:none}
+body.narrow .slide{overflow-y:auto;-webkit-overflow-scrolling:touch}
+body.narrow .bar{gap:4px;padding:0 6px}
+body.narrow .bar .brand,body.narrow .bar kbd,body.narrow .bar .wide,body.narrow .s1 .cue{display:none}
+body.narrow .bar button{padding:8px 9px;font-size:13px}
+body.narrow .bar .count{min-width:52px;font-size:14px}
+body.narrow .bar .prog{margin:0 4px}
+body.narrow.doc .slide{width:100%;height:auto;overflow:visible}
+body.narrow .pv{grid-template-columns:1fr}
+body.narrow .pv-cur{grid-row:auto}
+body.narrow .ov-grid{grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 30px}
+body.narrow .timer .t{font-size:40px}
+body.narrow .pv-notes{font-size:18px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#doc" id="skipLink">Skip the presentation, read it as one page</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="ink"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/><feComponentTransfer><feFuncA type="discrete" tableValues="0 1 1 1 1 .8 1 1"/></feComponentTransfer></filter>
+    <symbol id="logo" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="50" cy="50" r="36" fill="none" stroke="currentColor" stroke-width="1.5"/><path id="arc" d="M50 50 m-41 0 a41 41 0 1 1 82 0 a41 41 0 1 1 -82 0" fill="none"/><text font-family="Figtree,sans-serif" font-size="8.4" font-weight="800" letter-spacing="1.6" fill="currentColor"><textPath href="#arc">CHALERM AND VOSS - BANGKOK - SINCE 2009 -</textPath></text><text x="50" y="59" text-anchor="middle" font-family="Libre Caslon Display,Georgia,serif" font-size="27" fill="currentColor">C&amp;V</text></symbol>
+    <symbol id="tick" viewBox="0 0 76 76"><path d="M14 40 L30 56 L64 14" fill="none" stroke="#b3263a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" filter="url(#ink)"/></symbol>
+    <symbol id="guil" viewBox="0 0 400 200" preserveAspectRatio="none"><g fill="none" stroke="#1f5c4a" stroke-width=".8"><path d="M0 40 Q 50 10 100 40 T 200 40 T 300 40 T 400 40"/><path d="M0 60 Q 50 30 100 60 T 200 60 T 300 60 T 400 60"/><path d="M0 80 Q 50 50 100 80 T 200 80 T 300 80 T 400 80"/><path d="M0 100 Q 50 70 100 100 T 200 100 T 300 100 T 400 100"/><path d="M0 120 Q 50 90 100 120 T 200 120 T 300 120 T 400 120"/><path d="M0 140 Q 50 110 100 140 T 200 140 T 300 140 T 400 140"/><path d="M0 160 Q 50 130 100 160 T 200 160 T 300 160 T 400 160"/></g></symbol>
+  </defs>
+</svg>
+
+<div class="room" id="room">
+  <p class="doc-note">Reading the deck as one page. Press the Present button below to go back to slides.</p>
+  <div class="deck" id="deck">
+
+    <!-- 1 -->
+    <section class="slide s1" aria-label="Slide 1, Chalerm and Voss" data-notes="Welcome. We are a visa and company law firm in Sathorn. Thirty seconds on who we are, then I hand you a visa checker on the last slide.">
+      <div class="s-in">
+        <div>
+          <h1 class="h">Chalerm<br><span class="amp">&amp;</span>Voss</h1>
+          <p class="lede">Visas, work permits and company law. Sathorn, Bangkok, since 2009.</p>
+          <p class="cue"><kbd>&#8594;</kbd> next <kbd>P</kbd> presenter <kbd>O</kbd> all slides</p>
+        </div>
+        <div class="passport">
+          <div class="pp-page">
+            <div class="pp-head"><span>VISA</span><span>KINGDOM OF THAILAND</span></div>
+            <div class="visa-label"><svg class="gl"><use href="#guil"/></svg>
+              <div class="vl">TYPE OF VISA</div>
+              <div class="vt">Non-Immigrant O</div>
+              <div class="vg"><div><span>ENTRIES</span>MULTIPLE</div><div><span>VALID UNTIL</span>14 NOV 2027</div><div><span>ISSUED AT</span>BANGKOK</div><div><span>FILED BY</span>C AND V</div></div>
+            </div>
+            <div class="pp-stamp2 fx-stamp" data-b="2"><span class="stampbox" style="font-size:20px">90 DAY REPORT OK</span></div>
+            <div class="pp-stamp fx-stamp" data-b="1"><svg class="round-stamp" style="color:var(--red);filter:url(#ink)"><use href="#logo"/></svg></div>
+            <div class="mrz">VONVOSS&lt;&lt;ANNEKE&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>CV2009BKK&lt;7THA0911145F2711140&lt;&lt;&lt;&lt;&lt;&lt;</div>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">01</div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide s2" aria-label="Slide 2, who comes to us" data-notes="Four kinds of people walk in. Each card shows the visa they usually leave with. Press next to stamp each one.">
+      <div class="s-in">
+        <p class="kick">Who walks through our door</p>
+        <h2 class="h">Four people, four visas</h2>
+        <div class="persona-row">
+          <div class="persona fx-rise" data-b="1"><svg class="ico" viewBox="0 0 96 96" fill="none" stroke="#13201c" stroke-width="4"><circle cx="70" cy="22" r="10" fill="#b48a3c" stroke="none"/><path d="M14 74 L38 44 L62 74"/><path d="M26 60 H66 L74 74"/><path d="M8 82 H88"/></svg><h3>The retiree</h3><p>Fifty plus, savings in a Thai bank, wants the year to roll over.</p><span class="tag stampbox fx-stamp">NON-O RETIREMENT</span></div>
+          <div class="persona fx-rise" data-b="2"><svg class="ico" viewBox="0 0 96 96" fill="none" stroke="#13201c" stroke-width="4"><rect x="18" y="22" width="60" height="40"/><path d="M8 72 H88 L82 62 H14Z" fill="#cfe3e8"/><path d="M36 42 l8 8 l16 -16" stroke="#1f5c4a"/></svg><h3>The remote worker</h3><p>Paid from abroad, laptop in a Bangkok cafe.</p><span class="tag stampbox fx-stamp">DTV</span></div>
+          <div class="persona fx-rise" data-b="3"><svg class="ico" viewBox="0 0 96 96" fill="none" stroke="#13201c" stroke-width="4"><path d="M18 86 V30 H50 V86"/><path d="M50 86 V12 H80 V86"/><path d="M8 86 H88"/><path d="M28 42 h12 M28 56 h12 M28 70 h12 M60 26 h10 M60 40 h10 M60 54 h10 M60 68 h10" stroke="#1f5c4a"/></svg><h3>The founder</h3><p>Opening a Thai company and hiring.</p><span class="tag stampbox fx-stamp">NON-B AND WORK PERMIT</span></div>
+          <div class="persona fx-rise" data-b="4"><svg class="ico" viewBox="0 0 96 96" fill="none" stroke="#13201c" stroke-width="4"><circle cx="36" cy="54" r="22"/><circle cx="60" cy="54" r="22" stroke="#b48a3c"/><path d="M40 20 l8 -8 l8 8" stroke="#b3263a"/></svg><h3>The spouse</h3><p>Married to a Thai citizen, building a life here.</p><span class="tag stampbox fx-stamp">NON-O MARRIAGE</span></div>
+        </div>
+      </div>
+      <div class="firm"><svg style="color:var(--ink)"><use href="#logo"/></svg>Chalerm &amp; Voss</div><div class="pageno">02</div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide s3" aria-label="Slide 3, our record" data-notes="Seventeen years, mostly long stay visas. The 97 percent is first time approvals on files we prepared ourselves.">
+      <div class="s-in">
+        <div><p class="kick">The record</p><h2 class="h">Seventeen years of files</h2></div>
+        <div class="nums">
+          <div class="num fx-rise" data-b="1"><b>6,400</b><span>visa and extension files since 2009</span></div>
+          <div class="num fx-rise" data-b="2"><b>97<small>%</small></b><span>approved on the first filing</span></div>
+          <div class="num fx-rise" data-b="3"><b>3<small>d</small></b><span>average for a retirement extension</span></div>
+          <div class="num fx-rise" data-b="4"><b>5</b><span>languages, Thai, English, German, Dutch, Mandarin</span></div>
+        </div>
+      </div>
+      <div class="firm"><svg style="color:var(--ink)"><use href="#logo"/></svg>Chalerm &amp; Voss</div><div class="pageno">03</div>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide s4" aria-label="Slide 4, visas we file" data-notes="The six long stay visas we file most. Government fees are what immigration charges, our fee is separate and on slide six.">
+      <div class="s-in">
+        <p class="kick">What we file</p>
+        <h2 class="h">Six visas, most weeks</h2>
+        <div class="stickers">
+          <div class="sticker fx-rise" data-b="1" style="--a:#d9ebe4;--b:#cfe3e8"><svg class="gl"><use href="#guil"/></svg><span class="chip"></span><p class="code">DTV</p><p class="nm">Destination Thailand, for remote work</p><div class="facts"><div><span>VALID</span>5 years</div><div><span>STAY</span>180 days</div><div><span>GOV FEE</span>10,000</div></div></div>
+          <div class="sticker fx-rise" data-b="1" style="--a:#e8e0c9;--b:#d9ebe4"><svg class="gl"><use href="#guil"/></svg><span class="chip"></span><p class="code">LTR</p><p class="nm">Long Term Resident, for wealth or skills</p><div class="facts"><div><span>VALID</span>10 years</div><div><span>STAY</span>5 + 5 yrs</div><div><span>GOV FEE</span>50,000</div></div></div>
+          <div class="sticker fx-rise" data-b="1" style="--a:#cfe3e8;--b:#e2e6df"><svg class="gl"><use href="#guil"/></svg><span class="chip"></span><p class="code">O-R</p><p class="nm">Non-O retirement, age 50 and up</p><div class="facts"><div><span>VALID</span>1 year</div><div><span>NEEDS</span>800k THB</div><div><span>GOV FEE</span>1,900</div></div></div>
+          <div class="sticker fx-rise" data-b="2" style="--a:#f1dfe2;--b:#e8e0c9"><svg class="gl"><use href="#guil"/></svg><span class="chip"></span><p class="code">O-M</p><p class="nm">Non-O marriage, Thai spouse</p><div class="facts"><div><span>VALID</span>1 year</div><div><span>NEEDS</span>400k THB</div><div><span>GOV FEE</span>1,900</div></div></div>
+          <div class="sticker fx-rise" data-b="2" style="--a:#e2e6df;--b:#cfe3e8"><svg class="gl"><use href="#guil"/></svg><span class="chip"></span><p class="code">B + WP</p><p class="nm">Non-B with a work permit</p><div class="facts"><div><span>VALID</span>1 to 2 yrs</div><div><span>NEEDS</span>employer</div><div><span>GOV FEE</span>about 5,000</div></div></div>
+          <div class="sticker fx-rise" data-b="2" style="--a:#e8e0c9;--b:#f3eedf"><svg class="gl"><use href="#guil"/></svg><span class="chip"></span><p class="code">TP</p><p class="nm">Thailand Privilege membership</p><div class="facts"><div><span>VALID</span>5 to 20 yrs</div><div><span>FROM</span>650,000</div><div><span>AGE</span>any</div></div></div>
+        </div>
+      </div>
+      <div class="firm"><svg style="color:var(--ink)"><use href="#logo"/></svg>Chalerm &amp; Voss</div><div class="pageno">04</div>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide s5" aria-label="Slide 5, opening a company and getting a work permit" data-notes="Founders ask for this most. Four steps, about six weeks end to end if the documents are ready. Each press completes a step.">
+      <div class="s-in">
+        <p class="kick">For founders</p>
+        <h2 class="h">Company to work permit</h2>
+        <div class="track" id="track">
+          <div class="stepc" data-b="1" data-step><div class="dot">1</div><h3>Register the company</h3><p>Name check, memorandum, shareholders, filed with the DBD.</p><span class="dur">2 weeks</span></div>
+          <div class="stepc" data-b="2" data-step><div class="dot">2</div><h3>Non-B visa</h3><p>From a Thai embassy abroad, or converted here.</p><span class="dur">1 to 2 weeks</span></div>
+          <div class="stepc" data-b="3" data-step><div class="dot">3</div><h3>Work permit</h3><p>Filed with the Department of Employment.</p><span class="dur">7 working days</span></div>
+          <div class="stepc" data-b="4" data-step><div class="dot">4</div><h3>Extend and report</h3><p>One year extension, then 90 day reports.</p><span class="dur">1 day each</span></div>
+        </div>
+        <div class="req fx-stamp" data-b="5" style="--r:0deg"><span class="stampbox">RULE OF THUMB</span>2 million THB paid up capital and 4 Thai staff per foreign employee.</div>
+      </div>
+      <div class="firm"><svg style="color:var(--ink)"><use href="#logo"/></svg>Chalerm &amp; Voss</div><div class="pageno">05</div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide s6" aria-label="Slide 6, our fees" data-notes="Fixed fees, quoted before we start. Government fees are paid at cost on top. If a file we prepared is refused, we refile free once.">
+      <div class="s-in">
+        <div class="fees-side">
+          <p class="kick">Our fees</p>
+          <h2 class="h">Fixed, in writing</h2>
+          <p>Quoted before we start. Government fees at cost on top. Refused file, we refile free once.</p>
+          <div class="paid fx-stamp" data-b="8"><span class="stampbox">NO HOURLY BILLING</span></div>
+        </div>
+        <div class="receipt">
+          <div class="rh">Chalerm &amp; Voss</div>
+          <div class="rs">FEE SCHEDULE 2026, THB</div>
+          <div class="line fx-print" data-b="1"><span>Retirement visa, first year</span><span class="lead"></span><span class="p">18,000</span></div>
+          <div class="line fx-print" data-b="2"><span>DTV application</span><span class="lead"></span><span class="p">15,000</span></div>
+          <div class="line fx-print" data-b="3"><span>Marriage visa, first year</span><span class="lead"></span><span class="p">22,000</span></div>
+          <div class="line fx-print" data-b="4"><span>Non-B and work permit</span><span class="lead"></span><span class="p">35,000</span></div>
+          <div class="line fx-print" data-b="5"><span>LTR application</span><span class="lead"></span><span class="p">45,000</span></div>
+          <div class="line fx-print" data-b="6"><span>Company registration</span><span class="lead"></span><span class="p">28,000</span></div>
+          <div class="line fx-print" data-b="7"><span>Yearly extension or 90 day report</span><span class="lead"></span><span class="p">from 1,500</span></div>
+          <div class="foot">Consultation 2,000, credited to any file you open.</div>
+        </div>
+      </div>
+      <div class="pageno">06</div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide s7" aria-label="Slide 7, how long it takes" data-notes="Typical calendar time from a complete document set to the visa in your passport. LTR is slow because the BOI vets it first.">
+      <div class="s-in">
+        <p class="kick">Calendar time, complete documents to stamp</p>
+        <h2 class="h">How long it takes</h2>
+        <div class="gantt">
+          <div class="grow fx-draw" data-b="1"><b>Retirement</b><div class="barw"><div class="fill" style="--w:12%">1 to 2 wk</div></div></div>
+          <div class="grow fx-draw" data-b="1"><b>DTV</b><div class="barw"><div class="fill" style="--w:17%">2 to 3 wk</div></div></div>
+          <div class="grow fx-draw" data-b="1"><b>Marriage</b><div class="barw"><div class="fill" style="--w:25%">3 to 4 wk</div></div></div>
+          <div class="grow fx-draw" data-b="1"><b>Company and permit</b><div class="barw"><div class="fill" style="--w:50%">about 6 wk</div></div></div>
+          <div class="grow fx-draw" data-b="1"><b>LTR</b><div class="barw"><div class="fill" style="--w:100%">8 to 12 wk</div></div></div>
+          <div class="scale-wk"><span></span><div><span>0</span><span>3 wk</span><span>6 wk</span><span>9 wk</span><span>12 wk</span></div></div>
+        </div>
+      </div>
+      <div class="firm"><svg style="color:var(--ink)"><use href="#logo"/></svg>Chalerm &amp; Voss</div><div class="pageno">07</div>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide s8" aria-label="Slide 8, the team" data-notes="Four people you will actually deal with. Chalerm signs the legal opinions, Anneke runs immigration.">
+      <div class="s-in">
+        <p class="kick">Who handles your file</p>
+        <h2 class="h">The partners and the desk</h2>
+        <div class="team">
+          <div class="person fx-rise" data-b="1"><svg class="seal" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#1f5c4a"/><circle cx="50" cy="50" r="40" fill="none" stroke="#eef0ec" stroke-width="1"/><text x="50" y="62" text-anchor="middle" font-family="Libre Caslon Display,Georgia,serif" font-size="34" fill="#eef0ec">CW</text></svg><h3>Chalerm Wongsakul</h3><p>Founding partner, lawyer</p><div class="lang"><span>TH</span><span>EN</span></div></div>
+          <div class="person fx-rise" data-b="1"><svg class="seal" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#b3263a"/><circle cx="50" cy="50" r="40" fill="none" stroke="#eef0ec" stroke-width="1"/><text x="50" y="62" text-anchor="middle" font-family="Libre Caslon Display,Georgia,serif" font-size="34" fill="#eef0ec">AV</text></svg><h3>Anneke Voss</h3><p>Partner, immigration</p><div class="lang"><span>NL</span><span>DE</span><span>EN</span></div></div>
+          <div class="person fx-rise" data-b="2"><svg class="seal" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#13201c"/><circle cx="50" cy="50" r="40" fill="none" stroke="#eef0ec" stroke-width="1"/><text x="50" y="62" text-anchor="middle" font-family="Libre Caslon Display,Georgia,serif" font-size="34" fill="#eef0ec">TP</text></svg><h3>Thanakorn Phromma</h3><p>Senior paralegal, work permits</p><div class="lang"><span>TH</span><span>EN</span></div></div>
+          <div class="person fx-rise" data-b="2"><svg class="seal" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#b48a3c"/><circle cx="50" cy="50" r="40" fill="none" stroke="#13201c" stroke-width="1"/><text x="50" y="62" text-anchor="middle" font-family="Libre Caslon Display,Georgia,serif" font-size="34" fill="#13201c">ML</text></svg><h3>Mai Lin</h3><p>Client desk, Mandarin</p><div class="lang"><span>ZH</span><span>TH</span><span>EN</span></div></div>
+        </div>
+      </div>
+      <div class="firm"><svg style="color:var(--ink)"><use href="#logo"/></svg>Chalerm &amp; Voss</div><div class="pageno">08</div>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide s9" aria-label="Slide 9, what to bring" data-notes="Bring these to the first meeting and most files can be filed the same week. Each press ticks one off.">
+      <div class="s-in">
+        <div><p class="kick">First meeting</p><h2 class="h">Bring these six things</h2></div>
+        <ul class="checks">
+          <li data-b="1"><span class="box"><svg><use href="#tick"/></svg></span><span>Passport<small>6 months validity, 2 blank pages</small></span></li>
+          <li data-b="2"><span class="box"><svg><use href="#tick"/></svg></span><span>Two photos<small>4 by 6 cm, white background</small></span></li>
+          <li data-b="3"><span class="box"><svg><use href="#tick"/></svg></span><span>Thai bank book<small>updated the same day</small></span></li>
+          <li data-b="4"><span class="box"><svg><use href="#tick"/></svg></span><span>Proof of address<small>lease or TM30 receipt</small></span></li>
+          <li data-b="5"><span class="box"><svg><use href="#tick"/></svg></span><span>Entry stamp page<small>and TM6 if you have it</small></span></li>
+          <li data-b="6"><span class="box"><svg><use href="#tick"/></svg></span><span>Your reason<small>pension letter, contract, marriage certificate</small></span></li>
+        </ul>
+      </div>
+      <div class="firm"><svg style="color:var(--ink)"><use href="#logo"/></svg>Chalerm &amp; Voss</div><div class="pageno">09</div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide s10" aria-label="Slide 10, the office" data-notes="Five minutes on foot from Sala Daeng or Lumphini. Parking in the building, ask for a ticket stamp.">
+      <div class="s-in">
+        <div class="addr">
+          <p class="kick">Visit</p>
+          <b>14th floor, Sathorn Garden House</b>
+          North Sathorn Road, Silom, Bangkok 10500
+          <div class="hours"><span>Mon to Fri</span>9:00 to 17:30<span>Saturday</span>9:00 to 12:00, booked only<span>Sunday</span>Closed</div>
+          <div class="trains"><span style="background:#5a9e3d">BTS Sala Daeng</span><span style="background:#1f4f8f">MRT Lumphini</span></div>
+        </div>
+        <div class="map" role="img" aria-label="Map of the office between Sala Daeng and Lumphini stations">
+          <svg viewBox="0 0 820 640">
+            <rect width="820" height="640" fill="#e5e9e2"/>
+            <rect x="0" y="0" width="300" height="230" fill="#cfe0c8"/><text x="40" y="120" font-family="Figtree" font-weight="700" font-size="22" fill="#4d7a43">Lumphini Park</text>
+            <g stroke="#fff" stroke-width="26" fill="none"><path d="M0 250 H820"/><path d="M320 0 V640"/><path d="M0 470 L820 400"/><path d="M600 0 V640"/></g>
+            <g stroke="#cfd5cc" stroke-width="2" fill="none"><path d="M0 250 H820"/><path d="M320 0 V640"/></g>
+            <text x="340" y="244" font-family="Figtree" font-weight="700" font-size="17" fill="#43524c">RAMA IV ROAD</text>
+            <text x="20" y="455" font-family="Figtree" font-weight="700" font-size="17" fill="#43524c" transform="rotate(-4.9 20 455)">NORTH SATHORN ROAD</text>
+            <text x="335" y="620" font-family="Figtree" font-weight="700" font-size="17" fill="#43524c">SILOM ROAD</text>
+            <g fill="none" stroke-width="10"><path d="M320 640 V250" stroke="#5a9e3d" stroke-dasharray="2 0"/></g>
+            <circle cx="320" cy="560" r="16" fill="#fff" stroke="#5a9e3d" stroke-width="6"/><text x="344" y="566" font-family="Figtree" font-weight="800" font-size="18" fill="#13201c">Sala Daeng</text>
+            <path d="M0 250 H820" stroke="#1f4f8f" stroke-width="6" stroke-dasharray="18 10"/>
+            <circle cx="320" cy="250" r="16" fill="#fff" stroke="#1f4f8f" stroke-width="6"/><text x="344" y="290" font-family="Figtree" font-weight="800" font-size="18" fill="#13201c">Lumphini</text>
+            <path d="M320 560 C 380 540 430 500 470 440" fill="none" stroke="#b3263a" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round"/>
+            <g transform="translate(470 430)"><circle r="34" fill="#b3263a"/><text y="8" text-anchor="middle" font-family="Libre Caslon Display,Georgia,serif" font-size="24" fill="#fff">C&amp;V</text></g>
+            <text x="512" y="380" font-family="Figtree" font-weight="800" font-size="18" fill="#b3263a">5 min walk</text>
+          </svg>
+        </div>
+      </div>
+      <div class="pageno">10</div>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide s11" aria-label="Slide 11, visa checker" data-notes="Hand the clicker to the audience. Four answers, one recommendation. It is a starting point, we confirm in the consultation.">
+      <div class="s-in">
+        <div class="q-side">
+          <p class="kick">Your turn</p>
+          <h2 class="h">Which visa fits you?</h2>
+          <p>Four answers. We suggest one visa, the fees and the next step.</p>
+          <div class="pips" id="pips" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="qcard" id="qcard" aria-live="polite"></div>
+      </div>
+      <div class="pageno">11</div>
+    </section>
+
+  </div>
+</div>
+
+<nav class="bar" aria-label="Presentation controls">
+  <span class="brand"><svg style="color:#e8ece9"><use href="#logo"/></svg>Chalerm &amp; Voss</span>
+  <button type="button" id="prevBtn" class="navonly" aria-label="Previous">&#8592;<span class="wide">Back</span></button>
+  <span class="count navonly" id="count" aria-live="polite">1 / 11</span>
+  <button type="button" id="nextBtn" class="navonly" aria-label="Next">Next &#8594;</button>
+  <span class="prog navonly" aria-hidden="true"><i id="progFill"></i></span>
+  <button type="button" id="ovBtn" class="navonly">Slides <kbd>O</kbd></button>
+  <button type="button" id="pvBtn" class="navonly">Presenter <kbd>P</kbd></button>
+  <button type="button" id="docBtn">One page</button>
+</nav>
+
+<div class="overlay" id="overview" hidden role="dialog" aria-modal="true" aria-label="All slides">
+  <div class="ov-head"><h2>All slides</h2><button type="button" data-closeov>Close <kbd style="font-family:inherit">Esc</kbd></button></div>
+  <div class="ov-grid" id="ovGrid"></div>
+</div>
+<div class="overlay" id="presenter" hidden role="dialog" aria-modal="true" aria-label="Presenter view">
+  <div class="ov-head"><h2 id="pvTitle">Presenter view</h2><button type="button" data-closepv>Close <kbd style="font-family:inherit">Esc</kbd></button></div>
+  <div class="pv">
+    <div class="pv-cur"><div class="lbl" id="pvCurLbl">NOW</div><div class="tw" id="pvCur"></div><div class="pv-nav"><button type="button" id="pvPrev">&#8592; Back</button><button type="button" id="pvNext">Next &#8594;</button></div></div>
+    <div><div class="lbl">UP NEXT</div><div class="tw" id="pvNextSlide"></div></div>
+    <div>
+      <div class="lbl">TIMER</div>
+      <div class="timer"><span class="t" id="pvTimer">00:00</span><button type="button" id="pvPause">Pause</button><button type="button" id="pvReset">Reset</button><span class="clock" id="pvClock"></span></div>
+      <div class="lbl" style="margin-top:20px">SPEAKER NOTES</div>
+      <div class="pv-notes" id="pvNotes"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+const REDUCED=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString('en-US');
+const deck=$('deck'), room=$('room');
+const slides=[...deck.querySelectorAll('.slide')];
+const N=slides.length;
+const maxB=slides.map(s=>Math.max(0,...[...s.querySelectorAll('[data-b]')].map(e=>+e.dataset.b)));
+const step=slides.map(()=>0);
+let cur=0;
+
+/* ---------- layout ---------- */
+function isNarrow(){ return window.innerWidth<760 || (window.innerWidth<1000 && window.innerHeight>window.innerWidth); }
+function fit(){
+  document.body.classList.toggle('narrow',isNarrow());
+  if(document.body.classList.contains('doc')){ fitDoc(); return; }
+  if(isNarrow()){ deck.style.transform='none'; return; }
+  const w=room.clientWidth-40, h=room.clientHeight-40;
+  const s=Math.min(w/1600,h/900); deck.style.transform='scale('+s+')';
+}
+function fitDoc(){
+  slides.forEach(s=>{ s.style.zoom = isNarrow() ? '' : String(Math.min(1,(window.innerWidth-40)/1600)); });
+}
+window.addEventListener('resize',fit);
+
+/* ---------- builds ---------- */
+function applyBuild(i,animIdx){
+  const s=slides[i];
+  s.querySelectorAll('[data-b]').forEach(el=>{
+    const b=+el.dataset.b, on=b<=step[i];
+    el.classList.toggle('in',on);
+    el.classList.toggle('anim', on && b===animIdx && !REDUCED);
+  });
+  if(i===4) s.querySelectorAll('[data-step]').forEach(el=>el.classList.toggle('done',+el.dataset.b<=step[i]));
+}
+function show(i,dir){
+  if(i<0||i>=N) return;
+  const prev=cur;
+  if(i!==prev && !REDUCED && !document.body.classList.contains('doc')){
+    const old=slides[prev]; old.classList.remove('current','enter-f','enter-b'); old.classList.add('leaving',dir<0?'b':'f');
+    setTimeout(()=>old.classList.remove('leaving','f','b'),520);
+  } else if(i!==prev){ slides[prev].classList.remove('current'); }
+  cur=i;
+  slides.forEach((s,k)=>{ if(k!==i) s.classList.remove('current','enter-f','enter-b'); });
+  const s=slides[i]; s.classList.add('current'); s.classList.remove('enter-f','enter-b');
+  if(i!==prev && !REDUCED){ void s.offsetWidth; s.classList.add(dir<0?'enter-b':'enter-f'); }
+  if(isNarrow()) step[i]=maxB[i];
+  applyBuild(i,-1);
+  s.scrollTop=0;
+  $('count').textContent=(i+1)+' / '+N;
+  $('progFill').style.width=((i+1)/N*100)+'%';
+  try{ history.replaceState(null,'','#/'+(i+1)); }catch(e){}
+  if(!$('presenter').hidden) renderPresenter();
+  if(i===N-1) renderChecker();
+}
+function next(){
+  if(step[cur]<maxB[cur] && !isNarrow()){ step[cur]++; applyBuild(cur,step[cur]); if(!$('presenter').hidden) renderPresenter(); return; }
+  if(cur<N-1){ show(cur+1,1); }
+}
+function prev(){
+  if(step[cur]>0 && !isNarrow()){ step[cur]--; applyBuild(cur,-1); if(!$('presenter').hidden) renderPresenter(); return; }
+  if(cur>0){ const t=cur-1; step[t]=maxB[t]; show(t,-1); }
+}
+function go(i){ step[i]=maxB[i]; show(i,i<cur?-1:1); }
+
+/* ---------- input ---------- */
+document.addEventListener('keydown',e=>{
+  if(document.body.classList.contains('doc')) return;
+  const t=e.target, tag=t&&t.tagName;
+  if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT') return;
+  const ovOpen=!$('overview').hidden;
+  if(e.key==='Escape'){ closeOv(); closePv(); return; }
+  if(ovOpen) return;
+  if((e.key==='Enter'||e.key===' ')&&(tag==='BUTTON'||tag==='A')) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown'&&!isNarrow()){ e.preventDefault(); next(); }
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='ArrowUp'&&!isNarrow()){ e.preventDefault(); prev(); }
+  else if(e.key==='Home'){ e.preventDefault(); step[0]=0; show(0,-1); }
+  else if(e.key==='End'){ e.preventDefault(); go(N-1); }
+  else if(e.key==='p'||e.key==='P'){ $('presenter').hidden?openPv():closePv(); }
+  else if(e.key==='o'||e.key==='O'){ openOv(); }
+});
+$('nextBtn').addEventListener('click',next);
+$('prevBtn').addEventListener('click',prev);
+let sx=null, sy=null;
+room.addEventListener('pointerdown',e=>{ if(e.pointerType==='mouse') return; sx=e.clientX; sy=e.clientY; });
+room.addEventListener('pointerup',e=>{ if(sx===null) return; const dx=e.clientX-sx, dy=e.clientY-sy; sx=null; if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.4){ dx<0?next():prev(); } });
+room.addEventListener('pointercancel',()=>{ sx=null; });
+// touch fallback for browsers that cancel pointer events while the slide scrolls
+let tx=null, ty=null;
+room.addEventListener('touchstart',e=>{ const p=e.touches[0]; tx=p.clientX; ty=p.clientY; },{passive:true});
+room.addEventListener('touchend',e=>{ if(tx===null||sx!==null) { tx=null; return; } const p=e.changedTouches[0]; const dx=p.clientX-tx, dy=p.clientY-ty; tx=null; if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.4){ dx<0?next():prev(); } },{passive:true});
+
+/* ---------- thumbnails ---------- */
+function thumb(i,width,live){
+  const wrap=document.createElement('div'); wrap.className='tw'; wrap.style.width=width+'px'; wrap.style.height=(width*9/16)+'px';
+  const c=slides[i].cloneNode(true);
+  c.classList.remove('current','leaving','enter-f','enter-b','f','b'); c.removeAttribute('aria-label');
+  c.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+  c.querySelectorAll('[data-b]').forEach(el=>{ el.classList.remove('anim'); if(!live||+el.dataset.b<=step[i]) el.classList.add('in'); else el.classList.remove('in'); });
+  if(!live) c.classList.add('all');
+  c.style.transform='scale('+(width/1600)+')'; c.style.zoom=''; c.setAttribute('inert',''); c.setAttribute('aria-hidden','true');
+  wrap.appendChild(c); return wrap;
+}
+function openOv(){
+  const g=$('ovGrid'); g.innerHTML='';
+  const w=isNarrow()?Math.floor((window.innerWidth-36)/2):300;
+  slides.forEach((s,i)=>{ const b=document.createElement('button'); b.type='button'; b.className='thumbbtn'; b.setAttribute('aria-current',String(i===cur));
+    b.appendChild(thumb(i,w,false)); const l=document.createElement('span'); l.className='lab'; l.innerHTML='<b>'+String(i+1).padStart(2,'0')+'</b>'+s.getAttribute('aria-label').replace(/^Slide \d+, /,'');
+    b.appendChild(l); b.addEventListener('click',()=>{ closeOv(); go(i); }); g.appendChild(b); });
+  $('overview').hidden=false; g.querySelector('[aria-current=true]').focus();
+}
+function closeOv(){ if($('overview').hidden) return; $('overview').hidden=true; $('ovBtn').focus(); }
+$('ovBtn').addEventListener('click',openOv);
+document.querySelector('[data-closeov]').addEventListener('click',closeOv);
+
+/* ---------- presenter ---------- */
+let tStart=null, tAcc=0, tRunning=false, tInt=null;
+function elapsed(){ return tAcc+(tRunning?Date.now()-tStart:0); }
+function tick(){ const s=Math.floor(elapsed()/1000); $('pvTimer').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); $('pvClock').textContent=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); }
+function renderPresenter(){
+  const curBox=$('pvCur'), nextBox=$('pvNextSlide');
+  const wc=curBox.parentElement.clientWidth||900, wn=nextBox.parentElement.clientWidth||500;
+  curBox.replaceWith(Object.assign(thumb(cur,wc,true),{id:'pvCur'}));
+  const nb=cur<N-1?thumb(cur+1,wn,false):Object.assign(document.createElement('div'),{className:'tw',textContent:'End of deck'});
+  nb.id='pvNextSlide'; if(cur>=N-1){ nb.style.cssText='display:grid;place-items:center;height:'+(wn*9/16)+'px;font-family:var(--serif);font-size:22px'; } nextBox.replaceWith(nb);
+  $('pvNotes').textContent=slides[cur].dataset.notes||'';
+  $('pvCurLbl').textContent='NOW, SLIDE '+(cur+1)+' OF '+N+(maxB[cur]?', BUILD '+step[cur]+' OF '+maxB[cur]:'');
+}
+function openPv(){ $('presenter').hidden=false; if(tStart===null&&!tAcc){ tStart=Date.now(); tRunning=true; } tick(); clearInterval(tInt); tInt=setInterval(tick,1000); renderPresenter(); $('pvNext').focus(); }
+function closePv(){ if($('presenter').hidden) return; $('presenter').hidden=true; clearInterval(tInt); $('pvBtn').focus(); }
+$('pvBtn').addEventListener('click',openPv);
+document.querySelector('[data-closepv]').addEventListener('click',closePv);
+$('pvNext').addEventListener('click',next); $('pvPrev').addEventListener('click',prev);
+$('pvPause').addEventListener('click',e=>{ if(tRunning){ tAcc+=Date.now()-tStart; tRunning=false; e.currentTarget.textContent='Resume'; } else { tStart=Date.now(); tRunning=true; e.currentTarget.textContent='Pause'; } tick(); });
+$('pvReset').addEventListener('click',()=>{ tAcc=0; tStart=Date.now(); tick(); });
+
+/* ---------- doc mode ---------- */
+function setDoc(on){
+  document.body.classList.toggle('doc',on);
+  $('docBtn').textContent=on?'Present':'One page';
+  if(on){ slides.forEach((s,i)=>{ s.classList.add('all'); s.classList.remove('leaving','f','b','enter-f','enter-b'); }); renderChecker(); window.scrollTo(0,0); }
+  else { slides.forEach(s=>{ s.classList.remove('all'); s.style.zoom=''; }); try{ history.replaceState(null,'','#/'+(cur+1)); }catch(e){} }
+  fit();
+  if(on){ try{ history.replaceState(null,'','#doc'); }catch(e){} room.setAttribute('tabindex','-1'); room.focus({preventScroll:true}); }
+}
+$('docBtn').addEventListener('click',()=>setDoc(!document.body.classList.contains('doc')));
+$('skipLink').addEventListener('click',e=>{ e.preventDefault(); setDoc(true); });
+
+/* ---------- visa checker ---------- */
+const QS=[
+  {q:'Why are you coming to Thailand?',k:'why',o:[['retire','To retire','M10 30 L20 14 L30 30 M6 34 H34'],['work','To work for a Thai company','M8 34 V12 H22 V34 M22 34 V6 H34 V34'],['remote','To work remotely','M8 10 H32 V26 H8Z M4 32 H36'],['family','To live with my Thai spouse','M14 22 a8 8 0 1 0 0.1 0 M26 22 a8 8 0 1 0 0.1 0'],['wealth','To invest or stay long term','M8 30 H32 M12 30 V16 M20 30 V10 M28 30 V20']]},
+  {q:'How old are you?',k:'age',o:[['u50','Under 50','M20 8 V32 M8 20 H32'],['o50','50 or older','M8 28 L20 10 L32 28']]},
+  {q:'Savings or assets you can show?',k:'money',o:[['m1','Under 500,000 THB','M10 20 H30'],['m2','500,000 to 800,000 THB','M10 16 H30 M10 24 H30'],['m3','800,000 THB to 1M USD','M10 12 H30 M10 20 H30 M10 28 H30'],['m4','More than 1M USD','M20 6 L24 16 L34 16 L26 22 L29 32 L20 26 L11 32 L14 22 L6 16 L16 16Z']]},
+  {q:'How long do you want to stay?',k:'stay',o:[['s1','Under 6 months','M20 8 a12 12 0 1 0 0.1 0 M20 20 V12'],['s2','About a year','M20 8 a12 12 0 1 0 0.1 0 M20 20 V12 M20 20 H28'],['s3','5 years or more','M6 20 H34 M28 14 L34 20 L28 26']]}
+];
+const VISAS={
+  dtv:{code:'DTV',name:'Destination Thailand Visa',a:'#d9ebe4',b:'#cfe3e8',valid:'5 years',stay:'180 days a visit',gov:'10,000 THB',ours:'15,000 THB',why:'Made for people paid from abroad. You show 500,000 THB in savings and proof of remote work.'},
+  ltr:{code:'LTR',name:'Long Term Resident',a:'#e8e0c9',b:'#d9ebe4',valid:'10 years',stay:'5 plus 5 years',gov:'50,000 THB',ours:'45,000 THB',why:'For wealthy residents, pensioners with 80,000 USD a year, or skilled remote professionals. Includes a digital work permit.'},
+  ret:{code:'O-R',name:'Non-O, retirement',a:'#cfe3e8',b:'#e2e6df',valid:'1 year, renewable',stay:'the whole year',gov:'1,900 THB a year',ours:'18,000 THB',why:'Age 50 plus with 800,000 THB in a Thai bank, or 65,000 THB monthly income.'},
+  mar:{code:'O-M',name:'Non-O, marriage',a:'#f1dfe2',b:'#e8e0c9',valid:'1 year, renewable',stay:'the whole year',gov:'1,900 THB a year',ours:'22,000 THB',why:'Married to a Thai citizen, with 400,000 THB in a Thai bank or 40,000 THB monthly income.'},
+  nonb:{code:'B + WP',name:'Non-B and work permit',a:'#e2e6df',b:'#cfe3e8',valid:'1 to 2 years',stay:'while employed',gov:'about 5,000 THB',ours:'35,000 THB',why:'Your employer sponsors you. The company needs 2 million THB capital and 4 Thai staff per foreign employee.'},
+  tp:{code:'TP',name:'Thailand Privilege',a:'#e8e0c9',b:'#f3eedf',valid:'5 to 20 years',stay:'1 year a visit',gov:'from 650,000 THB',ours:'12,000 THB',why:'No age or income rules. You pay a membership fee up front and get a long stay visa plus airport service.'},
+  tr:{code:'TR',name:'Visa exemption or tourist visa',a:'#e2e6df',b:'#eef0ec',valid:'60 days',stay:'plus 30 day extension',gov:'1,900 THB to extend',ours:'3,500 THB',why:'For a shorter stay you do not need a long stay visa. We handle the 30 day extension if you want it.'},
+  save:{code:'DTV',name:'DTV, after you build savings',a:'#f1dfe2',b:'#eef0ec',valid:'5 years',stay:'180 days a visit',gov:'10,000 THB',ours:'15,000 THB',why:'The DTV needs 500,000 THB in savings. Until then, visa exemption gives you 60 days per entry.'}
+};
+function decide(a){
+  if(a.stay==='s1' && a.why!=='work') return a.why==='remote'&&a.money!=='m1'?'dtv':'tr';
+  if(a.why==='work') return 'nonb';
+  if(a.why==='family') return 'mar';
+  if(a.why==='remote'){ if(a.money==='m4'&&a.stay==='s3') return 'ltr'; return a.money==='m1'?'save':'dtv'; }
+  if(a.why==='retire'){
+    if(a.age==='o50'){ if(a.money==='m4'&&a.stay==='s3') return 'ltr'; if(a.money==='m3'||a.money==='m4') return 'ret'; return a.money==='m2'?'tp':'tr'; }
+    return a.money==='m1'?'tr':'tp';
+  }
+  if(a.why==='wealth'){ if(a.money==='m4') return 'ltr'; return a.money==='m1'?'tr':'tp'; }
+  return 'tr';
+}
+let qi=0, ans={};
+function renderChecker(){
+  const box=$('qcard'); if(!box) return;
+  const pips=$('pips').querySelectorAll('i'); pips.forEach((p,i)=>p.classList.toggle('on',i<qi||qi>=QS.length));
+  if(qi>=QS.length){
+    const v=VISAS[decide(ans)];
+    box.innerHTML='<span class="verdict stampbox fx-stamp in'+(REDUCED?'':' anim')+'">RECOMMENDED</span><div class="result"><div class="sticker" style="--a:'+v.a+';--b:'+v.b+'"><svg class="gl"><use href="#guil"/></svg><span class="chip"></span><p class="code">'+v.code+'</p><p class="nm">'+v.name+'</p><div class="facts"><div><span>VALID</span>'+v.valid+'</div><div><span>STAY</span>'+v.stay+'</div></div></div>'+
+      '<p class="why">'+v.why+'</p><div class="feegrid"><div><span>GOVERNMENT FEE</span><b>'+v.gov+'</b></div><div><span>OUR FEE</span><b>'+v.ours+'</b></div><div><span>CONSULTATION</span><b>2,000 THB</b></div></div>'+
+      '<div class="cta"><a class="btn" href="mailto:?subject='+encodeURIComponent('Consultation request, '+v.name)+'&body='+encodeURIComponent('Hello Chalerm and Voss,\n\nThe visa checker suggested: '+v.name+'.\nMy answers: '+QS.map(q=>q.o.find(o=>o[0]===ans[q.k])[1]).join(', ')+'.\n\nPlease suggest a consultation time.\n')+'">Book a consultation</a><button class="lnk" type="button" id="restart">Start over</button></div>'+
+      '<p class="fine">A starting point, not legal advice. Rules change, we confirm everything in the consultation.</p></div>';
+    $('restart').addEventListener('click',()=>{ qi=0; ans={}; renderChecker(); const f=$('qcard').querySelector('.opt'); if(f) f.focus(); });
+    return;
+  }
+  const Q=QS[qi];
+  box.innerHTML='<div class="qn">Question '+(qi+1)+' of '+QS.length+'</div><h3 class="qt">'+Q.q+'</h3><div class="opts" role="group" aria-label="'+Q.q+'">'+
+    Q.o.map(o=>'<button type="button" class="opt" data-v="'+o[0]+'" aria-pressed="'+(ans[Q.k]===o[0])+'"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="'+o[2]+'"/></svg>'+o[1]+'</button>').join('')+
+    '</div><div class="qnav">'+(qi>0?'<button type="button" class="lnk" id="qback">Back a question</button>':'<span></span>')+'</div>';
+  box.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{ ans[Q.k]=b.dataset.v; b.setAttribute('aria-pressed','true'); qi++; setTimeout(()=>{ renderChecker(); const f=$('qcard').querySelector('.opt,#restart'); if(f) f.focus({preventScroll:true}); }, REDUCED?0:160); }));
+  const bk=$('qback'); if(bk) bk.addEventListener('click',()=>{ qi--; renderChecker(); });
+}
+
+/* ---------- start ---------- */
+fit();
+const h=location.hash;
+if(h==='#doc'){ setDoc(true); }
+else { const m=h.match(/^#\/(\d+)$/); const start=m?Math.min(N,Math.max(1,+m[1]))-1:0; if(start>0) step.fill(0); show(start,1); slides[start].classList.remove('enter-f'); }
+renderChecker();
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>
