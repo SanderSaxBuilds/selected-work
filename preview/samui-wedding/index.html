@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Свадьба на Самуи · набросок для Marrymeonsamui</title>
+<meta name="description" content="Набросок главной страницы свадебного агентства Marrymeonsamui: чистые тексты и заявка с датой и числом гостей прямо из пакета.">
+<meta name="theme-color" content="#8f1730">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Commissioner:wght@300;400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+:root{
+  --lac:#8f1730; --lac-2:#741026; --lac-3:#a8243f;
+  --rice:#fdfaf8; --blush:#f6e7e6; --petal:#efd2d2;
+  --ink:#24161a; --muted:#6e5a5e; --line:#e8d6d6; --gold:#c8a25a;
+  --serif:Forum,"Times New Roman",serif; --sans:Commissioner,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--rice);color:var(--ink);font:400 17px/1.6 var(--sans)}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1240px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1;margin:0;letter-spacing:.005em}
+h2{font-size:clamp(40px,6vw,84px)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border:1.5px solid transparent;font:500 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .15s}
+.btn:active{transform:translateY(1px)}
+.btn-rice{background:var(--rice);color:var(--lac)}
+.btn-rice:hover{background:#fff}
+.btn-line{border-color:rgba(253,250,248,.6);color:var(--rice)}
+.btn-line:hover{background:rgba(253,250,248,.12)}
+.btn-lac{background:var(--lac);color:#fff}
+.btn-lac:hover{background:var(--lac-2)}
+
+/* sketch ribbon */
+.ribbon{background:var(--ink);color:#ead8d6;font-size:13px;line-height:1.4;padding:10px 0}
+.ribbon .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.ribbon a{color:#f2c9cf}
+
+/* hero: a lacquer box with an invitation card on it */
+.hero{background:var(--lac);color:var(--rice);overflow:hidden}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0;border-bottom:1px solid rgba(253,250,248,.22)}
+.brand{font:400 26px/1 var(--serif);letter-spacing:.04em}
+.brand small{display:block;font:400 12px/1.4 var(--sans);opacity:.75;margin-top:4px;letter-spacing:.02em}
+.nav a.tel{font-weight:500;text-decoration:none;white-space:nowrap;font-size:15px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center;padding:clamp(40px,7vw,96px) 0 clamp(56px,8vw,110px)}
+.since{font:400 15px/1.4 var(--sans);color:#f2c9cf;margin:0 0 22px}
+.hero h1{font-size:clamp(54px,8.6vw,138px);line-height:.92;letter-spacing:-.005em}
+.hero h1 em{font-style:normal;display:block;color:#ffd9de;transition:opacity .25s,transform .25s}
+.hero h1 em.swap{opacity:0;transform:translateY(10px)}
+.hero p.lead{font-size:clamp(17px,1.6vw,20px);max-width:34em;margin:28px 0 32px;color:rgba(253,250,248,.88);font-weight:300}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+.card-stage{perspective:1100px}
+.invite{position:relative;background:var(--rice);color:var(--ink);padding:clamp(26px,3vw,44px) clamp(24px,3vw,40px);transform:rotate(-2.5deg);transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.7,.2,1);box-shadow:0 30px 60px -28px rgba(30,0,8,.75)}
+.invite::before{content:"";position:absolute;inset:10px;border:1px solid var(--gold);pointer-events:none}
+.invite::after{content:"";position:absolute;inset:14px;border:1px solid rgba(200,162,90,.45);pointer-events:none}
+.invite .to{font:400 13px/1.4 var(--sans);color:var(--muted);text-align:center;margin:6px 0 10px}
+.invite .mono{font:400 clamp(30px,3vw,44px)/1 var(--serif);text-align:center;color:var(--lac);margin:0 0 18px}
+.facts{display:grid;gap:0;margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.facts li{display:grid;grid-template-columns:4.2em 1fr;gap:14px;align-items:baseline;padding:14px 4px;border-bottom:1px solid var(--line);font-size:15px;line-height:1.4;color:var(--muted)}
+.facts b{font:400 34px/1 var(--serif);color:var(--ink);font-weight:400}
+.invite .sig{text-align:center;font:400 14px/1.4 var(--sans);color:var(--muted);margin:16px 0 4px}
+
+section{padding:clamp(72px,9vw,128px) 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr);gap:16px 48px;align-items:end;margin-bottom:clamp(32px,4vw,56px)}
+.sec-head p{color:var(--muted);margin:0;max-width:30em}
+.kick{font:500 14px/1.3 var(--sans);color:var(--lac);margin:0 0 14px}
+
+/* packages: three names set like a menu, a card, a form */
+.pk-tabs{display:flex;flex-wrap:wrap;gap:0 4px;margin:0 0 28px;border-bottom:1px solid var(--line)}
+.pk-tab{position:relative;background:none;border:0;padding:14px 18px 16px 0;margin-right:22px;font:400 clamp(26px,3vw,40px)/1 var(--serif);color:#b29a9e;cursor:pointer;transition:color .2s}
+.pk-tab::after{content:"";position:absolute;left:0;right:18px;bottom:-1px;height:3px;background:var(--lac);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.pk-tab:hover{color:var(--ink)}
+.pk-tab[aria-selected=true]{color:var(--ink)}
+.pk-tab[aria-selected=true]::after{transform:none}
+.pk{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:0;align-items:stretch;border:1.5px solid var(--lac)}
+.pk-card{padding:clamp(26px,3.4vw,48px);display:flex;flex-direction:column;background:var(--rice)}
+.pk-card .tagline{font:500 14px/1.3 var(--sans);color:var(--lac)}
+.pk-card h3{font-size:clamp(40px,4.4vw,64px);margin:10px 0 0}
+.pk-card .price{font:400 clamp(56px,6vw,96px)/1 var(--serif);color:var(--lac);margin:18px 0 18px}
+.pk-card .price small{font:400 15px var(--sans);color:var(--muted);margin-left:6px}
+.pk-card ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:0;border-top:1px solid var(--line)}
+.pk-card li{padding:12px 0 12px 30px;position:relative;border-bottom:1px solid var(--line)}
+.pk-card li::before{content:"";position:absolute;left:4px;top:1.15em;width:12px;height:12px;border:1.5px solid var(--lac);border-radius:50%}
+.form{background:var(--blush);padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:18px;border-left:1.5px solid var(--lac)}
+.form h3{font-size:clamp(28px,2.6vw,38px)}
+.form label{display:block;font:500 14px/1.3 var(--sans);color:var(--muted);margin-bottom:8px}
+.form input[type=date],.form select{width:100%;min-height:52px;border:0;border-bottom:1.5px solid var(--ink);background:transparent;padding:0 2px;font:500 17px var(--sans);color:var(--ink);border-radius:0}
+.guests{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.guests button{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--lac);background:var(--rice);font:400 24px/1 var(--sans);color:var(--lac);cursor:pointer}
+.guests button:disabled{opacity:.35;cursor:default}
+.guests output{min-width:84px;text-align:center;font:400 48px/1 var(--serif)}
+.guests span{color:var(--muted);font-size:15px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.preview{background:#fff;padding:16px 16px 12px;border:1px solid var(--line)}
+.preview .who{display:flex;align-items:center;gap:10px;font:500 13px var(--sans);color:var(--muted);margin-bottom:10px}
+.preview .who i{width:30px;height:30px;border-radius:50%;background:#25d366;display:grid;place-items:center;color:#fff;font-style:normal;font-size:15px}
+.bubble{background:#dcf8c6;border-radius:14px 14px 4px 14px;padding:10px 14px;font-size:15px;line-height:1.45;margin-left:auto;max-width:92%;white-space:pre-line;transition:transform .2s}
+.bubble.pop{transform:scale(1.03)}
+.bubble time{display:block;text-align:right;font-size:11px;color:#6b8a6b;margin-top:4px}
+.sent{display:none;align-items:center;gap:10px;background:var(--ink);color:#fff;padding:12px 14px;font-size:14px}
+.sent.show{display:flex}
+
+/* team: a seating card, initials in rings */
+.team{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1.5px solid var(--ink)}
+.person{padding:28px 24px 30px 0}
+.person+.person{padding-left:24px;border-left:1px solid var(--line)}
+.person .mono{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font:400 44px/1 var(--serif);color:var(--lac);border:1.5px solid var(--lac);margin-bottom:22px;transition:background .25s,color .25s}
+.person:hover .mono{background:var(--lac);color:var(--rice)}
+.person h3{font-size:34px}
+.person .role{font:500 14px/1.3 var(--sans);color:var(--lac);margin:6px 0 10px}
+.person p{margin:0;color:var(--muted);font-size:15.5px}
+
+/* story: years on a lacquer band */
+.story{background:var(--lac);color:var(--rice)}
+.story .kick{color:#f2c9cf}
+.story .sec-head p{color:#f0d3d6}
+.years{display:flex;gap:0;overflow-x:auto;scrollbar-width:thin;scroll-snap-type:x mandatory;border-top:1px solid rgba(253,250,248,.35);border-bottom:1px solid rgba(253,250,248,.35)}
+.year{flex:1 0 auto;min-width:76px;min-height:56px;border:0;background:transparent;color:#f3cdd2;font:400 22px var(--serif);cursor:pointer;scroll-snap-align:start;position:relative}
+.year+.year{border-left:1px solid rgba(253,250,248,.18)}
+.year:hover{color:#fff}
+.year[aria-pressed=true]{background:var(--rice);color:var(--lac)}
+.story-card{margin-top:clamp(28px,4vw,48px);display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,64px);align-items:center;min-height:200px}
+.story-card .big{font:400 clamp(96px,16vw,240px)/.8 var(--serif);color:var(--rice)}
+.story-card p{font:300 clamp(20px,2.4vw,30px)/1.4 var(--sans);margin:0;max-width:26em;transition:opacity .25s}
+.story-card p.swap{opacity:0}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1.5px solid var(--ink)}
+.trust div{padding:26px 26px 0 0}
+.trust div+div{padding-left:26px;border-left:1px solid var(--line)}
+.trust h3{font-size:34px;margin-bottom:12px}
+.trust p{margin:0;color:var(--muted)}
+.trust a{color:var(--lac);text-underline-offset:4px}
+
+/* reviews: quotes set large, one after another */
+.reviews{display:grid;gap:0}
+.review{margin:0;padding:clamp(26px,3vw,40px) 0;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) 15em;gap:14px 48px;align-items:end}
+.review:nth-child(2) blockquote{padding-left:clamp(0px,8vw,120px)}
+.review blockquote{margin:0;font:400 clamp(28px,3.4vw,48px)/1.12 var(--serif)}
+.review cite{display:block;font:500 15px var(--sans);font-style:normal;color:var(--lac);text-align:right}
+
+/* fixes: struck through, then written fresh */
+.fixes{background:var(--blush)}
+.fix{display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);gap:18px;align-items:center;padding:22px 0;border-top:1px solid var(--petal)}
+.fix:last-child{border-bottom:1px solid var(--petal)}
+.fix .was{color:#8d6b70;font-size:17px;text-decoration:line-through;text-decoration-color:var(--lac);text-decoration-thickness:2px}
+.fix .now{font:400 clamp(22px,2.2vw,30px)/1.15 var(--serif);color:var(--ink)}
+.fix .arrow{color:var(--lac);font-size:24px;text-align:center}
+.fix small{display:block;color:var(--muted);font:400 14px/1.4 var(--sans);text-decoration:none;margin-top:6px}
+
+/* close */
+.close{background:var(--lac);color:var(--rice)}
+.close .wrap{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr);gap:28px 56px;align-items:end}
+.close h2{font-size:clamp(44px,6.4vw,104px);line-height:.95}
+.close p{color:#f0d3d6;max-width:24em;margin:0 0 24px}
+footer{background:var(--ink);color:#d9c9c8;font-size:14px;padding:30px 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+footer a{color:#f2c9cf}
+
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr}
+  .card-stage{max-width:520px}
+  .sec-head{grid-template-columns:1fr}
+  .pk{grid-template-columns:1fr}
+  .form{border-left:0;border-top:1.5px solid var(--lac)}
+  .team{grid-template-columns:1fr 1fr}
+  .person:nth-child(3){padding-left:0;border-left:0}
+  .person:nth-child(n+3){border-top:1px solid var(--line)}
+  .trust{grid-template-columns:1fr}
+  .trust div,.trust div+div{padding:22px 0;border-left:0}
+  .trust div+div{border-top:1px solid var(--line)}
+  .review{grid-template-columns:1fr}
+  .review cite{text-align:left}
+  .close .wrap{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .brand small{display:none}
+  .nav a.tel{font-size:14px}
+  .team{grid-template-columns:1fr}
+  .person,.person+.person{padding:24px 0;border-left:0}
+  .person+.person{border-top:1px solid var(--line)}
+  .row2{grid-template-columns:1fr}
+  .story-card{grid-template-columns:1fr;gap:10px}
+  .fix{grid-template-columns:1fr;gap:6px}
+  .fix .arrow{transform:rotate(90deg);justify-self:start;text-align:left}
+  .pk-tab{margin-right:10px;padding-right:8px}
+  .review:nth-child(2) blockquote{padding-left:0}
+  .invite{transform:rotate(-1.5deg)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="ribbon"><div class="wrap"><span>Набросок главной для Marrymeonsamui. Тексты взяты с вашего сайта и вычищены, фото здесь заменены фоном.</span><a href="#fixes">Что поправлено</a></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand">Marrymeonsamui<small>свадебное и event-агентство</small></div>
+      <a class="tel" href="tel:+66831034488">+66 83 103 44 88</a>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <p class="since">Самуи, Таиланд, с 2010 года</p>
+        <h1>Свадьба <em id="heroWord">вашей мечты</em> на Самуи</h1>
+        <p class="lead">Официальное свадебное агентство полного цикла: от концепции и флористики до авторского кейтеринга и шоу-программы. Слушаем вас, чувствуем ваш стиль и укладываемся в ваш бюджет.</p>
+        <div class="cta">
+          <a class="btn btn-rice" href="#packages">Выбрать церемонию и дату</a>
+          <a class="btn btn-line" href="#story"><span><span data-yrs>16 лет</span> на острове</span></a>
+        </div>
+      </div>
+      <div class="card-stage">
+        <div class="invite" id="invite">
+          <p class="to">Приглашение</p>
+          <p class="mono">Marrymeonsamui</p>
+          <ul class="facts">
+            <li><b>2010</b>первое официальное ивент-агентство острова</li>
+            <li><b>2</b>собственные свадебные площадки</li>
+            <li><b>5★</b>свадьбы во всех пятизвёздочных отелях Самуи</li>
+          </ul>
+          <p class="sig">Самуи, Таиланд</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="packages">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="kick">Свадебные церемонии</p><h2>Выберите пакет и сразу отправьте дату</h2></div>
+      <p>Паре не нужно писать письмо с нуля. Она выбирает пакет, дату и число гостей, а вам приходит готовое сообщение.</p>
+    </div>
+    <div class="pk-tabs" role="tablist" aria-label="Пакеты">
+      <button class="pk-tab" role="tab" aria-selected="false" data-k="buddh">Буддийская</button>
+      <button class="pk-tab" role="tab" aria-selected="true" data-k="euro">Европейская</button>
+      <button class="pk-tab" role="tab" aria-selected="false" data-k="guests">Свадьба с гостями</button>
+    </div>
+    <div class="pk">
+      <article class="pk-card" aria-live="polite">
+        <div class="tagline" id="pkTag">Для двоих</div>
+        <h3 id="pkName">Европейская</h3>
+        <div class="price" id="pkPrice">800 $</div>
+        <p id="pkText" style="margin:0;color:var(--muted)"></p>
+        <ul id="pkList"></ul>
+      </article>
+      <form class="form" id="req" onsubmit="return false">
+        <h3>Заявка на <span id="formName">европейскую церемонию</span></h3>
+        <div class="row2">
+          <div><label for="date">Дата свадьбы</label><input type="date" id="date"></div>
+          <div><label for="place">Место</label>
+            <select id="place"><option>Пляж на закате</option><option>Вилла</option><option>Отель 5★</option><option>Храм</option><option>Пока не знаем</option></select></div>
+        </div>
+        <div>
+          <label id="gLabel">Сколько вас будет</label>
+          <div class="guests" role="group" aria-labelledby="gLabel">
+            <button type="button" id="gMinus" aria-label="Меньше гостей">−</button>
+            <output id="gOut" aria-live="polite">2</output>
+            <button type="button" id="gPlus" aria-label="Больше гостей">+</button>
+            <span id="gHint">вы вдвоём</span>
+          </div>
+        </div>
+        <div class="preview" aria-label="Так сообщение придёт вам">
+          <div class="who"><i>✓</i>Так сообщение придёт вам в WhatsApp</div>
+          <div class="bubble" id="bubble"></div>
+        </div>
+        <button type="button" class="btn btn-lac" id="send">Отправить Антону в WhatsApp</button>
+        <div class="sent" id="sent" role="status">В наброске сообщение никуда не уходит. На вашем сайте эта кнопка откроет WhatsApp с готовым текстом на +66 83 103 44 88.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="team" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="kick">Команда</p><h2>Наша главная гордость</h2></div>
+      <p>Большая и дружная команда на острове, без случайных подрядчиков.</p>
+    </div>
+    <div class="team">
+      <div class="person"><div class="mono">С</div><h3>Сергей</h3><div class="role">Шеф-повар</div><p>Ученик мишленовского шефа Франсуа. Отвечает за гастрономическую карту вашей свадьбы.</p></div>
+      <div class="person"><div class="mono">Ф</div><h3>Фото и видео</h3><div class="role">Съёмка</div><p>Мастера из топ-15 специалистов мира. Сохранят самые трогательные моменты дня.</p></div>
+      <div class="person"><div class="mono">П</div><h3>Полина</h3><div class="role">Стилист</div><p>Основательница своей студии красоты на Самуи. Подберёт и создаст свадебный образ.</p></div>
+      <div class="person"><div class="mono">Р</div><h3>Радмир</h3><div class="role">Ведущий</div><p>Профессиональный ведущий, радиоведущий «Европы Плюс». Отвечает за ваш вечер.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="kick">О нас</p><h2><span data-yrs>16 лет</span> на Самуи</h2></div>
+      <p>Антон Селиванов, владелец бренда Marrymeonsamui. Выберите год.</p>
+    </div>
+    <div class="years" id="years"></div>
+    <div class="story-card"><div class="big" id="yBig">2010</div><p id="yText"></p></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><div><p class="kick">Надёжность</p><h2>Гарантии и прозрачность</h2></div>
+      <p>Свой склад на острове: арки, декор, свежая флористика, фотобудка, звук, свет и мебель.</p></div>
+    <div class="trust">
+      <div><h3>Официальный договор</h3><p>Работаем официально и отвечаем за результат.</p></div>
+      <div><h3>Понятная смета</h3><p>Утверждаем подробный бюджет до начала подготовки. <a href="../../samui-wedding/smeta/">Посмотреть, как соберётся смета</a></p></div>
+      <div><h3>Фиксированная цена</h3><p>Стоимость согласуем заранее, и она не меняется.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="kick">Отзывы</p><h2>Нас рекомендуют</h2></div>
+      <p>К нам возвращаются отдыхать уже с детьми.</p></div>
+    <div class="reviews">
+      <figure class="review"><blockquote>«Получила свадебную церемонию своей мечты. Видеооператор Артём и фотограф Дмитрий сделали наш день!»</blockquote><cite>Татьяна и Олег</cite></figure>
+      <figure class="review"><blockquote>«Всё было как в сказке! Полина просто прелесть, сделала всё на высшем уровне.»</blockquote><cite>Анастасия Барыбина</cite></figure>
+      <figure class="review"><blockquote>«Антон проявил максимум гибкости при планировании свадьбы. Будем всем рекомендовать!»</blockquote><cite>Оля и Вадим</cite></figure>
+    </div>
+  </div>
+</section>
+
+<section class="fixes" id="fixes">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="kick">Что поправлено</p><h2>Тексты, которые пара видит первыми</h2></div>
+      <p>Мелочи, но именно их замечают раньше, чем пишут вам.</p></div>
+    <div class="fix"><div class="was">«MERRYMEONSAMUI»<small>под именем Антона</small></div><div class="arrow">→</div><div class="now">Marrymeonsamui<small>одно написание бренда везде</small></div></div>
+    <div class="fix"><div class="was">агенства<small>дважды в тексте</small></div><div class="arrow">→</div><div class="now">агентства</div></div>
+    <div class="fix"><div class="was">«10 лет в бизнесе» рядом с «С 2010 года»<small>выглядит как давно не обновлявшийся текст</small></div><div class="arrow">→</div><div class="now"><span data-yrs>16 лет</span> на Самуи, с 2010 года<small>цифра считается от года автоматически</small></div></div>
+    <div class="fix"><div class="was">«Узнать подробнее» у каждого пакета<small>пара уходит на другую страницу</small></div><div class="arrow">→</div><div class="now">Дата и число гостей прямо в пакете<small>вам приходит готовая заявка</small></div></div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <h2>Свадьба вашей мечты на Самуи, в каждой детали</h2>
+    <div>
+      <p>Слушаем вас, чувствуем ваш стиль и воплощаем сказку в рамках вашего бюджета.</p>
+      <a class="btn btn-rice" href="#packages">Выбрать дату</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>Набросок для Marrymeonsamui, Александр Хрусталев, Паттайя</span><span><a href="https://t.me/sandersax">Telegram</a> · <a href="https://wa.me/66961347329">WhatsApp</a> · <a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></span></div></footer>
+
+<script>
+(function(){
+  var P={
+    buddh:{tag:"В храме или на пляже",name:"Буддийская",form:"буддийскую церемонию",price:"400 $",word:"в храме",min:2,def:2,
+      text:"Церемония в храме или выездная, на пляже или на вилле. Её можно сочетать с европейской церемонией.",
+      list:["Благословение монахов","Храм, пляж или вилла на выбор","Можно совместить с европейской церемонией"]},
+    euro:{tag:"Для двоих",name:"Европейская",form:"европейскую церемонию",price:"800 $",word:"для двоих",min:2,def:2,
+      text:"Свадьба для двоих на уединённом закатном пляже или зелёной лужайке Самуи.",
+      list:["Пляж на закате или лужайка","Лав-стори с лучшим фотографом острова","Декор и флористика с нашего склада"]},
+    guests:{tag:"Полноценное торжество",name:"Свадьба с гостями",form:"свадьбу с гостями",price:"от 1500 $",word:"с гостями",min:4,def:20,
+      text:"Подберём площадку, ресторан, отель или виллу, обсудим дизайн и шоу-программу на вечер.",
+      list:["Подбор площадки","Дизайн и декор под ваш стиль","Кейтеринг, ведущий и шоу-программа"]}
+  };
+  var k="euro",g=2,$=function(id){return document.getElementById(id)};
+  var tabs=[].slice.call(document.querySelectorAll(".pk-tab"));
+  var d=$("date"),now=new Date(),def=new Date(now.getFullYear(),now.getMonth()+4,14);
+  function iso(x){return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")}
+  d.min=iso(now);d.value=iso(def);
+  function ruDate(v){if(!v)return"дата пока не выбрана";var p=v.split("-");var m=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];return(+p[2])+" "+m[+p[1]-1]+" "+p[0]}
+  function ppl(n){var a=n%10,b=n%100;return n+" "+((a==1&&b!=11)?"человек":(a>=2&&a<=4&&(b<10||b>=20))?"человека":"человек")}
+  function hint(n){return n<=2?"вы вдвоём":n<=10?"самые близкие":n<=40?"камерная свадьба":"большой праздник"}
+  function msg(){
+    var p=P[k],t=new Date();
+    $("bubble").innerHTML="";
+    $("bubble").appendChild(document.createTextNode("Здравствуйте, Антон! Хотим "+p.form+" ("+p.price+").\nДата: "+ruDate(d.value)+"\nМесто: "+$("place").value+"\nНас будет: "+ppl(g)));
+    var tm=document.createElement("time");tm.textContent=String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0");$("bubble").appendChild(tm);
+    $("bubble").classList.add("pop");setTimeout(function(){$("bubble").classList.remove("pop")},180);
+    $("sent").classList.remove("show");
+  }
+  function setG(n){var p=P[k];g=Math.max(p.min,Math.min(300,n));$("gOut").textContent=g;$("gHint").textContent=hint(g);$("gMinus").disabled=g<=p.min;msg()}
+  function pick(key,init){
+    k=key;var p=P[k];
+    tabs.forEach(function(t){t.setAttribute("aria-selected",t.dataset.k==k?"true":"false")});
+    $("pkTag").textContent=p.tag;$("pkName").textContent=p.name;$("pkPrice").textContent=p.price;$("pkText").textContent=p.text;$("formName").textContent=p.form;
+    $("pkList").innerHTML="";p.list.forEach(function(x){var li=document.createElement("li");li.textContent=x;$("pkList").appendChild(li)});
+    if(k=="buddh")$("place").value="Храм";else if($("place").value=="Храм")$("place").value="Пляж на закате";
+    if(!init){var w=$("heroWord");w.classList.add("swap");setTimeout(function(){w.textContent=p.word;w.classList.remove("swap")},220)}
+    setG(p.def);
+  }
+  tabs.forEach(function(t){t.addEventListener("click",function(){pick(t.dataset.k)})});
+  $("gMinus").addEventListener("click",function(){setG(g-(g>20?5:1))});
+  $("gPlus").addEventListener("click",function(){setG(g+(g>=20?5:1))});
+  d.addEventListener("change",msg);$("place").addEventListener("change",msg);
+  $("send").addEventListener("click",function(){$("sent").classList.add("show")});
+  pick("euro",true);
+  var yrs=now.getFullYear()-2010;
+  [].forEach.call(document.querySelectorAll("[data-yrs]"),function(e){e.textContent=yrs+(yrs%10==1&&yrs%100!=11?" год":(yrs%10>=2&&yrs%10<=4&&(yrs%100<10||yrs%100>=20))?" года":" лет")});
+
+  var Y=[["2010","Стартовали как первое официальное ивент-агентство на острове Самуи."],["2012","Создали первый русский телеканал на острове, 1Rus Samui TV."],["2013","Расширились до MICE и корпоративного агентства."],["2014","Съёмки «Орла и решки» и «Поедем, поедим» в Таиланде."],["2015","Награда за лучшую свадьбу за границей."],["2016","Концерты на острове: Leeroy Thornhill (ex-Prodigy), Децл, White Party в Nikki Beach, стендап."],["2017","Частный отдых для звёзд и бизнеса, консьерж-сервис."],["2018","Работа с российским и израильским посольствами, национальные праздники для экспатов и туристов острова."],["2020","Открыли свой бар-ресторан со смотровой площадкой, The Cocoon."],["2022","Пережили пандемию и остаёмся агентством № 1 на Самуи."],["2024","Провели свадьбы на всех пятизвёздочных площадках острова."],["2025","Открыли две собственные свадебные площадки."]];
+  var yw=$("years");
+  Y.forEach(function(y,i){var b=document.createElement("button");b.className="year";b.type="button";b.textContent=y[0];b.setAttribute("aria-pressed",i==0?"true":"false");
+    b.addEventListener("click",function(){[].forEach.call(yw.children,function(c){c.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");
+      var t=$("yText");t.classList.add("swap");setTimeout(function(){$("yBig").textContent=y[0];t.textContent=y[1];t.classList.remove("swap")},200)});yw.appendChild(b)});
+  $("yText").textContent=Y[0][1];
+})();
+</script>
+<script>
+/* the invitation card leans toward the pointer */
+(function(){
+  var c=document.getElementById("invite");if(!c)return;
+  if(!matchMedia("(pointer:fine)").matches||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+  var hero=document.querySelector(".hero");
+  hero.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect(),x=(e.clientX-(r.left+r.width/2))/innerWidth,y=(e.clientY-(r.top+r.height/2))/innerHeight;
+    c.style.transform="rotate("+(-2.5+x*3).toFixed(2)+"deg) rotateY("+(x*14).toFixed(2)+"deg) rotateX("+(-y*10).toFixed(2)+"deg)"});
+  hero.addEventListener("pointerleave",function(){c.style.transform=""});
+})();
+</script>
+</body>
+</html>
