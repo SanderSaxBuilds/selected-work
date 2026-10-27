@@ -42,27 +42,29 @@ h2{font-size:clamp(34px,5vw,54px)}
 .ribbon a{color:var(--gold-soft)}
 
 /* hero */
-.hero{position:relative;color:#fff;overflow:hidden;isolation:isolate;
+.hero{--sun:clamp(84px,12vw,170px);position:relative;color:#fff;overflow:hidden;isolation:isolate;
   background:
    radial-gradient(120% 70% at 78% 18%,rgba(232,196,190,.55),transparent 60%),
    radial-gradient(90% 60% at 10% 0%,rgba(178,160,200,.45),transparent 60%),
-   linear-gradient(180deg,#5d6f8c 0%,#8b8aa6 34%,#c9a6a4 52%,#2a6a70 53%,#123f45 78%,#0c2f33 100%)}
-.hero::before{content:"";position:absolute;inset:auto 0 0 0;height:47%;z-index:-1;
+   linear-gradient(180deg,#5d6f8c 0%,#8b8aa6 45%,#c9a6a4 100%)}
+.sea{position:relative;z-index:0;padding:calc(var(--sun) / 2 + 22px) 0 56px;background:linear-gradient(180deg,#2a6a70 0%,#123f45 55%,#0c2f33 100%)}
+.sea::before{content:"";position:absolute;inset:0;z-index:-1;
   background:repeating-linear-gradient(180deg,rgba(255,255,255,.07) 0 2px,transparent 2px 14px);
   -webkit-mask:linear-gradient(180deg,#000,transparent 85%);mask:linear-gradient(180deg,#000,transparent 85%)}
-.hero::after{content:"";position:absolute;left:62%;top:44%;width:180px;height:180px;border-radius:50%;z-index:-1;transform:translate(-50%,-50%);
+.sea::after{content:"";position:absolute;left:78%;top:0;width:var(--sun);height:var(--sun);border-radius:50%;z-index:-1;transform:translate(-50%,-50%);
   background:radial-gradient(circle,rgba(255,236,220,.95) 0 38%,rgba(255,226,214,.25) 60%,transparent 70%)}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
 .brand{font:600 22px/1 var(--serif);letter-spacing:.02em}
 .brand small{display:block;font:500 11px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.8;margin-top:4px}
 .nav a.tel{font-weight:600;text-decoration:none;white-space:nowrap;font-size:15px}
-.hero-body{padding:9vh 0 15vh;max-width:760px}
+.hero-body{padding:9vh 0 calc(var(--sun) / 2 + 44px);max-width:760px}
 .hero h1{font-size:clamp(46px,8.4vw,96px);letter-spacing:-.01em}
 .hero h1 em{font-style:italic;color:#ffe9df;display:inline-block;transition:opacity .25s,transform .25s}
 .hero h1 em.swap{opacity:0;transform:translateY(8px)}
 .hero p.lead{font-size:clamp(17px,2.2vw,20px);max-width:560px;margin:22px 0 30px;color:rgba(255,255,255,.9)}
 .hero .cta{display:flex;flex-wrap:wrap;gap:12px}
-.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:44px;font-size:14px;color:rgba(255,255,255,.86)}
+.facts{display:flex;flex-wrap:wrap;gap:16px 36px;font-size:14px;color:rgba(255,255,255,.86)}
+.facts>div{max-width:260px}
 .facts b{display:block;font:600 30px/1 var(--serif);color:#fff}
 
 section{padding:96px 0}
@@ -73,7 +75,7 @@ section{padding:96px 0}
 .pk-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
 .pk-tab{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:#fff;font:600 14px/1 var(--sans);color:var(--ink);cursor:pointer}
 .pk-tab[aria-selected=true]{background:var(--lagoon);border-color:var(--lagoon);color:#fff}
-.pk{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:stretch}
+.pk{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
 .pk-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:34px;box-shadow:var(--shadow);display:flex;flex-direction:column}
 .pk-card .price{font:600 54px/1 var(--serif);color:var(--lagoon);margin:14px 0 6px}
 .pk-card .price small{font:500 15px var(--sans);color:var(--muted);margin-left:6px}
@@ -129,7 +131,7 @@ section{padding:96px 0}
 
 /* reviews */
 .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.review{background:#fff;border-radius:var(--r);border:1px solid var(--line);padding:28px}
+.review{margin:0;background:#fff;border-radius:var(--r);border:1px solid var(--line);padding:28px}
 .review blockquote{margin:0;font:500 22px/1.35 var(--serif)}
 .review cite{display:block;margin-top:18px;font:600 13px var(--sans);font-style:normal;letter-spacing:.06em;color:var(--gold)}
 
@@ -163,12 +165,6 @@ footer a{color:var(--gold-soft)}
   .fix{grid-template-columns:1fr;gap:6px}
   .fix .arrow{transform:rotate(90deg);justify-self:start}
   .nav a.tel{font-size:14px}
-  .hero{background:
-   radial-gradient(120% 50% at 78% 12%,rgba(232,196,190,.5),transparent 60%),
-   radial-gradient(90% 40% at 10% 0%,rgba(178,160,200,.45),transparent 60%),
-   linear-gradient(180deg,#5d6f8c 0%,#8b8aa6 40%,#c9a6a4 71%,#2a6a70 72%,#123f45 88%,#0c2f33 100%)}
-  .hero::before{height:28%}
-  .hero::after{left:84%;top:71%;width:96px;height:96px;transform:translate(-50%,-62%)}
   .hero p.lead{text-shadow:0 1px 12px rgba(40,40,70,.35)}
   .brand small{display:none}
 }
@@ -193,6 +189,10 @@ footer a{color:var(--gold-soft)}
         <a class="btn btn-gold" href="#packages">Выбрать церемонию и дату</a>
         <a class="btn btn-ghost" href="#story"><span><span data-yrs>16 лет</span> на острове</span></a>
       </div>
+    </div>
+  </div>
+  <div class="sea">
+    <div class="wrap">
       <div class="facts">
         <div><b>2010</b>первое официальное ивент-агентство острова</div>
         <div><b>2</b>собственные свадебные площадки</div>
