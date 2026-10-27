@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Pocketfold Studio, FoldOS</title>
+<meta name="description" content="Pocketfold is a two-person web design studio in Ari, Bangkok. Its portfolio runs as a small invented operating system called FoldOS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Tiny5&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 4h24v24H4z' fill='%232B50D8'/%3E%3Cpath d='M28 4 4 28h24z' fill='%23F2D64B'/%3E%3C/svg%3E">
+<style>
+:root{
+  --wall:#24584F; --wall-ink:#2C665C; --paper:#F3F4F0; --chrome:#DCE2E6; --ink:#16181D; --muted:#5A6270;
+  --cobalt:#2B50D8; --cobalt-deep:#1B2A6B; --sun:#F2D64B; --line:#B9C1C9; --red:#B3263A;
+  --ui:"Figtree",system-ui,sans-serif; --pix:"Tiny5",ui-monospace,monospace; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--wall);color:var(--ink);font:15px/1.5 var(--ui);overflow-x:hidden}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.skip{position:absolute;left:12px;top:-60px;z-index:9999;background:var(--sun);color:var(--ink);padding:10px 14px;font-weight:700;border-radius:3px;text-decoration:none}
+.skip:focus{top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* boot */
+#boot{position:fixed;inset:0;z-index:5000;background:var(--cobalt-deep);color:#E8ECFF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px;cursor:pointer}
+#boot.gone{display:none}
+#boot .mark{width:92px;height:92px}
+#boot .mark .flap{transform-origin:46px 46px;transform-box:view-box}
+#boot h1{font:400 34px/1 var(--pix);letter-spacing:.04em;margin:0}
+#boot ol{list-style:none;margin:0;padding:0;font:13px/1.7 var(--mono);color:#AEB9F2;min-height:7.2em;width:min(420px,100%)}
+#boot ol li{opacity:0}
+#boot ol li.on{opacity:1}
+#boot ol b{color:var(--sun);font-weight:600}
+#boot .bar{width:min(420px,100%);height:10px;border:2px solid #AEB9F2;padding:1px}
+#boot .bar i{display:block;height:100%;width:0;background:var(--sun)}
+#boot small{font:12px var(--ui);color:#AEB9F2}
+#boot.off{text-align:center}
+#boot .restart{background:var(--sun);color:var(--ink);border:0;padding:10px 18px;border-radius:3px;font-weight:700;cursor:pointer}
+
+/* desktop */
+#os{position:relative;height:100vh;height:100dvh;overflow:hidden;user-select:none}
+.bigname{position:absolute;left:12px;right:0;bottom:50px;font:400 22.5vw/.8 var(--pix);color:var(--wall-ink);letter-spacing:-.04em;white-space:nowrap;pointer-events:none;overflow:hidden}
+.bigname span{display:inline}
+.foldwrap{position:absolute;right:6vw;top:8vh;width:min(38vw,460px);perspective:900px;pointer-events:none}
+.fold{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.3,1)}
+.fold svg{width:100%;height:auto;display:block;overflow:visible}
+.wallsign{position:absolute;right:28px;bottom:64px;text-align:right;color:#D8E6E1;pointer-events:none;font:400 13px var(--ui)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin:6px 0 14px}
+.stats div{padding:12px 10px;border-right:2px solid var(--ink)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font:400 46px/1 var(--pix);color:var(--cobalt)}
+.stats span{font-size:12.5px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{border:2px solid var(--ink);border-radius:3px;padding:2px 9px;font-size:13px;font-weight:600;background:#fff}
+.tags span:nth-child(3n+1){background:var(--sun)}
+.ptags{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ptags li{border:2px solid var(--ink);border-radius:4px 18px 4px 4px;padding:12px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.ptags li:nth-child(2){background:var(--sun)}
+.ptags b{display:block;font:400 28px/1.05 var(--pix)}
+.ptags small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.ptags span{display:block;font-weight:600;font-size:14px;margin-top:8px}
+.icons{position:absolute;left:14px;top:14px;bottom:56px;display:flex;flex-direction:column;flex-wrap:wrap;align-content:flex-start;gap:6px}
+.icon{width:92px;border:0;background:none;padding:6px 4px;color:#fff;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:default;border-radius:2px}
+.icon svg{width:46px;height:46px}
+.icon span{font-size:12.5px;line-height:1.25;text-align:center;padding:1px 4px;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+.icon:hover span{background:rgba(255,255,255,.12)}
+.icon.sel span,.icon:focus-visible span{background:var(--cobalt);text-shadow:none}
+.icon:focus-visible{outline:none}
+
+/* windows */
+.win{position:absolute;min-width:280px;min-height:160px;background:var(--paper);border:2px solid var(--ink);border-radius:6px 6px 2px 2px;box-shadow:6px 6px 0 rgba(10,30,26,.45);display:flex;flex-direction:column;overflow:hidden}
+.win.min{display:none}
+.win.opening{animation:pop .18s ease-out}
+.win.closing{animation:shut .14s ease-in forwards}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+@keyframes shut{to{transform:scale(.85);opacity:0}}
+.bar-t{display:flex;align-items:center;gap:8px;height:34px;padding:0 6px 0 10px;background:var(--chrome);border-bottom:2px solid var(--ink);cursor:grab;touch-action:none}
+.win.active .bar-t{background:var(--cobalt);color:#fff}
+.bar-t:active{cursor:grabbing}
+.bar-t .t{flex:1;font:400 16px var(--pix);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-t button{width:24px;height:22px;border:2px solid currentColor;background:transparent;border-radius:3px;display:grid;place-items:center;cursor:pointer;padding:0}
+.bar-t button svg{width:10px;height:10px}
+.win.active .bar-t button:hover{background:rgba(255,255,255,.18)}
+.body{flex:1;overflow:auto;user-select:text}
+.win.max{left:0!important;top:0!important;width:100%!important;height:calc(100% - 48px)!important;border-radius:0}
+.menu-row{display:flex;gap:2px;padding:2px 6px;border-bottom:1px solid var(--line);font-size:13px;background:#E9ECEA}
+.menu-row button{border:0;background:none;padding:3px 8px;border-radius:2px;cursor:pointer}
+.menu-row button:hover{background:var(--chrome)}
+.status{border-top:1px solid var(--line);padding:3px 10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;background:#E9ECEA}
+
+/* folder */
+.files{list-style:none;margin:0;padding:12px;display:flex;flex-wrap:wrap;gap:6px}
+.files li button{width:104px;border:0;background:none;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:default;border-radius:3px;font-size:12.5px;line-height:1.25;text-align:center}
+.files li button:hover{background:#E2E7F8}
+.files li button:focus-visible{outline:2px solid var(--cobalt);outline-offset:0;background:#E2E7F8}
+.files svg{width:40px;height:40px}
+.crumb{padding:6px 12px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+
+/* viewer */
+.viewer{display:flex;flex-direction:column;height:100%;background:#2A2E36}
+.viewer .stage{flex:1;display:grid;place-items:center;padding:14px;overflow:auto}
+.viewer .stage svg{width:100%;max-width:640px;height:auto;display:block;transition:transform .2s}
+.viewer .tools{display:flex;gap:6px;align-items:center;padding:6px 10px;background:#1E2128;color:#C9D0DC;font-size:12.5px}
+.viewer .tools button{background:#353A45;border:1px solid #4A5160;color:#E7EBF2;border-radius:3px;padding:3px 10px;cursor:pointer}
+.viewer .tools span{margin-left:auto}
+
+/* editor */
+.editor{display:flex;flex-direction:column;height:100%}
+.editor textarea{flex:1;border:0;resize:none;padding:16px 18px;font:14px/1.65 var(--mono);background:#FBFBF8;color:var(--ink);min-height:200px}
+.editor textarea:focus{outline:none}
+
+/* terminal */
+.term{background:#10233B;color:#D6E4F5;font:13.5px/1.55 var(--mono);height:100%;padding:12px 14px;overflow:auto;cursor:text}
+.term .out{white-space:pre-wrap;word-break:break-word}
+.term .y{color:var(--sun)}
+.term .c{color:#8FB3FF}
+.term .d{color:#8193AB}
+.term .row{display:flex;gap:8px}
+.term input{flex:1;background:none;border:0;color:#fff;font:inherit;padding:0;min-width:0}
+.term input:focus{outline:none}
+.term a{color:#8FB3FF}
+
+/* mail */
+.mail{padding:0;display:flex;flex-direction:column;height:100%}
+.mail form{display:flex;flex-direction:column;flex:1}
+.mail .f{display:grid;grid-template-columns:76px 1fr;align-items:center;border-bottom:1px solid var(--line);padding:0 12px}
+.mail .f label{font-size:13px;color:var(--muted)}
+.mail .f input,.mail .f select{border:0;background:none;padding:9px 0;min-width:0}
+.mail .f input:focus,.mail .f select:focus,.mail textarea:focus{outline:none;background:#FFF9D6}
+.mail textarea{flex:1;border:0;resize:none;padding:12px;min-height:150px;background:#FBFBF8}
+.mail .send{display:flex;gap:10px;align-items:center;padding:8px 12px;border-top:1px solid var(--line);background:#E9ECEA}
+.btn{background:var(--cobalt);color:#fff;border:2px solid var(--ink);border-radius:3px;padding:6px 16px;font-weight:600;cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:none}
+.btn.ghost{background:var(--paper);color:var(--ink)}
+.mail .note{font-size:12.5px;color:var(--muted)}
+.mail .err{color:var(--red);font-size:12.5px}
+.outbox{padding:12px;font-size:13.5px}
+.outbox h3{margin:0 0 6px;font:400 18px var(--pix)}
+
+/* trash, text panes */
+.pad{padding:16px 18px}
+.pad h2{font:400 22px/1.1 var(--pix);margin:0 0 10px}
+.pad p{margin:0 0 10px;max-width:62ch}
+.pad .muted{color:var(--muted)}
+.trashlist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.trashlist button{width:100%;display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;padding:9px 12px;cursor:pointer}
+.trashlist button:hover,.trashlist button[aria-expanded=true]{background:#FFF6C2}
+.trashlist small{color:var(--muted);font-size:12px}
+.trashlist .why{padding:8px 14px 12px 50px;font-size:14px;border-bottom:1px solid var(--line);background:#FFFBE5}
+.price{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 12px}
+.price td{border-top:1px solid var(--line);padding:7px 4px;vertical-align:top}
+.price td:last-child{text-align:right;white-space:nowrap;font-weight:600}
+
+/* dialog */
+.dialog .pad{display:flex;gap:14px;align-items:flex-start}
+.dialog svg{flex:none;width:36px;height:36px}
+.dialog .acts{display:flex;justify-content:flex-end;gap:8px;padding:0 16px 14px}
+
+/* taskbar */
+.taskbar{position:absolute;left:0;right:0;bottom:0;height:48px;background:var(--paper);border-top:2px solid var(--ink);display:flex;align-items:center;gap:6px;padding:0 8px;z-index:4000}
+.startbtn{display:flex;align-items:center;gap:8px;height:34px;padding:0 12px 0 8px;border:2px solid var(--ink);background:var(--sun);border-radius:3px;font:400 16px var(--pix);cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+.startbtn[aria-expanded=true]{transform:translate(2px,2px);box-shadow:none}
+.startbtn svg{width:20px;height:20px}
+.tasks{flex:1;display:flex;gap:4px;overflow:hidden}
+.tasks button{max-width:180px;min-width:0;height:34px;display:flex;align-items:center;gap:6px;border:2px solid var(--line);background:#E9ECEA;border-radius:3px;padding:0 10px;font-size:13px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tasks button.active{border-color:var(--ink);background:#fff;font-weight:600}
+.tasks button.min{opacity:.6;font-style:italic}
+.clock{font:400 16px var(--pix);padding:0 8px;white-space:nowrap}
+.startmenu{position:absolute;left:8px;bottom:54px;width:280px;background:var(--paper);border:2px solid var(--ink);box-shadow:6px 6px 0 rgba(10,30,26,.45);z-index:4001;display:none;border-radius:4px 4px 0 0}
+.startmenu.open{display:flex}
+.startmenu .side{width:38px;background:var(--cobalt);display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px}
+.startmenu .side span{writing-mode:vertical-rl;transform:rotate(180deg);color:#fff;font:400 18px var(--pix)}
+.startmenu ul{list-style:none;margin:0;padding:6px 0;flex:1}
+.startmenu li button{width:100%;display:flex;align-items:center;gap:10px;border:0;background:none;padding:8px 12px;text-align:left;cursor:pointer;font-size:14px}
+.startmenu li button:hover,.startmenu li button:focus-visible{background:var(--cobalt);color:#fff;outline:none}
+.startmenu li svg{width:22px;height:22px;flex:none}
+.startmenu hr{border:0;border-top:1px solid var(--line);margin:4px 10px}
+
+/* phone */
+.phonebar,.homebar{display:none}
+@media (max-width:700px){
+  #os{height:100dvh}
+  .foldwrap{width:62vw;right:-8vw;top:auto;bottom:130px;opacity:.9}
+  .bigname{bottom:auto;top:42%;font-size:35vw;left:8px}
+  .bigname span{display:block}
+  .wallsign{display:none}
+  .stats b{font-size:34px}
+  .ptags{grid-template-columns:1fr}
+  .taskbar,.startmenu{display:none!important}
+  .phonebar{display:flex;justify-content:space-between;align-items:center;position:absolute;top:0;left:0;right:0;height:34px;padding:0 18px;color:#fff;font:400 15px var(--pix);z-index:4000}
+  .icons{left:0;right:0;top:44px;bottom:110px;padding:6px 14px;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:min-content;gap:14px 4px;flex-wrap:nowrap}
+  .icon{width:auto;padding:0}
+  .icon svg{width:58px;height:58px;background:var(--paper);border:2px solid var(--ink);border-radius:15px;padding:8px}
+  .icon span{font-size:11.5px;text-shadow:none}
+  .homebar{display:flex;position:absolute;left:12px;right:12px;bottom:14px;height:84px;border-radius:24px;background:rgba(243,244,240,.18);border:2px solid rgba(255,255,255,.25);justify-content:space-around;align-items:center;z-index:3}
+  .homebar .icon span{display:none}
+  .win{left:0!important;top:0!important;width:100%!important;height:100%!important;border:0;border-radius:0;box-shadow:none;min-width:0}
+  .bar-t{height:52px;padding-top:6px;cursor:default}
+  .bar-t .b-min,.bar-t .b-max{display:none}
+  .bar-t .b-close{width:auto;padding:0 10px;height:30px;font-size:13px;gap:4px;display:flex}
+  .bar-t .b-close::after{content:"Home"}
+  .win.opening{animation:rise .2s ease-out}
+  @keyframes rise{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+}
+@media (min-width:701px){.bar-t .b-close::after{content:none}.icon.dock-only{display:none}}
+
+/* plain view */
+#plain{background:var(--paper);color:var(--ink);padding:56px 20px 80px;border-top:3px solid var(--ink)}
+#plain .in{max-width:68ch;margin:0 auto}
+#plain h2{font:400 34px var(--pix);margin:0 0 6px}
+#plain h3{font:700 18px var(--ui);margin:32px 0 6px}
+#plain p,#plain li{max-width:66ch}
+#plain a{color:var(--cobalt)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#plain">Skip to content</a>
+
+<div id="boot" role="status" aria-live="polite">
+  <svg class="mark" viewBox="0 0 92 92" aria-hidden="true">
+    <rect x="6" y="6" width="80" height="80" fill="#2B50D8" stroke="#E8ECFF" stroke-width="3"/>
+    <path class="flap" d="M86 6 6 86h80z" fill="#F2D64B" stroke="#E8ECFF" stroke-width="3"/>
+    <path d="M30 34h22M30 44h14" stroke="#E8ECFF" stroke-width="5"/>
+  </svg>
+  <h1>FoldOS 2.4</h1>
+  <ol id="bootlog">
+    <li>Pocketfold Studio, Ari, Bangkok</li>
+    <li>Checking memory, 2 designers <b>ok</b></li>
+    <li>Mounting /projects, 4 files <b>ok</b></li>
+    <li>Loading opinions about whitespace <b>ok</b></li>
+    <li>Starting desktop</li>
+  </ol>
+  <div class="bar" aria-hidden="true"><i id="bootbar"></i></div>
+  <small>Press any key or tap to skip</small>
+</div>
+
+<main id="os" aria-label="FoldOS desktop">
+  <div class="phonebar" aria-hidden="true"><span id="pclock">09:41</span><span>FoldOS</span></div>
+  <div class="bigname" aria-hidden="true"><span>pocket</span><span>fold</span></div>
+  <div class="foldwrap" aria-hidden="true"><div class="fold" id="fold">
+    <svg viewBox="0 0 400 400">
+      <path d="M40 360 200 40l160 320z" fill="#123A33" transform="translate(16 18)"/>
+      <path d="M40 360 200 40l40 320z" fill="#F3F4F0" stroke="#16181D" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M200 40l160 320H240z" fill="#2B50D8" stroke="#16181D" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M240 360 200 40l40 120z" fill="#F2D64B" stroke="#16181D" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M90 300h80M110 260h56" stroke="#16181D" stroke-width="3" opacity=".25"/>
+    </svg>
+  </div></div>
+  <div class="wallsign">Pocketfold Studio, Ari, Bangkok</div>
+
+  <div class="icons" id="icons" role="toolbar" aria-label="Desktop">
+  </div>
+  <div class="homebar" id="dock" aria-label="Dock"></div>
+
+  <div id="layer"></div>
+
+  <div class="startmenu" id="startmenu" role="menu" aria-label="Start menu">
+    <div class="side"><span>FoldOS</span></div>
+    <ul id="startlist"></ul>
+  </div>
+
+  <div class="taskbar">
+    <button class="startbtn" id="startbtn" aria-expanded="false" aria-controls="startmenu">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 4h24v24H4z" fill="#2B50D8" stroke="#16181D" stroke-width="2"/><path d="M28 4 4 28h24z" fill="#fff" stroke="#16181D" stroke-width="2"/></svg>
+      Start
+    </button>
+    <div class="tasks" id="tasks" aria-label="Open windows"></div>
+    <div class="clock" id="clock">09:41</div>
+  </div>
+</main>
+
+<section id="plain" tabindex="-1" aria-labelledby="plainh">
+  <div class="in">
+    <h2 id="plainh">Pocketfold Studio</h2>
+    <p>Pocketfold is a two-person web design studio in Ari, Bangkok. We design and build small websites for guesthouses, makers, food businesses and clinics, mostly in Thailand. This page is the plain version of the desktop above.</p>
+    <h3>Selected projects</h3>
+    <div id="plainprojects"></div>
+    <h3>Prices</h3>
+    <ul>
+      <li>One-page site, 3 weeks, from 38,000 THB</li>
+      <li>Small business site, up to 8 pages, 6 weeks, from 85,000 THB</li>
+      <li>Shop with up to 60 products and PromptPay checkout, 9 weeks, from 140,000 THB</li>
+      <li>Care plan, hosting, updates and one change request a month, 2,900 THB a month</li>
+    </ul>
+    <h3>Contact</h3>
+    <p>Write to hello@pocketfold.example or visit 14 Phahonyothin Soi 7, Ari, Bangkok 10400, Monday to Friday, 10:00 to 18:00. Pocketfold is a concept studio made for a portfolio, so this address and inbox are placeholders.</p>
+  </div>
+</section>
+
+<script>
+(function(){
+"use strict";
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const phone = () => matchMedia("(max-width:700px)").matches;
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- data ---------- */
+const PROJECTS = [
+  {id:"rimnam", name:"Ban Rim Nam", client:"Ban Rim Nam Guesthouse, Krabi", year:"2026",
+   colors:["#E7EFEA","#1F5C5A","#E8B04B","#123B3A"], kind:"Booking site",
+   brief:"Twelve rooms on a mangrove canal, booked mostly through Facebook messages and a shared spreadsheet.",
+   did:"We built a five-page site with a room picker that shows real availability from the owner's calendar, plus Thai and English copy written with the family.",
+   result:"Direct bookings went from about 9 to 31 a month in the first season, and the owner stopped answering the same three questions every evening.",
+   stack:"Static site, small booking calendar, LINE notifications", time:"6 weeks", price:"92,000 THB"},
+  {id:"saengchan", name:"Saeng Chan Ceramics", client:"Saeng Chan Ceramics, Chiang Mai", year:"2025",
+   colors:["#F1EBE3","#3A3F6B","#9DB7C9","#22263F"], kind:"Online shop",
+   brief:"A celadon studio selling at weekend markets, with stock that changes every firing.",
+   did:"We made a shop where each firing is a dated batch, so pieces sell out honestly and the next kiln date is always visible. Checkout uses PromptPay QR and card.",
+   result:"The first online batch of 48 pieces sold in 4 days. Market regulars now pre-order before the kiln opens.",
+   stack:"Shop with batch stock, PromptPay checkout", time:"9 weeks", price:"146,000 THB"},
+  {id:"tidecheck", name:"Tidecheck Lanta", client:"Lanta Longtail Cooperative, Koh Lanta", year:"2025",
+   colors:["#EAF2F8","#0F4C81","#7FC8A9","#0B2E4F"], kind:"Timetable web app",
+   brief:"Eleven longtail boats, tide-dependent departures, and a paper board at the pier.",
+   did:"We designed a phone-first timetable that the boat captains update from one screen each morning. It works on weak signal and loads in under a second.",
+   result:"About 1,400 visits a week in high season, and fewer travellers waiting at the wrong pier.",
+   stack:"Offline-ready web app, one-screen admin", time:"5 weeks", price:"68,000 THB"},
+  {id:"mookrob", name:"Moo Krob Truck", client:"Moo Krob Truck, Bangkok", year:"2026",
+   colors:["#FFF4D6","#7A1F2B","#2F6B3A","#3D0F16"], kind:"Order page",
+   brief:"A crispy pork truck that moves between three sois and sells out by 13:00.",
+   did:"We built a one-page site that shows today's spot, what is left and a pre-order button that sends the order to the truck's LINE.",
+   result:"Pre-orders now cover about a third of each day, and the queue moves faster.",
+   stack:"One-page site, LINE order handoff", time:"3 weeks", price:"38,000 THB"}
+];
+const TRASH = [
+  {f:"parallax-everything.fig", d:"Mar 2026", why:"Every section moved at a different speed. It looked impressive for six seconds, then the guesthouse owner got seasick scrolling to the prices."},
+  {f:"hero-video-autoplay.mp4", d:"Jan 2026", why:"A 14 MB drone video of the pier. On island signal it took 40 seconds to load, and the timetable sat below it. The timetable won."},
+  {f:"cookie-wall-v3.html", d:"Nov 2025", why:"A full-screen consent wall before anything else. We now collect no tracking data on small sites, so there is nothing to ask about."},
+  {f:"dancing-pig-mascot.gif", d:"Feb 2026", why:"The truck owner loved it. Her customers asked if the pork was a cartoon. We kept the real photos."},
+  {f:"carousel-of-carousels.zip", d:"Aug 2025", why:"Three sliders inside a slider. Nobody saw slide four of anything, ever."},
+  {f:"chatbot-greeter.js", d:"Oct 2025", why:"A pop-up that said hello before the page finished loading. The clinic wanted a phone number people could find, so we made the phone number big instead."}
+];
+const PRICES = [
+  ["One-page site, 3 weeks","from 38,000 THB"],
+  ["Small business site, up to 8 pages, 6 weeks","from 85,000 THB"],
+  ["Shop, up to 60 products, PromptPay checkout, 9 weeks","from 140,000 THB"],
+  ["Care plan, hosting, updates, one change a month","2,900 THB a month"]
+];
+
+const TAGS = [
+  ["38,000 THB","from","One page, 3 weeks"],
+  ["85,000 THB","from","Up to 8 pages, 6 weeks"],
+  ["140,000 THB","from","Shop, 60 products, 9 weeks"],
+  ["2,900 THB","a month","Hosting and care"]
+];
+
+/* ---------- icons ---------- */
+const IC = {
+  folder:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 12h15l4 5h21v23H4z" fill="#F2D64B" stroke="#16181D" stroke-width="2.5" stroke-linejoin="round"/><path d="M4 20h40" stroke="#16181D" stroke-width="2.5"/></svg>',
+  term:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="8" width="40" height="32" rx="3" fill="#10233B" stroke="#16181D" stroke-width="2.5"/><path d="m11 18 6 5-6 5M21 30h12" stroke="#F2D64B" stroke-width="3" fill="none"/></svg>',
+  mail:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="10" width="40" height="28" fill="#F3F4F0" stroke="#16181D" stroke-width="2.5"/><path d="m4 10 20 17 20-17" stroke="#2B50D8" stroke-width="3" fill="none"/></svg>',
+  trash:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 14h28l-3 28H13z" fill="#DCE2E6" stroke="#16181D" stroke-width="2.5" stroke-linejoin="round"/><path d="M7 14h34M19 8h10v6M18 21l1 15M24 21v15M30 21l-1 15" stroke="#16181D" stroke-width="2.5" fill="none"/><path d="M15 12c3-6 9-3 12-7" stroke="#2B50D8" stroke-width="2" fill="none"/></svg>',
+  txt:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 4h20l8 8v32H10z" fill="#fff" stroke="#16181D" stroke-width="2.5" stroke-linejoin="round"/><path d="M30 4v8h8M16 20h16M16 26h16M16 32h10" stroke="#16181D" stroke-width="2.5" fill="none"/></svg>',
+  img:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="7" width="38" height="34" fill="#fff" stroke="#16181D" stroke-width="2.5"/><path d="m8 38 11-13 8 9 5-5 9 9z" fill="#2B50D8"/><circle cx="33" cy="17" r="4" fill="#F2D64B" stroke="#16181D" stroke-width="2"/></svg>',
+  about:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="5" width="38" height="38" fill="#2B50D8" stroke="#16181D" stroke-width="2.5"/><path d="M43 5 5 43h38z" fill="#F2D64B" stroke="#16181D" stroke-width="2.5"/></svg>',
+  price:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 24 24 6h16v16L22 40z" fill="#fff" stroke="#16181D" stroke-width="2.5" stroke-linejoin="round"/><circle cx="33" cy="15" r="3.5" fill="#F2D64B" stroke="#16181D" stroke-width="2"/></svg>',
+  power:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 12a15 15 0 1 0 16 0" stroke="#B3263A" stroke-width="4" fill="none"/><path d="M24 6v18" stroke="#B3263A" stroke-width="4"/></svg>',
+  warn:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 45 42H3z" fill="#F2D64B" stroke="#16181D" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 17v13M24 34v4" stroke="#16181D" stroke-width="4"/></svg>'
+};
+const X = '<svg viewBox="0 0 10 10"><path d="m1 1 8 8M9 1 1 9" stroke="currentColor" stroke-width="2"/></svg>';
+const MIN = '<svg viewBox="0 0 10 10"><path d="M1 8h8" stroke="currentColor" stroke-width="2"/></svg>';
+const MAX = '<svg viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+
+/* ---------- mockup images (generated) ---------- */
+function mock(p){
+  const [bg,main,acc,dark]=p.colors;
+  const t = esc(p.name);
+  return `<svg viewBox="0 0 640 420" role="img" aria-label="Screen design for ${t}">
+  <rect width="640" height="420" fill="#3A404C"/>
+  <rect x="40" y="30" width="560" height="360" rx="8" fill="${bg}"/>
+  <rect x="40" y="30" width="560" height="28" rx="8" fill="${dark}"/><rect x="40" y="48" width="560" height="10" fill="${dark}"/>
+  <circle cx="58" cy="44" r="4" fill="${acc}"/><circle cx="72" cy="44" r="4" fill="${bg}" opacity=".6"/><circle cx="86" cy="44" r="4" fill="${bg}" opacity=".35"/>
+  <rect x="200" y="38" width="240" height="12" rx="6" fill="${bg}" opacity=".18"/>
+  <text x="70" y="98" font-family="Figtree,sans-serif" font-weight="700" font-size="15" fill="${main}">${t}</text>
+  <text x="70" y="160" font-family="Figtree,sans-serif" font-weight="700" font-size="34" fill="${dark}">${esc(p.kind)}</text>
+  <rect x="70" y="178" width="250" height="8" rx="4" fill="${main}" opacity=".35"/>
+  <rect x="70" y="194" width="210" height="8" rx="4" fill="${main}" opacity=".25"/>
+  <rect x="70" y="222" width="120" height="34" rx="4" fill="${main}"/>
+  <text x="130" y="244" text-anchor="middle" font-family="Figtree,sans-serif" font-weight="600" font-size="13" fill="${bg}">${p.id==="tidecheck"?"Today's boats":p.id==="mookrob"?"Pre-order":p.id==="saengchan"?"Shop batch 14":"Check dates"}</text>
+  <rect x="360" y="80" width="210" height="190" rx="4" fill="${main}"/>
+  <path d="M360 230 430 170l50 40 40-30 50 50v40H360z" fill="${acc}"/>
+  <circle cx="525" cy="125" r="18" fill="${bg}" opacity=".8"/>
+  <rect x="70" y="296" width="150" height="64" rx="4" fill="${main}" opacity=".12"/>
+  <rect x="236" y="296" width="150" height="64" rx="4" fill="${acc}" opacity=".35"/>
+  <rect x="402" y="296" width="168" height="64" rx="4" fill="${main}" opacity=".12"/>
+  <rect x="84" y="312" width="80" height="8" rx="4" fill="${dark}" opacity=".6"/><rect x="250" y="312" width="70" height="8" rx="4" fill="${dark}" opacity=".6"/><rect x="416" y="312" width="90" height="8" rx="4" fill="${dark}" opacity=".6"/>
+  </svg>`;
+}
+function caseText(p){
+  return `${p.name}
+${"=".repeat(p.name.length)}
+Client   ${p.client}
+Year     ${p.year}
+Work     ${p.kind}
+Time     ${p.time}
+Budget   ${p.price}
+
+The problem
+${p.brief}
+
+What we did
+${p.did}
+
+What changed
+${p.result}
+
+Built with
+${p.stack}
+`;
+}
+
+/* ---------- window manager ---------- */
+const layer = $("#layer"), tasksEl = $("#tasks");
+let z = 10, wid = 0, cascade = 0;
+const wins = new Map();
+
+function openWin(key, title, icon, html, opts={}){
+  if (wins.has(key)) { const w = wins.get(key); restore(w); return w; }
+  const el = document.createElement("section");
+  el.className = "win" + (reduce ? "" : " opening");
+  el.setAttribute("role","dialog");
+  el.setAttribute("aria-label", title);
+  const id = "w" + (++wid);
+  el.id = id;
+  el.innerHTML = `<div class="bar-t"><span class="t">${esc(title)}</span>
+    <button class="b-min" aria-label="Minimise ${esc(title)}">${MIN}</button>
+    <button class="b-max" aria-label="Maximise ${esc(title)}">${MAX}</button>
+    <button class="b-close" aria-label="Close ${esc(title)}">${X}</button></div>
+    <div class="body">${html}</div>`;
+  const area = $("#os").getBoundingClientRect();
+  const w = Math.min(opts.w || 560, area.width - 40), h = Math.min(opts.h || 400, area.height - 90);
+  const off = (cascade++ % 6) * 28;
+  const left = opts.x != null ? opts.x : Math.max(10, Math.min(area.width - w - 10, 130 + off + (area.width - 700) * .25));
+  const top = opts.y != null ? opts.y : Math.max(10, Math.min(area.height - h - 58, 30 + off));
+  Object.assign(el.style,{left:left+"px",top:top+"px",width:w+"px",height:h+"px"});
+  if (!phone()) el.style.transformOrigin = `${lastPt.x - left}px ${lastPt.y - top}px`;
+  layer.appendChild(el);
+  el.addEventListener("animationend", () => el.classList.remove("opening"));
+  const tb = document.createElement("button");
+  tb.innerHTML = `${esc(title)}`;
+  tb.addEventListener("click", () => {
+    const rec = wins.get(key);
+    if (rec.el.classList.contains("min")) restore(rec);
+    else if (rec.el.classList.contains("active")) minimise(rec);
+    else focusWin(rec);
+  });
+  tasksEl.appendChild(tb);
+  const rec = {key, el, tb, title, onClose: opts.onClose};
+  wins.set(key, rec);
+  el.querySelector(".b-close").onclick = () => closeWin(rec);
+  el.querySelector(".b-min").onclick = () => minimise(rec);
+  el.querySelector(".b-max").onclick = () => el.classList.toggle("max");
+  el.addEventListener("pointerdown", () => focusWin(rec), true);
+  dragify(rec);
+  focusWin(rec);
+  if (opts.init) opts.init(el.querySelector(".body"), rec);
+  const f = el.querySelector("[autofocus], input, textarea, .files button, .trashlist button, .b-close");
+  if (f && !phone()) setTimeout(() => f.focus({preventScroll:true}), 30);
+  else el.querySelector(".b-close").focus({preventScroll:true});
+  return rec;
+}
+function focusWin(rec){
+  wins.forEach(r => { r.el.classList.remove("active"); r.tb.classList.remove("active"); });
+  rec.el.classList.add("active"); rec.tb.classList.add("active");
+  rec.el.style.zIndex = ++z;
+}
+function minimise(rec){
+  rec.el.classList.add("min"); rec.el.classList.remove("active");
+  rec.tb.classList.add("min"); rec.tb.classList.remove("active");
+  const top = [...wins.values()].filter(r => !r.el.classList.contains("min")).sort((a,b)=>b.el.style.zIndex-a.el.style.zIndex)[0];
+  if (top) focusWin(top);
+}
+function restore(rec){
+  rec.el.classList.remove("min"); rec.tb.classList.remove("min");
+  if (!reduce){ rec.el.classList.add("opening"); }
+  focusWin(rec);
+}
+function closeWin(rec){
+  const done = () => { rec.el.remove(); rec.tb.remove(); wins.delete(rec.key); if (rec.onClose) rec.onClose();
+    const top = [...wins.values()].filter(r => !r.el.classList.contains("min")).sort((a,b)=>b.el.style.zIndex-a.el.style.zIndex)[0];
+    if (top) focusWin(top); };
+  if (reduce) return done();
+  rec.el.classList.add("closing");
+  rec.el.addEventListener("animationend", done, {once:true});
+}
+function dragify(rec){
+  const bar = rec.el.querySelector(".bar-t");
+  let sx, sy, ox, oy, dragging = false;
+  bar.addEventListener("pointerdown", e => {
+    if (e.target.closest("button") || phone() || rec.el.classList.contains("max")) return;
+    dragging = true; try { bar.setPointerCapture(e.pointerId); } catch (_) {}
+    sx = e.clientX; sy = e.clientY; ox = rec.el.offsetLeft; oy = rec.el.offsetTop;
+  });
+  bar.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    const a = $("#os").getBoundingClientRect();
+    const nx = Math.max(-rec.el.offsetWidth + 80, Math.min(a.width - 80, ox + e.clientX - sx));
+    const ny = Math.max(0, Math.min(a.height - 82, oy + e.clientY - sy));
+    rec.el.style.left = nx + "px"; rec.el.style.top = ny + "px";
+  });
+  const end = () => { dragging = false; };
+  bar.addEventListener("pointerup", end); bar.addEventListener("pointercancel", end);
+  bar.addEventListener("dblclick", e => { if (!e.target.closest("button") && !phone()) rec.el.classList.toggle("max"); });
+  // keyboard move: arrows on focused title bar buttons area
+  bar.tabIndex = -1;
+}
+
+/* ---------- apps ---------- */
+function fileBtn(icon, label, act){ return `<li><button data-act="${act}">${IC[icon]}<span>${esc(label)}</span></button></li>`; }
+function bindActs(root){
+  root.querySelectorAll("[data-act]").forEach(b => {
+    const run = () => ACT[b.dataset.act.split(":")[0]](b.dataset.act.split(":")[1]);
+    if (phone() || b.closest(".files")) {
+      b.addEventListener("click", e => { if (phone() || e.detail === 0) run(); });
+      b.addEventListener("dblclick", run);
+    } else b.addEventListener("click", run);
+  });
+}
+const ACT = {
+  projects(){
+    const html = `<div class="crumb">/projects, ${PROJECTS.length*2} files. Double-click to open.</div><ul class="files">${
+      PROJECTS.map(p => fileBtn("img", p.id + ".png", "img:"+p.id) + fileBtn("txt", p.id + "-case.txt", "txt:"+p.id)).join("")}</ul>`;
+    openWin("projects", "Projects", "folder", html, {w:520,h:360, init:b => bindActs(b)});
+  },
+  img(id){
+    const i = PROJECTS.findIndex(p => p.id === id);
+    const html = `<div class="viewer"><div class="stage"></div><div class="tools">
+      <button data-v="prev" aria-label="Previous image">Prev</button><button data-v="next" aria-label="Next image">Next</button>
+      <button data-v="zoom" aria-pressed="false">Zoom</button><button data-v="case">Open case study</button><span></span></div></div>`;
+    openWin("img", "Image Viewer", "img", html, {w:620,h:470, init:(b)=>{
+      let cur = i, zoom = false;
+      const stage = b.querySelector(".stage"), lab = b.querySelector(".tools span");
+      const draw = () => { const p = PROJECTS[cur]; stage.innerHTML = mock(p); lab.textContent = `${p.id}.png, ${cur+1} of ${PROJECTS.length}`;
+        stage.firstChild.style.transform = zoom ? "scale(1.5)" : ""; stage.firstChild.style.transformOrigin = "center"; };
+      draw();
+      b.addEventListener("click", e => { const v = e.target.dataset.v; if(!v) return;
+        if (v==="prev") cur = (cur + PROJECTS.length - 1) % PROJECTS.length;
+        if (v==="next") cur = (cur + 1) % PROJECTS.length;
+        if (v==="zoom") { zoom = !zoom; e.target.setAttribute("aria-pressed", zoom); }
+        if (v==="case") return ACT.txt(PROJECTS[cur].id);
+        draw(); });
+      b._show = id2 => { cur = PROJECTS.findIndex(p => p.id === id2); draw(); };
+    }}).el.querySelector(".body")._show?.(id);
+  },
+  txt(id){
+    const p = PROJECTS.find(q => q.id === id);
+    const key = "txt-" + id;
+    const html = `<div class="editor"><div class="menu-row" role="toolbar" aria-label="Editor"><button data-e="reset">Revert</button><button data-e="img">View screens</button><button data-e="hire">Hire us for this</button></div>
+      <textarea aria-label="Case study for ${esc(p.name)}" spellcheck="false">${esc(caseText(p))}</textarea>
+      <div class="status"><span>${esc(id)}-case.txt</span><span class="wc"></span></div></div>`;
+    openWin(key, id + "-case.txt, Text Editor", "txt", html, {w:560,h:460, init:b=>{
+      const ta = b.querySelector("textarea"), wc = b.querySelector(".wc");
+      const count = () => { wc.textContent = ta.value.trim().split(/\s+/).length + " words" + (ta.value !== caseText(p) ? ", edited" : ""); };
+      ta.addEventListener("input", count); count();
+      b.querySelector(".menu-row").addEventListener("click", e => { const v = e.target.dataset.e;
+        if (v==="reset") { ta.value = caseText(p); count(); }
+        if (v==="img") ACT.img(id);
+        if (v==="hire") ACT.mail("About a project like " + p.name); });
+    }});
+  },
+  terminal(){
+    const html = `<div class="term" role="log" aria-label="Terminal"><div class="out"></div><div class="row"><span class="y">guest@foldos:~$</span><input aria-label="Terminal command" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus></div></div>`;
+    openWin("term", "Terminal", "term", html, {w:580,h:380, init:b=>{
+      const out = b.querySelector(".out"), inp = b.querySelector("input"), term = b.querySelector(".term");
+      const hist = []; let hi = 0;
+      const print = h => { out.insertAdjacentHTML("beforeend", h + "\n"); term.scrollTop = term.scrollHeight; };
+      print(`<span class="d">FoldOS terminal 2.4. Type</span> <span class="c">help</span> <span class="d">to see commands.</span>`);
+      term.addEventListener("click", () => inp.focus());
+      const CMD = {
+        help:()=>print(`<span class="c">projects</span>     list our work
+<span class="c">open N</span>       open project N, for example open 2
+<span class="c">hire</span>         prices and how to start
+<span class="c">about</span>        who we are
+<span class="c">trash</span>        ideas we threw away
+<span class="c">mail</span>         write to us
+<span class="c">date</span>         Bangkok time
+<span class="c">clear</span>        clear the screen`),
+        projects:()=>print(PROJECTS.map((p,i)=>`<span class="y">${i+1}</span>  ${esc(p.name.padEnd(20))} ${esc(p.kind.padEnd(18))} ${p.year}`).join("\n") + `\n<span class="d">Type open 1 to read a case study.</span>`),
+        open:(a)=>{ const n = parseInt(a,10); const p = PROJECTS[n-1];
+          if (!p) return print(`open: there is no project ${esc(a||"")}. Try a number from 1 to ${PROJECTS.length}.`);
+          print(`Opening ${p.id}-case.txt`); ACT.txt(p.id); },
+        hire:()=>{ print(PRICES.map(r=>`${esc(r[0].padEnd(52))} ${r[1]}`).join("\n") + `\n\nWe take two new projects a month. Opening Mail.`); setTimeout(()=>ACT.mail("New project"), 350); },
+        about:()=>print(`Pocketfold Studio. Two designers who also write the code.\nAri, Bangkok. Thai and English. Working since 2019.`),
+        trash:()=>{ print(`${TRASH.length} items in Trash. Opening.`); ACT.trash(); },
+        mail:()=>ACT.mail(""),
+        date:()=>print(new Date().toLocaleString("en-GB",{timeZone:"Asia/Bangkok",dateStyle:"full",timeStyle:"short"}) + " ICT"),
+        ls:()=>print(PROJECTS.map(p=>p.id+".png  "+p.id+"-case.txt").join("\n")),
+        whoami:()=>print("guest, welcome"),
+        sudo:()=>print("Nice try. Hiring us works better, type hire."),
+        clear:()=>{ out.innerHTML = ""; },
+        exit:()=>{ const r = wins.get("term"); if (r) closeWin(r); }
+      };
+      inp.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+          const raw = inp.value.trim(); inp.value = "";
+          print(`<span class="y">guest@foldos:~$</span> ${esc(raw)}`);
+          if (!raw) return;
+          hist.push(raw); hi = hist.length;
+          const [c, ...rest] = raw.toLowerCase().split(/\s+/);
+          if (CMD[c]) CMD[c](rest.join(" "));
+          else print(`${esc(c)}: command not found. Type help.`);
+        } else if (e.key === "ArrowUp") { if (hi > 0) { inp.value = hist[--hi]; e.preventDefault(); } }
+        else if (e.key === "ArrowDown") { hi = Math.min(hist.length, hi+1); inp.value = hist[hi] || ""; }
+      });
+    }});
+  },
+  mail(subject){
+    const html = `<div class="mail"><form novalidate>
+      <div class="f"><label>To</label><input value="hello@pocketfold.example" readonly aria-label="To"></div>
+      <div class="f"><label for="m-name">Name</label><input id="m-name" name="name" autocomplete="name" required></div>
+      <div class="f"><label for="m-mail">Reply to</label><input id="m-mail" name="email" type="email" autocomplete="email" required></div>
+      <div class="f"><label for="m-sub">Subject</label><input id="m-sub" name="subject" value="${esc(subject||"")}"></div>
+      <div class="f"><label for="m-bud">Budget</label><select id="m-bud" name="budget"><option>Not sure yet</option><option>38,000 to 85,000 THB</option><option>85,000 to 140,000 THB</option><option>Over 140,000 THB</option></select></div>
+      <textarea name="msg" aria-label="Message" placeholder="Tell us what the business does and what the site should help with." required></textarea>
+      <div class="send"><button class="btn" type="submit">Send</button><span class="note" aria-live="polite">Concept studio, nothing leaves your browser.</span></div>
+    </form></div>`;
+    const rec = openWin("mail", "Mail, New message", "mail", html, {w:520,h:470, init:b=>{
+      const form = b.querySelector("form"), note = b.querySelector(".note");
+      form.addEventListener("submit", e => { e.preventDefault();
+        const d = new FormData(form);
+        const miss = [];
+        if (!String(d.get("name")).trim()) miss.push("your name");
+        if (!/^\S+@\S+\.\S+$/.test(String(d.get("email")))) miss.push("a reply address");
+        if (String(d.get("msg")).trim().length < 10) miss.push("a short message");
+        if (miss.length) { note.className = "err"; note.textContent = "Add " + (miss.length > 1 ? miss.slice(0,-1).join(", ") + " and " + miss.slice(-1) : miss[0]) + " before sending."; return; }
+        b.querySelector(".mail").innerHTML = `<div class="outbox"><h3>Outbox</h3><p>Message from ${esc(d.get("name"))} saved to the Outbox, subject: ${esc(d.get("subject")||"No subject")}.</p><p class="muted">Pocketfold is a concept studio, so the message stays in this tab. A real studio inbox would answer within two working days.</p><button class="btn ghost" type="button">Write another</button></div>`;
+        b.querySelector(".outbox button").onclick = () => { const r = wins.get("mail"); closeWin(r); setTimeout(()=>ACT.mail(""), reduce?0:180); };
+      });
+    }});
+    if (subject) { const s = rec.el.querySelector("#m-sub"); if (s && !s.value) s.value = subject; }
+  },
+  trash(){
+    const html = `<div class="menu-row"><button data-t="empty">Empty Trash</button></div>
+      <div class="pad" style="padding-bottom:8px"><p class="muted">Ideas we tried and threw away. Click one to read why.</p></div>
+      <ul class="trashlist">${TRASH.map((t,i)=>`<li><button aria-expanded="false" aria-controls="why${i}">${IC.txt.replace('viewBox','width="24" height="24" viewBox')}<span>${esc(t.f)}</span><small>${t.d}</small></button><div class="why" id="why${i}" hidden>${esc(t.why)}</div></li>`).join("")}</ul>`;
+    openWin("trash", "Trash", "trash", html, {w:500,h:420, init:b=>{
+      b.querySelectorAll(".trashlist button").forEach(btn => btn.addEventListener("click", () => {
+        const o = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", !o); btn.nextElementSibling.hidden = o; }));
+      b.querySelector("[data-t=empty]").onclick = () => dialog("Empty Trash", "These ideas stay. Each one taught us something about what clients actually need, so the trash keeps them on purpose.");
+    }});
+  },
+  about(){
+    const html = `<div class="pad"><h2>Small websites, folded carefully.</h2>
+      <div class="stats"><div><b>2</b><span>designers who code</span></div><div><b>2</b><span>new projects a month</span></div><div><b>2019</b><span>in Ari, Bangkok</span></div></div>
+      <div class="tags"><span>Guesthouses</span><span>Makers</span><span>Food</span><span>Clinics</span><span>Thai</span><span>English</span></div>
+      <p class="muted" style="margin-top:14px">14 Phahonyothin Soi 7, Ari, Bangkok. Mon to Fri, 10:00 to 18:00.</p>
+      <button class="btn" type="button">Open projects</button></div>`;
+    openWin("about", "About.txt", "about", html, {w:470,h:360, init:b=>{ b.querySelector(".btn").onclick = () => ACT.projects(); }});
+  },
+  prices(){
+    const html = `<div class="pad"><ul class="ptags">${TAGS.map(t=>`<li><b>${t[0]}</b><small>${t[1]}</small><span>${t[2]}</span></li>`).join("")}</ul>
+      <p class="muted" style="margin:14px 0 10px">Half at the start, half at launch.</p><button class="btn" type="button">Start a project</button></div>`;
+    openWin("prices", "Prices", "price", html, {w:500,h:420, init:b=>{ b.querySelector(".btn").onclick = () => ACT.mail("New project"); }});
+  },
+  shutdown(){ shutdown(); }
+};
+function dialog(title, text){
+  const html = `<div class="dialog"><div class="pad">${IC.warn}<p>${esc(text)}</p></div><div class="acts"><button class="btn" type="button">OK</button></div></div>`;
+  const a = $("#os").getBoundingClientRect();
+  const rec = openWin("dlg"+(++wid), title, "warn", html, {w:380,h:200, x:(a.width-380)/2, y:Math.max(20,(a.height-260)/2), init:b=>{
+    b.querySelector(".btn").onclick = () => closeWin(rec);
+  }});
+  rec.el.querySelector(".btn").focus();
+}
+
+/* ---------- desktop icons, start menu ---------- */
+const DESK = [
+  ["folder","Projects","projects"],["txt","About.txt","about"],["price","Prices","prices"],
+  ["term","Terminal","terminal"],["mail","Mail","mail"],["trash","Trash","trash"]
+];
+const iconsEl = $("#icons"), dock = $("#dock");
+DESK.forEach(([ic,label,act]) => {
+  const b = document.createElement("button");
+  b.className = "icon"; b.innerHTML = IC[ic] + `<span>${label}</span>`;
+  b.setAttribute("aria-label", "Open " + label);
+  b.addEventListener("click", e => {
+    iconsEl.querySelectorAll(".icon").forEach(x => x.classList.remove("sel"));
+    b.classList.add("sel");
+    if (phone() || e.detail === 0) ACT[act]();
+  });
+  b.addEventListener("dblclick", () => ACT[act]());
+  iconsEl.appendChild(b);
+});
+// project shortcuts on phone home only, and dock
+PROJECTS.forEach(p => {
+  const b = document.createElement("button");
+  b.className = "icon dock-only"; b.innerHTML = IC.img + `<span>${esc(p.name)}</span>`;
+  b.setAttribute("aria-label","Open " + p.name + " screens");
+  b.addEventListener("click", () => ACT.img(p.id));
+  iconsEl.appendChild(b);
+});
+[["term","Terminal","terminal"],["mail","Mail","mail"],["folder","Projects","projects"]].forEach(([ic,l,a])=>{
+  const b = document.createElement("button"); b.className="icon"; b.innerHTML = IC[ic] + `<span>${l}</span>`;
+  b.setAttribute("aria-label","Open "+l); b.onclick = () => ACT[a](); dock.appendChild(b);
+});
+$("#os").addEventListener("pointerdown", e => { if (e.target.id === "os" || e.target.closest(".wallart")) iconsEl.querySelectorAll(".icon").forEach(x => x.classList.remove("sel")); });
+
+const startbtn = $("#startbtn"), sm = $("#startmenu"), sl = $("#startlist");
+const SM = [["folder","Projects","projects"],["txt","About Pocketfold","about"],["price","Prices","prices"],["term","Terminal","terminal"],["mail","Mail","mail"],["trash","Trash","trash"],null,["power","Shut down","shutdown"]];
+SM.forEach(it => {
+  const li = document.createElement("li");
+  if (!it) { li.innerHTML = "<hr>"; li.setAttribute("role","separator"); }
+  else { li.innerHTML = `<button role="menuitem">${IC[it[0]]}${it[1]}</button>`; li.firstChild.onclick = () => { toggleStart(false); ACT[it[2]](); }; }
+  sl.appendChild(li);
+});
+function toggleStart(open){
+  sm.classList.toggle("open", open); startbtn.setAttribute("aria-expanded", open);
+  if (open) sm.querySelector("button").focus();
+}
+startbtn.onclick = () => toggleStart(!sm.classList.contains("open"));
+document.addEventListener("pointerdown", e => { if (sm.classList.contains("open") && !e.target.closest("#startmenu,#startbtn")) toggleStart(false); });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    if (sm.classList.contains("open")) { toggleStart(false); startbtn.focus(); return; }
+    const top = [...wins.values()].filter(r => r.el.classList.contains("active"))[0];
+    if (top && document.activeElement && top.el.contains(document.activeElement)) closeWin(top);
+  }
+  if (sm.classList.contains("open") && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+    const items = [...sm.querySelectorAll("button")]; let i = items.indexOf(document.activeElement);
+    i = (i + (e.key === "ArrowDown" ? 1 : -1) + items.length) % items.length; items[i].focus(); e.preventDefault();
+  }
+});
+
+/* the folded paper on the wallpaper leans toward the pointer */
+const fold = $("#fold"), osEl = $("#os");
+let lastPt = {x:200, y:200};
+osEl.addEventListener("pointerdown", e => { const a = osEl.getBoundingClientRect(); lastPt = {x:e.clientX - a.left, y:e.clientY - a.top}; }, true);
+if (!reduce) {
+  let raf = 0;
+  osEl.addEventListener("pointermove", e => {
+    if (raf || phone()) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      const a = osEl.getBoundingClientRect();
+      const nx = (e.clientX - a.left) / a.width - .5, ny = (e.clientY - a.top) / a.height - .5;
+      fold.style.transform = `rotateY(${nx * 28}deg) rotateX(${-ny * 22}deg) translateZ(0)`;
+    });
+  });
+  osEl.addEventListener("pointerleave", () => { fold.style.transform = ""; });
+}
+
+/* clock */
+function tick(){
+  const t = new Date().toLocaleTimeString("en-GB",{timeZone:"Asia/Bangkok",hour:"2-digit",minute:"2-digit"});
+  $("#clock").textContent = t; $("#pclock").textContent = t;
+}
+tick(); setInterval(tick, 30000);
+
+/* plain projects */
+$("#plainprojects").innerHTML = PROJECTS.map(p => `<p><strong>${esc(p.name)}</strong>, ${esc(p.kind.toLowerCase())} for ${esc(p.client)}, ${p.year}. ${esc(p.brief)} ${esc(p.did)} ${esc(p.result)} ${p.time}, ${p.price}.</p>`).join("")
+  + `<h3>Ideas we threw away</h3><ul>` + TRASH.map(t => `<li><strong>${esc(t.f)}</strong>. ${esc(t.why)}</li>`).join("") + "</ul>";
+
+/* ---------- boot & shutdown ---------- */
+const boot = $("#boot");
+let bootTimers = [];
+function finishBoot(){
+  bootTimers.forEach(clearTimeout); bootTimers = [];
+  boot.classList.add("gone");
+  removeEventListener("keydown", skipKey); boot.removeEventListener("click", finishBoot);
+  if (!phone()) setTimeout(() => ACT.about(), reduce ? 0 : 120);
+  iconsEl.querySelector(".icon").focus({preventScroll:true});
+}
+function skipKey(e){ if (e.key !== "Tab") finishBoot(); }
+function runBoot(){
+  boot.classList.remove("gone","off");
+  if (location.hash === "#plain") { finishBoot(); return; }
+  const lis = [...boot.querySelectorAll("#bootlog li")], bar = $("#bootbar");
+  lis.forEach(l => l.classList.remove("on")); bar.style.width = "0";
+  if (reduce) { lis.forEach(l=>l.classList.add("on")); bar.style.width = "100%"; bootTimers.push(setTimeout(finishBoot, 400)); }
+  else {
+    lis.forEach((l,i) => bootTimers.push(setTimeout(() => { l.classList.add("on"); bar.style.width = ((i+1)/lis.length*100) + "%"; }, 260 + i*330)));
+    bootTimers.push(setTimeout(finishBoot, 260 + lis.length*330 + 300));
+  }
+  addEventListener("keydown", skipKey); boot.addEventListener("click", finishBoot);
+}
+function shutdown(){
+  [...wins.values()].forEach(r => { r.el.remove(); r.tb.remove(); }); wins.clear();
+  boot.classList.remove("gone"); boot.classList.add("off");
+  const saved = boot.innerHTML;
+  boot.innerHTML = `<h1>It is now safe to close this tab</h1><small>Or keep looking around.</small><button class="restart" type="button">Restart FoldOS</button>`;
+  const r = boot.querySelector(".restart"); r.focus();
+  r.onclick = e => { e.stopPropagation(); boot.innerHTML = saved; runBoot(); };
+}
+runBoot();
+})();
+</script>
+</body>
+</html>
