@@ -6,16 +6,16 @@
 <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#b5c0aa">
-  <title>Hemline atelier</title>
+  <title>Selvedge Row atelier</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111'/%3E%3Cpath d='M6 20h20' stroke='%23c4121b' stroke-width='2' stroke-dasharray='3 2'/%3E%3Cpath d='M10 7v18M22 7v18' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E">
   <meta name="description" content="A responsive page for a fictional alterations atelier. Prices by garment, a fitting sketch that shows exactly where the work goes, and a ticket you build item by item with a live total and a ready date. HTML, CSS and jQuery.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Hemline atelier, a responsive ticket builder">
+  <meta property="og:title" content="Selvedge Row atelier, a responsive ticket builder">
   <meta property="og:description" content="Prices by garment, a fitting sketch that shows where the work goes, and a ticket with a live total and a ready date.">
   <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/responsive-interaction-example/">
   <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/orbit.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Hemline atelier, a responsive ticket builder">
+  <meta name="twitter:title" content="Selvedge Row atelier, a responsive ticket builder">
   <meta name="twitter:description" content="Prices by garment, a fitting sketch that shows where the work goes, and a ticket with a live total and a ready date.">
   <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/orbit.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -118,12 +118,12 @@ input[type="range"]::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(90, 34, 2
 </style>
   <script src="jquery-4.0.0.min.js" defer></script>
   <script src="app.js" defer></script>
-</head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--thread)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.site-header .brand{display:inline-flex;align-items:center;gap:10px}.site-header .brand .sb-logo{x:0}</style></head>
 <body>
   <a class="skip-link" href="#ticket">Skip to the ticket builder</a>
   <header class="site-header">
     <div class="bar">
-      <a class="brand" href="#top" aria-label="Hemline, back to the top">Hemline<span class="brand-sub" aria-hidden="true">Atelier</span></a>
+      <a class="brand" href="#top" aria-label="Selvedge Row, back to the top"><svg class="sb-logo sb-h" data-sb="selvedge" viewBox="0 0 177 32" width="165.9" height="30" role="img" aria-label="Selvedge Row" focusable="false"><g aria-hidden="true"><path d="M25 3 10 27" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M2.5 20c4-6 8.5 6 13.5 0s9.5 6 13.5 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Gloock'" font-weight="400" font-size="22" letter-spacing="0em">Selvedge Row</text></svg><span class="brand-sub" aria-hidden="true">Atelier</span></a>
       <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Menu</span></button>
       <nav id="site-nav" aria-label="Page sections">
         <a href="#prices">Prices</a>
@@ -264,18 +264,18 @@ input[type="range"]::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(90, 34, 2
             <button type="button" class="button button-quiet" id="new-ticket">Start another ticket</button>
           </div>
         </div>
-        <p class="fine">Hemline is fictional. Nothing on this page is sent or stored, and the ticket number only lives in this tab.</p>
+        <p class="fine">Selvedge Row is fictional. Nothing on this page is sent or stored, and the ticket number only lives in this tab.</p>
       </aside>
     </section>
   </main>
 
   <div class="mini-total" id="mini-total" hidden><span id="mini-text"></span><a href="#tag-title" class="mini-link">See ticket</a></div>
 
-  <footer class="site-footer">
+  <footer class="site-footer"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="selvedge" viewBox="0 0 177 32" width="143.8" height="26" role="img" aria-label="Selvedge Row" focusable="false"><g aria-hidden="true"><path d="M25 3 10 27" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M2.5 20c4-6 8.5 6 13.5 0s9.5 6 13.5 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Gloock'" font-weight="400" font-size="22" letter-spacing="0em">Selvedge Row</text></svg></div>
     <p>A responsive example in HTML, CSS and jQuery by Alexandr Khrustalev. Not client work.</p>
     <a href="../index.html">Back to selected work</a>
     <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-  </footer>
+  <p class="sb-label">Sample site, fictional brand</p></footer>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
 <script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=((-12)+((12)-(-12))*x).toFixed(2)+'deg';document.querySelectorAll('.hero h1 em').forEach(function(n){n.style.setProperty('--sk',v)})})},{passive:true})})();</script>
 </body>
