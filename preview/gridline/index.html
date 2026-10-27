@@ -184,7 +184,97 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
   .grid-wrap { box-shadow: none; }
 }
 </style>
-<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--blue)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.bar .brand h1{line-height:0;margin:0 0 4px}.bar .brand .sb-logo{--sb-h:26px}.sb-foot{margin:18px 0 6px}</style></head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--blue)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.bar .brand h1{line-height:0;margin:0 0 4px}.bar .brand .sb-logo{--sb-h:26px}.sb-foot{margin:18px 0 6px}</style>
+<style id="gl-depth">
+/* Depth pass. The rail reads like a gauge, the sheet carries its own small charts, and every edit leaves a mark. */
+.gl-foot p { margin: 0; }
+.gl-foot .sb-foot { margin: 0 0 10px; }
+.gl-foot .sb-label { margin-top: 8px; }
+
+/* Gauge: how much of the book is in view */
+.gl-gauge { display: grid; gap: 8px; padding: 2px 0 6px; color: var(--rail-ink); font-family: var(--mono); }
+.gl-n { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 0; }
+.gl-n b { font: 200 64px/.9 var(--display); letter-spacing: -.055em; font-variant-numeric: tabular-nums; }
+.gl-n span { font: 600 11px/1.2 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--rail-muted); }
+.gl-meter { position: relative; height: 10px; background: var(--rail-2); box-shadow: inset 0 0 0 1px var(--rail-line); overflow: hidden; }
+.gl-meter i { position: absolute; inset: 0 auto 0 0; width: 100%; background: #f3b6d8; transform-origin: left; }
+.gl-sub { display: flex; justify-content: space-between; gap: 10px; margin: 0; font-size: 12px; color: var(--rail-muted); }
+.gl-sub b { color: var(--rail-ink); font-weight: 600; }
+.gl-sub .on b { color: #f3b6d8; }
+
+/* Tactile rail controls: they press in and spring back */
+.tools .btn.line, .bar .btn, .quick, .chip, .chip-clear { transition: transform .12s ease, box-shadow .12s ease, background-color .15s ease, border-color .15s ease; }
+.tools .btn.line, .bar .btn.ghost, .quick { box-shadow: 0 2px 0 rgba(0, 0, 0, .45); }
+.tools .btn.line:not(:disabled):active, .bar .btn:not(:disabled):active, .quick:active { transform: translateY(2px); box-shadow: 0 0 0 rgba(0, 0, 0, .45); }
+.tools .btn.line:not(:disabled):hover, .quick:hover { box-shadow: inset 3px 0 0 #f3b6d8, 0 2px 0 rgba(0, 0, 0, .45); }
+.bar .btn.amber { box-shadow: 0 3px 0 var(--blue-deep); }
+.bar .btn.amber:active { transform: translateY(3px); box-shadow: 0 0 0 var(--blue-deep); }
+.tools .search input { transition: border-color .15s ease, box-shadow .15s ease; }
+.tools .search input:focus { border-color: #f3b6d8; box-shadow: 0 0 0 3px rgba(243, 182, 216, .22); outline: none; }
+.chip:active { transform: scale(.97); }
+.chip .x { transition: background-color .12s ease, color .12s ease; }
+.chip .x:hover { background: #f3b6d8; color: var(--rail); }
+
+/* Header: numeric columns carry the spread of all 20,000 orders as a small histogram */
+.hcell { font-size: 11.5px; }
+.hcell.num { background-repeat: no-repeat; background-position: 8px calc(100% - 2px); background-size: calc(100% - 34px) 8px; }
+.hcell[aria-sort] { box-shadow: inset 0 -3px 0 #f3b6d8; }
+.hcell:hover .hlabel { color: #fff; }
+
+/* Rows and cells answer the pointer */
+.row::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; z-index: 4; background: var(--blue); transform: scaleY(0); transition: transform .14s ease; pointer-events: none; }
+.row:hover::before { transform: scaleY(1); }
+.cell:not(.ro):hover { outline: 1px solid var(--line-strong); outline-offset: -1px; cursor: cell; }
+.cell.mono { font-family: var(--mono); font-size: 13px; }
+.cell.gl-strong { font-weight: 650; }
+.cell.gl-id { font-weight: 600; letter-spacing: -.01em; }
+
+/* Inline bars in Qty, Unit cost and Total, log scale against the whole book */
+.cell.gl-bar { background-image: linear-gradient(90deg, transparent calc(100% - var(--b)), rgba(18, 26, 34, .085) calc(100% - var(--b))); background-repeat: no-repeat; background-size: calc(100% - 8px) calc(100% - 10px); background-position: 4px 50%; }
+.cell.gl-bar.dirty { background-image: linear-gradient(90deg, transparent calc(100% - var(--b)), rgba(184, 18, 111, .22) calc(100% - var(--b))); }
+
+.card-btn.gl-bar { background-image: linear-gradient(90deg, transparent calc(100% - var(--b)), rgba(184, 18, 111, .55) calc(100% - var(--b))); background-repeat: no-repeat; background-size: calc(100% - 28px) 3px; background-position: 14px calc(100% - 7px); }
+.card-btn { transition: transform .12s ease, box-shadow .12s ease; }
+.card-btn:active { transform: translateY(2px); }
+
+/* Edit and save feedback */
+.cell.gl-just { animation: gl-ink .9s ease-out both; }
+.cell.gl-just .v, .cell.gl-just .pill, .cell.gl-just .pri { animation: gl-set .45s cubic-bezier(.2, 1.4, .4, 1) both; display: inline-block; }
+@keyframes gl-ink { 0% { background-color: rgba(184, 18, 111, .55); } 100% { background-color: var(--dirty); } }
+@keyframes gl-set { 0% { transform: translateY(6px); opacity: .2; } 100% { transform: none; opacity: 1; } }
+#change-count.gl-bump { display: inline-block; animation: gl-bump .5s cubic-bezier(.2, 1.6, .4, 1); }
+@keyframes gl-bump { 0% { transform: scale(1.9); color: #fff; } 100% { transform: none; } }
+.gl-meter i { transition: transform .5s cubic-bezier(.2, .9, .3, 1); }
+.toast { overflow: hidden; }
+.toast.gl-on { animation: gl-toast .32s cubic-bezier(.2, 1.2, .4, 1) both; }
+.toast::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #f3b6d8; transform-origin: left; transform: scaleX(0); }
+.toast.gl-on::after { animation: gl-life var(--gl-life, 4.5s) linear both; }
+.toast.warn::after { background: #f0d678; }
+@keyframes gl-toast { 0% { transform: translateY(18px) scale(.97); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes gl-life { 0% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.chip.gl-new { animation: gl-chip .3s cubic-bezier(.2, 1.4, .4, 1) both; }
+@keyframes gl-chip { 0% { transform: translateY(6px) scale(.9); opacity: 0; } 100% { transform: none; opacity: 1; } }
+
+/* Footer status line: the count leads */
+.row-count { font: 700 15px/1 var(--mono); letter-spacing: -.02em; }
+.summary b { font-family: var(--body); font-weight: 700; }
+
+@media (min-width: 1100px) {
+  .tools { padding-top: 10px; }
+  .gl-gauge { padding-bottom: 14px; margin-bottom: 4px; border-bottom: 1px solid var(--rail-line); }
+}
+@media (max-width: 1099px) {
+  .tools { padding-top: 14px; }
+  .gl-gauge { flex: 1 1 100%; width: 100%; gap: 7px; }
+  .gl-n b { font-size: 46px; }
+  .gl-meter { height: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .row::before, .gl-meter i, .card-btn, .tools .btn.line, .bar .btn, .quick, .chip, .chip-clear { transition: none; }
+  .cell.gl-just, .cell.gl-just .v, .cell.gl-just .pill, .cell.gl-just .pri, #change-count.gl-bump, .toast.gl-on, .chip.gl-new { animation: none; }
+  .toast.gl-on::after { animation: none; transform: scaleX(0); }
+}
+</style></head>
 <body data-mode="grid">
 <a class="skip" href="#grid">Skip to the order grid</a>
 <div class="app">
@@ -204,6 +294,11 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
   </header>
 
   <section class="tools" aria-label="Search and views">
+    <div class="gl-gauge" aria-hidden="true">
+      <p class="gl-n"><b id="gl-n">20,000</b><span id="gl-of">orders in view</span></p>
+      <div class="gl-meter"><i id="gl-fill"></i></div>
+      <p class="gl-sub"><span id="gl-pct">Every order</span><span id="gl-ed"><b>0</b> edited cells</span></p>
+    </div>
     <div class="search">
       <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       <label class="sr" for="search">Search all orders</label>
@@ -245,7 +340,7 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
     <span id="row-count" class="row-count" aria-live="polite"></span>
     <span id="summary" class="summary"></span>
   </footer>
-  <div class="sb-foot"><svg class="sb-logo sb-f" data-sb="gridline" viewBox="0 0 130 32" width="89.4" height="22" role="img" aria-label="Gridline" focusable="false"><g aria-hidden="true"><rect x="4" y="5" width="24" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 5v22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" class="f-n s-c"/><path d="M1.5 14h29" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Sora'" font-weight="700" font-size="21" letter-spacing="-0.02em">Gridline</text></svg></div><p class="note">All suppliers, orders and people here are fictional sample data. Edits stay in this browser tab until you export them. Built by Alexandr Khrustalev. <a href="../">Back to selected work</a></p><p class="sb-label note">Sample site, fictional brand</p>
+  <div class="note gl-foot"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="gridline" viewBox="0 0 130 32" width="89.4" height="22" role="img" aria-label="Gridline" focusable="false"><g aria-hidden="true"><rect x="4" y="5" width="24" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 5v22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" class="f-n s-c"/><path d="M1.5 14h29" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Sora'" font-weight="700" font-size="21" letter-spacing="-0.02em">Gridline</text></svg></div><p>All suppliers, orders and people here are fictional sample data. Edits stay in this browser tab until you export them. Built by Alexandr Khrustalev. <a href="../">Back to selected work</a></p><p class="sb-label">Sample site, fictional brand</p></div>
 </div>
 
 <p class="sr" id="grid-help">Use arrow keys to move. Shift with arrows selects a range. Enter or F2 edits a cell, Escape cancels. Control C copies, Control V pastes, Control D fills down, Control Z undoes.</p>
@@ -348,6 +443,120 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
 
 <script type="module" src="src/app.mjs"></script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
-<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(200+(800-200)*x).toFixed(2)+'';document.querySelectorAll('.brand h1').forEach(function(n){n.style.setProperty('--hw',v)})})},{passive:true})})();</script>
+<script type="module">
+// Preview only decoration on top of the live grid. It reads the rendered DOM and never changes the data.
+import { generateRows } from './src/core.mjs';
+const $ = s => document.querySelector(s);
+const rows = generateRows();
+const COLS = { 'Qty': r => r.qty, 'Unit cost': r => r.unitCost / 100, 'Total': r => r.qty * r.unitCost / 100 };
+const STRONG = new Set(['Total']), IDS = new Set(['PO', 'PO number']);
+const stats = {};
+for (const [label, get] of Object.entries(COLS)) {
+  let lo = Infinity, hi = 0;
+  for (const r of rows) { const v = get(r); if (v > 0 && v < lo) lo = v; if (v > hi) hi = v; }
+  const L = Math.log10(lo), H = Math.log10(hi), N = 30, bins = new Array(N).fill(0);
+  for (const r of rows) { const v = get(r); if (v > 0) bins[Math.min(N - 1, Math.floor((Math.log10(v) - L) / (H - L) * N))]++; }
+  const top = Math.max(...bins);
+  let p = '';
+  bins.forEach((b, i) => { const h = Math.max(b ? 1 : 0, Math.round(b / top * 22)); if (h) p += `M${i * 4 + .5} 22v-${h}h3v${h}z`; });
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${N * 4} 22' preserveAspectRatio='none'><path d='${p}' fill='%23f3b6d8' fill-opacity='.42'/></svg>`;
+  stats[label] = { L, H, img: `url("data:image/svg+xml,${svg.replace(/</g, '%3C').replace(/>/g, '%3E').replace(/"/g, "'").replace(/#/g, '%23')}")` };
+}
+let colByIndex = {};
+function readHeader() {
+  colByIndex = {};
+  document.querySelectorAll('#hrow .hcell').forEach(h => {
+    const label = (h.querySelector('.hlabel') || h).textContent.trim();
+    colByIndex[h.dataset.c] = label;
+    const st = stats[label];
+    h.style.backgroundImage = st ? st.img : '';
+    if (st) h.title = label + ', spread of all orders from lowest to highest';
+  });
+}
+const num = t => { const v = parseFloat(String(t).replace(/[^0-9.\-]/g, '')); return isFinite(v) ? v : NaN; };
+let prevDirty = new Set(), decoCount = 0;
+function decorate() {
+  const count = num($('#change-count').textContent) || 0, fresh = count > decoCount, seen = new Set();
+  if (count < decoCount) prevDirty = new Set();
+  decoCount = count;
+  document.querySelectorAll('#body .cell').forEach(c => {
+    const label = colByIndex[c.dataset.c], st = stats[label];
+    if (st) {
+      const v = num(c.textContent);
+      if (v > 0) { const f = Math.max(.02, Math.min(1, (Math.log10(v) - st.L) / (st.H - st.L))); c.style.setProperty('--b', (f * 100).toFixed(1) + '%'); c.classList.add('gl-bar'); }
+    }
+    if (STRONG.has(label)) c.classList.add('gl-strong');
+    if (IDS.has(label)) c.classList.add('gl-id');
+    if (c.classList.contains('dirty')) {
+      const k = c.id; seen.add(k);
+      if (fresh && !prevDirty.has(k)) c.classList.add('gl-just');
+    }
+  });
+  for (const k of seen) prevDirty.add(k);
+}
+const hrow = $('#hrow'), body = $('#body');
+new MutationObserver(() => { readHeader(); decorate(); }).observe(hrow, { childList: true });
+new MutationObserver(decorate).observe(body, { childList: true });
+readHeader(); decorate();
+
+// Phone cards: the order total gets the same bar along the card foot
+const cards = $('#cards');
+function decorateCards() {
+  const st = stats['Total'];
+  cards.querySelectorAll('.card-btn').forEach(b => {
+    const t = b.querySelector('.c-meta > b'); if (!t) return;
+    const v = num(t.textContent);
+    if (v > 0) { b.style.setProperty('--b', (Math.max(.02, Math.min(1, (Math.log10(v) - st.L) / (st.H - st.L))) * 100).toFixed(1) + '%'); b.classList.add('gl-bar'); }
+  });
+}
+new MutationObserver(decorateCards).observe(cards, { childList: true });
+decorateCards();
+
+// Changes counter: a bump on every edit, and the gauge keeps the tally
+const cc = $('#change-count'), ed = $('#gl-ed');
+let lastCount = cc.textContent;
+new MutationObserver(() => {
+  const t = cc.textContent;
+  if (t === lastCount) return;
+  lastCount = t;
+  cc.classList.remove('gl-bump'); void cc.offsetWidth; cc.classList.add('gl-bump');
+  const n = num(t) || 0;
+  ed.innerHTML = `<b>${n.toLocaleString('en-US')}</b> edited ${n === 1 ? 'cell' : 'cells'}`;
+  ed.classList.toggle('on', n > 0);
+}).observe(cc, { childList: true, characterData: true, subtree: true });
+
+// Gauge: orders in view against the whole book
+const rc = $('#row-count'), gn = $('#gl-n'), gof = $('#gl-of'), fill = $('#gl-fill'), pct = $('#gl-pct');
+function gauge() {
+  const m = rc.textContent.match(/([\d,]+)(?:\s+of\s+([\d,]+))?/);
+  if (!m) return;
+  const n = num(m[1]), t = m[2] ? num(m[2]) : n;
+  gn.textContent = n.toLocaleString('en-US');
+  gof.textContent = m[2] ? `of ${t.toLocaleString('en-US')} in view` : 'orders in view';
+  const f = t ? n / t : 1;
+  fill.style.transform = `scaleX(${Math.max(f, n ? .004 : 0)})`;
+  pct.textContent = f === 1 ? 'Every order' : (f < .01 && n ? 'Under 1%' : Math.round(f * 100) + '%') + ' of the book';
+}
+new MutationObserver(gauge).observe(rc, { childList: true, characterData: true, subtree: true });
+gauge();
+
+// Toast: slides in, and a thin bar runs down while it stays
+const toastEl = $('#toast');
+new MutationObserver(() => {
+  if (toastEl.hidden) { toastEl.classList.remove('gl-on'); return; }
+  toastEl.style.setProperty('--gl-life', $('#toast-list').children.length ? '9s' : '4.5s');
+  toastEl.classList.remove('gl-on'); void toastEl.offsetWidth; toastEl.classList.add('gl-on');
+}).observe($('#toast-msg'), { childList: true, characterData: true, subtree: true });
+new MutationObserver(() => { if (toastEl.hidden) toastEl.classList.remove('gl-on'); }).observe(toastEl, { attributes: true, attributeFilter: ['hidden'] });
+
+// Filter chips: only the new ones arrive with a small spring
+const chips = $('#chips');
+let chipKeys = new Set([...chips.querySelectorAll('.chip')].map(c => c.textContent.trim()));
+new MutationObserver(() => {
+  const next = new Set();
+  chips.querySelectorAll('.chip').forEach(c => { const k = c.textContent.trim(); next.add(k); if (!chipKeys.has(k)) c.classList.add('gl-new'); });
+  chipKeys = next;
+}).observe(chips, { childList: true });
+</script>
 </body>
 </html>
