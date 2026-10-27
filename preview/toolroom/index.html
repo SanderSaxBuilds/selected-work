@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<base href="../../">
+<meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e6ebe8">
+  <meta name="description" content="Toolroom sells small desktop tools for freelancers and studios: QuoteCheck, ExportCheck, Handoff Desk and the Quote and Handoff Kit. Try a free sample of each.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Toolroom | Small tools for quotes, data and handoffs">
+  <meta property="og:description" content="Toolroom sells small desktop tools for freelancers and studios: QuoteCheck, ExportCheck, Handoff Desk and the Quote and Handoff Kit. Try a free sample of each.">
+  <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/toolroom.html">
+  <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/toolroom.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="750">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Toolroom | Small tools for quotes, data and handoffs</title>
+  <link rel="icon" href="toolroom-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Spline+Sans+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="toolroom-style.css">
+<style>
+/* preview: "Signal mint workshop". Pale steel mint walls, near black ink, one signal mint.
+   The page turns light, the bench moves to the left as a graphite instrument, the drawer
+   becomes a graphite rack with one featured tool across the top. */
+:root{
+  --page:#e6ebe8;--foam:#f3f6f4;--foam-2:#dde4e0;--pocket:#17191c;
+  --line:#bfc9c3;--line-soft:#d0d9d4;
+  --text:#111613;--muted:#47524c;--dim:#5f6a64;
+  --yellow:#19c48a;--yellow-2:#45d9a4;--yellow-ink:#04261a;--mint-ink:#0a7350;
+  --good:#0f7a52;--bad:#b3261e;--bad-ink:#9b1c24;
+  --wide:"Syne",ui-sans-serif,system-ui,sans-serif;
+  --body:"Syne",ui-sans-serif,system-ui,sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,Consolas,monospace;
+  --graphite:#17191c;--graphite-2:#212428;
+}
+body{background:var(--page);color:var(--text);font-family:var(--body)}
+h1,h2,h3{font-family:var(--wide);font-stretch:100%;font-weight:700;letter-spacing:-.025em}
+::selection{background:var(--yellow);color:var(--yellow-ink)}
+:focus-visible{outline-color:var(--mint-ink)}
+
+/* plain text labels instead of badges */
+.eyebrow{color:var(--muted);font-family:var(--mono);font-weight:500;letter-spacing:.06em}
+.eyebrow .num{border:0!important;padding:0!important;border-radius:0!important;background:none!important;color:var(--mint-ink)!important}
+.nav-count:not(:empty){background:none!important;padding:0 0 0 2px!important;min-width:0!important;color:var(--mint-ink)!important;font-size:12px}
+.nav-count:not(:empty)::before{content:"("}.nav-count:not(:empty)::after{content:")"}
+.bag-count{background:none!important;min-width:0!important;height:auto!important;padding:0 6px 0 0!important;color:var(--mint-ink)!important;font-size:15px!important;font-weight:600!important}
+
+/* buttons */
+.button{font-family:var(--wide);font-weight:700;border-radius:999px;letter-spacing:.02em}
+.primary{background:var(--yellow);color:var(--yellow-ink);box-shadow:0 3px 0 var(--text)}
+.primary:hover{background:var(--yellow-2)}
+.primary:active{box-shadow:0 0 0 var(--text)}
+.secondary{background:transparent;border:1.5px solid var(--text);color:var(--text);box-shadow:none}
+.secondary:hover{background:#fff;border-color:var(--text)}
+.in-bag{border-color:var(--good);background:rgba(25,196,138,.14);color:var(--good)}
+.text-button:hover{color:var(--mint-ink)}
+.icon-button{background:#fff;border-color:var(--line)}
+.icon-button:hover{background:var(--foam-2)}
+
+/* header: a flat painted wall strip */
+.site-header{background:var(--page);border-bottom:2px solid var(--text);box-shadow:none}
+.brand{font-family:var(--wide);font-stretch:100%;font-weight:700;letter-spacing:-.01em;font-size:22px}
+@media (max-width:640px){.brand{font-size:17px}.hero h1{font-size:clamp(28px,8.2vw,40px)}.eyebrow{letter-spacing:.02em}}
+.brand img{filter:hue-rotate(105deg) saturate(.9);box-shadow:none}
+.main-nav{background:transparent;border:1.5px solid var(--text);border-radius:999px;box-shadow:none}
+.main-nav a,.nav-link{color:var(--muted);border-radius:999px;font-family:var(--mono);font-weight:500;letter-spacing:.04em}
+.main-nav a:hover,.nav-link:hover{background:#fff;color:var(--text)}
+.main-nav a[aria-current="page"]{background:var(--text);color:var(--yellow);box-shadow:none}
+.bag-button{background:var(--yellow);border:1.5px solid var(--text);border-radius:999px;color:var(--yellow-ink)}
+.bag-button .bag-count{color:var(--yellow-ink)!important}
+.bag-button:hover{border-color:var(--text);background:var(--yellow-2)}
+
+/* hero: bench on the left, very large type on the right */
+@media (min-width:901px){
+  .hero{grid-template-columns:minmax(0,1.02fr) minmax(0,1fr)}
+  .bench{order:-1}
+}
+.hero h1{font-family:var(--wide);font-weight:var(--hw,700);font-size:clamp(36px,4.3vw,66px);line-height:.95;letter-spacing:-.03em;max-width:13ch;transition:font-weight .25s ease}
+.lede{color:var(--muted)}
+.spec-strip{background:transparent;border:0;border-top:2px solid var(--text);border-bottom:2px solid var(--text);border-radius:0}
+.spec-strip div{border-left:1px solid var(--line)}
+.spec-strip dt{font-family:var(--mono);font-weight:500;color:var(--dim)}
+.spec-strip dd{font-family:var(--mono);font-stretch:100%;font-weight:600;font-size:16px;text-transform:none}
+.spec-strip dd.num{color:var(--mint-ink);font-family:var(--mono)}
+
+/* the bench, graphite frame with a light sheet */
+.bench{background:var(--graphite);color:#eef2ef;border-radius:22px;box-shadow:12px 12px 0 var(--yellow)}
+.bench::before,.bench::after{display:none!important}
+.bench-title{color:var(--yellow);font-family:var(--mono);font-weight:500;letter-spacing:.04em}
+.bench-tabs{background:#2a2e33;box-shadow:none;border-radius:999px}
+.bench-tabs button{color:#cfd6d2;border-radius:999px;font-family:var(--wide)}
+.bench-tabs button:hover{background:rgba(255,255,255,.08)}
+.bench-tabs button[aria-selected="true"]{background:var(--yellow);color:var(--yellow-ink);box-shadow:none}
+.bench :focus-visible{outline-color:var(--yellow)}
+.bench-sheet{background:#fbfcfb;border-radius:14px;color:var(--text)}
+.bench-sheet .sheet-top b{font-family:var(--wide);font-stretch:100%}
+.bench .secondary{background:#fff;border:1.5px solid var(--text);color:var(--text);box-shadow:none}
+.q-row input[type="range"]::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--text) var(--fill,50%),#cfd8d3 var(--fill,50%))}
+.q-row input[type="range"]::-webkit-slider-thumb{border-radius:999px;width:24px;height:24px;margin-top:-8px;background:var(--yellow);border:2px solid var(--text)}
+.q-row input[type="range"]::-moz-range-thumb{border-radius:999px;background:var(--yellow);border:2px solid var(--text)}
+#q-gauge-fee{background:repeating-linear-gradient(135deg,#7f8a84 0 3px,#b5beb9 3px 6px)}
+.q-keep strong{color:var(--text)}
+.q-pins button{border-radius:999px}
+.csv-table th{background:var(--graphite)}
+.csv-stamp{background:var(--good);padding:6px 14px;border-radius:999px}
+.csv-stamp::before{display:none!important}
+.bench-note{color:#a9b2ad}
+
+/* finder */
+.finder-grid button{background:#fff;border:1.5px solid var(--line);border-radius:20px}
+.finder-grid button:hover{border-color:var(--text)}
+.finder-grid button[aria-pressed="true"]{background:var(--yellow);border-color:var(--text)}
+.finder-grid .num{background:none;color:var(--mint-ink);width:auto;height:auto;font-size:15px;border-radius:0;place-items:start}
+.finder-grid button[aria-pressed="true"] .num{background:none;color:var(--yellow-ink)}
+.finder-grid button[aria-pressed="true"] small{color:var(--yellow-ink)}
+.finder-result a{color:var(--mint-ink)}
+
+/* drawer: graphite rack, featured tool first */
+.chips{background:transparent;border:1.5px solid var(--text);border-radius:999px;box-shadow:none}
+.chips button{color:var(--muted);border-radius:999px;font-family:var(--mono);font-weight:500;letter-spacing:.03em}
+.chips button:hover{background:#fff;color:var(--text)}
+.chips button[aria-pressed="true"]{background:var(--text);color:var(--yellow)}
+.search,.sort select{background-color:#fff;border:1.5px solid var(--line);border-radius:999px}
+.search:focus-within,.sort select:focus-visible{outline-color:var(--mint-ink)}
+.sort select option{background:#fff;color:var(--text)}
+.catalog-caption{font-family:var(--mono);font-weight:500;letter-spacing:.06em}
+.drawer{background:var(--graphite);border-radius:28px;box-shadow:none;
+  --text:#eef2ef;--muted:#aab4ae;--dim:#8e9993;--line:#3a3f44;--line-soft:#2c3035;--foam:#202327;--foam-2:#2a2e33;color:var(--text)}
+.product-grid{background:transparent;box-shadow:none;padding:6px}
+.product-card{background:var(--graphite-2);border-radius:20px}
+.product-card.spot{box-shadow:0 0 0 2px var(--yellow)}
+.product-art{border-radius:14px}
+.save-button{background:rgba(23,25,28,.92)}
+.save-button:hover{background:#2e343b}
+.card-head h3{font-family:var(--wide);font-stretch:100%;letter-spacing:-.02em}
+.card-title:hover{color:var(--yellow)}
+.price{background:transparent;border:1.5px solid var(--yellow);color:var(--yellow);border-radius:999px}
+.card-meta{font-family:var(--mono);font-weight:500;letter-spacing:.05em}
+.preview-top i{display:none!important}
+.preview-badge{border-radius:999px;box-shadow:none}
+@media (min-width:1101px) and (max-width:1899px){
+  .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .product-card:first-child{grid-column:1 / -1;flex-direction:row;align-items:stretch}
+  .product-card:first-child .product-media{flex:0 0 58%;margin:12px}
+  .product-card:first-child .card-body{padding:28px 30px 26px;justify-content:center}
+  .product-card:first-child .card-head h3{font-size:34px}
+}
+
+/* how and faq: text on the wall, steps as painted panels */
+@media (min-width:1101px){
+  .how,.faq{grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr)}
+  .how-intro,.faq > :first-child{order:2}
+}
+.how li{background:#fff;border:1.5px solid var(--text);border-radius:20px;box-shadow:none}
+.how li::before{display:none!important}
+.step{color:var(--mint-ink);font-family:var(--mono)}
+.faq-list{border-top:2px solid var(--text)}
+.faq summary{font-family:var(--wide);font-weight:700}
+.faq summary::after{background:transparent;border:1.5px solid var(--text);border-radius:999px;color:var(--text)}
+.faq details[open] summary::after{background:var(--yellow);color:var(--yellow-ink)}
+.faq summary:hover{color:var(--mint-ink)}
+
+/* footer: graphite */
+.site-footer{background:var(--graphite);border-top:0;
+  --text:#eef2ef;--muted:#aab4ae;--dim:#8e9993;--foam-2:#2a2e33;color:var(--text)}
+.footer-links a,.footer-links .nav-link{font-family:var(--mono);font-weight:500;letter-spacing:.04em}
+
+/* library, dialogs and bag on the light wall */
+.empty-state{background:#fff;border-color:var(--line);border-radius:20px}
+.library-stats div{background:#fff;border-radius:16px}
+.library-stats dd{color:var(--mint-ink)}
+.order{background:#fff;box-shadow:none;border:1.5px solid var(--text);border-radius:20px}
+.order-header h2 .num{color:var(--mint-ink)}
+.order-body{background:var(--foam);box-shadow:none}
+dialog{background:#f7f9f8;color:var(--text);border-color:var(--text);box-shadow:16px 16px 0 rgba(17,22,19,.85)}
+dialog::backdrop{background:rgba(17,22,19,.55)}
+.side-dialog{box-shadow:none}
+.includes svg{color:var(--mint-ink)}
+.detail-price{background:var(--yellow);color:var(--yellow-ink);border-radius:999px}
+.checkout-total .num{color:var(--mint-ink)}
+#checkout-form input{background:#fff;color:var(--text);border-radius:12px}
+.restore-preview{background:#fff;box-shadow:inset 0 0 0 1.5px var(--yellow)}
+.toast{background:var(--text);color:#eef2ef;border-radius:999px}
+.skip{background:var(--yellow);color:var(--yellow-ink)}
+.noscript{border-color:var(--text)}
+@media (prefers-reduced-motion:reduce){.hero h1{transition:none}}
+</style>
+  <script type="module" src="toolroom-app.mjs"></script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(480+(700-480)*x).toFixed(2)+'';document.querySelectorAll('.hero h1').forEach(function(n){n.style.setProperty('--hw',v)})})},{passive:true})})();</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="#shop" aria-label="Toolroom home"><img src="toolroom-mark.svg" alt="" width="34" height="34"><span>Toolroom</span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#shop" data-route="shop">Shop</a>
+        <a href="#library" data-route="library">Library<span id="library-count" class="nav-count num"></span></a>
+        <button type="button" class="nav-link" id="backup-open">Backup</button>
+      </nav>
+      <button type="button" class="bag-button" id="cart-open" aria-label="Open bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Zm4 0V6a3 3 0 0 1 6 0v2"/></svg><span class="bag-label">Bag</span><span id="cart-count" class="bag-count num">0</span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <div id="shop-view">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="num">TR-01</span> Desktop tools for freelancers and small studios</p>
+          <h1 id="hero-title">Small tools for quotes, data and clean handoffs.</h1>
+          <p class="lede">Price a job before you send it, check a CSV before it ships, and leave every project in a state the next person can pick up. Each tool runs on your own computer.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#collection">Open the drawer</a>
+            <a class="button secondary" href="#how">How it works</a>
+          </div>
+          <dl class="spec-strip">
+            <div><dt>Tools</dt><dd class="num">4</dd></div>
+            <div><dt>From</dt><dd class="num">$12</dd></div>
+            <div><dt>Runs</dt><dd>Offline</dd></div>
+            <div><dt>Account</dt><dd>None</dd></div>
+          </dl>
+          <p class="hero-note">Every tool has a free sample, and every one runs on your own computer.</p>
+        </div>
+        <div class="bench" aria-labelledby="bench-title">
+          <div class="bench-head">
+            <h2 id="bench-title" class="bench-title">Try two of them on the bench</h2>
+            <div class="bench-tabs" role="tablist" aria-label="Tool to try">
+              <button type="button" role="tab" id="bench-tab-quote" aria-controls="bench-quote" aria-selected="true">QuoteCheck</button>
+              <button type="button" role="tab" id="bench-tab-csv" aria-controls="bench-csv" aria-selected="false" tabindex="-1">ExportCheck</button>
+            </div>
+          </div>
+
+          <div class="bench-sheet" id="bench-quote" role="tabpanel" aria-labelledby="bench-tab-quote">
+            <div class="sheet-top"><b>Studio site refresh</b><span class="num" id="q-code">Version A</span></div>
+            <div class="q-row">
+              <label for="q-build">Design and build</label>
+              <input type="range" id="q-build" min="8" max="80" step="1" value="40">
+              <output class="num" for="q-build" id="q-build-out">40 h</output>
+            </div>
+            <div class="q-row">
+              <label for="q-rev">Revision allowance</label>
+              <input type="range" id="q-rev" min="0" max="24" step="1" value="8">
+              <output class="num" for="q-rev" id="q-rev-out">8 h</output>
+            </div>
+            <div class="q-row">
+              <label for="q-rate">Hourly rate</label>
+              <input type="range" id="q-rate" min="20" max="120" step="1" value="35">
+              <output class="num" for="q-rate" id="q-rate-out">$35</output>
+            </div>
+            <dl class="q-math">
+              <div><dt>Estimate you send</dt><dd class="num" id="q-total">$1,680</dd></div>
+              <div><dt>Payment fee, 3%</dt><dd class="num" id="q-fee">-$50.40</dd></div>
+              <div><dt>Software and stock</dt><dd class="num">-$40</dd></div>
+            </dl>
+            <div class="q-gauge" aria-hidden="true"><i id="q-gauge-keep"></i><i id="q-gauge-fee"></i></div>
+            <div class="q-keep" aria-live="polite">
+              <p><span>You keep</span><strong class="num" id="q-keep">$1,589.60</strong></p>
+              <p class="q-hour"><span class="num" id="q-hour">$33.12</span> an hour</p>
+            </div>
+            <div class="q-versions">
+              <button type="button" class="button secondary small" id="q-pin">Pin this version</button>
+              <ol id="q-pins" class="q-pins" aria-label="Pinned versions"></ol>
+            </div>
+          </div>
+
+          <div class="bench-sheet" id="bench-csv" role="tabpanel" aria-labelledby="bench-tab-csv" hidden>
+            <div class="sheet-top"><b>clients.csv</b><span class="num" id="csv-summary" aria-live="polite">1 ready, 2 to fix</span></div>
+            <p class="csv-hint">Rule: every row needs a valid email. Fix the two rows that would break the export.</p>
+            <table class="csv-table">
+              <thead><tr><th scope="col">Row</th><th scope="col">Email</th><th scope="col">Status</th></tr></thead>
+              <tbody>
+                <tr><td class="num">001</td><td><input aria-label="Email for row 001" value="alex@example.com" data-csv spellcheck="false" autocomplete="off"></td><td data-status></td></tr>
+                <tr><td class="num">002</td><td><input aria-label="Email for row 002" value="" placeholder="missing" data-csv spellcheck="false" autocomplete="off"></td><td data-status></td></tr>
+                <tr><td class="num">003</td><td><input aria-label="Email for row 003" value="taylor@example" data-csv spellcheck="false" autocomplete="off"></td><td data-status></td></tr>
+              </tbody>
+            </table>
+            <div class="csv-foot">
+              <button type="button" class="button primary small" id="csv-download" disabled>Download clean CSV</button>
+              <span class="csv-stamp" id="csv-stamp" aria-hidden="true">Passed</span>
+            </div>
+          </div>
+          <p class="bench-note">A taste of each tool, worked in this page. The full apps do more, and nothing here leaves your browser.</p>
+        </div>
+      </section>
+
+      <section class="finder wrap" aria-labelledby="finder-title">
+        <div class="finder-head"><p class="eyebrow"><span class="num">TR-02</span> Pick the loose end</p><h2 id="finder-title">What keeps costing you time?</h2></div>
+        <div class="finder-grid" role="group" aria-labelledby="finder-title">
+          <button type="button" data-find="quotecheck"><span class="num">A</span><b>A quote that keeps changing</b><small>Leads to QuoteCheck</small></button>
+          <button type="button" data-find="exportcheck"><span class="num">B</span><b>A CSV that keeps breaking</b><small>Leads to ExportCheck</small></button>
+          <button type="button" data-find="handoffdesk"><span class="num">C</span><b>A handoff that lives in your head</b><small>Leads to Handoff Desk</small></button>
+          <button type="button" data-find="quotehandoffkit"><span class="num">D</span><b>Both ends of the same project</b><small>Leads to the Kit</small></button>
+        </div>
+        <p class="finder-result" id="finder-result" role="status"></p>
+      </section>
+
+      <section class="collection wrap" id="collection" aria-labelledby="collection-heading">
+        <div class="section-head">
+          <div><p class="eyebrow"><span class="num">TR-03</span> The drawer</p><h2 id="collection-heading">One job per tool.</h2></div>
+          <p class="section-note">Each tool sits in its own pocket. Put one in your bag and its outline stays behind, so you can see what is out.</p>
+        </div>
+        <div class="catalog-tools">
+          <div class="chips" role="group" aria-label="Filter tools">
+            <button type="button" data-category="all" aria-pressed="true">All <span class="num">4</span></button>
+            <button type="button" data-category="pricing" aria-pressed="false">Quotes</button>
+            <button type="button" data-category="data" aria-pressed="false">Data</button>
+            <button type="button" data-category="projects" aria-pressed="false">Projects</button>
+            <button type="button" data-category="bundles" aria-pressed="false">Bundles</button>
+            <button type="button" data-category="saved" aria-pressed="false">Saved <span id="saved-count" class="num">0</span></button>
+          </div>
+          <div class="search-sort">
+            <label class="search"><span class="sr-only">Search tools</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><input id="search" type="search" placeholder="Search tools" autocomplete="off"></label>
+            <label class="sort"><span class="sr-only">Sort tools</span><select id="sort"><option value="featured">Featured</option><option value="price">Lowest price</option><option value="name">Name</option></select></label>
+          </div>
+        </div>
+        <p class="catalog-caption"><span id="result-count" role="status">4 tools</span><span id="drawer-out">All tools in the drawer</span><span>Prices in USD</span></p>
+        <div class="drawer"><div class="product-grid" id="product-grid"></div></div>
+        <div class="empty-state" id="no-results" hidden><h3>Nothing matches that search.</h3><p>Try a different word or clear the filters.</p><button type="button" class="button secondary" id="reset-filters">Show all tools</button></div>
+      </section>
+
+      <section class="how wrap" id="how" aria-labelledby="how-title">
+        <div class="how-intro"><p class="eyebrow"><span class="num">TR-04</span> How it works</p><h2 id="how-title">From loose end to tidy finish.</h2><p>No account to create. Pick a tool, check the sample, and keep everything in a library you can back up.</p></div>
+        <ol>
+          <li><span class="step num">01</span><div><h3>Find the friction</h3><p>A quote that keeps changing. A CSV that keeps breaking. A handoff that lives in your head.</p></div></li>
+          <li><span class="step num">02</span><div><h3>Try the sample</h3><p>Open a tool, read what is included and download its sample file.</p></div></li>
+          <li><span class="step num">03</span><div><h3>Keep your library</h3><p>Orders and downloads stay in this browser. Export a backup file and restore it on any device.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="faq wrap" aria-labelledby="faq-title">
+        <div><p class="eyebrow"><span class="num">TR-05</span> Spec notes</p><h2 id="faq-title">Good to know.</h2></div>
+        <div class="faq-list">
+          <details><summary>Can I buy these tools here?</summary><p>No. This storefront runs a demo checkout that saves a test order in your browser. No payment is taken, no license is issued and no email is sent.</p></details>
+          <details><summary>Do the tools need an internet connection?</summary><p>No. Each tool opens in your browser from a small local server on your own computer, so your quotes, CSV files and project notes stay on your machine. Exports are plain JSON, CSV and TXT files.</p></details>
+          <details><summary>What do I download?</summary><p>Each tool has a small sample file, either CSV or plain text, that shows the kind of output it produces. Full product archives are not served from this page.</p></details>
+          <details><summary>Where does my library live?</summary><p>In this browser on this device, when browser storage is available. Backup creates a portable JSON file, and restoring checks the file before anything changes. Private windows and cleared site data remove the local library.</p></details>
+          <details><summary>Is this connected to Etsy or another shop?</summary><p>No. Nothing here connects to Etsy, Payhip or a payment provider. A live store would need its own checkout and delivery service.</p></details>
+        </div>
+      </section>
+    </div>
+
+    <section id="library-view" class="library wrap" hidden aria-labelledby="library-title">
+      <div class="library-head">
+        <div><p class="eyebrow"><span class="num">TR-06</span> Your library</p><h1 id="library-title" tabindex="-1">Everything you ordered.</h1><p class="library-description">Orders, receipts and sample downloads, saved in this browser.</p></div>
+        <button type="button" class="button secondary" id="library-backup">Export backup</button>
+      </div>
+      <dl class="library-stats">
+        <div><dt>Orders</dt><dd id="stat-orders" class="num">0</dd></div>
+        <div><dt>Tools</dt><dd id="stat-tools" class="num">0</dd></div>
+        <div><dt>Order value</dt><dd id="stat-value" class="num">$0</dd></div>
+      </dl>
+      <div id="orders"></div>
+      <div class="empty-state" id="library-empty"><h2>No orders yet.</h2><p>Orders you place appear here with their receipts and downloads.</p><a class="button primary" href="#collection">Open the drawer</a></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <a class="brand brand-small" href="#shop"><img src="toolroom-mark.svg" alt="" width="26" height="26"><span>Toolroom</span></a>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#collection">Tools</a>
+        <a href="#library">Library</a>
+        <button type="button" class="nav-link" id="footer-backup">Backup and restore</button>
+        <a href="preview/toolroom/studio.html">Seller workspace</a>
+      </nav>
+    </div>
+    <p class="wrap footer-note">Toolroom is a demo store by SanderSaxBuilds. Orders are fictional and no payments are taken.</p>
+    <p class="wrap footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a><a href="index.html#toolroom">Back to selected work</a></p>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="product-dialog" class="product-dialog" aria-labelledby="detail-title"><div id="product-detail"></div></dialog>
+
+  <dialog id="cart-dialog" class="side-dialog" aria-labelledby="cart-title">
+    <header class="panel-header"><h2 id="cart-title">Your bag</h2><button type="button" class="icon-button" data-close="cart-dialog" aria-label="Close bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
+    <div id="cart-items" class="cart-items"></div>
+    <div id="cart-summary" class="cart-summary"></div>
+  </dialog>
+
+  <dialog id="checkout-dialog" class="form-dialog" aria-labelledby="checkout-title">
+    <button type="button" class="icon-button dialog-close" data-close="checkout-dialog" aria-label="Close checkout"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    <h2 id="checkout-title">Checkout</h2>
+    <div id="checkout-summary" class="checkout-summary"></div>
+    <form id="checkout-form" novalidate>
+      <label for="demo-name">Name</label>
+      <input id="demo-name" name="name" autocomplete="off" maxlength="80" placeholder="Jordan Example">
+      <label for="demo-email">Email for the receipt</label>
+      <input id="demo-email" name="email" type="email" autocomplete="off" maxlength="254" placeholder="jordan@example.com">
+      <p id="checkout-error" class="form-error" role="alert"></p>
+      <button class="button primary full" type="submit">Place order</button>
+      <p class="fine-print">Demo checkout. Nothing is charged and no email is sent. The order is saved in this browser.</p>
+    </form>
+  </dialog>
+
+  <dialog id="backup-dialog" class="form-dialog" aria-labelledby="backup-title">
+    <button type="button" class="icon-button dialog-close" data-close="backup-dialog" aria-label="Close backup and restore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    <h2 id="backup-title">Backup and restore</h2>
+    <p class="dialog-lede">Save your bag, saved tools and orders as one file. Restoring checks the file first and changes nothing until you confirm.</p>
+    <div class="backup-action"><div><h3>Export your library</h3><p>A JSON file you keep on your device.</p></div><button type="button" class="button primary" id="export-backup">Export</button></div>
+    <div class="backup-action"><div><h3>Restore a backup</h3><p>Toolroom backup files up to 1 MB.</p></div><label class="button secondary file-label">Choose file<input id="import-backup" type="file" accept="application/json,.json"></label></div>
+    <div id="restore-preview" class="restore-preview" hidden></div>
+    <p id="backup-message" class="form-error" role="alert"></p>
+    <p class="fine-print">Backups include the names and emails entered at checkout, so keep the file private.</p>
+  </dialog>
+  <noscript><p class="wrap noscript">Turn on JavaScript to browse the tools, use the bag and open your library.</p></noscript>
+</body>
+</html>
