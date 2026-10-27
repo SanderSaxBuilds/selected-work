@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sander Sax · Selected work, websites and tools</title>
+<meta name="description" content="Selected work by Sander Sax (Alexandr Khrustalev), a freelance web and product builder in Thailand. Websites, web apps, data tools and business documents, each one open as a working demo or a file.">
+<meta name="theme-color" content="#3b0a14">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sandersax-icon-32.png">
+<link rel="apple-touch-icon" href="../../assets/sandersax-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,200..900&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Barlow Condensed";font-weight:700;font-display:swap;src:url(../../thailand/fonts/barlow-condensed-wm.woff2) format("woff2")}
+:root{
+  --wine:#3b0a14;--deep:#2a0610;--bone:#f2e8e3;--rose:#cfa5a6;--mute:#b48b8e;
+  --line:rgba(242,232,227,.17);--line2:rgba(242,232,227,.32);
+  --d:"Anybody",system-ui,sans-serif;--b:"Hanken Grotesk",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:120px;background:var(--wine)}
+body{margin:0;background:var(--wine);color:var(--bone);font:17px/1.6 var(--b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+img{display:block;max-width:100%;height:auto}
+:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:12px;top:12px;z-index:99;background:var(--bone);color:var(--wine);padding:12px 16px;font-weight:600;transform:translateY(-200%)}
+.skip:focus{transform:none}
+.wrap{width:min(1440px,calc(100% - 32px));margin-inline:auto}
+
+/* header: a thin bone rule, the mark, three words and one button */
+.top{position:sticky;top:0;z-index:40;background:var(--wine);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:22px;min-height:60px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;min-height:44px}
+.logo .mk{width:20px;height:32px;background:var(--bone);-webkit-mask:url(../../assets/sandersax-mark.png) center/contain no-repeat;mask:url(../../assets/sandersax-mark.png) center/contain no-repeat}
+.logo .wm{font:700 19px/1 "Barlow Condensed",var(--d);letter-spacing:.06em}
+.top nav{display:flex;gap:4px;margin-left:auto}
+.top nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;text-decoration:none;font-size:15px;color:var(--rose);transition:color .2s}
+.top nav a:hover{color:var(--bone)}
+.msg{display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border-radius:999px;background:var(--bone);color:var(--wine);text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap;transition:transform .3s var(--ease)}
+.msg:hover{transform:translateY(-2px)}
+@media(max-width:860px){.top nav{display:none}.msg{margin-left:auto}}
+
+/* the name: every letter widens and gains weight as the pointer comes near */
+.hero{position:relative;padding:clamp(28px,5vw,64px) 0 0;overflow:hidden}
+.nm{margin:0;font-family:var(--d);font-weight:800;line-height:.8;letter-spacing:-.01em;text-transform:none;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.nm .ln{display:flex;white-space:nowrap}
+.nm .l2{justify-content:flex-end;margin-top:-.1em}
+.nm i{font-style:normal;display:inline-block;font-variation-settings:"wdth" var(--w,62),"wght" var(--g,780);transition:font-variation-settings .5s var(--ease)}
+.nm.live i{transition:font-variation-settings .12s linear}
+.nm.measure i{transition:none}
+.nm i{transition-delay:calc(var(--n,0)*40ms)}
+.nm.live i{transition-delay:0s}
+.nm .ln{font-size:var(--fs,22vw)}
+html.js .nm.pre i{--w:50;--g:200}
+.under{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:end;padding:clamp(22px,3vw,40px) 0 clamp(40px,6vw,80px);border-bottom:1px solid var(--line)}
+.who{margin:0;font-family:var(--d);font-variation-settings:"wdth" 112;font-weight:500;font-size:clamp(20px,2.1vw,30px);line-height:1.15;max-width:22ch}
+.lede{margin:0 0 22px;color:var(--rose);max-width:44ch}
+.lede b{color:var(--bone);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;border:1px solid var(--line2);transition:background .25s,color .25s,border-color .25s}
+.btn:hover{border-color:var(--bone)}
+.btn.p{background:var(--bone);color:var(--wine);border-color:var(--bone)}
+.btn.p:hover{background:#fff}
+@media(max-width:820px){.under{grid-template-columns:1fr;gap:18px}}
+
+/* the index: folder tabs filter one long ruled list */
+.idx{padding:0 0 40px}
+.tabs{position:sticky;top:60px;z-index:30;background:var(--wine);border-bottom:1px solid var(--line);display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:10px 0}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:0;background:none;min-height:44px;padding:0 16px;border-radius:999px;font-family:var(--d);font-size:16px;font-weight:600;font-variation-settings:"wdth" 90;color:var(--rose);transition:color .2s,background .25s,font-variation-settings .4s var(--ease)}
+.tab sup{font-family:var(--b);font-size:11px;font-weight:600;margin-left:3px;vertical-align:super;line-height:0}
+.tab:hover{color:var(--bone)}
+.tab[aria-pressed="true"]{background:var(--bone);color:var(--wine);font-variation-settings:"wdth" 120}
+.list{list-style:none;margin:0;padding:0}
+.grp{padding:64px 0 14px;border-bottom:1px solid var(--line2)}
+.grp h3{margin:0;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.grp h3 span{font-family:var(--d);font-weight:300;font-variation-settings:"wdth" 140;font-size:clamp(15px,1.3vw,18px);letter-spacing:.02em}
+.grp h3 small{font-size:14px;color:var(--mute);font-weight:400}
+.list[data-f]:not([data-f="*"]) .grp{padding-top:28px}
+.pj{border-bottom:1px solid var(--line);position:relative}
+.alt{position:absolute;top:-120px}
+.pj.hide,.grp.hide{display:none}
+summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:3.2em 1fr auto 28px;align-items:center;gap:18px;padding:18px 8px 18px 0;min-height:64px;transition:padding .45s var(--ease),background .3s,color .3s}
+summary::-webkit-details-marker{display:none}
+.no{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;align-self:start;padding-top:.7em}
+.tt{font-family:var(--d);font-weight:650;font-size:clamp(26px,3.9vw,60px);line-height:.98;letter-spacing:-.01em;font-variation-settings:"wdth" var(--tw,64);transition:font-variation-settings .55s var(--ease)}
+.tg{font-size:14px;color:var(--rose);text-align:right;max-width:16ch;line-height:1.3}
+.pm{position:relative;width:28px;height:28px;border:1px solid var(--line2);border-radius:50%}
+.pm::before,.pm::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;background:currentColor;translate:-50% -50%;transition:rotate .4s var(--ease)}
+.pm::after{rotate:90deg}
+details[open] .pm::after{rotate:0deg}
+@media(hover:hover){summary:hover .tt{--tw:118}summary:hover{padding-left:14px}}
+summary:focus-visible .tt{--tw:118}
+details[open]>summary{background:var(--bone);color:var(--wine);padding-left:18px}
+details[open]>summary .tt{--tw:130}
+details[open]>summary .no,details[open]>summary .tg{color:#7a3a45}
+details[open]>summary .pm{border-color:rgba(59,10,20,.35)}
+.pn{display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);gap:clamp(20px,4vw,56px);padding:26px 18px 40px;background:var(--bone);color:#2a0610}
+details[open] .pn{animation:open .55s var(--ease)}
+@keyframes open{from{opacity:0;translate:0 -10px}}
+.ph{display:block;border-radius:6px;overflow:hidden;background:#e4d6d0}
+.ph img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.tx{max-width:58ch}
+.tx p{margin:0 0 14px;font-size:17px;line-height:1.6}
+.tx .more{font-size:15px;color:#6b3440}
+.lk{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.lk a{display:inline-flex;align-items:center;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid rgba(59,10,20,.3);text-decoration:none;font-weight:600;font-size:15px;transition:background .2s,color .2s}
+.lk a:first-child{background:var(--wine);color:var(--bone);border-color:var(--wine)}
+.lk a:hover{background:var(--deep);color:var(--bone);border-color:var(--deep)}
+@media(max-width:820px){
+  summary{grid-template-columns:2.2em 1fr 28px;gap:12px;padding:16px 0}
+  .tg{grid-column:2;grid-row:2;text-align:left;max-width:none;margin-top:-4px}
+  .pm{grid-column:3;grid-row:1}
+  .tt{font-size:clamp(25px,7.4vw,40px)}
+  @media(hover:hover){summary:hover{padding-left:0}}
+  details[open]>summary{padding-left:10px}
+  .pn{grid-template-columns:1fr;padding:18px 12px 28px}
+}
+
+/* the preview that follows the pointer over the list */
+.peek{position:fixed;left:0;top:0;z-index:20;width:340px;aspect-ratio:16/10;border-radius:6px;overflow:hidden;pointer-events:none;opacity:0;scale:.86;transition:opacity .25s,scale .35s var(--ease);box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.peek.on{opacity:1;scale:1}
+.peek img{width:100%;height:100%;object-fit:cover;object-position:top}
+@media(hover:none),(max-width:1000px){.peek{display:none}}
+
+/* contact */
+.end{padding:clamp(70px,10vw,140px) 0 0}
+.end h2{margin:0 0 28px;font-family:var(--d);font-weight:700;font-variation-settings:"wdth" 74;font-size:clamp(40px,7.6vw,124px);line-height:.9;letter-spacing:-.015em;max-width:14ch}
+.end .say{max-width:46ch;color:var(--rose);margin:0 0 44px}
+.chs{border-top:1px solid var(--line2)}
+.ch{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:16px;padding:22px 0;border-bottom:1px solid var(--line2);text-decoration:none}
+.ch b{font-family:var(--d);font-weight:600;font-size:clamp(28px,4.4vw,64px);line-height:1;font-variation-settings:"wdth" 64;transition:font-variation-settings .5s var(--ease)}
+.ch span{color:var(--rose);font-size:16px;overflow-wrap:anywhere;text-align:right}
+@media(hover:hover){.ch:hover b{font-variation-settings:"wdth" 125}}
+.ch:focus-visible b{font-variation-settings:"wdth" 125}
+.else{display:flex;flex-wrap:wrap;gap:6px 22px;margin:34px 0 0}
+.else a{display:inline-flex;align-items:center;min-height:44px;font-weight:600}
+.note{color:var(--mute);font-size:14px;max-width:70ch;margin:18px 0 0}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;padding:48px 0 calc(28px + env(safe-area-inset-bottom));color:var(--mute);font-size:14px}
+@media(max-width:560px){.ch{grid-template-columns:1fr}.ch span{text-align:left}}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#index">Skip to the work</a>
+<header class="top"><div class="wrap">
+  <a class="logo" href="./" aria-label="SanderSax, home"><i class="mk" aria-hidden="true"></i><span class="wm" aria-hidden="true">[SANDERSAX]</span></a>
+  <nav aria-label="Sections"><a href="#index">Work</a><a href="../../thailand/">Websites in Thailand</a><a href="../../font/">Handwriting font</a><a href="#contact">Contact</a></nav>
+  <a class="msg" href="https://t.me/sandersax" target="_blank" rel="noopener">Message me</a>
+</div></header>
+
+<main>
+<section class="hero" id="top">
+  <div class="wrap">
+    <h1 class="nm pre" id="nm"><span class="sr">Sander Sax, Alexandr Khrustalev</span><span class="ln l1" aria-hidden="true"><i style="--n:0">S</i><i style="--n:1">a</i><i style="--n:2">n</i><i style="--n:3">d</i><i style="--n:4">e</i><i style="--n:5">r</i></span><span class="ln l2" aria-hidden="true"><i style="--n:4">S</i><i style="--n:5">a</i><i style="--n:6">x</i><i style="--n:7">.</i></span></h1>
+    <div class="under">
+      <p class="who">Alexandr Khrustalev, web and product builder in Thailand.</p>
+      <div>
+        <p class="lede"><b>I design and build websites, web apps, data tools and business documents, end to end.</b> Every project below opens as a working demo or a file you can download.</p>
+        <div class="cta"><a class="btn p" href="#index">See the 29 projects</a><a class="btn" href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="mailto:leshadqq@gmail.com">Email</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="idx" id="index" aria-labelledby="idxH">
+  <div class="wrap">
+    <h2 class="sr" id="idxH">Projects</h2>
+    <div class="tabs" role="group" aria-label="Filter projects">
+<button type="button" class="tab" data-f="*" aria-pressed="true">All<sup>29</sup></button>
+<button type="button" class="tab" data-f="n" aria-pressed="false">New<sup>5</sup></button>
+<button type="button" class="tab" data-f="w" aria-pressed="false">Websites<sup>9</sup></button>
+<button type="button" class="tab" data-f="d" aria-pressed="false">Data<sup>6</sup></button>
+<button type="button" class="tab" data-f="i" aria-pressed="false">Systems<sup>4</sup></button>
+<button type="button" class="tab" data-f="b" aria-pressed="false">Documents<sup>3</sup></button>
+<button type="button" class="tab" data-f="r" aria-pressed="false">Research<sup>2</sup></button>
+    </div>
+    <ol class="list" id="list" data-f="*">
+<li class="grp" id="all" data-g="n"><h3><span>New</span><small>Added this week, 5 projects</small></h3></li>
+<li class="pj" data-g="n"><details id="new" data-img="../../assets/p/thailand-720.jpg">
+<summary><span class="no">01</span><span class="tt">Websites for businesses in Thailand</span><span class="tg">Live offer</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../thailand/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/thailand.jpg" srcset="../../assets/p/thailand-720.jpg 720w, ../../assets/j/thailand.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Spa, tours, rentals, cafes and clinics. Bookings go straight to Telegram, WhatsApp or LINE. Fixed USD prices, ready in days.</p><div class="lk"><a href="../../thailand/">Open the offer</a></div></div></div>
+</details></li>
+<li class="pj" data-g="n"><details id="property-agency" data-img="../../assets/p/property-agency-720.jpg">
+<summary><span class="no">02</span><span class="tt">Property agency website</span><span class="tg">Live demo</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../property/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/property-agency.jpg" srcset="../../assets/p/property-agency-720.jpg 720w, ../../assets/j/property-agency.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Villas and apartments matched to a goal and budget, honest rental yield month by month, areas, buying steps for foreigners and viewings booked straight into a messenger. Russian and English, three currencies, listings an agent edits like a spreadsheet.</p><div class="lk"><a href="../../property/">Open the demo</a></div></div></div>
+</details></li>
+<li class="pj" data-g="n"><details id="font" data-img="../../assets/p/font-720.jpg">
+<summary><span class="no">03</span><span class="tt">Your handwriting as a real font</span><span class="tg">Service</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../font/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/font.jpg" srcset="../../assets/p/font-720.jpg 720w, ../../assets/j/font.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Type a name and a pen writes it. Draw a few letters, download them as a real font, and see them on an app, an email, a label and a sign.</p><div class="lk"><a href="../../font/">Open the font page</a></div></div></div>
+</details></li>
+<li class="pj" data-g="n"><details id="check" data-img="../../assets/p/check-720.jpg">
+<summary><span class="no">04</span><span class="tt">Website check</span><span class="tg">Free tool</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../check/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/check.jpg" srcset="../../assets/p/check-720.jpg 720w, ../../assets/j/check.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Type any website address and get a real speed, ease of use and Google report in plain words, with the fixes that matter most, on phone or desktop.</p><div class="lk"><a href="../../check/">Run the check</a></div></div></div>
+</details></li>
+<li class="pj" data-g="n"><details id="builder" data-img="../../assets/p/builder-720.jpg">
+<summary><span class="no">05</span><span class="tt">Booking site builder</span><span class="tg">Working web app</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../builder/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/builder.jpg" srcset="../../assets/p/builder-720.jpg 720w, ../../assets/j/builder.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A studio in the browser for local businesses in Thailand. Fill in services, prices, hours and contacts, watch the site update on desktop and phone, then download a zip that is ready to host. Russian, English and Thai, bookings by WhatsApp, LINE or Telegram.</p><div class="lk"><a href="../../builder/">Open the builder</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/builder">Source</a></div></div></div>
+</details></li>
+<li class="grp" id="work" data-g="w"><h3><span>Websites</span><small>Sites and web apps, 9 projects</small></h3></li>
+<li class="pj" data-g="w"><details id="10-allex-website" data-img="../../assets/p/allex-720.jpg">
+<summary><span class="no">06</span><span class="tt">ALLEX RESPECT ASIA</span><span class="tg">Live business site</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="https://temirkhanclub.com/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/allex.jpg" srcset="../../assets/p/allex-720.jpg 720w, ../../assets/j/allex.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>The company's live site: an animated product collection, four product pages, a comparison table, company information, a document library and mobile navigation. I built the frontend, the responsive layouts and the deployment. Product artwork and records come from the business.</p><div class="lk"><a href="https://temirkhanclub.com/">Open the live site</a></div></div></div>
+</details></li>
+<li class="pj" data-g="w"><details id="toolroom" data-img="../../assets/p/toolroom-720.jpg">
+<summary><span class="no">07</span><span class="tt">Toolroom store and seller workspace</span><span class="tg">Storefront demo</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../toolroom.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/toolroom.jpg" srcset="../../assets/p/toolroom-720.jpg 720w, ../../assets/j/toolroom.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A small digital-goods store with a working bench: QuoteCheck prices a job and ExportCheck fixes a CSV before it ships. Buyers get a library and receipts, and the seller workspace matches a file to its listing on the device. No real payments.</p><div class="lk"><a href="../../toolroom.html">Try the store</a><a href="../../toolroom-studio.html">Seller workspace</a><a href="../../toolroom-source.zip">Source</a></div></div></div>
+</details></li>
+<li class="pj" data-g="w"><span id="07" class="alt"></span><details id="07-field-frame" data-img="../../assets/p/field-720.jpg">
+<summary><span class="no">08</span><span class="tt">Field &amp; Frame builder site</span><span class="tg">Website concept</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../field-frame.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/field.jpg" srcset="../../assets/p/field-720.jpg 720w, ../../assets/j/field.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A calm local builder site. Project sheets switch each floor plan between before and after, a rough estimate splits the cost by trade, and the brief downloads as one page. The company is fictional.</p><div class="lk"><a href="../../field-frame.html">Open the site</a><a href="../../field-frame-source.zip">Source</a></div></div></div>
+</details></li>
+<li class="pj" data-g="w"><details id="sample-courses" data-img="../../assets/p/courses-720.jpg">
+<summary><span class="no">09</span><span class="tt">Leasing Practice courses</span><span class="tg">Course site and emails</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../sample-wrongcreative.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/courses.jpg" srcset="../../assets/p/courses-720.jpg 720w, ../../assets/j/courses.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A course site for leasing teams with a practice exercise that works in the page, a course page, a team bundle, three launch emails and handoff notes. A speculative sample for a public brief.</p><div class="lk"><a href="../../sample-wrongcreative.html">Open the course site</a><a href="../../sample-wrongcreative-emails.html">Launch emails</a></div></div></div>
+</details></li>
+<li class="pj" data-g="w"><span id="06" class="alt"></span><details id="06-daybreak" data-img="../../assets/p/daybreak-720.jpg">
+<summary><span class="no">10</span><span class="tt">Daybreak week planner</span><span class="tg">Web app</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../daybreak.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/daybreak.jpg" srcset="../../assets/p/daybreak-720.jpg 720w, ../../assets/j/daybreak.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Day and week views with three calendars, overlap checks and a focus timer. Drag the day's horizon to read the open time and plan a block on the spot. It works without a calendar account.</p><div class="lk"><a href="../../daybreak.html">Open the planner</a><a href="../../daybreak-source.zip">Source</a></div></div></div>
+</details></li>
+<li class="pj" data-g="w"><details id="sample-mobile" data-img="../../assets/p/mobile-720.jpg">
+<summary><span class="no">11</span><span class="tt">Clearline receipt review</span><span class="tg">Mobile interface</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../sample-mobile.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/mobile.jpg" srcset="../../assets/p/mobile-720.jpg 720w, ../../assets/j/mobile.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A phone app for clearing a month of receipts. Swipe right to approve or left to send one back with a reason. Each receipt shows its policy flags and what approving does to the budget, and every decision can be undone.</p><div class="lk"><a href="../../sample-mobile.html">Open the interface</a><a href="../../sample-mobile-handoff.md">Handoff notes</a></div></div></div>
+</details></li>
+<li class="pj" data-g="w"><details id="variant-gallery" data-img="../../assets/p/variant-720.jpg">
+<summary><span class="no">12</span><span class="tt">Product page that stays in sync</span><span class="tg">Frontend bug study</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../variant-gallery/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/variant.jpg" srcset="../../assets/p/variant-720.jpg 720w, ../../assets/j/variant.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Colour, size, price, stock, photo and link always match the choice. A sold-out option offers the nearest one that ships. Switch on the two common bugs to see them, then compare the fixed page.</p><div class="lk"><a href="../../variant-gallery/">Try the product page</a></div></div></div>
+</details></li>
+<li class="pj" data-g="w"><details id="orbit-study" data-img="../../assets/p/orbit-720.jpg">
+<summary><span class="no">13</span><span class="tt">Orbit and other interaction studies</span><span class="tg">3D and interaction</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../orbit-study.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/orbit.jpg" srcset="../../assets/p/orbit-720.jpg 720w, ../../assets/j/orbit.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A WebGL scene written without a 3D library. Drag it, flick it, change its finish or swap it for a still image. Also a four-plate print study that separates as you scroll, and Hemline, an alterations counter with a ticket builder.</p><div class="lk"><a href="../../orbit-study.html">Open Orbit</a><a href="../../interaction-proof.html">Print plates</a><a href="../../responsive-interaction-example/">Hemline</a></div></div></div>
+</details></li>
+<li class="pj" data-g="w"><details id="email-kit" data-img="../../assets/p/email-720.jpg">
+<summary><span class="no">14</span><span class="tt">Inkpost email templates</span><span class="tg">Email templates</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../email-kit/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/email.jpg" srcset="../../assets/p/email-720.jpg 720w, ../../assets/j/email.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Four emails for a fictional coffee roaster: welcome, order confirmation, shipping update and a monthly newsletter, each with a plain text version. Outlook fallbacks, columns that stack on phones without media queries, and a dark mode. 98 tests and 172 browser checks.</p><div class="lk"><a href="../../email-kit/">Open the preview</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source</a></div></div></div>
+</details></li>
+<li class="grp" id="data" data-g="d"><h3><span>Data</span><small>Reports and data apps, 6 projects</small></h3></li>
+<li class="pj" data-g="d"><details id="gridline" data-img="../../assets/p/gridline-720.jpg">
+<summary><span class="no">15</span><span class="tt">Gridline order grid</span><span class="tg">Working web app</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../gridline/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/gridline.jpg" srcset="../../assets/p/gridline-720.jpg 720w, ../../assets/j/gridline.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Edit 20,000 purchase orders in the browser. Filter and sort, paste whole blocks, undo anything and review every change before you export it. Scrolls at 60 fps, with 54 unit tests and 128 browser checks. The orders are fictional sample data.</p><div class="lk"><a href="../../gridline/">Open Gridline</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/gridline">Source</a></div></div></div>
+</details></li>
+<li class="pj" data-g="d"><details id="slotbook" data-img="../../assets/p/slotbook-720.jpg">
+<summary><span class="no">16</span><span class="tt">Slotbook booking page</span><span class="tg">Working web app</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../slotbook/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/slotbook.jpg" srcset="../../assets/p/slotbook-720.jpg 720w, ../../assets/j/slotbook.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A booking page for a fictional bike workshop with weekly hours, closed days, buffers between bookings and a calendar you can use from the keyboard. Times show in the visitor's own time zone and each booking downloads as a calendar file.</p><div class="lk"><a href="../../slotbook/">Open Slotbook</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/slotbook">Source</a></div></div></div>
+</details></li>
+<li class="pj" data-g="d"><span id="04" class="alt"></span><details id="04-ledgerlens" data-img="../../assets/p/ledger-720.jpg">
+<summary><span class="no">17</span><span class="tt">LedgerLens report builder</span><span class="tg">Working web app</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/" tabindex="-1" aria-hidden="true"><img src="../../assets/j/ledger.jpg" srcset="../../assets/p/ledger-720.jpg 720w, ../../assets/j/ledger.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Load order and refund exports and build a revenue report for any period, by month, quarter, customer, product or order size. Fix bad rows in place and download the corrected file. Files stay in the browser.</p><div class="lk"><a href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/">Open LedgerLens</a><a href="https://github.com/SanderSaxBuilds/ledgerlens-report-builder">Source</a></div></div></div>
+</details></li>
+<li class="pj" data-g="d"><span id="03" class="alt"></span><details id="03-financial-report" data-img="../../assets/p/expense-720.jpg">
+<summary><span class="no">18</span><span class="tt">Expense report workbook</span><span class="tg">Excel workbook</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../03-financial-report-Expense_Report_Sample.xlsx" tabindex="-1" aria-hidden="true"><img src="../../assets/j/expense.jpg" srcset="../../assets/p/expense-720.jpg 720w, ../../assets/j/expense.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Two CSV files become an Excel report with budget variance, a prior-month comparison and reconciliation checks. Six months of sample data, and every total is a live formula.</p><div class="lk"><a href="../../03-financial-report-Expense_Report_Sample.xlsx">Sample workbook</a><a href="../../03-financial-report-Expense_Report_Source.zip">Source</a></div></div></div>
+</details></li>
+<li class="pj" data-g="d"><details id="exportcheck-study" data-img="../../assets/p/export-720.jpg">
+<summary><span class="no">19</span><span class="tt">ExportCheck CSV preflight</span><span class="tg">Python tool</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../exportcheck-study.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/export.jpg" srcset="../../assets/p/export-720.jpg 720w, ../../assets/j/export.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Checks headers, keys, dates and amounts before a CSV goes to someone else. See three recorded runs: a clean file, one with row errors kept for review and one rejected outright.</p><div class="lk"><a href="../../exportcheck-study.html">See the recorded runs</a></div></div></div>
+</details></li>
+<li class="pj" data-g="d"><span id="08" class="alt"></span><details id="08-countback" data-img="../../assets/p/countback-720.jpg">
+<summary><span class="no">20</span><span class="tt">Countback delivery receiving</span><span class="tg">Web app</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../countback.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/countback.jpg" srcset="../../assets/p/countback-720.jpg 720w, ../../assets/j/countback.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Count a delivery by carton or unit, flag shortages, damage and extras, and keep every correction in the history. The draft survives a reload. Print the result or export it as CSV.</p><div class="lk"><a href="../../countback.html">Open the demo</a><a href="../../countback-source.zip">Source</a></div></div></div>
+</details></li>
+<li class="grp" id="systems" data-g="i"><h3><span>Systems</span><small>Integrations and tools, 4 projects</small></h3></li>
+<li class="pj" data-g="i"><details id="webhook-receipt" data-img="../../assets/p/webhook-720.jpg">
+<summary><span class="no">21</span><span class="tt">Webhook receipts without duplicates</span><span class="tg">Python API</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../webhook-receipt-study.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/webhook.jpg" srcset="../../assets/p/webhook-720.jpg 720w, ../../assets/j/webhook.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A local service that checks signed callbacks, processes each event once and saves each receipt together with its shipment update. See five recorded outcomes, a restart and 32 passing tests.</p><div class="lk"><a href="../../webhook-receipt-study.html">See the study</a></div></div></div>
+</details></li>
+<li class="pj" data-g="i"><details id="sop-extraction" data-img="../../assets/p/sop-720.jpg">
+<summary><span class="no">22</span><span class="tt">Work instructions from Word to JSON and CSV</span><span class="tg">Document parsing</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../sop-extraction-study.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/sop.jpg" srcset="../../assets/p/sop-720.jpg 720w, ../../assets/j/sop.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A parser that turns a Word procedure written to a set template into structured steps, keeps a reference back to each source paragraph and refuses content it can't read reliably.</p><div class="lk"><a href="../../sop-extraction-study.html">See the extraction</a></div></div></div>
+</details></li>
+<li class="pj" data-g="i"><details id="archive-desk" data-img="../../assets/p/archive-720.jpg">
+<summary><span class="no">23</span><span class="tt">Archive Desk project backups</span><span class="tg">Backup app</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../archive-desk.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/archive.jpg" srcset="../../assets/p/archive-720.jpg 720w, ../../assets/j/archive.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Make a ZIP backup of a project in the browser, check every file against its fingerprint, compare versions and recover into a new folder. The Windows Workbench adds a backup library, imports and run history.</p><p class="more">Also: <a href="../../archive-desk-cli.html">command-line companion</a>, <a href="../../archive-desk-protection.html">encrypted backup preview</a>, <a href="../../archive-desk-workbench-0.6-source.zip">Workbench source</a>.</p><div class="lk"><a href="../../archive-desk.html">Try it in the browser</a><a href="../../archive-desk-workbench-history.html">Workbench guide</a><a href="https://github.com/SanderSaxBuilds/selected-work/releases/tag/archive-desk-workbench-0.6-windows-r2">Windows download</a></div></div></div>
+</details></li>
+<li class="pj" data-g="i"><span id="09" class="alt"></span><details id="09-migration-proof" data-img="../../assets/p/migration-720.jpg">
+<summary><span class="no">24</span><span class="tt">Data migration rehearsal</span><span class="tg">Migration method</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../09-migration-proof-Migration_Rehearsal_Method_Source.zip" tabindex="-1" aria-hidden="true"><img src="../../assets/j/migration.jpg" srcset="../../assets/p/migration-720.jpg 720w, ../../assets/j/migration.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Repeatable transforms, a target schema with row-level security, row and total reconciliation, and a cutover and rollback runbook, rehearsed on sample data.</p><div class="lk"><a href="../../09-migration-proof-Migration_Rehearsal_Method_Source.zip">Source and runbook</a><a href="https://github.com/SanderSaxBuilds/supabase-migration-proof">Repository</a></div></div></div>
+</details></li>
+<li class="grp" id="documents" data-g="b"><h3><span>Documents</span><small>Decks, catalogues, finance, 3 projects</small></h3></li>
+<li class="pj" data-g="b"><span id="01" class="alt"></span><details id="01-northline" data-img="../../assets/p/northline-720.jpg">
+<summary><span class="no">25</span><span class="tt">Northline presentation system</span><span class="tg">Presentation design</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../01-northline-Northline_Executive_Review.pdf" tabindex="-1" aria-hidden="true"><img src="../../assets/j/northline.jpg" srcset="../../assets/p/northline-720.jpg 720w, ../../assets/j/northline.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>An eight-slide executive review with charts, a bridge and a decision slide, fifteen finished slide layouts and a two-page guide. Shown as PDF design previews.</p><div class="lk"><a href="../../01-northline-Northline_Executive_Review.pdf">Executive review</a><a href="../../01-northline-Northline_Layout_Gallery_Preview.pdf">Layouts PDF</a><a href="../../01-northline-Northline_Template_Guide.pdf">Guide</a></div></div></div>
+</details></li>
+<li class="pj" data-g="b"><span id="02" class="alt"></span><details id="02-werksupply" data-img="../../assets/p/werk-720.jpg">
+<summary><span class="no">26</span><span class="tt">WerkSupply product catalogue</span><span class="tg">Catalogue design</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../02-werksupply-WerkSupply_Catalogue_Preview.pdf" tabindex="-1" aria-hidden="true"><img src="../../assets/j/werk.jpg" srcset="../../assets/p/werk-720.jpg 720w, ../../assets/j/werk.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Four catalogue pages with original product drawings, comparable specifications and a sample quote that adds up. The editable HTML source and product list are included.</p><div class="lk"><a href="../../02-werksupply-WerkSupply_Catalogue_Preview.pdf">Catalogue PDF</a><a href="../../02-werksupply-WerkSupply_Editable_Source.zip">Editable source</a></div></div></div>
+</details></li>
+<li class="pj" data-g="b"><span id="05" class="alt"></span><details id="05-property-documents" data-img="../../assets/p/property-720.jpg">
+<summary><span class="no">27</span><span class="tt">Property financing pack</span><span class="tg">Financial documents</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../05-property-documents-Northline_Property_Documents.pdf" tabindex="-1" aria-hidden="true"><img src="../../assets/j/property.jpg" srcset="../../assets/p/property-720.jpg 720w, ../../assets/j/property.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A fifteen-slide portfolio deck, a four-page financing summary and a one-page term sheet for a fictional ten-asset portfolio. The figures agree across all three.</p><div class="lk"><a href="../../05-property-documents-Northline_Property_Documents.pdf">Portfolio deck</a><a href="../../05-property-documents-Northline_Financing_Summary.pdf">Summary</a><a href="../../05-property-documents-Northline_Financing_Term_Sheet.pdf">Term sheet</a></div></div></div>
+</details></li>
+<li class="grp" id="research" data-g="r"><h3><span>Research</span><small>Market scans and content, 2 projects</small></h3></li>
+<li class="pj" data-g="r"><details id="sample-cosquin" data-img="../../assets/p/cosquin-720.jpg">
+<summary><span class="no">28</span><span class="tt">Market signals in Cosquín</span><span class="tg">Market research, Spanish</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../sample-cosquin.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/cosquin.jpg" srcset="../../assets/p/cosquin-720.jpg 720w, ../../assets/j/cosquin.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>A Spanish-language scan of public sources on food retail in Cosquín, Córdoba: eight shops to verify, the prices that are visible, the gaps, and a source for every figure.</p><div class="lk"><a href="../../sample-cosquin.html">Open the report</a><a href="../../sample-cosquin-source_notes.md">Source notes</a></div></div></div>
+</details></li>
+<li class="pj" data-g="r"><details id="sample-subtrak" data-img="../../assets/p/subtrak-720.jpg">
+<summary><span class="no">29</span><span class="tt">Construction content kit</span><span class="tg">Social content</span><span class="pm" aria-hidden="true"></span></summary>
+<div class="pn"><a class="ph" href="../../sample-subtrak.html" tabindex="-1" aria-hidden="true"><img src="../../assets/j/subtrak.jpg" srcset="../../assets/p/subtrak-720.jpg 720w, ../../assets/j/subtrak.jpg 1200w" sizes="(max-width:900px) calc(100vw - 32px), 640px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a>
+<div class="tx"><p>Three posts with square graphics and a 24-second vertical piece. Switch each post between LinkedIn and short-form copy with live character counts, and jump the video to each beat.</p><div class="lk"><a href="../../sample-subtrak.html">Open the kit</a><a href="../../sample-subtrak-copy_and_handoff.md">Copy and handoff</a></div></div></div>
+</details></li>
+    </ol>
+  </div>
+</section>
+
+<section class="end" id="contact" aria-labelledby="cH">
+  <div class="wrap">
+    <h2 id="cH">Have a page, file or export that needs work?</h2>
+    <p class="say">Send it with a short note on what should happen. I reply with the scope, price and timing, usually the same day.</p>
+    <div class="chs">
+      <a class="ch" href="https://t.me/sandersax" target="_blank" rel="noopener"><b>Telegram</b><span>@sandersax</span></a>
+      <a class="ch" href="https://wa.me/66961347329" target="_blank" rel="noopener"><b>WhatsApp</b><span>+66 96 134 7329</span></a>
+      <a class="ch" href="mailto:leshadqq@gmail.com"><b>Email</b><span>leshadqq@gmail.com</span></a>
+    </div>
+    <div class="else"><a href="https://contra.com/alexandr_khrustalev_tbhzo1a2">Contra</a><a href="https://www.linkedin.com/in/sander-sax-9835a82b4/">LinkedIn</a><a href="https://github.com/SanderSaxBuilds">GitHub</a><a href="../../Alexandr_Khrustalev_CV.pdf">CV, PDF</a></div>
+    <p class="note">ALLEX RESPECT ASIA is a live business site. The other projects are my own work, built with fictional companies and sample data to show how I would handle a real brief. None of them is presented as client work. Older overview: <a href="../../Selected_Work_Overview.pdf">PDF</a>.</p>
+    <footer><span>© 2026 Alexandr Khrustalev, SanderSax</span><span>Thailand, working remotely</span></footer>
+  </div>
+</section>
+</main>
+<figure class="peek" id="peek" aria-hidden="true"><img id="peekImg" alt=""></figure>
+
+<script>
+(function(){
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,fine=matchMedia("(hover:hover) and (pointer:fine)").matches;
+
+/* fit each line of the name to the width, then let the pointer stretch it */
+var nm=document.getElementById("nm"),lines=nm.querySelectorAll(".ln"),letters=[].slice.call(nm.querySelectorAll("i"));
+function fit(){
+  var pre=nm.classList.contains("pre");nm.classList.remove("pre","live");nm.classList.add("measure");
+  letters.forEach(function(i){i.style.removeProperty("--w");i.style.removeProperty("--g")});
+  lines.forEach(function(l){l.style.setProperty("--fs","100px")});
+  var w1=0;lines[0].querySelectorAll("i").forEach(function(i){w1+=i.getBoundingClientRect().width});
+  var fs=Math.min(100*nm.clientWidth*.8/w1,innerHeight*.44);
+  lines.forEach(function(l){l.style.setProperty("--fs",fs.toFixed(1)+"px")});
+  nm.classList.remove("measure");if(pre)nm.classList.add("pre");
+}
+function wave(px,py){
+  letters.forEach(function(i){var r=i.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,d=Math.hypot((px-cx)/innerWidth,(py-cy)/innerHeight*.6),k=Math.max(0,1-d/.22),e=k*k*(3-2*k);
+    i.style.setProperty("--w",(62+58*e).toFixed(1));i.style.setProperty("--g",(780+120*e-0).toFixed(0))});
+}
+function calm(){nm.classList.remove("live");letters.forEach(function(i){i.style.removeProperty("--w");i.style.removeProperty("--g")})}
+(document.fonts&&document.fonts.ready||Promise.resolve()).then(function(){
+  fit();if(reduce)nm.classList.remove("pre");else requestAnimationFrame(function(){requestAnimationFrame(function(){nm.classList.remove("pre")})});
+});
+setTimeout(function(){nm.classList.remove("pre")},2500);
+addEventListener("resize",function(){fit()});
+if(!reduce){
+  var hero=document.querySelector(".hero"),raf=0,px=0,py=0;
+  hero.addEventListener("pointermove",function(e){px=e.clientX;py=e.clientY;nm.classList.add("live");if(!raf)raf=requestAnimationFrame(function(){raf=0;wave(px,py)})});
+  hero.addEventListener("pointerleave",calm);
+  hero.addEventListener("pointerup",function(e){if(e.pointerType!=="mouse")calm()});
+  hero.addEventListener("pointercancel",calm);
+}
+
+/* folder tabs filter the list, hash links still land on a folder or a project */
+var list=document.getElementById("list"),tabs=[].slice.call(document.querySelectorAll(".tab"));
+function filter(f){list.dataset.f=f;tabs.forEach(function(t){t.setAttribute("aria-pressed",String(t.dataset.f===f))});
+  [].forEach.call(list.children,function(li){li.classList.toggle("hide",f!=="*"&&li.dataset.g!==f)})}
+tabs.forEach(function(t){t.addEventListener("click",function(){filter(t.dataset.f);var top=document.getElementById("index").getBoundingClientRect().top+scrollY;if(scrollY>top+10)scrollTo({top:top,behavior:reduce?"auto":"smooth"})})});
+function land(){var h=decodeURIComponent(location.hash.slice(1));if(!h)return;var el=document.getElementById(h);if(!el)return;
+  var li=el.closest("li");if(li){filter("*");var d=li.querySelector("details");if(d&&!el.classList.contains("grp"))d.open=true;setTimeout(function(){(d||li).scrollIntoView({block:"start"})},30)}}
+addEventListener("hashchange",land);land();
+
+/* the preview image follows the pointer down the list, a little late, leaning with the speed */
+if(fine&&!reduce){
+  var peek=document.getElementById("peek"),pimg=document.getElementById("peekImg"),tx=0,ty=0,x=0,y=0,lean=0,run=0,cur="";
+  function step(){var dx=tx-x,dy=ty-y;x+=dx*.18;y+=dy*.18;lean+=((dx*.06)-lean)*.2;lean=Math.max(-8,Math.min(8,lean));
+    peek.style.transform="translate("+(x+28).toFixed(1)+"px,"+(y-110).toFixed(1)+"px) rotate("+lean.toFixed(2)+"deg)";
+    if(Math.abs(dx)+Math.abs(dy)>.3||Math.abs(lean)>.05)run=requestAnimationFrame(step);else run=0}
+  list.addEventListener("pointermove",function(e){var s=e.target.closest("summary"),d=s&&s.parentNode;
+    if(!s||d.open){peek.classList.remove("on");return}
+    if(d.dataset.img!==cur){cur=d.dataset.img;pimg.src=cur}
+    if(!peek.classList.contains("on")){x=e.clientX;y=e.clientY}
+    peek.classList.add("on");tx=e.clientX;ty=e.clientY;if(!run)run=requestAnimationFrame(step)});
+  list.addEventListener("pointerleave",function(){peek.classList.remove("on")});
+  list.addEventListener("toggle",function(){peek.classList.remove("on")},true);
+}
+})();
+</script>
+</body>
+</html>
