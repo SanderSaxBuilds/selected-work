@@ -269,6 +269,9 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
   .gl-n b { font-size: 46px; }
   .gl-meter { height: 8px; }
 }
+@media (max-width: 640px) {
+  .gl-foot .sb-foot { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .row::before, .gl-meter i, .card-btn, .tools .btn.line, .bar .btn, .quick, .chip, .chip-clear { transition: none; }
   .cell.gl-just, .cell.gl-just .v, .cell.gl-just .pill, .cell.gl-just .pri, #change-count.gl-bump, .toast.gl-on, .chip.gl-new { animation: none; }
