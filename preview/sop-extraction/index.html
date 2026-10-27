@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="../../">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2b1630">
+<meta name="color-scheme" content="light">
+<title>Work instruction extraction</title>
+<meta name="description" content="A Python parser that turns a Word work instruction written to a set template into JSON and CSV steps, keeps a reference to each source paragraph and refuses content it can't read reliably. Edit a document in the browser and run the same rules on it.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Work instruction extraction">
+<meta property="og:description" content="A Python parser that turns a Word work instruction written to a set template into JSON and CSV steps, keeps a reference to each source paragraph and refuses content it can't read reliably. Edit a document in the browser and run the same rules on it.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sop-extraction-study.html">
+<meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/sop.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='3' width='20' height='26' fill='%23fff' stroke='%231b2f52' stroke-width='2'/%3E%3Cpath d='M10 10h12M10 15h12M10 20h7' stroke='%231b2f52' stroke-width='2'/%3E%3Cpath d='M3 8v16' stroke='%23b42318' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@100..900&family=Spectral:wght@400;600&family=Victor+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sop-style.css">
+<style>
+/* Work instruction preview. The carbon copy: pink duplicate-form paper, aubergine ink, a green that means the
+   parser accepted it and a red that means it stopped. Bitter for the desk, Spectral inside documents,
+   Victor Mono for what the parser writes. The map leads the hero, the result leads the bench. */
+:root {
+  --desk: #f2d7dc; --desk-2: #e6c3ca; --paper: #fffafb; --ink: #2b1630; --ink-2: #4d2a55; --text: #24162a; --muted: #6e5470;
+  --rule: #ecd6db; --rule-2: #c9a9b1; --red: #b3122e; --red-soft: #fbe3e6; --green: #12704f; --green-soft: #ddf1e8;
+  --hl: #d5f2e4; --hl-line: #12704f; --term: #24162a; --term-text: #f6e9ee; --term-dim: #c0a5b8;
+  --serif: "Spectral", Georgia, serif; --sans: "Bitter", Georgia, serif; --mono: "Victor Mono", Consolas, monospace;
+  --page-shadow: 0 0 0 2px var(--ink);
+}
+body { background: var(--desk); }
+h1, h2, h3 { letter-spacing: -.015em; }
+
+/* Control bar */
+.bar .docid { color: #c0a5b8; }
+
+/* Hero: the template map on the left, a heavy slab headline on the right */
+.hero h1 { font-weight: var(--hw, 700); font-size: clamp(40px, 5.6vw, 86px); line-height: 1; max-width: 13ch; }
+.kind { color: var(--green); }
+.kind::before { background: var(--green); }
+.hero .lede { color: var(--text); }
+@media (min-width: 1081px) {
+  .hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 64px; padding-top: 64px; align-items: center; }
+  .map { order: -1; }
+}
+.ruler { background: linear-gradient(90deg, #f6e6ea 0 26px, #fff 26px calc(100% - 26px), #f6e6ea calc(100% - 26px)); }
+.mp:hover { background: #fbeef1; }
+.mini-json .jk b { color: #9ef0c8; }
+.mini-json .jk.on { background: rgba(158, 240, 200, .14); border-left-color: #9ef0c8; }
+.map-note { color: var(--text); }
+.btn { border-radius: 0; border-width: 2px; }
+.btn:hover { background: #fbeef1; }
+.btn.solid { background: var(--green); border-color: var(--green); }
+.btn.solid:hover { background: var(--ink); border-color: var(--ink); }
+
+/* Properties: one dark aubergine strip */
+.fields { background: var(--ink); border-top: 0; box-shadow: none; }
+.fields div { border-right-color: #4d2a55; }
+.fields dt { color: #c0a5b8; }
+.fields dd { color: #fff; }
+@media (max-width: 1080px) { .fields div:nth-child(-n+3) { border-bottom-color: #4d2a55; } }
+@media (max-width: 600px) {
+  .fields div { border-bottom-color: #4d2a55; }
+  .fields div:nth-child(3) { border-right-color: #4d2a55; }
+}
+
+/* Section numbers set as big red figures */
+.shead { grid-template-columns: 150px minmax(0, 1fr); gap: 0 28px; align-items: end; }
+.shead .no { border-right: 0; padding: 0; font: 800 88px/.82 var(--sans); color: var(--red); height: auto; grid-row: 1 / span 2; }
+.shead .no::before { font: 400 11px/1.3 var(--mono); margin-bottom: 8px; }
+.shead h2 { font-size: clamp(30px, 3.6vw, 50px); font-weight: 800; }
+.shead p { color: var(--text); }
+@media (max-width: 600px) {
+  .shead { grid-template-columns: minmax(0, 1fr); }
+  .shead .no { border-left: 0; padding: 0; font-size: 56px; grid-row: auto; margin-bottom: 8px; }
+}
+
+/* Bench: on a desktop the result stands left, the document on the right */
+@media (min-width: 1081px) {
+  .bench { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); }
+  .res { order: -1; }
+}
+.pill { border-radius: 0; border-width: 2px; border-color: var(--ink); }
+.pill[aria-pressed="true"] { background: var(--green); border-color: var(--green); }
+.phead, .ftabs, figcaption { background: #f9e9ec; }
+.inserts { background: #fdf3f5; }
+.inserts button, .try, .ref, .chip, .reg-tools input { border-radius: 0; }
+.para textarea:focus { background: #fbeef1; }
+.term .th { border-bottom-color: #4d2a55; }
+.sheet { border-top: 6px solid var(--ink); }
+#stamp { transform: none; }
+.stage > header { background: #fbeef1; }
+.stage li { border-bottom-color: var(--rule); }
+.register { border-left: 6px solid var(--red); }
+.limits-list b { color: var(--green); }
+.stops { border-top: 0; border-left: 6px solid var(--red); }
+
+footer { background: var(--ink); color: #e7d3dc; }
+footer .foot-contact { border-top-color: #4d2a55; }
+.foot-contact span { color: #c0a5b8; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the study</a>
+<header class="bar">
+  <div class="wrap">
+    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
+    <span class="docid"><span>Controlled study </span><b>WI-PARSE</b> rev 1.0.0</span>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero wrap">
+    <div>
+      <p class="kind">Study, Python document parsing</p>
+      <h1>Word work instructions, read to the paragraph.</h1>
+      <p class="lede">Work instructions usually live in Word. This parser reads one written to a set template and writes the title, safety notes and steps to JSON and CSV. Every value keeps the number of the paragraph it came from and the hash of the source file. Anything outside the template stops the run instead of being guessed at.</p>
+      <div class="acts">
+        <a class="btn solid" href="#bench">Edit a document and run it</a>
+        <a class="btn" href="sop-parser-and-previews.zip" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Parser and tests <small>14 KB</small></a>
+      </div>
+    </div>
+    <figure class="map" id="map" aria-labelledby="map-cap">
+      <div class="map-cap" id="map-cap"><span>synthetic_sop.docx</span><span>work_instruction_preview.json</span></div>
+      <div class="map-grid" id="map-grid">
+        <div class="mini-page" role="group" aria-label="The template, one labeled paragraph each. Choose a paragraph to see where it goes.">
+          <div class="ruler" aria-hidden="true"></div>
+          <button type="button" class="mp" data-k="title" aria-pressed="false"><span class="pn">¶1</span><span><b>Title:</b> Review a sample café record</span></button>
+          <button type="button" class="mp" data-k="safety" aria-pressed="false"><span class="pn">¶2</span><span><b>Safety notes:</b> Synthetic example only.<br>No equipment is involved.</span></button>
+          <button type="button" class="mp" data-k="s1" aria-pressed="true"><span class="pn">¶3</span><span><b>Step 1:</b> Open the sample record.<br>Check that the café record ID is present.</span></button>
+          <button type="button" class="mp" data-k="s2" aria-pressed="false"><span class="pn">¶4</span><span><b>Step 2:</b> Mark the sample record Complete.</span></button>
+        </div>
+<pre class="mini-json" aria-label="The extracted JSON, shortened"><span class="pl">{</span><span class="jk" data-k="title">  "title": {
+    "source_paragraph_index": <b>1</b>,
+    "text": "Review a sample café record" },</span><span class="jk" data-k="safety">  "safety_notes": {
+    "source_paragraph_index": <b>2</b>,
+    "text": "Synthetic example only.\n..." },</span><span class="pl">  "steps": [</span><span class="jk on" data-k="s1">    { "step_number": 1,
+      "source_paragraph_index": <b>3</b>,
+      "text": "Open the sample record.\n..." },</span><span class="jk" data-k="s2">    { "step_number": 2,
+      "source_paragraph_index": <b>4</b>,
+      "text": "Mark the sample record Complete." }</span><span class="pl">  ],
+  "source": { "sha256": "4a68545d...", ... }
+}</span></pre>
+        <svg class="wire" id="wire" aria-hidden="true"><path id="wire-path" d=""/><circle id="wire-a" r="3.5" cx="-9" cy="-9"/><circle id="wire-b" r="3.5" cx="-9" cy="-9"/></svg>
+      </div>
+      <p class="map-note" id="map-note" aria-live="polite">Paragraph 3 becomes <code>steps[0]</code>. Its line break stays inside the step, and <code>source_paragraph_index</code> points back to it.</p>
+    </figure>
+  </div>
+  <div class="wrap props">
+    <dl class="fields" aria-label="Document properties">
+      <div><dt>Parser</dt><dd>1.0.0</dd></div>
+      <div><dt>Schema</dt><dd>work-instruction-preview/1</dd></div>
+      <div><dt>Runtime</dt><dd>Python 3.12, standard library</dd></div>
+      <div><dt>Unit tests</dt><dd>28, all pass</dd></div>
+      <div><dt>Refusal codes</dt><dd>42</dd></div>
+      <div><dt>Outputs</dt><dd>JSON and CSV, never overwritten</dd></div>
+    </dl>
+  </div>
+
+  <section class="wrap" id="bench" aria-labelledby="bench-title">
+    <div class="shead">
+      <span class="no">01</span>
+      <h2 id="bench-title">Write the instruction, read what the parser reads.</h2>
+      <p>The page builds a real .docx from these paragraphs on every change and runs the parser's rules on it in your browser. Nothing is uploaded. Break the template on purpose, the result says where and why it stopped.</p>
+    </div>
+    <div class="presets" role="group" aria-label="Example documents">
+      <span class="lab">Load</span>
+      <button type="button" class="pill" data-preset="sample" aria-pressed="true">Café record</button>
+      <button type="button" class="pill" data-preset="ribbon" aria-pressed="false">Printer ribbon</button>
+      <button type="button" class="pill" data-preset="fixture" aria-pressed="false">Test fixture file</button>
+      <button type="button" class="pill" data-preset="gap" aria-pressed="false">Missing step</button>
+      <button type="button" class="pill" data-preset="loose" aria-pressed="false">Loose note</button>
+      <button type="button" class="pill" data-preset="formula" aria-pressed="false">Formula-like text</button>
+    </div>
+    <div class="bench">
+      <div id="paper" data-mode="edit">
+        <div class="phead">
+          <div>
+            <h3 class="edit-only">work_instruction.docx</h3>
+            <h3 class="file-only" id="file-name"></h3>
+            <span class="meta" id="src-size"></span>
+          </div>
+          <div class="ptools">
+            <label class="btn filebtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h6l2 2h8v10H4z"/></svg>Open a .docx<input type="file" id="open" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></label>
+            <button type="button" class="btn edit-only" id="docx-dl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Save as .docx</button>
+          </div>
+        </div>
+        <div class="inserts edit-only" id="inserts" role="group" aria-label="Insert Word content">
+          <span>Add to <b id="ins-target">the last paragraph</b></span>
+          <button type="button" data-insert="list">Word list</button>
+          <button type="button" data-insert="tracked">Tracked change</button>
+          <button type="button" data-insert="field">Date field</button>
+          <button type="button" data-insert="hidden">Hidden text</button>
+          <button type="button" data-insert="pagebreak">Page break</button>
+          <button type="button" data-insert="table">Table after it</button>
+        </div>
+        <div class="ruler edit-only" aria-hidden="true"></div>
+        <p class="hint edit-only"><kbd>Enter</kbd> new paragraph, <kbd>Shift</kbd>+<kbd>Enter</kbd> line break inside one, <kbd>Backspace</kbd> at the start joins it to the one above.</p>
+        <div id="doc" class="edit-only"></div>
+        <div class="file-only">
+          <p class="fnote" id="file-note"></p>
+          <div class="ptools pad">
+            <button type="button" class="btn" id="copy-edit">Edit these paragraphs</button>
+            <button type="button" class="btn" id="back-edit">Back to the editor</button>
+          </div>
+          <div id="fdoc"></div>
+        </div>
+      </div>
+
+      <div class="res" id="res" data-state="ok">
+        <div class="term">
+          <div class="th"><span>shell</span><b id="exit">exit 0</b></div>
+          <pre><span class="cmd">$ python sop_to_work_instruction.py <b id="cmd-file">work_instruction.docx</b> --output-dir out</span>
+<span id="out-line"></span></pre>
+        </div>
+        <div class="sheet">
+          <div class="lab"><span>Extracted instruction</span><b id="stamp" role="status">Accepted</b></div>
+          <button type="button" class="btn" id="jump" hidden></button>
+          <div id="view"></div>
+        </div>
+        <div class="files" id="files">
+          <div class="ftabs" role="tablist" aria-label="Output files">
+            <button type="button" role="tab" id="tab-json" aria-selected="true" aria-controls="file-out">.json <small><span id="json-size"></span> B</small></button>
+            <button type="button" role="tab" id="tab-csv" aria-selected="false" aria-controls="file-out" tabindex="-1">.csv <small><span id="csv-size"></span> B</small></button>
+            <button type="button" class="btn" id="dl-file"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</button>
+          </div>
+          <pre id="file-out" role="tabpanel" tabindex="0" aria-labelledby="tab-json"></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="codes" aria-labelledby="codes-title">
+    <div class="shead">
+      <span class="no">02</span>
+      <h2 id="codes-title">Every reason it can refuse.</h2>
+      <p>A parser that skips what it doesn't understand hands someone an instruction with a missing step. This one stops with one of 42 codes, listed here by the stage that checks them. The run writes nothing on any of them.</p>
+    </div>
+    <div class="reg-tools">
+      <label for="find">Find a code</label>
+      <input id="find" type="search" placeholder="for example STEP or table" autocomplete="off" spellcheck="false">
+      <output id="find-count" for="find">42 codes</output>
+    </div>
+    <div class="register" id="register">
+      <div class="stage">
+        <header><h3>Input</h3><p>Before anything is opened</p></header>
+        <ul>
+          <li><code>INPUT_READ_FAILED</code><span>The source file can't be read.</span><em class="cli-only">CLI only</em></li>
+          <li><code>INPUT_SIZE_LIMIT</code><span>The file is larger than 8 MiB.</span><em class="cli-only">open a big file</em></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>ZIP package</h3><p>Checked from the directory, before a member is read</p></header>
+        <ul>
+          <li><code>ZIP_INVALID</code><span>Not a ZIP archive at all.</span><em class="cli-only">open a non-ZIP file</em></li>
+          <li><code>ZIP_MEMBER_COUNT_LIMIT</code><span>More than 256 members.</span></li>
+          <li><code>ZIP_DUPLICATE_MEMBER</code><span>The same member name appears twice.</span></li>
+          <li><code>ZIP_UNSAFE_MEMBER</code><span>A name with a backslash, a colon, a leading slash or a dot segment.</span></li>
+          <li><code>ZIP_ENCRYPTED_MEMBER</code><span>A member is encrypted.</span></li>
+          <li><code>ZIP_UNSUPPORTED_COMPRESSION</code><span>Anything other than stored or deflate.</span></li>
+          <li><code>ZIP_MEMBER_LIMIT</code><span>A member expands past 4 MiB, or past its own part limit.</span></li>
+          <li><code>ZIP_TOTAL_SIZE_LIMIT</code><span>All members together expand past 16 MiB.</span></li>
+          <li><code>ZIP_COMPRESSION_RATIO_LIMIT</code><span>A member expands more than 250 times its compressed size.</span></li>
+          <li><code>UNSUPPORTED_PACKAGE_CONTENT</code><span>Macros, ActiveX or embedded packages, by part name or content type.</span></li>
+          <li><code>ZIP_MEMBER_READ_FAILED</code><span>A required part fails to decompress or its checksum is wrong.</span></li>
+          <li><code>ZIP_SIZE_MISMATCH</code><span>A part's bytes don't match the size the directory declared.</span></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>Parts and XML</h3><p>The three parts the parser needs</p></header>
+        <ul>
+          <li><code>DOCX_MISSING_PART</code><span>No content types, root relationships or main document.</span></li>
+          <li><code>XML_UNSUPPORTED_ENCODING</code><span>A part is UTF-16, UTF-32 or not valid UTF-8.</span></li>
+          <li><code>XML_UNSAFE_DECLARATION</code><span>A DOCTYPE or ENTITY declaration.</span></li>
+          <li><code>XML_MALFORMED</code><span>A part is not well-formed XML.</span></li>
+          <li><code>DOCX_PART_ROOT</code><span>A part has the wrong root element.</span></li>
+          <li><code>DOCX_CONTENT_TYPE</code><span>No Word main document content type for word/document.xml.</span></li>
+          <li><code>DOCX_ROOT_RELATIONSHIP</code><span>Not exactly one main document relationship, or it points elsewhere.</span></li>
+          <li><code>DOCX_BODY_MISSING</code><span>The document has no body.</span></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>Word content</h3><p>Anywhere in the document</p></header>
+        <ul>
+          <li><code>UNSUPPORTED_TABLE</code><span>Any table.</span><button type="button" class="try" data-try="table">Try it</button></li>
+          <li><code>UNSUPPORTED_IMAGE</code><span>Drawings, pictures, objects, text boxes or a media part.</span></li>
+          <li><code>UNSUPPORTED_NUMBERING</code><span>Automatic Word numbering or lists.</span><button type="button" class="try" data-try="list">Try it</button></li>
+          <li><code>UNSUPPORTED_WORD_CONTENT</code><span>Fields, tracked changes, comments, links, symbols, content controls.</span></li>
+          <li><code>UNSUPPORTED_HIDDEN_TEXT</code><span>Text formatted as hidden.</span></li>
+          <li><code>UNSUPPORTED_BODY_CONTENT</code><span>Anything in the body other than paragraphs.</span></li>
+          <li><code>UNSUPPORTED_BREAK_TYPE</code><span>A page or column break inside a paragraph.</span><button type="button" class="try" data-try="break">Try it</button></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>Template</h3><p>Paragraph by paragraph</p></header>
+        <ul>
+          <li><code>TEMPLATE_MISSING_TITLE</code><span>The first non-empty paragraph isn't the title, or there is none.</span><button type="button" class="try" data-try="notitle">Try it</button></li>
+          <li><code>TEMPLATE_EMPTY_TITLE</code><span>The title label has no text.</span></li>
+          <li><code>TEMPLATE_MULTILINE_TITLE</code><span>The title has a line break.</span><button type="button" class="try" data-try="multititle">Try it</button></li>
+          <li><code>TEMPLATE_DUPLICATE_LABEL</code><span>A second title, safety notes or the same step number.</span><button type="button" class="try" data-try="dup">Try it</button></li>
+          <li><code>TEMPLATE_AMBIGUOUS_CONTENT</code><span>An unlabeled paragraph, or labels in the wrong order.</span><button type="button" class="try" data-try="late">Try it</button></li>
+          <li><code>TEMPLATE_EMPTY_SAFETY_NOTES</code><span>The safety notes label has no text.</span></li>
+          <li><code>TEMPLATE_STEP_NUMBER_LIMIT</code><span>A step number longer than nine digits.</span></li>
+          <li><code>TEMPLATE_EMPTY_STEP</code><span>A step label with no instruction.</span><button type="button" class="try" data-try="emptystep">Try it</button></li>
+          <li><code>TEMPLATE_NO_STEPS</code><span>A title and no steps.</span><button type="button" class="try" data-try="nosteps">Try it</button></li>
+          <li><code>TEMPLATE_STEP_SEQUENCE</code><span>Steps that don't start at 1 or skip a number.</span><button type="button" class="try" data-try="gap">Try it</button></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <header><h3>Output</h3><p>Only after a clean parse</p></header>
+        <ul>
+          <li><code>OUTPUT_DIR_UNAVAILABLE</code><span>The output folder can't be created or isn't a folder.</span><em class="cli-only">CLI only</em></li>
+          <li><code>OUTPUT_EXISTS</code><span>Either preview file is already there. Both are left as they were.</span><em class="cli-only">CLI only</em></li>
+          <li><code>OUTPUT_WRITE_FAILED</code><span>Publishing failed. Any file already linked is removed again.</span><em class="cli-only">CLI only</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="rec-title">
+    <div class="shead">
+      <span class="no">03</span>
+      <h2 id="rec-title">The recorded run.</h2>
+      <p>The two files the Python tool wrote for the test fixture, a fictional two-step instruction. The paragraph numbers are the parser's one-based body paragraphs, not Word's line numbers. Both files are in the download.</p>
+    </div>
+    <div class="rec">
+      <figure>
+        <figcaption><span>work_instruction_preview.json</span><span>860 bytes</span></figcaption>
+<pre tabindex="0" aria-label="Recorded JSON output" id="rec-json">{
+  "parser_version": "1.0.0",
+  "safety_notes": {
+    "source_paragraph_index": 2,
+    "text": "Synthetic example only.\nNo equipment is involved."
+  },
+  "schema_version": "work-instruction-preview/1",
+  "source": {
+    "filename": "synthetic_sop.docx",
+    "paragraph_indexing": "One-based paragraphs in the main document body, including blank paragraphs.",
+    "sha256": "4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267",
+    "size_bytes": 1081
+  },
+  "steps": [
+    {
+      "source_paragraph_index": 3,
+      "step_number": 1,
+      "text": "Open the sample record.\nCheck that the café record ID is present."
+    },
+    {
+      "source_paragraph_index": 4,
+      "step_number": 2,
+      "text": "Mark the sample record Complete."
+    }
+  ],
+  "title": {
+    "source_paragraph_index": 1,
+    "text": "Review a sample café record"
+  }
+}
+</pre>
+      </figure>
+      <figure>
+        <figcaption><span>work_instruction_preview.csv</span><span>552 bytes</span></figcaption>
+<pre tabindex="0" aria-label="Recorded CSV output" id="rec-csv">record_type,step_number,text,source_paragraph_index,source_sha256
+title,,Review a sample café record,1,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
+safety_notes,,"Synthetic example only.
+No equipment is involved.",2,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
+step,1,"Open the sample record.
+Check that the café record ID is present.",3,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
+step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797fb2b502c4aa2799cd87bb23d267
+</pre>
+      </figure>
+    </div>
+    <p class="parity" id="parity">Checking the bench against these files.</p>
+  </section>
+
+  <section class="wrap" aria-labelledby="code-title">
+    <div class="shead">
+      <span class="no">04</span>
+      <h2 id="code-title">Safe in a spreadsheet, exact in JSON.</h2>
+    </div>
+    <div class="code">
+      <div class="notes">
+        <p>Step text that starts with <code>=</code>, <code>+</code>, <code>-</code> or <code>@</code> would run as a formula when the CSV opens in Excel. The CSV gets a leading apostrophe. The JSON keeps the original text, so nothing is lost. Load "Formula-like text" on the bench and compare the two tabs.</p>
+        <figure>
+          <figcaption><span>sop_to_work_instruction.py</span><span>lines 450 to 455</span></figcaption>
+<pre tabindex="0" aria-label="Excerpt: CSV formula guard">def _csv_safe_text(value: str) -&gt; str:
+    """Keep formula-like source text literal when a CSV is opened as a spreadsheet."""
+    significant = value.lstrip()
+    if significant.startswith(("=", "+", "-", "@")):
+        return "'" + value
+    return value</pre>
+        </figure>
+      </div>
+      <div class="notes">
+        <p>The parser reads the package directly with the standard library and checks the ZIP directory before it decompresses anything.</p>
+        <ul class="limits-list">
+          <li>Source file <b>8 MiB</b></li>
+          <li>One member, expanded <b>4 MiB</b></li>
+          <li>All members, expanded <b>16 MiB</b></li>
+          <li>Members <b>256</b></li>
+          <li>Expansion ratio <b>250 to 1</b></li>
+        </ul>
+        <div class="term static">
+          <div class="th"><span>rerun on 24 October 2026</span><b>Python 3.12</b></div>
+<pre tabindex="0" aria-label="Test command and result"><span class="cmd">$ python -m unittest tests.test_sop_to_work_instruction</span>
+Ran 28 tests in 0.558s
+<span class="ok">OK</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="limits-title">
+    <div class="stops">
+      <div>
+        <h2 id="limits-title">Where this stops</h2>
+        <p>This is an extraction building block tested on fictional documents. It reads one labeled template, not any Word file. The test document is generated in code and hasn't been opened in Word itself.</p>
+        <p>The bench runs a JavaScript port of the same rules. On 1,373 generated and damaged documents, plus 600 documents built by the editor, it gave the same files or the same refusal as the Python tool every time. The editor saves its .docx uncompressed, Word itself compresses.</p>
+        <ul>
+          <li>Supported: one title, optional safety notes before the steps, then consecutive steps of one paragraph each.</li>
+          <li>Not supported: other layouts, tables, automatic lists, headers and footers.</li>
+          <li>No upload, MES connection or production deployment.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>How a real project would start</h3>
+        <p>With an anonymized copy of one of your real documents. We'd agree which structure the parser accepts and how each field maps to your system, then test against a set of known documents before connecting anything.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Independent study by Alexandr Khrustalev. The work instructions are fictional.</p>
+    <a href="index.html#sop-extraction">Back to selected work</a>
+    <p class="foot-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
+  </div>
+</footer>
+<script type="text/plain" id="fixture-docx">UEsDBBQAAAAIAAAAIVDXeYTq8QAAALgBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbH2QzU7DMBCE730Ky9cqccoBIZSkB36OwKE8wMreJFb9J69b2rdn00KREOVozXwz62nXB+/EHjPZGDq5qhspMOhobBg7+b55ru6koALBgIsBO3lEkut+0W6OCUkwHKiTUynpXinSE3qgOiYMrAwxeyj8zKNKoLcworppmlulYygYSlXmDNkvhGgfcYCdK+LpwMr5loyOpHg4e+e6TkJKzmoorKt9ML+Kqq+SmsmThyabaMkGqa6VzOL1jh/0lSfK1qB4g1xewLNRfcRslIl65xmu/0/649o4DFbjhZ/TUo4aiXh77+qL4sGG71+06jR8/wlQSwMEFAAAAAgAAAAhUCAbhuqyAAAALgEAAAsAAABfcmVscy8ucmVsc43Puw6CMBQG4J2naM4uBQdjDIXFmLAafICmPZRGeklbL7y9HRzEODie23fyN93TzOSOIWpnGdRlBQStcFJbxeAynDZ7IDFxK/nsLDJYMELXFs0ZZ57yTZy0jyQjNjKYUvIHSqOY0PBYOo82T0YXDE+5DIp6Lq5cId1W1Y6GTwPagpAVS3rJIPSyBjIsHv/h3ThqgUcnbgZt+vHlayPLPChMDB4uSCrf7TKzQHNKuorZvgBQSwMEFAAAAAgAAAAhUHWOcao+AQAAzAIAABEAAAB3b3JkL2RvY3VtZW50LnhtbKWSQU7DMBBFrzLynrjtAiGrSRdFSF1QEAWxNs60sZrYxp4mzZE4BxfDTlUBohKobL5l2Xr//9FMZ/umhhZ90NbkbJyNGKBRttRmk7Onx5uLKwaBpCllbQ3mrMfAZsW0E6VVuwYNQQSYILqcVUROcB5UhY0MmXVo4tva+kZSvPoN76wvnbcKQ4j8puaT0eiSN1IblpAvtuzT6ZL4JANdBCdVtHYeA/oWWfFs/RYWJpDfKYrBBTxgq7EDCUE2rkZQcv3+Bh5VdJzyCCqS+kHdnzxWco3Uw9ISBgGr3lCFpBXg/uBgTd1n39CxgOe/YZcW8HWn3TA6HUCb1tYtltmZKQkdjAXcxWFDTHjsf2h+Rr55hWobSZIG3Nc5wuI6JR7+GvpP4ImAW+m3PwPD3KYb4Wl6QEX3qQM/Lgv/XMTiA1BLAQIUABQAAAAIAAAAIVDXeYTq8QAAALgBAAATAAAAAAAAAAAAAACAAQAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAhQAFAAAAAgAAAAhUCAbhuqyAAAALgEAAAsAAAAAAAAAAAAAAIABIgEAAF9yZWxzLy5yZWxzUEsBAhQAFAAAAAgAAAAhUHWOcao+AQAAzAIAABEAAAAAAAAAAAAAAIAB/QEAAHdvcmQvZG9jdW1lbnQueG1sUEsFBgAAAAADAAMAuQAAAGoDAAAAAA==</script>
+<script type="module" src="sop-page.mjs"></script>
+<script type="module">
+const find = document.getElementById("find"), count = document.getElementById("find-count");
+find.addEventListener("input", () => {
+  const q = find.value.trim().toLowerCase().replace(/[\s_]+/g, " ");
+  let n = 0;
+  for (const stage of document.querySelectorAll(".stage")) {
+    let shown = 0;
+    for (const li of stage.querySelectorAll("li")) {
+      const hit = !q || li.textContent.toLowerCase().replace(/[\s_]+/g, " ").includes(q);
+      li.hidden = !hit; if (hit) shown++;
+    }
+    stage.classList.toggle("empty", shown === 0); n += shown;
+  }
+  count.textContent = n === 1 ? "1 code" : `${n} codes`;
+});
+
+// Hero: point at a template paragraph, see the JSON it becomes, joined by a drawn wire.
+const NOTES = {
+  title: "Paragraph 1 becomes <code>title</code>. The label is dropped, the text is kept as written.",
+  safety: "Paragraph 2 becomes <code>safety_notes</code>. Safety notes are optional, but only allowed before the first step.",
+  s1: "Paragraph 3 becomes <code>steps[0]</code>. Its line break stays inside the step, and <code>source_paragraph_index</code> points back to it.",
+  s2: "Paragraph 4 becomes <code>steps[1]</code>. Step numbers must start at 1 and never skip, or the run stops.",
+};
+const grid = document.getElementById("map-grid"), path = document.getElementById("wire-path");
+const dotA = document.getElementById("wire-a"), dotB = document.getElementById("wire-b");
+const still = matchMedia("(prefers-reduced-motion: reduce)");
+let cur = "s1";
+function wire(animate) {
+  const p = grid.querySelector(`.mp[data-k="${cur}"]`), j = grid.querySelector(`.jk[data-k="${cur}"]`);
+  const g = grid.getBoundingClientRect(), a = p.getBoundingClientRect(), b = j.getBoundingClientRect();
+  if (getComputedStyle(path.parentNode).display === "none" || !a.width) return;
+  // On very wide screens the page is zoomed. Rects are in screen pixels, the wire is drawn in page pixels.
+  const z = grid.offsetWidth ? g.width / grid.offsetWidth : 1;
+  const ax = (a.right - g.left) / z, ay = (a.top + a.height / 2 - g.top) / z, bx = (b.left - g.left) / z, by = (b.top + b.height / 2 - g.top) / z;
+  const mx = (ax + bx) / 2;
+  path.setAttribute("d", `M${ax},${ay} C${mx},${ay} ${mx},${by} ${bx},${by}`);
+  dotA.setAttribute("cx", ax); dotA.setAttribute("cy", ay); dotB.setAttribute("cx", bx); dotB.setAttribute("cy", by);
+  path.classList.remove("draw");
+  if (animate && !still.matches) { path.style.setProperty("--len", Math.ceil(path.getTotalLength())); void path.getBoundingClientRect(); path.classList.add("draw"); }
+}
+function pick(k, animate) {
+  cur = k;
+  for (const b of grid.querySelectorAll(".mp")) b.setAttribute("aria-pressed", String(b.dataset.k === k));
+  for (const s of grid.querySelectorAll(".jk")) s.classList.toggle("on", s.dataset.k === k);
+  document.getElementById("map-note").innerHTML = NOTES[k];
+  wire(animate);
+}
+for (const b of grid.querySelectorAll(".mp")) {
+  b.addEventListener("click", () => pick(b.dataset.k, true));
+  b.addEventListener("pointerenter", () => { if (cur !== b.dataset.k) pick(b.dataset.k, true); });
+}
+addEventListener("resize", () => wire(false));
+document.fonts.ready.then(() => wire(false));
+wire(false);
+</script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=((300)+((800)-(300))*x).toFixed(2)+'';document.querySelectorAll('.hero h1').forEach(function(n){n.style.setProperty('--hw',v)})})},{passive:true})})();</script>
+</body>
+</html>

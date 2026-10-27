@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<base href="../../">
+<meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d8d2c4">
+  <title>Construction content kit</title>
+  <meta name="description" content="Three social posts for a construction workflow product, with square graphics, a 24-second vertical motion piece, captions and a production calendar.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Construction content kit">
+  <meta property="og:description" content="Three posts about the small things that slow a job down, with square graphics, a 24-second vertical piece and a production calendar.">
+  <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sample-subtrak.html">
+  <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/subtrak.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Construction content kit">
+  <meta name="twitter:description" content="Three social posts, square graphics and a 24-second vertical motion piece for a construction workflow product.">
+  <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/subtrak.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141412'/%3E%3Crect x='4' y='20' width='24' height='6' fill='%23f2d21b'/%3E%3Cpath d='M9 18V11l7-5 7 5v7' fill='none' stroke='%23f2d21b' stroke-width='2.6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&family=Instrument+Sans:wght@400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Construction content kit. Its own sheet.
+       Design language: the site board. Poured-concrete grey, black steel, one strip of safety
+       yellow tape for whatever is live, and the kit's own spruce green as the bay where the
+       finished posts hang. Big Shoulders Display for signage-scale headings, Barlow for reading,
+       JetBrains Mono for timecodes, counts and file names. Square corners, heavy rules,
+       nothing rounded that would not be rounded on a job site. */
+    :root {
+      color-scheme: light;
+      --concrete: #e8e5de; --slab: #f4f2ed; --steel: #141412; --steel-2: #2a2a26; --grey: #5b5a54; --rule: #c7c3b8; --rule-soft: #d9d5cc;
+      --tape: #f2d21b; --tape-ink: #3d3400;
+      --spruce: #0e2621; --spruce-2: #153530; --spruce-3: #1f4a42; --mint: #b9f4c9; --aqua: #a8ddd2; --on-spruce: #e4f1ec; --on-spruce-muted: #a1bbb0;
+      --sign: "Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
+      --sans: "Barlow", Arial, "Helvetica Neue", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+      --focus: 0 0 0 3px var(--concrete), 0 0 0 6px var(--steel);
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-padding-top: 16px; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    body { margin: 0; color: var(--steel); background: var(--concrete); font: 500 17.5px/1.55 var(--sans); }
+    h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; }
+    h1, h2, h3 { text-wrap: balance; }
+    a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+    img, video { display: block; max-width: 100%; }
+    button { font: inherit; color: inherit; }
+    :focus-visible { outline: none; box-shadow: var(--focus); }
+    [hidden] { display: none !important; }
+    .mono { font-family: var(--mono); }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 760px) { .wrap { padding: 0 32px; } }
+    @media (min-width: 1900px) { .wrap { max-width: 1480px; } body { font-size: 18.5px; } }
+    .skip-link { position: fixed; z-index: 10; top: 8px; left: 8px; display: inline-flex; align-items: center; min-height: 44px; padding: 10px 14px; color: var(--steel); background: var(--tape); font-weight: 700; transform: translateY(-180%); }
+    .skip-link:focus { transform: none; }
+    .tape { display: inline-block; padding: 3px 10px 2px; background: var(--tape); color: var(--tape-ink); font: 700 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+
+    /* Header: a steel strip */
+    .topbar { background: var(--steel); color: #f4f2ed; }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: #fff; font: 800 22px/1 var(--sign); letter-spacing: .03em; text-decoration: none; text-transform: uppercase; }
+    .brand svg { width: 30px; height: 30px; flex: none; }
+    .back { display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px; color: #d9d6cf; font: 500 14px var(--mono); text-decoration: none; white-space: nowrap; }
+    .back:hover { color: var(--tape); }
+    @media (max-width: 480px) { .brand { font-size: 18px; line-height: 1.05; } }
+    @media (max-width: 340px) { .topbar .wrap { gap: 10px; } .brand { gap: 8px; font-size: 16px; } .brand svg { width: 26px; height: 26px; } .back { font-size: 13px; } }
+
+    /* Hero: the job sheet */
+    .hero { display: grid; gap: 40px; padding: 44px 0 56px; }
+    @media (min-width: 960px) { .hero { grid-template-columns: minmax(0, 1fr) 420px; gap: 64px; align-items: center; padding: 72px 0 88px; } }
+    h1 { margin-top: 18px; font: 900 clamp(48px, 8.4vw, 124px)/.86 var(--sign); letter-spacing: -.005em; text-transform: uppercase; }
+    h1 mark { padding: 0 .06em; background: linear-gradient(transparent 58%, var(--tape) 58%, var(--tape) 92%, transparent 92%); color: inherit; }
+    .lede { max-width: 600px; margin-top: 24px; color: var(--steel-2); font-size: clamp(18px, 1.6vw, 21px); }
+    .spec { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 28px; border-top: 3px solid var(--steel); border-bottom: 1px solid var(--steel); }
+    .spec div { padding: 12px 12px 12px 0; }
+    .spec div + div { padding-left: 14px; border-left: 1px solid var(--rule); }
+    .spec b { display: block; font: 900 clamp(38px, 5vw, 56px)/.9 var(--sign); font-variant-numeric: tabular-nums; }
+    .spec span { display: block; margin-top: 4px; color: var(--grey); font-size: 14px; line-height: 1.35; }
+    .contents { margin-top: 14px; color: var(--grey); font-size: 15px; }
+    .contents b { color: var(--steel); font: 700 15px var(--mono); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 12px 22px; border: 2px solid var(--steel); color: var(--steel); background: transparent; font: 700 16px/1.2 var(--sans); letter-spacing: .04em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out, transform .15s ease-out, box-shadow .15s ease-out; }
+    .button:hover { background: var(--steel); color: #fff; }
+    .button:active { transform: translate(2px, 2px); box-shadow: none !important; }
+    .button.solid { background: var(--tape); border-color: var(--steel); box-shadow: 4px 4px 0 var(--steel); }
+    .button.solid:hover { background: var(--steel); color: var(--tape); }
+    .button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; }
+
+    main { overflow-x: clip; }
+    .board { position: relative; width: 100%; max-width: 420px; justify-self: center; }
+    .board .behind { position: absolute; width: 78%; aspect-ratio: 1; border: 6px solid var(--slab); box-shadow: 0 12px 26px -16px rgba(0,0,0,.5); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+    .board .behind img { width: 100%; height: 100%; object-fit: cover; }
+    .board .b1 { right: -6%; top: -4%; transform: rotate(6deg); }
+    .board .b2 { left: -8%; top: 12%; transform: rotate(-7deg); }
+    .board:hover .b1 { transform: rotate(9deg) translate(14px, -6px); }
+    .board:hover .b2 { transform: rotate(-10deg) translate(-14px, 4px); }
+    .feed { position: relative; background: var(--slab); border: 2px solid var(--steel); box-shadow: 8px 8px 0 var(--steel); transform: rotate(-1deg); }
+    .feed::before { content: ""; position: absolute; z-index: 2; left: 50%; top: -14px; width: 96px; height: 26px; margin-left: -48px; background: rgba(242,210,27,.88); transform: rotate(-3deg); }
+    .feed-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
+    .feed-head i { width: 32px; height: 32px; background: var(--spruce); flex: none; }
+    .feed-head span { display: block; font-size: 14px; font-weight: 700; line-height: 1.2; }
+    .feed-head small { color: var(--grey); font: 12px var(--mono); }
+    .feed img { width: 100%; height: auto; aspect-ratio: 1; }
+    .feed p { padding: 12px 14px 14px; font-size: 14px; line-height: 1.5; }
+    @media (max-width: 480px) { .board { max-width: 300px; } }
+
+    /* Spruce bay where the posts hang */
+    .bay { background: var(--spruce); color: var(--on-spruce); }
+    .bay .tape { background: var(--mint); color: var(--spruce); }
+    .section { padding: 64px 0; }
+    @media (min-width: 900px) { .section { padding: 96px 0; } }
+    .head { display: grid; gap: 14px; margin-bottom: 40px; }
+    @media (min-width: 900px) { .head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: end; } }
+    h2 { margin-top: 12px; font: 900 clamp(40px, 6vw, 80px)/.9 var(--sign); text-transform: uppercase; }
+    .head p { max-width: 620px; color: var(--grey); }
+    .bay .head p { color: var(--on-spruce-muted); }
+
+    .post { display: grid; gap: 24px; padding: 36px 0; border-top: 1px solid var(--spruce-3); }
+    .post:first-of-type { border-top: 3px solid var(--mint); }
+    @media (min-width: 900px) { .post { grid-template-columns: 380px minmax(0, 1fr); gap: 48px; align-items: start; padding: 48px 0; } }
+    .post-art { position: relative; width: 100%; max-width: 420px; border: 1px solid var(--spruce-3); }
+    .post-art img { width: 100%; height: auto; aspect-ratio: 1; }
+    .post-n { position: absolute; left: -1px; top: -1px; padding: 4px 10px; background: var(--mint); color: var(--spruce); font: 700 14px var(--mono); }
+    .post-body { min-width: 0; }
+    .post .topic { display: inline-block; color: var(--aqua); font: 700 13px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .post h3 { margin-top: 6px; color: #fff; font: 800 clamp(30px, 3.2vw, 42px)/.95 var(--sign); text-transform: uppercase; }
+    .switch { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 22px; border: 2px solid var(--mint); max-width: 560px; }
+    .switch button { min-height: 48px; padding: 8px 12px; border: 0; color: var(--mint); background: transparent; font: 700 14px/1.2 var(--sans); text-transform: uppercase; letter-spacing: .06em; cursor: pointer; transition: background-color .2s ease-out, color .2s ease-out; }
+    .switch button + button { border-left: 2px solid var(--mint); }
+    .switch button[aria-selected=true] { color: var(--spruce); background: var(--mint); }
+    .switch button:not([aria-selected=true]):hover { background: var(--spruce-2); }
+    .shot { max-width: 560px; margin-top: 14px; background: #fff; color: #1d2422; }
+    .shot-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px 0; }
+    .shot-head i { width: 36px; height: 36px; flex: none; background: var(--spruce); }
+    .shot-head b { display: block; font-size: 14px; line-height: 1.2; }
+    .shot-head small { display: block; color: #6a716f; font: 12px/1.3 var(--sans); }
+    .caption { padding: 12px 16px 16px; font-size: 16px; line-height: 1.55; }
+    .caption p + p { margin-top: 10px; }
+    .caption-foot { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 16px; align-items: center; max-width: 560px; margin-top: 14px; }
+    .meter { grid-column: 1 / -1; height: 8px; background: var(--spruce-3); position: relative; overflow: hidden; }
+    .meter i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--mint); transition: width .5s cubic-bezier(.2,.8,.2,1); }
+    .count { color: var(--on-spruce-muted); font: 13px/1.5 var(--mono); }
+    .count b { color: #fff; font-weight: 700; }
+    .copy-btn { min-height: 44px; padding: 8px 16px; border-color: var(--mint); color: var(--mint); font-size: 14px; }
+    .copy-btn:hover { background: var(--mint); color: var(--spruce); }
+    .files-row { display: flex; flex-wrap: wrap; gap: 0 24px; margin-top: 12px; font: 500 14px var(--mono); }
+    .files-row a { display: inline-flex; align-items: center; min-height: 44px; color: var(--mint); }
+
+    /* Motion: a cutting-room timeline */
+    .motion { display: grid; gap: 40px; }
+    @media (min-width: 900px) { .motion { grid-template-columns: minmax(0, 1fr) 340px; gap: 72px; align-items: start; } }
+    .motion .lede { margin-top: 18px; }
+    .player { width: 100%; max-width: 340px; justify-self: center; }
+    .player video { width: 100%; height: auto; aspect-ratio: 9 / 16; background: var(--spruce); border: 2px solid var(--steel); box-shadow: 8px 8px 0 var(--steel); }
+    .player figcaption { margin-top: 16px; color: var(--grey); font: 13px/1.5 var(--mono); text-align: center; }
+    .timeline { margin-top: 32px; }
+    .ruler { display: flex; justify-content: space-between; color: var(--grey); font: 12px var(--mono); padding-bottom: 6px; }
+    .track { position: relative; }
+    .beats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding: 0; list-style: none; border: 2px solid var(--steel); background: var(--slab); }
+    .beats li + li { border-left: 2px solid var(--steel); }
+    .beats button { position: relative; display: grid; align-content: start; gap: 8px; width: 100%; height: 100%; min-height: 150px; padding: 14px 14px 18px; border: 0; background: transparent; text-align: left; cursor: pointer; overflow: hidden; isolation: isolate; transition: background-color .2s ease-out; }
+    .beats button:hover { background: #fff; }
+    .beats button .mono { font-size: 13px; font-weight: 700; }
+    .beats button > span:last-child { font-size: 15.5px; line-height: 1.4; }
+    .beats .fill { position: absolute; z-index: -1; inset: 0 auto 0 0; width: 0; background: var(--tape); }
+    .beats li.now button .mono { color: var(--steel); }
+    .beats li.now button { box-shadow: inset 0 -5px 0 var(--steel); }
+    .playhead { position: absolute; top: -10px; bottom: -10px; left: 0; width: 3px; background: var(--steel); pointer-events: none; transform: translateX(-1px); }
+    .playhead::before { content: ""; position: absolute; top: 0; left: -6px; border: 7px solid transparent; border-top: 9px solid var(--steel); }
+    @media (max-width: 640px) {
+      .beats { grid-template-columns: 1fr; }
+      .beats li + li { border-left: 0; border-top: 2px solid var(--steel); }
+      .beats button { min-height: 0; }
+      .playhead { display: none; }
+    }
+
+    /* Production files and the board */
+    .yard { border-top: 3px solid var(--steel); }
+    .downloads { display: grid; gap: 0; padding: 0; list-style: none; border-top: 3px solid var(--steel); }
+    @media (min-width: 760px) { .downloads { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .downloads li { display: grid; gap: 2px; padding: 16px 16px 18px 0; border-bottom: 1px solid var(--rule); }
+    @media (min-width: 760px) { .downloads li + li { padding-left: 16px; border-left: 1px solid var(--rule); } }
+    .downloads a { display: inline-flex; align-items: center; min-height: 44px; font: 800 24px/1 var(--sign); text-transform: uppercase; }
+    .downloads a:hover { background: var(--tape); }
+    .downloads span { color: var(--grey); font: 13px var(--mono); }
+    .cal-wrap { margin-top: 40px; overflow-x: auto; border: 2px solid var(--steel); background: var(--slab); }
+    .cal { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 15px; }
+    .cal caption { padding: 12px 16px; background: var(--steel); color: var(--tape); font: 800 20px/1.2 var(--sign); letter-spacing: .03em; text-align: left; text-transform: uppercase; }
+    .cal th, .cal td { padding: 12px 16px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+    .cal th { color: var(--grey); font: 700 12px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; background: var(--concrete); }
+    .cal td:first-child { font: 700 15px var(--mono); }
+    .cal tr:last-child td { border-bottom: 0; }
+    .cal td.st span { display: inline-block; padding: 2px 8px; background: var(--rule-soft); font-size: 13px; font-weight: 600; }
+    .cal tbody tr { transition: background-color .15s ease-out; }
+    .cal tbody tr:hover { background: #fff; }
+    .scroll-note { margin-top: 10px; color: var(--grey); font: 13px var(--mono); }
+    @media (min-width: 900px) { .scroll-note { display: none; } }
+
+    .scope { display: grid; gap: 32px; }
+    @media (min-width: 860px) { .scope { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; } }
+    .scope h3 { padding: 10px 0; border-top: 3px solid var(--steel); font: 800 26px/1 var(--sign); text-transform: uppercase; }
+    .scope ul { padding: 0; list-style: none; }
+    .scope li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+    .scope li::before { content: ""; width: 18px; height: 18px; margin-top: 4px; background: var(--tape); border: 2px solid var(--steel); }
+    .scope .out li::before { background: transparent; border-style: dashed; }
+
+    footer { padding: 36px 0 48px; background: var(--steel); color: #c9c6be; font-size: 15px; }
+    footer p { max-width: 80ch; }
+    footer p + p { margin-top: 8px; }
+    footer strong { color: #fff; }
+    footer .footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 0 22px; max-width: none; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--steel-2); font: 500 14px var(--mono); }
+    .footer-contact span { color: var(--tape); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .footer-contact a { display: inline-flex; align-items: center; min-height: 44px; color: #f4f2ed; }
+    .footer-contact a:hover { color: var(--tape); }
+    .back { transition: color .15s ease-out; }
+
+    /* Phones: reading sizes */
+    @media (max-width: 640px) {
+      footer, .feed p { font-size: 16px; }
+      .beats button > span:last-child { font-size: 16px; }
+    }
+
+    /* Short landscape phones: the title, the summary and the first button fit on the first screen */
+    @media (max-height: 500px) and (orientation: landscape) and (max-width: 959px) {
+      .topbar .wrap { min-height: 50px; }
+      .hero { padding: 18px 0 40px; }
+      .hero > div:first-child { display: flex; flex-direction: column; align-items: flex-start; }
+      h1 { margin-top: 12px; font-size: clamp(36px, 10vh, 54px); }
+      .lede { margin-top: 12px; font-size: 17px; line-height: 1.5; }
+      .actions { order: 3; margin-top: 16px; }
+      .spec { order: 4; align-self: stretch; }
+    }
+
+    /* Very large screens: scale the whole board instead of leaving a narrow column */
+    @media (min-width: 2400px) { body { zoom: 1.3; } }
+    @media (min-width: 3200px) { body { zoom: 1.6; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+  </style>
+<style>
+    /* Construction kit preview. Survey marking on sandstone: warm stone ground, black site ink,
+       one fluorescent survey pink for what is marked and live, a charcoal bay where the posts hang.
+       Teko for signage, Instrument Sans for reading, Space Mono for timecodes and files.
+       The board leads the hero and the posts alternate sides down the bay. */
+    :root {
+      --concrete: #d8d2c4; --slab: #efebe2; --steel: #171716; --steel-2: #2d2c29; --grey: #554f45; --rule: #b8b0a0; --rule-soft: #cbc4b5;
+      --tape: #ff2e7e; --tape-ink: #171716;
+      --spruce: #1b1d1c; --spruce-2: #262927; --spruce-3: #3a3e3b; --mint: #ff2e7e; --aqua: #ffa8c9; --on-spruce: #f1ede6; --on-spruce-muted: #b8b2a8;
+      --sign: "Teko", Impact, "Arial Narrow", sans-serif;
+      --sans: "Instrument Sans", Arial, system-ui, sans-serif;
+      --mono: "Space Mono", ui-monospace, Consolas, monospace;
+    }
+    .brand { font-weight: 600; }
+    @media (min-width: 481px) { .brand { font-size: 28px; } }
+    .brand svg rect:nth-child(2) { fill: var(--tape); }
+    .brand svg path { stroke: var(--tape); }
+
+    /* Hero: the board on the left, a tall condensed headline on the right */
+    h1 { font: var(--hw, 700) clamp(56px, 7.2vw, 124px)/.88 var(--sign); letter-spacing: 0; }
+    h1 mark { background: linear-gradient(transparent 34%, var(--tape) 34%, var(--tape) 62%, transparent 62%); }
+    @media (min-width: 960px) {
+      .hero { grid-template-columns: 400px minmax(0, 1fr); gap: 80px; }
+      .board { order: -1; }
+    }
+    .feed::before { background: rgba(255, 46, 126, .86); }
+    .spec b, h2, .post h3, .downloads a, .scope h3, .cal caption { font-weight: 600; }
+    .spec b { font-size: clamp(48px, 6vw, 72px); }
+    .button { font-family: var(--sans); }
+
+    /* Bay: charcoal, a pink rule, posts alternating sides */
+    .bay { border-top: 8px solid var(--tape); }
+    h2 { font-size: clamp(52px, 7vw, 108px); line-height: .86; }
+    .post h3 { font-size: clamp(36px, 3.8vw, 54px); line-height: .9; }
+    @media (min-width: 900px) {
+      .post:nth-of-type(even) { grid-template-columns: minmax(0, 1fr) 380px; }
+      .post:nth-of-type(even) .post-art { order: 2; }
+    }
+    .switch button { font-family: var(--sans); }
+
+    /* Timeline and files */
+    .beats .fill { background: var(--tape); }
+    .downloads a { font-size: 32px; }
+    .cal td.st span { background: transparent; padding: 0; border-bottom: 3px solid var(--tape); }
+    .scope li::before { width: 18px; height: 4px; margin-top: 12px; border: 0; background: var(--tape); }
+    .scope .out li::before { background: transparent; border: 0; border-top: 3px dashed var(--steel); height: 0; }
+    .scope h3 { font-size: 34px; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the posts</a>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#main"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#2a2a26"/><rect x="4" y="20" width="24" height="6" fill="#f2d21b"/><path d="M9 18V11l7-5 7 5v7" fill="none" stroke="#f2d21b" stroke-width="2.6"/></svg>Construction content kit</a>
+      <a class="back" href="./">Selected work</a>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="wrap">
+      <section class="hero" aria-labelledby="title">
+        <div>
+          <span class="tape">Social content for a construction workflow product</span>
+          <h1 id="title">Three posts about the <mark>small things</mark> that slow a job down.</h1>
+          <p class="lede">Each post takes one everyday problem on a job, a repeated process, a vague handoff or an unclear finish, and turns it into one thing the team can try this week.</p>
+          <dl class="spec" aria-label="What is in the kit">
+            <div><dt class="visually-hidden">Posts</dt><dd><b>3</b><span>posts with LinkedIn and short-form copy</span></dd></div>
+            <div><dt class="visually-hidden">Graphics</dt><dd><b>3</b><span>square graphics with SVG sources</span></dd></div>
+            <div><dt class="visually-hidden">Motion</dt><dd><b>0:24</b><span>vertical motion piece with captions</span></dd></div>
+          </dl>
+          <div class="actions">
+            <a class="button solid" href="#posts">Read the posts</a>
+            <a class="button" href="#motion">Watch the motion piece</a>
+          </div>
+        </div>
+        <div class="board">
+          <div class="behind b1" aria-hidden="true"><img src="sample-subtrak-03-evidence.png" width="1080" height="1080" decoding="async" alt=""></div>
+          <div class="behind b2" aria-hidden="true"><img src="sample-subtrak-02-handoff.png" width="1080" height="1080" decoding="async" alt=""></div>
+          <figure class="feed" aria-label="Post 01 as it would appear in a feed">
+            <div class="feed-head"><i aria-hidden="true"></i><div><span>Post 01, Process</span><small>Square, 1080 by 1080</small></div></div>
+            <img src="sample-subtrak-01-process.png" width="1080" height="1080" fetchpriority="high" alt="Dark green square graphic headed Pick one repeatable process, with three numbered steps: define the steps, name the owner, run it again.">
+            <p>One repeated process is enough to begin. Write the steps, name the owner and review what the team needs next.</p>
+          </figure>
+        </div>
+      </section>
+    </div>
+
+    <section class="bay section" id="posts" aria-labelledby="posts-title">
+      <div class="wrap">
+        <div class="head">
+          <div><span class="tape">Bay 1</span><h2 id="posts-title">The posts</h2></div>
+          <p>Product statements stick to features shown on the public Subtrak website: reusable processes, task owners and timing, attached instructions, reminders and completion evidence. Switch each post between its LinkedIn and short-form copy, and copy either one as plain text.</p>
+        </div>
+
+        <article class="post" aria-labelledby="p1">
+          <div class="post-art"><span class="post-n" aria-hidden="true">01</span><img src="sample-subtrak-01-process.png" width="1080" height="1080" loading="lazy" alt="Dark green square graphic headed Pick one repeatable process, with three numbered steps: define the steps, name the owner, run it again."></div>
+          <div class="post-body">
+            <span class="topic">Process</span>
+            <h3 id="p1">Pick one repeated process</h3>
+            <div class="switch" role="tablist" aria-label="Copy for post 01">
+              <button type="button" role="tab" id="p1-li-tab" aria-controls="p1-li" aria-selected="true">LinkedIn</button>
+              <button type="button" role="tab" id="p1-ig-tab" aria-controls="p1-ig" aria-selected="false" tabindex="-1">Instagram and Facebook</button>
+            </div>
+            <div class="shot">
+              <div class="shot-head" aria-hidden="true"><i></i><div><b>Company page</b><small class="shot-where">LinkedIn post</small></div></div>
+              <div class="caption" role="tabpanel" id="p1-li" aria-labelledby="p1-li-tab" data-limit="3000" data-platform="LinkedIn">
+                <p>Before you document everything, choose one process that keeps coming back. A project handoff. A material order. A closeout check.</p>
+                <p>Write the steps and name the owner. Try the sequence on one job, then review what still needed explanation.</p>
+                <p>Subtrak supports reusable processes with tasks, responsibility and timing. Which repeated process would you start with?</p>
+              </div>
+              <div class="caption" role="tabpanel" id="p1-ig" aria-labelledby="p1-ig-tab" data-limit="2200" data-platform="Instagram" hidden>
+                <p>One repeated process is enough to begin. Write the steps, name the owner and review what the team needs next.</p>
+                <p>Which handoff keeps creating follow-up for your team?</p>
+              </div>
+            </div>
+            <div class="files-row"><a href="sample-subtrak-01-process.svg">Open the SVG source</a><a href="sample-subtrak-01-process.png" download>Download the PNG</a></div>
+          </div>
+        </article>
+
+        <article class="post" aria-labelledby="p2">
+          <div class="post-art"><span class="post-n" aria-hidden="true">02</span><img src="sample-subtrak-02-handoff.png" width="1080" height="1080" loading="lazy" alt="Dark green square graphic headed Make the next step clear, with three questions: who owns it, when is it due, what is needed."></div>
+          <div class="post-body">
+            <span class="topic">Handoff</span>
+            <h3 id="p2">Give the handoff a clear next step</h3>
+            <div class="switch" role="tablist" aria-label="Copy for post 02">
+              <button type="button" role="tab" id="p2-li-tab" aria-controls="p2-li" aria-selected="true">LinkedIn</button>
+              <button type="button" role="tab" id="p2-ig-tab" aria-controls="p2-ig" aria-selected="false" tabindex="-1">Instagram and Facebook</button>
+            </div>
+            <div class="shot">
+              <div class="shot-head" aria-hidden="true"><i></i><div><b>Company page</b><small class="shot-where">LinkedIn post</small></div></div>
+              <div class="caption" role="tabpanel" id="p2-li" aria-labelledby="p2-li-tab" data-limit="3000" data-platform="LinkedIn">
+                <p>“Can you take care of it?” leaves a lot to interpret.</p>
+                <p>A useful handoff makes the next step specific: who is responsible, when it is needed and where the instructions live.</p>
+                <p>Subtrak lets tasks carry instructions and reminders. Pick one handoff and check whether the person receiving it can act without another round of questions.</p>
+              </div>
+              <div class="caption" role="tabpanel" id="p2-ig" aria-labelledby="p2-ig-tab" data-limit="2200" data-platform="Instagram" hidden>
+                <p>Who owns it? When is it due? What is needed?</p>
+                <p>Three useful questions for the next handoff. Keep the instructions close to the task.</p>
+              </div>
+            </div>
+            <div class="files-row"><a href="sample-subtrak-02-handoff.svg">Open the SVG source</a><a href="sample-subtrak-02-handoff.png" download>Download the PNG</a></div>
+          </div>
+        </article>
+
+        <article class="post" aria-labelledby="p3">
+          <div class="post-art"><span class="post-n" aria-hidden="true">03</span><img src="sample-subtrak-03-evidence.png" width="1080" height="1080" loading="lazy" alt="Dark green square graphic headed Make complete visible, with three steps: finish the step, attach the proof, review the result."></div>
+          <div class="post-body">
+            <span class="topic">Closeout</span>
+            <h3 id="p3">Agree what complete means</h3>
+            <div class="switch" role="tablist" aria-label="Copy for post 03">
+              <button type="button" role="tab" id="p3-li-tab" aria-controls="p3-li" aria-selected="true">LinkedIn</button>
+              <button type="button" role="tab" id="p3-ig-tab" aria-controls="p3-ig" aria-selected="false" tabindex="-1">Instagram and Facebook</button>
+            </div>
+            <div class="shot">
+              <div class="shot-head" aria-hidden="true"><i></i><div><b>Company page</b><small class="shot-where">LinkedIn post</small></div></div>
+              <div class="caption" role="tabpanel" id="p3-li" aria-labelledby="p3-li-tab" data-limit="3000" data-platform="LinkedIn">
+                <p>A status update is more useful when everyone knows what it means.</p>
+                <p>For an important step, agree the final check before work begins. That might be a photo, a file or a review by the person responsible for the next stage.</p>
+                <p>Subtrak supports completion evidence alongside tasks. What would make the next handoff clearer on your current job?</p>
+              </div>
+              <div class="caption" role="tabpanel" id="p3-ig" aria-labelledby="p3-ig-tab" data-limit="2200" data-platform="Instagram" hidden>
+                <p>Make complete visible. Agree the final check, attach the relevant proof and make the next step clear.</p>
+                <p>What would your team need to see before moving on?</p>
+              </div>
+            </div>
+            <div class="files-row"><a href="sample-subtrak-03-evidence.svg">Open the SVG source</a><a href="sample-subtrak-03-evidence.png" download>Download the PNG</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <section class="section" id="motion" aria-labelledby="motion-title">
+        <div class="motion">
+          <div>
+            <span class="tape">Bay 2</span>
+            <h2 id="motion-title">A 24-second vertical piece</h2>
+            <p class="lede">Original typography and graphics in three eight-second beats, one per post. It runs silent with burned-in text and a separate caption track, so it works with the sound off. Pick a beat to jump the player to it.</p>
+            <div class="timeline">
+              <div class="ruler" aria-hidden="true"><span>0:00</span><span>0:08</span><span>0:16</span><span>0:24</span></div>
+              <div class="track"><ol class="beats" id="beats" aria-label="Beats in the motion piece">
+                <li><button type="button" data-t="0"><i class="fill" aria-hidden="true"></i><span class="mono">0:00 to 0:08</span><span>Pick one repeated process. Define the steps and name the owner.</span></button></li>
+                <li><button type="button" data-t="8"><i class="fill" aria-hidden="true"></i><span class="mono">0:08 to 0:16</span><span>Make the next step clear. Who owns it, when is it due, what is needed?</span></button></li>
+                <li><button type="button" data-t="16"><i class="fill" aria-hidden="true"></i><span class="mono">0:16 to 0:24</span><span>Make complete visible. Finish the step, attach proof and review the result.</span></button></li>
+              </ol><span class="playhead" id="playhead" aria-hidden="true"></span></div>
+            </div>
+            <div class="actions">
+              <a class="button" href="sample-subtrak-construction-vertical-concept.mp4" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download MP4</a>
+            </div>
+          </div>
+          <figure class="player">
+            <video id="piece" controls preload="metadata" playsinline muted width="720" height="1280" poster="sample-subtrak-poster.jpg" aria-label="24-second vertical motion piece">
+              <source src="sample-subtrak-construction-vertical-concept.mp4" type="video/mp4">
+              <track kind="captions" src="sample-subtrak-captions.vtt" srclang="en" label="English" default>
+            </video>
+            <figcaption>720 by 1280, no audio, captions on</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section yard" id="files" aria-labelledby="files-title">
+        <div class="head">
+          <div><span class="tape">Bay 3</span><h2 id="files-title">Production files</h2></div>
+          <p>Everything is editable. The copy document holds every post, the edit map for a founder clip and the scope questions. The calendar lists sources and approval checks for each item.</p>
+        </div>
+        <ul class="downloads">
+          <li><a href="sample-subtrak-copy_and_handoff.md">Post copy and handoff</a><span>Markdown, 3,799 bytes</span></li>
+          <li><a href="sample-subtrak-calendar.csv" download>Production calendar</a><span>CSV, 4 items</span></li>
+          <li><a href="sample-subtrak-captions.vtt" download>Caption track</a><span>WebVTT, 3 cues</span></li>
+        </ul>
+        <div class="cal-wrap" tabindex="0" role="region" aria-labelledby="cal-cap">
+          <table class="cal">
+            <caption id="cal-cap">Production calendar, as in the CSV</caption>
+            <thead><tr><th scope="col">Item</th><th scope="col">Channels</th><th scope="col">Theme</th><th scope="col">Source needed</th><th scope="col">Approval check</th><th scope="col">Status</th></tr></thead>
+            <tbody>
+              <tr><td>01</td><td>LinkedIn, Instagram, Facebook</td><td>Pick one repeated process</td><td>Approved product facts and one founder example</td><td>Claims, wording, brand and private-data review</td><td class="st"><span>Independent concept, unsent</span></td></tr>
+              <tr><td>02</td><td>LinkedIn, Instagram, Facebook</td><td>Give the handoff a clear next step</td><td>Approved product facts and one founder example</td><td>Claims, wording, brand and private-data review</td><td class="st"><span>Independent concept, unsent</span></td></tr>
+              <tr><td>03</td><td>LinkedIn, Instagram, Facebook</td><td>Agree what complete means</td><td>Approved product facts and one founder example</td><td>Claims, wording, brand and private-data review</td><td class="st"><span>Independent concept, unsent</span></td></tr>
+              <tr><td>04</td><td>Instagram, Facebook</td><td>Workflow motion concept</td><td>Approved source recording if a founder clip is required</td><td>Caption timing, safe framing, meaning and source rights</td><td class="st"><span>Original motion example, no audio</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="scroll-note">Scroll the table sideways to see every column.</p>
+      </section>
+
+      <section class="section yard" id="scope" aria-labelledby="scope-title">
+        <div class="head"><div><span class="tape">Next</span><h2 id="scope-title">What a monthly engagement would need</h2></div></div>
+        <div class="scope">
+          <div>
+            <h3>From the team</h3>
+            <ul>
+              <li>Weekly volume of posts and clips</li>
+              <li>Approved product facts and brand assets</li>
+              <li>Founder recordings, if clips are part of the plan</li>
+              <li>Who approves copy, and who publishes and replies</li>
+            </ul>
+          </div>
+          <div>
+            <h3>What this kit does not include</h3>
+            <ul class="out">
+              <li>Product footage or screen recordings</li>
+              <li>Audio, voiceover or recorded interviews</li>
+              <li>Published posts or account access</li>
+              <li>Results from earlier SaaS social campaigns</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>Speculative sample by Alexandr Khrustalev</strong> for Subtrak's public content and marketing brief. It was not commissioned, reviewed or published by Subtrak.</p>
+      <p>Graphics and motion are original illustrations, not product screens. Construction examples are editorial, not safety instructions.</p>
+      <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
+    </div>
+  </footer>
+  <script>
+  (() => {
+    const still = () => matchMedia('(prefers-reduced-motion: reduce)').matches
+    const fmt = n => n.toLocaleString('en-US')
+    const textOf = panel => [...panel.querySelectorAll('p')].map(p => p.textContent.trim()).join('\n\n')
+    async function copy(text) {
+      try { await navigator.clipboard.writeText(text); return true } catch {}
+      const t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0'; document.body.append(t); t.select()
+      let ok = false; try { ok = document.execCommand('copy') } catch {} t.remove(); return ok
+    }
+    for (const post of document.querySelectorAll('.post')) {
+      const tabs = [...post.querySelectorAll('[role=tab]')]
+      const where = post.querySelector('.shot-where')
+      const foot = document.createElement('div'); foot.className = 'caption-foot'
+      const meter = document.createElement('div'); meter.className = 'meter'; meter.setAttribute('aria-hidden', 'true'); meter.append(document.createElement('i'))
+      const count = document.createElement('p'); count.className = 'count'; count.setAttribute('aria-live', 'polite')
+      const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'button copy-btn'
+      foot.append(meter, count, btn); post.querySelector('.files-row').before(foot)
+      const current = () => post.querySelector('[role=tabpanel]:not([hidden])')
+      const show = tab => {
+        for (const t of tabs) { const on = t === tab; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; document.getElementById(t.getAttribute('aria-controls')).hidden = !on }
+        const p = current(), n = textOf(p).length, lim = +p.dataset.limit
+        count.innerHTML = `<b>${fmt(n)}</b> characters of the ${p.dataset.platform} limit of ${fmt(lim)}`
+        meter.firstChild.style.width = Math.max(1, Math.min(100, n / lim * 100)) + '%'
+        meter.title = `${Math.round(n / lim * 100)} percent of the limit`
+        where.textContent = p.dataset.platform === 'LinkedIn' ? 'LinkedIn post' : 'Instagram and Facebook caption'
+        btn.textContent = `Copy the ${tab.textContent.split(' ')[0]} text`
+      }
+      tabs.forEach((t, i) => {
+        t.addEventListener('click', () => show(t))
+        t.addEventListener('keydown', e => {
+          const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0
+          if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); const n = tabs[e.key === 'Home' ? 0 : tabs.length - 1]; n.focus(); show(n); return }
+          if (!d) return
+          e.preventDefault(); const n = tabs[(i + d + tabs.length) % tabs.length]; n.focus(); show(n)
+        })
+      })
+      btn.addEventListener('click', async () => {
+        const label = btn.textContent
+        btn.textContent = (await copy(textOf(current()))) ? 'Copied' : 'Select the text to copy'
+        setTimeout(() => { btn.textContent = label }, 1800)
+      })
+      show(tabs[0])
+    }
+
+    // Timeline: the playhead and the beat fills follow the video, and each beat seeks it.
+    const v = document.getElementById('piece'), beats = [...document.querySelectorAll('#beats li')], head = document.getElementById('playhead')
+    const DUR = 24
+    const mark = () => {
+      const t = Math.min(DUR, v.currentTime || 0), i = Math.min(2, Math.floor(t / 8)), live = t > 0 || !v.paused
+      beats.forEach((li, j) => {
+        li.classList.toggle('now', j === i && live)
+        li.querySelector('.fill').style.width = (live ? Math.max(0, Math.min(1, (t - j * 8) / 8)) * 100 : 0) + '%'
+      })
+      head.style.left = (t / DUR * 100) + '%'
+    }
+    v.addEventListener('timeupdate', mark); v.addEventListener('seeked', mark); v.addEventListener('ended', mark)
+    let raf; const loop = () => { mark(); if (!v.paused) raf = requestAnimationFrame(loop) }
+    v.addEventListener('play', () => { if (!still()) { cancelAnimationFrame(raf); loop() } })
+    for (const b of document.querySelectorAll('#beats button')) b.addEventListener('click', () => {
+      const t = +b.dataset.t + 0.05
+      const go = () => { v.currentTime = t; const p = v.play(); if (p && p.catch) p.catch(() => {}) }
+      if (v.readyState >= 1) go(); else { v.addEventListener('loadedmetadata', go, { once: true }); v.load() }
+      mark()
+      if (matchMedia('(max-width: 899px)').matches) v.scrollIntoView({ block: 'nearest', behavior: still() ? 'auto' : 'smooth' })
+    })
+    mark()
+  })()
+  </script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=((300)+((700)-(300))*x).toFixed(2)+'';document.querySelectorAll('#title').forEach(function(n){n.style.setProperty('--hw',v)})})},{passive:true})})();</script>
+</body>
+</html>
