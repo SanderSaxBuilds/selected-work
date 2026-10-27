@@ -258,7 +258,7 @@ body.intg .x{display:none}
     </div>
    </section>
    <section id="vSel" hidden>
-    <header class="hd"><div class="av" aria-hidden="true">М</div><div><h1 id="selH">Подборка для вас</h1><p id="selSub"></p></div></header>
+    <header class="hd"><div class="av" aria-hidden="true">М</div><div><h1 id="selH">Ваша подборка</h1><p id="selSub"></p></div></header>
     <div class="selnote" id="selNote" hidden><p class="who">Марина, агент</p><div class="bub" id="selMsg"></div></div>
     <div class="list" id="selList"></div>
    </section>
@@ -417,7 +417,7 @@ const parseSel=sp=>{let ids=[],to='',m='';
 const pickLink=()=>{const to=$('#pName').value.trim().slice(0,30),m=$('#pNote').value.trim().slice(0,160);
  return BASE+'#sel='+S.pick.join('.')+(to?'&to='+encodeURIComponent(to):'')+(m?'&m='+encodeURIComponent(m):'')};
 const renderSel=()=>{const o=S.sel;if(!o)return;const f=o.ids.map(byId);
- $('#selH').textContent=o.to?'Подборка для '+o.to:'Подборка для вас';
+ $('#selH').textContent=o.to?o.to+', ваша подборка':'Ваша подборка';
  $('#selSub').textContent='от Марины, '+pl(f.length,'объект','объекта','объектов');
  $('#selNote').hidden=!o.m;$('#selMsg').textContent=o.m;
  $('#selList').innerHTML=f.map(card).join('');
