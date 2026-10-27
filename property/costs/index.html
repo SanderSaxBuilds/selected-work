@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Расходы при покупке</title>
+<meta name="description" content="Пример для агентства: сколько покупатель платит сверх цены на Пхукете, пошлины, налоги, юрист и первый год владения. Ставки условные.">
+<meta name="theme-color" content="#f6f3f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141012" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f3f1;--paper:#fff;--tx:#1d1418;--hint:#6a5d63;--sep:rgba(29,20,24,.12);--acc:#7a2848;--acctx:#fff;--soft:#f2e4ea;--track:rgba(29,20,24,.07);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141012;--paper:#1d181b;--tx:#efe8eb;--hint:#aa9ca2;--sep:rgba(239,232,235,.12);--acc:#e48aa9;--acctx:#2a0f1a;--soft:#34202a;--track:rgba(239,232,235,.08);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141012;--paper:#1d181b;--tx:#efe8eb;--hint:#aa9ca2;--sep:rgba(239,232,235,.12);--acc:#e48aa9;--acctx:#2a0f1a;--soft:#34202a;--track:rgba(239,232,235,.08);color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--tx);font:16px/1.55 'Golos Text',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+.top{padding:40px 0 26px}
+.lbl{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--hint)}
+h1{font:600 40px/1.12 Literata,Georgia,serif;letter-spacing:-.015em;margin:10px 0 12px;max-width:16em}
+.lede{color:var(--hint);max-width:38em}
+.lay{display:grid;grid-template-columns:330px 1fr;gap:22px;align-items:start;padding-bottom:40px}
+.lay>*{min-width:0}
+.card{background:var(--paper);border-radius:20px;padding:22px}
+.ctl{position:sticky;top:16px}
+.seg{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.seg button{display:block;text-align:left;border:1px solid var(--sep);background:none;border-radius:14px;padding:11px 14px;transition:background .15s,border-color .15s}
+.seg button b{display:block;font-weight:600}
+.seg button span{font-size:13.5px;color:var(--hint)}
+.seg button[aria-pressed="true"]{border-color:var(--acc);background:var(--soft)}
+.f{margin-top:14px}
+.f label,.f .fl{display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--hint);margin-bottom:6px}
+.f label b{color:var(--tx);font-weight:600}
+.inp{width:100%;height:44px;border:1px solid var(--sep);border-radius:12px;background:var(--bg);padding:0 12px;font-size:16px;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.tg{display:flex;gap:10px;align-items:center;margin-top:16px;font-size:14.5px;cursor:pointer}
+.tg input{width:18px;height:18px;accent-color:var(--acc)}
+.cur{display:flex;gap:6px;margin-top:18px}
+.cur button{flex:1;height:38px;border:1px solid var(--sep);background:none;border-radius:10px;font-weight:600}
+.cur button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acctx)}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:end}
+.hero>*{min-width:0}
+.hero small{display:block;font-size:14px;color:var(--hint)}
+.big{font:600 44px/1.05 Literata,Georgia,serif;letter-spacing:-.02em;margin:6px 0 6px;font-variant-numeric:tabular-nums}
+.hero p{color:var(--hint);font-size:14.5px}
+.side{display:grid;gap:10px}
+.side div{background:var(--bg);border-radius:14px;padding:12px 14px}
+.side b{display:block;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+h2{font:600 21px/1.25 Literata,Georgia,serif;margin:0 0 4px}
+.sec{margin-top:18px}
+.sec>p{color:var(--hint);font-size:14px;margin-bottom:10px}
+.row{display:grid;grid-template-columns:1fr auto;gap:6px 16px;padding:14px 0;border-top:1px solid var(--sep);position:relative}
+.row>*{min-width:0}
+.row h3{font-size:15.5px;font-weight:600}
+.row .h{font-size:13.5px;color:var(--hint)}
+.row .amt{text-align:right;font-variant-numeric:tabular-nums}
+.row .amt b{display:block;font-weight:600;font-size:16px}
+.row .amt span{font-size:13px;color:var(--hint);white-space:nowrap}
+.who{display:inline-flex;border:1px solid var(--sep);border-radius:10px;overflow:hidden;margin-top:8px}
+.who button{border:0;background:none;font-size:13px;padding:5px 10px;color:var(--hint)}
+.who button+button{border-left:1px solid var(--sep)}
+.who button[aria-pressed="true"]{background:var(--acc);color:var(--acctx)}
+.bar{grid-column:1/-1;height:8px;border-radius:4px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px;background:var(--acc);transition:width .3s cubic-bezier(.2,.8,.2,1)}
+.row.off .bar i{background:var(--hint);opacity:.35}
+.tip{position:fixed;z-index:20;pointer-events:none;background:var(--tx);color:var(--bg);border-radius:10px;padding:8px 10px;font-size:13px;line-height:1.4;max-width:240px;opacity:0;transition:opacity .12s}
+.tip.on{opacity:1}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:12px;padding:12px 18px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .12s,filter .12s,background .12s}
+.btn.p{background:var(--acc);color:var(--acctx)}
+.btn.s{background:var(--bg);color:var(--tx);border:1px solid var(--sep)}
+.btn:hover{filter:brightness(1.06)}
+.btn:active{transform:scale(.97)}
+.burst{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--acc);pointer-events:none;animation:fly .55s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}}
+.note{font-size:13.5px;color:var(--hint);margin-top:16px;max-width:42em}
+.end{padding-bottom:56px}
+.end .card{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.end h2{font-size:22px}
+.end p{color:var(--hint);max-width:34em}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--tx);color:var(--bg);border-radius:12px;padding:10px 16px;font-size:14px;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:30}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:820px){.lay{grid-template-columns:1fr}.ctl{position:static}}
+@media (max-width:620px){
+ .wrap{padding:0 16px}.top{padding-top:28px}h1{font-size:29px}
+ .card{padding:18px;border-radius:18px}
+ .hero{grid-template-columns:1fr}.big{font-size:36px}
+ .row{grid-template-columns:1fr}.row .amt{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){.bar i,.btn,.toast{transition:none}.burst{display:none}}
+@media print{
+ body{background:#fff;color:#000}.ctl,.acts,.end,.who,.tip,.toast{display:none!important}
+ .lay{grid-template-columns:1fr}.card{padding:0}.side div{background:none;border:1px solid #ccc}
+}
+</style>
+</head>
+<body>
+<header class="wrap top">
+ <p class="lbl">Пример для агентства, Пхукет</p>
+ <h1>Сколько покупатель платит сверх цены</h1>
+ <p class="lede">Пошлины, налоги, юрист и первый год владения на одной странице. Клиент сам видит, кто что платит, и получает расчёт текстом или в PDF.</p>
+</header>
+<main class="wrap lay">
+ <section class="card ctl" aria-label="Условия покупки">
+  <div class="seg" id="seg" role="group" aria-label="Тип объекта"></div>
+  <div class="f"><label for="price"><span>Цена в договоре, ฿</span></label><input class="inp" id="price" inputmode="numeric" autocomplete="off"></div>
+  <div class="f" id="areaW"><label for="area"><span>Площадь, м²</span></label><input class="inp" id="area" inputmode="numeric" autocomplete="off"></div>
+  <div class="f"><label for="ap"><span id="apL">Оценка департамента</span><b id="apV"></b></label><input type="range" id="ap" min="50" max="100" step="5"></div>
+  <label class="tg" id="shortW"><input type="checkbox" id="short"> Продавец владел меньше 5 лет</label>
+  <div class="cur" role="group" aria-label="Валюта" id="cur"></div>
+ </section>
+ <section aria-label="Расчёт">
+  <div class="card">
+   <div class="hero">
+    <div><small>Покупатель платит сверх цены</small><div class="big" id="bigB" aria-live="polite"></div><p id="bigS"></p></div>
+    <div class="side"><div><small>Продавец платит</small><b id="sideS"></b></div><div><small>Первый год владения</small><b id="sideY"></b></div></div>
+   </div>
+   <div class="sec"><h2>При покупке</h2><p>Кто платит, обычно решают в договоре. Переключите, и расчёт пересчитается.</p><div id="rows"></div></div>
+   <div class="sec"><h2>Первый год владения</h2><div id="yrows"></div></div>
+   <div class="acts">
+    <button type="button" class="btn p" id="copy">Скопировать для клиента</button>
+    <button type="button" class="btn s" id="pdf">Сохранить PDF</button>
+   </div>
+   <p class="note">Ставки и суммы условные, для примера. Агентство подставит свои условия, а точный расчёт по объекту подтверждает юрист.</p>
+  </div>
+ </section>
+</main>
+<section class="wrap end">
+ <div class="card">
+  <div><h2>Такой расчёт для вашего агентства</h2><p>С вашими ставками, юристом, валютами и логотипом, на сайте или в Telegram.</p></div>
+  <a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener">Написать в Telegram</a>
+ </div>
+ <p class="note">Ещё примеры для агентств: <a href="../tools/">все инструменты на одной странице</a>. Сделал Александр, t.me/sandersax.</p>
+</section>
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const RATE={thb:1,usd:1/33,rub:2.44};
+const T={
+ resale:{n:'Квартира, вторичка',d:'Фрихолд, у частного владельца',price:6500000,area:45,ap:85,apL:'Оценка департамента',lines:[
+  {k:'tr',n:'Пошлина за переоформление',h:'2% от оценочной стоимости Земельного департамента',r:2,base:'ap',who:'half'},
+  {k:'sbt',n:'Специальный налог на бизнес',h:'3,3% от большей из цены и оценки, если продавец владел меньше 5 лет',r:3.3,base:'max',who:'seller',only:'short'},
+  {k:'sd',n:'Гербовый сбор',h:'0,5% вместо налога на бизнес, если продавец владел дольше 5 лет',r:.5,base:'max',who:'seller',only:'long'},
+  {k:'wht',n:'Налог у источника',h:'Условно 1%, для частного продавца считается по шкале',r:1,base:'max',who:'seller'},
+  {k:'law',n:'Юрист и проверка объекта',h:'Фиксированная сумма',fix:40000,who:'buyer'},
+  {k:'sf',n:'Фонд дома, разово',h:'500 ฿ за м², при переоформлении',per:500,who:'buyer'}],
+  year:[{n:'Обслуживание дома',h:'60 ฿ за м² в месяц',perm:60}]},
+ lease:{n:'Вилла, лизхолд',d:'Аренда земли на 30 лет',price:18900000,area:0,ap:100,apL:'Сумма аренды в договоре',lines:[
+  {k:'lr',n:'Регистрация аренды',h:'1% от суммы аренды за весь срок',r:1,base:'ap',who:'buyer'},
+  {k:'lsd',n:'Гербовый сбор по аренде',h:'0,1% от суммы аренды',r:.1,base:'ap',who:'buyer'},
+  {k:'law',n:'Юрист и проверка земли',h:'Фиксированная сумма',fix:60000,who:'buyer'}],
+  year:[{n:'Обслуживание виллы',h:'Бассейн, сад и охрана, условно 12 000 ฿ в месяц',fixy:144000}]},
+ fresh:{n:'Новостройка',d:'От застройщика, при сдаче дома',price:5900000,area:38,ap:90,apL:'Оценка департамента',lines:[
+  {k:'tr',n:'Пошлина за переоформление',h:'2% от оценочной стоимости, часто пополам с застройщиком',r:2,base:'ap',who:'half'},
+  {k:'tax',n:'Налог на бизнес и налог у источника',h:'Условно 4,3% от большей из цены и оценки, обычно платит застройщик',r:4.3,base:'max',who:'seller'},
+  {k:'law',n:'Юрист и проверка договора',h:'Фиксированная сумма',fix:30000,who:'buyer'},
+  {k:'sf',n:'Фонд дома, разово',h:'600 ฿ за м², при сдаче дома',per:600,who:'buyer'}],
+  year:[{n:'Обслуживание дома',h:'65 ฿ за м² в месяц',perm:65}]}
+};
+const WHO=[['buyer','Покупатель'],['half','Пополам'],['seller','Продавец']];
+const KEY='pn_costs';
+let S={t:'resale',price:T.resale.price,area:T.resale.area,ap:T.resale.ap,short:true,cur:'thb',who:{}};
+try{const v=JSON.parse(localStorage.getItem(KEY)||'null');if(v&&T[v.t]){S=Object.assign(S,v);S.who=Object.assign({},v.who||{})}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const nf=v=>new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0}).format(v);
+const money=v=>{const c=S.cur,x=Math.round(v*RATE[c]);return c==='usd'?'$'+nf(x):nf(x)+(c==='thb'?' ฿':' ₽')};
+const pct=v=>new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1}).format(v)+'%';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const num=el=>{const v=+String(el.value).replace(/[^\d]/g,'');return isFinite(v)?v:0};
+
+const calc=()=>{const d=T[S.t],P=S.price,A=P*S.ap/100,M=Math.max(P,A),rows=[];
+ for(const l of d.lines){if(l.only==='short'&&!S.short)continue;if(l.only==='long'&&S.short)continue;
+  const amt=l.fix!=null?l.fix:l.per!=null?l.per*S.area:(l.base==='ap'?A:M)*l.r/100;
+  const who=S.who[S.t+'.'+l.k]||l.who,b=who==='buyer'?amt:who==='half'?amt/2:0;rows.push({l,amt,who,b,s:amt-b})}
+ const yr=d.year.map(y=>({y,amt:y.perm!=null?y.perm*S.area*12:y.fixy}));
+ const B=rows.reduce((a,r)=>a+r.b,0),SL=rows.reduce((a,r)=>a+r.s,0),Y=yr.reduce((a,r)=>a+r.amt,0);
+ return {d,rows,yr,B,SL,Y,P}};
+
+const renderCtl=()=>{const d=T[S.t];
+ $('#seg').innerHTML=Object.entries(T).map(([k,x])=>`<button type="button" data-t="${k}" aria-pressed="${S.t===k}"><b>${x.n}</b><span>${x.d}</span></button>`).join('');
+ $('#cur').innerHTML=[['thb','฿ баты'],['usd','$'],['rub','₽']].map(([k,s])=>`<button type="button" data-cur="${k}" aria-pressed="${S.cur===k}">${s}</button>`).join('');
+ $('#price').value=nf(S.price);$('#area').value=S.area?nf(S.area):'';
+ $('#areaW').hidden=!d.year.some(y=>y.perm!=null)&&!d.lines.some(l=>l.per!=null);
+ $('#apL').textContent=d.apL;$('#ap').value=S.ap;$('#apV').textContent=S.ap+'% от цены';
+ $('#shortW').hidden=!d.lines.some(l=>l.only);$('#short').checked=S.short};
+
+const render=()=>{const c=calc(),max=Math.max(1,...c.rows.map(r=>r.amt));
+ $('#bigB').textContent=money(c.B);
+ $('#bigS').textContent=(c.P?pct(c.B/c.P*100)+' от цены, ':'')+'всего с ценой '+money(c.P+c.B);
+ $('#sideS').textContent=money(c.SL);$('#sideY').textContent=money(c.Y);
+ $('#rows').innerHTML=c.rows.map((r,i)=>`<div class="row${r.b?'':' off'}" data-i="${i}"><div><h3>${esc(r.l.n)}</h3><p class="h">${esc(r.l.h)}</p><div class="who" role="group" aria-label="Кто платит: ${esc(r.l.n)}">${WHO.map(([k,s])=>`<button type="button" data-k="${r.l.k}" data-who="${k}" aria-pressed="${r.who===k}">${s}</button>`).join('')}</div></div><div class="amt"><b>${money(r.b)}</b><span>${r.who==='buyer'?'платит покупатель':'из '+money(r.amt)}</span></div><div class="bar" aria-hidden="true"><i style="width:${(r.b/max*100).toFixed(1)}%"></i></div></div>`).join('');
+ $('#yrows').innerHTML=c.yr.map(r=>`<div class="row"><div><h3>${esc(r.y.n)}</h3><p class="h">${esc(r.y.h)}</p></div><div class="amt"><b>${money(r.amt)}</b><span>за год</span></div></div>`).join('');
+ save();return c};
+
+const text=()=>{const c=calc(),L=['Расходы при покупке, '+c.d.n.toLowerCase(),'Цена в договоре: '+money(c.P),'Покупатель платит сверх цены: '+money(c.B)+(c.P?' ('+pct(c.B/c.P*100)+')':'')];
+ c.rows.filter(r=>r.b).forEach(r=>L.push('· '+r.l.n+': '+money(r.b)));
+ L.push('Продавец платит: '+money(c.SL),'Первый год владения: '+money(c.Y),'','Ставки условные, точные суммы по объекту подтвердит юрист.');return L.join('\n')};
+
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)};
+const burst=b=>{for(let i=0;i<8;i++){const s=document.createElement('span'),a=i/8*Math.PI*2,r=26+Math.random()*12;s.className='burst';s.style.left='50%';s.style.top='50%';s.style.setProperty('--dx',Math.cos(a)*r+'px');s.style.setProperty('--dy',Math.sin(a)*r+'px');b.appendChild(s);setTimeout(()=>s.remove(),600)}};
+const copy=async t=>{try{await navigator.clipboard.writeText(t);return true}catch(e){const a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}a.remove();return ok}};
+
+document.addEventListener('click',async e=>{const t=e.target.closest('button');if(!t)return;
+ if(t.dataset.t){const d=T[t.dataset.t];S.t=t.dataset.t;S.price=d.price;S.area=d.area;S.ap=d.ap;renderCtl();render();return}
+ if(t.dataset.cur){S.cur=t.dataset.cur;renderCtl();render();return}
+ if(t.dataset.who){S.who[S.t+'.'+t.dataset.k]=t.dataset.who;render();return}
+ if(t.id==='copy'){burst(t);toast(await copy(text())?'Расчёт скопирован, можно вставить в мессенджер':'Не получилось скопировать');return}
+ if(t.id==='pdf'){burst(t);setTimeout(()=>window.print(),250)}});
+$('#price').addEventListener('input',e=>{S.price=Math.min(num(e.target),2e9);render()});
+$('#price').addEventListener('change',e=>{e.target.value=nf(S.price)});
+$('#area').addEventListener('input',e=>{S.area=Math.min(num(e.target),5000);render()});
+$('#ap').addEventListener('input',e=>{S.ap=+e.target.value;$('#apV').textContent=S.ap+'% от цены';render()});
+$('#short').addEventListener('change',e=>{S.short=e.target.checked;render()});
+
+/* hover tooltip on each cost bar */
+const tip=$('#tip');
+$('#rows').addEventListener('mousemove',e=>{const row=e.target.closest('.row');if(!row||e.target.closest('.who')){tip.classList.remove('on');return}
+ const r=calc().rows[+row.dataset.i];if(!r)return;
+ tip.innerHTML=`<b>${esc(r.l.n)}</b><br>Всего ${money(r.amt)}<br>Покупатель ${money(r.b)}, продавец ${money(r.s)}`;
+ const x=Math.min(e.clientX+14,innerWidth-250),y=e.clientY+16;tip.style.left=x+'px';tip.style.top=y+'px';tip.classList.add('on')});
+$('#rows').addEventListener('mouseleave',()=>tip.classList.remove('on'));
+
+renderCtl();render();
+})();
+</script>
+</body>
+</html>
