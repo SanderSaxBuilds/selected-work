@@ -13,8 +13,7 @@
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/property/">
 <meta name="theme-color" content="#2337d6">
 <link rel="icon" href="../../assets/sandersax-icon-32.png">
-<link rel="preload" as="style" href="../../assets/gfonts/css/fadd5cb79986.css" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="../../assets/gfonts/css/fadd5cb79986.css" rel="stylesheet"></noscript>
+<link href="../../assets/gfonts/css/fadd5cb79986.css" rel="stylesheet">
 <link rel="preload" as="image" href="../../property/img/hero-live.jpg">
 <style>
 /* Phuket property, an estate brochure: white pages, ultramarine sea ink, Prata for the headings, Manrope for the facts */
@@ -967,7 +966,7 @@ function toggleCmp(id){const i=cmp.indexOf(id);if(i>=0)cmp.splice(i,1);else{if(c
 function renderCbar(){$('#cbar').classList.toggle('on',cmp.length>0);
  $('#slots').innerHTML=[0,1].map(i=>cmp[i]?`<div class="slot"><img src="../../property/img/t-${cmp[i]}.jpg" alt=""></div>`:'<div class="slot"></div>').join('');
  $('#cbt').textContent=cmp.length<2?t('cmpPick'):t('cmpReady');$('#cbgo').textContent=t('cmpGo');$('#cbgo').disabled=cmp.length<2}
-$('#cbx').onclick=()=>{cmp=[];toggleCmp('__none');cmp=[];cards.forEach(el=>{const b=el.querySelector('.cmp');b.setAttribute('aria-pressed',false);b.textContent='+'});renderCbar()};
+$('#cbx').onclick=()=>{cmp=[];cards.forEach(el=>{const b=el.querySelector('.cmp');b.setAttribute('aria-pressed',false);b.textContent='+'});renderCbar()};
 $('#cbgo').onclick=()=>{if(cmp.length<2)return;lastFocus=$('#cbgo');renderMod();$('#ov').classList.add('on');$('#mod').classList.add('on');document.body.style.overflow='hidden';document.body.classList.add('lock');setTimeout(()=>$('#mod .x').focus({preventScroll:true}),60)};
 function renderMod(){const [a,b]=cmp.map(id=>L.find(x=>x.id===id)),ya=yieldOf(a),yb=yieldOf(b);
  const rows=[[t('kPrice'),a.price,b.price,'low',money],[t('kSqm'),a.price/a.area,b.price/b.area,'low',money],[t('kArea'),a.area,b.area,'high',v=>v+' '+t('m2')],[t('kBed'),a.bed,b.bed,'high',v=>v||t('studio')],[t('kBeach'),a.beach,b.beach,'low',distTxt],[t('kAir'),dOf(a).min,dOf(b).min,'low',v=>v+' '+t('min')],[t('cY'),ya.y,yb.y,'high',pct],[t('kOwn'),a.own,b.own,null,v=>v==='free'?t('free'):t('lease')]];

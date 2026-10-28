@@ -17,7 +17,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <title>Toolroom | Small tools for quotes, data and handoffs</title>
   <link rel="icon" href="toolroom-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/gfonts/css/daef8601f6f5.css">
+  <link rel="preload" href="assets/gfonts/syne/8vIH7w4qzmVxm2BL9A.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/gfonts/spline-sans-mono/R70BjzAei_CDNLfgZxrW6wrZOF2WX5KZmA.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/gfonts/css/daef8601f6f5.css">
   <link rel="stylesheet" href="toolroom-style.css">
 <style>
 /* preview: "Signal mint workshop". Pale steel mint walls, near black ink, one signal mint.
@@ -77,6 +79,8 @@ h1,h2,h3{font-family:var(--wide);font-stretch:100%;font-weight:700;letter-spacin
   .bench{order:-1}
 }
 .hero h1{font-family:var(--wide);font-weight:var(--hw,700);font-size:clamp(36px,4.3vw,66px);line-height:.95;letter-spacing:-.03em;max-width:13ch;transition:font-weight .25s ease}
+/* lock the lines the heading has at full weight, so the pointer-driven weight never reflows the hero */
+.hero h1 .hl{display:block;white-space:nowrap}
 .lede{color:var(--muted)}
 .spec-strip{background:transparent;border:0;border-top:2px solid var(--text);border-bottom:2px solid var(--text);border-radius:0}
 .spec-strip div{border-left:1px solid var(--line)}
@@ -209,7 +213,7 @@ dialog::backdrop{background:rgba(17,22,19,.55)}
       <section class="hero wrap" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="eyebrow"><span class="num">TR-01</span> Desktop tools for freelancers and small studios</p>
-          <h1 id="hero-title">Small tools for quotes, data and clean handoffs.</h1>
+          <h1 id="hero-title"><span class="hl">Small</span> <span class="hl">tools for</span> <span class="hl">quotes, data</span> <span class="hl">and clean</span> <span class="hl">handoffs.</span></h1>
           <p class="lede">Price a job before you send it, check a CSV before it ships, and leave every project in a state the next person can pick up. Each tool runs on your own computer.</p>
           <div class="hero-actions">
             <a class="button primary" href="#collection">Open the drawer</a>

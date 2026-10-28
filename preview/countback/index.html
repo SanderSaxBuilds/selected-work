@@ -50,6 +50,8 @@ body { background: var(--paper); }
 .delivery-meta dd { font-size: 30px; }
 .progress-label strong { font-size: 56px; }
 .progress-track span { background: rgba(20, 21, 18, .12); box-shadow: none; }
+/* hold the track's height until the script draws its segments, so the delivery card does not jump on load */
+.progress-track:empty { min-height: 14px; }
 .progress-track .is-match { background: var(--ink); }
 .progress-track .is-flag { background: var(--error-ink); }
 .progress-key span::before, .pallet-legend span::before { width: 16px; height: 4px; border: 0 !important; vertical-align: 3px; }
@@ -149,7 +151,7 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
 
         <h1 id="po-title">PO-1048</h1>
         <p class="delivery-route" id="route">Northside Supply to Larch Street Café</p>
-        <dl class="delivery-meta" id="delivery-meta"></dl>
+        <dl class="delivery-meta" id="delivery-meta"><div><dt>Arrived</dt><dd>7:42 AM</dd></div><div><dt>Drop-off</dt><dd>Back door</dd></div><div><dt>Expected</dt><dd>25 cartons</dd></div><div><dt>Lines</dt><dd>6</dd></div></dl>
         <p class="delivery-promise">Check a delivery against its order on the dock. Short, damaged and extra units flag themselves, every correction is kept, and the receipt exports once the last line is counted.</p>
         <div class="delivery-actions"><button class="button button-primary" id="hero-demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l11-7z"/></svg>Watch a delivery</button><button class="button button-door" id="hero-count" type="button">Count the next line</button></div>
       </div>
@@ -159,7 +161,7 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
         <p class="progress-key"><span class="k-match">Matches</span><span class="k-flag">Needs a look</span><span class="k-open">Not counted</span></p>
       </div>
       <figure class="pallet-wrap" aria-labelledby="pallet-cap">
-        <svg id="pallet" role="group" aria-label="The pallet, one stack of cartons per line. Choose a stack to count that line."></svg>
+        <svg id="pallet" viewBox="-69.7 -145 172.8 245.7" role="group" aria-label="The pallet, one stack of cartons per line. Choose a stack to count that line."></svg>
         <figcaption class="pallet-cap"><span id="pallet-cap">Each stack is one line, each box one carton. Choose a stack to count it.</span><span class="pallet-legend" aria-hidden="true"><span class="lg-count">Counted</span><span class="lg-ghost">Expected</span><span class="lg-miss">Missing</span><span class="lg-extra">Extra</span><span class="lg-dmg">Damaged</span></span></figcaption>
       </figure>
     </section>

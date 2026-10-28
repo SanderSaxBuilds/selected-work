@@ -95,6 +95,16 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 .day-summary { order: 2; justify-content: flex-start; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0; }
 .stat { text-align: left; padding: 12px 28px 12px 0; margin-right: 28px; border-right: 1px solid var(--line); }
 .stat:last-child { border-right: 0; }
+/* hold the summary row's height until the script fills it, so the page does not jump on load */
+#daySummary:empty { min-height: 96px; }
+@media (min-width: 861px) and (max-width: 940px) { #daySummary:empty { min-height: 190px; } }
+@media (max-width: 860px) { #daySummary:empty { min-height: 92px; } }
+@media (max-width: 600px) { #daySummary:empty { min-height: 98px; } }
+@media (max-width: 430px) { #daySummary:empty { min-height: 116px; } }
+#dayStrip:empty { min-height: 152px; }
+@media (max-width: 600px) { #dayStrip:empty { min-height: 140px; } }
+#loadList:empty { min-height: 264px; }
+.week-load .side-row { min-height: 48px; }
 .stat-label { letter-spacing: .12em; text-transform: uppercase; font-size: 11px; color: var(--muted); opacity: 1; }
 .stat-value { font: 400 34px/1.05 var(--display); color: #eef5f2; }
 @media (max-width: 860px) {
