@@ -17,6 +17,8 @@
   <meta name="twitter:title" content="Señales de mercado en Cosquín">
   <meta name="twitter:description" content="Relevamiento preliminar de fuentes públicas: comercios, precios visibles y datos pendientes.">
   <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/cosquin.jpg">
+  <link rel="preload" href="assets/gfonts/source-serif-4/vEFI2_tTDB4M7-auWDN0ahZJW1gb8tc.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/gfonts/archivo/k3kQo8UDI-1M0wlSfdnoLg.woff2" as="font" type="font/woff2" crossorigin>
   <link href="assets/gfonts/css/2b8cf47df32d.css" rel="stylesheet">
   <style>
     /* Cosquín market signals. Its own sheet, no shared kit.
@@ -26,13 +28,19 @@
        square for a mirror, a hollow square for a directory lead. Source Serif 4 for reading,
        Archivo (condensed and wide) for labels and figures. Numbered sections, a contents rail
        that follows you, and every claim one tap from its source. */
+    /* Metric-matched local fallbacks, so text keeps its place while the web fonts load. */
+    @font-face { font-family: "Source Serif 4 Fallback"; src: local("Georgia"); font-weight: 400 500; size-adjust: 104.31%; ascent-override: 99.7%; descent-override: 32.59%; line-gap-override: 0%; }
+    @font-face { font-family: "Source Serif 4 Fallback"; src: local("Georgia Bold"), local("Georgia-Bold"); font-weight: 600 800; size-adjust: 84.48%; ascent-override: 123.11%; descent-override: 40.25%; line-gap-override: 0%; }
+    @font-face { font-family: "Source Serif 4 Fallback"; src: local("Georgia Italic"), local("Georgia-Italic"); font-style: italic; font-weight: 400 800; size-adjust: 86.18%; ascent-override: 120.67%; descent-override: 39.45%; line-gap-override: 0%; }
+    @font-face { font-family: "Archivo Fallback"; src: local("Arial"), local("ArialMT"); font-weight: 400 500; size-adjust: 92.63%; ascent-override: 95.01%; descent-override: 22.67%; line-gap-override: 0%; }
+    @font-face { font-family: "Archivo Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"); font-weight: 600 900; size-adjust: 89.08%; ascent-override: 98.79%; descent-override: 23.58%; line-gap-override: 0%; }
     :root {
       color-scheme: light;
       --paper: #f4f5f2; --sheet: #ffffff; --ink: #14181d; --ink-2: #39414b; --muted: #5d6670;
       --rule: #d5d9dc; --rule-soft: #e6e9ea; --blue: #1b5d9b; --blue-ink: #154a7c; --celeste: #8cc3ea; --celeste-soft: #e4f1fa;
       --red: #b8322a; --red-soft: #f8e5e2;
-      --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-      --label: "Archivo", "Arial Narrow", system-ui, sans-serif;
+      --serif: "Source Serif 4", "Source Serif 4 Fallback", Georgia, "Times New Roman", serif;
+      --label: "Archivo", "Archivo Fallback", "Arial Narrow", system-ui, sans-serif;
       --focus: 0 0 0 2px var(--paper), 0 0 0 4px var(--blue);
     }
     * { box-sizing: border-box; }
