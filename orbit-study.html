@@ -95,7 +95,7 @@ h1 em { font-style: normal; color: var(--hi); }
 /* Stage: one lamp over a dark table, nothing moves unless you move it */
 .stage-col { min-width: 0; }
 .stage { position: relative; aspect-ratio: 1 / 1; max-height: calc(100vh - 120px); margin: 0 auto; overflow: hidden; border-radius: 4px; background:
-  radial-gradient(60% 46% at 50% 18%, rgba(255, 238, 210, .13), rgba(255, 238, 210, 0) 70%),
+  radial-gradient(60% 46% at var(--lx, 50%) 18%, rgba(255, 238, 210, .13), rgba(255, 238, 210, 0) 70%),
   radial-gradient(40% 9% at 50% 86%, rgba(0, 0, 0, .55), rgba(0, 0, 0, 0) 70%),
   linear-gradient(180deg, #23201c 0%, #191714 62%, #100f0d 100%); box-shadow: inset 0 0 0 1px var(--line); }
 @media (min-width: 1000px) { .stage { width: min(100%, calc(100vh - 150px)); max-height: none; } }
@@ -235,7 +235,7 @@ h1 em { font-style: normal; color: var(--hi); }
           </div>
           <div class="dial">
             <label for="lamp">Lamp position <output id="lamp-out" for="lamp">Upper left</output></label>
-            <input id="lamp" type="range" min="0" max="359" value="220">
+            <input id="lamp" type="range" min="0" max="100" value="30">
           </div>
           <p class="vh" id="ladder">The small and middle rings show the same finish one and two steps rougher.</p>
           <div class="row">
@@ -305,8 +305,8 @@ reduced.checked = preference.matches;
 
 const FINISHES = [
   { id: 'steel', code: 'FS-01', name: 'Polished steel', base: '#c9ccd0', rough: .08, metal: 1, coat: 0, note: 'Mirror polished 316 steel. The lamp shows up as a hard window and the room is readable in every curve.' },
-  { id: 'brass', code: 'FS-02', name: 'Satin brass', base: '#d8a957', rough: .34, metal: 1, coat: 0, note: 'Brass rubbed with a fine pad. Highlights stay gold and spread into a soft band.' },
-  { id: 'anodised', code: 'FS-03', name: 'Anodised blue', base: '#6f8fc0', rough: .42, metal: .85, coat: 0, note: 'Dyed aluminium. Mostly metal, with a little body colour showing through the oxide.' },
+  { id: 'brass', code: 'FS-02', name: 'Satin brass', base: '#e3b562', rough: .3, metal: 1, coat: 0, note: 'Brass rubbed with a fine pad. Highlights stay gold and spread into a soft band.' },
+  { id: 'anodised', code: 'FS-03', name: 'Anodised blue', base: '#4f80d8', rough: .3, metal: .9, coat: 0, note: 'Dyed aluminium. Mostly metal, with a little body colour showing through the oxide.' },
   { id: 'enamel', code: 'FS-04', name: 'Gloss enamel', base: '#b3261e', rough: .2, metal: 0, coat: 1, note: 'Red paint under a clear coat. Colour lives in the body, the sharp highlight sits on top.' },
   { id: 'ceramic', code: 'FS-05', name: 'Matte ceramic', base: '#e3ddd2', rough: .82, metal: 0, coat: 0, note: 'Unglazed stoneware. No mirror at all, just light and shade that wrap gently round the tube.' },
   { id: 'powder', code: 'FS-06', name: 'Black powder coat', base: '#26282a', rough: .6, metal: 0, coat: .15, note: 'Textured black coat. Dark, but the grazing edges still pick out the shape.' }
@@ -348,37 +348,32 @@ vec3 ry(vec3 p,float a){return vec3(cos(a)*p.x+sin(a)*p.z,p.y,-sin(a)*p.x+cos(a)
 vec3 rz(vec3 p,float a){return vec3(cos(a)*p.x-sin(a)*p.y,sin(a)*p.x+cos(a)*p.y,p.z);}
 vec3 rotate(vec3 p){return rx(ry(rz(rx(ry(p,orient.y),orient.x),orient.z),turn.y),turn.x);}
 void main(){vec3 p=rotate(position*scale);N=rotate(normal);P=p;p.z-=5.2;float k=aspect>1.?1.:aspect;gl_Position=vec4(p.x*2.7*k/aspect,p.y*2.7*k,-1.002*p.z-.2002,-p.z);}`;
-const FRAG = `precision mediump float;uniform vec3 base;uniform float rough;uniform float metal;uniform float coat;uniform float lamp;varying vec3 N;varying vec3 P;
+const FRAG = `precision mediump float;uniform vec3 base;uniform float rough;uniform float metal;uniform float coat;uniform vec3 L;varying vec3 N;varying vec3 P;
 vec3 room(vec3 r,float g){
-  float s=.035+g*.9;
-  vec3 sky=mix(vec3(.07,.065,.06),vec3(1.3,1.22,1.1),smoothstep(.62-s,.62+s,r.y));
-  vec3 c=mix(vec3(.004,.004,.004),sky,smoothstep(-s,s,r.y));
-  c=mix(c,vec3(.12,.115,.11),g*g*.8);
-  c+=vec3(1.15,1.05,.92)*exp(-pow((r.y-.05)/(.02+g*.45),2.))*(.85/(1.+g*7.));
-  vec2 k=vec2(cos(lamp)*.72,.42+sin(lamp)*.38);
-  float w=.012+g*g*1.6+g*.08;
-  vec2 d=r.xy-k;
-  float box=exp(-(d.x*d.x/(w*1.4)+d.y*d.y/(w*.9)));
-  c+=vec3(1.,.93,.82)*box*(6./(1.+g*28.));
-  float strip=exp(-pow((r.x+k.x*1.15)/(.04+g*.7),2.))*smoothstep(-.4,.5,r.y)*(1.-smoothstep(.75,1.,abs(r.y)));
-  c+=vec3(.55,.6,.68)*strip*(1.4/(1.+g*14.));
-  return c;
+  float s=.06+g*.9;
+  vec3 c=mix(vec3(.02,.019,.018),vec3(.34,.35,.37),smoothstep(-s,s,r.y));
+  c=mix(c,vec3(.62,.64,.67),smoothstep(.3-s,.85+s,r.y)*.8);
+  c+=vec3(.3,.3,.31)*exp(-pow(r.y/(.04+g*.5),2.))/(1.+g*4.);
+  c+=vec3(1.,.95,.86)*pow(max(dot(r,L),0.),2.+(1.-g)*3.)*1.1;
+  return mix(c,vec3(.18),g*g*.55);
+}
+float lampLobe(vec3 r,float g){
+  float w=.003+g*g*.5;
+  return exp(-(1.-dot(r,L))/w)*min(.32/w,60.);
 }
 vec3 tone(vec3 c){c=c/(1.+c*.55);return pow(c,vec3(1./2.2));}
 void main(){
   vec3 n=normalize(N);vec3 v=normalize(vec3(0.,0.,5.2)-P);
   float ndv=max(dot(n,v),0.);
-  vec3 L=normalize(vec3(cos(lamp)*.9,.55+sin(lamp)*.5,.75));
   float ndl=max(dot(n,L),0.);
+  float lit=smoothstep(-.15,.25,dot(n,L));
   vec3 r=reflect(-v,n);
+  vec3 lampC=vec3(1.,.95,.86);
   vec3 F0=mix(vec3(.04),base,metal);
   vec3 F=F0+(1.-F0)*pow(1.-ndv,5.)*(1.-rough*.7);
-  vec3 diff=base*(1.-metal)*(.10+.9*ndl)*.85;
-  vec3 h=normalize(L+v);
-  float e=mix(900.,4.,pow(rough,.5));
-  float sp=pow(max(dot(n,h),0.),e)*(e+8.)/25.*ndl;
-  vec3 refl=room(r,rough)*F+F*sp*.12;
-  vec3 top=(room(r,.03)+vec3(pow(max(dot(n,h),0.),700.)*3.))*(.04+.96*pow(1.-ndv,5.))*coat;
+  vec3 diff=base*(1.-metal)*(room(n,1.)*.9+lampC*ndl*1.5);
+  vec3 refl=(room(r,rough)+lampC*lampLobe(r,rough)*lit)*F;
+  vec3 top=(room(r,.03)+lampC*lampLobe(r,.03)*lit)*(.04+.96*pow(1.-ndv,5.))*coat;
   gl_FragColor=vec4(tone(diff+refl+top),1.);
 }`;
 
@@ -411,7 +406,7 @@ function boot() {
     gl.vertexAttribPointer(a, 3, gl.FLOAT, false, 24, offset);
   }
   canvas.dataset.vertices = String(data.length / 6);
-  for (const n of ['turn', 'orient', 'aspect', 'scale', 'base', 'rough', 'metal', 'coat', 'lamp']) U[n] = gl.getUniformLocation(program, n);
+  for (const n of ['turn', 'orient', 'aspect', 'scale', 'base', 'rough', 'metal', 'coat', 'L']) U[n] = gl.getUniformLocation(program, n);
   gl.enable(gl.DEPTH_TEST);
   gl.enable(gl.CULL_FACE);
   gl.clearColor(0, 0, 0, 0);
@@ -440,15 +435,16 @@ const objects = [[[.25, 0, -.42], 1.3, 0], [[1.34, .2, .15], .95, 1], [[-.65, 1.
 const lin = hex => [1, 3, 5].map(i => Math.pow(parseInt(hex.slice(i, i + 2), 16) / 255, 2.2));
 const STEP = .16;
 const ringRough = i => Math.min(1, current.rough + i * STEP);
-const lampRad = () => Number(lampIn.value) * Math.PI / 180;
+// The lamp sweeps across the top of the stage, from the left (0) to the right (100). Fixed in view space.
+const lampAngle = () => (Number(lampIn.value) / 100 * 2 - 1) * 1.4;
+function lampDir() { const a = lampAngle(), x = Math.sin(a), y = .12 + Math.cos(a) * .8, z = .7, l = Math.hypot(x, y, z); return [x / l, y / l, z / l]; }
 
-function lampName(deg) {
-  const names = ['Right', 'Upper right', 'Overhead', 'Upper left', 'Left', 'Lower left', 'Below', 'Lower right'];
-  return names[Math.round(((deg % 360) + 360) % 360 / 45) % 8];
-}
+function lampName(t) { return t <= 10 ? 'Left' : t < 40 ? 'Upper left' : t <= 60 ? 'Overhead' : t < 90 ? 'Upper right' : 'Right'; }
 
 function paintSheet() {
-  const f0 = current.metal * 0.62 + (1 - current.metal) * 0.04;
+  // Head-on reflectance: about 4% for paint and ceramic, the base colour itself for a metal.
+  const b = lin(current.base).map(c => .04 + (c - .04) * current.metal);
+  const f0 = .2126 * b[0] + .7152 * b[1] + .0722 * b[2];
   const custom = current.rough !== picked.rough || current.metal !== picked.metal;
   $('#spec-name').textContent = custom ? `${picked.name}, adjusted` : picked.name;
   $('#spec-code').textContent = custom ? `${picked.code} / custom` : picked.code;
@@ -460,13 +456,17 @@ function paintSheet() {
   $('#metal-out').value = current.metal.toFixed(2);
   roughIn.value = String(Math.round(current.rough * 100)); metalIn.value = String(Math.round(current.metal * 100));
   roughIn.style.setProperty('--p', roughIn.value + '%'); metalIn.style.setProperty('--p', metalIn.value + '%');
-  lampIn.style.setProperty('--p', (Number(lampIn.value) / 3.59) + '%');
+  lampIn.style.setProperty('--p', lampIn.value + '%');
   $('#tag-code').textContent = picked.code;
   $('#tag-name').textContent = custom ? 'Adjusted' : picked.name;
   $('#tag-vals').textContent = `R ${current.rough.toFixed(2)}, M ${current.metal.toFixed(2)}`;
-  const deg = Number(lampIn.value);
+  const deg = Number(lampIn.value), la = lampAngle(), side = Math.sin(la);
   $('#lamp-out').value = lampName(deg);
-  $('#lamp-dot').style.setProperty('--lamp', (90 - deg) + 'deg');
+  lampIn.setAttribute('aria-valuetext', lampName(deg));
+  $('#lamp-dot').style.setProperty('--lamp', (la * 180 / Math.PI).toFixed(1) + 'deg');
+  stage.style.setProperty('--lx', (50 + side * 34).toFixed(1) + '%');
+  const fg = fallback.querySelector('linearGradient');
+  fg.setAttribute('x1', (.5 + side * .5).toFixed(2)); fg.setAttribute('x2', (.5 - side * .5).toFixed(2));
   canvas.setAttribute('aria-label', `Three nested rings in ${custom ? 'an adjusted ' + picked.name.toLowerCase() : picked.name.toLowerCase()}, lamp ${lampName(deg).toLowerCase()}. Use the arrow keys to rotate, Space to pause and Home to reset.`);
   const stops = fallback.querySelectorAll('stop');
   stops[1].setAttribute('stop-color', current.base);
@@ -497,7 +497,7 @@ function draw() {
   gl.uniform3fv(U.base, lin(current.base));
   gl.uniform1f(U.metal, current.metal);
   gl.uniform1f(U.coat, current.coat);
-  gl.uniform1f(U.lamp, lampRad());
+  gl.uniform3fv(U.L, lampDir());
   objects.forEach(([o, s, i]) => {
     gl.uniform1f(U.scale, s);
     gl.uniform3fv(U.orient, o);
