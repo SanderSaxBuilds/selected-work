@@ -17,7 +17,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <title>Toolroom Studio | Get your next release ready</title>
   <link rel="icon" href="toolroom-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/gfonts/css/daef8601f6f5.css">
+  <link rel="preload" href="assets/gfonts/syne/8vIH7w4qzmVxm2BL9A.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/gfonts/spline-sans-mono/R70BjzAei_CDNLfgZxrW6wrZOF2WX5KZmA.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/gfonts/css/daef8601f6f5.css">
   <link rel="stylesheet" href="toolroom-studio.css">
 <style>
 /* preview: "Signal mint workshop", studio side. Same wall and graphite as the store preview.
@@ -127,6 +129,13 @@ dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px 
 .dialog-body input:not([type="checkbox"]):not([type="file"]),.dialog-body textarea,.dialog-body select{border-radius:12px}
 .skip{background:var(--yellow);color:var(--yellow-ink)}
 @media (prefers-reduced-motion:reduce){.page-heading h1{transition:none}}
+/* the pointer-driven weight changes the heading width, so lock its lines and the button row to stop the page reflowing */
+.page-heading h1 .hl{white-space:nowrap}
+@media (min-width:900px){.page-heading h1{white-space:nowrap}}
+@media (max-width:899px) and (pointer:fine){.page-heading h1 .hl{display:block}}
+@media (max-width:1399px){.page-heading>div:has(>#catalog-title){flex:1 1 100%}}
+/* the workspace fills in after the saved listings load, so keep it out of sight until the first render instead of letting it jump */
+.tr-wait #catalog-page>:not(.page-heading),.tr-wait #example-open{visibility:hidden}
 </style>
   <script type="module" src="toolroom-studio-app.mjs"></script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
@@ -151,10 +160,11 @@ dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px 
         <a href="preview/toolroom/">See the Toolroom store</a>
       </div>
     </aside>
+    <script>(function(){var d=document.documentElement,n=document.getElementById('nav-count');if(!n||!window.MutationObserver)return;d.classList.add('tr-wait');var done=function(){d.classList.remove('tr-wait')};new MutationObserver(function(l,o){o.disconnect();requestAnimationFrame(done)}).observe(n,{childList:true,characterData:true,subtree:true});setTimeout(done,2500)})();</script>
     <main id="main">
       <section class="page" id="catalog-page" aria-labelledby="catalog-title">
         <div class="page-heading">
-          <div><p class="eyebrow"><span class="num">TR-S1</span> Seller workspace</p><h1 id="catalog-title">Get your next release ready.</h1><p class="intro">For people who sell digital downloads. Write each listing, attach its file and pass five checks, then export one ZIP catalog that runs on any static host.</p></div>
+          <div><p class="eyebrow"><span class="num">TR-S1</span> Seller workspace</p><h1 id="catalog-title"><span class="hl">Get your next</span> <span class="hl">release ready.</span></h1><p class="intro">For people who sell digital downloads. Write each listing, attach its file and pass five checks, then export one ZIP catalog that runs on any static host.</p></div>
           <div class="heading-actions"><button type="button" class="button primary" id="add-product"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a product</button><button type="button" class="button secondary" id="example-open">Open the worked example</button></div>
         </div>
         <div class="demo-banner" id="demo-banner" role="region" aria-label="Worked example" hidden><span class="demo-tag num">Example</span><p id="demo-copy"></p><div class="demo-actions"><button type="button" class="button primary" id="demo-go">Review the open listing</button><button type="button" class="button secondary" id="demo-clear">Clear and start my own</button></div></div>
