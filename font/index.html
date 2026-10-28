@@ -858,7 +858,7 @@ h1:"Ваш почерк, <br><span>как настоящий шрифт.</span>"
 winT:"Почерк в шрифт",nameL:"Напишите своё имя",namePh:"Мария",replayL:"Написать ещё раз",nibL:"Толщина пера",nibT:"Перо",nibF:"Тонкое",nibM:"Среднее",nibB:"Широкое",
 penL:"Размер пера",ctaEx:"Смотреть примеры",sp1:"Выберите буквы",sp2:"Нарисуйте",sp3:"Попробуйте",sp4:"Скачайте",s4:"Скачайте и установите",noteA:"Смотреть цены",oBar:"Заказать",
 mCap:"Загл.",mX:"Строчн.",mBase:"Линия",mDesc:"Низ",swT:"Чтение",
-procL:"Процесс",procT:"Процесс",pr1:"Чтение скана",pr2:"Штрихи",pr3:"Сборка знаков",pr4:"Экспорт шрифта",procGo:"Нарисовать свои буквы →",
+procL:"Процесс",procT:"Процесс",pr1:"Чтение скана",pr2:"Штрихи",pr3:"Сборка",pr4:"Экспорт шрифта",procGo:"Нарисовать свои буквы →",
 hnote:"Образец почерка пишет ваше имя вживую. Ваш шрифт будет похож на вас.",
 ctaTry:"Нарисовать буквы",ctaPrice:"Заказать шрифт, от $39",
 stK:"Как делается полный шрифт",stH:"От одного листа до <em>настоящего шрифта</em>",
@@ -893,8 +893,9 @@ document.querySelectorAll("[data-t]").forEach(function(el){T.en[el.dataset.t]=el
 document.querySelectorAll("[data-t-aria]").forEach(function(el){T.en[el.dataset.tAria]=el.getAttribute("aria-label")});
 document.querySelectorAll("[data-t-ph]").forEach(function(el){T.en[el.dataset.tPh]=el.getAttribute("placeholder")});
 var LS=["en","ru"],TITLES={en:"Your handwriting as a font · SanderSax",ru:"Шрифт из вашего почерка · SanderSax"},MSG={en:"Hi! I want a font from my handwriting.",ru:"Здравствуйте! Хочу шрифт из своего почерка."},lang="en";
-var U={en:{ready:function(n,k){return n+" letters · "+k+" KB"},none:"Draw at least one letter",undo:"Undo",clear:"Clear",building:"Building the font",done:"Ready to install",writing:"Writing",signed:"Signed",page:"Scan",strokes:"strokes",glyphs:"glyphs",idle:"Input",run:"Running",ok:"Ready",sample:"Sample hand",own:"Your letters",box:"Drawing box for ",locale:"en-GB"},
-       ru:{ready:function(n,k){return "букв: "+n+" · "+k+" КБ"},none:"Нарисуйте хотя бы одну букву",undo:"Отменить",clear:"Очистить",building:"Собираю шрифт",done:"Готов к установке",writing:"Пишется",signed:"Подписано",page:"Скан",strokes:"штрих.",glyphs:"знаков",idle:"Ввод",run:"Работает",ok:"Готово",sample:"Образец почерка",own:"Ваши буквы",box:"Поле для буквы ",locale:"ru-RU"}};
+function plu(n,f){var w=f.length===2?(n===1?f[0]:f[1]):(n%10===1&&n%100!==11?f[0]:n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?f[1]:f[2]);return n+" "+w}
+var U={en:{ready:function(n,k){return n+" letters · "+k+" KB"},none:"Draw at least one letter",undo:"Undo",clear:"Clear",building:"Building the font",done:"Ready to install",writing:"Writing",signed:"Signed",page:"Scan",strokes:["stroke","strokes"],glyphs:["glyph","glyphs"],idle:"Input",run:"Running",ok:"Ready",sample:"Sample hand",own:"Your letters",box:"Drawing box for ",locale:"en-GB"},
+       ru:{ready:function(n,k){return "букв: "+n+" · "+k+" КБ"},none:"Нарисуйте хотя бы одну букву",undo:"Отменить",clear:"Очистить",building:"Собираю шрифт",done:"Готов к установке",writing:"Пишется",signed:"Подписано",page:"Скан",strokes:["штрих","штриха","штрихов"],glyphs:["знак","знака","знаков"],idle:"Ввод",run:"Работает",ok:"Готово",sample:"Образец почерка",own:"Ваши буквы",box:"Поле для буквы ",locale:"ru-RU"}};
 var NAMES={en:["Sander","Anna","Kenji","Мария","Lucas"],ru:["Мария","Анна","Sander","Олег"]};
 function setLang(l){lang=l;document.documentElement.lang=l;
   document.querySelectorAll("[data-t]").forEach(function(el){var v=T[l][el.dataset.t];if(v!=null)el.innerHTML=v});
@@ -988,7 +989,7 @@ var proc=(function(){
     cells.innerHTML="";fname.textContent="-";fileo.classList.remove("ok");sweep.classList.remove("go");st("idle")}
   function tween(ms,fn,done){var my=tk,t0=performance.now();(function f(n){if(my!==tk)return;var u=Math.min(1,Math.max(0,(n-t0)/ms));fn(u);if(u<1)requestAnimationFrame(f);else if(done)done()})(t0)}
   function ok(i){lis[i].className="ok";bars[i].style.width="100%"}
-  function final(o){vals[0].textContent="100%";vals[1].textContent=o.strokes+" "+U[lang].strokes;vals[2].textContent=o.chars.length+" "+U[lang].glyphs;vals[3].textContent="OTF";
+  function final(o){vals[0].textContent="100%";vals[1].textContent=plu(o.strokes,U[lang].strokes);vals[2].textContent=plu(o.chars.length,U[lang].glyphs);vals[3].textContent="OTF";
     lis.forEach(function(l,i){ok(i)});cells.querySelectorAll(".gc").forEach(function(c){c.classList.add("on")});fname.textContent=o.file;fileo.classList.add("ok");st("ok")}
   function fill(o){cells.style.fontFamily=o.font;cells.innerHTML=o.chars.map(function(c){return '<span class="gc"><b></b><i>'+c.codePointAt(0).toString(16).toUpperCase().padStart(4,"0")+'</i></span>'}).join("");
     cells.querySelectorAll(".gc b").forEach(function(b,i){b.textContent=o.chars[i]})}
@@ -997,9 +998,9 @@ var proc=(function(){
     var my=tk,page=$("#page");st("run");lis[0].className="run";
     sweep.style.setProperty("--sd","1100ms");void sweep.offsetWidth;sweep.classList.add("go");
     tween(1100,function(u){bars[0].style.width=(u*100)+"%";vals[0].textContent=Math.round(u*100)+"%"},function(){ok(0);lis[1].className="run";
-      tween(650,function(u){bars[1].style.width=(u*100)+"%";vals[1].textContent=Math.round(u*o.strokes)+" "+U[lang].strokes},function(){ok(1);lis[2].className="run";
+      tween(650,function(u){bars[1].style.width=(u*100)+"%";vals[1].textContent=plu(Math.round(u*o.strokes),U[lang].strokes)},function(){ok(1);lis[2].className="run";
         var gs=cells.querySelectorAll(".gc"),n=gs.length;
-        tween(Math.max(300,n*110),function(u){var k=Math.min(n,Math.ceil(u*n));for(var i=0;i<k;i++)gs[i].classList.add("on");bars[2].style.width=(u*100)+"%";vals[2].textContent=k+" "+U[lang].glyphs},function(){ok(2);lis[3].className="run";
+        tween(Math.max(300,n*110),function(u){var k=Math.min(n,Math.ceil(u*n));for(var i=0;i<k;i++)gs[i].classList.add("on");bars[2].style.width=(u*100)+"%";vals[2].textContent=plu(k,U[lang].glyphs)},function(){ok(2);lis[3].className="run";
           tween(800,function(u){bars[3].style.width=(u*100)+"%";vals[3].textContent=Math.round(u*100)+"%"},function(){if(my!==tk)return;final(o);if(cb)cb()})})})})}
   return {run:run,reset:reset,relabel:function(){if(state==="ok"&&last)final(last);else st(state)}};
 })();

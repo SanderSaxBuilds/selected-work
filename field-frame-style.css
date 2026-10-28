@@ -47,8 +47,8 @@ button { cursor: pointer; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 22px; border: 1.5px solid var(--ink); border-radius: 0; font: 600 16px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; transition: background-color .2s, color .2s, transform .15s; }
 .button-solid { background: var(--ink); color: var(--sheet); }
 .button-solid:hover { background: var(--blue); border-color: var(--blue); }
-.button-solid::after { content: ""; width: 18px; height: 1.5px; background: currentColor; box-shadow: 4px -4px 0 -0.5px transparent; transition: width .2s var(--ease); }
-.button-solid:hover::after { width: 26px; }
+.button-solid::after { content: ""; width: 18px; height: 1.5px; background: currentColor; box-shadow: 4px -4px 0 -0.5px transparent; transition: width .2s var(--ease), margin-right .2s var(--ease); }
+.button-solid:hover::after { width: 26px; margin-right: -8px; }
 .button-ink { background: var(--blue); border-color: var(--blue); color: #fff; width: 100%; }
 .button-ink:hover:not(:disabled) { background: var(--ink); border-color: var(--ink); }
 .button:disabled { opacity: .4; cursor: not-allowed; }

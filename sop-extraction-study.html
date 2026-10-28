@@ -409,8 +409,17 @@ for (const b of grid.querySelectorAll(".mp")) {
   b.addEventListener("click", () => pick(b.dataset.k, true));
   b.addEventListener("pointerenter", () => { if (cur !== b.dataset.k) pick(b.dataset.k, true); });
 }
-addEventListener("resize", () => wire(false));
-document.fonts.ready.then(() => wire(false));
+// Hold the note at its longest text so hovering the paragraphs never moves the page below it.
+function fitNote() {
+  const n = document.getElementById("map-note"), keep = n.innerHTML;
+  n.style.minHeight = ""; n.removeAttribute("aria-live");
+  let mx = 0;
+  for (const k in NOTES) { n.innerHTML = NOTES[k]; mx = Math.max(mx, n.offsetHeight); }
+  n.innerHTML = keep; n.style.minHeight = mx + "px"; n.setAttribute("aria-live", "polite");
+}
+addEventListener("resize", () => { fitNote(); wire(false); });
+document.fonts.ready.then(() => { fitNote(); wire(false); });
+fitNote();
 wire(false);
 </script>
 </body>
