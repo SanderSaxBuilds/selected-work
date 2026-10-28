@@ -13,21 +13,29 @@
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/property/andaman-city/">
 <meta name="theme-color" content="#161b19">
 <link rel="icon" href="../../assets/sandersax-icon-32.png">
+<link rel="preload" href="../../assets/gfonts/golos-text/q5uCsoe9Lv5t7Meb31EcExd8hLxR.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/gfonts/golos-text/q5uCsoe9Lv5t7Meb31EcExN8hA.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/gfonts/noto-serif-display/211ebe681c1cbd9d.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/gfonts/noto-serif-display/114ceb87a2a4f5a6.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="style" href="../../assets/gfonts/css/4e2c6858194b.css" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="../../assets/gfonts/css/4e2c6858194b.css" rel="stylesheet"></noscript>
 <link rel="preload" as="image" href="../img/hero-rent.jpg">
 <style>
+/* Metric-matched local fallbacks, so text keeps its place while the web fonts load. */
+@font-face{font-family:"Golos Text Fallback";src:local("Arial"), local("ArialMT");font-style:normal;font-weight:100 500;size-adjust:105.23%;ascent-override:93.13%;descent-override:20.91%;line-gap-override:0%}
+@font-face{font-family:"Golos Text Fallback";src:local("Arial Bold"), local("Arial-BoldMT");font-style:normal;font-weight:600 1000;size-adjust:102.79%;ascent-override:95.34%;descent-override:21.4%;line-gap-override:0%}
+@font-face{font-family:"Noto Serif Display Fallback";src:local("Arial Bold"), local("Arial-BoldMT");font-style:normal;font-weight:600 1000;size-adjust:104.11%;ascent-override:102.78%;descent-override:27.86%;line-gap-override:0%}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 .ag>*,.rq>*,.buyg>*,.box>*,.adet>*{min-width:0}
 :root{--ink:#161b19;--ink2:#2d3430;--mut:#646c68;--stone:#f0f2f1;--paper:#fbfcfb;--line:rgba(22,27,25,.12);--lag:#4e5e57;--lag2:#3e4b45;--glass:#d2ddd8;--r:3px;--sh:0 1px 2px rgba(22,27,25,.06),0 14px 34px -14px rgba(22,27,25,.22)}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--stone);color:var(--ink);font:400 16px/1.55 "Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--stone);color:var(--ink);font:400 16px/1.55 "Golos Text","Golos Text Fallback",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
 a{color:inherit}
-h1,h2,h3,h4,.dsp{font-family:"Noto Serif Display","Golos Text",sans-serif;font-weight:600;letter-spacing:-.025em;margin:0}
+h1,h2,h3,h4,.dsp{font-family:"Noto Serif Display","Noto Serif Display Fallback","Golos Text","Golos Text Fallback",sans-serif;font-weight:600;letter-spacing:-.025em;margin:0}
 .wrap{width:min(1240px,calc(100% - 40px));margin-inline:auto}
 @media(max-width:520px){.wrap{width:calc(100% - 32px)}}
 :focus-visible{outline:2px solid var(--lag);outline-offset:2px}
@@ -37,7 +45,7 @@ h1,h2,h3,h4,.dsp{font-family:"Noto Serif Display","Golos Text",sans-serif;font-w
 .rib{font-size:13px;line-height:1.35;text-align:center;padding:8px 16px;background:rgba(22,27,25,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#e6ebe9;max-height:64px;overflow:hidden;transition:max-height .35s,padding .35s}
 .rib a{color:#fff;font-weight:600;white-space:nowrap}
 .nav{display:flex;align-items:center;gap:28px;height:66px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Noto Serif Display";font-weight:600;font-size:17px;letter-spacing:-.01em;white-space:nowrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Noto Serif Display","Noto Serif Display Fallback";font-weight:600;font-size:17px;letter-spacing:-.01em;white-space:nowrap}
 .brand svg{width:28px;height:28px;flex:none}
 .links{display:flex;gap:22px;margin-left:auto;font-size:15px}
 .links a{text-decoration:none;opacity:.85;transition:opacity .2s}
@@ -63,13 +71,13 @@ h1,h2,h3,h4,.dsp{font-family:"Noto Serif Display","Golos Text",sans-serif;font-w
 .hero h1 .w{display:inline-block;color:var(--glass)}
 .hero h1 .w span{display:inline-block;transition:transform .42s cubic-bezier(.2,.8,.2,1),opacity .28s}
 .hero h1 .w.swap span{transform:translateY(.32em);opacity:0}
-.hero .lead{font-size:clamp(16px,1.6vw,19px);max-width:48ch;margin:18px 0 28px;color:rgba(255,255,255,.9)}
+.hero .lead{font-size:clamp(16px,1.6vw,19px);max-width:29.76em;margin:18px 0 28px;color:rgba(255,255,255,.9)}
 .finder{background:rgba(251,252,251,.96);color:var(--ink);border-radius:24px;padding:18px 20px;display:grid;grid-template-columns:auto minmax(220px,1fr) auto auto;gap:18px 28px;align-items:end;box-shadow:0 30px 60px -30px rgba(0,0,0,.55)}
 .fl{font-size:12.5px;color:var(--mut);margin-bottom:8px;font-weight:600}
 .seg{display:inline-flex;background:var(--stone);border-radius:14px;padding:4px;gap:2px}
 .seg button{border:0;background:none;padding:10px 14px;border-radius:11px;font-weight:600;font-size:15px;white-space:nowrap;transition:background .2s,color .2s}
 .seg button[aria-pressed=true]{background:var(--ink);color:#fff}
-.val{font-family:"Noto Serif Display";font-size:22px;font-weight:600;line-height:1;margin-bottom:10px;letter-spacing:-.02em}
+.val{font-family:"Noto Serif Display","Noto Serif Display Fallback";font-size:22px;font-weight:600;line-height:1;margin-bottom:10px;letter-spacing:-.02em}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:none;margin:0;--p:50%}
 input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--lag) var(--p),rgba(22,27,25,.14) var(--p))}
 input[type=range]::-moz-range-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--lag) var(--p),rgba(22,27,25,.14) var(--p))}
@@ -80,7 +88,7 @@ input.dk::-moz-range-track{background:linear-gradient(90deg,var(--glass) var(--p
 input.dk::-webkit-slider-thumb{border-color:var(--glass)}
 .cur button{padding:10px 13px;min-width:44px}
 .res{display:flex;align-items:center;gap:14px}
-.res .n{font-family:"Noto Serif Display";font-size:32px;font-weight:600;line-height:1}
+.res .n{font-family:"Noto Serif Display","Noto Serif Display Fallback";font-size:32px;font-weight:600;line-height:1}
 .res .nl{font-size:13px;color:var(--mut);line-height:1.2}
 .thumbs{display:flex;min-width:40px}
 .thumbs img{width:40px;height:40px;border-radius:11px;object-fit:cover;border:2px solid var(--paper);margin-left:-12px}
@@ -95,7 +103,7 @@ input.dk::-webkit-slider-thumb{border-color:var(--glass)}
 section{padding:100px 0}
 @media(max-width:640px){section{padding:68px 0}}
 .eb{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--lag);margin-bottom:12px}
-.h2{font-size:clamp(32px,4.6vw,56px);line-height:1.03;max-width:17ch;text-wrap:balance}
+.h2{font-size:clamp(32px,4.6vw,56px);line-height:1.03;max-width:9.503em;text-wrap:balance}
 .sub{color:var(--mut);max-width:58ch;margin:14px 0 0;font-size:17px}
 .shead{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:34px}
 .bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -126,7 +134,7 @@ section{padding:100px 0}
 .card h3{font-size:19.5px;line-height:1.2}
 .specs{font-size:14px;color:var(--ink2)}
 .crow{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:auto;padding-top:8px}
-.price{font-family:"Noto Serif Display";font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.price{font-family:"Noto Serif Display","Noto Serif Display Fallback";font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
 .yl{font-size:13px;color:var(--lag);font-weight:700;background:rgba(78,94,87,.09);border-radius:8px;padding:5px 8px;white-space:nowrap}
 .more{border:0;background:none;padding:6px 0 0;font-weight:700;color:var(--lag);font-size:14.5px;text-align:left;align-self:flex-start}
 .more:hover{text-decoration:underline}
@@ -155,7 +163,7 @@ section{padding:100px 0}
 .ast{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}
 .ast div,.kv div,.out div{background:var(--paper);border-radius:12px;padding:10px 12px}
 .ast small,.kv small,.out small{display:block;font-size:12px;color:var(--mut);line-height:1.3}
-.ast b,.kv b{font-family:"Noto Serif Display";font-weight:600;font-size:17px}
+.ast b,.kv b{font-family:"Noto Serif Display","Noto Serif Display Fallback";font-weight:600;font-size:17px}
 @media(max-width:820px){
  .stops{flex-direction:column;gap:0;margin-left:2px}
  .rail{left:7px;right:auto;top:22px;bottom:22px;width:2px;height:auto;background:linear-gradient(180deg,var(--ink) var(--fill,0%),rgba(22,27,25,.16) var(--fill,0%))}
@@ -168,7 +176,7 @@ section{padding:100px 0}
 /* buy */
 .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
 .step{border:1px solid var(--line);background:var(--paper);border-radius:16px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:4px;transition:background .2s,color .2s,border-color .2s}
-.step b{font-family:"Noto Serif Display";font-size:13px;color:var(--mut);font-weight:600}
+.step b{font-family:"Noto Serif Display","Noto Serif Display Fallback";font-size:13px;color:var(--mut);font-weight:600}
 .step span{font-weight:700;font-size:15px;line-height:1.25}
 .step[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .step[aria-pressed=true] b{color:var(--glass)}
@@ -179,7 +187,7 @@ section{padding:100px 0}
 .fees .fl{color:rgba(255,255,255,.62)}
 .fees .val{font-size:28px}
 .fee{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:14.5px}
-.fee b{font-family:"Noto Serif Display";font-weight:600;white-space:nowrap;text-align:right}
+.fee b{font-family:"Noto Serif Display","Noto Serif Display Fallback";font-weight:600;white-space:nowrap;text-align:right}
 .fee.tot{font-size:16px;border-bottom:0;padding-top:14px}
 .fee.tot b{color:var(--glass);font-size:18px}
 .note{font-size:13px;color:var(--mut);margin:12px 0 0;line-height:1.45}
@@ -228,11 +236,11 @@ table.sh{width:100%;border-collapse:collapse;min-width:440px}
 .psl{background:var(--stone);border-radius:var(--r);padding:24px}
 .cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
 .cd div{background:var(--ink);color:#fff;border-radius:14px;padding:14px 4px 10px;text-align:center}
-.cd b{display:block;font-family:"Noto Serif Display";font-size:clamp(26px,4vw,42px);font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.cd b{display:block;font-family:"Noto Serif Display","Noto Serif Display Fallback";font-size:clamp(26px,4vw,42px);font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
 .cd small{font-size:12px;color:rgba(255,255,255,.66)}
 .cd.end{display:block;background:var(--ink);color:#fff;border-radius:14px;padding:16px 18px;font-weight:600}
-.pprice{margin-top:18px;font-family:"Noto Serif Display";font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
-.pprice small{display:block;font-family:"Golos Text";font-size:13.5px;color:var(--mut);font-weight:400;letter-spacing:0;margin-top:4px}
+.pprice{margin-top:18px;font-family:"Noto Serif Display","Noto Serif Display Fallback";font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.pprice small{display:block;font-family:"Golos Text","Golos Text Fallback";font-size:13.5px;color:var(--mut);font-weight:400;letter-spacing:0;margin-top:4px}
 .psr{background:var(--ink);color:#fff;border-radius:var(--r);padding:24px}
 .psr .fl{color:rgba(255,255,255,.62)}
 .psr .go{width:100%;margin-top:18px;background:var(--glass);color:var(--ink)}
@@ -268,7 +276,7 @@ table.sh{width:100%;border-collapse:collapse;min-width:440px}
 .box{background:var(--ink);color:#fff;border-radius:28px;padding:clamp(28px,5vw,60px);display:grid;grid-template-columns:1.15fr 1fr;gap:36px;align-items:start}
 .box .eb{color:var(--glass)}
 .box .sub{color:rgba(255,255,255,.74)}
-.pr{font-family:"Noto Serif Display";font-size:clamp(38px,5vw,58px);font-weight:600;line-height:1;letter-spacing:-.03em}
+.pr{font-family:"Noto Serif Display","Noto Serif Display Fallback";font-size:clamp(38px,5vw,58px);font-weight:600;line-height:1;letter-spacing:-.03em}
 .pt{color:rgba(255,255,255,.7);margin:8px 0 20px}
 .box ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .box li{display:flex;gap:12px}
@@ -305,7 +313,7 @@ footer p{margin:6px 0}
 .sl .t b{font-weight:700}
 .out{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
 .out div{background:var(--stone)}
-.out b{font-family:"Noto Serif Display";font-size:20px;font-weight:600}
+.out b{font-family:"Noto Serif Display","Noto Serif Display Fallback";font-size:20px;font-weight:600}
 .out .big{background:var(--lag);color:#fff}
 .out .big small{color:rgba(255,255,255,.78)}
 .months{display:flex;align-items:flex-end;gap:5px;height:96px;margin-top:16px}
@@ -334,7 +342,7 @@ body.lock .cbar{transform:translate(-50%,160%)}
 .ctab td.win{color:var(--lag);font-weight:700}
 .ctab td.win::after{content:" ✓"}
 .chd img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin-bottom:8px}
-.chd b{font-family:"Noto Serif Display";font-weight:600;font-size:16px;line-height:1.2;display:block}
+.chd b{font-family:"Noto Serif Display","Noto Serif Display Fallback";font-weight:600;font-size:16px;line-height:1.2;display:block}
 @media(max-width:520px){.ctab th,.ctab td{padding:10px 8px;font-size:13.5px}.ctab th{font-size:12px}}
 .toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,16px);opacity:0;background:var(--lag);color:#fff;box-shadow:0 12px 30px -12px rgba(0,0,0,.45);padding:12px 16px;border-radius:12px;font-size:14px;z-index:100;transition:opacity .3s,transform .3s;max-width:calc(100% - 32px);pointer-events:none;font-weight:600}
 .toast.on{opacity:1;transform:translate(-50%,0)}
@@ -344,8 +352,8 @@ body.lock .cbar{transform:translate(-50%,160%)}
 /* sketch theme */
 body{font-variant-numeric:lining-nums}
 @media(max-width:600px){.top:not(.solid) .rib{max-height:92px}}
-.price,.val,.res .n,.ast b,.kv b,.out b,.fee b,.pr,.cd b,.pprice,.step b,.chd b{font-family:"Golos Text",sans-serif;letter-spacing:-.01em}
-.agf{background:var(--ink);color:rgba(255,255,255,.74);font-size:13.5px;line-height:1.5;padding:22px 0}.agf b{color:#fff;font-family:"Noto Serif Display",serif;font-size:16px;font-weight:600;margin-right:12px}
+.price,.val,.res .n,.ast b,.kv b,.out b,.fee b,.pr,.cd b,.pprice,.step b,.chd b{font-family:"Golos Text","Golos Text Fallback",sans-serif;letter-spacing:-.01em}
+.agf{background:var(--ink);color:rgba(255,255,255,.74);font-size:13.5px;line-height:1.5;padding:22px 0}.agf b{color:#fff;font-family:"Noto Serif Display","Noto Serif Display Fallback",serif;font-size:16px;font-weight:600;margin-right:12px}
 @media(max-width:440px){.brand{min-width:0;flex:0 1 auto}.brand span{overflow:hidden;text-overflow:ellipsis}}
 .psl>.fl:first-child,#cd{display:none}
 #btype{display:none}
