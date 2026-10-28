@@ -205,6 +205,7 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
 .tools .btn.line, .bar .btn.ghost, .quick { box-shadow: 0 2px 0 rgba(0, 0, 0, .45); }
 .tools .btn.line:not(:disabled):active, .bar .btn:not(:disabled):active, .quick:active { transform: translateY(2px); box-shadow: 0 0 0 rgba(0, 0, 0, .45); }
 .tools .btn.line:not(:disabled):hover, .quick:hover { box-shadow: inset 3px 0 0 #f3b6d8, 0 2px 0 rgba(0, 0, 0, .45); }
+.tools .btn.line:disabled, .bar .btn.ghost:disabled { opacity: 1; color: rgba(231, 236, 240, .3); border-color: rgba(231, 236, 240, .07); border-style: dashed; background: transparent; box-shadow: none; cursor: not-allowed; }
 .bar .btn.amber { box-shadow: 0 3px 0 var(--blue-deep); }
 .bar .btn.amber:active { transform: translateY(3px); box-shadow: 0 0 0 var(--blue-deep); }
 .tools .search input { transition: border-color .15s ease, box-shadow .15s ease; }
