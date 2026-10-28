@@ -81,6 +81,8 @@ h1, h2, h3, p { margin: 0; }
 .filter:hover { background: rgba(27, 33, 64, .05); }
 .filter input { appearance: none; width: 20px; height: 20px; margin: 0; border-radius: 50%; border: 2px solid var(--c); background: transparent; display: grid; place-items: center; cursor: pointer; transition: background-color .2s ease; }
 .filter input:checked { background: var(--c); box-shadow: inset 0 0 0 3px #fff; }
+.filter input:checked:focus-visible { box-shadow: inset 0 0 0 3px #fff, var(--focus); }
+.nav-button.is-current:focus-visible, .load-row.is-selected:focus-visible { box-shadow: var(--focus), var(--shadow); }
 .filter-name { flex: 1; }
 .filter-count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .load-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }

@@ -33,7 +33,7 @@ h1{font-weight:600;font-size:34px;line-height:1.08;letter-spacing:-.025em;margin
 .btn.s:hover{background:var(--soft)}
 .btn.sm{padding:8px 14px;font-size:14px;border-radius:10px}
 .btn:active{transform:scale(.97)}
-.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
 .kpi{flex:1 1 200px;background:var(--panel);border-radius:14px;padding:14px 16px 12px}
 .kpi>span{display:block;font-size:13px;color:var(--hint)}
 .kpi b{display:block;font:500 30px/1.15 'JetBrains Mono',monospace;letter-spacing:-.02em;margin:2px 0 1px}
@@ -400,7 +400,8 @@ function burst(el){const host=el.style.position||getComputedStyle(el).position!=
  for(let i=0;i<14;i++){const d=document.createElement('i');d.className='burst';const a=i/14*Math.PI*2,dist=34+Math.random()*26;d.style.left=(r.left-hr.left+r.width/2-3)+'px';d.style.top=(r.top-hr.top+r.height/2-3)+'px';d.style.background=i%2?'var(--acc)':'#f2c230';d.style.setProperty('--x',Math.cos(a)*dist+'px');d.style.setProperty('--y',Math.sin(a)*dist+'px');host.appendChild(d);setTimeout(()=>d.remove(),750);}}
 /* start */
 syncF();
-(async()=>{DB=await idb();let ls=await dbAll();if(!Array.isArray(ls)||!ls.length){ls=seed();await dbReset(ls);}LEADS=ls;render();})();
+LEADS=seed();render();
+(async()=>{const first=LEADS;DB=await idb();let ls=await dbAll();if(!Array.isArray(ls)||!ls.length){ls=LEADS===first?first:seed();await dbReset(ls);}if(ls!==LEADS){LEADS=ls;render();}})();
 })();
 </script>
 </body>

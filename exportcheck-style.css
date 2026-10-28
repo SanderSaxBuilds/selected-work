@@ -71,8 +71,8 @@ h1 .cut s { text-decoration: none; position: relative; }
 .gate .t { margin-bottom: 4px; font-weight: 800; font-stretch: 112%; font-size: 17px; line-height: 1.15; text-transform: uppercase; letter-spacing: -.005em; }
 .gate .d { font-size: 14px; line-height: 1.4; color: var(--ink-2); }
 .gate .go { display: inline-flex; align-items: center; gap: 8px; font: 600 12.5px/1.2 var(--mono); color: var(--ink); }
-.gate .go::after { content: ""; width: 18px; height: 2px; background: currentColor; transition: width .25s var(--ease); }
-.gate:hover .go::after { width: 34px; }
+.gate .go::after { content: ""; flex: none; width: 34px; height: 2px; background: currentColor; transform: scaleX(.53); transform-origin: left; transition: transform .25s var(--ease); }
+.gate:hover .go::after { transform: scaleX(1); }
 .g0 { --c: var(--pass); } .g1 { --c: var(--reject); } .g2 { --c: var(--fail); } .g3 { --c: var(--refuse); }
 @media (max-width: 900px) { .gates { grid-template-columns: repeat(2, minmax(0, 1fr)); } .gate:nth-child(3) { border-left: 0; } .gate:nth-child(n+3) { border-top: 1px solid var(--rule-2); } }
 @media (max-width: 420px) { .gate { min-height: 170px; padding: 16px 12px 14px; } .gate .t { font-size: 15px; } .gate .d { font-size: 13px; } }

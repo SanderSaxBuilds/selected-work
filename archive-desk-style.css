@@ -89,6 +89,7 @@ code { font-family: var(--mono); }
 .tabbar button { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 8px 12px; border: 1.5px solid var(--line-strong); border-bottom: 0; border-radius: 4px 4px 0 0; background: linear-gradient(var(--surface-soft), var(--folder)); color: var(--ink); font-size: 15px; font-weight: 700; transition: background-color .18s ease-out; }
 .tabbar button:hover:not([aria-selected=true]) { background: var(--surface-soft); }
 .tabbar button[aria-selected=true] { background: var(--ink); border-color: var(--ink); color: var(--surface); box-shadow: inset 0 3px 0 var(--seal); }
+.tabbar button[aria-selected=true]:focus-visible { box-shadow: inset 0 3px 0 var(--seal), var(--focus); }
 .tab-number { font: 700 15px/1 var(--mono); }
 
 /* Panels: file folders */

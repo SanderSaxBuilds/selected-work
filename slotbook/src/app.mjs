@@ -93,7 +93,7 @@ function renderServices() {
     </label>`).join('');
 }
 
-const windowsText = list => list.length ? list.map(([a, b]) => `${C.fromMinutes(a)} to ${C.fromMinutes(b)}`).join(', ') : 'Closed';
+const windowsText = list => list.length ? list.map(([a, b]) => `<span class="nw">${C.fromMinutes(a)} to ${C.fromMinutes(b)}</span>`).join(', ') : 'Closed';
 
 function renderHours() {
   const order = [1, 2, 3, 4, 5, 6, 0];
