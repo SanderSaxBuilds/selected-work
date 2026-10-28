@@ -4,7 +4,12 @@
    highlights, fine drawing lines and title blocks. Archivo, stretched wide and heavy, for
    display and labels. Atkinson Hyperlegible Next for reading. Square corners, key-tag price
    cards, floor-plan module explorer. */
-:root {
+/* Metric-matched local fallbacks, so text keeps its place while the web fonts load. */
+@font-face { font-family: "Atkinson Fallback"; src: local("Arial"), local("ArialMT"); font-weight: 400 500; size-adjust: 99.17%; ascent-override: 98.82%; descent-override: 32.27%; line-gap-override: 0%; }
+@font-face { font-family: "Atkinson Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"); font-weight: 600 900; size-adjust: 98.06%; ascent-override: 99.94%; descent-override: 32.63%; line-gap-override: 0%; }
+@font-face { font-family: "Archivo Fallback"; src: local("Arial"), local("ArialMT"); font-weight: 400 500; size-adjust: 111.2%; ascent-override: 79.14%; descent-override: 18.89%; line-gap-override: 0%; }
+@font-face { font-family: "Archivo Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"); font-weight: 600 750; size-adjust: 100.71%; ascent-override: 87.38%; descent-override: 20.85%; line-gap-override: 0%; }
+@font-face { font-family: "Archivo Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"); font-weight: 751 900; size-adjust: 113.55%; ascent-override: 77.5%; descent-override: 18.49%; line-gap-override: 0%; }:root {
   color-scheme: light;
   --green: #0f2621;
   --green-2: #173a32;
@@ -28,8 +33,8 @@
   --good-soft: #dcefe4;
   --miss: #8a3b3b;
   --miss-soft: #f4e3e1;
-  --display: "Archivo", Arial, system-ui, sans-serif;
-  --text: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --display: "Archivo", "Archivo Fallback", Arial, system-ui, sans-serif;
+  --text: "Atkinson Hyperlegible Next", "Atkinson Fallback", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --focus: 0 0 0 3px var(--stone), 0 0 0 5px var(--green);
   --ease: cubic-bezier(.2, .7, .2, 1);
 }
