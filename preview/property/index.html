@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Недвижимость на Пхукете · пример сайта агентства</title>
-<meta name="description" content="Пример сайта агентства недвижимости на Пхукете. Подбор по цели и бюджету, районы, доходность аренды, покупка для иностранца и запись на показ.">
+<title>Виллы и квартиры на Пхукете, пример сайта агентства</title>
+<meta name="description" content="Пример сайта агентства недвижимости на Пхукете. Виллы и квартиры с ценами, районы, доходность аренды, покупка для иностранца и запись на показ.">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Недвижимость на Пхукете · пример сайта агентства">
-<meta property="og:description" content="Подбор по цели и бюджету, доходность аренды, районы и запись на показ в Telegram. Пример сайта от Sander Sax.">
+<meta property="og:title" content="Виллы и квартиры на Пхукете, пример сайта агентства">
+<meta property="og:description" content="Виллы и квартиры на Пхукете с ценами, доходность аренды, районы и запись на показ. Пример сайта от Sander Sax.">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/property/img/og.jpg">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/property/">
 <meta name="theme-color" content="#2337d6">
 <link rel="icon" href="../../assets/sandersax-icon-32.png">
 <link href="../../assets/gfonts/css/fadd5cb79986.css" rel="stylesheet">
-<link rel="preload" as="image" href="../../property/img/hero-live.jpg">
+<link rel="preload" as="image" href="../../property/img/coast.jpg">
 <style>
 /* Phuket property, an estate brochure: white pages, ultramarine sea ink, Prata for the headings, Manrope for the facts */
 *{box-sizing:border-box}
@@ -297,7 +297,7 @@ table.sh{width:100%;border-collapse:collapse;min-width:440px}
 .box li{display:block;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.18)}
 .box li a{color:#fff;font-weight:700}
 .box ul{grid-template-columns:1fr 1fr;column-gap:20px}
-.tlh{margin:30px 0 12px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.tlh{margin:30px 0 12px;font-size:14px;font-weight:600;color:rgba(255,255,255,.72)}
 .tls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .tl{display:flex;flex-direction:column;gap:12px;padding:14px 12px 13px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;text-decoration:none;font-size:13.5px;font-weight:600;line-height:1.25;transition:background .25s,color .25s,transform .35s}
 .tl svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -346,7 +346,8 @@ footer p{margin:6px 0}
 .dact{display:flex;gap:10px;flex-wrap:wrap}
 @media(max-width:640px){.drw{top:auto;height:92svh;width:100%;border-radius:14px 14px 0 0;transform:translateY(103%)}.drw.on{transform:none}.kv{grid-template-columns:1fr 1fr}.dbody{padding:20px 18px 34px}}
 .cbar{position:fixed;left:50%;bottom:16px;transform:translate(-50%,160%);z-index:70;background:var(--ink);color:#fff;border-radius:8px;box-shadow:0 20px 50px -20px rgba(0,0,0,.5);display:flex;align-items:center;gap:12px;padding:10px;transition:transform .4s cubic-bezier(.2,.8,.2,1);width:max-content;max-width:calc(100% - 24px)}
-.cbar.on{transform:translate(-50%,0)}
+.cbar{visibility:hidden;transition:transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s .4s}
+.cbar.on{transform:translate(-50%,0);visibility:visible;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .slots{display:flex;gap:6px}
 .slot{width:46px;height:46px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden;border:1px solid rgba(255,255,255,.2);flex:none}
 .slot img{width:100%;height:100%;object-fit:cover}
@@ -506,6 +507,76 @@ body{counter-reset:sec}
 @media(max-width:900px){.h2{translate:none}}
 @media(max-width:520px){.h2{max-width:none}.sp{font-size:13px;padding:5px 9px 5px 7px}}
 @media(prefers-reduced-motion:reduce){.hero .ph,.ktag,.card,.h2{translate:none!important;rotate:none!important}.card{transform:none!important}.ktag{rotate:-6deg!important}}
+</style>
+<style id="v3">
+/* v3: the first screen is the listings, laid on the coast photo. The photo comes from SITE.coast. */
+.hero{display:block;min-height:0;padding:0 0 96px;background:var(--paper);overflow:visible}
+.hero .ph{position:absolute;top:0;bottom:auto;left:0;width:100%;height:clamp(440px,64vh,620px);object-fit:cover;object-position:50% 50%;opacity:1;transform:none;scale:none;translate:none;transition:none}
+.hero .hin{position:relative;z-index:2;width:min(1320px,calc(100% - 48px));margin-inline:auto;padding:calc(var(--hh,101px) + 24px) 0 0;display:block;background:none}
+.hcap{margin:0 0 20px}
+.cap{display:inline-block;margin:0;padding:9px 14px;border-radius:4px;background:rgba(14,26,36,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font:600 15.5px/1.4 var(--sans)}
+.lots{background:var(--paper);border-radius:8px;padding:18px 24px 32px;box-shadow:0 1px 0 rgba(14,26,36,.05),0 40px 80px -42px rgba(14,26,36,.5)}
+.fbar{display:flex;align-items:center;gap:14px 28px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.tseg{gap:2px}
+.tseg .chip{border:0;background:none;padding:10px 16px;border-radius:3px;font-size:15px;font-weight:600;justify-content:center}
+.tseg .chip:hover{background:rgba(14,26,36,.06)}
+.tseg .chip[aria-pressed=true]{background:var(--ink);color:#fff}
+.tseg .chip.x,.tseg .chip.x:hover{background:var(--sky);color:var(--lag)}
+.fbud{display:flex;align-items:center;gap:12px;flex:1 1 320px;min-width:0}
+.fbud .fl,.fgoal .fl{margin:0;white-space:nowrap;font-size:13px}
+.fbud .val{margin:0;font:800 20px/1 var(--sans);letter-spacing:-.02em;white-space:nowrap;min-width:6.2em}
+.fbud input{flex:1 1 140px;min-width:90px}
+.fgoal{display:flex;align-items:center;gap:10px}
+.fsum{margin:14px 0 22px;font-size:14px;color:var(--mut)}
+.fsum b{color:var(--ink);font-weight:800}
+.fsum .sn{margin-left:12px;padding-left:12px;border-left:1px solid var(--line)}
+.lots .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 24px}
+.lots .grid>.card:not(.hide):first-child{grid-column:auto}
+.lots .grid>.card .cimg{aspect-ratio:16/10}
+.lots .card h3,.lots .grid>.card:first-child h3{font-size:21px;line-height:1.2;letter-spacing:-.01em}
+.lots .grid>.card:first-child .price{font-size:26px}
+.lots .cb{padding-top:14px}
+.card,.card.tilt{transform:none;transform-style:flat}
+.tgS{display:none}
+/* section headings: short and plain */
+.h2,.box .h2{font-size:clamp(30px,3.4vw,48px);line-height:1.08;letter-spacing:-.02em;max-width:24ch;translate:none;transition:none}
+.shead{margin-bottom:34px;padding-bottom:22px}
+@media(max-width:1000px){.lots .grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){.hero .ph{height:clamp(360px,44vh,460px)}.hero .hin{padding-top:calc(var(--hh,93px) + 18px)}}
+@media(max-width:640px){
+ .hero{padding-bottom:64px}
+ .lots .grid{grid-template-columns:1fr;gap:30px}
+ .fsum .sn{display:none}
+}
+@media(max-width:520px){
+ .hero .hin{width:calc(100% - 24px);padding-top:calc(var(--hh,110px) + 14px)}
+ .hero .ph{height:330px}
+ .hcap{margin:0 2px 10px}
+ .cap{font-size:13.5px;line-height:1.35;padding:6px 10px}
+ .lots{padding:10px 12px 24px}
+ .fbar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px 10px;padding-bottom:10px}
+ .tseg{grid-column:1/-1;grid-row:1;display:flex}
+ .tseg .chip{flex:1 1 0;padding:8px 4px;font-size:14.5px}
+ .cur button{padding:7px 12px}
+ .fbud{display:contents}
+ .fbud .fl{grid-row:2;grid-column:1}
+ .fbud .val{grid-row:2;grid-column:2;min-width:0;font-size:18px}
+ .cur{grid-row:2;grid-column:3}
+ .fbud input{grid-row:3;grid-column:1/-1;width:100%}
+ .fgoal{grid-row:4;grid-column:1/-1}
+ .fgoal .seg{flex:1 1 auto;display:flex}
+ .fgoal .seg button{flex:1 1 0;padding:7px 4px;font-size:14.5px}
+ .fsum{margin:8px 0 12px}
+ .lots .grid>.card .cimg{aspect-ratio:16/9}
+ .lots .card h3,.lots .grid>.card:first-child h3{font-size:19px}
+ .lots .cb{padding-top:10px}
+}
+@media(max-width:440px){
+ .tg span.tgL{display:none}
+ .tg span.tgS{display:inline;position:static;width:auto;height:auto;overflow:visible;clip:auto;clip-path:none}
+ .tg{padding:10px 12px;gap:6px}
+ .brand .sb-logo.sb-h{height:22px!important}
+}
 </style></head>
 <body>
 <header class="top" id="top">
@@ -514,30 +585,31 @@ body{counter-reset:sec}
   <a class="brand" href="#hero" aria-label="Kamala Keystone"><svg class="sb-logo sb-h" data-sb="keystone" viewBox="0 0 218 32" width="204.4" height="30" role="img" aria-label="Kamala Keystone" focusable="false"><g aria-hidden="true"><path d="M4 29V16a12 12 0 0 1 24 0v13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12.6 1.5h6.8l-1.4 8h-4z" fill="currentColor" class="f-a s-n"/><path d="M9 23c2.4-2 4.6-2 7 0s4.6 2 7 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Prata'" font-weight="400" font-size="21" letter-spacing="0em">Kamala Keystone</text></svg></a>
   <nav class="links"><a href="#list" data-t="n1">Объекты</a><a href="#areas" data-t="n2">Районы</a><a href="#buy" data-t="n3">Как купить</a><a href="#visit" data-t="n4">Показ</a><a href="#agency" data-t="n5">Для агентств</a></nav>
   <div class="lang" role="group" aria-label="Language"><button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
-  <a class="tg" href="#visit"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 3.6 2.8 10.8c-1.2.5-1.2 1.6 0 2l4.7 1.5 1.8 5.5c.2.6.4.8.8.8.4 0 .6-.2.9-.4l2.4-2.3 4.9 3.6c.9.5 1.5.2 1.8-.8l3.2-15.1c.3-1.3-.5-1.9-1.5-1.5ZM9.6 14.4l9-5.7-7.5 7-.3 3.1-1.2-4.4Z"/></svg><span data-t="tg">Подбор в Telegram</span></a>
+  <a class="tg" href="#visit"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16v14H4zM4 10h16M8 3v5M16 3v5"/></svg><span class="tgL" data-t="tg">Записаться на показ</span><span class="tgS" data-t="n4">Показ</span></a>
  </div>
 </header>
 
-<section class="hero" id="hero" style="padding:0">
- <img class="ph on" data-i="live" src="../../property/img/hero-live.jpg" alt="" fetchpriority="high">
- <img class="ph" data-i="rent" data-src="../../property/img/hero-rent.jpg" alt="">
- <img class="ph" data-i="inv" data-src="../../property/img/hero-invest.jpg" alt="">
- <div class="ktag" id="ktag" aria-hidden="true"><span class="ring"></span><div class="kt-b"><b id="ktn"></b><span id="ktl"></span><small id="ktb"></small></div></div>
+<section class="hero" id="hero">
+ <img class="ph" id="coast" src="../../property/img/coast.jpg" alt="" fetchpriority="high">
  <div class="wrap hin">
-  <h1><span data-t="h1a">Недвижимость на Пхукете</span> <span data-t="h1b">для</span> <span class="w" id="hw"><span>жизни</span></span></h1>
-  <p class="lead" data-t="lead">Подберём виллу или квартиру под вашу цель, честно посчитаем доход от аренды и проведём сделку с юристом.</p>
-  <div class="finder">
-   <div><div class="fl" data-t="fGoal">Цель</div><div class="seg" id="intent" role="group"><button type="button" data-v="live" aria-pressed="true" data-t="iLive">Жить</button><button type="button" data-v="rent" aria-pressed="false" data-t="iRent">Сдавать</button><button type="button" data-v="inv" aria-pressed="false" data-t="iInv">Вложить</button></div></div>
-   <div><div class="fl" data-t="fBud">Бюджет до</div><div class="val" id="budv"></div><input type="range" id="bud" min="0" max="100" value="74" aria-label="Budget"></div>
-   <div><div class="fl" data-t="fCur">Валюта</div><div class="seg cur" id="cur" role="group"><button type="button" data-v="thb" aria-pressed="true">฿</button><button type="button" data-v="usd" aria-pressed="false">$</button><button type="button" data-v="rub" aria-pressed="false">₽</button></div></div>
-   <div class="res"><div class="thumbs" id="thumbs"></div><div><div class="n" id="rn"></div><div class="nl" id="rnl"></div></div><a class="go" href="#list" data-t="show">Смотреть</a></div>
+  <div class="hcap"><p class="cap" data-t="cap">Агентство недвижимости на Пхукете. Виллы и квартиры на продажу.</p></div>
+  <div class="lots" id="list">
+   <div class="fbar">
+    <div class="bar seg tseg" id="types" role="group" aria-label="Тип" data-t-aria="fType"><button type="button" class="chip" data-v="all" aria-pressed="true" data-t="tAll">Все</button><button type="button" class="chip" data-v="villa" aria-pressed="false" data-t="tVilla">Виллы</button><button type="button" class="chip" data-v="condo" aria-pressed="false" data-t="tCondo">Квартиры</button><button type="button" class="chip x" id="dchip" hidden></button></div>
+    <div class="fbud"><label class="fl" for="bud" data-t="fBud">Бюджет до</label><b class="val" id="budv"></b><input type="range" id="bud" min="0" max="100" value="74"></div>
+    <div class="seg cur" id="cur" role="group" aria-label="Валюта" data-t-aria="fCur"><button type="button" data-v="thb" aria-pressed="true">฿</button><button type="button" data-v="usd" aria-pressed="false">$</button><button type="button" data-v="rub" aria-pressed="false">₽</button></div>
+    <div class="fgoal"><span class="fl" id="goalL" data-t="fGoal">Цель</span><div class="seg" id="intent" role="group" aria-labelledby="goalL"><button type="button" data-v="live" aria-pressed="false" data-t="iLive">Жить</button><button type="button" data-v="rent" aria-pressed="false" data-t="iRent">Сдавать</button><button type="button" data-v="inv" aria-pressed="false" data-t="iInv">Вложить</button></div></div>
+   </div>
+   <p class="fsum" aria-live="polite"><b id="rn"></b> <span id="rnl"></span><span class="sn" id="sortnote"></span></p>
+   <div class="grid" id="grid"></div>
+   <div class="empty" id="empty"><span data-t="empty">Под эти условия сейчас ничего нет. Оставьте заявку, подберём вне базы.</span> <a href="#visit" data-t="emptyA">Оставить заявку</a></div>
   </div>
  </div>
 </section>
 
 <section class="presale" id="presale" hidden>
  <div class="wrap">
-  <div class="shead"><div><div class="eb" data-t="pEb">Пресейл</div><h2 class="h2" id="pH"></h2><p class="sub" id="pSub"></p></div></div>
+  <div class="shead"><div><h2 class="h2" id="pH"></h2><p class="sub" id="pSub"></p></div></div>
   <div class="ps">
    <div class="psl"><div class="fl" data-t="pCd">До закрытия пресейл-цены</div><div class="cd" id="cd"></div><div class="fl" data-t="pUnit">Тип квартиры</div><div class="bar" id="punits"></div><div class="pprice" id="pprice"></div></div>
    <div class="psr"><div class="fl" data-t="pDown">Первый взнос</div><div class="val" id="pdv"></div><input type="range" class="dk" id="pdown" min="20" max="50" step="5" value="30" aria-label="Down payment"><div id="plan"></div><p class="note" data-t="pNote">График для примера. Точный график и цены даёт застройщик.</p><button type="button" class="go" id="pbook" data-t="pBook">Забронировать по пресейл-цене</button></div>
@@ -545,18 +617,10 @@ body{counter-reset:sec}
  </div>
 </section>
 
-<section id="list">
- <div class="wrap">
-  <div class="shead"><div><div class="eb" data-t="lEb">Подборка</div><h2 class="h2" data-t="lH">Объекты под вашу цель</h2><p class="sub" id="sortnote"></p></div>
-   <div class="bar" id="types"><button type="button" class="chip" data-v="all" aria-pressed="true" data-t="tAll">Все</button><button type="button" class="chip" data-v="villa" aria-pressed="false" data-t="tVilla">Виллы</button><button type="button" class="chip" data-v="condo" aria-pressed="false" data-t="tCondo">Квартиры</button><button type="button" class="chip x" id="dchip" hidden></button></div></div>
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty"><span data-t="empty">Под эти условия сейчас ничего нет. Оставьте заявку, подберём вне базы.</span> <a href="#visit" data-t="emptyA">Оставить заявку</a></div>
- </div>
-</section>
 
 <section class="areas" id="areas">
  <div class="wrap">
-  <div class="shead"><div><div class="eb" data-t="aEb">Районы</div><h2 class="h2" data-t="aH">От аэропорта до юга острова</h2><p class="sub" data-t="aSub">Нажмите на район. Покажем, чем он живёт, сколько стоят квартиры и что есть в подборке.</p></div></div>
+  <div class="shead"><div><h2 class="h2" data-t="aH">От аэропорта до юга острова</h2><p class="sub" data-t="aSub">Нажмите на район. Покажем, чем он живёт, сколько стоят квартиры и что есть в подборке.</p></div></div>
   <div class="air" data-t="air">Время в пути от аэропорта</div>
   <div class="stops" id="stops"><div class="rail" id="rail"></div></div>
   <div class="amap rv"><div class="map" id="map"></div><div class="adet" id="adet"></div></div>
@@ -565,7 +629,7 @@ body{counter-reset:sec}
 
 <section id="buy">
  <div class="wrap">
-  <div class="shead"><div><div class="eb" data-t="bEb">Покупка</div><h2 class="h2" data-t="bH">Как купить иностранцу</h2><p class="sub" data-t="bSub">Пять шагов от брони до документа на ваше имя. Выберите тип объекта и цену, посчитаем сборы.</p></div>
+  <div class="shead"><div><h2 class="h2" data-t="bH">Как купить иностранцу</h2><p class="sub" data-t="bSub">Пять шагов от брони до документа на ваше имя. Выберите тип объекта и цену, посчитаем сборы.</p></div>
    <div class="seg" id="btype" role="group"><button type="button" data-v="condo" aria-pressed="true" data-t="bC">Квартира</button><button type="button" data-v="villa" aria-pressed="false" data-t="bV">Вилла</button></div></div>
   <div class="buyg rv">
    <div><div class="steps" id="steps"></div><div class="sdet" id="sdet"></div></div>
@@ -576,7 +640,7 @@ body{counter-reset:sec}
 
 <section class="agency" id="agency">
  <div class="wrap">
-  <div class="shead"><div><div class="eb" data-t="gEb">Для агентства</div><h2 class="h2" data-t="gH">Объекты живут в Google Таблице</h2><p class="sub" data-t="gSub">Агент меняет цену или статус в строке, и карточка на сайте обновляется сама. Без программиста и без сложной админки. Попробуйте прямо здесь.</p></div></div>
+  <div class="shead"><div><h2 class="h2" data-t="gH">Объекты живут в Google Таблице</h2><p class="sub" data-t="gSub">Агент меняет цену или статус в строке, и карточка на сайте обновляется сама. Без программиста и без сложной админки. Попробуйте прямо здесь.</p></div></div>
   <div class="ag rv">
    <div><div class="sheet"><div class="shbar"><i></i><span data-t="shName">Объекты агентства</span><span class="sv" id="shsv" data-t="shSaved">Все изменения сохранены</span></div>
     <div class="shw"><table class="sh"><thead><tr><th></th><th>A</th><th>B</th><th>C</th></tr></thead><tbody id="shh"></tbody><tbody id="shb"></tbody></table></div></div>
@@ -588,7 +652,7 @@ body{counter-reset:sec}
 
 <section class="req" id="visit">
  <div class="wrap">
-  <div class="shead"><div><div class="eb" data-t="vEb">Показ</div><h2 class="h2" data-t="vH">Запишитесь на показ</h2><p class="sub" data-t="vSub">На месте или по видео, если вы ещё не на острове. Заявка сразу приходит агенту в мессенджер.</p></div></div>
+  <div class="shead"><div><h2 class="h2" data-t="vH">Запишитесь на показ</h2><p class="sub" data-t="vSub">На месте или по видео, если вы ещё не на острове. Заявка сразу приходит агенту в мессенджер.</p></div></div>
   <div class="rq rv">
    <div class="form">
     <div class="field"><label for="vo" data-t="vObj">Объект</label><select class="inp" id="vo"></select></div>
@@ -608,10 +672,10 @@ body{counter-reset:sec}
 <section id="order">
  <div class="wrap">
   <div class="box rv">
-   <div><div class="eb" data-t="oEb">Для владельцев агентств</div><h2 class="h2" data-t="oH">Такой сайт для вашего агентства</h2><p class="sub" data-t="oSub">Первый набросок главной бесплатно.</p></div>
+   <div><h2 class="h2" data-t="oH">Такой сайт для вашего агентства</h2><p class="sub" data-t="oSub">Первый набросок главной бесплатно.</p></div>
    <div><div class="pr" data-t="oPr">от $2 400</div><div class="pt" data-t="oTime">Готово за 2-3 недели</div>
     <ul><li data-t="o1">Объекты из Google Таблицы</li><li data-t="o2">RU · EN · TH</li><li data-t="o3">Подбор и доходность</li><li data-t="o4">Заявки в Telegram, WhatsApp, LINE</li></ul>
-    <p class="tlh" data-t="oTl">Инструменты, можно открыть</p>
+    <p class="tlh" data-t="oTl">Можно добавить к сайту</p>
     <div class="tls"><a class="tl" href="../../property/tg/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 12-9"/></svg><span data-t="o6">Каталог в Telegram</span></a><a class="tl" href="../../property/sun/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg><span data-t="o7">Солнце и тень</span></a><a class="tl" href="../../property/brochure/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9 13h6M9 17h6"/></svg><span data-t="o8">PDF-буклет</span></a><a class="tl" href="../../property/crm/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="10" rx="1"/><rect x="17" y="4" width="4" height="13" rx="1"/></svg><span data-t="o9">Доска заявок</span></a><a class="tl" href="../../property/owner-report/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M7 20v-6M12 20V8M17 20v-9"/></svg><span data-t="o10">Отчёт собственнику</span></a><a class="tl" href="../../property/payment-plan/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2M7 17h2"/></svg><span data-t="o11">Рассрочка</span></a><a class="tl" href="../../property/leasehold/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg><span data-t="o12">Лизхолд</span></a><a class="tl" href="../../property/costs/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v12H4z"/><path d="M4 11h16M8 15h3"/></svg><span data-t="o14">Расходы покупателя</span></a></div>
     <a class="tla" href="../../property/tools/" data-t="o13">Все инструменты на одной странице</a>
     <div class="btns"><a class="btn w" href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram</a><a class="btn o" href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp</a><a class="btn o" href="mailto:leshadqq@gmail.com">Email</a></div></div>
@@ -663,8 +727,9 @@ const STEPS={
   en:[['Reservation','A deposit takes the villa off the market while it is checked.'],['Due diligence','The lawyer checks the land title, the building permit and the seller\'s right to lease the land.'],['Contracts','A 30-year land lease with renewal rights, plus a separate contract for the house, which can be in your name.'],['Payment','On a schedule, in stages if it is still being built. Funds go through a bank with a transfer record.'],['Registration','The lease is registered at the Land Department. Unregistered, a lease longer than 3 years is not protected.']]}
 };
 const T={ru:{
- title:'Недвижимость на Пхукете · пример сайта агентства',rib:'Пример сайта для агентства недвижимости. Объекты, цены и цифры условные.',ribA:'Хочу такой сайт',brand:'Kamala Keystone',
- n1:'Объекты',n2:'Районы',n3:'Как купить',n4:'Показ',n5:'Для агентств',tg:'Подбор в Telegram',
+ cap:'Агентство недвижимости на Пхукете. Виллы и квартиры на продажу.',sn_all:'Сначала дешевле. Выберите цель, и список перестроится.',bPick0:'Подберите, пожалуйста, вариант с бюджетом до {b}.',bPickN0:'Подберите, пожалуйста, подходящий вариант.',fType:'Тип',dClear:'Убрать фильтр по району',
+ title:'Виллы и квартиры на Пхукете, пример сайта агентства',rib:'Пример сайта для агентства недвижимости. Объекты, цены и цифры условные.',ribA:'Хочу такой сайт',brand:'Kamala Keystone',
+ n1:'Объекты',n2:'Районы',n3:'Как купить',n4:'Показ',n5:'Для агентств',tg:'Записаться на показ',
  h1a:'Недвижимость на Пхукете',h1b:'для',w_live:'жизни',w_rent:'дохода',w_inv:'вложений',
  lead:'Подберём виллу или квартиру под вашу цель, честно посчитаем доход от аренды и проведём сделку с юристом.',
  fGoal:'Цель',iLive:'Жить',iRent:'Сдавать',iInv:'Вложить',fBud:'Бюджет до',fCur:'Валюта',show:'Смотреть',anyB:'без ограничений',
@@ -673,23 +738,23 @@ const T={ru:{
  sn_live:'Сначала то, где удобно жить, с садом, спальнями и в тихих районах.',sn_rent:'Сначала то, что лучше сдаётся, рядом с пляжем и с высокой загрузкой.',sn_inv:'Сначала то, что выгоднее как вложение, по доходности и цене входа.',snB:'Бюджет до {b}.',snBn:'Бюджет без ограничений.',
  free:'Фрихолд',lease:'Лизхолд 30+30',stRes:'Забронировано',stSold:'Продано',fit_live:'Для жизни',fit_rent:'Для аренды',fit_inv:'Для вложений',
  minAir:'мин до аэропорта',perYear:'в год',more:'Подробнее и доходность',cmpA:'Добавить к сравнению',
- aEb:'Районы',aH:'От аэропорта до юга острова',aSub:'Нажмите на район. Покажем, чем он живёт, сколько стоят квартиры и что есть в подборке.',air:'Время в пути от аэропорта',
+ aEb:'Районы',aH:'Районы Пхукета',aSub:'Нажмите на район. Покажем, чем он живёт, сколько стоят квартиры и что есть в подборке.',air:'Время в пути от аэропорта',
  min:'мин',aSqm:'Квартиры, за м²',aY:'Доход от аренды',aAir:'До аэропорта',aShow:'Показать {n}',aPick:'Подобрать в этом районе',
  bEb:'Покупка',bH:'Как купить иностранцу',bSub:'Пять шагов от брони до документа на ваше имя. Выберите тип объекта и цену, посчитаем сборы.',bC:'Квартира',bV:'Вилла',fPrice:'Цена объекта',
  fe1:'Сбор за переоформление, 2%',fe2:'Налог на бизнес 3,3% или гербовый сбор 0,5%',fe3:'Налог с продавца, около 1%',fe4:'Регистрация аренды земли, 1%',fe5:'Гербовый сбор, 0,1%',feTot:'Всего при регистрации',
  feeNoteC:'Кто что платит, решает договор. Часто сбор за переоформление делят пополам, налоги платит продавец. Это ориентир, точные суммы считает юрист.',
  feeNoteV:'Сбор считается от суммы аренды за весь срок. Если дом оформляется отдельно, добавится сбор за его переоформление. Это ориентир, точные суммы считает юрист.',
- gEb:'Для агентства',gH:'Объекты живут в Google Таблице',gSub:'Агент меняет цену или статус в строке, и карточка на сайте обновляется сама. Без программиста и без сложной админки. Попробуйте прямо здесь.',
+ gEb:'Для агентства',gH:'Объекты ведутся в Google Таблице',gSub:'Агент меняет цену или статус в строке, и карточка на сайте обновляется сама. Без программиста и без сложной админки. Попробуйте прямо здесь.',
  shName:'Объекты агентства',shSaved:'Все изменения сохранены',shSaving:'Сохранение...',shObj:'Объект',shPrice:'Цена, ฿',shSt:'Статус',st_sale:'В продаже',st_res:'Бронь',st_sold:'Продано',
- shHint:'Измените цену и нажмите Enter или выберите другой статус.',mirrorL:'Так карточка выглядит на сайте',liveMsg:'Обновлено на сайте: {n}.',toastSaved:'Сайт обновлён',
+ shHint:'Измените цену и нажмите Enter или выберите другой статус.',mirrorL:'Так карточка выглядит на сайте',liveMsg:'На сайте обновлена карточка «{n}».',toastSaved:'Сайт обновлён',
  vEb:'Показ',vH:'Запишитесь на показ',vSub:'На месте или по видео, если вы ещё не на острове. Заявка сразу приходит агенту в мессенджер.',
  vObj:'Объект',vDate:'Дата',vFmt:'Формат',vSite:'На месте',vVideo:'Видео-показ',vMsg:'Куда ответить',vName:'Как к вам обращаться',vNameP:'Анна',online:'обычно отвечает за 15 минут',vPick:'Подобрать под мою цель',
- bHi:'Здравствуйте!',bHiN:'Здравствуйте! Меня зовут {n}.',bObj:'Хочу посмотреть: {o}.',bPick:'Подберите, пожалуйста, вариант {g}, бюджет до {b}.',bPickN:'Подберите, пожалуйста, вариант {g}.',bPickD:'Подберите, пожалуйста, вариант в районе {d}.',
- g_live:'для жизни',g_rent:'для сдачи в аренду',g_inv:'для вложения',bDate:'Удобная дата: {d}.',bVideo:'Можно по видео, я пока не на Пхукете.',bSite:'Приеду на показ лично.',
+ bHi:'Здравствуйте!',bHiN:'Здравствуйте! Меня зовут {n}.',bObj:'Хочу посмотреть {o}.',bPick:'Подберите, пожалуйста, вариант {g}, бюджет до {b}.',bPickN:'Подберите, пожалуйста, вариант {g}.',bPickD:'Подберите, пожалуйста, вариант в районе {d}.',
+ g_live:'для жизни',g_rent:'для сдачи в аренду',g_inv:'для вложения',bDate:'Удобно в {d}.',bVideo:'Можно по видео, я пока не на Пхукете.',bSite:'Приеду на показ лично.',
  send:'Отправить в {m}',sendNote:'Это демо, сообщение никуда не ушло. На сайте агентства кнопка откроет {m} с этим текстом.',sendToast:'Заявка у агента',
  reply:'Здравствуйте! Спасибо за заявку. Сегодня пришлю видео и план объекта. Удобно созвониться в 15:00?',
  oEb:'Для владельцев агентств',oH:'Такой сайт для вашего агентства',oSub:'Первый набросок главной бесплатно.',
- oTl:'Инструменты, можно открыть',oPr:'от $2 400',oTime:'Готово за 2-3 недели',o1:'Объекты из Google Таблицы',o2:'RU · EN · TH',o3:'Подбор и доходность',o4:'Заявки в Telegram, WhatsApp, LINE',o5:'Быстро открывается на телефоне',o6:'Каталог в Telegram',o6a:'посмотреть пример',o7:'Солнце и тень',o7a:'посмотреть пример',o8:'PDF-буклет',o8a:'посмотреть пример',o9:'Доска заявок',o9a:'посмотреть пример',o10:'Отчёт собственнику',o10a:'посмотреть пример',o11:'Рассрочка',o11a:'посмотреть пример',o12:'Лизхолд',o12a:'посмотреть пример',o14:'Расходы покупателя',o14a:'посмотреть пример',o13:'Все инструменты на одной странице',
+ oTl:'Можно добавить к сайту',oPr:'от $2 400',oTime:'Готово за 2-3 недели',o1:'Объекты из Google Таблицы',o2:'RU, EN и TH',o3:'Подбор и доходность',o4:'Заявки в Telegram, WhatsApp, LINE',o5:'Быстро открывается на телефоне',o6:'Каталог в Telegram',o6a:'посмотреть пример',o7:'Солнце и тень',o7a:'посмотреть пример',o8:'PDF-буклет',o8a:'посмотреть пример',o9:'Доска заявок',o9a:'посмотреть пример',o10:'Отчёт собственнику',o10a:'посмотреть пример',o11:'Рассрочка',o11a:'посмотреть пример',o12:'Лизхолд',o12a:'посмотреть пример',o14:'Расходы покупателя',o14a:'посмотреть пример',o13:'Все инструменты на одной странице',
  foot:'Пример сайта. Объекты, цены, районы и цифры доходности условные. Фото с Unsplash.',made:'Сделал',
  close:'Закрыть',studio:'студия',m2:'м²',kBed:'Спальни',kArea:'Площадь',kBeach:'До пляжа',kLand:'Участок',kSqm:'Цена за м²',kOwn:'Право',kPrice:'Цена',kAir:'До аэропорта',
  ownFree:'Квартира оформляется на вас в собственность навсегда, в рамках квоты 49% для иностранцев в доме.',ownLease:'Земля оформляется в аренду на 30 лет с правом продления, договор регистрируется в Земельном департаменте.',
@@ -698,10 +763,11 @@ const T={ru:{
  mo:['Я','Ф','М','А','М','И','И','А','С','О','Н','Д'],dVisit:'Записаться на показ',cmpOn:'В сравнении',cmpAdd:'Сравнить',
  cmpPick:'Выберите ещё один объект',cmpReady:'Можно сравнивать',cmpGo:'Сравнить',cmpH:'Сравнение',cmpNote:'Отмечено то, что лучше. Доходность при загрузке 60% и управлении 30%.',cmpAsk:'Обсудить с агентом',cmpLink:'Поделиться сравнением',cmpCopied:'Ссылка на сравнение скопирована',bCmp:'Сравниваю {a} и {b}. Помогите выбрать?',
  pEb:'Пресейл',pCd:'До закрытия пресейл-цены',pUnit:'Тип квартиры',pDown:'Первый взнос',pBook:'Забронировать по пресейл-цене',pNow:'Сейчас, первый взнос {p}%',pMonthly:'Каждый месяц до сдачи ({n} мес.), всего {p}%',pHand:'При сдаче, {d}, {p}%',pTot:'Всего',pPerM:'за м²',
- pEnded:'Пресейл-цена закрыта. Напишите нам, покажем актуальные цены.',pNote:'График для примера. Точный график и цены даёт застройщик.',bUnit:'Хочу забронировать: {u}, пресейл-цена {p}.'
+ pEnded:'Пресейл-цена закрыта. Напишите нам, покажем актуальные цены.',pNote:'График для примера. Точный график и цены даёт застройщик.',bUnit:'Хочу забронировать {u} по пресейл-цене {p}.'
 },en:{
- title:'Phuket property · sample agency website',rib:'A sample website for a property agency. Listings, prices and figures are illustrative.',ribA:'I want this site',brand:'Kamala Keystone',
- n1:'Listings',n2:'Areas',n3:'How to buy',n4:'Viewing',n5:'For agencies',tg:'Ask on Telegram',
+ cap:'A property agency in Phuket. Villas and apartments for sale.',sn_all:'Cheapest first. Pick a goal to re-sort the list.',bPick0:'Please find me something with a budget up to {b}.',bPickN0:'Please find me something suitable.',fType:'Type',dClear:'Remove the area filter',
+ title:'Villas and apartments in Phuket, sample agency website',rib:'A sample website for a property agency. Listings, prices and figures are illustrative.',ribA:'I want this site',brand:'Kamala Keystone',
+ n1:'Listings',n2:'Areas',n3:'How to buy',n4:'Viewing',n5:'For agencies',tg:'Book a viewing',
  h1a:'Phuket property',h1b:'for',w_live:'living',w_rent:'income',w_inv:'investment',
  lead:'We match villas and apartments to your goal, show honest rental numbers and close the deal with a lawyer.',
  fGoal:'Goal',iLive:'Live',iRent:'Rent out',iInv:'Invest',fBud:'Budget up to',fCur:'Currency',show:'View',anyB:'no limit',
@@ -710,23 +776,23 @@ const T={ru:{
  sn_live:'Best for living first, with gardens, bedrooms and quiet areas.',sn_rent:'Best for renting out first, close to the beach with high occupancy.',sn_inv:'Best investments first, by yield and entry price.',snB:'Budget up to {b}.',snBn:'No budget limit.',
  free:'Freehold',lease:'Leasehold 30+30',stRes:'Reserved',stSold:'Sold',fit_live:'For living',fit_rent:'For renting',fit_inv:'For investing',
  minAir:'min to airport',perYear:'a year',more:'Details and yield',cmpA:'Add to compare',
- aEb:'Areas',aH:'From the airport to the south',aSub:'Tap an area to see what it is like, what apartments cost and what is in the selection.',air:'Driving time from the airport',
+ aEb:'Areas',aH:'Areas of Phuket',aSub:'Tap an area to see what it is like, what apartments cost and what is in the selection.',air:'Driving time from the airport',
  min:'min',aSqm:'Apartments, per m²',aY:'Rental yield',aAir:'To the airport',aShow:'Show {n}',aPick:'Search in this area',
- bEb:'Buying',bH:'How a foreigner buys',bSub:'Five steps from reservation to a title in your name. Pick the type and price to see the fees.',bC:'Apartment',bV:'Villa',fPrice:'Property price',
+ bEb:'Buying',bH:'How to buy as a foreigner',bSub:'Five steps from reservation to a title in your name. Pick the type and price to see the fees.',bC:'Apartment',bV:'Villa',fPrice:'Property price',
  fe1:'Transfer fee, 2%',fe2:'Business tax 3.3% or stamp duty 0.5%',fe3:'Seller\'s income tax, about 1%',fe4:'Lease registration, 1%',fe5:'Stamp duty, 0.1%',feTot:'Total at registration',
  feeNoteC:'The contract decides who pays what. The transfer fee is often split, the taxes are paid by the seller. A guide only, a lawyer calculates the exact amounts.',
  feeNoteV:'The fee is based on the total rent for the full term. If the house is registered separately, its transfer fee is added. A guide only, a lawyer calculates the exact amounts.',
- gEb:'For the agency',gH:'Listings live in a Google Sheet',gSub:'An agent changes a price or status in a row and the card on the site updates itself. No developer and no complex admin panel. Try it right here.',
+ gEb:'For the agency',gH:'Listings are kept in a Google Sheet',gSub:'An agent changes a price or status in a row and the card on the site updates itself. No developer and no complex admin panel. Try it right here.',
  shName:'Agency listings',shSaved:'All changes saved',shSaving:'Saving...',shObj:'Property',shPrice:'Price, ฿',shSt:'Status',st_sale:'For sale',st_res:'Reserved',st_sold:'Sold',
- shHint:'Change a price and press Enter, or pick another status.',mirrorL:'How the card looks on the site',liveMsg:'Updated on the site: {n}.',toastSaved:'Site updated',
+ shHint:'Change a price and press Enter, or pick another status.',mirrorL:'How the card looks on the site',liveMsg:'The card for {n} is updated on the site.',toastSaved:'Site updated',
  vEb:'Viewing',vH:'Book a viewing',vSub:'On site, or by video if you are not on the island yet. The request goes straight to the agent\'s messenger.',
  vObj:'Property',vDate:'Date',vFmt:'Format',vSite:'On site',vVideo:'Video tour',vMsg:'Reply via',vName:'Your name',vNameP:'Anna',online:'usually replies within 15 minutes',vPick:'Find one for my goal',
- bHi:'Hello!',bHiN:'Hello! My name is {n}.',bObj:'I would like to see: {o}.',bPick:'Please find me something {g}, budget up to {b}.',bPickN:'Please find me something {g}.',bPickD:'Please find me something in {d}.',
- g_live:'to live in',g_rent:'to rent out',g_inv:'as an investment',bDate:'A good date: {d}.',bVideo:'A video tour is fine, I am not in Phuket yet.',bSite:'I will come to the viewing in person.',
+ bHi:'Hello!',bHiN:'Hello! My name is {n}.',bObj:'I would like to see {o}.',bPick:'Please find me something {g}, budget up to {b}.',bPickN:'Please find me something {g}.',bPickD:'Please find me something in {d}.',
+ g_live:'to live in',g_rent:'to rent out',g_inv:'as an investment',bDate:'I can come on {d}.',bVideo:'A video tour is fine, I am not in Phuket yet.',bSite:'I will come to the viewing in person.',
  send:'Send to {m}',sendNote:'This is a demo, nothing was sent. On the agency site the button opens {m} with this text.',sendToast:'The agent has your request',
  reply:'Hello! Thanks for your request. I will send a video and the floor plan today. Can we talk at 15:00?',
- oEb:'For agency owners',oH:'This website for your agency',oSub:'The first homepage sketch is free.',
- oTl:'Tools you can open',oPr:'from $2,400',oTime:'Ready in 2-3 weeks',o1:'Listings from a Google Sheet',o2:'RU · EN · TH',o3:'Search and yield',o4:'Leads to Telegram, WhatsApp, LINE',o5:'Fast on phones',o6:'Telegram catalog',o6a:'see the sample',o7:'Sun and shade',o7a:'see the sample',o8:'PDF brochure',o8a:'see the sample',o9:'Lead board',o9a:'see the sample',o10:'Owner statement',o10a:'see the sample',o11:'Payment plan',o11a:'see the sample',o12:'Leasehold',o12a:'see the sample',o14:'Buyer costs',o14a:'see the sample',o13:'All tools on one page (in Russian)',
+ oEb:'For agency owners',oH:'A site like this for your agency',oSub:'The first homepage sketch is free.',
+ oTl:'Can be added to the site',oPr:'from $2,400',oTime:'Ready in 2-3 weeks',o1:'Listings from a Google Sheet',o2:'RU, EN and TH',o3:'Search and yield',o4:'Leads to Telegram, WhatsApp, LINE',o5:'Fast on phones',o6:'Telegram catalog',o6a:'see the sample',o7:'Sun and shade',o7a:'see the sample',o8:'PDF brochure',o8a:'see the sample',o9:'Lead board',o9a:'see the sample',o10:'Owner statement',o10a:'see the sample',o11:'Payment plan',o11a:'see the sample',o12:'Leasehold',o12a:'see the sample',o14:'Buyer costs',o14a:'see the sample',o13:'All tools on one page (in Russian)',
  foot:'A sample website. Listings, prices, areas and yield figures are illustrative. Photos from Unsplash.',made:'Made by',
  close:'Close',studio:'studio',m2:'m²',kBed:'Bedrooms',kArea:'Area',kBeach:'To the beach',kLand:'Plot',kSqm:'Price per m²',kOwn:'Title',kPrice:'Price',kAir:'To the airport',
  ownFree:'The apartment is yours outright, within the 49% foreign quota of the building.',ownLease:'The land is leased for 30 years with renewal rights, the lease is registered at the Land Department.',
@@ -735,7 +801,7 @@ const T={ru:{
  mo:['J','F','M','A','M','J','J','A','S','O','N','D'],dVisit:'Book a viewing',cmpOn:'In comparison',cmpAdd:'Compare',
  cmpPick:'Pick one more property',cmpReady:'Ready to compare',cmpGo:'Compare',cmpH:'Comparison',cmpNote:'The better value is marked. Yield at 60% occupancy and 30% management.',cmpAsk:'Ask the agent about these two',cmpLink:'Share this comparison',cmpCopied:'Link to this comparison copied',bCmp:'I am comparing {a} and {b}. Can you help me choose?',
  pEb:'Pre-sale',pCd:'Pre-sale price closes in',pUnit:'Unit type',pDown:'Down payment',pBook:'Reserve at the pre-sale price',pNow:'Now, {p}% down payment',pMonthly:'Monthly until handover ({n} months), {p}% in total',pHand:'On handover, {d}, {p}%',pTot:'Total',pPerM:'per m²',
- pEnded:'The pre-sale price has closed. Message us for current prices.',pNote:'A sample schedule. The developer gives the exact schedule and prices.',bUnit:'I would like to reserve: {u}, pre-sale price {p}.'
+ pEnded:'The pre-sale price has closed. Message us for current prices.',pNote:'A sample schedule. The developer gives the exact schedule and prices.',bUnit:'I would like to reserve {u} at the pre-sale price of {p}.'
 }};
 
 const S=window.SITE||{};
@@ -744,7 +810,9 @@ if(S.D)D.splice(0,D.length,...S.D);
 if(S.patch)L.forEach(x=>Object.assign(x,S.patch[x.id]||{}));
 ['ru','en'].forEach(l=>Object.assign(T[l],(S.T&&S.T[l])||{}));
 const COAST=S.coast||'../../property/img/coast.jpg';
-let lang='ru',intent='live',cur='thb',budget=40e6,type='all',dist=null,selD=S.selD||'bangtao',cmp=[],buyType='condo',stepI=0,feeP=14.5e6,vfmt='video',vmsg='tg',open=null,pickD=null,pickUnit=null,askCmp=null,lastEdit='c1',dNight=0,dOcc=.6,dFee=.3,dImg=0,lastFocus=null;
+['ru','en'].forEach(l=>{const o=(S.T&&S.T[l])||{};if(!o.cap&&o.h1a)T[l].cap=o.h1a+'.'});
+if(S.coast){const im=document.getElementById('coast');if(im)im.src=S.coast}
+let lang='ru',intent=null,cur='thb',budget=40e6,type='all',dist=null,selD=S.selD||'bangtao',cmp=[],buyType='condo',stepI=0,feeP=14.5e6,vfmt='video',vmsg='tg',open=null,pickD=null,pickUnit=null,askCmp=null,lastEdit='c1',dNight=0,dOcc=.6,dFee=.3,dImg=0,lastFocus=null;
 try{const sl=localStorage.getItem('pp-lang');if(sl==='en'||sl==='ru')lang=sl}catch(e){}
 const t=k=>(T[lang][k]!==undefined?T[lang][k]:T.ru[k]);
 const loc=()=>lang==='ru'?'ru-RU':'en-US';
@@ -768,7 +836,7 @@ function yieldOf(x,night,occ,fee){night=night||x.night;occ=occ||.6;fee=fee===und
  const months=MF.map((f,i)=>night*DAYS[i]*Math.min(.97,occ*f/MAVG));
  const gross=months.reduce((a,b)=>a+b,0),net=gross*(1-fee)-x.price*.01;
  return {months,gross,net,y:net/x.price,pay:net>0?x.price/net:Infinity}}
-function specs(x){const ru=lang==='ru';const b=x.bed===0?t('studio'):(ru?x.bed+' '+plural(x.bed,['спальня','спальни','спален']):x.bed+' bed');return b+' · '+x.area+' '+t('m2')+' · '+distTxt(x.beach)+(ru?' до пляжа':' to the beach')}
+function specs(x){const ru=lang==='ru';const b=x.bed===0?t('studio'):(ru?x.bed+' '+plural(x.bed,['спальня','спальни','спален']):x.bed+' bed');return b+', '+x.area+' '+t('m2')+', '+distTxt(x.beach)+(ru?' до пляжа':' to the beach')}
 const IC={bed:'<path d="M3 19v-8h18v8M3 15h18M6 11V8h5v3"/>',area:'<path d="M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6"/>',sea:'<circle cx="12" cy="7" r="3"/><path d="M2 15c2.5-2 4.5-2 7 0s4.5 2 7 0 4-2 6 0M2 19.5c2.5-2 4.5-2 7 0s4.5 2 7 0 4-2 6 0"/>'};
 const ic=k=>`<svg viewBox="0 0 24 24" aria-hidden="true">${IC[k]}</svg>`;
 function specChips(x){const ru=lang==='ru',b=x.bed===0?t('studio'):x.bed+' '+(ru?plural(x.bed,['спальня','спальни','спален']):(x.bed===1?'bed':'beds'));
@@ -782,7 +850,7 @@ const cardHTML=x=>`<div class="cimg"><img loading="lazy" src="../../property/img
 function fillCard(el,x){const d=dOf(x),on=cmp.includes(x.id);el.dataset.st=x.st;
  el.querySelector('.own').textContent=x.own==='free'?t('free'):t('lease');
  el.querySelector('.stat').textContent=x.st==='res'?t('stRes'):x.st==='sold'?t('stSold'):'';
- el.querySelector('.cmeta').innerHTML=(x.s[intent]===3?`<span class="fit">${t('fit_'+intent)}</span> · `:'')+`${esc(d.n[lang])} · ${d.min} ${t('minAir')}`;
+ el.querySelector('.cmeta').innerHTML=(intent&&x.s[intent]===3?`<span class="fit">${t('fit_'+intent)}</span>, `:'')+`${esc(d.n[lang])}, ${d.min} ${t('minAir')}`;
  el.querySelector('h3').textContent=x.n[lang];
  const sp=el.querySelector('.specs');sp.innerHTML=specChips(x);sp.setAttribute('aria-label',specs(x));
  el.querySelector('.price').textContent=S.full?moneyX(x.price):money(x.price);
@@ -795,7 +863,7 @@ L.forEach(x=>{const el=document.createElement('article');el.className='card';el.
  el.querySelector('.cimg img').onclick=()=>openDrawer(x.id,el.querySelector('.more'));el.querySelector('.cimg img').style.cursor='pointer';
  cards.set(x.id,el);grid.appendChild(el)});
 const visible=x=>x.price<=budget&&(type==='all'||x.type===type)&&(!dist||x.d===dist);
-const ordered=()=>[...L].sort((a,b)=>(b.s[intent]-a.s[intent])||(intent==='live'?b.bed-a.bed||a.price-b.price:intent==='inv'?yieldOf(b).y-yieldOf(a).y:yieldOf(b).y-yieldOf(a).y));
+const ordered=()=>!intent?[...L].sort((a,b)=>a.price-b.price):[...L].sort((a,b)=>(b.s[intent]-a.s[intent])||(intent==='live'?b.bed-a.bed||a.price-b.price:intent==='inv'?yieldOf(b).y-yieldOf(a).y:yieldOf(b).y-yieldOf(a).y));
 function renderList(anim){const first=new Map();
  if(anim&&!RM)cards.forEach((el,id)=>{if(!el.classList.contains('hide'))first.set(id,el.getBoundingClientRect())});
  let n=0;ordered().forEach(x=>{const el=cards.get(x.id);fillCard(el,x);const v=visible(x);el.classList.toggle('hide',!v);if(v)n++;grid.appendChild(el)});
@@ -804,23 +872,11 @@ function renderList(anim){const first=new Map();
   if(!a){el.animate([{opacity:0,transform:'scale(.97)'},{opacity:1,transform:'none'}],{duration:380,easing:'ease-out'});return}
   const dx=a.left-b.left,dy=a.top-b.top;if(Math.abs(dx)>1||Math.abs(dy)>1)el.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:600,easing:'cubic-bezier(.2,.8,.2,1)'})});
  $('#rn').textContent=n;$('#rnl').textContent=objWord(n);
- $('#thumbs').innerHTML=ordered().filter(visible).slice(0,4).map(x=>`<img src="../../property/img/t-${x.id}.jpg" alt="">`).join('');
- $('#sortnote').textContent=t('sn_'+intent)+' '+(isFinite(budget)?t('snB').replace('{b}',money(budget)):t('snBn'));
- const dc=$('#dchip');if(dist){dc.hidden=false;dc.textContent='× '+D.find(z=>z.k===dist).n[lang]}else dc.hidden=true;updTag(n)}
-let tagN=-1;function updTag(n){const fromList=n!==undefined;if(!fromList)n=+$('#rn').textContent||0;$('#ktn').textContent=n;$('#ktl').textContent=objWord(n);
- $('#ktb').textContent=isFinite(budget)?(lang==='ru'?'до ':'up to ')+money(budget):t('anyB');
- if(!fromList)return;if(tagN>=0&&n!==tagN&&!RM){const k=$('#ktag');k.classList.remove('bump');void k.offsetWidth;k.classList.add('bump')}tagN=n}
-function updBud(){$('#budv').textContent=isFinite(budget)?money(budget):t('anyB');fill($('#bud'));updTag()}
-function swapWord(now){const w=$('#hw'),s=w.firstElementChild,txt=t('w_'+intent);if(s.textContent===txt){fitWord();return}if(now||RM){s.textContent=txt;fitWord();return}
- w.classList.add('swap');setTimeout(()=>{s.textContent=txt;fitWord();w.classList.remove('swap')},240)}
-/* the goal word is set as large as its column allows, so each word gets its own size */
-function fitWord(){const w=$('#hw'),h=w.parentElement,s=w.firstElementChild;w.style.setProperty('--wfs','1em');
- const sw=s.getBoundingClientRect().width,base=parseFloat(getComputedStyle(h).fontSize),avail=h.clientWidth;if(!sw||!avail)return;
- const k=Math.max(.6,Math.min(avail*.97/sw,190/base,2.4));w.style.setProperty('--wfs',k.toFixed(3)+'em')}
-addEventListener('resize',()=>fitWord());if(document.fonts){if(document.fonts.ready)document.fonts.ready.then(()=>fitWord());document.fonts.addEventListener&&document.fonts.addEventListener('loadingdone',()=>fitWord())}
-function setIntent(v){if(v===intent)return;intent=v;$$('#intent button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));
- $$('.hero .ph').forEach(im=>{if(im.dataset.i===v&&im.dataset.src){im.src=im.dataset.src;delete im.dataset.src}im.classList.toggle('on',im.dataset.i===v)});
- swapWord();renderList(true);bubble()}
+ $('#sortnote').textContent=t(intent?'sn_'+intent:'sn_all');
+ const dc=$('#dchip');if(dist){dc.hidden=false;dc.textContent='× '+D.find(z=>z.k===dist).n[lang];dc.setAttribute('aria-label',t('dClear')+', '+D.find(z=>z.k===dist).n[lang])}else dc.hidden=true}
+function updBud(){$('#budv').textContent=isFinite(budget)?money(budget):t('anyB');fill($('#bud'))}
+/* the goal re-sorts the list, pressing it again goes back to cheapest first */
+function setIntent(v){intent=v===intent?null:v;$$('#intent button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===intent));renderList(true);bubble()}
 $$('#intent button').forEach(b=>b.onclick=()=>setIntent(b.dataset.v));
 $('#bud').oninput=e=>{budget=roundB(p2v(+e.target.value));updBud();renderList(false);bubble()};
 $('#bud').onchange=()=>renderList(true);
@@ -896,14 +952,15 @@ function renderMirror(fl){const x=L.find(z=>z.id===lastEdit),m=$('#mirror');m.in
  el.querySelector('.cmp').remove();el.querySelector('.more').remove();el.querySelector('img').removeAttribute('loading');fillCard(el,x);m.appendChild(el);if(fl&&!RM)el.classList.add('flash')}
 
 /* visit */
-function fillVisitSel(){const s=$('#vo'),v=s.value;s.innerHTML=`<option value="pick">${t('vPick')}</option>`+ordered().map(x=>`<option value="${x.id}">${esc(x.n[lang])} · ${money(x.price)}</option>`).join('');s.value=v||'pick'}
+function fillVisitSel(){const s=$('#vo'),v=s.value;s.innerHTML=`<option value="pick">${t('vPick')}</option>`+ordered().map(x=>`<option value="${x.id}">${esc(x.n[lang])}, ${money(x.price)}</option>`).join('');s.value=v||'pick'}
 function bubble(){const x=L.find(z=>z.id===$('#vo').value),name=$('#vn').value.trim(),dt=$('#vd').value,lines=[];
  lines.push(name?t('bHiN').replace('{n}',name):t('bHi'));
  if(x)lines.push(t('bObj').replace('{o}',x.n[lang]+' ('+money(x.price)+')'));
  else if(askCmp)lines.push(t('bCmp').replace('{a}',askCmp[0].n[lang]).replace('{b}',askCmp[1].n[lang]));
  else if(pickUnit)lines.push(t('bUnit').replace('{u}',pickUnit.n[lang]).replace('{p}',moneyX(pickUnit.price)));
  else if(pickD)lines.push(t('bPickD').replace('{d}',pickD.n[lang]));
- else lines.push(isFinite(budget)?t('bPick').replace('{g}',t('g_'+intent)).replace('{b}',money(budget)):t('bPickN').replace('{g}',t('g_'+intent)));
+ else if(intent)lines.push(isFinite(budget)?t('bPick').replace('{g}',t('g_'+intent)).replace('{b}',money(budget)):t('bPickN').replace('{g}',t('g_'+intent)));
+ else lines.push(isFinite(budget)?t('bPick0').replace('{b}',money(budget)):t('bPickN0'));
  if(dt){const ds=new Date(dt+'T12:00').toLocaleDateString(loc(),{weekday:'short',day:'numeric',month:'long'});lines.push(t('bDate').replace('{d}',ds))}
  lines.push(vfmt==='video'?t('bVideo'):t('bSite'));
  const tm=new Date().toLocaleTimeString(loc(),{hour:'2-digit',minute:'2-digit'});
@@ -924,10 +981,10 @@ function renderPresale(){if(!P)return;$('#presale').hidden=false;
  $('#pH').textContent=P.h[lang];$('#pSub').textContent=P.sub[lang];
  $('#punits').innerHTML=P.units.map((u,i)=>`<button type="button" class="chip" aria-pressed="${i===pU}" data-i="${i}">${esc(u.n[lang])}</button>`).join('');
  $$('#punits .chip').forEach(b=>b.onclick=()=>{pU=+b.dataset.i;renderPresale()});
- const u=P.units[pU];$('#pprice').innerHTML=`${moneyX(u.price)}<small>${u.area} ${t('m2')} · ${moneyX(u.price/u.area)} ${t('pPerM')}</small>`;
+ const u=P.units[pU];$('#pprice').innerHTML=`${moneyX(u.price)}<small>${u.area} ${t('m2')}, ${moneyX(u.price/u.area)} ${t('pPerM')}</small>`;
  plan();tick()}
 function plan(){const u=P.units[pU],now=new Date(),[hy,hm]=P.handover.split('-').map(Number),months=Math.max(1,(hy-now.getFullYear())*12+(hm-1-now.getMonth())),hand=P.hand||30,inst=100-pDown-hand;
- $('#pdv').textContent=pDown+'% · '+moneyX(u.price*pDown/100);fill($('#pdown'));
+ $('#pdv').textContent=pDown+'%, '+moneyX(u.price*pDown/100);fill($('#pdown'));
  const hd=new Date(hy,hm-1,1).toLocaleDateString(loc(),{month:'long',year:'numeric'}).replace(' г.',''),rows=[[t('pNow').replace('{p}',pDown),u.price*pDown/100]];
  if(inst>0)rows.push([t('pMonthly').replace('{n}',months).replace('{p}',inst),u.price*inst/100/months]);
  rows.push([t('pHand').replace('{d}',hd).replace('{p}',hand),u.price*hand/100]);
@@ -946,7 +1003,7 @@ function openDrawer(id,from){open=L.find(x=>x.id===id);lastFocus=from||null;dNig
 function closeAll(){$('#ov').classList.remove('on');$('#drw').classList.remove('on');$('#mod').classList.remove('on');document.body.style.overflow='';document.body.classList.remove('lock');open=null;if(lastFocus){lastFocus.focus({preventScroll:true});lastFocus=null}}
 function renderDrawer(){const x=open,d=dOf(x),on=cmp.includes(x.id);
  $('#drw').innerHTML=`<div class="dimg"><img id="dmain" src="../../property/img/${x.id}${dImg?'b':''}.jpg" alt=""><div class="dth"><button type="button" aria-pressed="${!dImg}" data-i="0"><img src="../../property/img/${x.id}.jpg" alt=""></button><button type="button" aria-pressed="${!!dImg}" data-i="1"><img src="../../property/img/${x.id}b.jpg" alt=""></button></div><button type="button" class="x" aria-label="${t('close')}">×</button></div>
- <div class="dbody"><div class="cmeta">${esc(d.n[lang])} · ${d.min} ${t('minAir')}</div><h3>${esc(x.n[lang])}</h3><div class="price">${money(x.price)}</div>
+ <div class="dbody"><div class="cmeta">${esc(d.n[lang])}, ${d.min} ${t('minAir')}</div><h3>${esc(x.n[lang])}</h3><div class="price">${money(x.price)}</div>
  <div class="kv"><div><small>${t('kBed')}</small><b>${x.bed||t('studio')}</b></div><div><small>${t('kArea')}</small><b>${x.area} ${t('m2')}</b></div><div><small>${t('kBeach')}</small><b>${distTxt(x.beach)}</b></div>${x.land?`<div><small>${t('kLand')}</small><b>${x.land} ${t('m2')}</b></div>`:''}<div><small>${t('kSqm')}</small><b>${money(x.price/x.area)}</b></div><div><small>${t('kOwn')}</small><b>${x.own==='free'?t('free'):t('lease')}</b></div></div>
  <p style="margin:0;color:var(--ink2)">${t(x.own==='free'?'ownFree':'ownLease')}</p>
  <div class="calc"><h4>${t('cH')}</h4><p class="note" style="margin:6px 0 4px">${t('cSub')}</p>
@@ -998,29 +1055,17 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&($('#drw').classLis
 function setLang(l){lang=l;document.documentElement.lang=l;document.title=t('title');
  $$('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
  $$('[data-t]').forEach(el=>{const v=t(el.dataset.t);if(typeof v==='string')el.textContent=v});
- $('#vn').placeholder=t('vNameP');swapWord(true);updBud();renderList(false);renderStops();renderAdet();renderSteps();fees();renderSheet();renderMirror();fillVisitSel();bubble();renderCbar();renderPresale();
+ $$('[data-t-aria]').forEach(el=>{const v=t(el.dataset.tAria);if(typeof v==='string')el.setAttribute('aria-label',v)});
+ $('#vn').placeholder=t('vNameP');updBud();renderList(false);renderStops();renderAdet();renderSteps();fees();renderSheet();renderMirror();fillVisitSel();bubble();renderCbar();renderPresale();
  if($('#mod').classList.contains('on'))renderMod();if(open)renderDrawer();
  try{localStorage.setItem('pp-lang',l)}catch(e){}}
 $$('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 
 /* header and reveal */
-const top=$('#top');const onScroll=()=>top.classList.toggle('solid',scrollY>60);addEventListener('scroll',onScroll,{passive:true});onScroll();
+const top=$('#top');let hhT;const hh=()=>{if(!top.classList.contains('solid'))document.documentElement.style.setProperty('--hh',top.offsetHeight+'px')};
+const onScroll=()=>{const was=top.classList.contains('solid'),now=scrollY>60;if(was!==now){top.classList.toggle('solid',now);if(!now){clearTimeout(hhT);hhT=setTimeout(hh,400)}}};addEventListener('scroll',onScroll,{passive:true});hh();addEventListener('resize',hh);onScroll();
 if('IntersectionObserver' in window&&!RM){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});$$('.rv').forEach(el=>io.observe(el))}else $$('.rv').forEach(el=>el.classList.add('in'));
-addEventListener('load',()=>setTimeout(()=>$$('.hero .ph[data-src]').forEach(im=>{const i=new Image();i.src=im.dataset.src}),1200));
 
-/* depth: motion only answers the visitor, the pointer in the hero and on the cards, and the scroll */
-if(!RM){
- const hero=$('#hero'),fine=matchMedia('(pointer:fine)').matches;let hr=0,sr=0;
- if(fine){hero.addEventListener('pointermove',e=>{if(hr)return;hr=requestAnimationFrame(()=>{hr=0;const b=hero.getBoundingClientRect();hero.style.setProperty('--mx',((e.clientX-b.left)/b.width-.5).toFixed(3));hero.style.setProperty('--my',((e.clientY-b.top)/b.height-.5).toFixed(3))})});
-  hero.addEventListener('pointerleave',()=>{hero.style.setProperty('--mx',0);hero.style.setProperty('--my',0)});
-  const tilt=(el,e)=>{const b=el.getBoundingClientRect(),px=(e.clientX-b.left)/b.width-.5,py=(e.clientY-b.top)/b.height-.5;el.classList.add('tilt');
-   el.style.setProperty('--rx',(-py*6).toFixed(2)+'deg');el.style.setProperty('--ry',(px*7).toFixed(2)+'deg');el.style.setProperty('--ty','-6px');el.style.setProperty('--ix',(-px*14).toFixed(1)+'px');el.style.setProperty('--iy',(-py*10).toFixed(1)+'px')};
-  grid.addEventListener('pointermove',e=>{const el=e.target.closest('.card');if(el)tilt(el,e)});
-  grid.addEventListener('pointerout',e=>{const el=e.target.closest('.card');if(!el||el.contains(e.relatedTarget))return;el.classList.remove('tilt');['--rx','--ry','--ty','--ix','--iy'].forEach(p=>el.style.removeProperty(p))})}
- const h2s=$$('.h2');
- const onS=()=>{if(sr)return;sr=requestAnimationFrame(()=>{sr=0;const H=innerHeight;hero.style.setProperty('--scr',Math.min(1,scrollY/H).toFixed(3));
-  h2s.forEach(h=>{const b=h.getBoundingClientRect();if(b.bottom<-50||b.top>H+50)return;const p=(b.top+b.height/2)/H;h.style.setProperty('--sx',((p-.5)*-36).toFixed(1)+'px')})})};
- addEventListener('scroll',onS,{passive:true});onS()}
 
 budget=roundB(p2v(+$('#bud').value));feeP=roundB(p2v(+$('#fp').value));
 setLang(lang);

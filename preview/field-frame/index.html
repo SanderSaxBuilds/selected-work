@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#111111">
-  <title>Field &amp; Frame | Renovations, additions and new homes</title>
-  <meta name="description" content="Field &amp; Frame plans and builds renovations, additions, kitchens and new homes in the Alder Valley, with a written fixed price, one site lead and an update every Friday.">
-  <meta property="og:title" content="Field &amp; Frame | Renovations, additions and new homes">
-  <meta property="og:description" content="A builder website laid out as a drawing set, with project sheets you can compare before and after, a rough estimate by trade, a house that draws itself stage by stage and a brief you prepare on your own device.">
+  <title>Field &amp; Frame | Home builder in Westbrook</title>
+  <meta name="description" content="Field &amp; Frame builds new homes, additions and kitchens in Westbrook and the Alder Valley, for a written fixed price, with one site lead from start to finish.">
+  <meta property="og:title" content="Field &amp; Frame | Home builder in Westbrook">
+  <meta property="og:description" content="Website for a home builder. Drag between the drawing and the finished house, see past projects before and after, get a rough price by trade and prepare a brief for the site visit.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/field-frame-house.jpg">
   <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/field-frame.html">
@@ -17,7 +17,7 @@
   <link rel="preload" href="../../assets/gfonts/archivo/k3kQo8UDI-1M0wlSfdnoLg.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../../assets/gfonts/public-sans/ijwRs572Xtc6ZYQws9YVwnNGfJ4.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../assets/gfonts/css/0812d8d7a8fd.css">
-  <link rel="preload" href="../../field-frame-house.jpg" as="image" imagesrcset="../../field-frame-house-900.jpg 900w, ../../field-frame-house-1200.jpg 1200w, ../../field-frame-house.jpg 1800w" imagesizes="(max-width: 960px) 92vw, (max-width: 2047px) 740px, 1500px">
+  <link rel="preload" href="../../field-frame-house.jpg" as="image" imagesrcset="../../field-frame-house-900.jpg 900w, ../../field-frame-house-1200.jpg 1200w, ../../field-frame-house.jpg 1800w" imagesizes="(max-width: 700px) 180vw, 100vw">
   <link rel="stylesheet" href="../../field-frame-style.css">
   <style>
 /* Field & Frame preview: site hoarding. Concrete, black stencil type, signal yellow tape. */
@@ -62,29 +62,48 @@ body{background:var(--film);font-size:17px}
   .site-nav a{color:#f2f1ec;border-bottom-color:#333}
 }
 
-/* hero: the headline runs the full width of the hoarding, the photo sits under it */
-.hero{grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"kick kick" "h1 h1" "fig lede" "fig act" "fig stats";gap:0 clamp(24px,4vw,56px);align-items:start;padding-top:clamp(28px,4vw,56px)}
-.hero-copy{display:contents}
-.kicker{grid-area:kick;color:var(--ink-2);border-bottom:2px solid var(--ink);text-transform:none;font-size:15px}
-.hero h1{grid-area:h1;font:900 clamp(54px,9.6vw,184px)/.86 var(--display);font-variation-settings:"wdth" var(--hw,112);letter-spacing:-.02em;text-transform:uppercase;margin:6px 0 clamp(22px,3vw,40px);text-wrap:balance;transition:font-variation-settings .25s}
-.hero-figure{grid-area:fig;padding:30px 40px 0 0}
-.hero-lede{grid-area:lede;margin-top:30px;font-size:clamp(18px,1.4vw,21px);color:var(--ink)}
-.hero-actions{grid-area:act}
-.hero-stats{grid-area:stats;border-top:6px solid var(--ink)}
-.hero-stats dt{font-size:12.5px;text-transform:none}
-.hero-stats dd{font:900 clamp(38px,4vw,64px)/1 var(--display);font-variation-settings:"wdth" 118}
-.hero-stats div+div{border-left:2px solid var(--ink)}
-.hero-photo{background:#999}
-.hero-photo::after{border:0;inset:auto 0 0 0;height:22px;background:repeating-linear-gradient(-45deg,#111 0 16px,var(--tape) 16px 32px)}
-.hero-dims line{stroke:#111}
-.dim-label{color:#111;background:var(--film);font-weight:700}
-.title-block{border:0;background:#111;color:#f2f1ec}
-.title-block span{font:600 15px/1.25 var(--body)}
-.title-block span+span{border-left-color:#333}
-.title-block b{color:var(--tape);font-family:var(--display);text-transform:none}
+/* first screen: the drawing and the finished house, one yellow line between them */
+.compare{position:relative;background:#111;color:#f2f1ec}
+.compare-stage{position:relative;height:clamp(460px,min(calc(100svh - var(--header-h) - 6px),72vw + 120px),1000px);overflow:hidden;background:#f1efe6;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.compare-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 100%;pointer-events:none}
+.compare-drawing{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--pos,58%)) 0 0);pointer-events:none}
+.drawing{display:block;width:100%;height:100%;background:#f1efe6}
+.drawing .ln{fill:none;stroke:#111;stroke-width:1.7;stroke-linejoin:round;stroke-linecap:round}
+.drawing .heavy{stroke-width:2.8}
+.drawing .win{fill:#f1efe6}
+.drawing .fine{stroke:#111;stroke-width:.8;opacity:.32}
+.drawing .gl{fill:none;stroke:#111;stroke-width:1.1;opacity:.5}
+.drawing .dim{stroke-width:1.1}
+.drawing .t{fill:#111;font:600 16px var(--display)}
+.compare[data-intro="run"] .drawing [pathLength]{stroke-dasharray:1;animation:ff-draw .9s cubic-bezier(.3,.6,.3,1) both}
+.compare[data-intro="run"] .d-walls [pathLength]{animation-delay:.12s}
+.compare[data-intro="run"] .d-roof [pathLength]{animation-delay:.3s}
+.compare[data-intro="run"] .d-open [pathLength]{animation-delay:.45s}
+.compare[data-intro="run"] .d-fine [pathLength],.compare[data-intro="run"] .d-dims [pathLength]{animation-delay:.55s}
+.compare[data-intro="run"] .drawing .t{animation:ff-fade .5s .9s both}
+@keyframes ff-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes ff-fade{from{opacity:0}to{opacity:1}}
+.compare-line{position:absolute;top:0;bottom:0;left:var(--pos,58%);width:4px;margin-left:-2px;background:var(--tape);box-shadow:0 0 0 1.5px #111;pointer-events:none}
+.compare-handle{position:absolute;top:50%;left:var(--pos,58%);display:grid;place-items:center;width:58px;height:58px;margin:-29px 0 0 -29px;border:3px solid #111;border-radius:50%;background:var(--tape);color:#111;cursor:ew-resize;touch-action:none}
+.compare-handle svg{width:30px;height:14px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.compare-handle:focus-visible{outline:3px solid #fff;outline-offset:3px;box-shadow:0 0 0 6px #111}
+.compare-hint{position:absolute;top:calc(50% + 40px);left:var(--pos,58%);transform:translateX(-50%);padding:5px 10px;background:#111;color:#f2f1ec;font:700 14px/1.2 var(--body);white-space:nowrap;pointer-events:none;transition:opacity .3s}
+.compare[data-moved="true"] .compare-hint,.compare[data-intro="run"] .compare-hint{opacity:0}
+.compare-tag{position:absolute;top:18px;padding:6px 11px;background:#111;color:#f2f1ec;font:700 15px/1.2 var(--body);white-space:nowrap;pointer-events:none;transition:opacity .2s}
+.tag-drawing{right:calc(100% - var(--pos,58%) + 16px)}
+.tag-built{left:calc(var(--pos,58%) + 16px);background:var(--tape);color:#111}
+.compare[data-edge="left"] .tag-drawing,.compare[data-edge="right"] .tag-built{opacity:0}
+.compare-caption{position:absolute;left:var(--gutter);bottom:clamp(18px,3vw,36px);z-index:2;display:grid;gap:14px;max-width:440px;padding:18px 20px 20px;background:#111;color:#f2f1ec;border-left:8px solid var(--tape)}
+.compare-caption h1{margin:0;font:600 clamp(17px,1.25vw,19px)/1.4 var(--body);letter-spacing:0;text-transform:none;text-wrap:pretty}
+.compare-caption .button{justify-self:start}
+.compare-caption .button::after{display:none}
+
+/* small labels in plain sentence case, no tracking */
+.label,.sheet-bar .mono,.sheet-type,.sheet-facts dt,.est-table th,.build-caption,.steps .mono,.optional,.brief-sheet-top .mono,.brief-state,.brief-facts dt,.footer-credit span,.plan-key{text-transform:none;letter-spacing:0}
+.label,.sheet-facts dt,.brief-facts dt{font-size:13px}
 
 /* general conditions: a strip of tape across the page */
-.terms{max-width:none;padding:0;background:var(--tape);margin-top:clamp(20px,3vw,40px)}
+.terms{max-width:none;padding:0;background:var(--tape);margin-top:0}
 .terms-head{max-width:var(--max);margin:0 auto;padding:16px var(--gutter) 6px;border-top:0;color:#111;font-size:15px;text-transform:none}
 .terms ol{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);border:0}
 .terms li{padding:14px 18px 26px 0}
@@ -93,10 +112,8 @@ body{background:var(--film);font-size:17px}
 .terms strong{font:800 23px/1.1 var(--display);font-variation-settings:"wdth" 108}
 .terms p{color:#2a2a10}
 
-/* sheet heads: stencil headlines with a black number plate */
-.sheet-tag{color:var(--ink-2);text-transform:none;font-size:14px}
-.sheet-tag b{background:#111;color:var(--tape);border:0;font-family:var(--display);font-weight:800;font-size:14px;height:34px}
-.sheet-head h2{font:900 clamp(38px,5.2vw,86px)/.92 var(--display);font-variation-settings:"wdth" 108;letter-spacing:-.02em;text-transform:uppercase;max-width:18ch}
+/* section heads: short stencil words */
+.sheet-head h2{font:900 clamp(32px,3.6vw,56px)/.95 var(--display);font-variation-settings:"wdth" 108;letter-spacing:-.01em;text-transform:uppercase;max-width:18ch}
 .section-lede{border-left:6px solid var(--tape);color:var(--ink)}
 
 /* schedule of work */
@@ -107,7 +124,6 @@ body{background:var(--film);font-size:17px}
 .work-row>*+*{border-left:0}
 @media (min-width:1101px){.work-row{grid-template-columns:minmax(0,1.2fr) minmax(0,1.6fr) minmax(0,1.2fr) auto;align-items:center}.work-time{gap:12px}.work-time .time-bar{height:14px}}
 .work-row h3{font:900 28px/1 var(--display);font-variation-settings:"wdth" 104;text-transform:uppercase}
-.row-code{color:var(--ink-3);font-family:var(--display);font-weight:700}
 .time-bar{height:12px;border-color:#111}
 .time-bar::after{background:var(--tape);outline:2px solid #111}
 .row-action{border:0;background:#111;color:var(--tape);font-weight:800}
@@ -174,8 +190,6 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;background:var(--ta
 
 /* programme: yellow marking paint on a black slab */
 .process{background:#111;color:#f2f1ec}
-.process .sheet-tag{color:#c9c8c2}
-.process .sheet-tag b{background:var(--tape);color:#111}
 .build-figure{border:2px solid var(--tape);outline:0}
 .build .dim,.build .center,.build .outline{stroke:#c9c8c2}
 .build .t{fill:#c9c8c2;font-family:var(--display)}
@@ -211,7 +225,6 @@ select,textarea{border:2px solid #111;background:#fff}
 .faq-list details{border-bottom:2px solid #111}
 .faq-list summary{font:800 clamp(22px,2.4vw,32px)/1.1 var(--display);font-variation-settings:"wdth" 104}
 .faq-list summary::after{color:#111;background:var(--tape);width:40px;height:40px;display:grid;place-items:center;font:900 26px/1 var(--display)}
-.faq-list summary .mono{color:var(--ink-3)}
 
 /* footer: the black board again */
 .site-footer{background:#111;border-top:22px solid transparent;border-image:repeating-linear-gradient(-45deg,#111 0 16px,var(--tape) 16px 32px) 22}
@@ -219,26 +232,36 @@ select,textarea{border:2px solid #111;background:#fff}
 .footer-nav a{font-family:var(--display);font-weight:800}
 .footer-nav a:hover{color:var(--tape)}
 .footer-block{font-family:var(--body)}
+.footer-block dt{text-transform:none}
+.footer-block div{grid-template-columns:140px 1fr}
 .footer-credit span{font-family:var(--display)}
 .footer-credit a{text-decoration-color:var(--tape)}
 .footer-credit a:hover{color:var(--tape)}
 
 @media (max-width:960px){
-  .hero{grid-template-columns:1fr;grid-template-areas:"kick" "h1" "fig" "lede" "act" "stats"}
-  .hero-figure{padding-right:32px}
   .sheet-tabs button{flex:0 0 170px}
+  .compare-caption{position:static;max-width:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding:18px var(--gutter);border-left:0;border-top:6px solid var(--tape)}
+  .compare-caption h1{flex:1 1 300px;max-width:46ch}
+  .compare-caption .button{flex:none;width:auto}
 }
 @media (max-width:600px){
-  .hero h1{font-size:clamp(44px,13.4vw,70px)}
-  .hero-figure{padding:28px 28px 0 0}
+  .compare-caption{display:grid;padding:16px var(--gutter) 18px}
+  .compare-caption h1{font-size:16px}
+  .compare-caption .button{justify-self:stretch}
+  .compare-tag{top:12px;font-size:14px;padding:5px 9px}
+  .compare-handle{width:52px;height:52px;margin:-26px 0 0 -26px}
+  .drawing .ln{stroke-width:2.2}
+  .drawing .heavy{stroke-width:3.4}
+  .drawing .t{font-size:22px}
   .terms li,.terms li+li{border-left:0;padding:12px 0}
   .terms li+li{border-top:2px solid #111}
   .work-row{border-left-width:6px}
 }
-@media (prefers-reduced-motion:reduce){.hero h1{transition:none}}
+@media (prefers-reduced-motion:reduce){.compare-hint,.compare-tag{transition:none}}
 
   </style>
-  <script src="../../field-frame-app.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="compare.js" defer></script>
 <style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--tape)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.brand .sb-logo{x:0}</style></head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -253,90 +276,74 @@ select,textarea{border:2px solid #111;background:#fff}
         <span class="menu-icon" aria-hidden="true"><span></span><span></span></span>
       </button>
       <nav class="site-nav" id="primary-nav" aria-label="Main navigation" data-site-nav>
-        <a href="#work"><span class="sheet-no">A-01</span>Work</a>
-        <a href="#projects"><span class="sheet-no">A-02</span>Project sheets</a>
-        <a href="#estimate"><span class="sheet-no">A-03</span>Estimate</a>
-        <a href="#process"><span class="sheet-no">A-04</span>How a job runs</a>
-        <a href="#faq"><span class="sheet-no">A-06</span>Questions</a>
+        <a href="#work">What we build</a>
+        <a href="#projects">Projects</a>
+        <a href="#estimate">Price estimate</a>
+        <a href="#process">How it works</a>
+        <a href="#faq">Questions</a>
         <a class="nav-cta" href="#brief">Book a site visit</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="kicker mono">A-00 &nbsp;Cover sheet &nbsp;/&nbsp; Westbrook, Alder Falls, Fernbrook</p>
-        <h1 id="hero-title">Houses built to the drawing you signed.</h1>
-        <p class="hero-lede">Renovations, additions, kitchens and new homes. One written price, one site lead, start to keys.</p>
-        <div class="hero-actions">
-          <a class="button button-solid" href="#estimate">Get a rough estimate</a>
-          <a class="text-link" href="#projects">Read the project sheets</a>
+    <section class="compare" id="top" aria-labelledby="hero-title" data-compare>
+      <div class="compare-stage">
+        <img class="compare-photo" src="../../field-frame-house.jpg" srcset="../../field-frame-house-900.jpg 900w, ../../field-frame-house-1200.jpg 1200w, ../../field-frame-house.jpg 1800w" sizes="(max-width: 700px) 180vw, 100vw" alt="A house we built: two storeys at dusk, a tall glass gable and a covered porch with lit glass doors" width="1800" height="1201" fetchpriority="high" draggable="false">
+        <div class="compare-drawing"><svg class="drawing" viewBox="0 0 1200 801" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false"><defs><clipPath id="ff-wall"><rect x="0" y="462" width="1200" height="243"/></clipPath></defs><g class="d-ground"><line class="ln heavy" x1="0" y1="705" x2="1200" y2="705" pathLength="1"/><line class="ln" x1="0" y1="722" x2="1200" y2="722" pathLength="1"/></g><g class="d-walls"><line class="ln heavy" x1="0" y1="404" x2="1200" y2="404" pathLength="1"/><line class="ln" x1="0" y1="432" x2="1200" y2="432" pathLength="1"/><line class="ln" x1="0" y1="462" x2="1200" y2="462" pathLength="1"/><rect class="ln" x="134" y="462" width="16" height="243" pathLength="1"/><rect class="ln" x="589" y="462" width="18" height="243" pathLength="1"/><rect class="ln" x="1062" y="462" width="18" height="243" pathLength="1"/><rect class="ln" x="1080" y="462" width="22" height="243" pathLength="1"/><line class="ln" x1="121" y1="404" x2="121" y2="698" pathLength="1"/></g><g class="d-roof"><polyline class="ln heavy" points="96,404 197,350 240,309 277,340 350,323 457,217 520,283 590,266 641,265 779,125 950,299 1050,212 1160,322 1200,326" pathLength="1"/><polyline class="ln" points="207,352 240,322 270,348" pathLength="1"/><polyline class="ln" points="362,326 457,231 560,334" pathLength="1"/><polyline class="ln" points="612,347 779,140 996,346" pathLength="1"/><polyline class="ln" points="964,304 1050,226 1150,323" pathLength="1"/><line class="ln" x1="585" y1="330" x2="612" y2="347" pathLength="1"/><line class="ln" x1="996" y1="346" x2="1012" y2="344" pathLength="1"/><line class="ln" x1="392" y1="300" x2="392" y2="404" pathLength="1"/><line class="ln" x1="543" y1="318" x2="543" y2="404" pathLength="1"/><line class="ln" x1="205" y1="356" x2="205" y2="404" pathLength="1"/><line class="ln" x1="272" y1="347" x2="272" y2="404" pathLength="1"/><line class="ln" x1="962" y1="306" x2="962" y2="404" pathLength="1"/><line class="ln" x1="1146" y1="322" x2="1146" y2="404" pathLength="1"/></g><g class="d-open"><rect class="ln win" x="4" y="496" width="37" height="92" pathLength="1"/><rect class="ln" x="10" y="503" width="25" height="78" pathLength="1"/><rect class="ln win" x="162" y="497" width="100" height="109" pathLength="1"/><line class="ln" x1="212" y1="503" x2="212" y2="600" pathLength="1"/><rect class="ln" x="168" y="503" width="88" height="97" pathLength="1"/><rect class="ln win" x="329" y="506" width="254" height="144" pathLength="1"/><line class="ln" x1="378" y1="512" x2="378" y2="646" pathLength="1"/><line class="ln" x1="418" y1="512" x2="418" y2="646" pathLength="1"/><line class="ln" x1="458" y1="512" x2="458" y2="646" pathLength="1"/><line class="ln" x1="498" y1="512" x2="498" y2="646" pathLength="1"/><line class="ln" x1="538" y1="512" x2="538" y2="646" pathLength="1"/><line class="ln" x1="333" y1="512" x2="579" y2="512" pathLength="1"/><rect class="ln win" x="617" y="487" width="305" height="173" pathLength="1"/><line class="ln" x1="672" y1="494" x2="672" y2="656" pathLength="1"/><line class="ln" x1="720" y1="494" x2="720" y2="656" pathLength="1"/><line class="ln" x1="767" y1="494" x2="767" y2="656" pathLength="1"/><line class="ln" x1="815" y1="494" x2="815" y2="656" pathLength="1"/><line class="ln" x1="865" y1="494" x2="865" y2="656" pathLength="1"/><line class="ln" x1="622" y1="494" x2="917" y2="494" pathLength="1"/><polygon class="ln win" points="940,507 1062,470 1062,700 940,700" pathLength="1"/><line class="ln" x1="980" y1="495" x2="980" y2="700" pathLength="1"/><line class="ln" x1="1021" y1="482" x2="1021" y2="700" pathLength="1"/><rect class="ln win" x="1105" y="475" width="75" height="220" pathLength="1"/><line class="ln" x1="1142" y1="481" x2="1142" y2="690" pathLength="1"/><line class="gl" x1="178" y1="544" x2="191" y2="520" pathLength="1"/><line class="gl" x1="181" y1="559" x2="198" y2="530" pathLength="1"/><line class="gl" x1="635" y1="562" x2="649" y2="523" pathLength="1"/><line class="gl" x1="639" y1="588" x2="657" y2="539" pathLength="1"/><line class="gl" x1="778" y1="562" x2="792" y2="523" pathLength="1"/><line class="gl" x1="781" y1="588" x2="800" y2="539" pathLength="1"/><line class="gl" x1="1122" y1="567" x2="1144" y2="515" pathLength="1"/><line class="gl" x1="1128" y1="603" x2="1156" y2="537" pathLength="1"/><line class="gl" x1="387" y1="568" x2="399" y2="536" pathLength="1"/><line class="gl" x1="390" y1="590" x2="405" y2="550" pathLength="1"/><rect class="ln win" x="225" y="355" width="40" height="47" pathLength="1"/><rect class="ln" x="234" y="362" width="22" height="38" pathLength="1"/><rect class="ln win" x="415" y="310" width="95" height="92" pathLength="1"/><rect class="ln" x="426" y="322" width="34" height="78" pathLength="1"/><rect class="ln" x="470" y="322" width="34" height="78" pathLength="1"/><line class="gl" x1="433" y1="355" x2="444" y2="336" pathLength="1"/><line class="gl" x1="436" y1="367" x2="449" y2="344" pathLength="1"/><rect class="ln win" x="980" y="308" width="100" height="94" pathLength="1"/><rect class="ln" x="990" y="320" width="35" height="80" pathLength="1"/><rect class="ln" x="1035" y="320" width="35" height="80" pathLength="1"/><line class="gl" x1="1043" y1="354" x2="1053" y2="334" pathLength="1"/><line class="gl" x1="1046" y1="366" x2="1059" y2="342" pathLength="1"/><polygon class="ln win" points="619,402 771,226 923,402" pathLength="1"/><polygon class="ln" points="627,402 755,252 755,402" pathLength="1"/><polygon class="ln" points="786,252 915,402 786,402" pathLength="1"/><line class="ln" x1="690" y1="328" x2="690" y2="402" pathLength="1"/><line class="ln" x1="848" y1="324" x2="848" y2="402" pathLength="1"/><line class="gl" x1="711" y1="342" x2="726" y2="318" pathLength="1"/><line class="gl" x1="715" y1="358" x2="734" y2="328" pathLength="1"/><line class="gl" x1="801" y1="342" x2="816" y2="318" pathLength="1"/><line class="gl" x1="805" y1="358" x2="824" y2="328" pathLength="1"/></g><g class="d-fine"><g class="hatch"><line class="fine" x1="-20" y1="722" x2="6" y2="748" pathLength="1"/><line class="fine" x1="2" y1="722" x2="28" y2="748" pathLength="1"/><line class="fine" x1="24" y1="722" x2="50" y2="748" pathLength="1"/><line class="fine" x1="46" y1="722" x2="72" y2="748" pathLength="1"/><line class="fine" x1="68" y1="722" x2="94" y2="748" pathLength="1"/><line class="fine" x1="90" y1="722" x2="116" y2="748" pathLength="1"/><line class="fine" x1="112" y1="722" x2="138" y2="748" pathLength="1"/><line class="fine" x1="134" y1="722" x2="160" y2="748" pathLength="1"/><line class="fine" x1="156" y1="722" x2="182" y2="748" pathLength="1"/><line class="fine" x1="178" y1="722" x2="204" y2="748" pathLength="1"/><line class="fine" x1="200" y1="722" x2="226" y2="748" pathLength="1"/><line class="fine" x1="222" y1="722" x2="248" y2="748" pathLength="1"/><line class="fine" x1="244" y1="722" x2="270" y2="748" pathLength="1"/><line class="fine" x1="266" y1="722" x2="292" y2="748" pathLength="1"/><line class="fine" x1="288" y1="722" x2="314" y2="748" pathLength="1"/><line class="fine" x1="310" y1="722" x2="336" y2="748" pathLength="1"/><line class="fine" x1="332" y1="722" x2="358" y2="748" pathLength="1"/><line class="fine" x1="354" y1="722" x2="380" y2="748" pathLength="1"/><line class="fine" x1="376" y1="722" x2="402" y2="748" pathLength="1"/><line class="fine" x1="398" y1="722" x2="424" y2="748" pathLength="1"/><line class="fine" x1="420" y1="722" x2="446" y2="748" pathLength="1"/><line class="fine" x1="442" y1="722" x2="468" y2="748" pathLength="1"/><line class="fine" x1="464" y1="722" x2="490" y2="748" pathLength="1"/><line class="fine" x1="486" y1="722" x2="512" y2="748" pathLength="1"/><line class="fine" x1="508" y1="722" x2="534" y2="748" pathLength="1"/><line class="fine" x1="530" y1="722" x2="556" y2="748" pathLength="1"/><line class="fine" x1="552" y1="722" x2="578" y2="748" pathLength="1"/><line class="fine" x1="574" y1="722" x2="600" y2="748" pathLength="1"/><line class="fine" x1="596" y1="722" x2="622" y2="748" pathLength="1"/><line class="fine" x1="618" y1="722" x2="644" y2="748" pathLength="1"/><line class="fine" x1="640" y1="722" x2="666" y2="748" pathLength="1"/><line class="fine" x1="662" y1="722" x2="688" y2="748" pathLength="1"/><line class="fine" x1="684" y1="722" x2="710" y2="748" pathLength="1"/><line class="fine" x1="706" y1="722" x2="732" y2="748" pathLength="1"/><line class="fine" x1="728" y1="722" x2="754" y2="748" pathLength="1"/><line class="fine" x1="750" y1="722" x2="776" y2="748" pathLength="1"/><line class="fine" x1="772" y1="722" x2="798" y2="748" pathLength="1"/><line class="fine" x1="794" y1="722" x2="820" y2="748" pathLength="1"/><line class="fine" x1="816" y1="722" x2="842" y2="748" pathLength="1"/><line class="fine" x1="838" y1="722" x2="864" y2="748" pathLength="1"/><line class="fine" x1="860" y1="722" x2="886" y2="748" pathLength="1"/><line class="fine" x1="882" y1="722" x2="908" y2="748" pathLength="1"/><line class="fine" x1="904" y1="722" x2="930" y2="748" pathLength="1"/><line class="fine" x1="926" y1="722" x2="952" y2="748" pathLength="1"/><line class="fine" x1="948" y1="722" x2="974" y2="748" pathLength="1"/><line class="fine" x1="970" y1="722" x2="996" y2="748" pathLength="1"/><line class="fine" x1="992" y1="722" x2="1018" y2="748" pathLength="1"/><line class="fine" x1="1014" y1="722" x2="1040" y2="748" pathLength="1"/><line class="fine" x1="1036" y1="722" x2="1062" y2="748" pathLength="1"/><line class="fine" x1="1058" y1="722" x2="1084" y2="748" pathLength="1"/><line class="fine" x1="1080" y1="722" x2="1106" y2="748" pathLength="1"/><line class="fine" x1="1102" y1="722" x2="1128" y2="748" pathLength="1"/><line class="fine" x1="1124" y1="722" x2="1150" y2="748" pathLength="1"/><line class="fine" x1="1146" y1="722" x2="1172" y2="748" pathLength="1"/><line class="fine" x1="1168" y1="722" x2="1194" y2="748" pathLength="1"/><line class="fine" x1="1190" y1="722" x2="1216" y2="748" pathLength="1"/></g><g class="siding" clip-path="url(#ff-wall)"><line class="fine" x1="0" y1="476" x2="1200" y2="476" pathLength="1"/><line class="fine" x1="0" y1="490" x2="1200" y2="490" pathLength="1"/><line class="fine" x1="0" y1="504" x2="1200" y2="504" pathLength="1"/><line class="fine" x1="0" y1="518" x2="1200" y2="518" pathLength="1"/><line class="fine" x1="0" y1="532" x2="1200" y2="532" pathLength="1"/><line class="fine" x1="0" y1="546" x2="1200" y2="546" pathLength="1"/><line class="fine" x1="0" y1="560" x2="1200" y2="560" pathLength="1"/><line class="fine" x1="0" y1="574" x2="1200" y2="574" pathLength="1"/><line class="fine" x1="0" y1="588" x2="1200" y2="588" pathLength="1"/><line class="fine" x1="0" y1="602" x2="1200" y2="602" pathLength="1"/><line class="fine" x1="0" y1="616" x2="1200" y2="616" pathLength="1"/><line class="fine" x1="0" y1="630" x2="1200" y2="630" pathLength="1"/><line class="fine" x1="0" y1="644" x2="1200" y2="644" pathLength="1"/><line class="fine" x1="0" y1="658" x2="1200" y2="658" pathLength="1"/><line class="fine" x1="0" y1="672" x2="1200" y2="672" pathLength="1"/><line class="fine" x1="0" y1="686" x2="1200" y2="686" pathLength="1"/></g></g><g class="d-dims"><line class="ln dim" x1="142" y1="770" x2="1071" y2="770" pathLength="1"/><line class="ln dim" x1="142" y1="728" x2="142" y2="778" pathLength="1"/><line class="ln dim" x1="598" y1="728" x2="598" y2="778" pathLength="1"/><line class="ln dim" x1="1071" y1="728" x2="1071" y2="778" pathLength="1"/><line class="ln dim" x1="136" y1="776" x2="148" y2="764" pathLength="1"/><line class="ln dim" x1="592" y1="776" x2="604" y2="764" pathLength="1"/><line class="ln dim" x1="1065" y1="776" x2="1077" y2="764" pathLength="1"/><text class="t" x="370" y="760" text-anchor="middle">19&#8242; 0&#8243;</text><text class="t" x="835" y="760" text-anchor="middle">19&#8242; 8&#8243;</text></g></svg></div>
+        <span class="compare-line" aria-hidden="true"></span>
+        <span class="compare-tag tag-drawing" aria-hidden="true">Drawing</span>
+        <span class="compare-tag tag-built" aria-hidden="true">Built</span>
+        <div class="compare-handle" role="slider" tabindex="0" aria-label="Compare the drawing with the finished house" aria-valuemin="0" aria-valuemax="100" aria-valuenow="58" aria-valuetext="58 percent drawing, 42 percent photo">
+          <svg viewBox="0 0 30 14" aria-hidden="true" focusable="false"><path d="M8 2 3 7l5 5M22 2l5 5-5 5"/></svg>
         </div>
-        <dl class="hero-stats">
-          <div><dt class="mono">Homes handed over</dt><dd>212</dd></div>
-          <div><dt class="mono">Price changes we did not ask you to sign</dt><dd>0</dd></div>
-          <div><dt class="mono">Yard on the river road since</dt><dd>2009</dd></div>
-        </dl>
+        <span class="compare-hint" aria-hidden="true">Drag to compare</span>
       </div>
-      <figure class="hero-figure">
-        <div class="hero-photo">
-          <img src="../../field-frame-house.jpg" srcset="../../field-frame-house-900.jpg 900w, ../../field-frame-house-1200.jpg 1200w, ../../field-frame-house.jpg 1800w" sizes="(max-width: 960px) 92vw, (max-width: 2047px) 740px, 1500px" alt="Two-storey house at dusk with wood-lined gables and the ground floor lit through tall glass doors" width="1400" height="1000" fetchpriority="high">
-        </div>
-        <svg class="hero-dims" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <line x1="0" y1="-4" x2="100" y2="-4"/><line x1="0" y1="-6.5" x2="0" y2="-1.5"/><line x1="100" y1="-6.5" x2="100" y2="-1.5"/>
-          <line x1="103" y1="0" x2="103" y2="100"/><line x1="101.5" y1="0" x2="104.5" y2="0"/><line x1="101.5" y1="100" x2="104.5" y2="100"/>
-        </svg>
-        <span class="dim-label dim-top mono">42' - 6" overall</span>
-        <span class="dim-label dim-side mono">26' - 0" to ridge</span>
-        <figcaption class="title-block">
-          <span><b class="mono">Drawing</b>Rear elevation, dusk</span>
-          <span><b class="mono">Job</b>FF-0367 Fernbrook</span>
-          <span><b class="mono">Scale</b>Photo, not to scale</span>
-        </figcaption>
-      </figure>
+      <div class="compare-caption">
+        <h1 id="hero-title">Home builder in Westbrook. New homes, additions and kitchens, fixed price.</h1>
+        <a class="button button-ink" href="#brief">Book a site visit</a>
+      </div>
     </section>
 
     <section class="terms" aria-label="What every job includes">
-      <p class="terms-head mono">General conditions, on every job</p>
+      <p class="terms-head mono">On every job</p>
       <ol>
-        <li><span class="mono">1.</span><strong>Written fixed price</strong><p>in 10 working days</p></li>
-        <li><span class="mono">2.</span><strong>One site lead</strong><p>visit to handover</p></li>
-        <li><span class="mono">3.</span><strong>Friday update</strong><p>photos and next decisions</p></li>
-        <li><span class="mono">4.</span><strong>Twelve-month return</strong><p>we fix what has moved</p></li>
+        <li><span class="mono">1.</span><strong>Written fixed price</strong><p>within 10 working days of the visit</p></li>
+        <li><span class="mono">2.</span><strong>One site lead</strong><p>from the first visit to the keys</p></li>
+        <li><span class="mono">3.</span><strong>Photos every Friday</strong><p>with the decisions coming up</p></li>
+        <li><span class="mono">4.</span><strong>Visit after 12 months</strong><p>we fix anything that has moved</p></li>
       </ol>
     </section>
 
     <section class="section drawing-sheet work" id="work" aria-labelledby="work-title">
       <header class="sheet-head">
-        <p class="sheet-tag mono"><b>A-01</b>Schedule of work</p>
-        <h2 id="work-title">Four kinds of job, and their time on site.</h2>
+        <h2 id="work-title">What we build</h2>
       </header>
       <div class="work-table" role="list">
         <div class="work-cols mono" aria-hidden="true"><span>Type</span><span>On site</span><span>Scope</span><span>Includes</span><span></span></div>
         <article class="work-row" role="listitem">
-          <h3><span class="mono row-code">W1</span>Whole-home renovation</h3>
-          <p class="work-time"><span class="mono">16 to 30 wk</span><span class="time-bar" style="--a:16;--b:30" aria-hidden="true"></span></p>
+          <h3>Whole-home renovation</h3>
+          <p class="work-time"><span class="mono">16 to 30 weeks on site</span><span class="time-bar" style="--a:16;--b:30" aria-hidden="true"></span></p>
           <ul><li>Structural openings and steel</li><li>Rewiring, plumbing, heating</li><li>Insulation and windows</li></ul>
-          <button class="row-action" type="button" data-estimate="renovation">Estimate this</button>
+          <button class="row-action" type="button" data-estimate="renovation">Price estimate</button>
         </article>
         <article class="work-row" role="listitem">
-          <h3><span class="mono row-code">W2</span>Additions and extensions</h3>
-          <p class="work-time"><span class="mono">12 to 20 wk</span><span class="time-bar" style="--a:12;--b:20" aria-hidden="true"></span></p>
+          <h3>Additions and extensions</h3>
+          <p class="work-time"><span class="mono">12 to 20 weeks on site</span><span class="time-bar" style="--a:12;--b:20" aria-hidden="true"></span></p>
           <ul><li>Drawings and permit application</li><li>Foundations, frame and roof</li><li>Tie-in to the existing house</li></ul>
-          <button class="row-action" type="button" data-estimate="addition">Estimate this</button>
+          <button class="row-action" type="button" data-estimate="addition">Price estimate</button>
         </article>
         <article class="work-row" role="listitem">
-          <h3><span class="mono row-code">W3</span>Kitchens and bathrooms</h3>
-          <p class="work-time"><span class="mono">6 to 10 wk</span><span class="time-bar" style="--a:6;--b:10" aria-hidden="true"></span></p>
+          <h3>Kitchens and bathrooms</h3>
+          <p class="work-time"><span class="mono">6 to 10 weeks on site</span><span class="time-bar" style="--a:6;--b:10" aria-hidden="true"></span></p>
           <ul><li>Layout and cabinetry plans</li><li>Tiling, worktops, fixtures</li><li>Ventilation and lighting</li></ul>
-          <button class="row-action" type="button" data-estimate="kitchen">Estimate this</button>
+          <button class="row-action" type="button" data-estimate="kitchen">Price estimate</button>
         </article>
         <article class="work-row" role="listitem">
-          <h3><span class="mono row-code">W4</span>New homes</h3>
-          <p class="work-time"><span class="mono">9 to 14 mo</span><span class="time-bar" style="--a:39;--b:61" aria-hidden="true"></span></p>
+          <h3>New homes</h3>
+          <p class="work-time"><span class="mono">9 to 14 months on site</span><span class="time-bar" style="--a:39;--b:61" aria-hidden="true"></span></p>
           <ul><li>Site preparation and groundwork</li><li>Timber or block construction</li><li>Full fit-out to handover</li></ul>
-          <button class="row-action" type="button" data-estimate="newhome">Estimate this</button>
+          <button class="row-action" type="button" data-estimate="newhome">Price estimate</button>
         </article>
       </div>
     </section>
@@ -344,27 +351,26 @@ select,textarea{border:2px solid #111;background:#fff}
     <section class="section drawing-sheet projects" id="projects" aria-labelledby="projects-title">
       <header class="sheet-head sheet-head-split">
         <div>
-          <p class="sheet-tag mono"><b>A-02</b>Project sheets</p>
-          <h2 id="projects-title">What the house was, and what we left behind.</h2>
+          <h2 id="projects-title">Past projects</h2>
         </div>
-        <p class="section-lede">Measured plan, built plan. Switch or tap the drawing.</p>
+        <p class="section-lede">The plan of each house before and after our work. Tap the plan to switch.</p>
       </header>
 
       <div class="sheet-wrap">
         <div class="sheet-tabs" role="tablist" aria-label="Projects">
-          <button role="tab" type="button" id="tab-orchard" aria-controls="sheet" aria-selected="true" data-project="orchard"><span class="mono">FF-0412</span>Orchard Lane<small>Rear extension</small></button>
-          <button role="tab" type="button" id="tab-mill" aria-controls="sheet" aria-selected="false" tabindex="-1" data-project="mill"><span class="mono">FF-0388</span>Mill Street<small>Terrace renovation</small></button>
-          <button role="tab" type="button" id="tab-hollis" aria-controls="sheet" aria-selected="false" tabindex="-1" data-project="hollis"><span class="mono">FF-0431</span>Hollis Road<small>Kitchen</small></button>
-          <button role="tab" type="button" id="tab-fernbrook" aria-controls="sheet" aria-selected="false" tabindex="-1" data-project="fernbrook"><span class="mono">FF-0367</span>Fernbrook<small>New home</small></button>
+          <button role="tab" type="button" id="tab-orchard" aria-controls="sheet" aria-selected="true" data-project="orchard">Orchard Lane<small>Rear extension</small></button>
+          <button role="tab" type="button" id="tab-mill" aria-controls="sheet" aria-selected="false" tabindex="-1" data-project="mill">Mill Street<small>Terrace renovation</small></button>
+          <button role="tab" type="button" id="tab-hollis" aria-controls="sheet" aria-selected="false" tabindex="-1" data-project="hollis">Hollis Road<small>Kitchen</small></button>
+          <button role="tab" type="button" id="tab-fernbrook" aria-controls="sheet" aria-selected="false" tabindex="-1" data-project="fernbrook">Fernbrook<small>New home</small></button>
         </div>
 
         <article class="sheet" id="sheet" role="tabpanel" aria-labelledby="tab-orchard" tabindex="0">
           <div class="sheet-drawing">
             <div class="sheet-bar">
-              <p class="mono" data-sheet="code">FF-0412, ground floor</p>
+              <p class="mono" data-sheet="code">Ground floor plan</p>
               <div class="view-switch" role="group" aria-label="Plan view">
-                <button type="button" aria-pressed="true" data-view="before">As measured</button>
-                <button type="button" aria-pressed="false" data-view="after">As built</button>
+                <button type="button" aria-pressed="true" data-view="before">Before</button>
+                <button type="button" aria-pressed="false" data-view="after">After</button>
               </div>
             </div>
             <svg class="plan" viewBox="0 0 480 300" role="img" aria-labelledby="plan-desc" data-view="before">
@@ -380,10 +386,10 @@ select,textarea{border:2px solid #111;background:#fff}
           <div class="sheet-body">
             <p class="sheet-type mono" data-sheet="type">Addition, Westbrook</p>
             <h3 data-sheet="title">Orchard Lane kitchen extension</h3>
-            <p class="sheet-ask"><span class="label mono">They asked</span><span data-sheet="ask"></span></p>
+            <p class="sheet-ask"><span class="label mono">What they wanted</span><span data-sheet="ask"></span></p>
             <dl class="sheet-facts" data-sheet="facts"></dl>
             <div class="sheet-log">
-              <p class="label mono">From the Friday notes</p>
+              <p class="label mono">Notes from the build</p>
               <ol data-sheet="log"></ol>
             </div>
           </div>
@@ -394,16 +400,15 @@ select,textarea{border:2px solid #111;background:#fff}
     <section class="section drawing-sheet estimate" id="estimate" aria-labelledby="estimate-title">
       <header class="sheet-head sheet-head-split">
         <div>
-          <p class="sheet-tag mono"><b>A-03</b>Rough estimate</p>
-          <h2 id="estimate-title">See where the money goes before the site visit.</h2>
+          <h2 id="estimate-title">Price estimate</h2>
         </div>
-        <p class="section-lede">First-conversation ranges by trade. The written price replaces them.</p>
+        <p class="section-lede">A rough range, split by trade. You get a written fixed price after the site visit.</p>
       </header>
 
       <div class="est-grid">
         <form class="est-form" id="est-form" aria-label="Estimate inputs">
           <fieldset class="seg">
-            <legend class="mono">1. Job</legend>
+            <legend class="mono">Type of job</legend>
             <div class="seg-row seg-4">
               <label><input type="radio" name="kind" value="kitchen" checked><span>Kitchen or bath</span></label>
               <label><input type="radio" name="kind" value="addition"><span>Addition</span></label>
@@ -412,26 +417,26 @@ select,textarea{border:2px solid #111;background:#fff}
             </div>
           </fieldset>
           <div class="range-field">
-            <div class="range-top"><label for="est-area" class="mono">2. Floor area</label><output id="est-area-out" for="est-area" class="mono">180 sq ft</output></div>
+            <div class="range-top"><label for="est-area" class="mono">Floor area</label><output id="est-area-out" for="est-area" class="mono">180 sq ft</output></div>
             <input type="range" id="est-area" name="area" min="60" max="400" step="10" value="180">
             <div class="range-ends mono"><span data-min>60</span><span data-max>400</span></div>
             <div class="area-plot" aria-hidden="true"><span class="area-room" data-area-room></span><span class="area-note mono" data-area-note></span></div>
           </div>
           <fieldset class="seg">
-            <legend class="mono">3. Finish level</legend>
+            <legend class="mono">Finish</legend>
             <div class="seg-row seg-3">
               <label><input type="radio" name="finish" value="0"><span>Standard</span></label>
-              <label><input type="radio" name="finish" value="1" checked><span>Mid</span></label>
-              <label><input type="radio" name="finish" value="2"><span>Considered</span></label>
+              <label><input type="radio" name="finish" value="1" checked><span>Mid-range</span></label>
+              <label><input type="radio" name="finish" value="2"><span>High-end</span></label>
             </div>
             <p class="seg-note" data-finish-note>Mid-range cabinetry, stone-effect worktops, mixer taps.</p>
           </fieldset>
           <label class="check"><input type="checkbox" name="old" id="est-old"><span>House built before 1950</span></label>
-          <p class="check-note">Bigger contingency for wiring and lath walls.</p>
+          <p class="check-note">Older houses need more set aside for wiring and walls.</p>
         </form>
 
         <div class="est-result" aria-live="polite">
-          <p class="label mono">Indicative range</p>
+          <p class="label mono">Rough price</p>
           <p class="est-total"><span data-low>$0</span><span class="to">to</span><span data-high>$0</span></p>
           <p class="est-sub mono" data-rate>$0 to $0 per sq ft</p>
           <div class="est-bar" data-bar aria-hidden="true"></div>
@@ -446,8 +451,8 @@ select,textarea{border:2px solid #111;background:#fff}
             <p class="mono" data-weeks>0 weeks</p>
           </div>
           <div class="est-foot">
-            <a class="button button-solid" href="#brief" data-to-brief>Put this in my brief</a>
-            <p>Fictional rates for a concept site. Not a quote.</p>
+            <a class="button button-solid" href="#brief" data-to-brief>Add this to my brief</a>
+            <p>Sample rates for a fictional builder. Not a quote.</p>
           </div>
         </div>
       </div>
@@ -456,8 +461,7 @@ select,textarea{border:2px solid #111;background:#fff}
     <section class="process" id="process" aria-labelledby="process-title">
       <div class="process-inner">
         <header class="sheet-head">
-          <p class="sheet-tag mono"><b>A-04</b>Programme</p>
-          <h2 id="process-title">Five fixed points. Scroll, and watch the house go up with them.</h2>
+          <h2 id="process-title">How it works</h2>
         </header>
         <div class="process-grid">
           <div class="build-figure" aria-hidden="true">
@@ -482,7 +486,7 @@ select,textarea{border:2px solid #111;background:#fff}
                 <path class="ln outline" d="M150 380 V230 L300 110 L450 230 V380" pathLength="1"/>
                 <line class="ln center" x1="300" y1="90" x2="300" y2="395" pathLength="1"/>
                 <line class="ln center" x1="130" y1="300" x2="470" y2="300" pathLength="1"/>
-                <text class="t" x="160" y="222">Drawing A-201, rev B</text>
+                <text class="t" x="160" y="222">Drawing approved</text>
               </g>
               <g class="stage s3">
                 <rect class="ln slab" x="140" y="380" width="320" height="16" pathLength="1"/>
@@ -505,11 +509,11 @@ select,textarea{border:2px solid #111;background:#fff}
             <p class="build-caption mono" data-build-caption>Stage 0 of 5. Empty plot, pegged out.</p>
           </div>
           <ol class="steps" data-steps>
-            <li><p class="mono">Week 0</p><h3>Site visit</h3><p>Measure and listen. Free.</p></li>
-            <li><p class="mono">Within 10 working days</p><h3>Scope and fixed price</h3><p>Nothing changes without your signature.</p></li>
-            <li><p class="mono">Before the start</p><h3>Drawings and permits</h3><p>With a partner architect.</p></li>
-            <li><p class="mono">On site</p><h3>Build</h3><p>One lead, a note every Friday.</p></li>
-            <li><p class="mono">Handover, then 12 months</p><h3>Walkthrough and return</h3><p>Snag list closed, back in a year.</p></li>
+            <li><p class="mono">Week 0</p><h3>Site visit</h3><p>We measure and listen. Free.</p></li>
+            <li><p class="mono">Within 10 working days</p><h3>Fixed price</h3><p>Written down. Nothing changes without your signature.</p></li>
+            <li><p class="mono">Before the start</p><h3>Drawings and permits</h3><p>Done with a partner architect.</p></li>
+            <li><p class="mono">On site</p><h3>Build</h3><p>One site lead, photos every Friday.</p></li>
+            <li><p class="mono">Handover, then 12 months</p><h3>Keys and a return visit</h3><p>We fix the last small items, then come back after a year.</p></li>
           </ol>
         </div>
       </div>
@@ -518,10 +522,9 @@ select,textarea{border:2px solid #111;background:#fff}
     <section class="section drawing-sheet brief" id="brief" aria-labelledby="brief-title">
       <header class="sheet-head sheet-head-split">
         <div>
-          <p class="sheet-tag mono"><b>A-05</b>Client brief</p>
-          <h2 id="brief-title">Bring a one-page brief to the first visit.</h2>
+          <h2 id="brief-title">Book a site visit</h2>
         </div>
-        <p class="section-lede">A few questions, one text file to download. Nothing is sent.</p>
+        <p class="section-lede">Answer five questions and download a one-page brief for the visit. This sample site sends nothing.</p>
       </header>
       <div class="brief-grid">
         <form class="brief-form" id="brief-form" novalidate>
@@ -600,7 +603,7 @@ select,textarea{border:2px solid #111;background:#fff}
         </form>
 
         <aside class="brief-sheet" aria-labelledby="preview-title">
-          <div class="brief-sheet-top"><p class="mono">Field &amp; Frame, client brief</p><span class="brief-state mono" id="preview-state" data-ready="false">Draft</span></div>
+          <div class="brief-sheet-top"><p class="mono">Your site visit brief</p><span class="brief-state mono" id="preview-state" data-ready="false">Draft</span></div>
           <h3 id="preview-title" data-preview="projectType" data-empty="Project not chosen">Project not chosen</h3>
           <dl class="brief-facts">
             <div><dt class="mono">Property</dt><dd data-preview="propertyType" data-empty="Not chosen yet">Not chosen yet</dd></div>
@@ -616,22 +619,21 @@ select,textarea{border:2px solid #111;background:#fff}
           <div class="brief-scope"><p class="label mono">What should change</p><p data-preview="scope" data-empty="Your notes appear here as you type.">Your notes appear here as you type.</p></div>
           <button class="button button-ink" id="download-brief" type="button" disabled>Download brief</button>
           <p class="brief-note mono" id="draft-note">Saved as a text file on your device. Nothing is sent.</p>
-          <span class="stamp" aria-hidden="true">Ready for<br>site visit</span>
+          <span class="stamp" aria-hidden="true">Ready for the<br>site visit</span>
         </aside>
       </div>
     </section>
 
     <section class="section drawing-sheet faq" id="faq" aria-labelledby="faq-title">
       <header class="sheet-head">
-        <p class="sheet-tag mono"><b>A-06</b>General notes</p>
-        <h2 id="faq-title">What people ask before the first visit.</h2>
+        <h2 id="faq-title">Questions</h2>
       </header>
       <div class="faq-list">
-        <details><summary><span class="mono">N1</span>Is the price really fixed?</summary><p>Yes, for everything written in the scope. If you ask for a change during the build, we price it in writing first and only go ahead once you sign it.</p></details>
-        <details><summary><span class="mono">N2</span>Do you handle drawings and permits?</summary><p>For additions and new homes we work with two local architects and submit the permit application for you. For renovations we can work from your existing drawings or measure up ourselves.</p></details>
-        <details><summary><span class="mono">N3</span>Can we stay in the house during the work?</summary><p>Usually, yes. We plan the order of work so you keep a working kitchen or bathroom for as long as possible, and we tell you in advance about the days that will be noisy or without water.</p></details>
-        <details><summary><span class="mono">N4</span>How soon can you start?</summary><p>Start dates are set when you accept the quote. Smaller kitchen and bathroom jobs often start within six to eight weeks, larger jobs after drawings and permits are in place.</p></details>
-        <details><summary><span class="mono">N5</span>Which areas do you cover?</summary><p>Westbrook, Alder Falls, Fernbrook and the villages within about forty minutes of our yard on the river road.</p></details>
+        <details><summary>Is the price really fixed?</summary><p>Yes, for everything written in the scope. If you ask for a change during the build, we price it in writing first and only go ahead once you sign it.</p></details>
+        <details><summary>Do you handle drawings and permits?</summary><p>For additions and new homes we work with two local architects and submit the permit application for you. For renovations we can work from your existing drawings or measure up ourselves.</p></details>
+        <details><summary>Can we stay in the house during the work?</summary><p>Usually, yes. We plan the order of work so you keep a working kitchen or bathroom for as long as possible, and we tell you in advance about the days that will be noisy or without water.</p></details>
+        <details><summary>How soon can you start?</summary><p>Start dates are set when you accept the quote. Smaller kitchen and bathroom jobs often start within six to eight weeks, larger jobs after drawings and permits are in place.</p></details>
+        <details><summary>Which areas do you cover?</summary><p>Westbrook, Alder Falls, Fernbrook and the villages within about forty minutes of our yard on the river road.</p></details>
       </div>
     </section>
   </main>
@@ -643,14 +645,13 @@ select,textarea{border:2px solid #111;background:#fff}
         <p>Renovations, additions, kitchens and new homes across the Alder Valley.</p>
       </div>
       <dl class="footer-block mono">
-        <div><dt>Drawing set</dt><dd>A-00 to A-06</dd></div>
-        <div><dt>Issued for</dt><dd>First conversation</dd></div>
-        <div><dt>Yard</dt><dd>River road, Westbrook</dd></div>
+        <div><dt>Office and yard</dt><dd>River road, Westbrook</dd></div>
+        <div><dt>We work in</dt><dd>Westbrook, Alder Falls, Fernbrook</dd></div>
       </dl>
       <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="#work">Work</a>
-        <a href="#projects">Project sheets</a>
-        <a href="#estimate">Estimate</a>
+        <a href="#work">What we build</a>
+        <a href="#projects">Projects</a>
+        <a href="#estimate">Price estimate</a>
         <a href="#brief">Book a site visit</a>
       </nav>
     </div>
@@ -660,16 +661,6 @@ select,textarea{border:2px solid #111;background:#fff}
       <p class="footer-credit"><span>Designer</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a><a href="../../index.html#07-field-frame">Back to selected work</a></p>
     <p class="sb-label">Sample site, fictional brand</p></div>
   </footer>
-  <script>
-  /* the headline stretches and narrows with the pointer, like a tape pulled out */
-  (function(){
-    var h=document.getElementById("hero-title");if(!h)return;
-    if(!matchMedia("(pointer:fine)").matches||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
-    var hero=document.querySelector(".hero"),raf=0,x=.5;
-    hero.addEventListener("pointermove",function(e){x=e.clientX/innerWidth;if(!raf)raf=requestAnimationFrame(function(){raf=0;h.style.setProperty("--hw",(92+x*33).toFixed(1))})});
-    hero.addEventListener("pointerleave",function(){h.style.removeProperty("--hw")});
-  })();
-  </script>
 
 </body>
 </html>
