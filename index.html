@@ -3,736 +3,379 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sander Sax · Selected work, websites and tools</title>
-<meta name="description" content="Selected work by Sander Sax (Alexandr Khrustalev), a freelance web and product builder in Thailand. Websites, web apps, data tools and business documents, each one open as a working demo or a file.">
+<title>Sander Sax, selected work</title>
+<meta name="description" content="Selected work by Sander Sax (Alexandr Khrustalev): websites, web apps and tools, each one open as a working demo.">
 <link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Sander Sax · Selected work">
-<meta property="og:description" content="Websites, web apps, data tools and business documents. Every project opens as a working demo or a file.">
+<meta property="og:title" content="Sander Sax, selected work">
+<meta property="og:description" content="Websites, web apps and tools by Sander Sax (Alexandr Khrustalev), each one open as a working demo.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/cover-v3-04-ledgerlens-cover.png">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="1000">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0f0e0d">
+<meta name="theme-color" content="#ece8e0">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/sandersax-icon-32.png">
 <link rel="apple-touch-icon" href="assets/sandersax-icon-180.png">
-<link rel="preload" href="assets/portfolio-geist.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/p/cosquin-480.jpg" as="image" fetchpriority="high">
-<script>
-/* the folio in depth, unless the visitor's system asks for reduced motion, then a plain list.
-   In depth the opening plays once: the name rises out of its mask and the folders are dealt into a fan */
-(function(){var d=document.documentElement;try{localStorage.removeItem("ss-view")}catch(e){}
-if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-d.classList.add("depth");if(!/^#./.test(location.hash)){d.classList.add("pre");setTimeout(function(){if(d.classList.contains("pre"))d.classList.add("go")},2600)}})();
-</script>
+<link rel="preload" href="assets/gfonts/instrument-serif/jizBRFtNs2ka5fXjeivQ4LroWlx-6zUTjg.woff2" as="font" type="font/woff2" crossorigin>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.className='js'</script>
 <style>
-/* the name and the wordmark carry their own few letters, so they are drawn in their real faces from the first frame */
-@font-face{font-family:"Bodoni Moda";font-style:normal;font-weight:500;font-display:block;src:url(data:font/woff2;base64,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) format("woff2")}
-@font-face{font-family:"Bodoni Moda";font-style:italic;font-weight:500;font-display:block;src:url(data:font/woff2;base64,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) format("woff2")}
-/* the other faces are small Latin subsets served from here, so the opening needs no second server */
-@font-face{font-family:Geist;font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/portfolio-geist.woff2) format("woff2")}
-@font-face{font-family:"Geist Mono";font-style:normal;font-weight:400 500;font-display:swap;src:url(assets/portfolio-geist-mono.woff2) format("woff2")}
-@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(data:font/woff2;base64,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) format("woff2")}
-@font-face{font-family:Archivo;font-style:normal;font-weight:300 800;font-stretch:62% 125%;font-display:swap;src:url(assets/portfolio-archivo.woff2) format("woff2")}
-@property --glow{syntax:"<color>";inherits:false;initial-value:#3a3530}
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(assets/gfonts/instrument-serif/jizBRFtNs2ka5fXjeivQ4LroWlx-6zUTjg.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(assets/gfonts/instrument-serif/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjjH7M.woff2) format("woff2")}
+@font-face{font-family:"Geist";font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/gfonts/geist/gyByhwUxId8gMEwcGFU.woff2) format("woff2")}
+@font-face{font-family:"Geist Mono";font-style:normal;font-weight:400 500;font-display:swap;src:url(assets/gfonts/geist-mono/or3nQ6H-1_WfwkMZI_qYFrcdmg.woff2) format("woff2")}
+@font-face{font-family:"Caveat";font-style:normal;font-weight:500;font-display:swap;src:url(assets/gfonts/caveat/Wnz6HAc5bAfYB2Q7ZjYY.woff2) format("woff2")}
 :root{
-  --bg:#0f0e0d;--sheet:#181716;--sheet-2:#201f1d;--ink:#efebe4;--soft:#bcb6ac;--muted:#878177;--line:rgba(239,235,228,.1);--line-2:rgba(239,235,228,.2);
-  --display:Archivo,"Arial Narrow",system-ui,sans-serif;--serif:"Bodoni Moda",Didot,"Bodoni 72","Bodoni MT",Georgia,serif;--body:Geist,system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"Geist Mono",ui-monospace,Consolas,monospace;
-  --ease:cubic-bezier(.16,1,.3,1);
+  --paper:#ece8e0;--paper2:#e3ded3;--ink:#18191b;--mute:#6f6a61;--acc:#2e4a6b;--line:rgba(24,25,27,.16);
+  --serif:"Instrument Serif",Georgia,serif;--sans:"Geist",system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,monospace;--hand:"Caveat","Segoe Print",cursive;
+  --g:clamp(16px,3.2vw,48px);
 }
-/* index divider inks, one per chapter */
-[data-ch="a"],[data-ch="n"],[data-ch="e"]{--cc:#e9e3d8}[data-ch="w"]{--cc:#a9c4a1}[data-ch="d"]{--cc:#9fb6c9}
-[data-ch="i"]{--cc:#bcaad8}[data-ch="b"]{--cc:#d8a6ab}[data-ch="r"]{--cc:#d2c78f}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
-:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-.skip{position:fixed;left:12px;top:12px;z-index:99;background:var(--ink);color:var(--bg);padding:12px 16px;font-weight:600;transform:translateY(-200%)}
-.skip:focus{transform:none}
+html{overflow-x:hidden;overflow-x:clip;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);overflow-x:hidden;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:99}
+.skip:focus{left:8px}
+:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
 
-/* the room is lit by the work in front of you: a still light taken from the current cover */
-.atmo{position:fixed;inset:0;z-index:0;pointer-events:none;transition:--glow 1.2s ease;background:
-  radial-gradient(46vmax 30vmax at 50% 48%,color-mix(in srgb,var(--glow) 42%,transparent),transparent 72%),
-  radial-gradient(90vmax 60vmax at 50% 40%,color-mix(in srgb,var(--glow) 16%,transparent),transparent 70%),
-  radial-gradient(120vmax 60vmax at 50% 120%,rgba(0,0,0,.55),transparent 60%),
-  linear-gradient(#121110,#0c0b0a)}
+/* top */
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px var(--g);font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;position:relative;z-index:30}
+.top nav{display:flex;gap:26px}
+.top a:hover{color:var(--acc)}
+.top .msg{border:1px solid var(--ink);padding:9px 14px 8px;border-radius:999px;margin:-10px 0}
+.top .msg:hover{background:var(--ink);color:var(--paper)}
+.s::after{content:attr(aria-label);position:absolute;left:10px;bottom:10px;z-index:3;background:var(--ink);color:var(--paper);font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:7px 9px 6px;border-radius:2px;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap}
+.s:hover::after,.s:focus-visible::after{opacity:1;transform:none}
 
-/* top bar */
-.top{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;align-items:center;gap:12px;height:68px;padding:0 28px;background:linear-gradient(rgba(15,14,13,.94),rgba(15,14,13,.7) 60%,rgba(15,14,13,0))}
-.logo{display:flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;white-space:nowrap}
-.logo .mk{width:20px;height:32px;background:var(--ink);-webkit-mask:url(assets/sandersax-mark.png) center/contain no-repeat;mask:url(assets/sandersax-mark.png) center/contain no-repeat}
-.logo .wm{font-family:"Barlow Condensed",var(--display);font-weight:700;font-size:19px;letter-spacing:.06em}
-.top nav{display:flex;gap:4px;margin-left:auto}
-.top nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 12px;text-decoration:none;font-size:14px;color:var(--soft);transition:color .2s}
-.top nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
-.top nav a:hover{color:var(--ink)}
-.top nav a:hover::after{transform:scaleX(1)}
-.msg{display:inline-flex;align-items:center;gap:10px;min-height:44px;margin-left:8px;padding:0 16px;white-space:nowrap;border:1px solid var(--line-2);color:var(--ink);font-weight:500;font-size:14px;text-decoration:none;transition:background .25s,color .25s,border-color .25s}
-.msg:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-@media (max-width:980px){.top nav{display:none}.msg{margin-left:auto}}
-@media (max-width:420px){.top{padding:0 16px;gap:8px}.msg{padding:0 12px}}
-@media (max-width:340px){.top{gap:6px}.logo{gap:8px}.logo .wm{font-size:16px;letter-spacing:.04em}.msg{padding:0 10px}}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(250px,27%) 1fr;gap:0 var(--g);padding:8px var(--g) 64px;min-height:calc(100svh - 50px);align-items:end}
+.who{position:relative;z-index:25;padding-bottom:6px}
+.who h1{font:400 clamp(54px,6.4vw,104px)/.88 var(--serif);letter-spacing:-.02em;margin:0 0 22px}
+.who h1 em{font-style:italic;display:block;padding-left:.5em}
+.who p{margin:0;max-width:21ch;font-size:17px;line-height:1.4;color:var(--mute)}
+.who .down{display:inline-flex;gap:10px;align-items:center;margin-top:28px;font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.who .down span{display:inline-block;width:38px;height:1px;background:var(--ink);transition:width .4s}
+.who .down:hover span{width:64px}
+.table{position:relative;height:calc(100svh - 130px);min-height:520px;max-height:1000px;align-self:stretch}
+.s{position:absolute;left:var(--x);top:var(--y);width:var(--w);z-index:var(--d);display:block;
+  transform:translate3d(calc(var(--mx,0) * var(--d) * 7px),calc(var(--my,0) * var(--d) * 7px - var(--sy,0) * var(--d) * .07px),0) rotate(var(--r));will-change:transform}
+.deal{display:block}
+html.js .deal{animation:deal 1.1s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 95ms + 120ms)}
+@keyframes deal{from{opacity:0;transform:translateY(46px) rotate(calc(var(--r) * -1.4)) scale(.97)}to{opacity:1;transform:none}}
+.s img{display:block;width:100%;height:auto;border-radius:2px;background:var(--paper2);
+  box-shadow:0 1px 0 rgba(24,25,27,.08),0 calc(var(--d) * 9px) calc(var(--d) * 16px) calc(var(--d) * -5px) rgba(30,26,20,.38);
+  transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .5s}
+.s-p img{border:3px solid var(--ink);border-radius:15px}
+.s:hover{z-index:20}
+.s:hover img{transform:translateY(-8px) scale(1.02)}
+.table:hover .s:not(:hover) img{filter:saturate(.55) brightness(.98)}
+.tape{position:absolute;width:86px;height:24px;background:rgba(232,224,203,.82);box-shadow:0 1px 1px rgba(0,0,0,.08);z-index:2;pointer-events:none}
+.s .tape.t1{left:-18px;top:10px;transform:rotate(-38deg)}
+.s .tape.t2{right:-22px;top:-8px;transform:rotate(28deg);width:70px}
+.crop{position:absolute;width:16px;height:16px;border-color:var(--mute);border-style:solid;opacity:.55;pointer-events:none}
+.crop.a{left:-14px;top:-14px;border-width:0 1px 1px 0}.crop.b{right:-14px;top:-14px;border-width:0 0 1px 1px}
+.crop.c{left:-14px;bottom:-14px;border-width:1px 1px 0 0}.crop.d{right:-14px;bottom:-14px;border-width:1px 0 0 1px}
+.note{position:absolute;font:500 26px/1 var(--hand);color:var(--acc);pointer-events:none;z-index:26}
+.note svg{display:block;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.note.n1{right:calc(100% + 4px);top:7%;transform:rotate(-6deg);text-align:right}
+.note.n1 svg{width:92px;height:46px;margin:4px 0 0 auto}
 
-/* ---------- the sheets ---------- */
-.space{position:relative;z-index:1}
-.card{position:relative;display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);background:var(--sheet);border:1px solid var(--line);border-radius:3px;box-shadow:0 60px 120px -50px rgba(0,0,0,.95),0 2px 0 rgba(255,255,255,.03) inset;transition:border-color .8s}
-.card>span[id]{position:absolute;top:0;left:0}
-/* each sheet carries an index divider tab, set further along the edge for every chapter */
-.tab{position:absolute;bottom:100%;left:calc(18px + var(--ti,0) * (100% - 170px) / 6);display:flex;align-items:center;height:26px;padding:0 18px;margin-bottom:-1px;background:var(--cc);color:#151412;font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;pointer-events:none;clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 100%,0 100%);filter:brightness(calc(1 - var(--dim,0) * .9)) saturate(calc(1 - var(--dim,0) * .5))}
-/* the work, edge to edge on the sheet */
-.im{position:relative;display:block;text-decoration:none;color:inherit;aspect-ratio:16/10;overflow:hidden;background:var(--sheet-2);border-radius:2px 0 0 2px}
-.im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform 1.4s var(--ease),filter .8s}
-.im::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);pointer-events:none}
-.card:hover .im img{transform:scale(1.025)}
-.tx{display:flex;flex-direction:column;padding:30px 32px 30px;min-width:0;border-left:1px solid var(--line)}
-.meta{display:flex;align-items:baseline;gap:12px;font:500 11px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
-.meta b{font-weight:500;color:var(--ink)}
-.meta b::after{content:" / 29";color:var(--muted)}
-.meta .tag{margin-left:auto;text-align:right}
-.card h3{font:640 clamp(24px,2.3vw,34px)/1.06 var(--display);font-stretch:94%;letter-spacing:-.022em;margin:0 0 14px;text-wrap:balance}
-.card p{margin:0 0 10px;color:var(--soft);font-size:15px;line-height:1.6}
-.card p.more{font-size:13.5px;color:var(--muted)}
-.card p.more a{color:var(--soft);text-underline-offset:3px}
-.links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;margin-top:auto;padding-top:20px}
-.links a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;font-weight:500;color:var(--soft);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:5px;transition:color .25s,text-decoration-color .25s}
-.links a:hover{color:var(--ink);text-decoration-color:var(--ink)}
-.links a:first-child{flex:0 0 100%;justify-content:space-between;min-height:50px;padding:0 18px;margin-bottom:4px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;font-size:15px;border-radius:2px;transition:background .3s}
-.links a:first-child::after{content:"→";font-weight:400;transition:transform .45s var(--ease)}
-.links a:first-child:hover{background:#fff}
-.links a:first-child:hover::after{transform:translateX(5px)}
+/* work */
+.work{padding:72px var(--g) 40px;position:relative}
+.wh{display:flex;align-items:flex-end;gap:28px;margin:0 0 80px;padding-top:18px;border-top:1px solid var(--line)}
+.wh h2{margin:0;font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.wh h2 span{color:var(--mute)}
+.wh .note{position:static;transform:rotate(-4deg) translateY(4px);margin-left:auto}
+.flt{display:flex;flex-wrap:wrap;gap:6px;margin-left:clamp(12px,4vw,64px)}
+.flt button{appearance:none;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 11.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:9px 12px 8px;border-radius:999px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.flt button sup{font-size:9px;margin-left:4px;color:var(--mute);vertical-align:4px}
+.flt button:hover{border-color:var(--ink)}
+.flt button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.flt button[aria-pressed="true"] sup{color:var(--paper2)}
+.grid.f{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:clamp(56px,6vw,96px)}
+.grid.f .w{grid-column:auto;margin-top:0}
+.grid.f .m-p .fig,.grid.f .m-p.pl .lb{max-width:58%}
+.grid.f .ph{width:24%;left:auto;right:3%;bottom:-8%}
+.grid.f .lb{justify-content:flex-start}
+.grid.f .m-p.pl .fig,.grid.f .m-p.pl .lb{margin-left:0}
+.grid.f .w.m-dp .lb{padding-right:30%}
+.w.off{display:none}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(18px,2.4vw,40px);row-gap:clamp(70px,9vw,150px);align-items:start}
+.w{grid-column:var(--c);margin-top:var(--dy);display:block;position:relative}
+.fig{display:block;position:relative;transform:perspective(1400px) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.fr{display:block;overflow:hidden;border-radius:2px;background:var(--paper2);
+  box-shadow:0 1px 0 rgba(24,25,27,.1),0 26px 40px -30px rgba(30,26,20,.55),0 0 0 1px rgba(24,25,27,.06)}
+.fr img{display:block;width:100%;height:auto;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.w:hover .fr img{transform:scale(1.04)}
+.fr.po{border:4px solid var(--ink);border-radius:24px}
+.m-p .fig{max-width:330px}
+.m-p.pl .fig,.m-p.pl .lb{margin-left:auto}
+.m-p.pl .lb{max-width:330px}
+.ph{position:absolute;bottom:-10%;width:21%;height:auto;border:3px solid var(--ink);border-radius:15px;background:var(--paper2);
+  box-shadow:0 30px 40px -24px rgba(30,26,20,.6);transform:translateY(var(--pp,0px)) rotate(2.5deg);transition:translate .6s cubic-bezier(.2,.7,.2,1)}
+.pr .ph{right:-3.5%}
+.pl .ph{left:-3.5%;transform:translateY(var(--pp,0px)) rotate(-2.5deg)}
+.w:hover .ph{translate:0 -12px}
+.lb{display:flex;align-items:baseline;gap:14px;margin-top:22px}
+.pl .lb{justify-content:flex-end}
+.lb b{font:500 11.5px/1 var(--mono);color:var(--mute);letter-spacing:.04em}
+.lb .nm{font:400 clamp(24px,2.1vw,34px)/1.05 var(--serif);letter-spacing:-.005em;background:linear-gradient(var(--acc),var(--acc)) 0 100%/0 1px no-repeat;transition:background-size .5s}
+.w:hover .lb .nm{background-size:100% 1px}
+.lb i{font:500 10.5px/1 var(--mono);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:4px 6px 3px;border-radius:2px;transform:translateY(-3px)}
+.m-p .lb{flex-wrap:wrap;gap:6px 12px}
+.m-p .lb .nm{font-size:clamp(22px,1.7vw,28px)}
+html.js .w{opacity:0;transform:translateY(56px)}
+html.js .w.in{opacity:1;transform:none;transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.7,.2,1)}
 
-/* ---------- the opening: a masthead name, and the six folders dealt out as a fan ---------- */
-.intro{position:relative;isolation:isolate;display:flex;flex-direction:column;min-height:calc(100svh - 150px);text-align:left}
-.kick{position:relative;display:flex;flex-wrap:wrap;gap:6px 28px;margin:0;padding-bottom:14px;font:500 11.5px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.kick b{font-weight:500;color:var(--ink)}
-.kick .r{margin-left:auto}
-.kick::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line-2);transform-origin:left}
-.stage{position:relative;flex:1 1 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;min-height:0;padding:clamp(14px,3vh,40px) 0}
-.nm{position:relative;z-index:3;margin:0;font:500 clamp(84px,min(15.5vw,25vh),210px)/.8 var(--serif);letter-spacing:-.04em;pointer-events:none;white-space:nowrap}
-.nm .ln{display:block;clip-path:inset(-.4em -.5em -.02em -.5em)}
-.nm .ln i{display:inline-block;font-style:normal}
-.nm .l2{padding-left:1.05em}
-.nm .l2 i{font-style:italic;letter-spacing:-.02em}
-.nm .by{display:flex;align-items:baseline;gap:16px;margin:.42em 0 0 .06em;font:italic 500 clamp(22px,2.1vw,34px)/1.1 var(--serif);letter-spacing:-.01em;color:var(--ink);clip-path:inset(-.3em -.3em -.2em -.3em)}
-.nm .by small{font:500 11px/1 var(--mono);font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.nm .by span{display:inline-block}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* files */
+.files{margin:150px 0 0;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(18px,2.4vw,40px)}
+.files h2{grid-column:1/4;margin:0;font:500 11.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.files div{grid-column:4/13;display:flex;flex-wrap:wrap;gap:12px 34px;font:400 22px/1.2 var(--serif)}
+.files a{display:inline-flex;gap:8px;align-items:baseline;border-bottom:1px solid transparent}
+.files a:hover{border-color:var(--acc)}
+.files i{font:500 10px/1 var(--mono);font-style:normal;letter-spacing:.1em;color:var(--mute)}
 
-/* the fan: one cover per divider, pivoting from a point below like a hand of cards */
-.fan{position:relative;z-index:1;align-self:stretch;min-height:300px;perspective:1500px;perspective-origin:50% 20%}
-.fin{position:absolute;inset:0;transform-style:preserve-3d}
-.fc{--w:clamp(190px,22vw,400px);--sp:.9;position:absolute;left:50%;bottom:20%;width:var(--w);aspect-ratio:16/10;margin-left:calc(var(--w) / -2);transform-origin:50% 240%;
-  transform:translate3d(0,0,0) rotate(calc(var(--r) * var(--sp) * var(--op,1))) translateZ(calc(var(--i) * 14px)) scale(1);color:#151412;text-decoration:none;outline:0}
-.fx{position:absolute;inset:0;transition:transform .7s var(--ease)}
-.fx img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;border-radius:3px;background:var(--sheet-2);box-shadow:0 50px 90px -34px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.09)}
-.fx b{position:absolute;bottom:100%;left:calc(6% + var(--i) * 12%);display:flex;align-items:center;gap:10px;height:24px;margin-bottom:-1px;padding:0 14px;background:var(--cc);font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 100%,0 100%)}
-.fx b em{font-style:normal;opacity:.55}
-.fc:hover .fx,.fc:focus-visible .fx{transform:translateY(-16%)}
-.fc:focus-visible img{outline:2px solid var(--ink);outline-offset:3px}
-.fan .say{position:absolute;right:0;top:2%;margin:0;font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transform:translateZ(0)}
+/* contact */
+.contact{margin-top:150px;padding:56px var(--g) 40px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(18px,2.4vw,40px);position:relative}
+.contact h2{grid-column:1/4;margin:0;font:500 11.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.contact .note{position:static;display:block;margin-top:18px;transform:rotate(-5deg);transform-origin:left}
+.ways{grid-column:4/13;display:flex;flex-direction:column}
+.ways a{display:grid;grid-template-columns:120px 1fr;align-items:baseline;gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
+.ways a:first-child{padding-top:0}
+.ways small{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.ways span{font:400 clamp(34px,5vw,76px)/1 var(--serif);letter-spacing:-.015em;overflow-wrap:anywhere;transition:color .3s,transform .5s cubic-bezier(.2,.7,.2,1)}
+.ways a:hover span{color:var(--acc);transform:translateX(14px)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:60px var(--g) 28px;font:500 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
 
-.ifoot{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:18px 48px;align-items:end;padding-top:18px;border-top:1px solid var(--line)}
-.lede{margin:0;max-width:36em;color:var(--soft);font-size:clamp(16px,1.2vw,19px);line-height:1.55}
-.lede b{font-weight:500;color:var(--ink)}
-.cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px 22px}
-.cta .hint{flex:0 0 100%;margin:4px 0 0;text-align:right;font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-
-/* the entrance, once per visit: a rule draws, letters rise out of their mask, the folders are pulled up and fanned */
-@keyframes rise{from{transform:translateY(108%)}to{transform:none}}
-@keyframes draw{from{transform:scaleX(0)}to{transform:none}}
-@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@keyframes deal{
-  from{transform:translate3d(0,14%,0) rotate(0deg) translateZ(calc(var(--i) * 14px)) scale(.94)}
-  to{transform:translate3d(0,0,0) rotate(calc(var(--r) * var(--sp) * var(--op,1))) translateZ(calc(var(--i) * 14px)) scale(1)}}
-html.pre .nm .ln i,html.pre .nm .by span{transform:translateY(108%)}
-html.pre .kick::after{transform:scaleX(0)}
-html.pre .rv{opacity:0}
-html.pre .fc{transform:translate3d(0,14%,0) rotate(0deg) translateZ(calc(var(--i) * 14px)) scale(.94)}
-html.go .nm .ln i{animation:rise 1.15s var(--ease) both;animation-delay:calc(.12s + var(--d) * .055s)}
-html.go .nm .by span{animation:rise 1s var(--ease) both .75s}
-html.go .kick::after{animation:draw 1.6s var(--ease) both}
-html.go .rv{animation:up .9s var(--ease) both;animation-delay:var(--dl,1s)}
-html.go .fc{animation:deal 1.5s var(--ease) both;animation-delay:calc(.45s + var(--i) * .06s)}
-.btn{display:inline-flex;align-items:center;gap:12px;min-height:50px;font-weight:500;font-size:15px;color:var(--soft);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:6px;transition:color .25s,text-decoration-color .25s}
-.btn:hover{color:var(--ink);text-decoration-color:var(--ink)}
-.cta .btn:not(.p){position:relative}
-.cta .btn:not(.p)::before{content:"";position:absolute;inset:-6px -11px}
-.btn.p::before{content:"";position:absolute;inset:-4px 0}color:var(--bg);text-decoration:none;font-weight:600;border-radius:2px}
-.btn.p:hover{background:#fff}
-.btn.p span{display:inline-block;transition:transform .5s var(--ease)}
-.btn.p:hover span{transform:translateY(3px)}
-/* the folio's contents, one line per divider */
-.toc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.toc a{display:flex;align-items:center;gap:14px;min-height:44px;border-bottom:1px solid var(--line);text-decoration:none;font-size:15px;color:var(--soft);transition:color .25s,padding .45s var(--ease)}
-.toc a::before{content:"";width:22px;height:9px;background:var(--cc);clip-path:polygon(3px 0,calc(100% - 3px) 0,100% 100%,0 100%);opacity:.9}
-.toc a span{margin-left:auto;font:500 11.5px/1 var(--mono);letter-spacing:.08em;color:var(--muted)}
-.toc a:hover{color:var(--ink);padding-left:6px}
-
-/* ---------- closing sheet ---------- */
-.end{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px 64px;align-items:start;padding:44px 44px 26px;background:var(--sheet);border:1px solid var(--line);border-radius:3px;box-shadow:0 60px 120px -50px rgba(0,0,0,.95)}
-.end h2{font:700 clamp(34px,4.2vw,64px)/.98 var(--display);font-stretch:110%;letter-spacing:-.035em;margin:0 0 20px;text-wrap:balance}
-.end h2 em{font-style:normal;color:var(--muted)}
-.end p{color:var(--soft);margin:0 0 12px;max-width:30em}
-.end .note{font-size:13px;color:var(--muted);margin-top:22px}
-.end .note a{color:var(--soft);text-underline-offset:3px}
-.elsewhere{display:flex;flex-wrap:wrap;gap:0 22px;margin-top:10px;font-size:14px}
-.elsewhere a{color:var(--soft);min-height:44px;display:inline-flex;align-items:center;text-underline-offset:5px;text-decoration-color:var(--line-2)}
-.elsewhere a:hover{color:var(--ink);text-decoration-color:var(--ink)}
-.chs{display:grid;border-top:1px solid var(--line)}
-.ch{display:flex;align-items:center;gap:18px;min-height:84px;padding:10px 4px;border-bottom:1px solid var(--line);text-decoration:none;transition:padding .45s var(--ease)}
-.ch:hover{padding-left:12px}
-.ch .ic{width:22px;height:22px;flex:0 0 auto;display:grid;place-items:center;color:var(--muted);transition:color .3s}
-.ch:hover .ic{color:var(--ink)}
-.ch .ic svg{width:22px;height:22px}
-.ch b{display:block;font:600 clamp(20px,1.9vw,26px)/1.1 var(--display);font-stretch:105%;letter-spacing:-.01em}
-.ch div span{font:500 12.5px/1.4 var(--mono);color:var(--muted);letter-spacing:.04em}
-.ch .ar{margin-left:auto;color:var(--muted);font-size:20px;transition:transform .45s var(--ease),color .3s}
-.ch:hover .ar{transform:translateX(6px);color:var(--ink)}
-.end footer{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding-top:18px;border-top:1px solid var(--line);font:500 11.5px/1.5 var(--mono);letter-spacing:.06em;color:var(--muted)}
-
-/* chapter headings, used by the plain list */
-.cw{pointer-events:none}
-.cw span{display:block;font:700 clamp(44px,7vw,96px)/.9 var(--display);font-stretch:112%;letter-spacing:-.04em;color:var(--ink)}
-.cw small{display:flex;align-items:center;gap:12px;margin-top:12px;font:500 11.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.cw small::before{content:"";width:26px;height:10px;background:var(--cc);clip-path:polygon(3px 0,calc(100% - 3px) 0,100% 100%,0 100%)}
-
-/* ---------- depth mode ---------- */
-html.depth,html.depth body{height:100%;overflow:hidden;overscroll-behavior:none}
-html.depth .space{position:fixed;inset:0;overflow:clip;perspective:1200px;touch-action:pinch-zoom;-webkit-user-select:none;user-select:none}
-html.depth .st{position:absolute;left:50%;top:calc(50% + 14px);will-change:transform,opacity;backface-visibility:hidden;visibility:hidden}
-html.depth .card{width:var(--w)}
-html.depth .intro{width:var(--wi)}
-html.depth .end{width:var(--w)}
-html.depth .cw{display:none}
-/* the sheets in the folder are set out after the opening has painted, a few at a time, so the first screen comes up at once */
-html.depth .st:not(.intro):not(.lv){content-visibility:hidden}
-html.depth.dragging .space,html.depth.dragging .space *{cursor:grabbing!important}
-html.depth .im{-webkit-user-drag:none}
-html.depth .fc,html.depth .fc img{-webkit-user-drag:none}
-/* covers load only for the sheets near the front, the script marks them */
-html.depth .card .im img{display:none}
-html.depth .card.seen .im img{display:block}
-/* sheets waiting in the folder sit in shadow until they come forward */
-html.depth .card::before,html.depth .end::before{content:"";position:absolute;inset:0;z-index:5;border-radius:inherit;background:var(--bg);opacity:var(--dim,0);pointer-events:none}
-html.depth .card.far{cursor:pointer}
-html.depth .card.far .links,html.depth .card.far .im{pointer-events:none}
-html.depth .card.far:hover{border-color:var(--line-2)}
-/* a sheet wakes up when it reaches the front */
-html.depth .card .meta,html.depth .card p,html.depth .card .links,html.depth .card h3{transition:opacity .7s var(--ease),transform .9s var(--ease)}
-html.depth .card:not(.on) .meta,html.depth .card:not(.on) p,html.depth .card:not(.on) .links{opacity:.12;transform:translateY(14px)}
-html.depth .card:not(.on) h3{opacity:.5;transform:translateY(6px)}
-html.depth .card.on h3{transition-delay:.03s}
-html.depth .card.on p{transition-delay:.08s}
-html.depth .card.on p+p{transition-delay:.12s}
-html.depth .card.on .links{transition-delay:.16s}
-html.depth .card.on{border-color:var(--line-2)}
-html.depth .card:not(.on) .im img{filter:saturate(.6)}
-
-/* opening a project: its picture grows to fill the screen */
-.zoom{position:fixed;z-index:60;pointer-events:none;background:var(--sheet-2) no-repeat left top/cover;transition:left .62s var(--ease),top .62s var(--ease),width .62s var(--ease),height .62s var(--ease),border-radius .62s}
-.zoomv{position:fixed;inset:0;z-index:59;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .45s ease}
-.zoomv.on{opacity:.92}
-
-/* one tick per stop on the right edge */
-.rail{display:none}
-html.depth .rail{display:flex;position:fixed;z-index:40;right:10px;top:50%;transform:translateY(-50%);flex-direction:column;align-items:flex-end;padding:8px 0;touch-action:none}
-.rail .tk{position:relative;display:flex;align-items:center;justify-content:flex-end;width:44px;height:clamp(10px,1.9vh,17px)}
-.rail .tk::before{content:"";width:8px;height:1px;background:rgba(239,235,228,.28);transition:width .45s var(--ease),background .3s,height .3s}
-.rail .tk:hover::before{width:18px;background:rgba(239,235,228,.75)}
-.rail .tk[aria-current="true"]::before{width:28px;height:2px;background:var(--cc)}
-.rail .tk span{position:absolute;right:50px;top:50%;transform:translate(8px,-50%);white-space:nowrap;padding:8px 12px;background:var(--ink);color:var(--bg);font:500 13px/1 var(--body);opacity:0;pointer-events:none;transition:opacity .2s,transform .35s var(--ease)}
-.rail .tk:hover span{opacity:1;transform:translate(0,-50%)}
-/* the opening stacks on tablets and phones */
-@media (max-width:900px){
-  .stage{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);align-items:start;padding:18px 0 10px}
-  .fan{min-height:260px}
-  .fc{--w:min(54vw,340px);--sp:.7;bottom:6%}
-  .fan .say{display:none}
-  .ifoot{grid-template-columns:1fr;gap:14px;padding-top:14px}
-  .cta{justify-content:flex-start;gap:8px 22px}
-  .cta .hint{text-align:left;margin:0}
+/* tablet */
+@media (max-width:1023px){
+  .hero{grid-template-columns:1fr;align-items:start;gap:28px;min-height:0;padding-bottom:40px}
+  .table{order:-1;height:62vw;min-height:0}
+  .note.n1{display:none}
+  .who h1{font-size:clamp(54px,9vw,84px)}
+  .grid{column-gap:16px}
+  .files h2,.contact h2{grid-column:1/-1;margin-bottom:22px}
+  .files div,.ways{grid-column:1/-1}
 }
-@media (max-width:360px),(max-width:900px) and (max-height:740px){.cta .hint{display:none}}
-@media (min-width:2400px) and (min-height:1300px){.nm{font-size:clamp(84px,min(15.5vw,25vh),252px)}.fc{--w:clamp(190px,22vw,480px)}.lede{font-size:20px}}
-@media (max-width:760px){
-  html.depth .rail{right:2px}
-  .rail .tk{width:20px;height:clamp(8px,1.55vh,13px)}
-  .rail .tk::before{width:6px}
-  .rail .tk[aria-current="true"]::before{width:14px}
-  .rail .tk span{display:none}
+/* phone */
+@media (max-width:767px){
+  .top{padding:16px}
+  .top nav{gap:14px}
+  .top .off-ph{display:none}
+  .flt{margin:14px 0 0;order:3;width:100%}
+  .grid.f{grid-template-columns:1fr}
+  .grid.f .m-p .fig,.grid.f .m-p.pl .lb{max-width:64%}
+  .hero{padding:4px 16px 40px;min-height:0;gap:20px}
+  .table{height:min(124vw,520px);margin:0 6px}
+  .s{left:var(--xs);top:var(--ys);width:var(--ws)}
+  .s.hm{display:none}
+  .s-p img{border-width:2px;border-radius:10px}
+  .crop{display:none}
+  .who h1{font-size:56px;margin-bottom:14px}
+  .who h1 em{display:inline;padding-left:0}
+  .who p{font-size:16px;max-width:30ch}
+  .who .down{margin-top:18px}
+  .work{padding:48px 16px 24px}
+  .wh{margin-bottom:44px;flex-wrap:wrap}
+  .wh .note{margin-left:auto}
+  .grid{grid-template-columns:1fr;row-gap:72px}
+  .w{grid-column:1/-1;margin-top:0}
+  .w.m-p{width:64%}
+  .w.m-p:nth-of-type(4n+2){justify-self:end}
+  .ph{width:27%;bottom:-16%}
+  .pr .ph{right:4%}.pl .ph{left:4%}
+  .lb{margin-top:18px;flex-wrap:wrap;gap:6px 12px}
+  .w.m-dp .lb{margin-top:calc(16% + 4px)}
+  .w.m-dp.pr .lb{padding-right:34%}
+  .w.m-dp.pl .lb{padding-left:34%}
+  .lb .nm{font-size:27px}
+  .files{margin-top:96px;grid-template-columns:1fr}
+  .files div{font-size:20px;gap:10px 22px}
+  .contact{margin-top:96px;padding:40px 16px 28px;grid-template-columns:1fr}
+  .ways a{grid-template-columns:1fr;gap:8px;padding:16px 0}
+  .ways span{font-size:clamp(30px,9.4vw,44px)}
+  .foot{padding:44px 16px 24px}
 }
-
-/* the route bar along the bottom */
-.hud{display:none}
-html.depth .hud{display:flex;position:fixed;z-index:40;left:0;right:0;bottom:0;height:58px;align-items:center;gap:18px;padding:0 28px;background:linear-gradient(rgba(15,14,13,0),rgba(15,14,13,.9) 30%,#0f0e0d 70%);font:500 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
-.hud .bar{position:absolute;left:28px;right:28px;top:8px;height:1px;background:var(--line)}
-.hud .bar i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(var(--p,0));transition:transform .2s linear}
-.hud .bar s{position:absolute;top:-3px;width:1px;height:7px;background:var(--line-2)}
-.hud .ct{display:flex;align-items:baseline;gap:14px;min-width:0;flex:1 1 0;color:var(--muted);white-space:nowrap}
-.hud .ct b{font-weight:500;color:var(--ink)}
-.hud .ct em{font:500 13.5px/1 var(--body);font-style:normal;letter-spacing:0;text-transform:none;color:var(--soft);overflow:hidden;text-overflow:ellipsis}
-.hud .ct b,.hud .ct span{flex:none}
-.hud .chs-l{display:flex;gap:2px}
-.hud button.go{position:relative;display:flex;align-items:center;gap:8px;min-height:40px;padding:0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font:inherit;transition:color .3s}
-.hud button.go::before{content:"";width:14px;height:6px;background:var(--cc);clip-path:polygon(2px 0,calc(100% - 2px) 0,100% 100%,0 100%);opacity:.35;transition:opacity .3s}
-.hud button.go:hover{color:var(--ink)}
-.hud button.go[aria-current="true"]{color:var(--ink)}
-.hud button.go[aria-current="true"]::before{opacity:1}
-.hud .pn{display:flex;gap:6px;flex:1 1 0;justify-content:flex-end}
-.hud .pn button{width:44px;height:44px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--soft);font-size:15px;transition:background .25s,color .25s}
-.hud .pn button:hover{background:var(--ink);color:var(--bg)}
-@media (max-width:1180px){.hud .chs-l{display:none}}
-@media (max-width:760px){
-  html.depth .hud{padding:0 16px;height:60px}
-  .hud .bar{left:16px;right:16px}
-  .hud .ct{gap:10px}
+/* V3: the collage of real screens is the opening. The name sits small in the top bar and one plain
+   caption runs under the shots. Every card says what the work is in one line. */
+.hero{grid-template-columns:1fr;gap:18px;padding:2px var(--g) 56px;min-height:0;align-items:start}
+.table{order:0;height:calc(100svh - 150px);min-height:480px;max-height:880px}
+.note.n1{display:none}
+.who{display:flex;justify-content:space-between;align-items:baseline;gap:10px 24px;flex-wrap:wrap;padding:0}
+.who h1{margin:0;font:400 17px/1.45 var(--sans);letter-spacing:0;color:var(--ink);max-width:none}
+.who .down{margin-top:0}
+.lb{flex-wrap:wrap;row-gap:6px}
+/* the one-liner always gets its own line under the name, so it never runs under the phone shot */
+.lb .ds{flex:0 0 100%;font:400 15px/1.45 var(--sans);color:var(--mute)}
+.pl .lb .ds{text-align:right}
+.grid.f .lb .ds{text-align:left}
+.wh h2,.wh .note{white-space:nowrap;flex:none}
+@media (min-width:768px){
+  .w.m-dp.pr .lb .ds{padding-right:22%}
+  .w.m-dp.pl .lb .ds{padding-left:22%}
+  .grid.f .w.m-dp .lb .ds{padding:0}
 }
-
-/* ---------- narrower screens ---------- */
-@media (max-width:900px){
-  .card{grid-template-columns:1fr}
-  .im{border-radius:2px 2px 0 0}
-  .tx{border-left:0;border-top:1px solid var(--line);padding:20px 22px 22px}
-  .lower{grid-template-columns:1fr}
+@media (max-width:1023px){
+  .table{height:62vw}
 }
-@media (max-width:760px){
-  .tab{left:calc(12px + var(--ti,0) * (100% - 120px) / 6);height:22px;padding:0 12px;font-size:9px;letter-spacing:.1em;clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 100%,0 100%)}
-  .tx{padding:16px 16px 16px}
-  .meta{margin-bottom:12px;font-size:10.5px}
-  .card h3{font-size:22px;margin-bottom:8px}
-  .card p{font-size:16px;line-height:1.5}
-  .card p.more,.end .note{font-size:15px}
-  .links{padding-top:12px;gap:0 18px}
-  .links a{min-height:44px;font-size:14px}
-  .links a:first-child{min-height:46px;font-size:14.5px;margin-bottom:2px}
-  html.depth .card p:not(.keep){display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-  html.depth .card p.more{display:none}
-  .kick{gap:4px 16px;font-size:10.5px;letter-spacing:.12em}
-  .kick .r{display:none}
-  .nm{font-size:clamp(64px,min(27vw,13vh),140px)}
-  .nm .by{gap:10px;font-size:clamp(19px,5.6vw,26px)}
-  .nm .by small{display:none}
-  .fan{min-height:190px;margin-top:-8px}
-  .fc{--w:min(54vw,300px);--sp:.62;bottom:11%;transform-origin:50% 260%}
-  .fx b{height:19px;padding:0 9px;gap:6px;font-size:8.5px;letter-spacing:.1em;left:calc(4% + var(--i) * 11%);clip-path:polygon(5px 0,calc(100% - 5px) 0,100% 100%,0 100%)}
-  .fx b em{display:none}
-  .lede{font-size:16px}
-  .lede .x{display:none}
-  html.depth .intro{padding-right:16px}
-  .end{grid-template-columns:minmax(0,1fr);gap:18px;padding:24px 18px 18px}
-  html.depth .end .note,html.depth .end footer,html.depth .end .elsewhere{display:none}
-  html.depth .end h2{font-size:30px;margin-bottom:12px}
-  html.depth .end p{font-size:16px}
-  html.depth .ch{min-height:64px}
-  .ch b{font-size:19px}
-  .ch div{min-width:0}
-  .ch div span{overflow-wrap:anywhere}
+@media (max-width:767px){
+  .hero{padding:2px 16px 12px;gap:14px}
+  .table{height:min(124vw,520px)}
+  .who h1{font-size:16px}
 }
-@media (max-width:700px){.hud .ct em{display:none}}
-@media (max-width:340px){.hud .ct span{display:none}.ch{gap:14px}.ch .ar{display:none}.ch div span{letter-spacing:0}html.depth .end h2{font-size:27px}}
-/* phones on their side: picture and words side by side */
-html.short .card{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
-html.short .im{border-radius:2px 0 0 2px}
-html.short .tx{border-top:0;border-left:1px solid var(--line);padding:14px 16px}
-html.short .card p:not(.keep){-webkit-line-clamp:3}
-html.short .card h3{font-size:19px}
-@media (max-height:640px) and (min-width:761px){
-  html.depth .card p:not(.keep){display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  html.depth .card p.more{display:none}
-  html.depth .toc{display:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .s{transform:rotate(var(--r))}
+  .fig{transform:none}
 }
-
-/* ---------- reduced motion: a plain list ---------- */
-html:not(.depth) .space{max-width:1180px;margin:0 auto;padding:120px 24px 48px;display:grid;gap:44px}
-html:not(.depth) .intro{padding:40px 0 20px;min-height:0}
-html:not(.depth) .fan{min-height:clamp(240px,34vw,460px)}
-html:not(.depth) .hint{display:none}
-html.short .intro{min-height:0}
-html.short .stage{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:8px 0}
-html.short .nm{font-size:min(19vh,11vw)}
-html.short .kick{display:none}
-html.short .fan{min-height:170px}
-html.short .fc{--w:min(25vw,210px);--sp:.6;bottom:0}
-html.short .lede{display:none}
-html.short .cta .hint{display:none}
-/* the closing sheet on a phone held sideways: the essentials only, so it is never shrunk to fit */
-html.short .end{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 32px;padding:18px 22px 14px}
-html.short .ch div{min-width:0}
-html.short .end .note,html.short .end footer,html.short .end .elsewhere{display:none}
-html.short .end h2{font-size:26px;margin-bottom:8px}
-html.short .end p{font-size:15px;line-height:1.5;margin:0}
-html.short .ch{min-height:50px;padding:3px 4px}
-html.short .ch b{font-size:17px}
-@media (max-height:640px) and (min-width:761px){.lede .x{display:none}.cta .hint{display:none}}
-html:not(.depth) .top{background:rgba(15,14,13,.97);border-bottom:1px solid var(--line)}
-html:not(.depth) [id]{scroll-margin-top:110px}
-html:not(.depth) .cw{margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
-html:not(.depth) .card{margin-top:26px}
-@media (max-width:640px){html:not(.depth) .space{padding:96px 16px 32px;gap:30px}}
-
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
 </style>
 </head>
-<body data-ch="a">
-<a class="skip" href="#all">Skip to the work</a>
-<div class="atmo" aria-hidden="true"></div>
+<body>
+<a class="skip" href="#work">Skip to the work</a>
 <header class="top">
-  <a class="logo" href="./" aria-label="SanderSax, home"><i class="mk" aria-hidden="true"></i><span class="wm" aria-hidden="true">[SANDERSAX]</span></a>
-  <nav aria-label="Sections"><a href="#all">Work</a><a href="thailand/">Websites in Thailand</a><a href="font/">Handwriting font</a><a href="#contact">Contact</a></nav>
-  <a class="msg" href="https://t.me/sandersax" target="_blank" rel="noopener">Message me</a>
+  <span>Sander Sax</span>
+  <nav aria-label="Sections"><a href="#work">Work</a><a class="off-ph" href="thailand/">Sites in Thailand</a><a class="msg" href="https://wa.me/66961347329" target="_blank" rel="noopener">Message me</a></nav>
 </header>
 
-<main class="space" id="space">
-<section class="st intro" data-ch="a" id="top">
-  <p class="kick"><b>Selected work 2026</b><span>29 projects, 6 folders</span><span>Thailand, UTC+7</span><span class="r">Index</span></p>
-  <div class="stage">
-    <h1 class="nm"><span class="sr">Sander Sax, Alexandr Khrustalev</span><span class="ln l1" aria-hidden="true"><i style="--d:0">S</i><i style="--d:1">a</i><i style="--d:2">n</i><i style="--d:3">d</i><i style="--d:4">e</i><i style="--d:5">r</i></span><span class="ln l2" aria-hidden="true"><i style="--d:4">S</i><i style="--d:5">a</i><i style="--d:6">x</i><i style="--d:7">.</i></span><span class="by" aria-hidden="true"><span>by Alexandr Khrustalev</span><small class="rv" style="--dl:1.1s">Web and product builder</small></span></h1>
-    <nav class="fan" aria-label="Folders">
-      <div class="fin" id="fin">
-        <a class="fc" href="#all" data-ch="n" style="--i:0;--r:-21deg"><span class="fx"><img src="assets/p/thailand-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>New<em>5</em></b></span><span class="sr">New, 5 projects</span></a>
-        <a class="fc" href="#work" data-ch="w" style="--i:1;--r:-12.6deg"><span class="fx"><img src="assets/p/orbit-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Websites<em>9</em></b></span><span class="sr">Websites, 9 projects</span></a>
-        <a class="fc" href="#data" data-ch="d" style="--i:2;--r:-4.2deg"><span class="fx"><img src="assets/p/ledger-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Data<em>6</em></b></span><span class="sr">Data, 6 projects</span></a>
-        <a class="fc" href="#systems" data-ch="i" style="--i:3;--r:4.2deg"><span class="fx"><img src="assets/p/webhook-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Systems<em>4</em></b></span><span class="sr">Systems, 4 projects</span></a>
-        <a class="fc" href="#documents" data-ch="b" style="--i:4;--r:12.6deg"><span class="fx"><img src="assets/p/property-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Documents<em>3</em></b></span><span class="sr">Documents, 3 projects</span></a>
-        <a class="fc" href="#research" data-ch="r" style="--i:5;--r:21deg"><span class="fx"><img src="assets/p/cosquin-480.jpg" alt="" width="480" height="300" fetchpriority="high" decoding="async"><b>Research<em>2</em></b></span><span class="sr">Research, 2 projects</span></a>
-      </div>
-      <p class="say rv" style="--dl:1.5s" aria-hidden="true">Pick a folder</p>
-    </nav>
+<main>
+<section class="hero" aria-label="Intro">
+  <div class="table" id="table">
+    <span class="crop a"></span><span class="crop b"></span><span class="crop c"></span><span class="crop d"></span>
+    <span class="note n1" aria-hidden="true">start here
+      <svg viewBox="0 0 92 46"><path d="M4 10c18 2 40 6 58 18 7 5 12 9 18 14"/><path d="M68 40l13 3-2-13"/></svg>
+    </span>
+<a class="s s-d" href="property/" aria-label="Kamala Keystone, Phuket property" style="--x:2%;--y:4%;--w:58%;--xs:0%;--ys:2%;--ws:78%;--r:-2.2deg;--d:1;--i:0"><span class="deal"><img src="assets/home/property-d1440.webp" srcset="assets/home/property-d720.webp 720w, assets/home/property-d1440.webp 1440w" sizes="(max-width:767px) 80vw, 45vw" width="1440" height="810" alt="" fetchpriority="high" decoding="async"></span></a>
+<a class="s s-d" href="thailand/" aria-label="Booking websites in Thailand" style="--x:40%;--y:30%;--w:52%;--xs:22%;--ys:30%;--ws:76%;--r:1.6deg;--d:2;--i:1"><span class="deal"><img src="assets/home/thailand-d1440.webp" srcset="assets/home/thailand-d720.webp 720w, assets/home/thailand-d1440.webp 1440w" sizes="(max-width:767px) 80vw, 45vw" width="1440" height="810" alt="" fetchpriority="high" decoding="async"></span></a>
+<a class="s s-p" href="samui-wedding/" aria-label="Coral Vow, Samui weddings" style="--x:84%;--y:0%;--w:15%;--xs:78%;--ys:0%;--ws:22%;--r:4.0deg;--d:3;--i:2"><span class="deal"><img src="assets/home/samui-p520.webp" width="520" height="1125" alt="" decoding="async"></span></a>
+<a class="s s-d" href="orbit-study.html" aria-label="Lustrewell, metal finishes in WebGL" style="--x:6%;--y:55%;--w:40%;--xs:2%;--ys:62%;--ws:62%;--r:2.4deg;--d:2;--i:3"><span class="deal"><img src="assets/home/orbit-d1440.webp" srcset="assets/home/orbit-d720.webp 720w, assets/home/orbit-d1440.webp 1440w" sizes="(max-width:767px) 80vw, 45vw" width="1440" height="810" alt="" fetchpriority="high" decoding="async"></span></a>
+<a class="s s-p" href="sample-mobile.html" aria-label="Clearline, expense receipts" style="--x:33%;--y:47%;--w:14%;--xs:58%;--ys:52%;--ws:26%;--r:-5.0deg;--d:4;--i:4"><span class="deal"><img src="assets/home/clearline-p520.webp" width="520" height="1125" alt="" decoding="async"></span></a>
+<a class="s s-d hm" href="variant-gallery/" aria-label="Fieldnote Goods, bottle shop" style="--x:60%;--y:66%;--w:36%;--xs:0%;--ys:0%;--ws:0%;--r:-1.4deg;--d:3;--i:5"><span class="deal"><img src="assets/home/fieldnote-d1440.webp" srcset="assets/home/fieldnote-d720.webp 720w, assets/home/fieldnote-d1440.webp 1440w" sizes="(max-width:767px) 80vw, 45vw" width="1440" height="810" alt="" fetchpriority="high" decoding="async"></span></a>
+<a class="s s-p hm" href="font/" aria-label="Penmade, handwriting fonts" style="--x:50%;--y:0%;--w:11%;--xs:0%;--ys:0%;--ws:0%;--r:-3.0deg;--d:2;--i:6"><span class="deal"><img src="assets/home/font-p520.webp" width="520" height="1125" alt="" decoding="async"></span></a>
   </div>
-  <div class="ifoot">
-    <p class="lede"><b>Freelance web and product builder.</b> I design and build websites, web apps, data tools and business documents, end to end.<span class="x"> Every project in this folio opens as a working demo or a file you can download.</span></p>
-    <div class="cta rv" style="--dl:1.2s">
-      <a class="btn p" href="#all" data-go="1">Open the folio<span aria-hidden="true">↓</span></a>
-      <a class="btn" href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp</a>
-      <a class="btn" href="mailto:leshadqq@gmail.com">Email</a>
-      <p class="hint" aria-hidden="true"><span class="hd">Scroll, drag or press the arrow keys</span></p>
-    </div>
+  <div class="who">
+    <h1>Websites and web tools by Sander Sax, each a working demo.</h1>
+    <a class="down" href="#work"><span></span>See all 25</a>
   </div>
 </section>
 
-<h2 class="sr">Projects</h2>
-<div class="cw" data-ch="n" id="all"><span>New</span><small>This week · 5 projects</small></div>
-<article class="st card" data-ch="n" id="new" data-side="l"><a class="im" href="thailand/" tabindex="-1" aria-hidden="true"><img src="assets/j/thailand.jpg" srcset="assets/p/thailand-720.jpg 720w, assets/j/thailand.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>01</b><span class="tag">Live offer</span></div><h3>Websites for businesses in Thailand</h3><p>Spa, tours, rentals, cafes and clinics. Bookings go straight to Telegram, WhatsApp or LINE. Fixed USD prices, ready in days.</p><div class="links"><a href="thailand/">Open the offer</a></div></div></article>
-<article class="st card" data-ch="n" id="property-agency" data-side="r"><a class="im" href="property/" tabindex="-1" aria-hidden="true"><img src="assets/j/property-agency.jpg" srcset="assets/p/property-agency-720.jpg 720w, assets/j/property-agency.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>02</b><span class="tag">Live demo</span></div><h3>Property agency website</h3><p>Villas and apartments matched to a goal and budget, honest rental yield month by month, areas, buying steps for foreigners and viewings booked straight into a messenger. Russian and English, three currencies, listings an agent edits like a spreadsheet.</p><div class="links"><a href="property/">Open the demo</a></div></div></article>
-<article class="st card" data-ch="n" id="font" data-side="l"><a class="im" href="font/" tabindex="-1" aria-hidden="true"><img src="assets/j/font.jpg" srcset="assets/p/font-720.jpg 720w, assets/j/font.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>03</b><span class="tag">Service</span></div><h3>Your handwriting as a real font</h3><p>Type a name and a pen writes it. Draw a few letters, download them as a real font, and see them on an app, an email, a label and a sign.</p><div class="links"><a href="font/">Open the font page</a></div></div></article>
-<article class="st card" data-ch="n" id="check" data-side="r"><a class="im" href="check/" tabindex="-1" aria-hidden="true"><img src="assets/j/check.jpg" srcset="assets/p/check-720.jpg 720w, assets/j/check.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>04</b><span class="tag">Free tool</span></div><h3>Website check</h3><p>Type any website address and get a real speed, ease of use and Google report in plain words, with the fixes that matter most, on phone or desktop.</p><div class="links"><a href="check/">Run the check</a></div></div></article>
-<article class="st card" data-ch="n" id="builder" data-side="l"><a class="im" href="builder/" tabindex="-1" aria-hidden="true"><img src="assets/j/builder.jpg" srcset="assets/p/builder-720.jpg 720w, assets/j/builder.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>05</b><span class="tag">Working web app</span></div><h3>Booking site builder</h3><p>A studio in the browser for local businesses in Thailand. Fill in services, prices, hours and contacts, watch the site update on desktop and phone, then download a zip that is ready to host. Russian, English and Thai, bookings by WhatsApp, LINE or Telegram.</p><div class="links"><a href="builder/">Open the builder</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/builder">Source</a></div></div></article>
-
-<div class="cw" data-ch="w" id="work"><span>Websites</span><small>Sites and web apps · 9 projects</small></div>
-<article class="st card" data-ch="w" id="10-allex-website" data-side="r"><a class="im" href="https://temirkhanclub.com/" tabindex="-1" aria-hidden="true"><img src="assets/j/allex.jpg" srcset="assets/p/allex-720.jpg 720w, assets/j/allex.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>06</b><span class="tag">Live business site</span></div><h3>ALLEX RESPECT ASIA</h3><p>The company's live site: an animated product collection, four product pages, a comparison table, company information, a document library and mobile navigation. I built the frontend, the responsive layouts and the deployment. Product artwork and records come from the business.</p><div class="links"><a href="https://temirkhanclub.com/">Open the live site</a></div></div></article>
-<article class="st card" data-ch="w" id="toolroom" data-side="l"><a class="im" href="toolroom.html" tabindex="-1" aria-hidden="true"><img src="assets/j/toolroom.jpg" srcset="assets/p/toolroom-720.jpg 720w, assets/j/toolroom.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>07</b><span class="tag">Storefront demo</span></div><h3>Toolroom store and seller workspace</h3><p>A small digital-goods store with a working bench: QuoteCheck prices a job and ExportCheck fixes a CSV before it ships. Buyers get a library and receipts, and the seller workspace matches a file to its listing on the device. No real payments.</p><div class="links"><a href="toolroom.html">Try the store</a><a href="toolroom-studio.html">Seller workspace</a><a href="toolroom-source.zip">Source</a></div></div></article>
-<article class="st card" data-ch="w" id="07-field-frame" data-side="r"><span id="07"></span><a class="im" href="field-frame.html" tabindex="-1" aria-hidden="true"><img src="assets/j/field.jpg" srcset="assets/p/field-720.jpg 720w, assets/j/field.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>08</b><span class="tag">Website concept</span></div><h3>Field &amp; Frame builder site</h3><p>A calm local builder site. Project sheets switch each floor plan between before and after, a rough estimate splits the cost by trade, and the brief downloads as one page. The company is fictional.</p><div class="links"><a href="field-frame.html">Open the site</a><a href="field-frame-source.zip">Source</a></div></div></article>
-<article class="st card" data-ch="w" id="sample-courses" data-side="l"><a class="im" href="sample-wrongcreative.html" tabindex="-1" aria-hidden="true"><img src="assets/j/courses.jpg" srcset="assets/p/courses-720.jpg 720w, assets/j/courses.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>09</b><span class="tag">Course site and emails</span></div><h3>Leasing Practice courses</h3><p>A course site for leasing teams with a practice exercise that works in the page, a course page, a team bundle, three launch emails and handoff notes. A speculative sample for a public brief.</p><div class="links"><a href="sample-wrongcreative.html">Open the course site</a><a href="sample-wrongcreative-emails.html">Launch emails</a></div></div></article>
-<article class="st card" data-ch="w" id="06-daybreak" data-side="r"><span id="06"></span><a class="im" href="daybreak.html" tabindex="-1" aria-hidden="true"><img src="assets/j/daybreak.jpg" srcset="assets/p/daybreak-720.jpg 720w, assets/j/daybreak.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>10</b><span class="tag">Web app</span></div><h3>Daybreak week planner</h3><p>Day and week views with three calendars, overlap checks and a focus timer. Drag the day's horizon to read the open time and plan a block on the spot. It works without a calendar account.</p><div class="links"><a href="daybreak.html">Open the planner</a><a href="daybreak-source.zip">Source</a></div></div></article>
-<article class="st card" data-ch="w" id="sample-mobile" data-side="l"><a class="im" href="sample-mobile.html" tabindex="-1" aria-hidden="true"><img src="assets/j/mobile.jpg" srcset="assets/p/mobile-720.jpg 720w, assets/j/mobile.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>11</b><span class="tag">Mobile interface</span></div><h3>Clearline receipt review</h3><p>A phone app for clearing a month of receipts. Swipe right to approve or left to send one back with a reason. Each receipt shows its policy flags and what approving does to the budget, and every decision can be undone.</p><div class="links"><a href="sample-mobile.html">Open the interface</a><a href="sample-mobile-handoff.md">Handoff notes</a></div></div></article>
-<article class="st card" data-ch="w" id="variant-gallery" data-side="r"><a class="im" href="variant-gallery/" tabindex="-1" aria-hidden="true"><img src="assets/j/variant.jpg" srcset="assets/p/variant-720.jpg 720w, assets/j/variant.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>12</b><span class="tag">Frontend bug study</span></div><h3>Product page that stays in sync</h3><p>Colour, size, price, stock, photo and link always match the choice. A sold-out option offers the nearest one that ships. Switch on the two common bugs to see them, then compare the fixed page.</p><div class="links"><a href="variant-gallery/">Try the product page</a></div></div></article>
-<article class="st card" data-ch="w" id="orbit-study" data-side="l"><a class="im" href="orbit-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/orbit.jpg" srcset="assets/p/orbit-720.jpg 720w, assets/j/orbit.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>13</b><span class="tag">3D and interaction</span></div><h3>Orbit and other interaction studies</h3><p>A WebGL scene written without a 3D library. Drag it, flick it, change its finish or swap it for a still image. Also a four-plate print study that separates as you scroll, and Hemline, an alterations counter with a ticket builder.</p><div class="links"><a href="orbit-study.html">Open Orbit</a><a href="interaction-proof.html">Print plates</a><a href="responsive-interaction-example/">Hemline</a></div></div></article>
-<article class="st card" data-ch="w" id="email-kit" data-side="r"><a class="im" href="email-kit/" tabindex="-1" aria-hidden="true"><img src="assets/j/email.jpg" srcset="assets/p/email-720.jpg 720w, assets/j/email.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>14</b><span class="tag">Email templates</span></div><h3>Inkpost email templates</h3><p>Four emails for a fictional coffee roaster: welcome, order confirmation, shipping update and a monthly newsletter, each with a plain text version. Outlook fallbacks, columns that stack on phones without media queries, and a dark mode. 98 tests and 172 browser checks.</p><div class="links"><a href="email-kit/">Open the preview</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source</a></div></div></article>
-
-<div class="cw" data-ch="d" id="data"><span>Data</span><small>Reports and data apps · 6 projects</small></div>
-<article class="st card" data-ch="d" id="gridline" data-side="l"><a class="im" href="gridline/" tabindex="-1" aria-hidden="true"><img src="assets/j/gridline.jpg" srcset="assets/p/gridline-720.jpg 720w, assets/j/gridline.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>15</b><span class="tag">Working web app</span></div><h3>Gridline order grid</h3><p>Edit 20,000 purchase orders in the browser. Filter and sort, paste whole blocks, undo anything and review every change before you export it. Scrolls at 60 fps, with 54 unit tests and 128 browser checks. The orders are fictional sample data.</p><div class="links"><a href="gridline/">Open Gridline</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/gridline">Source</a></div></div></article>
-<article class="st card" data-ch="d" id="slotbook" data-side="r"><a class="im" href="slotbook/" tabindex="-1" aria-hidden="true"><img src="assets/j/slotbook.jpg" srcset="assets/p/slotbook-720.jpg 720w, assets/j/slotbook.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>16</b><span class="tag">Working web app</span></div><h3>Slotbook booking page</h3><p>A booking page for a fictional bike workshop with weekly hours, closed days, buffers between bookings and a calendar you can use from the keyboard. Times show in the visitor's own time zone and each booking downloads as a calendar file.</p><div class="links"><a href="slotbook/">Open Slotbook</a><a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/slotbook">Source</a></div></div></article>
-<article class="st card" data-ch="d" id="04-ledgerlens" data-side="l"><span id="04"></span><a class="im" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/" tabindex="-1" aria-hidden="true"><img src="assets/j/ledger.jpg" srcset="assets/p/ledger-720.jpg 720w, assets/j/ledger.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>17</b><span class="tag">Working web app</span></div><h3>LedgerLens report builder</h3><p>Load order and refund exports and build a revenue report for any period, by month, quarter, customer, product or order size. Fix bad rows in place and download the corrected file. Files stay in the browser.</p><div class="links"><a href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/">Open LedgerLens</a><a href="https://github.com/SanderSaxBuilds/ledgerlens-report-builder">Source</a></div></div></article>
-<article class="st card" data-ch="d" id="03-financial-report" data-side="r"><span id="03"></span><a class="im" href="03-financial-report-Expense_Report_Sample.xlsx" tabindex="-1" aria-hidden="true"><img src="assets/j/expense.jpg" srcset="assets/p/expense-720.jpg 720w, assets/j/expense.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>18</b><span class="tag">Excel workbook</span></div><h3>Expense report workbook</h3><p>Two CSV files become an Excel report with budget variance, a prior-month comparison and reconciliation checks. Six months of sample data, and every total is a live formula.</p><div class="links"><a href="03-financial-report-Expense_Report_Sample.xlsx">Sample workbook</a><a href="03-financial-report-Expense_Report_Source.zip">Source</a></div></div></article>
-<article class="st card" data-ch="d" id="exportcheck-study" data-side="l"><a class="im" href="exportcheck-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/export.jpg" srcset="assets/p/export-720.jpg 720w, assets/j/export.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>19</b><span class="tag">Python tool</span></div><h3>ExportCheck CSV preflight</h3><p>Checks headers, keys, dates and amounts before a CSV goes to someone else. See three recorded runs: a clean file, one with row errors kept for review and one rejected outright.</p><div class="links"><a href="exportcheck-study.html">See the recorded runs</a></div></div></article>
-<article class="st card" data-ch="d" id="08-countback" data-side="r"><span id="08"></span><a class="im" href="countback.html" tabindex="-1" aria-hidden="true"><img src="assets/j/countback.jpg" srcset="assets/p/countback-720.jpg 720w, assets/j/countback.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>20</b><span class="tag">Web app</span></div><h3>Countback delivery receiving</h3><p>Count a delivery by carton or unit, flag shortages, damage and extras, and keep every correction in the history. The draft survives a reload. Print the result or export it as CSV.</p><div class="links"><a href="countback.html">Open the demo</a><a href="countback-source.zip">Source</a></div></div></article>
-
-<div class="cw" data-ch="i" id="systems"><span>Systems</span><small>Integrations and tools · 4 projects</small></div>
-<article class="st card" data-ch="i" id="webhook-receipt" data-side="l"><a class="im" href="webhook-receipt-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/webhook.jpg" srcset="assets/p/webhook-720.jpg 720w, assets/j/webhook.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>21</b><span class="tag">Python API</span></div><h3>Webhook receipts without duplicates</h3><p>A local service that checks signed callbacks, processes each event once and saves each receipt together with its shipment update. See five recorded outcomes, a restart and 32 passing tests.</p><div class="links"><a href="webhook-receipt-study.html">See the study</a></div></div></article>
-<article class="st card" data-ch="i" id="sop-extraction" data-side="r"><a class="im" href="sop-extraction-study.html" tabindex="-1" aria-hidden="true"><img src="assets/j/sop.jpg" srcset="assets/p/sop-720.jpg 720w, assets/j/sop.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>22</b><span class="tag">Document parsing</span></div><h3>Work instructions from Word to JSON and CSV</h3><p>A parser that turns a Word procedure written to a set template into structured steps, keeps a reference back to each source paragraph and refuses content it can't read reliably.</p><div class="links"><a href="sop-extraction-study.html">See the extraction</a></div></div></article>
-<article class="st card" data-ch="i" id="archive-desk" data-side="l"><a class="im" href="archive-desk.html" tabindex="-1" aria-hidden="true"><img src="assets/j/archive.jpg" srcset="assets/p/archive-720.jpg 720w, assets/j/archive.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>23</b><span class="tag">Backup app</span></div><h3>Archive Desk project backups</h3><p>Make a ZIP backup of a project in the browser, check every file against its fingerprint, compare versions and recover into a new folder. The Windows Workbench adds a backup library, imports and run history.</p><p class="more">Also: <a href="archive-desk-cli.html">command-line companion</a>, <a href="archive-desk-protection.html">encrypted backup preview</a>, <a href="archive-desk-workbench-0.6-source.zip">Workbench source</a>.</p><div class="links"><a href="archive-desk.html">Try it in the browser</a><a href="archive-desk-workbench-history.html">Workbench guide</a><a href="https://github.com/SanderSaxBuilds/selected-work/releases/tag/archive-desk-workbench-0.6-windows-r2">Windows download</a></div></div></article>
-<article class="st card" data-ch="i" id="09-migration-proof" data-side="r"><span id="09"></span><a class="im" href="09-migration-proof-Migration_Rehearsal_Method_Source.zip" tabindex="-1" aria-hidden="true"><img src="assets/j/migration.jpg" srcset="assets/p/migration-720.jpg 720w, assets/j/migration.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>24</b><span class="tag">Migration method</span></div><h3>Data migration rehearsal</h3><p>Repeatable transforms, a target schema with row-level security, row and total reconciliation, and a cutover and rollback runbook, rehearsed on sample data.</p><div class="links"><a href="09-migration-proof-Migration_Rehearsal_Method_Source.zip">Source and runbook</a><a href="https://github.com/SanderSaxBuilds/supabase-migration-proof">Repository</a></div></div></article>
-
-<div class="cw" data-ch="b" id="documents"><span>Documents</span><small>Decks, catalogues, finance · 3 projects</small></div>
-<article class="st card" data-ch="b" id="01-northline" data-side="l"><span id="01"></span><a class="im" href="01-northline-Northline_Executive_Review.pdf" tabindex="-1" aria-hidden="true"><img src="assets/j/northline.jpg" srcset="assets/p/northline-720.jpg 720w, assets/j/northline.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>25</b><span class="tag">Presentation design</span></div><h3>Northline presentation system</h3><p>An eight-slide executive review with charts, a bridge and a decision slide, fifteen finished slide layouts and a two-page guide. Shown as PDF design previews.</p><div class="links"><a href="01-northline-Northline_Executive_Review.pdf">Executive review</a><a href="01-northline-Northline_Layout_Gallery_Preview.pdf">Layouts PDF</a><a href="01-northline-Northline_Template_Guide.pdf">Guide</a></div></div></article>
-<article class="st card" data-ch="b" id="02-werksupply" data-side="r"><span id="02"></span><a class="im" href="02-werksupply-WerkSupply_Catalogue_Preview.pdf" tabindex="-1" aria-hidden="true"><img src="assets/j/werk.jpg" srcset="assets/p/werk-720.jpg 720w, assets/j/werk.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>26</b><span class="tag">Catalogue design</span></div><h3>WerkSupply product catalogue</h3><p>Four catalogue pages with original product drawings, comparable specifications and a sample quote that adds up. The editable HTML source and product list are included.</p><div class="links"><a href="02-werksupply-WerkSupply_Catalogue_Preview.pdf">Catalogue PDF</a><a href="02-werksupply-WerkSupply_Editable_Source.zip">Editable source</a></div></div></article>
-<article class="st card" data-ch="b" id="05-property-documents" data-side="l"><span id="05"></span><a class="im" href="05-property-documents-Northline_Property_Documents.pdf" tabindex="-1" aria-hidden="true"><img src="assets/j/property.jpg" srcset="assets/p/property-720.jpg 720w, assets/j/property.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>27</b><span class="tag">Financial documents</span></div><h3>Property financing pack</h3><p>A fifteen-slide portfolio deck, a four-page financing summary and a one-page term sheet for a fictional ten-asset portfolio. The figures agree across all three.</p><div class="links"><a href="05-property-documents-Northline_Property_Documents.pdf">Portfolio deck</a><a href="05-property-documents-Northline_Financing_Summary.pdf">Summary</a><a href="05-property-documents-Northline_Financing_Term_Sheet.pdf">Term sheet</a></div></div></article>
-
-<div class="cw" data-ch="r" id="research"><span>Research</span><small>Market scans and content · 2 projects</small></div>
-<article class="st card" data-ch="r" id="sample-cosquin" data-side="r"><a class="im" href="sample-cosquin.html" tabindex="-1" aria-hidden="true"><img src="assets/j/cosquin.jpg" srcset="assets/p/cosquin-720.jpg 720w, assets/j/cosquin.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>28</b><span class="tag">Market research, Spanish</span></div><h3>Market signals in Cosquín</h3><p>A Spanish-language scan of public sources on food retail in Cosquín, Córdoba: eight shops to verify, the prices that are visible, the gaps, and a source for every figure.</p><div class="links"><a href="sample-cosquin.html">Open the report</a><a href="sample-cosquin-source_notes.md">Source notes</a></div></div></article>
-<article class="st card" data-ch="r" id="sample-subtrak" data-side="l"><a class="im" href="sample-subtrak.html" tabindex="-1" aria-hidden="true"><img src="assets/j/subtrak.jpg" srcset="assets/p/subtrak-720.jpg 720w, assets/j/subtrak.jpg 1200w" sizes="(max-width:900px) calc(100vw - 40px), 760px" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><div class="tx"><div class="meta"><b>29</b><span class="tag">Social content</span></div><h3>Construction content kit</h3><p>Three posts with square graphics and a 24-second vertical piece. Switch each post between LinkedIn and short-form copy with live character counts, and jump the video to each beat.</p><div class="links"><a href="sample-subtrak.html">Open the kit</a><a href="sample-subtrak-copy_and_handoff.md">Copy and handoff</a></div></div></article>
-
-<section class="st end" data-ch="e" id="contact" aria-labelledby="cH">
-  <div><h2 id="cH">Have a page, file or export that <em>needs work?</em></h2><p>Send it with a short note on what should happen. I reply with the scope, price and timing, usually the same day.</p>
-    <div class="elsewhere"><a href="https://contra.com/alexandr_khrustalev_tbhzo1a2">Contra</a><a href="https://www.linkedin.com/in/sander-sax-9835a82b4/">LinkedIn</a><a href="https://github.com/SanderSaxBuilds">GitHub</a></div>
-    <p class="note">ALLEX RESPECT ASIA is a live business site. The other projects are my own work, built with fictional companies and sample data to show how I would handle a real brief. None of them is presented as client work. Older overview: <a href="Selected_Work_Overview.pdf">PDF</a>.</p></div>
-  <div class="chs">
-    <a class="ch" href="https://t.me/sandersax" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5Z"/></svg></span><div><b>Telegram</b><span>@sandersax</span></div><span class="ar" aria-hidden="true">→</span></a>
-    <a class="ch" href="https://wa.me/66961347329" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.7-.6 13.5 13.5 0 0 1-5.2-4.6c-.4-.5-1-1.5-1-2.8s.7-2 1-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.3Z"/></svg></span><div><b>WhatsApp</b><span>+66 96 134 7329</span></div><span class="ar" aria-hidden="true">→</span></a>
-    <a class="ch" href="mailto:leshadqq@gmail.com"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg></span><div><b>Email</b><span>leshadqq@gmail.com</span></div><span class="ar" aria-hidden="true">→</span></a>
+<section class="work" id="work" aria-label="Work">
+  <div class="wh">
+    <h2>All work <span>/ 25</span></h2>
+    <div class="flt" role="group" aria-label="Filter the work">
+      <button type="button" data-g="all" aria-pressed="true">All<sup>25</sup></button><button type="button" data-g="site" aria-pressed="false">Sites<sup>8</sup></button><button type="button" data-g="app" aria-pressed="false">Apps and tools<sup>8</sup></button><button type="button" data-g="data" aria-pressed="false">Data<sup>5</sup></button><button type="button" data-g="study" aria-pressed="false">Studies<sup>4</sup></button>
+    </div>
+    <span class="note" aria-hidden="true">tap any to open</span>
   </div>
-  <footer><span>© 2026 Alexandr Khrustalev · SanderSax</span><span>Thailand, working remotely</span></footer>
+  <div class="grid">
+<a class="w m-dp pr" href="thailand/" style="--c:1/9;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/thailand-d1440.webp" srcset="assets/home/thailand-d720.webp 720w, assets/home/thailand-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span><img class="ph" src="assets/home/thailand-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span><span class="lb"><b>01</b><span class="nm">Booking websites in Thailand</span><i>Site</i><span class="ds">Sites for salons, spas and tours. Bookings arrive in Telegram or LINE.</span></span></a>
+<a class="w m-p pl" id="sample-mobile" href="sample-mobile.html" style="--c:10/13;--dy:180px"><span class="fig"><span class="fr po"><img src="assets/home/clearline-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>02</b><span class="nm">Clearline</span><i>App</i><span class="ds">Approve or send back expense receipts on a phone.</span></span></a>
+<a class="w m-dp pl" id="property-agency" href="property/" style="--c:3/13;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/property-d1440.webp" srcset="assets/home/property-d720.webp 720w, assets/home/property-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span><img class="ph" src="assets/home/property-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span><span class="lb"><b>03</b><span class="nm">Kamala Keystone</span><i>Site</i><span class="ds">Phuket villas and condos with prices, in Russian and English.</span></span></a>
+<a class="w m-d pr" href="samui-wedding/" style="--c:1/7;--dy:90px"><span class="fig"><span class="fr"><img src="assets/home/samui-d1440.webp" srcset="assets/home/samui-d720.webp 720w, assets/home/samui-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>04</b><span class="nm">Coral Vow</span><i>Site</i><span class="ds">Wedding planner on Koh Samui with a price calculator.</span></span></a>
+<a class="w m-dp pl" id="font" href="font/" style="--c:7/13;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/font-d1440.webp" srcset="assets/home/font-d720.webp 720w, assets/home/font-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span><img class="ph" src="assets/home/font-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span><span class="lb"><b>05</b><span class="nm">Penmade</span><i>Tool</i><span class="ds">Turns your handwriting into a font you can type with.</span></span></a>
+<a class="w m-dp pr" id="07-field-frame" href="field-frame.html" style="--c:2/10;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/fieldframe-d1440.webp" srcset="assets/home/fieldframe-d720.webp 720w, assets/home/fieldframe-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span><img class="ph" src="assets/home/fieldframe-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span><span class="lb"><b>06</b><span class="nm">Field &amp; Frame</span><i>Site</i><span class="ds">Home builder in Westbrook. Book a site visit.</span></span></a>
+<a class="w m-p pl" id="check" href="check/" style="--c:10/13;--dy:220px"><span class="fig"><span class="fr po"><img src="assets/home/check-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>07</b><span class="nm">Pagewarden</span><i>Tool</i><span class="ds">Free speed and SEO check for a website.</span></span></a>
+<a class="w m-d pr" id="builder" href="builder/" style="--c:1/8;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/builder-d1440.webp" srcset="assets/home/builder-d720.webp 720w, assets/home/builder-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>08</b><span class="nm">Baanpage</span><i>Tool</i><span class="ds">Builds a booking site for a spa in a few clicks.</span></span></a>
+<a class="w m-d pl" id="orbit-study" href="orbit-study.html" style="--c:8/13;--dy:240px"><span class="fig"><span class="fr"><img src="assets/home/orbit-d1440.webp" srcset="assets/home/orbit-d720.webp 720w, assets/home/orbit-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>09</b><span class="nm">Lustrewell</span><i>Study</i><span class="ds">WebGL study, six metal finishes under one light.</span></span></a>
+<a class="w m-dp pr" id="variant-gallery" href="variant-gallery/" style="--c:2/12;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/fieldnote-d1440.webp" srcset="assets/home/fieldnote-d720.webp 720w, assets/home/fieldnote-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span><img class="ph" src="assets/home/fieldnote-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span><span class="lb"><b>10</b><span class="nm">Fieldnote Goods</span><i>Shop</i><span class="ds">Product page for a steel bottle, with colour, size and engraving.</span></span></a>
+<a class="w m-d pr" id="06-daybreak" href="daybreak.html" style="--c:1/6;--dy:140px"><span class="fig"><span class="fr"><img src="assets/home/daybreak-d1440.webp" srcset="assets/home/daybreak-d720.webp 720w, assets/home/daybreak-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>11</b><span class="nm">Brightfold</span><i>App</i><span class="ds">Day and week planner. Drag time blocks into place.</span></span></a>
+<a class="w m-p pl" href="interaction-proof.html" style="--c:6/9;--dy:0px"><span class="fig"><span class="fr po"><img src="assets/home/plates-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>12</b><span class="nm">Plateroom Press</span><i>Study</i><span class="ds">Print study, a poster split into its four ink colours.</span></span></a>
+<a class="w m-d pl" href="responsive-interaction-example/" style="--c:9/13;--dy:220px"><span class="fig"><span class="fr"><img src="assets/home/hemline-d1440.webp" srcset="assets/home/hemline-d720.webp 720w, assets/home/hemline-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>13</b><span class="nm">Selvedge Row</span><i>Site</i><span class="ds">Clothing alterations, with prices pinned to each garment.</span></span></a>
+<a class="w m-dp pr" id="email-kit" href="email-kit/" style="--c:1/9;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/inkpost-d1440.webp" srcset="assets/home/inkpost-d720.webp 720w, assets/home/inkpost-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span><img class="ph" src="assets/home/inkpost-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span><span class="lb"><b>14</b><span class="nm">Letterkiln</span><i>Email</i><span class="ds">Email templates for a coffee roaster, ready for Gmail and Outlook.</span></span></a>
+<a class="w m-p pl" id="sample-courses" href="sample-wrongcreative.html" style="--c:10/13;--dy:120px"><span class="fig"><span class="fr po"><img src="assets/home/leasing-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>15</b><span class="nm">Leasing Practice</span><i>Site</i><span class="ds">Training course for leasing agents on how to show an apartment.</span></span></a>
+<a class="w m-d pl" id="toolroom" href="toolroom.html" style="--c:3/10;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/toolroom-d1440.webp" srcset="assets/home/toolroom-d720.webp 720w, assets/home/toolroom-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>16</b><span class="nm">Toolroom</span><i>Shop</i><span class="ds">Shop for small desktop tools for freelancers.</span></span></a>
+<a class="w m-p pr" id="slotbook" href="slotbook/" style="--c:1/4;--dy:60px"><span class="fig"><span class="fr po"><img src="assets/home/slotbook-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>17</b><span class="nm">Slotbook</span><i>App</i><span class="ds">Booking page for a bike repair workshop. Pick a time slot.</span></span></a>
+<a class="w m-dp pl" id="gridline" href="gridline/" style="--c:4/13;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/gridline-d1440.webp" srcset="assets/home/gridline-d720.webp 720w, assets/home/gridline-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span><img class="ph" src="assets/home/gridline-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span><span class="lb"><b>18</b><span class="nm">Gridline</span><i>Data</i><span class="ds">Edit, filter and export 20,000 purchase orders.</span></span></a>
+<a class="w m-d pr" id="08-countback" href="countback.html" style="--c:1/7;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/countback-d1440.webp" srcset="assets/home/countback-d720.webp 720w, assets/home/countback-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>19</b><span class="nm">Countback</span><i>App</i><span class="ds">Delivery check-in. Counts what arrived against the order.</span></span></a>
+<a class="w m-dp pl" id="exportcheck-study" href="exportcheck-study.html" style="--c:7/13;--dy:160px"><span class="fig"><span class="fr"><img src="assets/home/exportcheck-d1440.webp" srcset="assets/home/exportcheck-d720.webp 720w, assets/home/exportcheck-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span><img class="ph" src="assets/home/exportcheck-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span><span class="lb"><b>20</b><span class="nm">Rowgate ExportCheck</span><i>Data</i><span class="ds">Checks a CSV file and sets aside the bad rows.</span></span></a>
+<a class="w m-d pr" id="archive-desk" href="archive-desk.html" style="--c:2/8;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/archive-d1440.webp" srcset="assets/home/archive-d720.webp 720w, assets/home/archive-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>21</b><span class="nm">Archive Desk</span><i>Tool</i><span class="ds">Backs up a folder to a ZIP and checks every file.</span></span></a>
+<a class="w m-d pl" id="webhook-receipt" href="webhook-receipt-study.html" style="--c:8/13;--dy:200px"><span class="fig"><span class="fr"><img src="assets/home/webhook-d1440.webp" srcset="assets/home/webhook-d720.webp 720w, assets/home/webhook-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>22</b><span class="nm">Receiptwell</span><i>System</i><span class="ds">Saves each shipment update once and refuses changed duplicates.</span></span></a>
+<a class="w m-dp pr" id="sop-extraction" href="sop-extraction-study.html" style="--c:1/9;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/sop-d1440.webp" srcset="assets/home/sop-d720.webp 720w, assets/home/sop-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span><img class="ph" src="assets/home/sop-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span><span class="lb"><b>23</b><span class="nm">Paraform</span><i>Data</i><span class="ds">Reads Word work instructions into structured data.</span></span></a>
+<a class="w m-p pl" id="sample-cosquin" href="sample-cosquin.html" style="--c:10/13;--dy:140px"><span class="fig"><span class="fr po"><img src="assets/home/cosquin-p520.webp" width="520" height="1125" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>24</b><span class="nm">Sondeo Serrano</span><i>Report</i><span class="ds">Report on food shops in Cosquín, Argentina, in Spanish.</span></span></a>
+<a class="w m-d pl" id="sample-subtrak" href="sample-subtrak.html" style="--c:4/13;--dy:0px"><span class="fig"><span class="fr"><img src="assets/home/subtrak-d1440.webp" srcset="assets/home/subtrak-d720.webp 720w, assets/home/subtrak-d1440.webp 1440w" sizes="(max-width:767px) 100vw, 60vw" width="1440" height="810" alt="" loading="lazy" decoding="async"></span></span><span class="lb"><b>25</b><span class="nm">Sitepost Studio</span><i>Content</i><span class="ds">Three social posts for a construction workflow app.</span></span></a>
+  </div>
+  <div class="files" id="documents">
+    <h2>Files and links</h2>
+    <div><a id="01-northline" href="01-northline-Northline_Executive_Review.pdf">Northline review<i>PDF</i></a><a id="02-werksupply" href="02-werksupply-WerkSupply_Catalogue_Preview.pdf">WerkSupply catalogue<i>PDF</i></a><a id="05-property-documents" href="05-property-documents-Northline_Property_Documents.pdf">Property documents<i>PDF</i></a><a id="03-financial-report" href="03-financial-report-Expense_Report_Sample.xlsx">Expense workbook<i>XLSX</i></a><a id="09-migration-proof" href="09-migration-proof-Migration_Rehearsal_Method_Source.zip">Migration source<i>ZIP</i></a><a id="04-ledgerlens" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/" target="_blank" rel="noopener">LedgerLens reports<i>Web</i></a><a id="10-allex-website" href="https://temirkhanclub.com/" target="_blank" rel="noopener">Temirkhan Club<i>Web</i></a></div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-label="Contact">
+  <div>
+    <h2>Contact</h2>
+    <span class="note" aria-hidden="true">write any time</span>
+  </div>
+  <div class="ways">
+    <a href="https://wa.me/66961347329" target="_blank" rel="noopener"><small>WhatsApp</small><span>+66 96 134 7329</span></a>
+    <a href="https://t.me/sandersax" target="_blank" rel="noopener"><small>Telegram</small><span>@sandersax</span></a>
+    <a href="mailto:leshadqq@gmail.com"><small>Email</small><span>leshadqq@gmail.com</span></a>
+  </div>
 </section>
 </main>
+<footer class="foot"><span>Sander Sax, Alexandr Khrustalev</span><span>2026</span></footer>
 
-<div class="rail" id="rail" aria-hidden="true"></div>
-<nav class="hud" id="hud" aria-label="Route">
-  <div class="bar" id="bar" aria-hidden="true"><i></i></div>
-  <div class="ct" id="ct" aria-live="polite"><b>Index</b></div>
-  <div class="chs-l" id="chl"></div>
-  <div class="pn"><button type="button" id="prev" aria-label="Previous project">↑</button><button type="button" id="next" aria-label="Next project">↓</button></div>
-</nav>
-
-<script>
-/* divider tabs, one per sheet, placed along the edge by chapter */
-[].forEach.call(document.querySelectorAll(".card,.end"),function(el){var c=el.dataset.ch,o="nwdibre".indexOf(c);if(o<0)return;
-  var t=document.createElement("i");t.className="tab";t.setAttribute("aria-hidden","true");t.style.setProperty("--ti",o);
-  t.textContent={n:"New",w:"Websites",d:"Data",i:"Systems",b:"Documents",r:"Research",e:"Contact"}[c];el.insertBefore(t,el.firstChild)});
-</script>
 <script>
 (function(){
-var root=document.documentElement;
-if(!root.classList.contains("depth"))return; /* reduced motion: the plain list needs no script */
-var body=document.body,space=document.getElementById("space");
-var sts=[].slice.call(space.querySelectorAll(".st")),cws=[].slice.call(space.querySelectorAll(".cw"));
-var N=sts.length,ct=document.getElementById("ct"),chl=document.getElementById("chl"),bar=document.getElementById("bar"),rail=document.getElementById("rail");
-var fine=matchMedia("(hover: hover) and (pointer: fine)").matches;
-var NAMES={a:"Index",n:"New",w:"Websites",d:"Data",i:"Systems",b:"Documents",r:"Research",e:"Contact"};
-var P,DZ,T,DR,VH,H=[],FS=[];
-var s=0,goal=0,raf=0,cur=-1,enter=false,drag=null,eat=false,warm=false,seenAt=-1;
-var fin=document.getElementById("fin"),nm=space.querySelector(".nm"),hd=space.querySelector(".hd");
-if(!fine&&hd)hd.textContent="Swipe up, or tap a folder";
-var say=space.querySelector(".fan .say");
-if(fin&&say)[].forEach.call(fin.children,function(a){var t=a.querySelector(".sr").textContent;
-  a.addEventListener("pointerenter",function(){say.textContent=t});a.addEventListener("pointerleave",function(){say.textContent="Pick a folder"});
-  a.addEventListener("focus",function(){say.textContent=t});a.addEventListener("blur",function(){say.textContent="Pick a folder"})});
-/* the opening plays once the name's face is in, or after a short wait at most */
-function opened(){root.classList.remove("pre","go")}
-if(root.classList.contains("pre")){
-  var started=false,start=function(){if(started)return;started=true;root.classList.add("go");setTimeout(opened,2500)};
-  Promise.all([document.fonts?document.fonts.load('500 100px "Bodoni Moda"'):0,document.fonts?document.fonts.load('italic 500 100px "Bodoni Moda"'):0]).then(start,start);
-  setTimeout(start,300);
-}
-/* the covers further in wait until the opening is on screen, then load a few sheets ahead */
-function warmUp(){if(warm)return;warm=true;cur=-1;seenAt=-1;kick()}
-addEventListener("load",function(){setTimeout(trickle,150);setTimeout(warmUp,900)});
-var look={x:0,y:0},view={x:0,y:0};
-function clamp(v,a,b){return v<a?a:v>b?b:v}
-function esc(t){return String(t).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
-
-/* chapter buttons, and their marks on the progress line */
-var chapters=[];sts.forEach(function(st,i){var c=st.dataset.ch;if(!chapters.length||chapters[chapters.length-1].c!==c)chapters.push({c:c,i:i})});
-chapters.forEach(function(ch){if(ch.c==="a")return;var b=document.createElement("button");b.type="button";b.className="go";b.textContent=NAMES[ch.c];b.dataset.c=ch.c;b.dataset.ch=ch.c;
-  b.addEventListener("click",function(){goTo(ch.i)});chl.appendChild(b);
-  if(ch.i>0&&ch.i<N-1){var m=document.createElement("s");m.style.left=(ch.i/(N-1)*100).toFixed(2)+"%";bar.appendChild(m)}});
-var chBtns=[].slice.call(chl.children);
-
-/* one tick per stop on the right edge: hover to read it, click or sweep to go there */
-var ticks=sts.map(function(st,i){var b=document.createElement("button"),h=st.querySelector("h3,h2");
-  b.type="button";b.className="tk";b.tabIndex=-1;b.dataset.ch=st.dataset.ch;
-  var t=document.createElement("span");t.textContent=i===0?"Index":st.id==="contact"?"Contact":h?h.textContent:"";b.appendChild(t);
-  rail.appendChild(b);return b});
-function railAt(y){var r=rail.getBoundingClientRect();return clamp(Math.round((y-r.top)/r.height*N-.5),0,N-1)}
-var sweeping=false;
-rail.addEventListener("pointerdown",function(e){if(e.button!==0||enter)return;sweeping=true;try{rail.setPointerCapture(e.pointerId)}catch(_){}goTo(railAt(e.clientY));e.preventDefault()});
-rail.addEventListener("pointermove",function(e){if(sweeping)goTo(railAt(e.clientY))});
-rail.addEventListener("pointerup",function(){sweeping=false});rail.addEventListener("pointercancel",function(){sweeping=false});
-
-/* the room takes its light from the cover in front: one small average per picture, read once */
-var tones={},cv=document.createElement("canvas");cv.width=cv.height=12;var cx=null;try{cx=cv.getContext("2d",{willReadFrequently:true})}catch(_){}
-function toneOf(i,cb){var st=sts[i],img=st&&st.querySelector(".im img");if(!img||!cx||!warm)return cb(null);var src=img.getAttribute("src").replace(/assets\/j\/([\w-]+)\.jpg$/,"assets/p/$1-480.jpg");
-  if(tones[src]!==undefined)return cb(tones[src]);
-  var im=new Image();im.decoding="async";im.onload=function(){try{cx.clearRect(0,0,12,12);cx.drawImage(im,0,0,12,12);var d=cx.getImageData(0,0,12,12).data,r=0,g=0,b=0,n=0;
-    for(var j=0;j<d.length;j+=4){var w=1+Math.max(d[j],d[j+1],d[j+2])-Math.min(d[j],d[j+1],d[j+2]);r+=d[j]*w;g+=d[j+1]*w;b+=d[j+2]*w;n+=w}
-    tones[src]="rgb("+Math.round(r/n)+","+Math.round(g/n)+","+Math.round(b/n)+")"}catch(_){tones[src]=null}cb(tones[src])};
-  im.onerror=function(){tones[src]=null;cb(null)};im.src=src}
-var atmo=document.querySelector(".atmo");
-function light(i){toneOf(i,function(c){if(atmo&&(Math.round(goal)===i||Math.round(s)===i))atmo.style.setProperty("--glow",c||"#3a3530")})}
-/* sheets are laid out on demand: the ones around where you are heading first, the rest while the page is idle */
-var allLive=false;
-function liven(a,b){var any=false;for(var j=Math.max(1,a);j<Math.min(N,b);j++)if(!sts[j]._lv){sts[j]._lv=true;sts[j].classList.add("lv");any=true}
-  if(any){allLive=sts.every(function(st,j){return j===0||st._lv});layout()}return any}
-function trickle(){var j=1;(function step(){if(allLive||j>=N)return;liven(j,j+3);j+=3;kick();setTimeout(step,40)})()}
-
-function layout(){
-  var vw=innerWidth,vh=innerHeight,mob=vw<760,narrow=vw<=900;VH=vh;
-  P=mob?900:1200;DZ=mob?230:300;T=mob?13:24;DR=mob?190:260;
-  space.style.perspective=P+"px";
-  /* very large screens get a larger sheet, so the folder does not sit small in the middle */
-  var huge=vw>=2400&&vh>=1300;
-  var w=Math.min(huge?1440:1200,vw*.84,(vh-200)*2.62);
-  if(narrow)w=Math.min(vw-(mob?44:80),560);
-  var wide=vh<520&&vw>vh;root.classList.toggle("short",wide);if(wide)w=Math.min(vw-110,(vh-90)*2.6,980);
-  space.style.setProperty("--w",Math.round(w)+"px");
-  space.style.setProperty("--wi",Math.round(Math.min(huge?1600:1320,vw-(mob?32:96)))+"px");
-  /* a sheet taller than the room between the bars is set down a little smaller, never cut */
-  var avail=vh-(mob?150:170);
-  H=sts.map(function(st,i){var h=st.offsetHeight;FS[i]=Math.min(1,(i===0?vh-120:avail)/h);return h*FS[i]});
-}
-
-/* k is how many steps a sheet is ahead of you: the next ones wait in the folder behind, the one you leave lifts up and past you */
-function place(st,i){
-  var k=i-s,e=st;
-  if(k>4.6||k<-.62){if(e._vis){e._vis=false;e.style.visibility="hidden";e.style.pointerEvents="none"}if(e._on){e._on=false;e.classList.remove("on")}return false}
-  if(!e._vis){e._vis=true;e.style.visibility="visible"}
-  var c=clamp(s,0,N-1),a=Math.floor(c),b=Math.min(N-1,a+1),H0=H[a]+(H[b]-H[a])*(c-a);
-  var z,y,o,dim,rx=0,ry=0,busy=false,cut=0;
-  if(e._card){e._lift+=(e._tl-e._lift)*.18;e._rx+=(e._trx-e._rx)*.14;e._ry+=(e._try-e._ry)*.14;
-    busy=Math.abs(e._tl-e._lift)>.003||Math.abs(e._trx-e._rx)>.02||Math.abs(e._try-e._ry)>.02;rx=e._rx;ry=e._ry}
-  if(k>=0){
-    var sc=P/(P+k*DZ);z=-k*DZ;
-    y=H[i]/2-(H0/2+k*T+(e._lift||0)*16)/sc;
-    o=clamp(4.6-k,0,1);dim=Math.min(.84,k*.32);
-    /* a taller sheet waiting behind must not show below the one in front */
-    if(k>.02)cut=Math.max(0,H[i]-(H0+k*T)/sc+2);
-    /* on the opening page the folder waits low, under the name */
-    if(s<1&&i>0){var f=1-clamp(s,0,1);y+=f*VH*.8/sc;dim=Math.max(dim,f*.35);cut=cut*(1-f);o*=clamp(1-f*1.25,0,1)}
-  }else{
-    var p=-k;z=p*380;y=-p*VH*.42;o=clamp(1-p*1.65,0,1);dim=0;rx+=p*9;
-  }
-  e.style.opacity=o.toFixed(3);e.style.setProperty("--dim",dim.toFixed(3));
-  var cp=cut>0?"inset(-40px 0 "+cut.toFixed(1)+"px 0)":"";if(e._cp!==cp){e._cp=cp;e.style.clipPath=cp}
-  e.style.zIndex=String(1000-Math.round(k*20));
-  e.style.transform="translate(-50%,-50%) translate3d(0,"+y.toFixed(1)+"px,"+z.toFixed(1)+"px) rotateX("+rx.toFixed(2)+"deg) rotateY("+ry.toFixed(2)+"deg)"+(FS[i]<1?" scale("+FS[i].toFixed(4)+")":"");
-  var on=Math.abs(k)<.35;if(on!==!!e._on){e._on=on;e.classList.toggle("on",on)}
-  e.classList.toggle("far",k>=.35);
-  e.style.pointerEvents=k>-.2&&k<4.2?"auto":"none";
-  return busy;
-}
-function render(){
-  if(!allLive){var lo=Math.floor(Math.min(s,goal)),hi=Math.ceil(Math.max(s,goal));if(hi>0)liven(lo-1,hi+6)}
-  /* the fan leans toward the pointer and closes as you go into the folio */
-  if(fin&&s<1.3){var op=1-clamp(s,0,1)*.85;if(fin._op!==op){fin._op=op;fin.style.setProperty("--op",op.toFixed(3))}
-    fin.style.transform="rotateY("+(view.x*10).toFixed(2)+"deg) rotateX("+(-view.y*7).toFixed(2)+"deg)";
-    if(nm)nm.style.transform="translate3d("+(-view.x*14).toFixed(1)+"px,"+(-view.y*6).toFixed(1)+"px,0)"}
-  space.style.perspectiveOrigin=(50+view.x*4).toFixed(2)+"% "+(50+view.y*3).toFixed(2)+"%";
-  var busy=false;for(var i=0;i<N;i++)if(place(sts[i],i))busy=true;
-  bar.style.setProperty("--p",clamp(s/(N-1),0,1).toFixed(4));
-  var k=clamp(Math.round(s),0,N-1);
-  /* covers load for the sheets around where you are heading, not every sheet flown past on the way */
-  var g=Math.round(goal);if((warm||g>0)&&g!==seenAt&&Math.abs(goal-s)<1.5){seenAt=g;for(var j=Math.max(1,g-1);j<Math.min(N,g+(g?5:3));j++)if(!sts[j]._seen){sts[j]._seen=true;sts[j].classList.add("seen")}}
-  if(k!==cur){cur=k;var st=sts[k],c=st.dataset.ch;body.dataset.ch=c;
-    var h=st.querySelector("h3"),num=st.querySelector(".meta b");
-    ct.innerHTML=num?"<b>"+num.textContent+" / 29</b><span>"+NAMES[c]+"</span><em>"+esc(h.textContent)+"</em>":"<b>"+NAMES[c]+"</b><span>"+(k===0?"29 projects":"Get in touch")+"</span>";
-    chBtns.forEach(function(b){b.setAttribute("aria-current",String(b.dataset.c===c))});
-    ticks.forEach(function(t,j){t.setAttribute("aria-current",String(j===k))});
-    light(k);if(k+1<N)toneOf(k+1,function(){})}
-  return busy;
-}
-var lastT=0;
-function tick(now){
-  raf=0;var dt=lastT?Math.min(80,Math.max(1,now-lastT)):16.7;lastT=now;
-  /* the same glide at any frame rate */
-  if(!drag){s+=(goal-s)*(1-Math.pow(.85,dt/16.7));if(Math.abs(goal-s)<.0008)s=goal}
-  view.x+=(look.x-view.x)*.08;view.y+=(look.y-view.y)*.08;
-  var looking=Math.abs(look.x-view.x)>.002||Math.abs(look.y-view.y)>.002;
-  var busy=render();
-  if((s!==goal&&!drag)||busy||looking)raf=requestAnimationFrame(tick);else lastT=0;
-}
-function kick(){if(!raf)raf=requestAnimationFrame(tick)}
-function wake(){if(root.classList.contains("pre")||root.classList.contains("go"))opened();warm=true}
-function goTo(i){if(enter)return;wake();goal=clamp(Math.round(i),0,N-1);kick()}
-
-/* opening a project: its picture grows to fill the screen, then the page opens */
-var zoom=null,zv=null;
-function flyInto(href,st){
-  if(enter)return;enter=true;
-  var img=st&&st.querySelector(".im img"),r=img&&img.getBoundingClientRect();
-  zv=document.createElement("div");zv.className="zoomv";body.appendChild(zv);
-  if(r&&r.width){zoom=document.createElement("div");zoom.className="zoom";
-    zoom.style.cssText="left:"+r.left+"px;top:"+r.top+"px;width:"+r.width+"px;height:"+r.height+"px;background-image:url('"+(img.currentSrc||img.src)+"')";
-    body.appendChild(zoom);zoom.getBoundingClientRect();
-    zoom.style.left="0px";zoom.style.top="0px";zoom.style.width=innerWidth+"px";zoom.style.height=innerHeight+"px"}
-  zv.getBoundingClientRect();zv.classList.add("on");
-  setTimeout(function(){location.href=href},640);
-}
-addEventListener("pageshow",function(e){if(e.persisted&&enter){enter=false;if(zoom)zoom.remove();if(zv)zv.remove();zoom=zv=null;kick()}});
-
-sts.forEach(function(st,i){
-  if(!st.classList.contains("card"))return;
-  st._card=true;st._rx=st._ry=st._trx=st._try=0;st._lift=st._tl=0;
-  /* a sheet waiting in the folder is a door: click it to bring it forward */
-  st.addEventListener("click",function(e){
-    if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
-    if(!st._on){e.preventDefault();st._tl=0;goTo(i);return}
-    var a=e.target.closest("a");if(!a||a.target==="_blank")return;var href=a.getAttribute("href");
-    if(!href||href.charAt(0)==="#"||/^(mailto|tel):/i.test(href)||/\.(pdf|zip|xlsx|md)(\?|#|$)/i.test(href))return;
-    e.preventDefault();flyInto(a.href,st);
+  /* filter the index by kind */
+  var G={Site:"site",Shop:"site",App:"app",Tool:"app",Data:"data",System:"data",Report:"data",Study:"study",Email:"study",Content:"study"};
+  var grid=document.querySelector(".grid"),ws=[].slice.call(grid.querySelectorAll(".w"));
+  ws.forEach(function(w){var k=w.querySelector(".lb i");w.dataset.g=G[k?k.textContent.trim():""]||"study"});
+  [].forEach.call(document.querySelectorAll(".flt button"),function(b,_,all){
+    b.addEventListener("click",function(){
+      var g=b.dataset.g;
+      [].forEach.call(document.querySelectorAll(".flt button"),function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+      grid.classList.toggle("f",g!=="all");
+      ws.forEach(function(w){var on=g==="all"||w.dataset.g===g;w.classList.toggle("off",!on);if(on)w.classList.add("in")});
+    });
   });
-  if(!fine)return;
-  st.addEventListener("pointerenter",function(){if(!st._on&&!drag){st._tl=1;kick()}});
-  st.addEventListener("pointermove",function(e){if(!st._on||drag){st._trx=st._try=0;return}var r=st.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
-    st._try=(x-.5)*4;st._trx=(.5-y)*3;kick()});
-  st.addEventListener("pointerleave",function(){st._trx=st._try=0;st._tl=0;kick()});
-});
-
-/* one wheel gesture is one step, so a hard flick can never throw you past the work */
-var acc=0,lastW=0,lastA=0,stepT=-1e4,streamT=0;
-addEventListener("wheel",function(e){
-  if(e.ctrlKey)return;e.preventDefault();if(enter||drag)return;
-  var now=performance.now(),dy=e.deltaMode===1?e.deltaY*32:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
-  if(Math.abs(e.deltaX)>Math.abs(dy)*1.2)dy=e.deltaX;
-  var quiet=now-lastW,ad=Math.abs(dy);lastW=now;if(quiet>160)streamT=now;
-  var fresh=quiet>160||(now-stepT>650&&ad>=50&&ad>=lastA*.95)||(now-stepT>380&&ad>lastA*1.6+6);
-  lastA=ad;
-  /* the tail of a gesture that already moved never moves again, however long it runs */
-  if(!fresh&&(now-stepT<1200||stepT>=streamT)){acc=0;return}
-  if(quiet>160)acc=0;
-  acc+=dy;
-  if(Math.abs(acc)>=36){var d=acc>0?1:-1;acc=0;stepT=now;goTo(Math.round(goal)+d)}
-},{passive:false});
-
-/* drag the folder with a finger or the mouse, it follows you and settles on the nearest sheet */
-space.addEventListener("dragstart",function(e){e.preventDefault()});
-space.addEventListener("pointerdown",function(e){
-  if(enter||(e.pointerType==="mouse"&&e.button!==0))return;
-  var now=performance.now();drag={id:e.pointerId,y0:e.clientY,s0:s,g0:Math.round(goal),ly:e.clientY,lt:now,v:0,moved:false};
-});
-addEventListener("pointermove",function(e){
-  if(fine){look.x=e.clientX/innerWidth*2-1;look.y=e.clientY/innerHeight*2-1;kick()}
-  if(!drag||e.pointerId!==drag.id)return;
-  var dy=e.clientY-drag.y0;
-  if(!drag.moved){if(Math.abs(dy)<8)return;drag.moved=true;wake();drag.y0=e.clientY;dy=0;root.classList.add("dragging");try{space.setPointerCapture(e.pointerId)}catch(_){}}
-  var now=performance.now(),dt=Math.max(1,now-drag.lt);drag.v=drag.v*.5+(e.clientY-drag.ly)/dt*.5;drag.ly=e.clientY;drag.lt=now;
-  /* the stack follows the finger for one sheet, then resists: one gesture is one project */
-  var raw=-dy/DR,m=Math.abs(raw),o=m<=1?raw:(raw<0?-1:1)*(1+Math.min(.22,(m-1)*.18));
-  s=clamp(drag.s0+o,-.3,N-.7);goal=s;kick();
-},{passive:true});
-function endDrag(e){
-  if(!drag||e.pointerId!==drag.id)return;var d=drag;drag=null;root.classList.remove("dragging");
-  if(!d.moved)return;eat=true;setTimeout(function(){eat=false},60);
-  if(performance.now()-d.lt>90)d.v=0;
-  var t=(s-d.s0)-d.v*120/DR;goTo(d.g0+(t>.2?1:t<-.2?-1:0));
-}
-addEventListener("pointerup",endDrag);addEventListener("pointercancel",endDrag);
-document.addEventListener("click",function(e){if(eat){eat=false;e.preventDefault();e.stopPropagation()}},true);
-if(fine)document.addEventListener("pointerleave",function(){look.x=look.y=0;kick()});
-
-addEventListener("resize",function(){layout();kick()});
-document.getElementById("prev").addEventListener("click",function(){goTo(goal-1)});
-document.getElementById("next").addEventListener("click",function(){goTo(goal+1)});
-
-/* keys move sheet by sheet */
-addEventListener("keydown",function(e){
-  if(e.altKey||e.ctrlKey||e.metaKey)return;var t=e.target,k=e.key,i=Math.round(goal);
-  if(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))return;
-  if(k===" "&&t&&t.closest&&t.closest("a,button"))return;
-  if(k==="ArrowDown"||k==="ArrowRight"||k==="PageDown"||(k===" "&&!e.shiftKey))i++;
-  else if(k==="ArrowUp"||k==="ArrowLeft"||k==="PageUp"||(k===" "&&e.shiftKey))i--;
-  else if(k==="Home")i=0;else if(k==="End")i=N-1;else return;
-  e.preventDefault();goTo(i);
-});
-
-/* links inside the page move along the route */
-function stopOf(el){return el.closest(".st")||(el.classList.contains("cw")?el.nextElementSibling:null)}
-document.addEventListener("click",function(e){
-  var a=e.target.closest('a[href^="#"]');if(!a)return;var el=document.getElementById(a.getAttribute("href").slice(1));if(!el)return;
-  var st=stopOf(el);if(!st)return;e.preventDefault();goTo(sts.indexOf(st));
-});
-/* keyboard focus brings its sheet to the front */
-space.addEventListener("focusin",function(e){var st=e.target.closest(".st");if(!st)return;space.scrollTop=0;space.scrollLeft=0;goTo(sts.indexOf(st))});
-
-layout();
-var h=location.hash&&document.getElementById(location.hash.slice(1)),st0=h&&stopOf(h);
-if(st0)s=goal=sts.indexOf(st0);
-render();
-addEventListener("hashchange",function(){var el=location.hash&&document.getElementById(location.hash.slice(1)),st=el&&stopOf(el);if(st)goTo(sts.indexOf(st))});
-function remeasure(){layout();kick()}
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(remeasure);
-addEventListener("load",remeasure);
+})();
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cards=[].slice.call(document.querySelectorAll('.w'));
+  if(reduce){return}
+  /* reveal */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    cards.forEach(function(c){io.observe(c)});
+  }else{cards.forEach(function(c){c.classList.add('in')})}
+  /* tape on two hero shots */
+  var sh=document.querySelectorAll('.s .deal');
+  if(sh[0]){var t=document.createElement('span');t.className='tape t1';sh[0].appendChild(t)}
+  if(sh[2]){var t2=document.createElement('span');t2.className='tape t2';sh[2].appendChild(t2)}
+  /* hero parallax */
+  var table=document.getElementById('table'),fine=matchMedia('(pointer:fine)').matches;
+  var tx=0,ty=0,mx=0,my=0,ticking=false;
+  function frame(){
+    mx+=(tx-mx)*.08;my+=(ty-my)*.08;
+    var y=Math.min(window.scrollY,window.innerHeight*1.2);
+    table.style.setProperty('--mx',mx.toFixed(3));table.style.setProperty('--my',my.toFixed(3));table.style.setProperty('--sy',y.toFixed(0));
+    phones();
+    if(Math.abs(tx-mx)>.002||Math.abs(ty-my)>.002){requestAnimationFrame(frame)}else{ticking=false}
+  }
+  function kick(){if(!ticking){ticking=true;requestAnimationFrame(frame)}}
+  /* V3: the shots no longer follow the mouse, that motion explained nothing */
+  window.addEventListener('scroll',kick,{passive:true});
+  /* phone drift inside cards */
+  var phs=[].slice.call(document.querySelectorAll('.ph'));
+  function phones(){
+    var h=window.innerHeight;
+    for(var i=0;i<phs.length;i++){
+      var r=phs[i].parentNode.getBoundingClientRect();
+      if(r.bottom<-200||r.top>h+200)continue;
+      phs[i].style.setProperty('--pp',(((r.top+r.height/2)-h/2)*-.07).toFixed(1)+'px');
+    }
+  }
+  phones();
+})();
+</script>
+<script>
+/* Links into the earlier index (#data, #07 and similar) still land on the matching card or section. */
+(function(){
+  var A={"01":"01-northline","02":"02-werksupply","03":"03-financial-report","04":"04-ledgerlens","05":"05-property-documents","06":"06-daybreak","07":"07-field-frame","08":"08-countback","09":"09-migration-proof","10":"10-allex-website",all:"work","new":"work",data:"work",systems:"work",research:"work",websites:"work",content:"work",integrations:"work",space:"",top:""};
+  function go(){var h=location.hash.slice(1);try{h=decodeURIComponent(h)}catch(e){}
+    if(!h||document.getElementById(h)||!A.hasOwnProperty(h))return;
+    var t=A[h]&&document.getElementById(A[h]);if(t)t.scrollIntoView();else scrollTo(0,0)}
+  go();addEventListener("hashchange",go);
 })();
 </script>
 </body>
