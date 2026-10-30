@@ -45,10 +45,10 @@ body { background: var(--paper); }
 
 /* Delivery: a lime slab, pallet on the left, the PO and progress on the right */
 .delivery { border-top: 0; box-shadow: 10px 10px 0 #141512; }
-.delivery h1 { color: var(--ink); font-weight: 800; font-size: clamp(72px, 10vw, 168px); line-height: .82; transform: skewX(var(--sk, 0deg)); transform-origin: left bottom; transition: transform .2s ease-out; }
+.delivery h1 { color: var(--ink); font-weight: 800; font-size: 52px; line-height: .9; margin: 0; }
 .delivery-label, .progress-label, .delivery-meta dt { color: var(--door-dim); }
 .delivery-meta dd { font-size: 30px; }
-.progress-label strong { font-size: 56px; }
+.progress-label strong { font-size: 44px; }
 .progress-track span { background: rgba(20, 21, 18, .12); box-shadow: none; }
 /* hold the track's height until the script draws its segments, so the delivery card does not jump on load */
 .progress-track:empty { min-height: 14px; }
@@ -70,11 +70,18 @@ body { background: var(--paper); }
 .button-door { color: var(--ink); border-color: var(--ink); }
 .button-door:hover:not(:disabled) { background: var(--ink); color: var(--yellow); border-color: var(--ink); }
 .button-door:focus-visible { box-shadow: 0 0 0 3px var(--yellow), 0 0 0 6px var(--ink); }
-@media (min-width: 861px) {
-  .delivery { grid-template-columns: minmax(320px, 560px) minmax(0, 1fr); }
-  .pallet-wrap { grid-column: 1; }
-  .delivery-info, .delivery-progress { grid-column: 2; }
-}
+/* V3: one compact card. The pallet on the left, the order and its two actions on the right,
+   so the receipt starts inside the first screen. A plain caption says what the app is. */
+.delivery { grid-template-columns: minmax(280px, 520px) minmax(0, 1fr); grid-template-rows: auto auto auto auto 1fr; grid-template-areas: "pallet cap" "pallet info" "pallet meta" "pallet actions" "pallet progress"; gap: 0 48px; padding: 26px 28px 24px; }
+.delivery-cap { grid-area: cap; margin: 0; max-width: 46ch; font-size: 16px; line-height: 1.45; color: var(--door-text); }
+.delivery-info { grid-area: info; margin-top: 12px; }
+.delivery-meta { grid-area: meta; margin: 18px 0 0; }
+.delivery-actions { grid-area: actions; margin-top: 22px; }
+.delivery-progress { grid-area: progress; margin-top: 20px; align-self: end; }
+.pallet-wrap { grid-area: pallet; }
+.delivery-route { margin-top: 6px; font-size: 19px; }
+#pallet { max-height: 290px; }
+.pallet-legend { text-transform: none; letter-spacing: 0; font-size: 14px; }
 
 /* Workspace: the receipt sheet first, the walkthrough as a slim column on the right */
 @media (min-width: 1081px) {
@@ -94,12 +101,12 @@ body { background: var(--paper); }
 .panel .button-primary { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
 .panel .button-secondary { background: transparent; color: #f3f3ea; border-color: #f3f3ea; }
 .receipt { box-shadow: 10px 10px 0 #141512; }
-.receipt h2 { font-size: 48px; line-height: .9; }
+.receipt h2 { font-size: 36px; line-height: .9; }
 .draft-chip { padding: 0; border: 0; background: transparent; font: 700 18px/1 var(--heading); letter-spacing: .12em; color: var(--muted); }
 .draft-chip.is-ready { background: transparent; color: var(--ink); text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 4px; text-underline-offset: 4px; }
 .totals { border: 0; border-top: 4px solid var(--ink); border-bottom: 1px solid var(--ink); }
 .total { border-left: 1px solid var(--line); }
-.total-value { font-size: 72px; font-weight: 800; }
+.total-value { font-size: 50px; font-weight: 800; }
 .total.is-damaged { background: var(--yellow-soft); box-shadow: inset 0 4px 0 var(--ink); }
 .lines .num-col { font-size: 32px; font-weight: 700; }
 .chip { border-width: 0; padding: 0; min-height: 0; background: transparent !important; font: 700 17px/1.2 var(--heading); letter-spacing: .1em; }
@@ -122,17 +129,20 @@ body { background: var(--paper); }
 dialog { border-top-color: var(--yellow); border-top-width: 12px; }
 .live-total { background: var(--yellow-soft); border-left-color: var(--ink); }
 .skip-link { background: var(--yellow); }
-.flag-row { list-style: none; margin: 18px 0 0; padding: 0; display: flex; gap: 0; border-top: 2px solid var(--ink); }
-.flag-row li { flex: 1 1 0; padding: 10px 12px 0 0; font: 700 15px/1.2 var(--heading); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
-.flag-row b { display: block; font: 800 clamp(40px, 4vw, 60px)/.9 var(--heading); letter-spacing: 0; }
-.flag-row .f-short b { color: var(--error-ink); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
-.flag-row .f-dmg b { text-decoration: line-through; text-decoration-color: var(--error-ink); text-decoration-thickness: 3px; }
-.flag-row .f-extra b { color: var(--dock); }
 @media (max-width: 860px) {
-  .delivery { box-shadow: 6px 6px 0 #141512; }
+  .delivery { box-shadow: 6px 6px 0 #141512; grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "cap" "info" "pallet" "actions" "progress" "meta"; gap: 0; }
+  .pallet-wrap { margin-top: 12px; max-width: 440px; }
+  #pallet { max-height: 230px; }
+  .delivery-meta { margin-top: 20px; }
 }
 @media (max-width: 420px) {
-  .delivery h1 { font-size: 76px; }
+  .delivery { padding: 18px 16px 20px; }
+  .delivery h1 { font-size: 44px; }
+  .delivery-cap { font-size: 15px; }
+  .delivery-route { font-size: 17px; }
+  #pallet { max-height: 196px; }
+  .delivery-actions { margin-top: 16px; }
+  .progress-label strong { font-size: 38px; }
   .brand { font-size: 28px; }
   .total-value { font-size: 52px; }
   .receipt { box-shadow: none; }
@@ -152,20 +162,13 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
 
   <main id="main" class="page">
     <section class="delivery" aria-labelledby="po-title">
+      <p class="delivery-cap">Delivery check-in. Count what arrived against the order, line by line.</p>
       <div class="delivery-info">
-        <p class="delivery-label">Inbound delivery</p>
-
         <h1 id="po-title">PO-1048</h1>
         <p class="delivery-route" id="route">Northside Supply to Larch Street Café</p>
-        <dl class="delivery-meta" id="delivery-meta"><div><dt>Arrived</dt><dd>7:42 AM</dd></div><div><dt>Drop-off</dt><dd>Back door</dd></div><div><dt>Expected</dt><dd>25 cartons</dd></div><div><dt>Lines</dt><dd>6</dd></div></dl>
-        <p class="delivery-promise">Count on the dock. Problems flag themselves, like this.</p>
-        <ul class="flag-row" aria-label="Example flags">
-          <li class="f-short"><b>-2</b>Short</li>
-          <li class="f-dmg"><b>1</b>Damaged</li>
-          <li class="f-extra"><b>+3</b>Extra</li>
-        </ul>
-        <div class="delivery-actions"><button class="button button-primary" id="hero-demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l11-7z"/></svg>Watch a delivery</button><button class="button button-door" id="hero-count" type="button">Count the next line</button></div>
       </div>
+      <dl class="delivery-meta" id="delivery-meta"><div><dt>Arrived</dt><dd>7:42 AM</dd></div><div><dt>Drop-off</dt><dd>Back door</dd></div><div><dt>Expected</dt><dd>25 cartons</dd></div><div><dt>Lines</dt><dd>6</dd></div></dl>
+      <div class="delivery-actions"><button class="button button-primary" id="hero-count" type="button">Count the next line</button><button class="button button-door" id="hero-demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l11-7z"/></svg>Play a sample count</button></div>
       <div class="delivery-progress">
         <p class="progress-label"><span>Lines counted</span><strong id="progress-count">0 of 6</strong></p>
         <div class="progress-track" id="progress-track" aria-hidden="true"></div>
@@ -179,20 +182,20 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
 
     <div class="workspace">
       <aside class="panel" aria-labelledby="walkthrough-title">
-        <h2 id="walkthrough-title">Watch it count</h2>
-        <p class="panel-copy">A scripted delivery, read back count by count, with one correction.</p>
+        <h2 id="walkthrough-title">Walkthrough</h2>
+        <p class="panel-copy">Plays a sample delivery counted by voice, with one correction.</p>
         <div class="panel-actions">
           <button class="button button-primary" id="demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l11-7z"/></svg>Play the walkthrough</button>
           <button class="button button-secondary" id="stop-demo" type="button" hidden>Stop</button>
         </div>
         <p class="status-line" id="walkthrough-status" role="status" aria-live="polite">Or count any line yourself from the receipt.</p>
-        <div class="log-head"><h3 id="log-title">Readback</h3><span id="message-count">No entries</span></div>
+        <div class="log-head"><h3 id="log-title">Spoken counts</h3><span id="message-count">No entries</span></div>
         <div class="transcript" id="transcript" role="log" aria-labelledby="log-title" tabindex="0"></div>
       </aside>
 
       <section class="receipt" id="receipt" aria-labelledby="receipt-title" tabindex="-1">
         <div class="receipt-head">
-          <div><h2 id="receipt-title">Receipt</h2><p>New counts replace the total. History keeps the rest.</p></div>
+          <div><h2 id="receipt-title">Receipt</h2><p>A new count replaces the old one. Every count stays in the history below.</p></div>
           <span class="draft-chip" id="draft-chip">Draft</span>
         </div>
         <div class="totals" id="totals"></div>
@@ -240,6 +243,6 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
     </form>
   </dialog>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
-<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=((-8)+((8)-(-8))*x).toFixed(2)+'deg';document.querySelectorAll('.delivery h1').forEach(function(n){n.style.setProperty('--sk',v)})})},{passive:true})})();</script>
+
 </body>
 </html>
