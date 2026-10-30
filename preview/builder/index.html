@@ -5,10 +5,10 @@
 <base href="../../builder/">
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Site builder · Booking sites for businesses in Thailand · Alexandr Khrustalev</title>
-<meta name="description" content="Build a fast one page booking site for a local business in Thailand. Services in baht, opening hours and booking requests through WhatsApp, LINE or Telegram, in English, Russian and Thai. Edit, preview and download a ready static site.">
-<meta property="og:title" content="Site builder for businesses in Thailand">
-<meta property="og:description" content="Fill in a business, watch its booking site change live, then download it ready to host.">
+<title>Baanpage, booking site builder for businesses in Thailand</title>
+<meta name="description" content="Build a one page booking site for a spa, tour desk, bike rental, dental clinic or cafe in Thailand. Prices in baht, opening hours and booking requests through WhatsApp, LINE or Telegram, in English, Russian and Thai. Edit, see the site change and download it.">
+<meta property="og:title" content="Baanpage, booking site builder for businesses in Thailand">
+<meta property="og:description" content="Pick a business type, edit the details and download a ready booking site.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/builder/">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/builder.jpg">
@@ -16,25 +16,25 @@
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/builder/">
-<meta name="theme-color" content="#efe9da">
+<meta name="theme-color" content="#f3f2ee">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/sandersax-icon-32.png">
 <link rel="apple-touch-icon" href="../assets/sandersax-icon-180.png">
 <link href="../assets/gfonts/css/f771da7e7a1f.css" rel="stylesheet">
 <link rel="stylesheet" href="studio.css?v=20261025b">
 <style>
-/* preview: "Olive press seed catalogue". Oat paper, olive black ink, one chartreuse highlighter.
-   The editor becomes a long printed order form on the left, the site sits on an olive press bed on the right. */
+/* V3: the tool is the opening. A paper inspector on the right, the client's site on a dark
+   workspace that takes on the colour of the business you pick, one lime selection colour. */
 :root{
-  --app:#efe9da;--chrome:#efe9da;--panel:#f6f1e3;--panel-2:#ebe4cf;--field:#fffdf5;--field-2:#f2ecdb;
-  --canvas:#363e14;--canvas-2:#2c3310;
-  --ink:#1f230d;--muted:#55583f;--dim:#6a6c52;
-  --line:#ddd5bd;--line-2:#c9bf9f;--line-3:#a39a7b;
-  --accent:#d4eb55;--accent-2:#4b5a0e;--on-accent:#1f230d;--accent-soft:rgba(212,235,85,.42);--ring:rgba(75,90,14,.38);
-  --ok:#2d7139;--ok-soft:rgba(45,113,57,.12);--danger:#b0281f;--warn:#7d6200;
+  --app:#f3f2ee;--chrome:#f3f2ee;--panel:#f7f6f2;--panel-2:#ecebe5;--field:#fff;--field-2:#faf9f6;
+  --canvas:#17191b;--canvas-2:#0f1011;
+  --ink:#17181a;--muted:#55575c;--dim:#65676c;
+  --line:#e2e0d8;--line-2:#cfccc2;--line-3:#a5a298;
+  --accent:#d6f160;--accent-2:#3e4d00;--on-accent:#17181a;--accent-soft:rgba(214,241,96,.45);--ring:rgba(62,77,0,.3);
+  --ok:#2c6e3b;--ok-soft:rgba(44,110,59,.12);--danger:#b3261e;--warn:#7a5d00;
   --display:"Geologica","Noto Sans Thai",system-ui,sans-serif;
   --body:"Geologica","Noto Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"Martian Mono",ui-monospace,Consolas,monospace;
-  --hl:#d4eb55;
+  --hl:#d6f160;
   color-scheme:light;
 }
 html,body{background:var(--app);color:var(--ink)}
@@ -42,129 +42,151 @@ body{font-family:var(--body)}
 ::selection{background:var(--hl);color:var(--ink)}
 :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
-/* masthead: a printed rule, no marks next to the name */
-.top{background:var(--app);border-bottom:2px solid var(--ink)}
+/* top bar */
+.top{background:var(--app);border-bottom:1px solid var(--line-2)}
 .brand-mark{display:none!important}
-.brand-w{font-family:var(--display);font-weight:800;letter-spacing:.02em;color:var(--ink)}
-@media (max-width:760px){.brand-w{display:inline!important;font-size:14px;letter-spacing:0}}
-.brand-tag{background:none!important;border:0!important;padding:0!important;color:var(--accent-2);font-family:var(--mono);font-weight:500;text-transform:lowercase}
-.top-note{color:var(--muted);font-style:italic}
-.btn{border-radius:12px;font-family:var(--display);font-weight:600}
+.brand-tag{background:none!important;border:0!important;padding:0!important;color:var(--muted);font-family:var(--mono);font-weight:500;text-transform:lowercase}
+.top-note,.bar-hint{display:none}
+.btn{border-radius:10px;font-family:var(--display);font-weight:600}
 .btn-primary{background:var(--ink);color:var(--hl);box-shadow:none}
-.btn-primary:hover{background:#353b18;color:var(--hl)}
-.btn-primary .ext{color:#c4c9a2}
-.btn-quiet{background:transparent;border:1.5px solid var(--ink);color:var(--ink)}
-.btn-quiet:hover{background:var(--hl)}
-.seg{background:transparent;border:1.5px solid var(--ink);border-radius:12px}
-.seg button{color:var(--ink);border-radius:9px}
+.btn-primary:hover{background:#2c2e31;color:var(--hl)}
+.btn-primary .ext{color:#c9cbc0}
+.btn-quiet{background:transparent;border:1px solid var(--line-3);color:var(--ink)}
+.btn-quiet:hover{background:var(--field);border-color:var(--ink)}
+.seg{background:var(--field);border:1px solid var(--line-2);border-radius:10px}
+.seg button{color:var(--muted);border-radius:8px}
+.seg button:hover{color:var(--ink)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--hl);box-shadow:none}
-.seg button:hover:not([aria-pressed="true"]){background:var(--accent-soft)}
 
-/* order form on the left, press bed on the right */
-@media (min-width:1024px){
-  .studio{grid-template-columns:minmax(420px,520px) minmax(0,1fr)}
-  .panel{order:1;border-left:0;border-right:2px solid var(--ink);padding:36px 34px 48px}
-  .preview{order:2}
-  .bar{margin:22px -34px 0;padding:10px 34px}
-}
-@media (min-width:1800px){.studio{grid-template-columns:560px minmax(0,1fr)}}
-.panel{background:var(--panel)}
-
-.eyebrow{font-family:var(--mono);color:var(--accent-2);text-transform:uppercase;letter-spacing:.08em;font-size:10.5px}
-.p-head h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,3.3vw,52px);line-height:.98;letter-spacing:-.035em;color:var(--ink);font-variation-settings:"slnt" var(--sl,0);transition:font-variation-settings .35s var(--ease)}
-html[lang="ru"] .p-head h1{font-size:clamp(30px,2.8vw,44px)}
-.p-head h1 em{font-style:normal;color:var(--accent-2)}
-.type-w{background:var(--hl);color:var(--ink)!important;-webkit-text-fill-color:var(--ink)!important;padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
-.p-lead{font-size:15px;color:var(--muted);line-height:1.55}
-
-.ready{background:var(--field);border:1.5px solid var(--ink);border-radius:14px}
-.ready.is-full{border-color:var(--ok)}
-.ring-v{stroke:var(--accent-2)}
-.bar{background:var(--panel)}
-.bar.is-stuck{border-bottom-color:var(--ink)}
+/* layout: the site on the left, the settings rail on the right */
+.studio{grid-template-columns:minmax(0,1fr) 420px}
+@media (min-width:1800px){.studio{grid-template-columns:minmax(0,1fr) 480px}}
+.panel{order:2;background:var(--panel);border-left:1px solid var(--line-2);padding:18px 22px 44px}
+.preview{order:1}
+.p-head{margin:0}
+.ready{margin-top:0;background:var(--field);border:1px solid var(--line-2);border-radius:12px}
+.ready.is-full{border-color:rgba(44,110,59,.45)}
+.ring-v{stroke:var(--ink)}
+.ready.is-full .ring-v{stroke:var(--ok)}
+.bar{background:var(--panel);margin:14px -22px 0;padding:8px 22px;top:-18px}
+.bar.is-stuck{border-bottom-color:var(--line-2)}
+.bar-lab{flex:0 0 auto;font-size:12px;color:var(--muted);white-space:nowrap}
 .jump a{color:var(--muted);font-weight:500}
 .jump a:hover{background:var(--panel-2);color:var(--ink)}
 .jump a.is-on{background:var(--hl);color:var(--ink);box-shadow:none}
 
-/* each section is a numbered page of the catalogue */
-.card{border-top:2px solid var(--ink);padding:26px 0 30px;gap:18px}
-.card-h{align-items:baseline;gap:14px}
-.card-h .num{font-family:var(--mono);font-size:38px;line-height:1;font-weight:600;color:transparent;-webkit-text-stroke:1.2px var(--accent-2);letter-spacing:-.04em}
-.card-h h2{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:-.02em}
-.card-h .count{background:none;border:0;color:var(--accent-2);font-size:12px}
+/* settings sections */
+.card{border-top:1px solid var(--line-2);padding:20px 0 24px;gap:16px}
+.card-h{gap:10px}
+.card-h .num{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.card-h h2{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.015em}
+.card-h .count{background:var(--panel-2);border-color:var(--line-2);color:var(--muted)}
 .lab{color:var(--ink);font-weight:600;font-size:13px}
-.lt{background:none;color:var(--accent-2);padding:0;border-bottom:1px solid currentColor;border-radius:0}
-.help,.bar-hint{color:var(--dim)}
-input[type="text"],input[type="url"],input[type="tel"],input[type="number"],input[type="time"],textarea,select,.affix{background:var(--field);border:1.5px solid var(--line-3);border-radius:10px;color:var(--ink)}
-input:hover,textarea:hover,select:hover,.affix:hover{border-color:var(--ink)}
-input:focus,textarea:focus,select:focus,.affix:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px var(--accent-soft)}
+.lt{background:var(--panel-2);color:var(--muted);border-radius:4px}
+.help{color:var(--dim)}
+input[type="text"],input[type="url"],input[type="tel"],input[type="number"],input[type="time"],textarea,select,.affix{background:var(--field);border:1px solid var(--line-2);border-radius:9px;color:var(--ink)}
+input:hover,textarea:hover,select:hover,.affix:hover{border-color:var(--line-3)}
+input:focus,textarea:focus,select:focus,.affix:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px var(--accent-soft);background-color:var(--field)}
 .affix input{border:0!important;box-shadow:none!important}
 .affix .pre{color:var(--muted)}
 select option{background:#fff;color:var(--ink)}
-.preset{background:var(--field);border:1.5px solid var(--line-2);border-radius:14px}
-.preset:hover{border-color:var(--ink)}
+.preset{background:var(--field);border:1px solid var(--line-2);border-radius:12px;color:var(--ink)}
+.preset:hover{border-color:var(--ink);background:var(--field);color:var(--ink)}
 .preset[aria-pressed="true"]{background:var(--hl);border-color:var(--ink);box-shadow:none}
-.preset[aria-pressed="true"]::after{background-color:#fffdf5;box-shadow:0 0 0 1.5px var(--ink)}
-.preset-i{background:var(--panel-2);color:var(--ink)}
+.preset[aria-pressed="true"]::after{background-color:#fff;box-shadow:0 0 0 1px var(--ink)}
+.preset-i{background:color-mix(in srgb,var(--pc) 14%,#fff);color:var(--pc)}
 .preset[aria-pressed="true"] .preset-i{background:var(--ink);color:var(--hl)}
 .switch{background:var(--line-2)}
 .switch[aria-checked="true"]{background:var(--ink)}
 .switch .knob,.switch[aria-checked="true"] .knob{background:var(--hl)}
-.lng{background:var(--field);border:1.5px solid var(--line-2);border-radius:12px}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--ink)}
+.color-in{border:1px solid var(--line-2);background:var(--field);border-radius:9px;color:var(--ink)}
+.color-in.is-on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.color-in:focus-within{outline-color:var(--ink)}
+.lng{background:var(--field);border:1px solid var(--line-2);border-radius:10px;color:var(--ink)}
+.lng:hover{border-color:var(--ink)}
 .lng[aria-pressed="true"]{border-color:var(--ink);background:var(--accent-soft)}
 .lng[aria-pressed="true"] .box{background:var(--ink);border-color:var(--ink)}
-.lng[aria-pressed="true"] .box .i{color:var(--hl)}
-.color-in{border:1.5px solid var(--line-2);background:var(--field);border-radius:10px}
-.row{background:var(--field);border:1.5px solid var(--line-2);border-radius:14px}
+.lng[aria-pressed="true"] .box .i{stroke:var(--hl)}
+.row{background:var(--field);border:1px solid var(--line-2);border-radius:12px}
 .row:focus-within{border-color:var(--ink)}
-.row-n{font-family:var(--mono);color:var(--accent-2)}
-.ib{border-radius:10px}
+.row-n{font-family:var(--mono);color:var(--muted)}
+.ib{border-radius:9px;color:var(--muted)}
 .ib:hover{background:var(--hl);color:var(--ink)}
-.btn-add{border:1.5px dashed var(--ink);background:transparent;color:var(--ink);border-radius:12px}
-.btn-add:hover{background:var(--hl);border-style:solid}
-.hrow{border-bottom:1px solid var(--line)}
+.btn-add{border:1px dashed var(--line-3);background:transparent;color:var(--ink);border-radius:10px}
+.btn-add:hover{background:var(--hl);border:1px solid var(--ink)}
+.empty-st{background:var(--field);border-color:var(--line-2)}
+.hrow{background:var(--field);border-color:var(--line)}
 .tog .track{background:var(--line-2)}
 .tog input:checked+.track{background:var(--ink)}
 .tog .track::after{background:#fff}
 .tog input:checked+.track::after{background:var(--hl)}
-.p-foot{border-top:2px solid var(--ink);color:var(--muted)}
-.p-links a,.linkbtn{color:var(--ink);text-decoration-color:var(--accent-2)}
+.tog input:focus-visible+.track{outline-color:var(--ink)}
+.p-foot{border-top:1px solid var(--line-2);color:var(--muted)}
+.p-links a,.linkbtn{color:var(--ink);text-decoration-color:var(--line-3)}
 .p-links a:hover,.linkbtn:hover{background:var(--hl);color:var(--ink)}
+.p-contacts a:first-child{color:var(--ink)}
 
-/* the press bed */
-.preview{background:var(--canvas);
-  --ink:#f3efdf;--muted:#cfd1ad;--dim:#b4b791;--line:#4d5622;--line-2:#5d672a;--line-3:#7a8540;
-  --field:#2b3210;--field-2:#323a13;--panel-2:#2b3210;--panel:#30381200;color:var(--ink)}
-.pv-bar{background:var(--canvas-2);border-bottom:1px solid #4d5622}
-.pv-bar .seg{border-color:#cfd1ad}
-.pv-bar .seg button{color:#f3efdf}
-.pv-bar .seg button[aria-pressed="true"]{background:var(--hl);color:#1f230d}
+/* the workspace: dark, tinted with the accent colour of the business you pick */
+.preview{background:#141516;color:#eeeee9;
+  --ink:#eeeee9;--muted:#b9bab3;--dim:#9c9d96;--line:#2b2d2f;--line-2:#3a3c3f;--line-3:#5a5c60;--field:#1e2022;--field-2:#26282a;--panel:#141516}
+.pv-bar{height:auto;min-height:56px;background:#141516;border-bottom:1px solid #2b2d2f;gap:16px;padding:8px 18px}
+.pv-cap{flex:1 1 auto;min-width:0;font-size:15px;line-height:1.4;color:#eeeee9;margin:0}
+.pv-cap .type-w{font-weight:600;color:color-mix(in srgb,var(--tc,#d6f160) 45%,#fff)}
+#burst{display:none}
+.pv-tools{display:flex;align-items:center;gap:12px;flex:0 0 auto;margin-left:auto}
+.pv-bar .seg{background:#1e2022;border-color:#3a3c3f}
+.pv-bar .seg button{color:#b9bab3}
+.pv-bar .seg button:hover{color:#fff}
+.pv-bar .seg button[aria-pressed="true"]{background:var(--hl);color:#17181a}
 .pv-status i,.pv-chrome i{display:none!important}
-.pv-status{font-family:var(--mono);color:#cfd1ad;text-transform:lowercase}
-.pv-meta{font-family:var(--mono);color:#cfd1ad;border-color:#5d672a;background:transparent}
-.pv-board b{color:var(--hl)}
-.pv-device{border-radius:18px;box-shadow:0 30px 70px -30px rgba(0,0,0,.6);outline:2px solid #1f230d}
-.pv-chrome{background:#efe9da;color:#1f230d;justify-content:center}
-.pv-url{background:#fffdf5;color:#1f230d;font-family:var(--mono)}
-.pv-grip i{background:#cfd1ad}
-.pv-try{background:var(--hl);color:#1f230d;border:2px solid #1f230d;border-radius:14px;box-shadow:none}
-.pv-try:hover{background:#e3f57a}
-.pv-try-i{background:#1f230d;color:var(--hl)}
-.pv-note{background:#efe9da;color:#1f230d;border:2px solid #1f230d}
-.pv-err{color:#f3efdf}
-
-/* tablet and phone tab bar */
-.tabs{background:var(--app);border-bottom:2px solid var(--ink)}
-.tabs button{color:var(--ink)}
-.tabs button[aria-selected="true"]{color:var(--hl)}
-.tab-pill{background:var(--ink)}
-.toast{background:var(--ink);color:#f3efdf;border:0}
+.pv-status{font-family:var(--mono);color:#9c9d96;text-transform:lowercase;margin:0}
+.pv-status.is-flash{color:var(--hl)}
+.pv-meta{font-family:var(--mono);color:#9c9d96;border-color:#3a3c3f;background:transparent;margin:0}
+.pv-board{display:none!important}
+.pv-stage{--glow:#0e7490;background:radial-gradient(90% 75% at 50% 38%,color-mix(in srgb,var(--glow) 34%,#17191b) 0,color-mix(in srgb,var(--glow) 12%,#0d0e0f) 100%);transition:--glow .7s cubic-bezier(.2,.7,.2,1)}
+.pv-device[data-dev="desktop"],.pv-device[data-dev="bare"]{border-radius:10px;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 40px 80px -36px rgba(0,0,0,.85)}
+.pv-chrome{background:#ecebe6;color:#17181a;justify-content:center;border-bottom:1px solid #d8d6ce}
+.pv-url{background:#fff;color:#17181a;font-family:var(--mono)}
+.pv-grip i{background:#9c9d96}
+.pv-grip:hover i,.pv-stage.is-sizing .pv-grip i{background:var(--hl)}
+.pv-try{background:var(--hl);color:#17181a;border:1px solid #17181a;border-radius:12px;box-shadow:0 18px 36px -18px rgba(0,0,0,.8);-webkit-backdrop-filter:none;backdrop-filter:none}
+.pv-try:hover{background:#e4f78f;border-color:#17181a}
+.pv-try-i{background:#17181a}
+.pv-try-i .i{stroke:var(--hl)}
+.pv-note{background:#fbfaf7;color:#17181a;border:1px solid #17181a}
+.pv-err{color:#eeeee9}
+.toast{background:#17181a;color:#f3f2ee;border:0}
 .skip{background:var(--ink);color:var(--hl)}
-@media (prefers-reduced-motion:reduce){.p-head h1{transition:none}}
-/* 50-50 pass: drop lines that repeat the headline and the language switch */
-.top-note,.bar-hint{display:none}
+
+/* tablet and phone: the site on top, the settings under it, no view switch */
+@media (max-width:1023px){
+  :root{--tabs:0px}
+  html{scroll-padding:calc(var(--top) + 64px) 0 24px}
+  .tabs{display:none!important}
+  .studio{display:flex;flex-direction:column}
+  .studio[data-view] .preview{display:flex}
+  .studio[data-view] .panel{display:flex;width:100%}
+  .switch,.switch[aria-checked="true"]{background:none}
+  .switch[aria-checked="true"]::before{background:var(--ink)}
+  .preview{height:clamp(420px,calc(100svh - var(--top) - 250px),620px)}
+  .panel{flex-direction:column;max-width:720px;background:var(--app);padding:0 16px 56px;border-left:0}
+  .pv-status{display:none!important}
+  .panel>*{order:3}
+  .panel>.bar{order:0;top:var(--top);margin:0 -16px;padding:8px 16px;background:var(--app)}
+  .panel>#c-business{order:1;border-top:0;padding-top:12px}
+  .panel>.p-head{order:2;padding:0 0 20px}
+  .pv-bar{padding:8px 12px;gap:10px}
+  .pv-cap{font-size:14px}
+  .pv-tools{gap:8px}
+}
+@media (max-width:560px){.pv-status,.pv-meta{display:none!important}}
+@media (max-width:420px){.bar-lab{display:none}}
+@media (prefers-reduced-motion:reduce){.pv-stage{transition:none}}
 </style>
-<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--accent)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.top .brand{display:inline-flex;align-items:center;gap:10px}.top .brand .sb-logo{--sb-h:28px}</style></head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--accent)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.top .brand{display:inline-flex;align-items:center;gap:10px}.top .brand .sb-logo{--sb-h:28px}</style>
+<style>@property --glow{syntax:'<color>';inherits:true;initial-value:#0e7490}</style>
+</head>
 <body>
 <a class="skip" href="#panel" data-i18n="skip">Skip to settings</a>
 
@@ -172,7 +194,6 @@ select option{background:#fff;color:var(--ink)}
   <a class="brand" href="../thailand/" aria-label="Baanpage, site builder">
     <svg class="sb-logo sb-h" data-sb="baanpage" viewBox="0 0 146 32" width="127.8" height="28" role="img" aria-label="Baanpage" focusable="false"><g aria-hidden="true"><rect x="8" y="15" width="16" height="13" rx="1.5" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-a s-c"/><path d="M3.5 16 16 5.5 28.5 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 21.5h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Geologica'" font-weight="700" font-size="21" letter-spacing="-0.01em">Baanpage</text></svg><span class="brand-tag" aria-hidden="true" data-i18n="brandTag">Site builder</span>
   </a>
-  <p class="top-note" data-i18n="topNote">Website kit for local businesses in Thailand</p>
   <div class="top-r">
     <div class="seg seg-ui" role="group" aria-label="Interface language" data-i18n-aria="uiLang">
       <button type="button" data-ui="en" aria-pressed="true" lang="en">EN</button>
@@ -203,15 +224,15 @@ select option{background:#fff;color:var(--ink)}
 </div>
 
 <main class="studio" id="studio" data-view="edit">
+  <h1 class="sr" data-v3="h1">Baanpage, a builder for booking sites</h1>
   <section class="panel" id="panel" aria-labelledby="pTitle" tabindex="-1">
     <div class="p-head">
-      <p class="eyebrow"><span data-i18n="eyebrow">Personal project by Alexandr Khrustalev</span></p>
-      <h1 id="pTitle"><span data-i18n="h1">Booking sites for</span> <span class="type-w" id="typeWord">spas</span> <span data-i18n="h1in">in</span> <em data-i18n="h1em">Thailand</em></h1>
-      <p class="p-lead" data-i18n="lead">Fill in the business, watch the site change, then download it ready to host. No sign up, and nothing leaves your browser.</p>
+      <h2 class="sr" id="pTitle" data-v3="pTitle">Settings</h2>
       <div class="ready" id="ready" aria-live="polite"></div>
     </div>
 
     <div class="bar" id="bar">
+      <span class="bar-lab" aria-hidden="true" data-v3="editIn">Texts in</span>
       <div class="seg seg-lang" id="editLangSeg" role="group" aria-label="Text language" data-i18n-aria="textLang"></div>
       <nav class="jump" id="jump" aria-label="Sections" data-i18n-aria="sections">
         <a href="#c-business" data-i18n="cBusiness">Business</a>
@@ -357,32 +378,35 @@ select option{background:#fff;color:var(--ink)}
       <div class="empty-st" id="faqEmpty" hidden>
         <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6M12 16.8v.2"/></svg>
         <strong data-i18n="faqEmptyT">No questions yet</strong>
-        <p data-i18n="faqEmptyP">Short answers to what people ask in chat save time every day.</p>
+        <p data-v3="faqEmptyP">Short answers to what people often ask in chat.</p>
       </div>
       <button type="button" class="btn btn-add" id="addFaq"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="addFaq">Add question</span></button>
     </section>
 
     <footer class="p-foot"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="baanpage" viewBox="0 0 146 32" width="118.6" height="26" role="img" aria-label="Baanpage" focusable="false"><g aria-hidden="true"><rect x="8" y="15" width="16" height="13" rx="1.5" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-a s-c"/><path d="M3.5 16 16 5.5 28.5 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 21.5h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Geologica'" font-weight="700" font-size="21" letter-spacing="-0.01em">Baanpage</text></svg></div>
-      <p data-i18n="foot1">This site builder is a personal freelance project by Alexandr Khrustalev. The downloaded site is plain HTML, CSS and JavaScript that any static host can serve.</p>
+      <p data-v3="foot1">A personal project by Alexandr Khrustalev. The download is a plain HTML site that works on any hosting.</p>
       <div class="p-links">
-        <a href="kit/site.html" target="_blank" rel="noopener" data-i18n="kitDemo">Open the kit demo</a>
+        <a href="kit/site.html" target="_blank" rel="noopener" data-v3="kitDemo">Open the sample site</a>
         <a href="README.md" target="_blank" rel="noopener" data-i18n="readme">Read the guide</a>
         <button type="button" class="linkbtn" id="resetAll" data-i18n="reset">Start over</button>
       </div>
       <div class="p-links p-contacts"><a href="../" data-i18n="allWork">All work</a><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></div>
-    <p class="sb-label">Sample site, fictional brand</p></footer>
+    <p class="sb-label" data-v3="label">Sample site, fictional brand</p></footer>
   </section>
 
   <section class="preview" id="preview" aria-labelledby="pvTitle">
     <h2 class="sr" id="pvTitle" data-i18n="pvTitle">Preview</h2>
     <div class="pv-bar">
-      <div class="seg" role="group" aria-label="Preview size" data-i18n-aria="pvSize" id="devSeg">
-        <button type="button" data-dev="desktop" aria-pressed="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M9 20h6M12 16.5V20"/></svg><span data-i18n="desktop">Desktop</span></button>
-        <button type="button" data-dev="tablet" aria-pressed="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="3" width="15" height="18" rx="2.5"/><path d="M11 18h2"/></svg><span data-i18n="tablet">Tablet</span></button>
-        <button type="button" data-dev="phone" aria-pressed="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg><span data-i18n="phone">Phone</span></button>
+      <p class="pv-cap"><span data-v3="cap1">Build a booking site for</span> <span class="type-w" id="typeWord">spas</span> <span data-v3="cap2">in a few clicks.</span></p>
+      <div class="pv-tools">
+        <p class="pv-status" id="pvStatus"><i aria-hidden="true"></i><span id="pvStatusT" data-i18n="pvLive">Preview</span></p>
+        <p class="pv-meta" id="pvMeta"></p>
+        <div class="seg" role="group" aria-label="Preview size" data-i18n-aria="pvSize" id="devSeg">
+          <button type="button" data-dev="desktop" aria-pressed="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M9 20h6M12 16.5V20"/></svg><span data-i18n="desktop">Desktop</span></button>
+          <button type="button" data-dev="tablet" aria-pressed="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="3" width="15" height="18" rx="2.5"/><path d="M11 18h2"/></svg><span data-i18n="tablet">Tablet</span></button>
+          <button type="button" data-dev="phone" aria-pressed="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg><span data-i18n="phone">Phone</span></button>
+        </div>
       </div>
-      <p class="pv-status" id="pvStatus"><i aria-hidden="true"></i><span id="pvStatusT" data-i18n="pvLive">Preview</span></p>
-      <p class="pv-meta" id="pvMeta"></p>
     </div>
     <div class="pv-stage" id="stage">
       <div class="pv-box" id="pvBox">
@@ -393,7 +417,7 @@ select option{background:#fff;color:var(--ink)}
           <iframe id="frame" src="kit/site.html?lanta-preview=1&amp;v=20261025c" title="Site preview" data-i18n-title="pvFrame"></iframe>
         </div>
       </div>
-      <button type="button" class="pv-try" id="pvTry"><span class="pv-try-i" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9 11.5V5.8a1.8 1.8 0 0 1 3.6 0v4.7M12.6 10V8.6a1.8 1.8 0 0 1 3.6 0V11M16.2 10.6a1.8 1.8 0 0 1 3.3 1v3.2a6.2 6.2 0 0 1-6.2 6.2h-1.2a6.2 6.2 0 0 1-4.9-2.4l-3-3.9a1.7 1.7 0 0 1 2.6-2.2L9 13.9"/></svg></span><span data-i18n="tryIt">Try it like a customer: book a time in the preview</span></button>
+      <button type="button" class="pv-try" id="pvTry"><span class="pv-try-i" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9 11.5V5.8a1.8 1.8 0 0 1 3.6 0v4.7M12.6 10V8.6a1.8 1.8 0 0 1 3.6 0V11M16.2 10.6a1.8 1.8 0 0 1 3.3 1v3.2a6.2 6.2 0 0 1-6.2 6.2h-1.2a6.2 6.2 0 0 1-4.9-2.4l-3-3.9a1.7 1.7 0 0 1 2.6-2.2L9 13.9"/></svg></span><span data-v3="tryIt">Try booking a time, like a customer</span></button>
       <div class="pv-note" id="pvNote" hidden role="status" aria-live="polite"></div>
       <div class="burst" id="burst" aria-hidden="true"></div>
       <div class="pv-load" id="pvLoad" aria-hidden="true"><span class="spin"></span></div>
@@ -409,7 +433,31 @@ select option{background:#fff;color:var(--ink)}
 
 <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
 <script src="studio.js?v=20261025a"></script>
+<script>
+/* V3 wording for the parts of this page that the shared studio script does not translate. */
+(function(){
+  var V3={
+    en:{h1:'Baanpage, a builder for booking sites',pTitle:'Settings',editIn:'Texts in',cap1:'Build a booking site for',cap2:'in a few clicks.',tryIt:'Try booking a time, like a customer',
+      foot1:'A personal project by Alexandr Khrustalev. The download is a plain HTML site that works on any hosting.',kitDemo:'Open the sample site',label:'Sample site, fictional brand',faqEmptyP:'Short answers to what people often ask in chat.'},
+    ru:{h1:'Baanpage, конструктор сайтов с онлайн-записью',pTitle:'Настройки',editIn:'Тексты на',cap1:'Сайт с онлайн-записью для',cap2:'за несколько кликов.',tryIt:'Попробуйте записаться, как клиент',
+      foot1:'Личный проект Александра Хрусталёва. Скачанный сайт состоит из обычных HTML-файлов и работает на любом хостинге.',kitDemo:'Открыть пример сайта',label:'Пример сайта, бренд вымышленный',faqEmptyP:'Короткие ответы на то, что чаще всего спрашивают в чате.'}
+  };
+  var root=document.documentElement;
+  function apply(){
+    var d=V3[root.lang==='ru'?'ru':'en'];
+    document.querySelectorAll('[data-v3]').forEach(function(el){var k=el.getAttribute('data-v3');if(d[k]!=null&&el.textContent!==d[k])el.textContent=d[k]});
+  }
+  /* Phones and tablets show the site and the settings together, so the panels are not tabs there. */
+  function roles(){
+    var p=document.getElementById('panel'),v=document.getElementById('preview');
+    [[p,'pTitle'],[v,'pvTitle']].forEach(function(x){if(!x[0])return;x[0].removeAttribute('role');x[0].setAttribute('aria-labelledby',x[1])});
+  }
+  apply();roles();
+  new MutationObserver(apply).observe(root,{attributes:true,attributeFilter:['lang']});
+  var mq=matchMedia('(max-width: 1023px)');
+  if(mq.addEventListener)mq.addEventListener('change',function(){setTimeout(roles,0)});
+})();
+</script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
-<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(0+(-12-0)*x).toFixed(2)+'';document.querySelectorAll('.p-head h1').forEach(function(n){n.style.setProperty('--sl',v)})})},{passive:true})})();</script>
 </body>
 </html>
