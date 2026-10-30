@@ -6,36 +6,35 @@
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f6dc1c">
-<title>Press proof</title>
+<title>Plateroom Press, a poster in four ink plates</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e3e3e5'/%3E%3Ccircle cx='12' cy='13' r='6' fill='%2300a0e3' style='mix-blend-mode:multiply'/%3E%3Ccircle cx='20' cy='13' r='6' fill='%23e5007d' opacity='.85'/%3E%3Ccircle cx='16' cy='20' r='6' fill='%23ffe500' opacity='.85'/%3E%3C/svg%3E">
-<meta name="description" content="A poster pulled apart into its four print plates. Separate cyan, magenta, yellow and black, knock the registration out, then put a loupe on the proof to see the halftone dots and how much ink lands on each spot.">
+<meta name="description" content="A print study. One poster split into its four ink plates, cyan, magenta, yellow and black. Pull them apart, switch inks off, shift two plates, and look at the printed dots through a loupe.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Press proof, four plates and one poster">
-<meta property="og:description" content="A poster pulled apart into its four print plates, with a loupe that shows the halftone dots and the ink on each spot.">
+<meta property="og:title" content="Plateroom Press, a poster in four ink plates">
+<meta property="og:description" content="A poster split into its four ink plates, with a loupe that shows the printed dots and the ink at each spot.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/interaction-proof.html">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/orbit.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Press proof, four plates and one poster">
-<meta name="twitter:description" content="A poster pulled apart into its four print plates, with a loupe that shows the halftone dots and the ink on each spot.">
+<meta name="twitter:title" content="Plateroom Press, a poster in four ink plates">
+<meta name="twitter:description" content="A poster split into its four ink plates, with a loupe that shows the printed dots and the ink at each spot.">
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/orbit.jpg">
 <link href="assets/gfonts/css/9a1b4369127a.css" rel="stylesheet">
 <style>
-/* Press proof. A print shop's proofing table: cool grey board, white proof sheets with crop marks,
-   a control strip across the top, and the four process inks used only where ink would really be. */
+/* Print study. A wall of process yellow, a black viewing booth on it, and the four plates of one poster inside.
+   The ink buttons sit beside the stack with a line to their plate. Antonio for headings, Libre Franklin for reading,
+   Cousine for numbers. Below: the loupe, then how it is built. */
 :root {
   color-scheme: light;
-  --table: #e4e5e7; --sheet: #ffffff; --ink: #121214; --ink-2: #3a3b40; --muted: #5f6066; --line: #c9cacd; --rule: #121214;
+  --wall: #f6dc1c; --sheet: #fffef6; --ink: #111110; --ink-2: #2c2a1f; --muted: #4d4a33; --line: #d3bc12;
   --c: #00a0dc; --m: #e4007f; --y: #ffe600; --k: #1d1b1c;
-  --c-ink: #006a92; --m-ink: #a8005b;
-  --booth: #232227;
-  --sans: "Archivo", Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --display: "Archivo", "Arial Narrow", Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
-  --cx: 0px; --cy: 0px; --mx: 0px; --my: 0px;
+  --m-ink: #8f0052; --booth: #111110; --booth-2: #1d1d1a; --booth-line: #4a4730; --on-booth: #f6dc1c; --on-booth-2: #d9cf8f;
+  --sans: "Libre Franklin", Arial, system-ui, sans-serif;
+  --display: "Antonio", "Arial Narrow", Arial, sans-serif;
+  --mono: "Cousine", ui-monospace, Consolas, monospace;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; color: var(--ink); background: var(--table); font: 400 17px/1.55 var(--sans); }
+body { margin: 0; color: var(--ink); background: var(--wall); font: 400 17px/1.55 var(--sans); }
 a { color: inherit; }
 button, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
@@ -46,305 +45,168 @@ h1, h2, h3, p { margin: 0; }
 .skip-link { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; background: var(--ink); color: #fff; }
 .skip-link:focus { top: 12px; }
 .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
-.mono { font-family: var(--mono); }
 
-/* Control strip: the patches a press operator reads with a densitometer */
-.strip { display: flex; height: 14px; }
+/* control strip and the black slug line */
+.strip { display: flex; height: 8px; }
 .strip i { flex: 1; }
-.top { background: var(--sheet); border-bottom: 1px solid var(--line); }
-.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 58px; }
-.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; text-decoration: none; }
+.top { background: var(--ink); color: var(--on-booth); }
+.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 18px; min-height: 58px; }
+.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; text-decoration: none; color: var(--on-booth); white-space: nowrap; }
 .back svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; }
-.job { font: 500 12.5px/1.3 var(--mono); color: var(--muted); letter-spacing: .04em; text-align: right; }
 
-/* Sheet with crop marks */
-.sheet { position: relative; background: var(--sheet); box-shadow: 0 1px 0 rgba(0, 0, 0, .04), 0 18px 40px -26px rgba(0, 0, 0, .35); }
-.crop::before, .crop::after { content: ""; position: absolute; width: 22px; height: 22px; pointer-events: none; }
-.crop::before { left: -28px; top: -28px; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-.crop::after { right: -28px; bottom: -28px; border-left: 1px solid var(--ink); border-top: 1px solid var(--ink); }
-
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 32px 64px; align-items: end; padding-top: 72px; padding-bottom: 56px; }
-.label { font: 500 12.5px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-h1 { margin-top: 14px; font-family: var(--display); font-size: clamp(48px, 8vw, 128px); font-weight: 800; font-stretch: 64%; line-height: .86; letter-spacing: -.015em; text-transform: uppercase; color: var(--ink);
-  text-shadow: var(--cx) var(--cy) 0 rgba(0, 160, 220, .9), var(--mx) var(--my) 0 rgba(228, 0, 127, .85); }
-.lede { margin-top: 22px; max-width: 54ch; color: var(--ink-2); font-size: 18px; }
-.ticket { padding: 18px 20px 20px; font: 400 13.5px/1.5 var(--mono); }
-.ticket h2 { font: 700 13px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
-.ticket dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 12px 0 0; }
-.ticket dt { color: var(--muted); }
-.ticket dd { margin: 0; }
-.ticket .inks { display: inline-flex; gap: 4px; vertical-align: -2px; }
-.ticket .inks i { width: 12px; height: 12px; }
-
-/* Booth with the separating stack */
-.scrolly { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 56px; padding-bottom: 72px; }
-.stage-col { position: sticky; top: 20px; align-self: start; }
-.stage { position: relative; height: min(660px, calc(100vh - 40px)); min-height: 460px; overflow: hidden; background: radial-gradient(80% 64% at 50% 34%, #3a3940 0%, var(--booth) 72%); perspective: 1100px; }
-.booth-head { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; gap: 10px; padding: 12px 16px; color: #b7b7bd; font: 500 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; pointer-events: none; }
-.scaler { position: absolute; inset: 0; transform-style: preserve-3d; }
+/* ---------- first screen: the booth with the plates ---------- */
+.view { padding-top: 18px; }
+.booth { position: relative; height: max(460px, min(820px, calc(100vh - 66px - 18px - 104px))); background: var(--booth); box-shadow: 12px 12px 0 rgba(17, 17, 16, .18); overflow: hidden; touch-action: pan-y; }
+.booth.dragging { cursor: grabbing; }
+.booth .caption { position: absolute; left: 22px; top: 18px; z-index: 4; max-width: calc(100% - 44px); color: var(--on-booth); font: 500 15px/1.4 var(--sans); }
+.area { position: absolute; left: 0; top: 0; bottom: 0; right: 300px; perspective: 1100px; cursor: grab; }
+.scaler { position: absolute; inset: 0; transform-style: preserve-3d; transform: scale(var(--s, 1)); }
 .composite, .assembly { position: absolute; top: 50%; left: 50%; width: 252px; height: 356px; }
 .composite { transform: translate(-50%, -50%); background: var(--sheet); box-shadow: 0 30px 50px -20px rgba(0, 0, 0, .65); transition: opacity .2s ease; }
 .composite svg, .proof-art svg { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: multiply; transition: transform .25s ease, opacity .2s ease; }
 .assembly { transform-style: preserve-3d; transform: translate(-50%, -50%) rotateX(56deg) rotateZ(-32deg); transition: transform .18s ease-out, opacity .2s ease; }
-.plate { position: absolute; inset: 0; border: 1px solid rgba(255, 255, 255, .5); background: rgba(255, 255, 255, .82); box-shadow: 0 18px 28px rgba(0, 0, 0, .32); transform: translateZ(var(--z, 0px)); transition: transform .2s ease-out, opacity .2s ease; }
-.plate svg { width: 100%; height: 100%; display: block; }
-.plate b { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; min-width: 26px; height: 22px; padding: 0 6px; background: var(--ink); color: #fff; font: 600 12px/1 var(--mono); }
+.plate { position: absolute; inset: 0; border: 1px solid rgba(255, 255, 255, .7); background: rgba(255, 255, 255, .82); box-shadow: 0 18px 28px rgba(0, 0, 0, .32); transform: translateZ(var(--z, 0px)); transition: transform .2s ease-out, opacity .2s ease; }
+.plate svg { width: 100%; height: 100%; display: block; transition: transform .25s ease; }
+.plate b { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; min-width: 26px; height: 22px; padding: 0 6px; background: var(--on-booth); color: var(--ink); font: 600 12px/1 var(--mono); }
+.plate .anchor { position: absolute; left: 93.65%; top: 95.5%; width: 2px; height: 2px; margin: -1px 0 0 -1px; }
 .plate.off, .composite svg.off, .proof-art svg.off { opacity: 0; }
-.stage-read { position: absolute; left: 16px; right: 16px; bottom: 12px; display: flex; justify-content: space-between; gap: 10px; color: #d9d9dd; font: 500 12.5px/1.4 var(--mono); pointer-events: none; }
-.paused .plate, .paused .assembly { transition: none !important; }
+.leads { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; fill: none; stroke-width: 1.5; }
+.inks { position: absolute; right: 26px; top: 50%; z-index: 3; width: 236px; display: grid; gap: 12px; transform: translateY(-50%); }
+.ink-btn { display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: center; gap: 12px; min-height: 54px; padding: 0 14px 0 12px; border: 1px solid var(--booth-line); background: var(--booth-2); color: var(--sheet); font: 600 21px/1 var(--display); letter-spacing: .02em; text-align: left; transition: background-color .15s ease, color .15s ease; }
+.ink-btn i { width: 28px; height: 28px; background: var(--sw); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .25); }
+.ink-btn:hover { background: #2a2a26; }
+.ink-btn:focus-visible { outline: 3px solid var(--on-booth); outline-offset: 2px; }
+.ink-btn[aria-pressed="false"] { border-style: dashed; color: #8f8a68; background: transparent; }
+.ink-btn[aria-pressed="false"] i { background: transparent; box-shadow: inset 0 0 0 2px var(--booth-line); }
+.ink-btn[aria-pressed="false"] span { text-decoration: line-through; }
 
-.steps { counter-reset: step; }
-.step { min-height: 78vh; padding: 48px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
-.step:first-child { border-top: 0; padding-top: 8px; min-height: 60vh; }
-.step:last-child { min-height: 0; }
-.step-no { display: inline-flex; align-items: center; gap: 10px; font: 600 12.5px/1 var(--mono); color: var(--muted); letter-spacing: .06em; }
-.step-no::before { content: ""; width: 18px; height: 18px; border: 1px solid var(--ink); border-radius: 50%; background: linear-gradient(var(--ink), var(--ink)) center / 1px 100% no-repeat, linear-gradient(var(--ink), var(--ink)) center / 100% 1px no-repeat; }
-.step h2 { margin-top: 12px; font-family: var(--display); font-size: clamp(30px, 3.4vw, 44px); font-weight: 800; font-stretch: 70%; line-height: .95; text-transform: uppercase; letter-spacing: -.01em; }
-.step p { margin-top: 12px; max-width: 44ch; color: var(--ink-2); }
-.note { color: var(--m-ink); font-size: 15px; }
-.slider { margin-top: 22px; max-width: 440px; }
-.slider label { display: flex; justify-content: space-between; gap: 10px; font-weight: 600; }
+.controls { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 14px 36px; align-items: end; padding: 20px 0 6px; }
+.slider label { display: flex; justify-content: space-between; gap: 10px; font-weight: 600; font-size: 16px; }
 .slider output { font: 500 15px/1.5 var(--mono); }
-.slider input { display: block; width: 100%; height: 44px; margin: 4px 0 0; accent-color: var(--ink); cursor: pointer; }
-.row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 2px solid var(--ink); background: var(--ink); color: #fff; font-weight: 700; font-stretch: 88%; letter-spacing: .03em; text-transform: uppercase; font-size: 15px; transition: transform .1s ease, background-color .15s ease; }
-.btn:hover { background: var(--ink-2); border-color: var(--ink-2); }
-.btn:active { transform: translateY(1px); }
-.btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
-.btn.ghost:hover { background: rgba(18, 18, 20, .06); }
-.btn[aria-pressed="true"] { background: var(--sheet); color: var(--ink); border-color: var(--ink); }
-.plates { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
-.plate-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px 0 10px; border: 2px solid var(--ink); background: var(--sheet); font-weight: 700; transition: background-color .15s ease, color .15s ease; }
-.plate-btn i { width: 24px; height: 24px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2); }
-.plate-btn[data-p="c"] i { background: var(--c); } .plate-btn[data-p="m"] i { background: var(--m); } .plate-btn[data-p="y"] i { background: var(--y); } .plate-btn[data-p="k"] i { background: var(--k); }
-.plate-btn[aria-pressed="false"] { border-style: dashed; color: var(--muted); background: transparent; }
-.plate-btn[aria-pressed="false"] i { background: transparent !important; box-shadow: inset 0 0 0 2px var(--line); }
-.live { min-height: 26px; margin-top: 14px; font-weight: 600; color: var(--ink-2); }
-.live.warn { color: var(--m-ink); }
+.slider input { display: block; width: 100%; height: 40px; margin: 2px 0 0; accent-color: var(--ink); cursor: pointer; }
+.acts { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding-bottom: 2px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 20px; border: 2px solid var(--ink); background: var(--ink); color: var(--on-booth); font: 600 19px/1 var(--display); letter-spacing: .04em; transition: background-color .15s ease, color .15s ease; }
+.btn:hover { background: var(--sheet); color: var(--ink); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { background: var(--ink); color: var(--on-booth); }
+.btn:active, .ink-btn:active { transform: translateY(1px); }
+.check { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; font-size: 16px; cursor: pointer; }
+.check input { width: 18px; height: 18px; margin: 0; accent-color: var(--ink); }
+@media (hover: none), (max-width: 719px) { .check { display: none; } }
 
-/* Proof desk: loupe and ink meter */
-.desk { padding-top: 80px; padding-bottom: 88px; border-top: 2px solid var(--rule); }
-.desk-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 64px; align-items: end; }
-.desk-head h2 { font-family: var(--display); font-size: clamp(36px, 4.8vw, 68px); font-weight: 800; font-stretch: 64%; line-height: .9; text-transform: uppercase; letter-spacing: -.01em; }
-.desk-head p { color: var(--ink-2); max-width: 52ch; }
-.desk-body { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 56px; margin-top: 48px; align-items: start; }
-.proof { padding: 22px; }
+/* ---------- loupe ---------- */
+.desk { margin-top: 64px; padding-top: 40px; padding-bottom: 80px; border-top: 6px solid var(--ink); }
+.sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 40px; }
+h2 { font: 700 clamp(32px, 3.8vw, 52px)/1 var(--display); letter-spacing: -.005em; }
+.sec-head p { max-width: 52ch; }
+.desk-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px); gap: 56px; margin-top: 40px; align-items: start; }
+.proof { order: 2; position: relative; padding: 22px; background: var(--sheet); border-top: 6px solid var(--ink); }
 .proof-art { position: relative; width: 100%; aspect-ratio: 252 / 356; cursor: crosshair; touch-action: pan-y; }
 .proof-art:focus-visible { outline-offset: 6px; }
 .marker { position: absolute; left: 0; top: 0; width: 60px; height: 60px; margin: -30px 0 0 -30px; border: 1.5px solid var(--ink); border-radius: 50%; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .9), inset 0 0 0 1.5px rgba(255, 255, 255, .9); touch-action: none; cursor: grab; }
 .marker::before, .marker::after { content: ""; position: absolute; background: var(--ink); }
 .marker::before { left: 50%; top: -8px; bottom: -8px; width: 1px; }
 .marker::after { top: 50%; left: -8px; right: -8px; height: 1px; }
-.proof-cap { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; font: 500 12px/1.4 var(--mono); color: var(--muted); }
+.proof-cap { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; font: 500 13px/1.4 var(--mono); color: var(--muted); }
 .loupe-col { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 32px 44px; align-items: start; }
-.loupe-wrap { position: relative; width: min(340px, 100%); }
-.loupe { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; background: #fff; box-shadow: 0 0 0 10px #1a1a1d, 0 0 0 11px #4a4a50, 0 28px 50px -18px rgba(0, 0, 0, .55); }
-.loupe-read { margin-top: 26px; font: 500 12.5px/1.4 var(--mono); color: var(--muted); text-align: center; }
-.meter h3 { font: 700 13px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
+.loupe-wrap { position: relative; width: min(340px, 100%); margin-left: 16px; }
+.loupe { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; background: #fff; box-shadow: 0 0 0 10px var(--ink), 0 0 0 14px var(--on-booth), 0 0 0 16px var(--ink); }
+.loupe-read { margin-top: 26px; font: 500 13px/1.4 var(--mono); color: var(--ink); text-align: center; }
+.loupe-fail { margin-top: 12px; font-size: 15px; color: var(--m-ink); }
+.meter { padding: 20px 22px 22px; background: var(--sheet); border-top: 6px solid var(--ink); }
+.meter h3 { font: 700 15px/1.2 var(--sans); padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
 .bars { display: grid; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
-.bars li { display: grid; grid-template-columns: 76px minmax(0, 1fr) 46px; align-items: center; gap: 12px; font: 500 13.5px/1.2 var(--mono); }
-.bars .track { position: relative; height: 14px; background: #eeeff1; }
+.bars li { display: grid; grid-template-columns: 76px minmax(0, 1fr) 46px; align-items: center; gap: 12px; font: 500 14px/1.2 var(--mono); }
+.bars .track { position: relative; height: 14px; background: #ece9d6; }
 .bars .fill { position: absolute; inset: 0 auto 0 0; width: 0; transition: width .2s ease; }
 .bars li[data-p="c"] .fill { background: var(--c); } .bars li[data-p="m"] .fill { background: var(--m); } .bars li[data-p="y"] .fill { background: var(--y); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); } .bars li[data-p="k"] .fill { background: var(--k); }
 .bars b { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
 .bars li.off { color: var(--muted); text-decoration: line-through; }
-.total { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font: 500 13.5px/1.3 var(--mono); }
-.total b { font: 800 34px/1 var(--display); font-stretch: 70%; font-variant-numeric: tabular-nums; }
+.total { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font: 500 14px/1.3 var(--mono); }
+.total b { font: 700 34px/1 var(--display); font-variant-numeric: tabular-nums; }
 .verdict { margin-top: 10px; font-size: 15px; color: var(--ink-2); }
 .screen { min-width: 0; margin: 28px 0 0; padding: 0; border: 0; }
-.screen legend { padding: 0; font: 700 13px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.screen legend { padding: 0; font: 700 15px/1.2 var(--sans); }
 .screen-opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .screen-opts label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border: 2px solid var(--ink); background: var(--sheet); font-weight: 600; font-size: 15px; cursor: pointer; }
 .screen-opts input { width: 16px; height: 16px; margin: 0; accent-color: var(--ink); }
-.screen-opts label:has(input:checked) { background: var(--ink); color: #fff; }
-.screen-opts label:active, .plate-btn:active { transform: translateY(1px); }
+.screen-opts label:has(input:checked) { background: var(--ink); color: var(--on-booth); }
 .screen-opts label:hover:not(:has(input:checked)) { background: #f0f0f2; }
-.plate-btn:hover { background: #f0f0f2; }
+.screen-opts label:active { transform: translateY(1px); }
 .screen-help { margin-top: 10px; font-size: 14.5px; color: var(--muted); }
-.loupe-fail { margin-top: 12px; font-size: 15px; color: var(--m-ink); }
 
-.built { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 56px; padding-top: 72px; padding-bottom: 72px; border-top: 2px solid var(--rule); }
-.built h2 { font-family: var(--display); font-size: clamp(30px, 3.6vw, 48px); font-weight: 800; font-stretch: 68%; text-transform: uppercase; line-height: .95; }
-.built p { max-width: 68ch; margin-top: 14px; color: var(--ink-2); }
+/* ---------- how it is built ---------- */
+.built { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 56px; padding-top: 40px; padding-bottom: 72px; border-top: 6px solid var(--ink); }
+.built p { max-width: 60ch; margin-top: 14px; }
+.built h3 { margin-top: 26px; font: 700 15px/1.2 var(--sans); }
 code { font: 500 .9em var(--mono); }
-pre { margin: 0; padding: 20px; overflow-x: auto; background: var(--booth); color: #e7e7ea; font: 400 14px/1.6 var(--mono); font-variant-ligatures: none; }
-.foot { background: var(--sheet); border-top: 1px solid var(--line); }
-.foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding-top: 24px; padding-bottom: 36px; color: var(--muted); font-size: 15px; }
-.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 600; text-underline-offset: 4px; }
-.foot a:hover { text-decoration-color: var(--m); }
-.foot .footer-contact { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 0 22px; padding-top: 8px; border-top: 1px solid var(--line); }
-.footer-contact span { font: 500 12.5px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.foot .footer-contact a { font-weight: 500; }
-
-@media (max-width: 1100px) {
-  .loupe-col { grid-template-columns: 1fr; }
-  .loupe-wrap { margin: 0 auto; }
-}
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding-top: 44px; }
-  .ticket { max-width: 420px; }
-  .scrolly { grid-template-columns: 1fr; gap: 0; }
-  .stage-col { top: 0; z-index: 5; padding: 8px 0 10px; margin: 0 -28px; padding-left: 28px; padding-right: 28px; background: var(--table); }
-  .stage { height: 42vh; min-height: 270px; max-height: 380px; }
-  .scaler { transform: scale(.68); }
-  .step, .step:first-child { min-height: 0; padding: 36px 0; }
-  .desk-head, .desk-body, .built { grid-template-columns: 1fr; }
-  .desk-body { gap: 40px; }
-  .proof { max-width: 360px; margin: 0 auto; width: 100%; }
-}
-@media (max-width: 520px) {
-  .wrap { padding-left: 16px; padding-right: 16px; }
-  .stage-col { margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
-  .scaler { transform: scale(.6); }
-  .lede { font-size: 17px; }
-  .crop::before, .crop::after { display: none; }
-  .job { display: none; }
-  .bars li { grid-template-columns: 64px minmax(0, 1fr) 42px; gap: 8px; }
-  .loupe { box-shadow: 0 0 0 8px #1a1a1d, 0 0 0 9px #4a4a50, 0 20px 40px -18px rgba(0, 0, 0, .55); }
-  .foot .wrap, .screen-help { font-size: 16px; }
-}
-@media (max-width: 340px) {
-  h1 { font-size: 44px; }
-  .plate-btn { padding-right: 12px; }
-}
-/* Sideways phones: the booth sits beside the steps instead of covering most of the short screen */
-@media (max-height: 500px) and (orientation: landscape) and (max-width: 900px) {
-  .scrolly { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
-  .stage-col { top: 8px; z-index: auto; margin: 0; padding: 0; background: none; }
-  .stage { height: calc(100svh - 16px); min-height: 0; max-height: none; }
-  .scaler { transform: scale(.62); }
-  .step, .step:first-child { padding: 28px 0; }
-  .hero { padding-top: 32px; padding-bottom: 40px; }
-  h1 { font-size: clamp(44px, 14vh, 60px); }
-  .lede { margin-top: 16px; font-size: 16px; }
-}
-/* Large screens are zoomed. Viewport units inside a zoomed body are zoomed too, so they divide by the factor. */
-@media (min-width: 1800px) {
-  body { zoom: 1.2; }
-  .stage { height: min(660px, calc(100vh / 1.2 - 40px)); }
-  .step { min-height: calc(78vh / 1.2); }
-  .step:first-child { min-height: calc(60vh / 1.2); }
-}
-@media (min-width: 2300px) {
-  body { zoom: 1.4; }
-  .stage { height: min(660px, calc(100vh / 1.4 - 40px)); }
-  .step { min-height: calc(78vh / 1.4); }
-  .step:first-child { min-height: calc(60vh / 1.4); }
-}
-@media (min-width: 3200px) {
-  body { zoom: 1.8; }
-  .stage { height: min(660px, calc(100vh / 1.8 - 40px)); }
-  .step { min-height: calc(78vh / 1.8); }
-  .step:first-child { min-height: calc(60vh / 1.8); }
-}
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
-</style>
-<style>
-/* Press proof preview. The pressroom wall: the whole page is a sheet of process yellow, proofs and films pinned
-   on it in white, the viewing booth a black box. Antonio for the headlines, Libre Franklin for reading,
-   Cousine for every job number. On a desktop the steps come first and the booth stands on the right. */
-:root {
-  --table: #f6dc1c; --sheet: #fffef6; --ink: #111110; --ink-2: #2c2a1f; --muted: #4d4a33; --line: #d3bc12; --rule: #111110;
-  --m-ink: #8f0052; --booth: #111110;
-  --sans: "Libre Franklin", Arial, system-ui, sans-serif;
-  --display: "Antonio", "Arial Narrow", Arial, sans-serif;
-  --mono: "Cousine", ui-monospace, Consolas, monospace;
-}
-body { background: var(--table); }
-.strip { height: 8px; }
-
-/* Header: a black slug line */
-.top { background: var(--ink); color: #f6dc1c; border-bottom: 0; }
-.top .back { color: #f6dc1c; }
-.job { color: #d9cf8f; }
-
-/* Hero: one huge headline across the wall, the job ticket pinned under it as a long strip */
-.hero { grid-template-columns: minmax(0, 1fr); padding-top: 56px; padding-bottom: 48px; }
-.label { color: var(--ink-2); letter-spacing: .14em; }
-h1 { font-weight: var(--hw, 700); font-stretch: normal; font-size: clamp(64px, 12.5vw, 220px); line-height: .92; letter-spacing: -.02em; }
-.lede { margin-top: 40px; font-size: 20px; max-width: 60ch; color: var(--ink); }
-.ticket { max-width: none; border-top: 6px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); }
-.ticket h2 { border-bottom-width: 1px; }
-@media (min-width: 901px) {
-  .hero > div { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); column-gap: 56px; align-items: end; }
-  .hero .label, .hero h1 { grid-column: 1 / -1; }
-  .hero .lede { grid-column: 1; }
-  .ticket dl { grid-template-columns: repeat(5, auto); grid-auto-flow: column; grid-template-rows: auto auto; column-gap: 40px; }
-  .ticket dt { grid-row: 1; }
-  .ticket dd { grid-row: 2; font-weight: 700; }
-}
-.crop::before, .crop::after { border-color: var(--ink); }
-
-/* Booth: on a desktop the steps read on the left and the booth stands on the right */
-@media (min-width: 901px) {
-  .scrolly { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
-  .stage-col { order: 2; }
-}
-.stage { background: var(--booth); border: 0; box-shadow: 12px 12px 0 rgba(17, 17, 16, .18); }
-.booth-head, .stage-read { color: #f6dc1c; }
-.plate { border-color: rgba(255, 255, 255, .7); }
-.plate b { background: #f6dc1c; color: var(--ink); }
-.step { border-top: 2px solid var(--ink); }
-.step-no { font-size: 14px; color: var(--ink); letter-spacing: .12em; }
-.step-no::before { display: none; }
-.step h2 { font-weight: 700; font-stretch: normal; font-size: clamp(38px, 4.4vw, 64px); line-height: .9; }
-.step p { color: var(--ink); }
-.btn { font-stretch: normal; font-family: var(--display); font-size: 19px; letter-spacing: .06em; border-radius: 0; }
-.btn:hover { background: var(--sheet); color: var(--ink); border-color: var(--ink); }
-.btn.ghost { background: transparent; }
-.btn.ghost:hover { background: var(--ink); color: #f6dc1c; }
-.plate-btn { font-family: var(--display); font-size: 19px; letter-spacing: .04em; font-weight: 600; }
-.plate-btn:hover { background: var(--ink); color: #f6dc1c; }
-.plate-btn[aria-pressed="false"] { color: var(--ink-2); }
-.slider input { accent-color: var(--ink); }
-
-/* Proof desk: the loupe first, then the proof, the meter on its own white card */
-.desk { border-top: 6px solid var(--ink); }
-.desk-head h2 { font-weight: 700; font-stretch: normal; font-size: clamp(48px, 7vw, 120px); line-height: .94; }
-.desk-head p { color: var(--ink); }
-@media (min-width: 901px) {
-  .desk-body { grid-template-columns: minmax(0, 1fr) minmax(0, 340px); }
-  .proof { order: 2; }
-}
-.proof { border-top: 6px solid var(--ink); }
-.meter { padding: 20px 22px 22px; background: var(--sheet); border-top: 6px solid var(--ink); }
-.bars .track { background: #ece9d6; }
-.total b { font-family: var(--display); font-weight: 700; font-stretch: normal; }
-.screen-opts label { border-radius: 0; }
-.screen-opts label:has(input:checked) { background: var(--ink); color: #f6dc1c; }
-.loupe { box-shadow: 0 0 0 10px var(--ink), 0 0 0 14px #f6dc1c, 0 0 0 16px var(--ink); }
-.loupe-read { color: var(--ink); }
-
-.built { border-top: 6px solid var(--ink); }
-.built h2 { font-weight: 700; font-stretch: normal; font-size: clamp(36px, 4.6vw, 72px); line-height: .9; }
-.built p { color: var(--ink); }
-pre { background: var(--ink); color: #f6dc1c; }
-.foot { background: var(--ink); border-top: 0; }
-.foot .wrap { color: #d9cf8f; }
-.foot a { color: #f6dc1c; }
-.foot .footer-contact { border-top-color: #3a3824; }
-.footer-contact span { color: #d9cf8f; }
-@media (max-width: 900px) {
-  .stage-col { background: var(--table); }
-  .ticket { box-shadow: 6px 6px 0 var(--ink); }
-}
-.hero .runsheet { grid-column: 1 / -1; }
-.hero .lede { font-size: clamp(20px, 2vw, 28px); font-weight: 600; }
-.runsheet { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0; border-top: 3px solid var(--ink); max-width: 820px; }
-.runsheet li { flex: 1 1 0; min-width: 96px; padding: 10px 12px 0 0; font: 700 clamp(17px, 1.6vw, 22px)/1.1 var(--display); color: var(--ink); }
-.runsheet b { display: block; margin-bottom: 4px; font: 600 12px/1 var(--mono, monospace); letter-spacing: .04em; color: var(--muted); }
-.angles { margin: 26px 0 0; padding: 18px 22px; background: var(--sheet); border-top: 6px solid var(--ink); display: flex; align-items: center; gap: 24px; flex-wrap: wrap; color: var(--ink); }
+pre { margin: 0; padding: 20px; overflow-x: auto; background: var(--ink); color: var(--on-booth); font: 400 14px/1.6 var(--mono); font-variant-ligatures: none; }
+.angles { margin: 12px 0 0; padding: 18px 22px; background: var(--sheet); border-top: 6px solid var(--ink); display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .angles svg { width: 132px; height: 132px; flex: none; }
 .angles dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, auto)); gap: 10px 28px; }
 .angles dl div { display: flex; flex-direction: column; gap: 2px; }
 .angles dt { display: flex; align-items: center; gap: 8px; font-size: 14px; }
-.angles dt i { width: 12px; height: 12px; display: inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,.25); }
+.angles dt i { width: 12px; height: 12px; display: inline-block; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25); }
 .angles dd { margin: 0; font: 700 34px/1 var(--display); }
-@media (max-width: 520px) {
-  .runsheet li { min-width: 30%; padding-bottom: 8px; }
-  h1 { font-size: clamp(56px, 19vw, 84px); }
-  .loupe { box-shadow: 0 0 0 8px var(--ink), 0 0 0 11px #f6dc1c, 0 0 0 13px var(--ink); }
+.details { margin: 12px 0 0; padding: 16px 20px; background: var(--sheet); border-top: 6px solid var(--ink); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 18px; font: 400 14.5px/1.45 var(--mono); }
+.details dt { color: var(--muted); }
+.details dd { margin: 0; }
+
+.foot { background: var(--ink); }
+.foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding-top: 24px; padding-bottom: 36px; color: var(--on-booth-2); font-size: 15px; }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--on-booth); font-weight: 600; text-underline-offset: 4px; }
+.foot .footer-contact { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 0 22px; padding-top: 8px; border-top: 1px solid #3a3824; }
+.footer-contact span { font: 500 13px/1.4 var(--mono); color: var(--on-booth-2); }
+.foot .footer-contact a { font-weight: 500; }
+
+@media (max-width: 1100px) {
+  .loupe-col { grid-template-columns: minmax(0, 1fr); }
+  .loupe-wrap { margin: 0 auto; width: min(340px, calc(100% - 32px)); }
 }
+@media (max-width: 1000px) {
+  .booth { height: max(460px, min(680px, calc(100vh - 260px))); }
+  .area { right: 250px; }
+  .inks { width: 210px; right: 20px; }
+  .controls { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .acts { grid-column: 1 / -1; }
+}
+@media (max-width: 900px) {
+  .desk-body, .built { grid-template-columns: minmax(0, 1fr); }
+  .desk-body { gap: 40px; }
+  .proof { order: 0; max-width: 360px; margin: 0 auto; width: 100%; }
+}
+/* phones: the stack on top, the ink buttons in a row under it, inside the booth */
+@media (max-width: 719px) {
+  .booth { height: auto; display: flex; flex-direction: column; }
+  .area { position: relative; right: auto; height: 380px; flex: none; }
+  .leads { display: none; }
+  .inks { position: static; transform: none; width: auto; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; padding: 0 10px 10px; }
+  .ink-btn { grid-template-columns: 1fr; justify-items: center; gap: 6px; min-height: 64px; padding: 8px 4px; font-size: 17px; text-align: center; }
+  .ink-btn i { width: 22px; height: 22px; }
+  .controls { grid-template-columns: 1fr; gap: 6px; padding-top: 14px; }
+}
+@media (max-width: 520px) {
+  .wrap { padding-left: 16px; padding-right: 16px; }
+  .view { padding-top: 12px; }
+  .booth { box-shadow: 6px 6px 0 rgba(17, 17, 16, .18); }
+  .booth .caption { left: 14px; top: 12px; max-width: calc(100% - 28px); font-size: 14.5px; }
+  .area { height: 420px; }
+  .composite, .assembly { top: 54%; }
+  .bars li { grid-template-columns: 64px minmax(0, 1fr) 42px; gap: 8px; }
+  .loupe { box-shadow: 0 0 0 8px var(--ink), 0 0 0 11px var(--on-booth), 0 0 0 13px var(--ink); }
+  .foot .wrap, .screen-help { font-size: 16px; }
+  .angles dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 340px) { .ink-btn { font-size: 15px; } }
+/* sideways phones: a shorter stack */
+@media (max-height: 500px) and (orientation: landscape) and (max-width: 900px) {
+  .booth { height: calc(100svh - 24px); min-height: 300px; }
+}
+/* large screens are zoomed, viewport units inside a zoomed body divide by the factor */
+@media (min-width: 1800px) { body { zoom: 1.2; } .booth { height: max(460px, min(820px, calc(100vh / 1.2 - 188px))); } }
+@media (min-width: 2300px) { body { zoom: 1.4; } .booth { height: max(460px, min(820px, calc(100vh / 1.4 - 188px))); } }
+@media (min-width: 3200px) { body { zoom: 1.8; } .booth { height: max(460px, min(820px, calc(100vh / 1.8 - 188px))); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
 <style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--m-ink)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.top .wrap{gap:18px}.sb-hbrand{display:flex;align-items:center;margin-right:auto}</style></head>
 <body>
@@ -355,119 +217,65 @@ pre { background: var(--ink); color: #f6dc1c; }
 <header class="top">
   <div class="wrap"><div class="sb-hbrand"><svg class="sb-logo sb-h" data-sb="plateroom" viewBox="0 0 201 32" width="163.3" height="26" role="img" aria-label="Plateroom Press" focusable="false"><g aria-hidden="true"><path d="M16 7a9 9 0 0 1 0 18z" fill="currentColor" class="f-a s-n"/><circle cx="16" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M16 1.5v29M1.5 16h29" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Antonio'" font-weight="700" font-size="22" letter-spacing="0.04em">PLATEROOM PRESS</text></svg></div>
     <a class="back" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
-    <span class="job">Job 2610-07, proof 2 of 2</span>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero wrap" aria-labelledby="title">
-    <div>
-      <p class="label">Press proof, CSS, SVG and canvas</p>
-      <h1 id="title">Four plates,<br>one poster.</h1>
-      <p class="lede">Four inks on one sheet. Take them apart.</p>
-      <ol class="runsheet" aria-label="What you can do">
-        <li><b>01</b>Separate</li>
-        <li><b>02</b>Tilt</li>
-        <li><b>03</b>Switch off</li>
-        <li><b>04</b>Misregister</li>
-        <li><b>05</b>Loupe</li>
-      </ol>
-    </div>
-    <aside class="ticket sheet crop" aria-labelledby="ticket-title">
-      <h2 id="ticket-title">Job ticket</h2>
-      <dl>
-        <dt>Title</dt><dd>Low Tide poster</dd>
-        <dt>Size</dt><dd>A3, 297 x 420 mm</dd>
-        <dt>Stock</dt><dd>170 gsm uncoated</dd>
-        <dt>Inks</dt><dd><span class="inks" aria-hidden="true"><i style="background:var(--c)"></i><i style="background:var(--m)"></i><i style="background:var(--y)"></i><i style="background:var(--k)"></i></span> 4/0 process</dd>
-        <dt>Register</dt><dd id="ticket-reg">In register</dd>
-      </dl>
-    </aside>
-  </section>
-
-  <section class="wrap scrolly" aria-label="Poster plates">
-    <div class="stage-col">
-      <div class="stage" id="stage" role="img" aria-label="The Low Tide poster drawn as four print plates. Their separation, visible plates and registration follow the controls beside it.">
-        <div class="booth-head" aria-hidden="true"><span>Viewing booth, D50</span><span id="read-plates">C M Y K</span></div>
-        <div class="scaler">
+  <section class="view wrap" aria-labelledby="title">
+    <div class="booth" id="booth">
+      <h1 class="caption" id="title">Print study, a poster split into its four ink colours.</h1>
+      <div class="area" id="area" role="img" aria-label="The Low Tide poster drawn as four ink plates. How far apart they are, which inks show and the shift follow the controls.">
+        <div class="scaler" id="scaler">
           <div class="composite" id="composite"></div>
           <div class="assembly" id="assembly"></div>
         </div>
-        <div class="stage-read" aria-hidden="true"><span id="read-depth">Combined</span><span id="read-reg">In register</span></div>
+      </div>
+      <svg class="leads" id="leads" aria-hidden="true"></svg>
+      <div class="inks" role="group" aria-label="Inks">
+        <button type="button" class="ink-btn" data-p="c" aria-pressed="true" style="--sw:var(--c)"><i></i><span>Cyan</span></button>
+        <button type="button" class="ink-btn" data-p="m" aria-pressed="true" style="--sw:var(--m)"><i></i><span>Magenta</span></button>
+        <button type="button" class="ink-btn" data-p="y" aria-pressed="true" style="--sw:var(--y)"><i></i><span>Yellow</span></button>
+        <button type="button" class="ink-btn" data-p="k" aria-pressed="true" style="--sw:var(--k)"><i></i><span>Black</span></button>
       </div>
     </div>
-
-    <div class="steps">
-      <div id="scroll-track">
-        <article class="step">
-          <span class="step-no">01 / Separate</span>
-          <h2>Pull the plates apart</h2>
-          <p>Scroll, and the sheet becomes a stack of films.</p>
-          <p class="note" id="reduced-note" hidden>Your device asks for reduced motion, so scrolling leaves the plates still. The slider below does the same job.</p>
-          <div class="slider">
-            <label for="depth">Separation <output id="depth-out" for="depth">0%</output></label>
-            <input id="depth" type="range" min="0" max="100" step="1" value="0">
-          </div>
-          <div class="row">
-            <button class="btn" id="separate" type="button">Separate</button>
-            <button class="btn ghost" id="motion" type="button" aria-pressed="false">Pause motion</button>
-          </div>
-        </article>
-        <article class="step">
-          <span class="step-no">02 / Tilt</span>
-          <h2>Look along the stack</h2>
-          <p>Move the pointer over the booth. The red sun is magenta on one film, yellow on another.</p>
-        </article>
+    <div class="controls">
+      <div class="slider">
+        <label for="depth">Separation <output id="depth-out" for="depth">0%</output></label>
+        <input id="depth" type="range" min="0" max="100" step="1" value="0">
       </div>
-      <article class="step">
-        <span class="step-no">03 / Plates</span>
-        <h2>Switch inks off</h2>
-        <p>No yellow, pink sun. No cyan, purple sea.</p>
-        <div class="plates" role="group" aria-label="Plates">
-          <button type="button" class="plate-btn" data-p="c" aria-pressed="true"><i></i>Cyan</button>
-          <button type="button" class="plate-btn" data-p="m" aria-pressed="true"><i></i>Magenta</button>
-          <button type="button" class="plate-btn" data-p="y" aria-pressed="true"><i></i>Yellow</button>
-          <button type="button" class="plate-btn" data-p="k" aria-pressed="true"><i></i>Black</button>
-        </div>
-      </article>
-      <article class="step" id="reg-step" aria-labelledby="reg-title">
-        <span class="step-no">04 / Registration</span>
-        <h2 id="reg-title">Knock it out of register</h2>
-        <p>Cyan and magenta drift. Watch the sun, the corner marks and the page headline.</p>
-        <div class="slider">
-          <label for="reg">Plates off by <output id="reg-out" for="reg">0.0 mm</output></label>
-          <input id="reg" type="range" min="0" max="12" step="1" value="0" aria-describedby="reg-help">
-        </div>
-        <p class="note" id="reg-help" style="color:var(--muted)">Measured as if the poster were printed on an A3 sheet.</p>
-        <div class="row"><button class="btn ghost" id="reset" type="button">Reset everything</button></div>
-        <p class="live" id="status" role="status" aria-live="polite"></p>
-      </article>
+      <div class="slider">
+        <label for="reg">Shift cyan and magenta <output id="reg-out" for="reg">0.0 mm</output></label>
+        <input id="reg" type="range" min="0" max="12" step="1" value="0">
+      </div>
+      <div class="acts">
+        <button class="btn" id="separate" type="button">Combine</button>
+        <button class="btn ghost" id="reset" type="button">Reset</button>
+        <label class="check"><input type="checkbox" id="tilt" checked>Tilt with the pointer</label>
+      </div>
     </div>
+    <p class="vh" id="status" role="status" aria-live="polite"></p>
   </section>
 
   <section class="desk wrap" aria-labelledby="desk-title">
-    <div class="desk-head">
-      <div>
-        <p class="label">05 / Proof desk</p>
-        <h2 id="desk-title" style="margin-top:12px">Put a loupe on it</h2>
-      </div>
-      <p>Up close, colour is dots. Drag the ring, or use the arrow keys.</p>
+    <div class="sec-head">
+      <h2 id="desk-title">The printed dots, magnified</h2>
+      <p>Drag the ring on the poster, or use the arrow keys.</p>
     </div>
     <div class="desk-body">
-      <div class="proof sheet crop">
-        <div class="proof-art" id="proof" tabindex="0" role="group" aria-label="Proof of the poster. Use the arrow keys to move the loupe, hold Shift for bigger steps." aria-describedby="loupe-read">
+      <div class="proof">
+        <div class="proof-art" id="proof" tabindex="0" role="group" aria-label="The poster. Use the arrow keys to move the loupe, hold Shift for bigger steps." aria-describedby="loupe-read">
           <div class="marker" id="marker" aria-hidden="true"></div>
         </div>
-        <div class="proof-cap"><span>Proof, 1:1.2</span><span id="proof-pos">x 148 mm, y 160 mm</span></div>
+        <div class="proof-cap"><span>Loupe position</span><span id="proof-pos">x 148 mm, y 160 mm</span></div>
       </div>
       <div class="loupe-col">
         <div class="loupe-wrap">
-          <canvas class="loupe" id="loupe" width="340" height="340" role="img" aria-label="Magnified halftone dots under the loupe"></canvas>
-          <p class="loupe-read" id="loupe-read">Loupe, 33 mm of the sheet across</p>
+          <canvas class="loupe" id="loupe" width="340" height="340" role="img" aria-label="Magnified printed dots under the loupe"></canvas>
+          <p class="loupe-read" id="loupe-read">33 mm of the sheet across</p>
           <p class="loupe-fail" id="loupe-fail" hidden>This browser would not let the page read its own drawing, so the loupe is off. Everything else still works.</p>
         </div>
         <div class="meter">
-          <h3>Ink under the loupe</h3>
+          <h3>Ink at this spot</h3>
           <ul class="bars" id="bars">
             <li data-p="c"><span>Cyan</span><span class="track"><span class="fill"></span></span><b>0%</b></li>
             <li data-p="m"><span>Magenta</span><span class="track"><span class="fill"></span></span><b>0%</b></li>
@@ -476,15 +284,15 @@ pre { background: var(--ink); color: #f6dc1c; }
           </ul>
           <div class="total"><span>Total ink here</span><b id="tac">0%</b></div>
           <p class="verdict" id="verdict">Move the loupe to read the ink.</p>
-          <div class="total"><span>Heaviest spot on the sheet</span><b id="tac-max">0%</b></div>
+          <div class="total"><span>Most ink anywhere on the sheet</span><b id="tac-max">0%</b></div>
           <fieldset class="screen">
-            <legend>Halftone screen</legend>
+            <legend>Dot size</legend>
             <div class="screen-opts">
-              <label><input type="radio" name="screen" value="4.6">Newsprint</label>
-              <label><input type="radio" name="screen" value="3.5" checked>Uncoated</label>
-              <label><input type="radio" name="screen" value="2.4">Coated</label>
+              <label><input type="radio" name="screen" value="4.6">Large, newsprint</label>
+              <label><input type="radio" name="screen" value="3.5" checked>Medium, uncoated</label>
+              <label><input type="radio" name="screen" value="2.4">Small, coated</label>
             </div>
-            <p class="screen-help">Coarse to fine. The dot size is exaggerated so the pattern stays readable on a screen.</p>
+            <p class="screen-help">Drawn larger than real so the dots show on a screen.</p>
           </fieldset>
         </div>
       </div>
@@ -493,9 +301,10 @@ pre { background: var(--ink); color: #f6dc1c; }
 
   <section class="built wrap" aria-labelledby="built-title">
     <div>
-      <h2 id="built-title">Four SVG files, one variable, one canvas</h2>
-      <p>SVG plates mixed with <code>mix-blend-mode: multiply</code>, stacked with <code>translateZ</code>. The loupe reads a hidden canvas. No libraries.</p>
-      <figure class="angles" aria-label="Screen angles: cyan 15 degrees, magenta 75, yellow 0, black 45.">
+      <h2 id="built-title">How it is built</h2>
+      <p>Four SVG plates, blended with <code>mix-blend-mode: multiply</code> and stacked in 3D with <code>translateZ</code>. The loupe draws the dots on a canvas from the plate images. No libraries.</p>
+      <h3>Dot angles</h3>
+      <figure class="angles" aria-label="Dot angles: cyan 15 degrees, magenta 75, yellow 0, black 45.">
         <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"/><g stroke-width="5" stroke-linecap="round"><path d="M60 60L112 60" stroke="var(--y)"/><path d="M60 60L110.2 46.5" stroke="var(--c)"/><path d="M60 60L96.8 23.2" stroke="var(--k)"/><path d="M60 60L73.5 9.8" stroke="var(--m)"/></g><circle cx="60" cy="60" r="4" fill="currentColor"/></svg>
         <dl>
           <div><dt><i style="background:var(--c)"></i>Cyan</dt><dd>15&deg;</dd></div>
@@ -505,19 +314,30 @@ pre { background: var(--ink); color: #f6dc1c; }
         </dl>
       </figure>
     </div>
-    <pre tabindex="0" aria-label="Excerpt: drawing one ink's dots">for (const [p, angle] of SCREENS) {
-  const d = density[p];                  // 0 to 1, from the plate drawing
+    <div>
+      <pre tabindex="0" aria-label="Code excerpt, drawing the dots of one ink">// d(x, y) is 0 to 1, read from the plate drawing
+for (const [p, angle] of SCREENS) {
+  const d = density[p];
   forEachCell(angle, cell, (x, y) =&gt; {
     const r = cell * Math.sqrt(d(x, y) / Math.PI);
-    if (r &gt; .15) dot(x, y, r, INK[p]);   // multiplied onto white paper
+    if (r &gt; .15) dot(x, y, r, INK[p]); // multiply blend
   });
 }</pre>
+      <h3>Print details</h3>
+      <dl class="details">
+        <dt>Poster</dt><dd>Low Tide, for a made-up swim club</dd>
+        <dt>Size</dt><dd>A3, 297 x 420 mm</dd>
+        <dt>Paper</dt><dd>170 gsm uncoated</dd>
+        <dt>Inks</dt><dd>Cyan, magenta, yellow, black, one side</dd>
+        <dt>Register</dt><dd id="ticket-reg">In register</dd>
+      </dl>
+    </div>
   </section>
 </main>
 
 <footer class="foot">
   <div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="plateroom" viewBox="0 0 201 32" width="163.3" height="26" role="img" aria-label="Plateroom Press" focusable="false"><g aria-hidden="true"><path d="M16 7a9 9 0 0 1 0 18z" fill="currentColor" class="f-a s-n"/><circle cx="16" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M16 1.5v29M1.5 16h29" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Antonio'" font-weight="700" font-size="22" letter-spacing="0.04em">PLATEROOM PRESS</text></svg></div>
-    <p>An independent study by Alexandr Khrustalev. The swim club on the poster is fictional.</p>
+    <p>An independent study by Alexandr Khrustalev. The swim club on the poster is made up.</p>
     <a href="index.html">Back to selected work</a>
     <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
   <p class="sb-label">Sample site, fictional brand</p></div>
@@ -526,7 +346,8 @@ pre { background: var(--ink); color: #f6dc1c; }
 <script>
 'use strict';
 const INK = { c: '#00a0dc', m: '#e4007f', y: '#ffe600', k: '#1d1b1c' };
-const ORDER = ['y', 'm', 'c', 'k'];
+const ORDER = ['y', 'm', 'c', 'k'];        // print order, used for the flat poster and the proof
+const STACK = ['k', 'y', 'm', 'c'];        // bottom to top in the separated stack, so cyan is on top
 const W = 252, H = 356, HORIZON = 236;
 const SEA = 'M0 236 C 40 230, 70 244, 110 236 S 180 228, 220 238 S 252 234, 252 234 V 318 H 0 Z';
 let uid = 0;
@@ -543,29 +364,35 @@ function art(p, ink) {
 const svg = (p, ink = INK[p]) => `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true">${art(p, ink)}${reg(ink)}</svg>`;
 const $ = s => document.querySelector(s);
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-const composite = $('#composite'), assembly = $('#assembly'), stage = $('#stage'), proof = $('#proof');
+const composite = $('#composite'), assembly = $('#assembly'), booth = $('#booth'), area = $('#area'), scaler = $('#scaler'), proof = $('#proof');
 composite.innerHTML = ORDER.map(p => svg(p)).join('');
-assembly.innerHTML = ORDER.map(p => `<div class="plate" data-p="${p}">${svg(p)}<b>${p.toUpperCase()}</b></div>`).join('');
+assembly.innerHTML = STACK.map(p => `<div class="plate" data-p="${p}">${svg(p)}<b>${p.toUpperCase()}</b><i class="anchor"></i></div>`).join('');
 proof.insertAdjacentHTML('afterbegin', ORDER.map(p => svg(p)).join(''));
-const plates = [...assembly.querySelectorAll('.plate')];
+const plateOf = {};
+assembly.querySelectorAll('.plate').forEach(el => { plateOf[el.dataset.p] = el; });
 const flat = [...composite.querySelectorAll('svg')];
 const proofFlat = [...proof.querySelectorAll('svg')];
-const depth = $('#depth'), regIn = $('#reg'), status = $('#status');
+const depth = $('#depth'), regIn = $('#reg'), status = $('#status'), tiltBox = $('#tilt');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const BASE = 'translate(-50%, -50%) rotateX(56deg) rotateZ(-32deg)';
 const NAMES = { c: 'Cyan', m: 'Magenta', y: 'Yellow', k: 'Black' };
-let paused = false, manual = false, frame = 0, shift = { c: [0, 0], m: [0, 0], y: [0, 0], k: [0, 0] };
+const OPEN_AT = 60;
+let shift = { c: [0, 0], m: [0, 0], y: [0, 0], k: [0, 0] };
 const on = { c: true, m: true, y: true, k: true };
 
+function say(t) { status.textContent = t; }
+
+/* ---------- the stack ---------- */
 function setDepth(raw, announce) {
   const n = clamp(Math.round(Number(raw) || 0), 0, 100);
   depth.value = String(n);
   $('#depth-out').value = n + '%';
-  plates.forEach((p, i) => p.style.setProperty('--z', (i - 1.5) * (4 + n * 1.1) + 'px'));
+  STACK.forEach((p, i) => plateOf[p].style.setProperty('--z', Math.round((i - 1.5) * (4 + n * 1.1) * 10) / 10 + 'px'));
   composite.style.opacity = String(Math.max(0, 1 - n / 12));
   assembly.style.opacity = String(Math.min(1, n / 8));
-  $('#read-depth').textContent = n === 0 ? 'Combined' : `Separated ${n}%`;
+  booth.dataset.depth = String(n);
   $('#separate').textContent = n >= 50 ? 'Combine' : 'Separate';
+  kickLeads();
   if (announce) say(n === 0 ? 'Plates combined into one sheet.' : `Plates separated ${n}%.`);
 }
 function setReg(raw, announce) {
@@ -573,48 +400,116 @@ function setReg(raw, announce) {
   regIn.value = String(n);
   const mm = (n * 420 / 252 / 2).toFixed(1);
   $('#reg-out').value = mm + ' mm';
-  $('#read-reg').textContent = n ? `Off by ${mm} mm` : 'In register';
-  $('#ticket-reg').textContent = n ? `Off by ${mm} mm, reject` : 'In register';
+  $('#ticket-reg').textContent = n ? `Off by ${mm} mm` : 'In register';
   shift = { c: [n / 2, -n / 4], m: [-n / 3, n / 2], y: [0, 0], k: [0, 0] };
-  const move = (s, i) => { const [x, y] = shift[ORDER[i]]; s.style.transform = `translate(${x}px, ${y}px)`; };
-  flat.forEach(move);
+  const move = (s, p) => { const [x, y] = shift[p]; s.style.transform = `translate(${x}px, ${y}px)`; };
+  flat.forEach((s, i) => move(s, ORDER[i]));
   proofFlat.forEach((s, i) => { const [x, y] = shift[ORDER[i]], k = proof.clientWidth / W; s.style.transform = `translate(${x * k}px, ${y * k}px)`; });
-  plates.forEach((p, i) => move(p.querySelector('svg'), i));
-  const root = document.documentElement.style, f = 1.6;
-  root.setProperty('--cx', shift.c[0] * f + 'px'); root.setProperty('--cy', shift.c[1] * f + 'px');
-  root.setProperty('--mx', shift.m[0] * f + 'px'); root.setProperty('--my', shift.m[1] * f + 'px');
+  STACK.forEach(p => move(plateOf[p].querySelector('svg'), p));
   drawLoupe();
-  if (announce) say(n ? `Cyan and magenta are ${mm} mm out of register. Look for coloured edges on the sun and the corner marks.` : 'Back in register.', n >= 6);
+  if (announce) say(n ? `Cyan and magenta are shifted by ${mm} mm. Look for coloured edges on the sun and the corner marks.` : 'Back in register.');
 }
 function setPlate(p, val, quiet) {
   on[p] = val;
-  document.querySelector(`.plate-btn[data-p="${p}"]`).setAttribute('aria-pressed', String(val));
+  document.querySelector(`.ink-btn[data-p="${p}"]`).setAttribute('aria-pressed', String(val));
   const i = ORDER.indexOf(p);
   flat[i].classList.toggle('off', !val);
-  plates[i].classList.toggle('off', !val);
+  plateOf[p].classList.toggle('off', !val);
   proofFlat[i].classList.toggle('off', !val);
   document.querySelector(`#bars li[data-p="${p}"]`).classList.toggle('off', !val);
-  $('#read-plates').textContent = ['c', 'm', 'y', 'k'].filter(k => on[k]).map(k => k.toUpperCase()).join(' ') || 'No plates';
-  updateMax(); drawLoupe();
+  updateMax(); drawLoupe(); kickLeads();
   if (quiet) return;
   const left = Object.keys(on).filter(k => on[k]);
-  say(left.length ? `${NAMES[p]} ${val ? 'back on' : 'off'}. Printing with ${left.map(k => NAMES[k].toLowerCase()).join(', ')}.` : 'All plates off. That is a blank sheet.');
+  say(left.length ? `${NAMES[p]} ${val ? 'on' : 'off'}. Printing with ${left.map(k => NAMES[k].toLowerCase()).join(', ')}.` : 'All inks off. The sheet is blank.');
 }
-function say(t, warn) { status.textContent = t; status.classList.toggle('warn', !!warn); }
-function resetAngle() { assembly.style.transform = BASE; }
-const scrollDriven = () => !paused && !reduced.matches && !manual;
-function fromScroll() {
-  const r = $('#scroll-track').getBoundingClientRect();
-  const up = clamp((innerHeight * .3 - r.top) / Math.max(1, r.height - innerHeight * .2), 0, 1);
-  const back = clamp((innerHeight * .6 - $('#reg-step').getBoundingClientRect().top) / (innerHeight * .35), 0, 1);
-  setDepth(up * (1 - back) * 100, false);
+function resetAngle() { assembly.style.transform = BASE; kickLeads(); }
+
+// the stack grows to fill the booth
+function fit() {
+  const s = Math.min(area.clientHeight / 620, area.clientWidth / 500);
+  scaler.style.setProperty('--s', clamp(s, .4, 1.5).toFixed(3));
+  kickLeads();
 }
 
-/* Proof desk: density maps, loupe and ink meter */
+/* ---------- lines from each ink button to its plate ---------- */
+const leads = $('#leads');
+const LEAD = { c: '#00a0dc', m: '#e4007f', y: '#ffe600', k: '#f1ede0' };
+function drawLeads() {
+  if (getComputedStyle(leads).display === 'none') return;
+  const b = booth.getBoundingClientRect();
+  leads.setAttribute('viewBox', `0 0 ${b.width.toFixed(1)} ${b.height.toFixed(1)}`);
+  let out = '';
+  for (const p of ['c', 'm', 'y', 'k']) {
+    const a = plateOf[p].querySelector('.anchor').getBoundingClientRect();
+    const t = document.querySelector(`.ink-btn[data-p="${p}"]`).getBoundingClientRect();
+    const ax = a.left + a.width / 2 - b.left, ay = a.top + a.height / 2 - b.top;
+    const bx = t.left - b.left, by = t.top + t.height / 2 - b.top;
+    const dim = on[p] ? '' : ' stroke-dasharray="3 5" opacity=".5"';
+    out += `<path d="M${ax.toFixed(1)} ${ay.toFixed(1)}H${(ax + 22).toFixed(1)}L${(bx - 22).toFixed(1)} ${by.toFixed(1)}H${bx.toFixed(1)}" stroke="${LEAD[p]}"${dim}/>`
+      + `<circle cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="3.5" fill="${LEAD[p]}" stroke="none"${on[p] ? '' : ' opacity=".5"'}/>`;
+  }
+  leads.innerHTML = out;
+}
+// redraw for a short while after a change, while the plates finish moving
+let leadUntil = 0, leadRaf = 0;
+function kickLeads(ms = 360) {
+  leadUntil = Math.max(leadUntil, performance.now() + ms);
+  if (leadRaf) return;
+  const tick = () => { drawLeads(); leadRaf = performance.now() < leadUntil ? requestAnimationFrame(tick) : 0; };
+  leadRaf = requestAnimationFrame(tick);
+}
+
+/* ---------- opening: the plates come apart once ---------- */
+let intro = 0;
+function stopIntro() { if (intro) { cancelAnimationFrame(intro); intro = 0; } }
+function openStack() {
+  if (reduced.matches) { setDepth(OPEN_AT, false); return; }
+  const t0 = performance.now(), D = 1500;
+  const step = t => {
+    const k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3);
+    setDepth(OPEN_AT * e, false);
+    intro = k < 1 ? requestAnimationFrame(step) : 0;
+    if (!intro) booth.dataset.opened = '1';
+  };
+  intro = requestAnimationFrame(step);
+}
+
+/* ---------- drag on the booth to separate, pointer tilt ---------- */
+let drag = null;
+booth.addEventListener('pointerdown', e => {
+  if (e.button !== 0 || e.target.closest('button, input, label, a')) return;
+  stopIntro();
+  drag = { id: e.pointerId, x: e.clientX, y: e.clientY, d: Number(depth.value), type: e.pointerType, moved: false };
+  try { booth.setPointerCapture(e.pointerId); } catch (err) { /* already released */ }
+});
+booth.addEventListener('pointermove', e => {
+  if (drag && e.pointerId === drag.id) {
+    const delta = drag.type === 'mouse' ? drag.y - e.clientY : e.clientX - drag.x;
+    if (Math.abs(delta) > 3) { drag.moved = true; booth.classList.add('dragging'); }
+    if (drag.moved) setDepth(drag.d + delta / 2.4, false);
+    return;
+  }
+  if (!tiltBox.checked || e.pointerType !== 'mouse') return;
+  const r = area.getBoundingClientRect();
+  const x = clamp((e.clientX - r.left) / r.width - .5, -.6, .6), y = clamp((e.clientY - r.top) / r.height - .5, -.6, .6);
+  assembly.style.transform = `translate(-50%, -50%) rotateX(${56 - y * 16}deg) rotateZ(${-32 + x * 20}deg)`;
+  kickLeads();
+});
+const endDrag = e => {
+  if (!drag || e.pointerId !== drag.id) return;
+  if (drag.moved) say(`Plates separated ${depth.value}%.`);
+  drag = null; booth.classList.remove('dragging');
+};
+booth.addEventListener('pointerup', endDrag);
+booth.addEventListener('pointercancel', endDrag);
+booth.addEventListener('pointerleave', () => { if (!drag) resetAngle(); });
+tiltBox.addEventListener('change', () => { resetAngle(); say(tiltBox.checked ? 'The stack tilts with the pointer.' : 'Tilt off.'); });
+
+/* ---------- loupe: density maps, dots and the ink meter ---------- */
 const S = 2, MW = W * S, MH = H * S;
 const SCREENS = [['y', 0], ['m', 75], ['c', 15], ['k', 45]];
 const density = {};
-let maps = false, cell = 3.5, spot = { x: 172, y: 200 };
+let maps = false, cell = 3.5, spot = { x: 150, y: 232 };
 const loupe = $('#loupe'), lctx = loupe.getContext('2d');
 const VIEW = 28; // poster units across the loupe
 function loadMap(p) {
@@ -690,13 +585,10 @@ function meter() {
     li.querySelector('b').textContent = v + '%';
   }
   $('#tac').textContent = total + '%';
-  $('#verdict').textContent = total === 0 ? 'Bare paper here.' : total < 120 ? 'A light area, it will dry fast.' : total < 220 ? 'A rich area, still easy on uncoated stock.' : total <= 260 ? 'Heavy. This is near the limit for uncoated paper.' : 'Over the limit for uncoated paper, it may smudge.';
+  $('#verdict').textContent = total === 0 ? 'No ink here.' : total < 120 ? 'Light coverage.' : total < 220 ? 'Medium coverage, fine on uncoated paper.' : total <= 260 ? 'Heavy, close to the limit for uncoated paper.' : 'Over the limit for uncoated paper, it may smudge.';
   const mmx = Math.round(spot.x / W * 297), mmy = Math.round(spot.y / H * 420);
   $('#proof-pos').textContent = `x ${mmx} mm, y ${mmy} mm`;
-  canvasLabel(total, mmx, mmy);
-}
-function canvasLabel(total, mmx, mmy) {
-  loupe.setAttribute('aria-label', `Magnified halftone dots at ${mmx} by ${mmy} mm, ${total}% total ink.`);
+  loupe.setAttribute('aria-label', `Magnified printed dots at ${mmx} by ${mmy} mm, ${total}% total ink.`);
 }
 function updateMax() {
   if (!maps) return;
@@ -741,47 +633,25 @@ document.fonts.ready.then(() => Promise.all(['c', 'm', 'y', 'k'].map(loadMap))).
   maps = true; proof.dataset.ready = '1'; updateMax(); drawLoupe();
 }).catch(err => { $('#loupe-fail').hidden = false; proof.dataset.ready = 'failed'; proof.dataset.error = String(err && err.message); });
 
-depth.addEventListener('input', () => { manual = true; setDepth(depth.value, false); });
+/* ---------- controls ---------- */
+depth.addEventListener('input', () => { stopIntro(); setDepth(depth.value, false); });
 depth.addEventListener('change', () => setDepth(depth.value, true));
-regIn.addEventListener('input', () => { if (Number(depth.value) > 0) { manual = true; setDepth(0, false); } setReg(regIn.value, false); });
+regIn.addEventListener('input', () => setReg(regIn.value, false));
 regIn.addEventListener('change', () => setReg(regIn.value, true));
-$('#separate').addEventListener('click', () => { manual = true; setDepth(Number(depth.value) >= 50 ? 0 : 100, true); });
-document.querySelectorAll('.plate-btn').forEach(b => b.addEventListener('click', () => setPlate(b.dataset.p, b.getAttribute('aria-pressed') !== 'true')));
+$('#separate').addEventListener('click', () => { stopIntro(); setDepth(Number(depth.value) >= 50 ? 0 : 100, true); });
+document.querySelectorAll('.ink-btn').forEach(b => b.addEventListener('click', () => setPlate(b.dataset.p, b.getAttribute('aria-pressed') !== 'true')));
 $('#reset').addEventListener('click', () => {
-  manual = true; ORDER.forEach(p => setPlate(p, true, true));
-  setDepth(0, false); setReg(0, false); resetAngle(); say('Reset. One sheet, all four plates, in register.');
+  stopIntro();
+  ORDER.forEach(p => setPlate(p, true, true));
+  setDepth(OPEN_AT, false); setReg(0, false); resetAngle();
+  say('Reset. All four inks, separated, in register.');
 });
-$('#motion').addEventListener('click', e => {
-  paused = !paused;
-  document.body.classList.toggle('paused', paused);
-  e.currentTarget.setAttribute('aria-pressed', String(paused));
-  e.currentTarget.textContent = paused ? 'Resume motion' : 'Pause motion';
-  say(paused ? 'Motion paused. Scroll and tilt are off, the sliders still work.' : 'Motion on.');
-  resetAngle();
-  if (scrollDriven()) fromScroll();
-});
-stage.addEventListener('pointermove', e => {
-  if (paused || reduced.matches) return;
-  const r = stage.getBoundingClientRect();
-  const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-  assembly.style.transform = `translate(-50%, -50%) rotateX(${56 - y * 16}deg) rotateZ(${-32 + x * 20}deg)`;
-});
-stage.addEventListener('pointerleave', resetAngle);
-const release = () => { manual = false; };
-addEventListener('wheel', release, { passive: true });
-addEventListener('touchmove', e => { if (!(e.target.closest && e.target.closest('input, .proof-art'))) release(); }, { passive: true });
-addEventListener('keydown', e => { if (['PageDown', 'PageUp', 'Home', 'End', ' ', 'ArrowDown', 'ArrowUp'].includes(e.key) && !['INPUT', 'BUTTON'].includes(e.target.tagName) && e.target !== proof) manual = false; });
-addEventListener('scroll', () => {
-  if (frame || !scrollDriven()) return;
-  frame = requestAnimationFrame(() => { frame = 0; if (scrollDriven()) fromScroll(); });
-}, { passive: true });
-const syncReduced = () => { $('#reduced-note').hidden = !reduced.matches; };
-reduced.addEventListener('change', syncReduced);
-syncReduced();
-resetAngle(); setDepth(0, false); setReg(0, false); placeMarker();
-if (scrollDriven()) fromScroll();
+if (reduced.matches) tiltBox.checked = false;
+new ResizeObserver(fit).observe(area);
+addEventListener('resize', () => kickLeads());
+resetAngle(); setDepth(0, false); setReg(0, false); placeMarker(); fit();
+openStack();
 </script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
-<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=((100)+((700)-(100))*x).toFixed(2)+'';document.querySelectorAll('#title').forEach(function(n){n.style.setProperty('--hw',v)})})},{passive:true})})();</script>
 </body>
 </html>
