@@ -4,375 +4,594 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Свадьба на Самуи · набросок для Marrymeonsamui</title>
-<meta name="description" content="Набросок главной страницы свадебного агентства Marrymeonsamui: чистые тексты и заявка с датой и числом гостей прямо из пакета.">
-<link rel="preload" as="style" href="../assets/gfonts/css/a92597871bb1.css" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="../assets/gfonts/css/a92597871bb1.css" rel="stylesheet"></noscript>
+<title>Coral Vow, свадьбы на Самуи</title>
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/samui-wedding/">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/samui-wedding/">
+<meta name="description" content="Пример сайта свадебного агентства Coral Vow на Самуи: выберите церемонию, дату, место и число гостей и сразу увидите цену.">
+<meta name="theme-color" content="#8f1730">
+<link href="../assets/gfonts/css/128eb8934129.css" rel="stylesheet">
 <style>
 :root{
-  --ivory:#f8f4ee; --sand:#efe6da; --ink:#1d2b2e; --muted:#5d6b6c; --line:#e1d6c7;
-  --lagoon:#0f3b40; --lagoon-2:#16545a; --gold:#a8874f; --gold-soft:#d9c39a; --rose:#c99a9e; --white:#fff;
-  --serif:"Cormorant Garamond",Georgia,serif; --sans:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;
-  --r:22px; --shadow:0 18px 40px -22px rgba(15,59,64,.35);
+  --lac:#8f1730; --lac-2:#741026; --rice:#fdfaf8; --blush:#f6e7e6; --petal:#efd2d2;
+  --ink:#24161a; --muted:#6e5a5e; --line:#e8d6d6; --gold:#c8a25a; --sea:#2d5a63;
+  --serif:Forum,"Times New Roman",serif; --sans:Commissioner,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--ivory);color:var(--ink);font:400 16px/1.6 var(--sans)}
-img{max-width:100%;display:block}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--rice);color:var(--ink);font:400 17px/1.6 var(--sans);overflow-x:hidden}
 a{color:inherit}
-.wrap{width:min(1120px,100% - 32px);margin-inline:auto}
-.eyebrow{font:600 12px/1.2 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.05;margin:0}
-h2{font-size:clamp(34px,5vw,54px)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;border:1px solid transparent;font:600 15px/1 var(--sans);text-decoration:none;cursor:pointer;transition:transform .2s,background .2s,color .2s,border-color .2s}
-.btn:active{transform:scale(.97)}
-.btn-gold{background:var(--gold-soft);color:var(--lagoon)}
-.btn-gold:hover{background:#e6d3ae}
-.btn-ghost{border-color:rgba(255,255,255,.5);color:#fff;background:rgba(255,255,255,.06)}
-.btn-ghost:hover{background:rgba(255,255,255,.16)}
-.btn-dark{background:var(--lagoon);color:#fff}
-.btn-dark:hover{background:var(--lagoon-2)}
-:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+button,input,select{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.wrap{width:min(1240px,100% - 32px);margin-inline:auto}
+h2,h3{font-family:var(--serif);font-weight:400;line-height:1.05;margin:0}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
-/* sketch ribbon */
-.ribbon{background:var(--ink);color:#e9e2d6;font-size:13px;line-height:1.4;padding:10px 0}
-.ribbon .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.ribbon a{color:var(--gold-soft)}
+/* sample note */
+.ribbon{background:var(--ink);color:#ead8d6;font-size:13px;line-height:1.35;padding:8px 0}
+.ribbon .wrap{display:flex;gap:6px 16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.ribbon a{color:#f2c9cf;white-space:nowrap}
 
-/* hero */
-.hero{--sun:clamp(84px,12vw,170px);position:relative;color:#fff;overflow:hidden;isolation:isolate;
-  background:
-   radial-gradient(120% 70% at 78% 18%,rgba(232,196,190,.55),transparent 60%),
-   radial-gradient(90% 60% at 10% 0%,rgba(178,160,200,.45),transparent 60%),
-   linear-gradient(180deg,#5d6f8c 0%,#8b8aa6 45%,#c9a6a4 100%)}
-.sea{position:relative;z-index:0;padding:calc(var(--sun) / 2 + 22px) 0 56px;background:linear-gradient(180deg,#2a6a70 0%,#123f45 55%,#0c2f33 100%)}
-.sea::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:repeating-linear-gradient(180deg,rgba(255,255,255,.07) 0 2px,transparent 2px 14px);
-  -webkit-mask:linear-gradient(180deg,#000,transparent 85%);mask:linear-gradient(180deg,#000,transparent 85%)}
-.sea::after{content:"";position:absolute;left:78%;top:0;width:var(--sun);height:var(--sun);border-radius:50%;z-index:-1;transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(255,236,220,.95) 0 38%,rgba(255,226,214,.25) 60%,transparent 70%)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
-.brand{font:600 22px/1 var(--serif);letter-spacing:.02em}
-.brand small{display:block;font:500 11px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.8;margin-top:4px}
-.nav a.tel{font-weight:600;text-decoration:none;white-space:nowrap;font-size:15px}
-.hero-body{padding:9vh 0 calc(var(--sun) / 2 + 44px);max-width:760px}
-.hero h1{font-size:clamp(46px,8.4vw,96px);letter-spacing:-.01em}
-.hero h1 em{font-style:italic;color:#ffe9df;display:inline-block;transition:opacity .25s,transform .25s}
-.hero h1 em.swap{opacity:0;transform:translateY(8px)}
-.hero p.lead{font-size:clamp(17px,2.2vw,20px);max-width:560px;margin:22px 0 30px;color:rgba(255,255,255,.9)}
-.hero .cta{display:flex;flex-wrap:wrap;gap:12px}
-.facts{display:flex;flex-wrap:wrap;gap:16px 36px;font-size:14px;color:rgba(255,255,255,.86)}
-.facts>div{max-width:260px}
-.facts b{display:block;font:600 30px/1 var(--serif);color:#fff}
+/* first screen: the ceremony scene, the planner sits on the sand */
+.hero{position:relative;background:#efd9d6}
+.stage{position:relative;overflow:hidden}
+.scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0}
+.brand{display:flex;align-items:center;color:var(--lac);text-decoration:none}
+.nav-r{display:flex;align-items:center;gap:14px}
+.tel{font-weight:500;font-size:15px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.lang{display:flex;background:rgba(253,250,248,.75);border:1px solid rgba(143,23,48,.25);border-radius:6px;padding:2px}
+.lang button{border:0;background:none;min-width:40px;min-height:34px;padding:0 8px;border-radius:4px;font-size:13px;font-weight:600;color:var(--lac);cursor:pointer}
+.lang button[aria-pressed=true]{background:var(--lac);color:#fff}
+.cap{position:relative;z-index:2;margin:0 auto;font:400 16px/1.4 var(--sans);color:var(--ink)}
+.cap span{display:inline-block;background:rgba(253,250,248,.82);padding:6px 12px;border-radius:4px}
 
-section{padding:96px 0}
-.sec-head{display:flex;flex-wrap:wrap;gap:16px 40px;align-items:end;justify-content:space-between;margin-bottom:40px}
-.sec-head p{max-width:440px;color:var(--muted);margin:0}
+/* scene parts */
+.scene .glint{stroke:#fbefe4;stroke-width:3;stroke-linecap:round;opacity:.75}
+.scene .wave{stroke:rgba(253,250,248,.45);stroke-width:2;stroke-linecap:round;fill:none}
+.scene .ground{transition:opacity .4s}
+.scene .ground.off,.scene .struct.off,.scene .clouds.off{opacity:0;visibility:hidden}
+.scene .struct,.scene .clouds{transition:opacity .4s,visibility .4s}
+.scene .chair{transition:opacity .3s,transform .3s;transform-box:fill-box;transform-origin:50% 100%}
+.scene .chair.out{opacity:0;transform:scale(.6)}
+.scene .more{font:500 22px var(--sans);fill:var(--lac)}
 
-/* packages */
-.pk-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
-.pk-tab{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:#fff;font:600 14px/1 var(--sans);color:var(--ink);cursor:pointer}
-.pk-tab[aria-selected=true]{background:var(--lagoon);border-color:var(--lagoon);color:#fff}
-.pk{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
-.pk-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:34px;box-shadow:var(--shadow);display:flex;flex-direction:column}
-.pk-card .price{font:600 54px/1 var(--serif);color:var(--lagoon);margin:14px 0 6px}
-.pk-card .price small{font:500 15px var(--sans);color:var(--muted);margin-left:6px}
-.pk-card h3{font-size:36px}
-.pk-card ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
-.pk-card li{padding-left:26px;position:relative}
-.pk-card li::before{content:"";position:absolute;left:0;top:.62em;width:14px;height:1px;background:var(--gold)}
-.form{background:var(--sand);border-radius:var(--r);padding:30px;display:flex;flex-direction:column;gap:16px}
-.form h3{font-size:30px}
-.form label{display:block;font:600 13px/1.3 var(--sans);letter-spacing:.04em;color:var(--muted);margin-bottom:8px}
-.form input[type=date],.form select{width:100%;min-height:48px;border:1px solid var(--line);border-radius:14px;background:#fff;padding:0 14px;font:500 16px var(--sans);color:var(--ink)}
-.guests{display:flex;align-items:center;gap:10px}
-.guests button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:#fff;font:600 22px/1 var(--sans);color:var(--lagoon);cursor:pointer}
-.guests output{min-width:84px;text-align:center;font:600 30px/1 var(--serif)}
-.guests span{color:var(--muted);font-size:14px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.preview{margin-top:4px;background:#fff;border-radius:18px;padding:16px 16px 12px;border:1px solid var(--line);position:relative}
-.preview .who{display:flex;align-items:center;gap:10px;font:600 13px var(--sans);color:var(--muted);margin-bottom:10px}
-.preview .who i{width:30px;height:30px;border-radius:50%;background:#25d366;display:grid;place-items:center;color:#fff;font-style:normal;font-size:15px}
-.bubble{background:#dcf8c6;border-radius:14px 14px 4px 14px;padding:10px 14px;font-size:15px;line-height:1.45;margin-left:auto;max-width:92%;white-space:pre-line;transition:transform .2s}
-.bubble.pop{transform:scale(1.03)}
-.bubble time{display:block;text-align:right;font-size:11px;color:#6b8a6b;margin-top:4px}
-.note{font-size:13px;color:var(--muted);margin:0}
-.sent{display:none;align-items:center;gap:10px;background:var(--lagoon);color:#fff;border-radius:14px;padding:12px 14px;font-size:14px}
-.sent.show{display:flex}
+/* planner */
+.planner{z-index:3;background:var(--rice);color:var(--ink);box-shadow:0 18px 40px -24px rgba(36,22,26,.45);border-radius:6px}
+.types{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line);margin:0;padding:0;border-top:0;border-left:0;border-right:0;min-width:0}
+.types legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.types label{position:relative;display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:58px;padding:8px 18px;cursor:pointer;color:var(--muted);transition:color .2s,background .2s}
+.types label+label{border-left:1px solid var(--line)}
+.types input{position:absolute;opacity:0;pointer-events:none}
+.types b{font:400 22px/1.1 var(--serif);color:inherit}
+.types small{font-size:14px;line-height:1.2}
+.types small i{font-style:normal}
+.types label:hover{color:var(--ink)}
+.types label:has(input:checked){color:var(--lac);background:#fff;box-shadow:inset 0 -3px 0 var(--lac)}
+.types label:has(input:focus-visible){outline:3px solid var(--gold);outline-offset:-3px}
+.types label:first-child{border-top-left-radius:6px}
+.types label:last-child{border-top-right-radius:6px}
+.fields{display:grid;grid-template-columns:180px 160px 200px minmax(0,1fr) auto;gap:0 24px;align-items:end;padding:14px 20px 16px}
+.f label,.f .lb{display:block;font-size:13px;line-height:1.3;color:var(--muted);margin-bottom:4px}
+.f input[type=date],.f select{width:100%;min-height:44px;border:0;border-bottom:1.5px solid var(--ink);background:transparent;padding:0 2px;font-size:17px;font-weight:500;border-radius:0}
+.f select{cursor:pointer}
+.hint{display:block;font-size:13px;line-height:1.3;color:var(--muted);margin-top:4px;min-height:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step{display:flex;align-items:center;gap:6px;min-height:44px}
+.step button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--lac);background:var(--rice);font-size:22px;line-height:1;color:var(--lac);cursor:pointer;flex:none}
+.step button:disabled{opacity:.3;cursor:default}
+.step output{min-width:58px;text-align:center;font:400 32px/1 var(--serif)}
+.total .lb{margin-bottom:0}
+.total output{display:block;font:400 38px/1.05 var(--serif);color:var(--lac);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 22px;border:0;border-radius:4px;background:var(--lac);color:#fff;font-size:16px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .2s}
+.btn:hover{background:var(--lac-2)}
+.btn svg{width:20px;height:20px;flex:none}
 
-/* team */
-.team{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.person{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:transform .25s,box-shadow .25s}
-.person:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.person .mono{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font:600 24px var(--serif);color:var(--lagoon);background:linear-gradient(135deg,#efe1cb,#f6ece0);margin-bottom:18px}
-.person h3{font-size:26px}
-.person .role{font:600 12px/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:6px 0 10px}
-.person p{margin:0;color:var(--muted);font-size:15px}
+/* the request as it would arrive */
+.wa{background:#fff;border-radius:6px;padding:14px 14px 12px;box-shadow:0 18px 40px -20px rgba(36,22,26,.5)}
+.wa-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted);margin-bottom:10px}
+.wa-top button{border:0;background:none;min-width:44px;min-height:36px;font-size:13px;color:var(--lac);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.bubble{background:#dcf8c6;border-radius:12px 12px 4px 12px;padding:10px 12px;font-size:15px;line-height:1.45;white-space:pre-line}
+.bubble time{display:block;text-align:right;font-size:11px;color:#5d7a5d;margin-top:2px}
+.wa p{margin:10px 0 0;font-size:13px;line-height:1.4;color:var(--muted)}
 
-/* story */
-.story{background:var(--lagoon);color:#eef3f2}
-.story .eyebrow{color:var(--gold-soft)}
-.story .sec-head p{color:#b9cccb}
-.years{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:thin;scroll-snap-type:x mandatory}
-.year{flex:0 0 auto;min-width:68px;min-height:44px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#eef3f2;font:600 15px var(--sans);cursor:pointer;scroll-snap-align:start}
-.year[aria-pressed=true]{background:var(--gold-soft);color:var(--lagoon);border-color:var(--gold-soft)}
-.story-card{margin-top:24px;display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;min-height:170px}
-.story-card .big{font:600 clamp(70px,12vw,140px)/.9 var(--serif);color:var(--gold-soft)}
-.story-card p{font-size:clamp(18px,2.4vw,24px);margin:0;max-width:640px;transition:opacity .25s}
-.story-card p.swap{opacity:0}
-
-/* trust */
-.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.trust div{border-top:1px solid var(--gold);padding-top:20px}
-.trust h3{font-size:28px;margin-bottom:8px}
-.trust p{margin:0;color:var(--muted)}
-
-/* reviews */
-.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.review{margin:0;background:#fff;border-radius:var(--r);border:1px solid var(--line);padding:28px}
-.review blockquote{margin:0;font:500 22px/1.35 var(--serif)}
-.review cite{display:block;margin-top:18px;font:600 13px var(--sans);font-style:normal;letter-spacing:.06em;color:var(--gold)}
-
-/* fixes */
-.fixes{background:var(--sand)}
-.fix{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;background:#fff;border-radius:18px;padding:20px 24px;border:1px solid var(--line);margin-bottom:12px}
-.fix .was{color:#8b5a5a;text-decoration:line-through;text-decoration-color:rgba(139,90,90,.5)}
-.fix .now{color:var(--lagoon);font-weight:600}
-.fix .arrow{color:var(--gold);font-size:22px}
-.fix small{display:block;color:var(--muted);font-weight:400;text-decoration:none;font-size:13px;margin-top:4px}
-
-/* close */
-.close{text-align:center}
-.close h2{max-width:760px;margin:0 auto 18px}
-.close p{color:var(--muted);max-width:520px;margin:0 auto 28px}
-footer{background:var(--ink);color:#cfc8bc;font-size:14px;padding:30px 0}
-footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
-footer a{color:var(--gold-soft)}
-
-@media (max-width:900px){
-  .pk{grid-template-columns:1fr}
-  .team{grid-template-columns:1fr 1fr}
-  .trust,.reviews{grid-template-columns:1fr}
+@media (min-width:900px){
+  .hero{height:clamp(640px,calc(100svh - 34px),1000px)}
+  .stage{position:absolute;inset:0}
+  .planner{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:min(1240px,100% - 48px)}
+  .wa{position:absolute;right:0;bottom:calc(100% + 14px);width:340px}
+}
+@media (min-width:900px) and (max-width:1180px){
+  .fields{grid-template-columns:1fr 1fr 1fr;gap:12px 20px}
+  .f.total{grid-column:1/3}
+  .send{justify-self:end}
+}
+@media (max-width:899px){
+  .stage{height:clamp(330px,52svh,460px)}
+  .planner{position:relative;margin:-44px 12px 0}
+  .fields{grid-template-columns:1fr 1fr;gap:14px 16px;padding:14px 16px 16px}
+  .send{grid-column:1/-1}
+  .send .btn{width:100%}
+  .types label{padding:8px 10px;min-height:56px}
+  .types b{font-size:19px}
+  .types small{font-size:13px}
+  .types small i{display:none}
+  .wa{margin-top:12px;box-shadow:none;border:1px solid var(--line)}
+  .hero{padding-bottom:8px;background:var(--rice)}
 }
 @media (max-width:560px){
-  section{padding:68px 0}
-  .pk-card,.form{padding:22px}
-  .team{grid-template-columns:1fr}
-  .row2{grid-template-columns:1fr}
-  .story-card{grid-template-columns:1fr;gap:10px}
-  .fix{grid-template-columns:1fr;gap:6px}
-  .fix .arrow{transform:rotate(90deg);justify-self:start}
-  .nav a.tel{font-size:14px}
-  .hero p.lead{text-shadow:0 1px 12px rgba(40,40,70,.35)}
-  .brand small{display:none}
+  .tel{display:none}
+  .nav{padding:12px 0}
+  .cap{font-size:15px}
+  .step output{min-width:44px;font-size:28px}
+  .step button{width:40px;height:40px}
+  .total output{font-size:32px}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* below the fold */
+section.sec{padding:clamp(64px,8vw,112px) 0}
+.sec h2{font-size:clamp(36px,4.6vw,60px);margin-bottom:clamp(24px,3vw,40px)}
+.prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1.5px solid var(--ink)}
+.pk{display:flex;flex-direction:column;gap:12px;padding:26px 26px 6px 0}
+.pk+.pk{padding-left:26px;border-left:1px solid var(--line)}
+.pk h3{font-size:34px}
+.pk .who{font-size:15px;color:var(--muted);margin:0}
+.pk .price{font:400 52px/1 var(--serif);color:var(--lac);margin:4px 0}
+.pk ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.pk li{padding:10px 0 10px 26px;position:relative;border-bottom:1px solid var(--line);font-size:16px}
+.pk li::before{content:"";position:absolute;left:2px;top:1.05em;width:11px;height:11px;border:1.5px solid var(--lac);border-radius:50%}
+.pk .extra{font-size:14px;color:var(--muted);margin:0}
+.pk .pick{align-self:flex-start;margin-top:auto;background:none;border:1.5px solid var(--lac);color:var(--lac);min-height:46px;padding:0 20px;border-radius:4px;font-weight:500;cursor:pointer;transition:background .2s,color .2s}
+.pk .pick:hover{background:var(--lac);color:#fff}
+
+.team{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1.5px solid var(--ink)}
+.person{padding:26px 22px 8px 0}
+.person+.person{padding-left:22px;border-left:1px solid var(--line)}
+.mono{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;color:var(--lac);border:1.5px solid var(--lac);margin-bottom:18px;transition:background .25s,color .25s}
+.mono svg{width:38px;height:38px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.person:hover .mono{background:var(--lac);color:var(--rice)}
+.person h3{font-size:30px}
+.person p{margin:6px 0 0;color:var(--muted);font-size:15.5px;line-height:1.45}
+
+.story{background:var(--lac);color:var(--rice)}
+.story .hint2{color:#f0d3d6;margin:-16px 0 20px;font-size:15px}
+.years{display:flex;overflow-x:auto;scrollbar-width:thin;scroll-snap-type:x mandatory;border-top:1px solid rgba(253,250,248,.35);border-bottom:1px solid rgba(253,250,248,.35)}
+.year{flex:1 0 auto;min-width:76px;min-height:52px;border:0;background:transparent;color:#f3cdd2;font:400 22px var(--serif);cursor:pointer;scroll-snap-align:start}
+.year+.year{border-left:1px solid rgba(253,250,248,.18)}
+.year:hover{color:#fff}
+.year[aria-pressed=true]{background:var(--rice);color:var(--lac)}
+.story-card{margin-top:clamp(24px,4vw,44px);display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,4vw,56px);align-items:center;min-height:180px}
+.story-card .big{font:400 clamp(88px,14vw,200px)/.8 var(--serif)}
+.story-card p{font:300 clamp(19px,2.2vw,27px)/1.4 var(--sans);margin:0;max-width:26em;transition:opacity .2s}
+.story-card p.swap{opacity:0}
+
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1.5px solid var(--ink)}
+.trust>div{padding:24px 24px 0 0}
+.trust>div+div{padding-left:24px;border-left:1px solid var(--line)}
+.trust svg{width:40px;height:40px;fill:none;stroke:var(--lac);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;margin-bottom:14px}
+.trust h3{font-size:30px;margin-bottom:8px}
+.trust p{margin:0;color:var(--muted)}
+.trust a{color:var(--lac);text-underline-offset:4px}
+
+.review{margin:0;padding:clamp(22px,3vw,34px) 0;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) 14em;gap:10px 40px;align-items:end}
+.review blockquote{margin:0;font:400 clamp(24px,2.8vw,38px)/1.18 var(--serif)}
+.review cite{font:500 15px var(--sans);font-style:normal;color:var(--lac);text-align:right}
+
+.fixes{background:var(--blush)}
+.fix{display:grid;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);gap:16px;align-items:center;padding:20px 0;border-top:1px solid var(--petal)}
+.fix:last-child{border-bottom:1px solid var(--petal)}
+.fix .was{color:#8d6b70;font-size:17px}
+.fix .was>span{text-decoration:line-through;text-decoration-color:var(--lac);text-decoration-thickness:2px}
+.fix .now{font:400 clamp(21px,2vw,27px)/1.2 var(--serif)}
+.fix .arrow{color:var(--lac);font-size:22px;text-align:center}
+.fix small{display:block;color:var(--muted);font:400 14px/1.4 var(--sans);margin-top:4px}
+
+.close{background:var(--lac);color:var(--rice)}
+.close .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
+.close h2{font-size:clamp(30px,3.6vw,46px);margin:0;max-width:22em}
+.close .btn{background:var(--rice);color:var(--lac)}
+.close .btn:hover{background:#fff}
+footer{background:var(--ink);color:#d9c9c8;font-size:14px;padding:28px 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+footer a{color:#f2c9cf}
+
+@media (max-width:980px){
+  .prices{grid-template-columns:1fr}
+  .pk,.pk+.pk{padding:24px 0;border-left:0}
+  .pk+.pk{border-top:1px solid var(--line)}
+  .pk .pick{margin-top:6px}
+  .team{grid-template-columns:1fr 1fr}
+  .person:nth-child(3){padding-left:0;border-left:0}
+  .person:nth-child(n+3){border-top:1px solid var(--line)}
+  .trust{grid-template-columns:1fr}
+  .trust>div,.trust>div+div{padding:20px 0;border-left:0}
+  .trust>div+div{border-top:1px solid var(--line)}
+  .review{grid-template-columns:1fr}
+  .review cite{text-align:left}
+}
+@media (max-width:560px){
+  .team{grid-template-columns:1fr}
+  .person,.person+.person{padding:22px 0;border-left:0}
+  .person+.person{border-top:1px solid var(--line)}
+  .story-card{grid-template-columns:1fr;gap:8px}
+  .fix{grid-template-columns:1fr;gap:4px}
+  .fix .arrow{transform:rotate(90deg);justify-self:start}
+  .close .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-</head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--gold)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.nav .brand .sb-logo{--sb-h:30px;--sb-acc:var(--lac)}footer .wrap{flex-wrap:wrap}footer .sb-foot{flex-basis:100%;margin:0 0 6px}footer .sb-label{flex-basis:100%;margin:6px 0 0}</style></head>
 <body>
 
-<div class="ribbon"><div class="wrap"><span>Набросок главной для Marrymeonsamui. Тексты взяты с вашего сайта и вычищены, фото здесь заменены фоном.</span><a href="#fixes">Что поправлено</a></div></div>
-
-<header class="hero">
-  <div class="wrap">
-    <nav class="nav">
-      <div class="brand">Marrymeonsamui<small>свадебное и event-агентство</small></div>
-      <a class="tel" href="tel:+66831034488">+66 83 103 44 88</a>
-    </nav>
-    <div class="hero-body">
-      <div class="eyebrow" style="color:#f3dccf">Самуи, Таиланд · с 2010 года</div>
-      <h1>Свадьба <em id="heroWord">вашей мечты</em> на Самуи</h1>
-      <p class="lead">Официальное свадебное агентство полного цикла: от концепции и флористики до авторского кейтеринга и шоу-программы. Слушаем вас, чувствуем ваш стиль и укладываемся в ваш бюджет.</p>
-      <div class="cta">
-        <a class="btn btn-gold" href="#packages">Выбрать церемонию и дату</a>
-        <a class="btn btn-ghost" href="#story"><span><span data-yrs>16 лет</span> на острове</span></a>
-      </div>
-    </div>
-  </div>
-  <div class="sea">
-    <div class="wrap">
-      <div class="facts">
-        <div><b>2010</b>первое официальное ивент-агентство острова</div>
-        <div><b>2</b>собственные свадебные площадки</div>
-        <div><b>5★</b>свадьбы во всех пятизвёздочных отелях Самуи</div>
-      </div>
-    </div>
-  </div>
-</header>
+<div class="ribbon"><div class="wrap"><span data-t="ribbon">Пример сайта. Бренд, люди и цены условные.</span><a href="#fixes" data-t="ribbonLink">Что поправлено</a></div></div>
 
 <main>
-<section id="packages">
+<section class="hero" id="plan" aria-labelledby="capText">
+  <div class="stage">
+    <svg class="scene" id="scene" viewBox="0 110 1440 690" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcb9bf"/><stop offset=".6" stop-color="#efd7d4"/><stop offset="1" stop-color="#f8e9df"/></linearGradient>
+        <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a525c"/><stop offset="1" stop-color="#4b8086"/></linearGradient>
+        <linearGradient id="sandG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1e5d4"/><stop offset="1" stop-color="#e5d1b9"/></linearGradient>
+        <linearGradient id="deckG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9c2a4"/><stop offset="1" stop-color="#c9ab88"/></linearGradient>
+        <linearGradient id="lawnG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bac6a2"/><stop offset="1" stop-color="#a1b287"/></linearGradient>
+        <linearGradient id="stoneG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ece3d7"/><stop offset="1" stop-color="#ddd0c0"/></linearGradient>
+        <clipPath id="aboveSea"><rect width="1440" height="360"/></clipPath>
+      </defs>
+      <rect width="1440" height="364" fill="url(#sky)"/>
+      <g class="clouds off" id="clouds" fill="#f7eeec">
+        <ellipse cx="420" cy="215" rx="120" ry="24"/><ellipse cx="490" cy="198" rx="70" ry="28"/><ellipse cx="370" cy="204" rx="56" ry="20"/>
+        <ellipse cx="1010" cy="190" rx="140" ry="26"/><ellipse cx="1080" cy="172" rx="76" ry="30"/><ellipse cx="950" cy="178" rx="60" ry="22"/>
+        <ellipse cx="760" cy="252" rx="110" ry="16" fill="#efe1df"/>
+      </g>
+      <circle cx="720" cy="360" r="86" fill="#fbf1e6" clip-path="url(#aboveSea)"/>
+      <rect y="358" width="1440" height="140" fill="url(#seaG)"/>
+      <g id="glints"><path class="glint" d="M676 372h88M692 386h56M664 400h40M736 400h42M700 416h40M684 434h28M728 434h32"/></g>
+      <path class="wave" d="M60 392h120M300 412h90M980 398h140M1210 420h110M120 446h160M1040 452h170M420 468h90M890 474h80"/>
+      <g class="ground" data-g="beach"><path d="M0 492C260 474 520 468 720 470S1180 476 1440 490V800H0Z" fill="url(#sandG)"/><path d="M0 492C260 474 520 468 720 470S1180 476 1440 490" fill="none" stroke="#fdfaf8" stroke-width="4" opacity=".8"/></g>
+      <g class="ground off" data-g="villa"><path d="M0 492H1440V800H0Z" fill="url(#deckG)"/><path d="M0 492H1440" stroke="#fdfaf8" stroke-width="5"/><path d="M0 530H1440M0 576H1440M0 630H1440M0 694H1440M0 770H1440" stroke="rgba(110,70,40,.16)" stroke-width="2"/><path d="M930 520H1330L1390 610H900Z" fill="#6fa8ab" stroke="#fdfaf8" stroke-width="6"/><path d="M960 548h120M1150 566h140M990 584h90" stroke="rgba(253,250,248,.6)" stroke-width="3" stroke-linecap="round"/></g>
+      <g class="ground off" data-g="hotel"><path d="M880 420h190v68H880z" fill="#f6efe9" stroke="#d8c6bd" stroke-width="2"/><path d="M866 420l18-22h162l18 22z" fill="#8f1730"/><path d="M896 438h28v18h-28zM940 438h28v18h-28zM984 438h28v18h-28zM1028 438h28v18h-28zM896 464h28v18h-28zM940 464h28v18h-28zM984 464h28v18h-28zM1028 464h28v18h-28z" fill="#cfe0de"/><path d="M0 492C260 480 520 476 720 478S1180 482 1440 492V800H0Z" fill="url(#lawnG)"/><path d="M80 520c200-8 380-10 560-10M820 512c220 2 400 6 560 14" stroke="rgba(253,250,248,.35)" stroke-width="3" fill="none"/></g>
+      <g class="ground off" data-g="temple"><path d="M150 362V318l40-30 40-40 40 40 40 30v44z" fill="#741026"/><path d="M178 300l52-60 52 60M150 318h160" stroke="#c8a25a" stroke-width="4" fill="none" stroke-linejoin="round"/><path d="M230 240v-36" stroke="#c8a25a" stroke-width="4"/><path d="M0 492H1440V800H0Z" fill="url(#stoneG)"/><path d="M0 492H1440" stroke="#fdfaf8" stroke-width="5"/><path d="M0 540H1440M0 600H1440M0 676H1440M240 492 40 800M480 492 380 800M960 492 1060 800M1200 492 1400 800" stroke="rgba(120,90,70,.13)" stroke-width="2"/></g>
+      <g id="palms"></g>
+      <g id="petals"></g>
+      <g class="struct" id="arch">
+        <path d="M642 316c-36 70 22 150-20 244h22c34-92-20-170 16-238z" fill="#fffaf5" opacity=".9"/>
+        <path d="M798 316c36 70-22 150 20 244h-22c-34-92 20-170-16-238z" fill="#fffaf5" opacity=".9"/>
+        <path d="M625 560V398a95 95 0 0 1 190 0v162" fill="none" stroke="#c8a25a" stroke-width="9" stroke-linecap="round"/>
+        <path d="M640 560V402a80 80 0 0 1 160 0v158" fill="none" stroke="#c8a25a" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+        <g fill="#4b6b55"><ellipse cx="612" cy="372" rx="20" ry="8" transform="rotate(-40 612 372)"/><ellipse cx="660" cy="320" rx="20" ry="8" transform="rotate(-20 660 320)"/><ellipse cx="828" cy="372" rx="20" ry="8" transform="rotate(40 828 372)"/><ellipse cx="780" cy="320" rx="20" ry="8" transform="rotate(20 780 320)"/><ellipse cx="700" cy="300" rx="16" ry="7" transform="rotate(-10 700 300)"/><ellipse cx="742" cy="300" rx="16" ry="7" transform="rotate(10 742 300)"/></g>
+        <g fill="#8f1730"><circle cx="628" cy="352" r="13"/><circle cx="646" cy="334" r="11"/><circle cx="616" cy="390" r="9"/><circle cx="812" cy="352" r="13"/><circle cx="794" cy="334" r="11"/><circle cx="824" cy="390" r="9"/><circle cx="720" cy="303" r="12"/></g>
+        <g fill="#eab2bc"><circle cx="640" cy="366" r="9"/><circle cx="660" cy="324" r="7"/><circle cx="800" cy="366" r="9"/><circle cx="780" cy="324" r="7"/><circle cx="704" cy="306" r="8"/><circle cx="736" cy="306" r="8"/></g>
+        <g fill="#fffaf5"><circle cx="622" cy="372" r="6"/><circle cx="818" cy="372" r="6"/><circle cx="720" cy="290" r="5"/></g>
+      </g>
+      <g class="struct off" id="sala">
+        <path d="M585 560h270v14H585z" fill="#e9dccb" stroke="#c8a25a" stroke-width="2"/>
+        <path d="M608 446h10v114h-10zM822 446h10v114h-10zM672 446h8v114h-8zM760 446h8v114h-8z" fill="#fdfaf8" stroke="#c8a25a" stroke-width="1.5"/>
+        <path d="M560 452 720 330l160 122z" fill="#8f1730"/><path d="M560 452 720 330l160 122" fill="none" stroke="#c8a25a" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M622 404 720 296l98 108z" fill="#741026"/><path d="M622 404 720 296l98 108" fill="none" stroke="#c8a25a" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M720 296c0-18 8-28 18-30M560 452c-12-2-18-12-16-24M880 452c12-2 18-12 16-24" fill="none" stroke="#c8a25a" stroke-width="4" stroke-linecap="round"/>
+        <path d="M690 528h60v32h-60z" fill="#741026"/><g fill="#eab2bc"><circle cx="702" cy="522" r="7"/><circle cx="720" cy="518" r="8"/><circle cx="738" cy="522" r="7"/></g>
+      </g>
+      <g id="couple">
+        <circle cx="704" cy="474" r="10" fill="#5a3b33"/><path d="M704 486c-10 0-14 8-15 18l-14 56h58l-14-56c-1-10-5-18-15-18z" fill="#fffaf5" stroke="#e1cfc6" stroke-width="1.5"/>
+        <circle cx="738" cy="472" r="10" fill="#3a2a26"/><path d="M726 486h24l4 74h-11l-5-40-5 40h-11z" fill="#24161a"/><path d="M736 486h4l-2 14z" fill="#fdfaf8"/>
+      </g>
+      <g id="chairs"></g>
+      <text class="more" id="more" x="1000" y="640"></text>
+    </svg>
+    <nav class="nav wrap" aria-label="Coral Vow">
+      <a class="brand" href="#plan" aria-label="Coral Vow"><svg class="sb-logo sb-h" data-sb="coralvow" viewBox="0 0 155 32" width="145" height="30" role="img" aria-label="Coral Vow" focusable="false"><g aria-hidden="true"><circle cx="16" cy="12.5" r="8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/><path d="M3 26.5c3-3 6.5-3 9.5 0s6.5 3 9.5 0 5-3 7 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="25.0" fill="currentColor" font-family="'Forum'" font-weight="400" font-size="25" letter-spacing="0.04em">Coral Vow</text></svg></a>
+      <div class="nav-r">
+        <a class="tel" href="tel:+66000000000">+66 00 000 0000</a>
+        <div class="lang" role="group" aria-label="Язык" data-ta="langLabel"><button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
+      </div>
+    </nav>
+    <p class="cap wrap"><span id="capText" data-t="cap">Свадьбы на Самуи под ключ: церемония, цветы, кейтеринг.</span></p>
+  </div>
+
+  <form class="planner" id="planner" onsubmit="return false">
+    <fieldset class="types">
+      <legend data-t="typeLegend">Церемония</legend>
+      <label><input type="radio" name="type" value="euro" checked><b data-t="t_euro">Европейская</b><small><span data-k="tp_euro">800 $</span><i data-t="forTwoC">, для двоих</i></small></label>
+      <label><input type="radio" name="type" value="buddh"><b data-t="t_buddh">Буддийская</b><small><span data-k="tp_buddh">400 $</span><i data-t="forTwoC">, для двоих</i></small></label>
+      <label><input type="radio" name="type" value="guests"><b data-t="t_guests">С гостями</b><small><span data-k="tp_guests">от 1500 $</span></small></label>
+    </fieldset>
+    <div class="fields">
+      <div class="f"><label for="date" data-t="date">Дата</label><input type="date" id="date"><span class="hint" id="sunset" aria-live="polite"></span></div>
+      <div class="f"><label for="place" data-t="place">Место</label>
+        <select id="place"><option value="beach" data-t="p_beach">Пляж</option><option value="villa" data-t="p_villa">Вилла</option><option value="hotel" data-t="p_hotel">Отель</option><option value="temple" data-t="p_temple">Храм</option></select><span class="hint"></span></div>
+      <div class="f"><span class="lb" id="gLabel" data-t="people">Сколько человек</span>
+        <div class="step" role="group" aria-labelledby="gLabel"><button type="button" id="gMinus" aria-label="Меньше" data-ta="less">−</button><output id="gOut" aria-live="polite">2</output><button type="button" id="gPlus" aria-label="Больше" data-ta="more">+</button></div>
+        <span class="hint" id="gHint">вы вдвоём</span></div>
+      <div class="f total"><span class="lb" data-t="about">Примерно</span><output id="total" aria-live="polite">800 $</output><span class="hint" id="totalSub"></span></div>
+      <div class="send"><button type="button" class="btn" id="send"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.7A8 8 0 1 1 8.6 18.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span data-t="send">Отправить заявку в WhatsApp</span></button></div>
+    </div>
+    <div class="wa" id="wa" role="status" hidden>
+      <div class="wa-top"><span data-t="waTop">Так заявка придёт Мире в WhatsApp</span><button type="button" id="waClose" data-t="close">Закрыть</button></div>
+      <div class="bubble" id="bubble"></div>
+      <p data-t="waNote">Это пример, сообщение никуда не уходит. На вашем сайте кнопка откроет WhatsApp с этим текстом.</p>
+    </div>
+  </form>
+</section>
+
+<section class="sec" id="prices" aria-labelledby="pricesH">
   <div class="wrap">
-    <div class="sec-head">
-      <div><div class="eyebrow">Свадебные церемонии</div><h2>Выберите пакет и сразу отправьте дату</h2></div>
-      <p>Паре не нужно писать письмо с нуля. Она выбирает пакет, дату и число гостей, а вам приходит готовое сообщение.</p>
-    </div>
-    <div class="pk-tabs" role="tablist" aria-label="Пакеты">
-      <button class="pk-tab" role="tab" aria-selected="false" data-k="buddh">Буддийская</button>
-      <button class="pk-tab" role="tab" aria-selected="true" data-k="euro">Европейская</button>
-      <button class="pk-tab" role="tab" aria-selected="false" data-k="guests">Свадьба с гостями</button>
-    </div>
-    <div class="pk">
-      <article class="pk-card" aria-live="polite">
-        <div class="eyebrow" id="pkTag">Для двоих</div>
-        <h3 id="pkName">Европейская</h3>
-        <div class="price" id="pkPrice">800 $</div>
-        <p id="pkText" style="margin:0;color:var(--muted)"></p>
-        <ul id="pkList"></ul>
+    <h2 id="pricesH" data-t="pricesH">Цены</h2>
+    <div class="prices">
+      <article class="pk">
+        <h3 data-t="t_euro">Европейская</h3>
+        <p class="who" data-t="pk_euro_who">Для двоих, на пляже на закате или на лужайке</p>
+        <p class="price" data-k="pp_euro">800 $</p>
+        <ul><li data-t="pk_euro_1">Арка, цветы и стулья</li><li data-t="pk_euro_2">Ведущий церемонии</li><li data-t="pk_euro_3">Фотосъёмка, 2 часа</li></ul>
+        <p class="extra" data-t="pk_euro_x">Гости: 45 $ за человека</p>
+        <button type="button" class="pick" data-pick="euro" data-t="pick">Выбрать</button>
       </article>
-      <form class="form" id="req" onsubmit="return false">
-        <h3>Заявка на <span id="formName">европейскую церемонию</span></h3>
-        <div class="row2">
-          <div><label for="date">Дата свадьбы</label><input type="date" id="date"></div>
-          <div><label for="place">Место</label>
-            <select id="place"><option>Пляж на закате</option><option>Вилла</option><option>Отель 5★</option><option>Храм</option><option>Пока не знаем</option></select></div>
-        </div>
-        <div>
-          <label id="gLabel">Сколько вас будет</label>
-          <div class="guests" role="group" aria-labelledby="gLabel">
-            <button type="button" id="gMinus" aria-label="Меньше гостей">−</button>
-            <output id="gOut" aria-live="polite">2</output>
-            <button type="button" id="gPlus" aria-label="Больше гостей">+</button>
-            <span id="gHint">вы вдвоём</span>
-          </div>
-        </div>
-        <div class="preview" aria-label="Так сообщение придёт вам">
-          <div class="who"><i>✓</i>Так сообщение придёт вам в WhatsApp</div>
-          <div class="bubble" id="bubble"></div>
-        </div>
-        <button type="button" class="btn btn-dark" id="send">Отправить Антону в WhatsApp</button>
-        <div class="sent" id="sent" role="status">В наброске сообщение никуда не уходит. На вашем сайте эта кнопка откроет WhatsApp с готовым текстом на +66 83 103 44 88.</div>
-      </form>
+      <article class="pk">
+        <h3 data-t="t_buddh">Буддийская</h3>
+        <p class="who" data-t="pk_buddh_who">Для двоих, благословение монахов</p>
+        <p class="price" data-k="pp_buddh">400 $</p>
+        <ul><li data-t="pk_buddh_1">Монахи и обряд по традиции</li><li data-t="pk_buddh_2">В храме, на пляже или на вилле</li><li data-t="pk_buddh_3">Можно вместе с европейской</li></ul>
+        <p class="extra" data-t="pk_buddh_x">Гости: 25 $ за человека</p>
+        <button type="button" class="pick" data-pick="buddh" data-t="pick">Выбрать</button>
+      </article>
+      <article class="pk">
+        <h3 data-t="t_guests">С гостями</h3>
+        <p class="who" data-t="pk_guests_who">Церемония и ужин, от 4 человек</p>
+        <p class="price" data-k="pp_guests">от 1500 $</p>
+        <ul><li data-t="pk_guests_1">Площадка: отель, вилла или ресторан</li><li data-t="pk_guests_2">Декор в вашем стиле</li><li data-t="pk_guests_3">Ужин, ведущий и музыка</li></ul>
+        <p class="extra" data-t="pk_guests_x">До 20 человек в цене, дальше 60 $ за человека</p>
+        <button type="button" class="pick" data-pick="guests" data-t="pick">Выбрать</button>
+      </article>
     </div>
   </div>
 </section>
 
-<section id="team" style="padding-top:0">
+<section class="sec" id="team" style="padding-top:0" aria-labelledby="teamH">
   <div class="wrap">
-    <div class="sec-head">
-      <div><div class="eyebrow">Команда</div><h2>Наша главная гордость</h2></div>
-      <p>Большая и дружная команда на острове, без случайных подрядчиков.</p>
-    </div>
+    <h2 id="teamH" data-t="teamH">Команда</h2>
     <div class="team">
-      <div class="person"><div class="mono">С</div><h3>Сергей</h3><div class="role">Шеф-повар</div><p>Ученик мишленовского шефа Франсуа. Отвечает за гастрономическую карту вашей свадьбы.</p></div>
-      <div class="person"><div class="mono">Ф</div><h3>Фото и видео</h3><div class="role">Съёмка</div><p>Мастера из топ-15 специалистов мира. Сохранят самые трогательные моменты дня.</p></div>
-      <div class="person"><div class="mono">П</div><h3>Полина</h3><div class="role">Стилист</div><p>Основательница своей студии красоты на Самуи. Подберёт и создаст свадебный образ.</p></div>
-      <div class="person"><div class="mono">Р</div><h3>Радмир</h3><div class="role">Ведущий</div><p>Профессиональный ведущий, радиоведущий «Европы Плюс». Отвечает за ваш вечер.</p></div>
+      <div class="person"><div class="mono"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 26c-5 0-8-4-8-8s4-8 9-7c1-4 5-7 9-7s8 3 9 7c5-1 9 3 9 7s-3 8-8 8"/><path d="M14 26v14h20V26M14 33h20"/></svg></div><h3 data-t="p1n">Сергей</h3><p data-t="p1r">Шеф-повар, готовит ужин для гостей</p></div>
+      <div class="person"><div class="mono"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="14" width="38" height="26" rx="4"/><path d="M16 14l3-6h10l3 6"/><circle cx="24" cy="27" r="8"/></svg></div><h3 data-t="p2n">Дмитрий и Артём</h3><p data-t="p2r">Фото и видео</p></div>
+      <div class="person"><div class="mono"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 6v14a10 10 0 0 0 20 0V6"/><path d="M24 30v12M17 42h14"/><path d="M14 13h20"/></svg></div><h3 data-t="p3n">Полина</h3><p data-t="p3r">Стилист, причёска и макияж</p></div>
+      <div class="person"><div class="mono"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="17" y="4" width="14" height="24" rx="7"/><path d="M10 22a14 14 0 0 0 28 0M24 36v8M17 44h14"/></svg></div><h3 data-t="p4n">Радмир</h3><p data-t="p4r">Ведущий, раньше работал на радио «Европа Плюс»</p></div>
     </div>
   </div>
 </section>
 
-<section class="story" id="story">
+<section class="sec story" id="story" aria-labelledby="storyH">
   <div class="wrap">
-    <div class="sec-head">
-      <div><div class="eyebrow">О нас</div><h2><span data-yrs>16 лет</span> на Самуи</h2></div>
-      <p>Антон Селиванов, владелец бренда Marrymeonsamui. Выберите год.</p>
-    </div>
+    <h2 id="storyH"><span data-yrs>16 лет</span> <span data-t="onSamui">на Самуи</span></h2>
     <div class="years" id="years"></div>
     <div class="story-card"><div class="big" id="yBig">2010</div><p id="yText"></p></div>
   </div>
 </section>
 
-<section>
+<section class="sec" aria-labelledby="trustH">
   <div class="wrap">
-    <div class="sec-head"><div><div class="eyebrow">Надёжность</div><h2>Гарантии и прозрачность</h2></div>
-      <p>Свой склад на острове: арки, декор, свежая флористика, фотобудка, звук, свет и мебель.</p></div>
+    <h2 id="trustH" data-t="trustH">Договор и смета</h2>
     <div class="trust">
-      <div><h3>Официальный договор</h3><p>Работаем официально и отвечаем за результат.</p></div>
-      <div><h3>Понятная смета</h3><p>Утверждаем подробный бюджет до начала подготовки. <a href="smeta/">Посмотреть, как соберётся смета</a></p></div>
-      <div><h3>Фиксированная цена</h3><p>Стоимость согласуем заранее, и она не меняется.</p></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 4h18l8 8v32H12z"/><path d="M30 4v8h8M18 22h14M18 29h14M18 36h8"/></svg><h3 data-t="tr1h">Договор</h3><p data-t="tr1p">Все услуги и цена записаны в договоре.</p></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40h32"/><path d="M13 40V26M21 40V16M29 40V22M37 40V10"/></svg><h3 data-t="tr2h">Смета до начала работ</h3><p><a href="smeta/" data-t="tr2p">Как собирается смета</a></p></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="20" width="28" height="22" rx="3"/><path d="M16 20v-6a8 8 0 0 1 16 0v6"/><circle cx="24" cy="31" r="3"/></svg><h3 data-t="tr3h">Цена не меняется</h3><p data-t="tr3p">После подписания итог в смете не растёт.</p></div>
     </div>
   </div>
 </section>
 
-<section style="padding-top:0">
+<section class="sec" style="padding-top:0" aria-labelledby="revH">
   <div class="wrap">
-    <div class="sec-head"><div><div class="eyebrow">Отзывы</div><h2>Нас рекомендуют</h2></div>
-      <p>К нам возвращаются отдыхать уже с детьми.</p></div>
-    <div class="reviews">
-      <figure class="review"><blockquote>«Получила свадебную церемонию своей мечты. Видеооператор Артём и фотограф Дмитрий сделали наш день!»</blockquote><cite>Татьяна и Олег</cite></figure>
-      <figure class="review"><blockquote>«Всё было как в сказке! Полина просто прелесть, сделала всё на высшем уровне.»</blockquote><cite>Анастасия Барыбина</cite></figure>
-      <figure class="review"><blockquote>«Антон проявил максимум гибкости при планировании свадьбы. Будем всем рекомендовать!»</blockquote><cite>Оля и Вадим</cite></figure>
-    </div>
+    <h2 id="revH" data-t="revH">Отзывы</h2>
+    <figure class="review"><blockquote data-t="rv1">«Видеооператор Артём и фотограф Дмитрий сняли весь наш день, фильм смотрим каждую годовщину.»</blockquote><cite data-t="rv1c">Татьяна и Олег</cite></figure>
+    <figure class="review"><blockquote data-t="rv2">«Полина сделала причёску и макияж за час до церемонии, всё держалось до ночи.»</blockquote><cite data-t="rv2c">Анастасия Б.</cite></figure>
+    <figure class="review"><blockquote data-t="rv3">«Мира два раза переносила дату из-за наших билетов и ни разу не взяла доплату.»</blockquote><cite data-t="rv3c">Оля и Вадим</cite></figure>
   </div>
 </section>
 
-<section class="fixes" id="fixes">
+<section class="sec fixes" id="fixes" aria-labelledby="fixH">
   <div class="wrap">
-    <div class="sec-head"><div><div class="eyebrow">Что поправлено</div><h2>Тексты, которые пара видит первыми</h2></div>
-      <p>Мелочи, но именно их замечают раньше, чем пишут вам.</p></div>
-    <div class="fix"><div class="was">«MERRYMEONSAMUI»<small>под именем Антона</small></div><div class="arrow">→</div><div class="now">Marrymeonsamui<small>одно написание бренда везде</small></div></div>
-    <div class="fix"><div class="was">агенства<small>дважды в тексте</small></div><div class="arrow">→</div><div class="now">агентства</div></div>
-    <div class="fix"><div class="was">«10 лет в бизнесе» рядом с «С 2010 года»<small>выглядит как давно не обновлявшийся текст</small></div><div class="arrow">→</div><div class="now"><span data-yrs>16 лет</span> на Самуи, с 2010 года<small>цифра считается от года автоматически</small></div></div>
-    <div class="fix"><div class="was">«Узнать подробнее» у каждого пакета<small>пара уходит на другую страницу</small></div><div class="arrow">→</div><div class="now">Дата и число гостей прямо в пакете<small>вам приходит готовая заявка</small></div></div>
+    <h2 id="fixH" data-t="fixH">Что поправлено</h2>
+    <div class="fix"><div class="was"><span data-t="fx0a">«Свадьба вашей мечты» крупным заголовком</span><small data-t="fx0b">не говорит, что можно заказать и сколько это стоит</small></div><div class="arrow" aria-hidden="true">→</div><div class="now"><span data-t="fx0c">Первый экран показывает церемонию и сразу считает цену</span></div></div>
+    <div class="fix"><div class="was"><span>«CORAL VOW»</span><small data-t="fx1b">под именем основательницы</small></div><div class="arrow" aria-hidden="true">→</div><div class="now">Coral Vow<small data-t="fx1c">одно написание бренда везде</small></div></div>
+    <div class="fix"><div class="was"><span>агенства</span><small data-t="fx2b">опечатка, дважды в тексте</small></div><div class="arrow" aria-hidden="true">→</div><div class="now">агентства</div></div>
+    <div class="fix"><div class="was"><span data-t="fx3a">«10 лет в бизнесе» рядом с «С 2010 года»</span><small data-t="fx3b">цифра устарела</small></div><div class="arrow" aria-hidden="true">→</div><div class="now"><span data-yrs>16 лет</span> <span data-t="fx3c">на Самуи, с 2010 года</span><small data-t="fx3d">число лет считается от текущего года</small></div></div>
+    <div class="fix"><div class="was"><span data-t="fx4a">«Узнать подробнее» у каждого пакета</span><small data-t="fx4b">пара уходит на другую страницу</small></div><div class="arrow" aria-hidden="true">→</div><div class="now"><span data-t="fx4c">Дата, гости и цена в одной заявке</span><small data-t="fx4d">вам приходит готовое сообщение</small></div></div>
   </div>
 </section>
 
-<section class="close">
+<section class="sec close" aria-labelledby="closeH">
   <div class="wrap">
-    <h2>Свадьба вашей мечты на Самуи, в каждой детали</h2>
-    <p>Слушаем вас, чувствуем ваш стиль и воплощаем сказку в рамках вашего бюджета.</p>
-    <a class="btn btn-dark" href="#packages">Выбрать дату</a>
+    <h2 id="closeH" data-t="closeH">Вопросы по дате или площадке? Мира, наш координатор, ответит в WhatsApp.</h2>
+    <a class="btn" href="#plan" id="toPlan" data-t="closeBtn">Выбрать дату</a>
   </div>
 </section>
 </main>
 
-<footer><div class="wrap"><span>Набросок для Marrymeonsamui, Александр Хрусталев, Паттайя</span><span><a href="https://t.me/sandersax">Telegram</a> · <a href="https://wa.me/66961347329">WhatsApp</a> · <a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></span></div></footer>
+<footer><div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="coralvow" viewBox="0 0 155 32" width="135.6" height="28" role="img" aria-label="Coral Vow" focusable="false"><g aria-hidden="true"><circle cx="16" cy="12.5" r="8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/><path d="M3 26.5c3-3 6.5-3 9.5 0s6.5 3 9.5 0 5-3 7 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="25.0" fill="currentColor" font-family="'Forum'" font-weight="400" font-size="25" letter-spacing="0.04em">Coral Vow</text></svg></div><span data-t="foot">Пример сайта для вымышленного агентства Coral Vow. Александр Хрусталев, Паттайя.</span><span><a href="https://t.me/sandersax">Telegram</a> · <a href="https://wa.me/66961347329">WhatsApp</a> · <a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></span><p class="sb-label">Sample site, fictional brand</p></div></footer>
 
 <script>
 (function(){
-  var P={
-    buddh:{tag:"В храме или на пляже",name:"Буддийская",form:"буддийскую церемонию",price:"400 $",word:"в храме",min:2,def:2,
-      text:"Церемония в храме или выездная, на пляже или на вилле. Её можно сочетать с европейской церемонией.",
-      list:["Благословение монахов","Храм, пляж или вилла на выбор","Можно совместить с европейской церемонией"]},
-    euro:{tag:"Для двоих",name:"Европейская",form:"европейскую церемонию",price:"800 $",word:"для двоих",min:2,def:2,
-      text:"Свадьба для двоих на уединённом закатном пляже или зелёной лужайке Самуи.",
-      list:["Пляж на закате или лужайка","Лав-стори с лучшим фотографом острова","Декор и флористика с нашего склада"]},
-    guests:{tag:"Полноценное торжество",name:"Свадьба с гостями",form:"свадьбу с гостями",price:"от 1500 $",word:"с гостями",min:4,def:20,
-      text:"Подберём площадку, ресторан, отель или виллу, обсудим дизайн и шоу-программу на вечер.",
-      list:["Подбор площадки","Дизайн и декор под ваш стиль","Кейтеринг, ведущий и шоу-программа"]}
+  var T={
+    ru:{ribbon:"Пример сайта. Бренд, люди и цены условные.",ribbonLink:"Что поправлено",langLabel:"Язык",
+      cap:"Свадьбы на Самуи под ключ: церемония, цветы, кейтеринг.",typeLegend:"Церемония",t_euro:"Европейская",t_buddh:"Буддийская",t_guests:"С гостями",
+      date:"Дата",place:"Место",p_beach:"Пляж",p_villa:"Вилла",p_hotel:"Отель",p_temple:"Храм",people:"Сколько человек",less:"Меньше",more:"Больше",
+      about:"Примерно",send:"Отправить заявку в WhatsApp",waTop:"Так заявка придёт Мире в WhatsApp",close:"Закрыть",
+      waNote:"Это пример, сообщение никуда не уходит. На вашем сайте кнопка откроет WhatsApp с этим текстом.",
+      pricesH:"Цены",pk_euro_who:"Для двоих, на пляже на закате или на лужайке",pk_euro_1:"Арка, цветы и стулья",pk_euro_2:"Ведущий церемонии",pk_euro_3:"Фотосъёмка, 2 часа",pk_euro_x:"Гости: 45 $ за человека",
+      pk_buddh_who:"Для двоих, благословение монахов",pk_buddh_1:"Монахи и обряд по традиции",pk_buddh_2:"В храме, на пляже или на вилле",pk_buddh_3:"Можно вместе с европейской",pk_buddh_x:"Гости: 25 $ за человека",
+      pk_guests_who:"Церемония и ужин, от 4 человек",pk_guests_1:"Площадка: отель, вилла или ресторан",pk_guests_2:"Декор в вашем стиле",pk_guests_3:"Ужин, ведущий и музыка",pk_guests_x:"До 20 человек в цене, дальше 60 $ за человека",pick:"Выбрать",
+      teamH:"Команда",p1n:"Сергей",p1r:"Шеф-повар, готовит ужин для гостей",p2n:"Дмитрий и Артём",p2r:"Фото и видео",p3n:"Полина",p3r:"Стилист, причёска и макияж",p4n:"Радмир",p4r:"Ведущий, раньше работал на радио «Европа Плюс»",
+      onSamui:"на Самуи",pickYear:"Выберите год.",trustH:"Договор и смета",tr1h:"Договор",tr1p:"Все услуги и цена записаны в договоре.",tr2h:"Смета до начала работ",tr2p:"Как собирается смета",tr3h:"Цена не меняется",tr3p:"После подписания итог в смете не растёт.",
+      revH:"Отзывы",rv1:"«Видеооператор Артём и фотограф Дмитрий сняли весь наш день, фильм смотрим каждую годовщину.»",rv1c:"Татьяна и Олег",rv2:"«Полина сделала причёску и макияж за час до церемонии, всё держалось до ночи.»",rv2c:"Анастасия Б.",rv3:"«Мира два раза переносила дату из-за наших билетов и ни разу не взяла доплату.»",rv3c:"Оля и Вадим",
+      fixH:"Что поправлено",fx0a:"«Свадьба вашей мечты» крупным заголовком",fx0b:"не говорит, что можно заказать и сколько это стоит",fx0c:"Первый экран показывает церемонию и сразу считает цену",
+      fx1b:"под именем основательницы",fx1c:"одно написание бренда везде",fx2b:"опечатка, дважды в тексте",fx3a:"«10 лет в бизнесе» рядом с «С 2010 года»",fx3b:"цифра устарела",fx3c:"на Самуи, с 2010 года",fx3d:"число лет считается от текущего года",
+      fx4a:"«Узнать подробнее» у каждого пакета",fx4b:"пара уходит на другую страницу",fx4c:"Дата, гости и цена в одной заявке",fx4d:"вам приходит готовое сообщение",
+      closeH:"Вопросы по дате или площадке? Мира, наш координатор, ответит в WhatsApp.",closeBtn:"Выбрать дату",foot:"Пример сайта для вымышленного агентства Coral Vow. Александр Хрусталев, Паттайя.",
+      title:"Coral Vow, свадьбы на Самуи",forTwo:"для двоих",forTwoC:", для двоих",from:"от",sunset:"закат в ",rain:", сезон дождей",noDate:"выберите дату",
+      hints:["вы вдвоём","самые близкие","камерная свадьба","большой праздник"],
+      months:["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"],
+      forms:{euro:"европейскую церемонию",buddh:"буддийскую церемонию",guests:"свадьбу с гостями"},
+      placeMsg:{beach:"пляж",villa:"вилла",hotel:"отель",temple:"храм"},
+      years:[["2010","Открылись как первое ивент-агентство на Самуи."],["2012","Запустили первый русский телеканал на острове, 1Rus Samui TV."],["2013","Начали делать корпоративные поездки и конференции."],["2014","Помогали со съёмками «Орла и решки» и «Поедем, поедим» в Таиланде."],["2015","Получили премию за лучшую свадьбу за границей."],["2016","Привозили концерты на остров: Leeroy Thornhill, Децл, White Party в Nikki Beach."],["2017","Начали организовывать частный отдых и консьерж-сервис."],["2018","Проводили праздники для посольств России и Израиля."],["2020","Открыли свой бар-ресторан со смотровой площадкой, The Cocoon."],["2022","Сохранили команду после пандемии и вернулись к свадьбам."],["2024","Провели свадьбы во всех пятизвёздочных отелях острова."],["2025","Открыли две свои свадебные площадки."]]},
+    en:{ribbon:"Sample site. Brand, people and prices are made up.",ribbonLink:"What we fixed",langLabel:"Language",
+      cap:"Wedding planning on Koh Samui: ceremony, flowers, catering.",typeLegend:"Ceremony",t_euro:"Western",t_buddh:"Buddhist",t_guests:"With guests",
+      date:"Date",place:"Place",p_beach:"Beach",p_villa:"Villa",p_hotel:"Hotel",p_temple:"Temple",people:"People",less:"Fewer",more:"More",
+      about:"About",send:"Send request on WhatsApp",waTop:"This is how Mira gets your request on WhatsApp",close:"Close",
+      waNote:"This is a sample, nothing is sent. On your site the button opens WhatsApp with this text.",
+      pricesH:"Prices",pk_euro_who:"For two, on the beach at sunset or on a lawn",pk_euro_1:"Arch, flowers and chairs",pk_euro_2:"Celebrant",pk_euro_3:"Photographer, 2 hours",pk_euro_x:"Guests: $45 per person",
+      pk_buddh_who:"For two, a blessing by monks",pk_buddh_1:"Monks and a traditional ceremony",pk_buddh_2:"At a temple, on the beach or at a villa",pk_buddh_3:"Can be combined with a Western ceremony",pk_buddh_x:"Guests: $25 per person",
+      pk_guests_who:"Ceremony and dinner, 4 people or more",pk_guests_1:"Venue: hotel, villa or restaurant",pk_guests_2:"Decor in your style",pk_guests_3:"Dinner, host and music",pk_guests_x:"Up to 20 people included, then $60 per person",pick:"Choose",
+      teamH:"Team",p1n:"Sergey",p1r:"Chef, cooks the dinner for your guests",p2n:"Dmitry and Artyom",p2r:"Photo and video",p3n:"Polina",p3r:"Stylist, hair and make-up",p4n:"Radmir",p4r:"Host, used to work at Europa Plus radio",
+      onSamui:"on Samui",pickYear:"Pick a year.",trustH:"Contract and estimate",tr1h:"Contract",tr1p:"Every service and the price are written in the contract.",tr2h:"Estimate before we start",tr2p:"How the estimate is built (in Russian)",tr3h:"The price stays fixed",tr3p:"Once you sign, the total does not go up.",
+      revH:"Reviews",rv1:"“Artyom and Dmitry filmed and photographed our whole day. We watch the film every anniversary.”",rv1c:"Tatiana and Oleg",rv2:"“Polina did my hair and make-up an hour before the ceremony and it held until night.”",rv2c:"Anastasia B.",rv3:"“Mira moved our date twice because of our flights and never charged extra.”",rv3c:"Olya and Vadim",
+      fixH:"What we fixed",fx0a:"“The wedding of your dreams” as a big headline",fx0b:"says nothing about what you can book or what it costs",fx0c:"The first screen shows the ceremony and works out the price",
+      fx1b:"under the founder's name",fx1c:"one spelling of the brand everywhere",fx2b:"a Russian typo, twice in the text",fx3a:"“10 years in business” next to “Since 2010”",fx3b:"the number was out of date",fx3c:"on Samui, since 2010",fx3d:"the years are counted from the current year",
+      fx4a:"“Learn more” under every package",fx4b:"the couple had to open another page",fx4c:"Date, guests and price in one request",fx4d:"you get a ready message",
+      closeH:"Questions about a date or a venue? Mira, our coordinator, answers on WhatsApp.",closeBtn:"Pick a date",foot:"Sample site for the fictional agency Coral Vow. Alexandr Khrustalev, Pattaya.",
+      title:"Coral Vow, weddings on Koh Samui",forTwo:"for two",forTwoC:", for two",from:"from",sunset:"sunset ",rain:", rainy season",noDate:"pick a date",
+      hints:["just you two","closest family","small wedding","big party"],
+      months:["January","February","March","April","May","June","July","August","September","October","November","December"],
+      forms:{euro:"a Western ceremony",buddh:"a Buddhist ceremony",guests:"a wedding with guests"},
+      placeMsg:{beach:"beach",villa:"villa",hotel:"hotel",temple:"temple"},
+      years:[["2010","Opened as the first event agency on Samui."],["2012","Started the first Russian TV channel on the island, 1Rus Samui TV."],["2013","Began running corporate trips and conferences."],["2014","Helped film two Russian travel shows in Thailand."],["2015","Won an award for the best wedding abroad."],["2016","Brought concerts to the island, including Leeroy Thornhill and a White Party at Nikki Beach."],["2017","Started private holidays and a concierge service."],["2018","Ran national holidays for the Russian and Israeli embassies."],["2020","Opened our own bar and restaurant with a viewpoint, The Cocoon."],["2022","Kept the team through the pandemic and went back to weddings."],["2024","Held weddings at every five-star hotel on the island."],["2025","Opened two wedding venues of our own."]]}
   };
-  var k="euro",g=2,$=function(id){return document.getElementById(id)};
-  var tabs=[].slice.call(document.querySelectorAll(".pk-tab"));
-  var d=$("date"),now=new Date(),def=new Date(now.getFullYear(),now.getMonth()+4,14);
+  var P={
+    euro:{base:800,per:45,incl:2,min:2,max:40,def:2,arch:1},
+    buddh:{base:400,per:25,incl:2,min:2,max:40,def:2,arch:0},
+    guests:{base:1500,per:60,incl:20,min:4,max:300,def:30,arch:1}
+  };
+  var $=function(id){return document.getElementById(id)};
+  var NS="http://www.w3.org/2000/svg";
+  var lang="ru",k="euro",g=2;
+  try{var sl=localStorage.getItem("cv-lang");if(sl==="en"||sl==="ru")lang=sl}catch(e){}
+  var qs=/[?&]lang=(en|ru)/.exec(location.search);if(qs)lang=qs[1];
+  var L=function(){return T[lang]};
+  var still=matchMedia("(prefers-reduced-motion: reduce)");
+
+  function money(v){return lang==="ru"?String(v).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" $":"$"+String(v).replace(/\B(?=(\d{3})+(?!\d))/g,",")}
+  function plural(n,f){var a=n%10,b=n%100;return f[(a==1&&b!=11)?0:(a>=2&&a<=4&&(b<10||b>=20))?1:2]}
   function iso(x){return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")}
-  d.min=iso(now);d.value=iso(def);
-  function ruDate(v){if(!v)return"дата пока не выбрана";var p=v.split("-");var m=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];return(+p[2])+" "+m[+p[1]-1]+" "+p[0]}
-  function ppl(n){var a=n%10,b=n%100;return n+" "+((a==1&&b!=11)?"человек":(a>=2&&a<=4&&(b<10||b>=20))?"человека":"человек")}
-  function hint(n){return n<=2?"вы вдвоём":n<=10?"самые близкие":n<=40?"камерная свадьба":"большой праздник"}
+  function longDate(v){if(!v)return L().noDate;var p=v.split("-");return lang==="ru"?(+p[2])+" "+T.ru.months[+p[1]-1]+" "+p[0]:(+p[2])+" "+T.en.months[+p[1]-1]+" "+p[0]}
+
+  /* sunset on Koh Samui (9.5 N, 100.0 E, UTC+7) for the picked date */
+  function sunset(v){
+    var p=v.split("-"),d=new Date(Date.UTC(+p[0],+p[1]-1,+p[2])),n=Math.round((d-Date.UTC(+p[0],0,0))/864e5),r=Math.PI/180;
+    var dec=23.44*Math.sin(2*Math.PI*(284+n)/365)*r,B=2*Math.PI*(n-81)/364,eot=9.87*Math.sin(2*B)-7.53*Math.cos(B)-1.5*Math.sin(B);
+    var lat=9.53*r,h=Math.acos((Math.sin(-.833*r)-Math.sin(lat)*Math.sin(dec))/(Math.cos(lat)*Math.cos(dec)))/r;
+    var t=12+(105-100.06)*4/60-eot/60+h/15,hh=Math.floor(t),mm=Math.round((t-hh)*60);if(mm==60){hh++;mm=0}
+    return hh+":"+String(mm).padStart(2,"0");
+  }
+
+  /* static scene parts: palms and petals */
+  function palm(x0,y0,cx,cy,dir){
+    var gr=document.createElementNS(NS,"g"),tr=document.createElementNS(NS,"path");
+    tr.setAttribute("d","M"+x0+" "+y0+"Q"+(x0+dir*20)+" "+((y0+cy)/2)+" "+cx+" "+cy);tr.setAttribute("fill","none");tr.setAttribute("stroke","#4a4038");tr.setAttribute("stroke-width","16");tr.setAttribute("stroke-linecap","round");gr.appendChild(tr);
+    [-170,-140,-110,-75,-45,-15,15].forEach(function(a,i){
+      var ang=(a+(dir<0?0:-8))*Math.PI/180,len=150+(i%3)*24,ex=cx+Math.cos(ang)*len,ey=cy+Math.sin(ang)*len*.55+48;
+      var mx=cx+Math.cos(ang)*len*.5,my=cy+Math.sin(ang)*len*.5-22,nx=-Math.sin(ang)*16,ny=Math.cos(ang)*16;
+      var lf=document.createElementNS(NS,"path");
+      lf.setAttribute("d","M"+cx+" "+cy+"Q"+(mx+nx)+" "+(my+ny)+" "+ex.toFixed(1)+" "+ey.toFixed(1)+"Q"+(mx-nx)+" "+(my-ny)+" "+cx+" "+cy+"Z");
+      lf.setAttribute("fill",i%2?"#2f4d45":"#26423b");gr.appendChild(lf);
+    });
+    $("palms").appendChild(gr);
+  }
+  palm(210,800,300,300,-1);palm(1250,800,1150,270,1);palm(80,800,120,380,-1);
+  (function(){var s=7,pe=$("petals");for(var i=0;i<46;i++){s=(s*9301+49297)%233280;var t=s/233280;s=(s*9301+49297)%233280;var u=s/233280;
+    var y=572+t*228,w=14+(y-560)*.14,e=document.createElementNS(NS,"ellipse");e.setAttribute("cx",(720+(u-.5)*2*w).toFixed(1));e.setAttribute("cy",y.toFixed(1));
+    e.setAttribute("rx",(2.2+t*2.4).toFixed(1));e.setAttribute("ry",(1.4+t*1.4).toFixed(1));e.setAttribute("fill",i%3?"#8f1730":"#eab2bc");pe.appendChild(e)}})();
+
+  /* chairs: one chair per guest, filled from the arch outward */
+  var MAXC=70,chairs=[];
+  (function(){
+    var spots=[];
+    for(var r=0;r<5;r++){var s=.78+r*.07,y=582+r*12;for(var i=0;i<7;i++){[-1,1].forEach(function(side){spots.push({x:720+side*(28*s+(i+.5)*29*s),y:y,s:s,o:r*100+i*2+(side>0?1:0)})})}}
+    spots.sort(function(a,b){return a.o-b.o});
+    spots.forEach(function(p){
+      var c=document.createElementNS(NS,"g"),s=p.s,w=20*s,h=24*s,x=p.x-w/2,f=function(v){return v.toFixed(1)};
+      c.setAttribute("class","chair out");
+      c.innerHTML='<path d="M'+f(x+2*s)+' '+f(p.y-h*.4)+'V'+f(p.y)+'M'+f(x+w-2*s)+' '+f(p.y-h*.4)+'V'+f(p.y)+'" stroke="#a88a6c" stroke-width="'+f(1.6*s)+'"/>'+
+        '<rect x="'+f(x)+'" y="'+f(p.y-h)+'" width="'+f(w)+'" height="'+f(h*.56)+'" rx="'+f(4*s)+'" fill="#fffaf5" stroke="#b89c80" stroke-width="1"/>'+
+        '<rect x="'+f(x)+'" y="'+f(p.y-h*.66)+'" width="'+f(w)+'" height="'+f(3*s)+'" fill="#8f1730"/>'+
+        '<rect x="'+f(x-1.5*s)+'" y="'+f(p.y-h*.44)+'" width="'+f(w+3*s)+'" height="'+f(4*s)+'" rx="'+f(1.5*s)+'" fill="#fffaf5" stroke="#b89c80" stroke-width="1"/>';
+      $("chairs").appendChild(c);chairs.push(c);
+    });
+  })();
+
+  var d=$("date"),now=new Date();
+  d.min=iso(now);d.value=iso(new Date(now.getFullYear(),now.getMonth()+4,14));
+
+  function total(){var p=P[k];return p.base+Math.max(0,g-p.incl)*p.per}
+  function sub(){
+    var p=P[k],x=Math.max(0,g-p.incl);
+    if(!x)return k==="guests"?(lang==="ru"?"до 20 человек в цене":"up to 20 people included"):L().forTwo;
+    return lang==="ru"?money(p.base)+" + "+x+" "+plural(x,["гость","гостя","гостей"])+" × "+money(p.per):money(p.base)+" + "+x+(x==1?" guest":" guests")+" × "+money(p.per);
+  }
+  function hint(n){var h=L().hints;return n<=2?h[0]:n<=10?h[1]:n<=40?h[2]:h[3]}
+  function scene(){
+    var place=$("place").value;
+    [].forEach.call(document.querySelectorAll(".ground"),function(e){e.classList.toggle("off",e.getAttribute("data-g")!==place)});
+    $("arch").classList.toggle("off",!P[k].arch);$("sala").classList.toggle("off",!!P[k].arch);
+    var m=d.value?+d.value.split("-")[1]:0;$("clouds").classList.toggle("off",!(m>=10&&m<=12));
+    var n=Math.max(0,g-2);
+    chairs.forEach(function(c,i){c.classList.toggle("out",i>=n)});
+    $("more").textContent=n>MAXC?"+"+(n-MAXC):"";
+  }
   function msg(){
-    var p=P[k],t=new Date();
-    $("bubble").innerHTML="";
-    $("bubble").appendChild(document.createTextNode("Здравствуйте, Антон! Хотим "+p.form+" ("+p.price+").\nДата: "+ruDate(d.value)+"\nМесто: "+$("place").value+"\nНас будет: "+ppl(g)));
-    var tm=document.createElement("time");tm.textContent=String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0");$("bubble").appendChild(tm);
-    $("bubble").classList.add("pop");setTimeout(function(){$("bubble").classList.remove("pop")},180);
-    $("sent").classList.remove("show");
+    var t=new Date(),b=$("bubble"),R=lang==="ru";
+    b.textContent=(R?"Здравствуйте, Мира! Хотим "+T.ru.forms[k]+".\nДата: "+longDate(d.value)+"\nМесто: "+T.ru.placeMsg[$("place").value]+"\nНас будет: "+g+" "+plural(g,["человек","человека","человек"])+"\nПримерная цена: "+money(total())
+      :"Hello Mira, we would like "+T.en.forms[k]+".\nDate: "+longDate(d.value)+"\nPlace: "+T.en.placeMsg[$("place").value]+"\nPeople: "+g+"\nEstimated price: "+money(total()));
+    var tm=document.createElement("time");tm.textContent=String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0");b.appendChild(tm);
   }
-  function setG(n){var p=P[k];g=Math.max(p.min,Math.min(300,n));$("gOut").textContent=g;$("gHint").textContent=hint(g);$("gMinus").disabled=g<=p.min;msg()}
-  function pick(key,init){
+  function update(){
+    var p=P[k];
+    $("gOut").textContent=g;$("gHint").textContent=hint(g);$("gMinus").disabled=g<=p.min;$("gPlus").disabled=g>=p.max;
+    $("total").textContent=money(total());$("totalSub").textContent=sub();
+    if(d.value){var m=+d.value.split("-")[1];$("sunset").textContent=L().sunset+sunset(d.value)+(m>=10&&m<=12?L().rain:"")}else $("sunset").textContent=L().noDate;
+    scene();msg();
+  }
+  function setG(n){var p=P[k];g=Math.max(p.min,Math.min(p.max,n));update()}
+  function pick(key){
     k=key;var p=P[k];
-    tabs.forEach(function(t){t.setAttribute("aria-selected",t.dataset.k==k?"true":"false")});
-    $("pkTag").textContent=p.tag;$("pkName").textContent=p.name;$("pkPrice").textContent=p.price;$("pkText").textContent=p.text;$("formName").textContent=p.form;
-    $("pkList").innerHTML="";p.list.forEach(function(x){var li=document.createElement("li");li.textContent=x;$("pkList").appendChild(li)});
-    if(k=="buddh")$("place").value="Храм";else if($("place").value=="Храм")$("place").value="Пляж на закате";
-    if(!init){var w=$("heroWord");w.classList.add("swap");setTimeout(function(){w.textContent=p.word;w.classList.remove("swap")},220)}
-    setG(p.def);
+    [].forEach.call(document.querySelectorAll("input[name=type]"),function(r){r.checked=r.value===k});
+    if(k==="buddh")$("place").value="temple";else if($("place").value==="temple")$("place").value="beach";
+    g=Math.max(p.min,Math.min(p.max,k==="guests"?Math.max(g,p.def):g>p.max?p.max:g));
+    if(k==="guests"&&g<p.min)g=p.def;
+    update();
   }
-  tabs.forEach(function(t){t.addEventListener("click",function(){pick(t.dataset.k)})});
+  [].forEach.call(document.querySelectorAll("input[name=type]"),function(r){r.addEventListener("change",function(){if(r.checked)pick(r.value)})});
   $("gMinus").addEventListener("click",function(){setG(g-(g>20?5:1))});
   $("gPlus").addEventListener("click",function(){setG(g+(g>=20?5:1))});
-  d.addEventListener("change",msg);$("place").addEventListener("change",msg);
-  $("send").addEventListener("click",function(){$("sent").classList.add("show")});
-  pick("euro",true);
-  var yrs=now.getFullYear()-2010;
-  [].forEach.call(document.querySelectorAll("[data-yrs]"),function(e){e.textContent=yrs+(yrs%10==1&&yrs%100!=11?" год":(yrs%10>=2&&yrs%10<=4&&(yrs%100<10||yrs%100>=20))?" года":" лет")});
+  d.addEventListener("change",update);d.addEventListener("input",update);$("place").addEventListener("change",update);
+  $("send").addEventListener("click",function(){msg();$("wa").hidden=false;$("waClose").focus()});
+  $("waClose").addEventListener("click",function(){$("wa").hidden=true;$("send").focus()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("wa").hidden){$("wa").hidden=true;$("send").focus()}});
+  [].forEach.call(document.querySelectorAll("[data-pick]"),function(b){b.addEventListener("click",function(){
+    pick(b.getAttribute("data-pick"));
+    var r=document.querySelector("input[name=type]:checked");if(r)r.focus({preventScroll:true});
+    $("plan").scrollIntoView({behavior:still.matches?"auto":"smooth"});
+  })});
+  $("toPlan").addEventListener("click",function(e){e.preventDefault();d.focus({preventScroll:true});$("plan").scrollIntoView({behavior:still.matches?"auto":"smooth"})});
 
-  var Y=[["2010","Стартовали как первое официальное ивент-агентство на острове Самуи."],["2012","Создали первый русский телеканал на острове, 1Rus Samui TV."],["2013","Расширились до MICE и корпоративного агентства."],["2014","Съёмки «Орла и решки» и «Поедем, поедим» в Таиланде."],["2015","Награда за лучшую свадьбу за границей."],["2016","Концерты на острове: Leeroy Thornhill (ex-Prodigy), Децл, White Party в Nikki Beach, стендап."],["2017","Частный отдых для звёзд и бизнеса, консьерж-сервис."],["2018","Работа с российским и израильским посольствами, национальные праздники для экспатов и туристов острова."],["2020","Открыли свой бар-ресторан со смотровой площадкой, The Cocoon."],["2022","Пережили пандемию и остаёмся агентством № 1 на Самуи."],["2024","Провели свадьбы на всех пятизвёздочных площадках острова."],["2025","Открыли две собственные свадебные площадки."]];
+  /* years on the island */
+  var yrs=now.getFullYear()-2010,yi=0;
+  function yrsText(){return lang==="ru"?yrs+" "+plural(yrs,["год","года","лет"]):yrs+" years"}
   var yw=$("years");
-  Y.forEach(function(y,i){var b=document.createElement("button");b.className="year";b.type="button";b.textContent=y[0];b.setAttribute("aria-pressed",i==0?"true":"false");
-    b.addEventListener("click",function(){[].forEach.call(yw.children,function(c){c.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");
-      var t=$("yText");t.classList.add("swap");setTimeout(function(){$("yBig").textContent=y[0];t.textContent=y[1];t.classList.remove("swap")},200)});yw.appendChild(b)});
-  $("yText").textContent=Y[0][1];
+  T.ru.years.forEach(function(y,i){var b=document.createElement("button");b.className="year";b.type="button";b.textContent=y[0];b.setAttribute("aria-pressed",i==0?"true":"false");
+    b.addEventListener("click",function(){yi=i;[].forEach.call(yw.children,function(c){c.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");
+      var t=$("yText");t.classList.add("swap");setTimeout(function(){$("yBig").textContent=y[0];t.textContent=L().years[i][1];t.classList.remove("swap")},still.matches?0:180)});yw.appendChild(b)});
+
+  /* language */
+  function setLang(l){
+    lang=l;var D=T[l];document.documentElement.lang=l;document.title=D.title;
+    [].forEach.call(document.querySelectorAll("[data-t]"),function(e){var v=D[e.getAttribute("data-t")];if(v!=null)e.textContent=v});
+    [].forEach.call(document.querySelectorAll("[data-ta]"),function(e){var v=D[e.getAttribute("data-ta")];if(v!=null)e.setAttribute("aria-label",v)});
+    [].forEach.call(document.querySelectorAll(".lang button"),function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-l")===l))});
+    ["euro","buddh","guests"].forEach(function(x){var p=P[x],s=x==="guests"?(l==="ru"?"от "+money(p.base):"from "+money(p.base)):money(p.base);
+      document.querySelector('[data-k="tp_'+x+'"]').textContent=s;document.querySelector('[data-k="pp_'+x+'"]').textContent=s});
+    [].forEach.call(document.querySelectorAll("[data-yrs]"),function(e){e.textContent=yrsText()});
+    $("yText").textContent=D.years[yi][1];
+    try{localStorage.setItem("cv-lang",l)}catch(e){}
+    update();
+  }
+  [].forEach.call(document.querySelectorAll(".lang button"),function(b){b.addEventListener("click",function(){setLang(b.getAttribute("data-l"))})});
+  setLang(lang);
 })();
 </script>
 </body>

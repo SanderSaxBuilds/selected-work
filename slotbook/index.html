@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Slotbook booking page sample</title>
-<meta name="description" content="Slotbook is a sample appointment booking page for a fictional bike workshop in Chiang Mai. Pick a service, a day and a time on a day timeline, then download the booking for your calendar. Staff move bookings by dragging them in the diary.">
+<meta name="description" content="Slotbook is a sample booking page for a fictional bike repair workshop in Chiang Mai. Pick a service, a day and a start time, then add the booking to your calendar. Staff move bookings by dragging them in the diary.">
 <meta property="og:title" content="Slotbook booking page sample">
-<meta property="og:description" content="Weekly hours, date overrides, buffers and time zone aware slots for a fictional bike workshop, with a drag to reschedule diary.">
+<meta property="og:description" content="A booking page for a fictional bike workshop. Weekly hours, holidays, buffers and time zones, with a staff diary you can drag bookings in.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/slotbook/">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/slotbook.jpg">
@@ -14,95 +14,316 @@
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/slotbook/">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#dde6ec">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315171a'/%3E%3Crect x='8' y='7' width='16' height='5' rx='2' fill='%232b78c5'/%3E%3Crect x='8' y='14' width='16' height='11' rx='2' fill='%2314866d'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="../assets/gfonts/css/b633ece909d5.css">
+<link rel="preload" href="../assets/gfonts/bricolage-grotesque/3y996as8bTXq_nANBjzKo3IeZx8z6up5L-iNGQ.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/gfonts/dm-mono/aFTR7PB1QTsUX8KYvumzEYOtbQ.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/gfonts/css/f95aba2439d7.css">
 <link rel="stylesheet" href="styles.css?v=20261025t">
+<style>
+/* V3: the page opens as the workshop's booking diary, laid open on the desk.
+   Left page: what you need done and the month. Right page: the day, hour by hour,
+   with the open start times you can take. The booking slip sits beside the diary. */
+:root{
+  --desk:#dde6ec;--cover:#2a1230;--cover-2:#3b1b42;
+  --canvas:#dde6ec;--sheet:#fffaf3;--sheet-2:#f6ede0;
+  --ink:#2a1230;--ink-2:#4a3350;--muted:#6e5a70;--faint:#a2919f;
+  --line:#eadfd0;--line-2:#d7c6b4;--shut:#f1e8db;
+  --now:#8a2f4e;--ok:#2f6e8e;--bad:#b0283a;--tone:#6d2a63;
+  --chalk:#bcd8f2;--plum:#6d2a63;
+  --sans:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --mono:"DM Mono",ui-monospace,Consolas,monospace;
+  --r:6px;--shadow:none;--top-h:66px;
+}
+[style*="2b78c5"]{--tone:#3d6fa3!important}
+[style*="14866d"]{--tone:#2f6e8e!important}
+[style*="7a55c9"]{--tone:#8a4f9a!important}
+[style*="b8406f"]{--tone:#8a2f4e!important}
+.stub{--tone:#2f6e8e}
+html{scroll-padding-top:calc(var(--top-h) + 12px)}
+body{background:var(--desk);color:var(--ink);font-family:var(--sans)}
+::selection{background:var(--chalk);color:var(--ink)}
+:focus-visible{outline-color:var(--plum)}
+
+/* top bar: small brand, the two views */
+.top{background:var(--desk);border-bottom:1px solid #c5d2db}
+.top-inner{max-width:1600px;padding-block:10px}
+.brand-name{color:var(--ink)}
+.brand-sub{display:none}
+.tabs{background:#eef3f6;border:1px solid #c5d2db;border-radius:12px}
+.tabs [role="tab"]{color:var(--ink-2);font-weight:600;font-size:14px}
+.tabs [role="tab"]:hover{color:var(--ink)}
+.tabs [role="tab"][aria-selected="true"]{color:#fffaf3}
+.tab-thumb{background:var(--ink);box-shadow:none}
+
+main{max-width:1600px;padding-top:14px}
+.cap{font-size:15px;line-height:1.45;color:var(--ink-2);margin:0 0 12px 4px}
+
+/* headings: small and literal */
+.step-h{font-family:var(--sans);font-size:16px;font-weight:700;letter-spacing:-.01em;gap:8px;margin-bottom:10px}
+.small-h{font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:13px;font-weight:600;color:var(--ink-2)}
+
+/* the open diary: an aubergine cover around two cream pages */
+.book{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}
+.spread{display:grid;grid-template-columns:minmax(0,1fr);background:var(--cover);padding:9px;border-radius:16px;
+  box-shadow:0 2px 0 var(--cover-2),0 34px 60px -34px rgba(42,18,48,.55);min-width:0}
+.side{display:block;background:var(--sheet);border-radius:9px 9px 3px 3px;min-width:0}
+.spread .times{background:var(--sheet);border-radius:3px 3px 9px 9px;min-width:0}
+.side .step,.side .hours,.spread .times{border:0;border-radius:0;box-shadow:none}
+.side .step,.side .hours{background:transparent}
+.spread .step{padding:18px 20px}
+.spread .when,.spread .hours{border-top:1px solid var(--line)}
+.spread .hours summary{padding:14px 20px;border-radius:0;font-weight:700}
+.spread .hours-in{padding:0 20px 16px}
+.hours summary::after{border-color:var(--ink)}
+
+/* services as diary lines; only the chosen one shows its description */
+.service-list{gap:4px}
+.svc{grid-template-columns:20px 10px minmax(0,1fr) auto;border:1px solid transparent;border-radius:8px;background:transparent;padding:10px}
+.svc:hover{background:var(--sheet-2);border-color:var(--line-2)}
+.svc:has(input:checked){background:color-mix(in srgb,var(--tone) 9%,#fffaf3);border-color:color-mix(in srgb,var(--tone) 55%,#fffaf3)}
+.svc-block{border-radius:2px;width:8px}
+.svc:has(input:checked) .svc-block{box-shadow:none}
+.svc-name{font-weight:700;font-size:15.5px}
+.svc-blurb{display:none}
+.svc:has(input:checked) .svc-blurb{display:block}
+.svc-meta{font-family:var(--mono);font-size:12px}
+
+/* month */
+select,input,textarea{background:#fffdf9;border:1.5px solid var(--line-2);border-radius:6px;color:var(--ink)}
+input:focus-visible,select:focus-visible,textarea:focus-visible{border-color:var(--ink);box-shadow:0 0 0 3px var(--chalk)}
+.cal-title{font-family:var(--sans);font-weight:700;font-size:16px}
+.cal td{border-radius:6px}
+.cal td.open:hover{background:#f1e6ef}
+.cal td.today .dnum{color:var(--now);text-decoration:underline;text-underline-offset:3px}
+.cal td.override:not([aria-selected="true"])::before{top:6px;right:auto;left:50%;width:12px;height:2px;margin-left:-6px;border-radius:0;background:var(--now)}
+.cal td[aria-selected="true"]{background:var(--ink);color:#fffaf3}
+.cal td[aria-selected="true"] .dnum,.cal td[aria-selected="true"] .dcount{color:#fffaf3}
+.cal td[aria-selected="true"] .dbar::after{background:var(--chalk)}
+.cal-help{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.cal-wrap{position:relative}
+.cal-wrap:has(td:focus-visible) .cal-help{position:static;width:auto;height:auto;clip:auto;white-space:normal}
+.icon-btn{border-radius:8px}
+.icon-btn:hover:not(:disabled){background:var(--sheet-2)}
+.icon-btn.sm{border:1.5px solid var(--line-2)}
+.zone{color:var(--muted)}
+
+/* the day page */
+.times-head{gap:12px}
+.times-for{margin:8px 0 2px}
+.times-for strong{font-family:var(--sans);font-weight:800;font-size:24px;letter-spacing:-.025em;display:block;line-height:1.15}
+.times-for .muted{margin-left:0;font-size:13px}
+.tl-help{margin:4px 0 10px}
+#slots:has(.tl){max-height:var(--tl-max,560px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;
+  border-top:2px solid var(--ink);margin:0 -20px -18px 0;padding:0 20px 0 0;border-radius:0 0 9px 0}
+#slots .tl{border-top:0}
+.row .t{font-family:var(--mono)}
+.row{border-bottom-color:var(--line)}
+.row.closed{background:var(--shut)}
+.slot .t{color:var(--ink)}
+.slot{background:color-mix(in srgb,var(--tone) 7%,#fffaf3);box-shadow:inset 4px 0 0 var(--tone)}
+.row .t{padding-left:12px;width:72px}
+.layer{left:80px}
+.slot:hover{background:color-mix(in srgb,var(--tone) 13%,#fffaf3)}
+.slot .go{color:var(--tone)}
+.tl .blk{border-radius:6px}
+.tl .busy{background:#efe5d7;border-color:#dfcfbb;color:var(--muted)}
+.tl .mine{box-shadow:0 10px 22px -12px rgba(42,18,48,.7)}
+.soonest{border-radius:8px;background:color-mix(in srgb,var(--tone) 8%,#fffaf3);border:1px solid color-mix(in srgb,var(--tone) 30%,#fffaf3)}
+.soonest-label{font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:13px;font-weight:600}
+.btn{border-radius:8px;font-family:var(--sans);font-weight:700}
+.btn.primary{background:var(--ink);color:#fffaf3;box-shadow:none}
+.btn.primary:hover{background:var(--plum)}
+.btn.line{background:transparent;border:1.5px solid var(--line-2);color:var(--ink)}
+.btn.line:hover{border-color:var(--ink);background:#fffdf9}
+.none-msg{padding:0 4px}
+
+/* the booking slip beside the diary */
+.ticket{overflow:clip;background:var(--sheet);border:0;border-radius:10px;box-shadow:0 1px 0 #c5d2db,0 22px 40px -28px rgba(42,18,48,.5)}
+.ticket-top{border-top:6px solid var(--tone);padding:18px 20px 14px}
+.ticket-k{font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.ticket-steps .tk{font-family:var(--mono)}
+.ticket-steps .tv{font-weight:700}
+.details{background:#fbf4ea;border-top:1px dashed var(--line-2);padding:18px 20px}
+.details .step-h{font-size:15px}
+.field label{font-weight:600}
+.errors{border-radius:6px;background:#fbeff1}
+
+/* confirmation */
+.stub{border-radius:12px;border:0;box-shadow:0 30px 60px -30px rgba(42,18,48,.55)}
+.stub h2{font-family:var(--sans);font-weight:800;letter-spacing:-.03em}
+.stub-d{font-family:var(--sans);font-weight:800}
+.stub-tear::before,.stub-tear::after{background:var(--desk)}
+@keyframes print{from{clip-path:inset(0 0 100% 0 round 12px);transform:translateY(-10px)}to{clip-path:inset(0 0 0 0 round 12px);transform:none}}
+
+/* staff diary */
+.staff-head .page-title{font-size:20px;font-weight:700;letter-spacing:-.015em;margin-bottom:4px}
+.diary,.agenda{border:0;border-radius:10px;box-shadow:0 1px 0 #c5d2db}
+.diary{background:var(--sheet)}
+.dh.today .dh-d{color:var(--now)}
+.dh.on .dh-d{background:var(--ink);color:#fffaf3;border-radius:8px}
+.col.on{background:color-mix(in srgb,var(--ink) 3%,#fffaf3)}
+.now::before{display:none!important}
+.now{background:var(--now);height:2px}
+.diary .blk,.bk{border-radius:6px}
+.day-nav .icon-btn{background:var(--sheet);border-color:var(--line-2)}
+.toast{border-radius:8px;background:var(--ink);color:#fffaf3}
+.toast-act{color:#fffaf3}
+
+/* footer */
+.foot{border-top:1px solid #c5d2db;background:var(--desk)}
+.foot a{color:var(--ink);text-decoration-color:var(--plum)}
+.foot a:hover{background:var(--chalk)}
+.foot-in{max-width:1600px}
+.skip{background:var(--ink);color:#fffaf3}
+
+/* tablet: two pages side by side, the slip under them */
+@media (min-width:760px){
+  .book{grid-template-columns:minmax(0,1fr)}
+  .side,.times,.ticket-col{grid-column:auto;grid-row:auto}
+  .spread{grid-template-columns:minmax(0,330px) minmax(0,1fr)}
+  .side{border-radius:9px 3px 3px 9px;box-shadow:inset -16px 0 18px -16px rgba(42,18,48,.28)}
+  .spread .times{border-radius:3px 9px 9px 3px;box-shadow:inset 16px 0 18px -16px rgba(42,18,48,.28)}
+  .spread .times.step{padding-left:22px}
+  .ticket-col{position:static}
+  :root{--tl-max:720px}
+}
+/* wide: the diary and the slip on one screen */
+@media (min-width:1100px){
+  .book{grid-template-columns:minmax(0,1fr) minmax(0,360px);gap:24px}
+  .side{display:block}
+  .spread{grid-column:1;grid-row:1;grid-template-columns:minmax(0,380px) minmax(0,1fr)}
+  .ticket-col{grid-column:2;grid-row:1;position:sticky;top:calc(var(--top-h) + 16px)}
+  .service-list{grid-template-columns:minmax(0,1fr)}
+  .svc{grid-template-columns:20px 10px minmax(0,1fr) auto;padding:9px 10px}
+  .svc-meta{display:grid;grid-column:auto;margin-top:0;font-size:12px;gap:0}
+  .services .step-h{justify-self:start}
+  :root{--tl-max:max(340px,calc(100svh - var(--top-h) - 230px))}
+}
+@media (min-width:1340px){
+  .service-list{grid-template-columns:minmax(0,1fr)}
+  .svc{grid-template-columns:20px 10px minmax(0,1fr) auto;align-content:center}
+  .svc-meta{grid-column:auto;display:grid;flex-wrap:nowrap;gap:0;margin-top:0;white-space:nowrap}
+}
+@media (min-width:2000px){
+  .book{grid-template-columns:minmax(0,1fr) minmax(0,420px)}
+  .spread{grid-template-columns:minmax(0,420px) minmax(0,1fr)}
+}
+
+/* phones: services, then the day, then the slip, then the month */
+@media (max-width:759px){
+  :root{--top-h:114px}
+  main{padding-top:10px}
+  .cap{font-size:14px;margin:0 0 10px 2px}
+  .book{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+  .spread{display:contents}
+  .side{display:contents}
+  .spread .step,.spread .hours{background:var(--sheet);border-radius:10px;box-shadow:0 1px 0 #c5d2db}
+  .spread .when,.spread .hours{border-top:0}
+  .services{order:1;padding:12px!important}
+  .spread .times{order:2;border:7px solid var(--cover);border-radius:14px;padding:12px 14px!important;box-shadow:0 18px 30px -22px rgba(42,18,48,.6)}
+  .ticket-col{order:3}
+  .when{order:4;padding:14px 12px!important}
+  .hours{order:5}
+  .services .step-h{margin-bottom:8px}
+  .service-list{grid-template-columns:1fr 1fr;gap:6px}
+  .svc{grid-template-columns:18px minmax(0,1fr);gap:2px 8px;padding:9px 8px;border-color:var(--line-2)}
+  .svc input{grid-row:1 / span 2}
+  .svc-block{display:none}
+  .svc-name{font-size:14.5px;line-height:1.25}
+  .svc-text{grid-column:2}
+  .svc:has(input:checked) .svc-blurb{display:none}
+  .svc-meta{grid-column:2;display:flex;flex-wrap:wrap;gap:0 8px;margin-top:2px;font-size:12px}
+  .times-for strong{font-size:20px}
+  #slots:has(.tl){margin:0 -14px -12px;padding-right:14px;border-radius:0 0 7px 7px}
+  .row .t{padding-left:12px;width:66px}
+  .layer{left:72px}
+  :root{--tl-max:min(62svh,520px)}
+}
+@media (max-width:360px){
+  .service-list{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){#slots{scroll-behavior:auto}}
+</style>
 <link rel="modulepreload" href="src/app.mjs?v=20261024u">
 <link rel="modulepreload" href="src/core.mjs">
 <link rel="modulepreload" href="src/data.mjs">
-</head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--plum)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.brand .brand-name{line-height:0;margin:0}.foot-in{flex-wrap:wrap}.foot-in .sb-foot{flex-basis:100%;margin:0 0 4px}.foot-in .sb-label{flex-basis:100%;margin:4px 0 0}</style></head>
 <body>
 <a class="skip" href="#main">Skip to booking</a>
 
 <header class="top">
   <div class="top-inner">
-    <div class="brand">
-      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><rect x="8" y="7" width="16" height="5" rx="2" fill="#2b78c5"/><rect x="8" y="14" width="16" height="11" rx="2" fill="#14866d"/></svg>
-      <div>
-        <p class="brand-name">Lamyai Cycle Workshop</p>
-        <p class="brand-sub">Slotbook, bench bookings in Chiang Mai</p>
+    <div class="brand"><div><p class="brand-name"><svg class="sb-logo sb-h" data-sb="lamyai" viewBox="0 0 272 32" width="238.0" height="28" role="img" aria-label="Lamyai Cycle Workshop" focusable="false"><g aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M16 3.5v25M5.2 9.75l21.6 12.5M5.2 22.25l21.6-12.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><circle cx="16" cy="16" r="4.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.2" fill="currentColor" font-family="'Bricolage Grotesque'" font-weight="700" font-size="20" letter-spacing="-0.01em">Lamyai Cycle Workshop</text></svg></p>
       </div>
     </div>
     <div class="tabs" role="tablist" aria-label="Views">
-      <button type="button" role="tab" id="tab-book" aria-controls="panel-book" aria-selected="true">Book a slot</button>
-      <button type="button" role="tab" id="tab-staff" aria-controls="panel-staff" aria-selected="false" tabindex="-1">Workshop diary</button>
+      <button type="button" role="tab" id="tab-book" aria-controls="panel-book" aria-selected="true">Book a time</button>
+      <button type="button" role="tab" id="tab-staff" aria-controls="panel-staff" aria-selected="false" tabindex="-1">Staff diary</button>
       <span class="tab-thumb" aria-hidden="true"></span>
     </div>
   </div>
 </header>
 
-<div class="intro">
-  <p class="intro-lead">A booking page for a one-bench repair workshop. Customers only see start times where the whole job fits, after opening hours, the lunch break and a 15 minute buffer. Staff move bookings by dragging them in the diary.</p>
-  <p class="sample-note"><span class="tag">Sample</span> Lamyai Cycle Workshop is a fictional business. Bookings are sample data kept only in this browser and no message is sent.</p>
-</div>
-
 <main id="main" tabindex="-1">
   <section id="panel-book" role="tabpanel" aria-labelledby="tab-book">
+    <h1 class="page-title sr">Book a time at Lamyai Cycle Workshop</h1>
+    <p class="cap">Booking page for a bike workshop in Chiang Mai.</p>
     <div class="book" id="book">
-      <div class="side">
-        <section class="step services" aria-labelledby="h-service">
-          <h1 class="page-title">Book a workshop slot</h1>
-          <h2 id="h-service" class="step-h"><span class="num">1</span>Service</h2>
-          <div class="service-list" id="services" role="radiogroup" aria-labelledby="h-service"></div>
-        </section>
+      <div class="spread">
+        <div class="side">
+          <section class="step services" aria-labelledby="h-service">
+            <h2 id="h-service" class="step-h">Service</h2>
+            <div class="service-list" id="services" role="radiogroup" aria-labelledby="h-service"></div>
+          </section>
 
-        <section class="step when" aria-labelledby="h-day">
-          <div class="when-head">
-            <h2 id="h-day" class="step-h"><span class="num">2</span>Day</h2>
-            <div class="zone">
-              <label for="zone">Times in</label>
-              <select id="zone"></select>
+          <section class="step when" aria-labelledby="h-day">
+            <div class="when-head">
+              <h2 id="h-day" class="step-h">Day</h2>
+              <div class="zone">
+                <label for="zone">Times in</label>
+                <select id="zone"></select>
+              </div>
             </div>
-          </div>
-          <p class="zone-note" id="zone-note" hidden></p>
-          <div class="cal-wrap">
-            <div class="cal-head">
-              <button type="button" class="icon-btn" id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
-              <h3 id="cal-title" class="cal-title" aria-live="polite"></h3>
-              <button type="button" class="icon-btn" id="cal-next" aria-label="Next month"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+            <p class="zone-note" id="zone-note" hidden></p>
+            <div class="cal-wrap">
+              <div class="cal-head">
+                <button type="button" class="icon-btn" id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+                <h3 id="cal-title" class="cal-title" aria-live="polite"></h3>
+                <button type="button" class="icon-btn" id="cal-next" aria-label="Next month"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+              </div>
+              <table class="cal" id="cal" role="grid" aria-labelledby="cal-title" aria-describedby="cal-help">
+                <thead><tr id="cal-dow"></tr></thead>
+                <tbody id="cal-body"></tbody>
+              </table>
+              <p class="cal-help" id="cal-help">Keys: arrows to move, Page Up and Page Down for months, Enter to pick.</p>
             </div>
-            <table class="cal" id="cal" role="grid" aria-labelledby="cal-title">
-              <thead><tr id="cal-dow"></tr></thead>
-              <tbody id="cal-body"></tbody>
-            </table>
-            <p class="cal-help" id="cal-help">Arrow keys move by day and week. Page Up and Page Down change month. Enter picks the day.</p>
-          </div>
-        </section>
+          </section>
 
-        <details class="hours" id="hours-box">
-          <summary>Workshop hours and changes</summary>
-          <div class="hours-in">
-            <h2 class="small-h">Every week</h2>
-            <dl id="weekly"></dl>
-            <h2 class="small-h">Changes to normal hours</h2>
-            <ul id="changes" class="changes"></ul>
-          </div>
-        </details>
-      </div>
-
-      <section class="step times" aria-labelledby="h-time">
-        <div class="times-head">
-          <h2 id="h-time" class="step-h"><span class="num">3</span>Time</h2>
-          <div class="day-step">
-            <button type="button" class="icon-btn sm" id="day-prev" aria-label="Previous day with open times"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
-            <button type="button" class="icon-btn sm" id="day-next" aria-label="Next day with open times"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
-          </div>
+          <details class="hours" id="hours-box">
+            <summary>Opening hours</summary>
+            <div class="hours-in">
+              <h2 class="small-h">Every week</h2>
+              <dl id="weekly"></dl>
+              <h2 class="small-h">Holidays and changed hours</h2>
+              <ul id="changes" class="changes"></ul>
+            </div>
+          </details>
         </div>
-        <p class="times-for" id="times-for">Pick a day to see open times.</p>
-        <p class="tl-help" id="tl-help" hidden>Each row is a start time. The shaded block shows how long the service takes. After you pick, drag your block up or down to change the time.</p>
-        <div id="slots" class="slots"></div>
-      </section>
+
+        <section class="step times" aria-labelledby="h-time">
+          <div class="times-head">
+            <h2 id="h-time" class="step-h">Time</h2>
+            <div class="day-step">
+              <button type="button" class="icon-btn sm" id="day-prev" aria-label="Previous day with open times"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+              <button type="button" class="icon-btn sm" id="day-next" aria-label="Next day with open times"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+            </div>
+          </div>
+          <p class="times-for" id="times-for">Pick a day to see open times.</p>
+          <p class="tl-help" id="tl-help" hidden>Pick a start time. You can drag your booking to move it.</p>
+          <div id="slots" class="slots"></div>
+        </section>
+      </div>
 
       <section class="ticket-col" aria-label="Your booking">
         <div class="ticket" id="ticket">
@@ -111,7 +332,7 @@
             <ol class="ticket-steps" id="ticket-steps"></ol>
           </div>
           <section class="step details" id="details" aria-labelledby="h-details" hidden>
-            <h2 id="h-details" class="step-h" tabindex="-1"><span class="num">4</span>Your details</h2>
+            <h2 id="h-details" class="step-h" tabindex="-1">Your details</h2>
             <div class="summary" id="summary"></div>
             <form id="form" novalidate>
               <div class="errors" id="errors" tabindex="-1" hidden></div>
@@ -129,7 +350,7 @@
                 <div class="field">
                   <label for="f-phone">Phone</label>
                   <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="h-phone e-phone" required>
-                  <p class="hint" id="h-phone">The workshop calls if a part needs ordering.</p>
+                  <p class="hint" id="h-phone">We call if a part needs ordering.</p>
                   <p class="err" id="e-phone"></p>
                 </div>
                 <div class="field">
@@ -138,7 +359,7 @@
                   <p class="err" id="e-bike"></p>
                 </div>
                 <div class="field wide">
-                  <label for="f-notes">What needs looking at? <span class="opt">Optional</span></label>
+                  <label for="f-notes">What needs fixing? <span class="opt">Optional</span></label>
                   <textarea id="f-notes" name="notes" rows="3" maxlength="600" aria-describedby="h-notes e-notes"></textarea>
                   <p class="hint" id="h-notes">Up to 500 characters.</p>
                   <p class="err" id="e-notes"></p>
@@ -151,16 +372,6 @@
             </form>
           </section>
         </div>
-        <section class="perks" aria-labelledby="perks-h">
-          <h2 id="perks-h">Already handled for the workshop</h2>
-          <ul>
-            <li><span><b>Real opening hours.</b> Weekly hours, the lunch break and one-off changes like a late night or a training day.</span></li>
-            <li><span><b>No double booking.</b> A 15 minute buffer is kept around every job, and a booking needs three hours notice.</span></li>
-            <li><span><b>Visitors abroad.</b> Set Times in to London or New York and every time converts, clock changes included.</span></li>
-            <li><span><b>A calendar file.</b> The customer downloads the booking for their own calendar.</span></li>
-            <li><span><b>A diary for staff.</b> Drag a booking to another time or day in Workshop diary.</span></li>
-          </ul>
-        </section>
       </section>
     </div>
 
@@ -168,7 +379,7 @@
       <div class="stub" id="stub">
         <div class="stub-main">
           <p class="ticket-k">Booking confirmed</p>
-          <h2 id="h-done" tabindex="-1">See you at the bench</h2>
+          <h2 id="h-done" tabindex="-1">You are booked in</h2>
           <div id="done-body"></div>
         </div>
         <div class="stub-tear" aria-hidden="true"></div>
@@ -176,10 +387,10 @@
       </div>
       <div class="form-actions">
         <a class="btn primary" id="ics" download>Add to calendar</a>
-        <button type="button" class="btn line" id="see-diary">See it in the diary</button>
-        <button type="button" class="btn line" id="again">Book another slot</button>
+        <button type="button" class="btn line" id="see-diary">See it in the staff diary</button>
+        <button type="button" class="btn line" id="again">Book another time</button>
       </div>
-      <p class="fine">This is a sample. No email or text was sent and the workshop is fictional.</p>
+      <p class="fine">This is a sample. No email or text was sent, and the workshop is fictional.</p>
     </section>
   </section>
 
@@ -187,8 +398,8 @@
     <div class="staff">
       <div class="staff-head">
         <div>
-          <h1 class="page-title">Workshop diary</h1>
-          <p class="staff-sub">Drag a booking to another time or day. With the keyboard, focus a booking, use the arrow keys, then Enter to place it or Escape to put it back.</p>
+          <h1 class="page-title">Staff diary</h1>
+          <p class="staff-sub">Drag a booking to another time or day. Keyboard: arrows, Enter, Escape.</p>
         </div>
         <div class="day-nav">
           <button type="button" class="icon-btn" id="staff-prev" aria-label="Previous day"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
@@ -215,15 +426,35 @@
 </main>
 
 <footer class="foot">
-  <div class="foot-in">
+  <div class="foot-in"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="lamyai" viewBox="0 0 272 32" width="221.0" height="26" role="img" aria-label="Lamyai Cycle Workshop" focusable="false"><g aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M16 3.5v25M5.2 9.75l21.6 12.5M5.2 22.25l21.6-12.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><circle cx="16" cy="16" r="4.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.2" fill="currentColor" font-family="'Bricolage Grotesque'" font-weight="700" font-size="20" letter-spacing="-0.01em">Lamyai Cycle Workshop</text></svg></div>
     <a href="../">All work</a>
-    <span>Sample booking page built by Sander Sax.</span>
+    <span>Slotbook, a sample booking page by Sander Sax. Bookings stay in this browser.</span>
     <nav aria-label="Contacts"><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></nav>
-  </div>
+  <p class="sb-label">Sample site, fictional brand</p></div>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <div class="sr" id="live" aria-live="polite"></div>
 <script type="module" src="src/app.mjs?v=20261024u"></script>
+<script type="module">
+/* Runs after the booking script. Phones also open on the soonest open day, and the day page
+   scrolls itself to the first open start time (or to your booking) whenever it is redrawn. */
+const slots = document.getElementById('slots');
+function settle() {
+  if (!slots.querySelector('.tl')) return;
+  const target = slots.querySelector('.slot[aria-pressed="true"]') || slots.querySelector('.slot');
+  if (!target) return;
+  const rh = target.getBoundingClientRect().height || 44;
+  slots.scrollTop = Math.max(0, target.offsetTop - rh);
+}
+new MutationObserver(settle).observe(slots, { childList: true });
+const soon = document.getElementById('soonest');
+if (soon && !matchMedia('(min-width: 760px)').matches) {
+  soon.click();
+  if (document.activeElement && slots.contains(document.activeElement)) document.activeElement.blur();
+}
+settle();
+</script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
 </body>
 </html>
