@@ -77,10 +77,11 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 .icon-button { border-radius: 3px; }
 .icon-button:hover { background: rgba(220, 232, 229, .08); }
 
-/* The sky becomes a night desk: flat, no gradient, an enormous date */
-.sky { background: var(--porcelain) !important; color: var(--ink) !important; padding-top: 22px; padding-bottom: 30px; border-bottom: 1px solid var(--line); }
-.sky::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 3px; width: var(--hz, 38%); background: var(--lemon); transition: width .25s ease-out; }
+/* The sky becomes a night desk: flat, no gradient. The date is a working heading, not a poster, so the plan starts on the first screen */
+.sky { background: var(--porcelain) !important; color: var(--ink) !important; padding-top: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
 .sky.is-night .add-button { background: var(--lemon); color: var(--lemon-ink); }
+/* one brand per screen: on a desktop the top bar carries it, the menu column does not repeat it */
+@media (min-width: 861px) { .sidebar .brand { display: none; } .sidebar { padding-top: 30px; } }
 .mobile-brand { font: 400 24px/1 var(--display); color: var(--lemon); }
 .date-nav, .view-switch { background: transparent; backdrop-filter: none; border: 1px solid var(--line-strong); border-radius: 3px; color: var(--ink); }
 .today-button { border-radius: 2px; }
@@ -88,13 +89,21 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 .jump-date { background: transparent; backdrop-filter: none; border: 1px solid var(--line-strong); border-radius: 3px; color: var(--ink); color-scheme: dark; }
 .view-switch button { border-radius: 2px; color: var(--muted); }
 .view-switch button[aria-pressed="true"] { background: var(--ink); color: var(--porcelain); }
-.sky-title { grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: clamp(28px, 5vw, 64px); }
-.sky-promise { order: 3; max-width: 52rem; color: var(--ink-soft); font-size: 17px; }
-.eyebrow { order: 0; color: var(--lemon); opacity: 1; letter-spacing: .22em; }
-.sky-title h1 { order: 1; font: 400 clamp(46px, 8.6vw, 148px)/.9 var(--display); letter-spacing: -.03em; color: #eef5f2; }
+.sky-title { grid-template-columns: minmax(0, 1fr); gap: 6px 32px; margin-top: 22px; }
+.sky-promise { order: -1; grid-column: 1 / -1; max-width: 46rem; margin: 0 0 14px; color: var(--muted); font-size: 15px; line-height: 1.45; }
+.eyebrow { order: 0; color: var(--lemon); opacity: 1; letter-spacing: 0; text-transform: none; font-size: 15px; font-weight: 600; }
+.sky-title h1 { order: 1; font: 400 clamp(34px, 3.6vw, 54px)/1 var(--display); letter-spacing: -.02em; color: #eef5f2; }
 .day-summary { order: 2; justify-content: flex-start; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0; }
-.stat { text-align: left; padding: 12px 28px 12px 0; margin-right: 28px; border-right: 1px solid var(--line); }
+.stat { text-align: left; padding: 10px 28px 10px 0; margin-right: 28px; border-right: 1px solid var(--line); }
 .stat:last-child { border-right: 0; }
+/* desktop: date on the left, the day's numbers on the right of it, both above the strip */
+@media (min-width: 1181px) {
+  .sky-title { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+  .eyebrow { grid-column: 1; grid-row: 2; }
+  .sky-title h1 { grid-column: 1; grid-row: 3; }
+  .day-summary { grid-column: 2; grid-row: 2 / span 2; align-self: end; border-top: 0; border-bottom: 0; }
+  .day-summary .stat:last-child { margin-right: 0; padding-right: 0; }
+}
 /* hold the summary row's height until the script fills it, so the page does not jump on load */
 #daySummary:empty { min-height: 96px; }
 @media (min-width: 861px) and (max-width: 940px) { #daySummary:empty { min-height: 190px; } }
@@ -105,8 +114,9 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 @media (max-width: 600px) { #dayStrip:empty { min-height: 140px; } }
 #loadList:empty { min-height: 264px; }
 .week-load .side-row { min-height: 48px; }
-.stat-label { letter-spacing: .12em; text-transform: uppercase; font-size: 11px; color: var(--muted); opacity: 1; }
-.stat-value { font: 400 34px/1.05 var(--display); color: #eef5f2; }
+.week-load .side-heading, .week-load .side-total { white-space: nowrap; }
+.stat-label { letter-spacing: 0; text-transform: none; font-size: 13px; color: var(--muted); opacity: 1; }
+.stat-value { font: 400 30px/1.05 var(--display); color: #eef5f2; }
 @media (max-width: 860px) {
   .day-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .stat { margin-right: 0; padding: 10px 10px 10px 0; }
@@ -218,8 +228,9 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 .toast { border-radius: 3px; background: var(--lemon); color: var(--lemon-ink); }
 .skip-link { background: var(--lemon); color: var(--lemon-ink); border-radius: 3px; }
 @media (max-width: 600px) {
-  .sky-title h1 { font-size: clamp(42px, 13vw, 60px); }
-  .stat-value { font-size: 24px; }
+  .sky-title h1 { font-size: clamp(30px, 9vw, 38px); }
+  .sky-promise { font-size: 14px; margin-bottom: 10px; }
+  .stat-value { font-size: 22px; }
   .timer-display { font-size: 52px; }
 }
 </style>
@@ -236,7 +247,7 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 
       <nav class="main-nav" aria-label="Views">
         <button type="button" class="nav-button" id="navToday"><span class="nav-glyph" aria-hidden="true">D</span>Day plan</button>
-        <button type="button" class="nav-button" id="navWeek"><span class="nav-glyph" aria-hidden="true">W</span>Week ahead</button>
+        <button type="button" class="nav-button" id="navWeek"><span class="nav-glyph" aria-hidden="true">W</span>Week plan</button>
       </nav>
 
       <section class="side-block calendar-filters" aria-labelledby="calendarHeading">
@@ -244,21 +255,21 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
         <label class="filter work"><input type="checkbox" data-calendar="work" checked><span class="filter-name">Work</span><span class="filter-count" id="count-work"></span></label>
         <label class="filter personal"><input type="checkbox" data-calendar="personal" checked><span class="filter-name">Personal</span><span class="filter-count" id="count-personal"></span></label>
         <label class="filter family"><input type="checkbox" data-calendar="family" checked><span class="filter-name">Family</span><span class="filter-count" id="count-family"></span></label>
-        <p class="side-note">Hidden calendars still count for open time.</p>
+        <p class="side-note">Hidden calendars still block free time.</p>
       </section>
 
       <section class="side-block week-load" aria-labelledby="loadHeading">
-        <div class="side-row"><h2 id="loadHeading" class="side-heading">The week, by weight</h2><span id="weekTotal" class="side-total"></span></div>
+        <div class="side-row"><h2 id="loadHeading" class="side-heading">Hours per day</h2><span id="weekTotal" class="side-total"></span></div>
         <ol class="load-list" id="loadList"></ol>
         <p class="load-key"><span class="key planned" aria-hidden="true"></span>Planned <span class="key protected" aria-hidden="true"></span>Protected focus</p>
       </section>
 
       <section class="side-block plan-backup" aria-labelledby="backupHeading">
-        <h2 id="backupHeading" class="side-heading">Keep a copy</h2>
-        <p class="side-note">Your plan lives in this browser.</p>
+        <h2 id="backupHeading" class="side-heading">Backup</h2>
+        <p class="side-note">Saved in this browser only. Download a copy to keep it.</p>
         <div class="backup-actions">
           <button class="side-button" type="button" id="exportPlan">Download plan</button>
-          <label class="side-button file-button" for="restorePlan">Restore a file<input type="file" id="restorePlan" accept=".json,application/json"></label>
+          <label class="side-button file-button" for="restorePlan">Load a saved plan<input type="file" id="restorePlan" accept=".json,application/json"></label>
         </div>
         <button class="link-button" type="button" id="resetDemo">Start over with the sample week</button>
       </section>
@@ -284,7 +295,7 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
           <button class="add-button" id="addEvent" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add block</span></button>
         </div>
         <div class="sky-title">
-          <p class="sky-promise">Find the open hours. Protect them.</p>
+          <p class="sky-promise">Day and week planner. Drag blocks into place, see your free hours.</p>
           <p class="eyebrow" id="eyebrow">Today</p>
           <h1 id="pageTitle">Monday, October 19</h1>
           <div class="day-summary" id="daySummary"></div>
@@ -299,8 +310,8 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
           <h2 id="plannerHeading" class="visually-hidden">Planner</h2>
 
           <div id="dayView" class="day-view">
-            <div class="agenda-head"><h3>The day, hour by hour</h3><span id="visibleCount"></span></div>
-            <p class="agenda-hint" id="agendaHint">Drag to move. Tap an open hour to plan. Alt and arrows on a keyboard.</p>
+            <div class="agenda-head"><h3>Schedule</h3><span id="visibleCount"></span></div>
+            <p class="agenda-hint" id="agendaHint">Drag a block to move it. Tap a free slot to plan. Keyboard: Alt and arrow keys.</p>
             <div id="dayTimeline" class="timeline"></div>
             <div id="dayEmpty" class="empty-state" hidden>
               <p class="empty-title" id="emptyTitle">Nothing planned yet</p>
@@ -316,7 +327,7 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 
         <aside class="rail" aria-label="Focus tools">
           <section class="focus-card" aria-labelledby="focusHeading">
-            <div class="card-top"><h2 id="focusHeading">Focus</h2><span id="timerState" class="state-pill">Ready</span></div>
+            <div class="card-top"><h2 id="focusHeading">Focus timer</h2><span id="timerState" class="state-pill">Ready</span></div>
             <div class="dial">
               <svg class="dial-ring" viewBox="0 0 200 200" aria-hidden="true"><circle class="dial-track" cx="100" cy="100" r="88"/><circle class="dial-fill" id="dialFill" cx="100" cy="100" r="88" pathLength="1000"/></svg>
               <div class="timer-display" id="timerDisplay">50:00</div>
@@ -335,7 +346,7 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
           </section>
 
           <section class="quiet-card" aria-labelledby="quietHeading">
-            <div class="card-head"><h2 id="quietHeading">Breathing break</h2></div>
+            <div class="card-head"><h2 id="quietHeading">Break timer</h2></div>
             <div class="breath">
               <span class="breathing-orb" id="breathingOrb" aria-hidden="true"></span>
               <p class="breath-cue" id="breathCue" aria-live="off">Step away between blocks</p>
@@ -351,7 +362,7 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
         </aside>
       </div>
       <footer class="page-footer"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="brightfold" viewBox="0 0 152 32" width="123.5" height="26" role="img" aria-label="Brightfold" focusable="false"><g aria-hidden="true"><path d="M6 20a10 10 0 0 1 20 0z" fill="currentColor" class="f-a s-n"/><path d="M3 20h26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M9 25.5h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Young Serif'" font-weight="400" font-size="21" letter-spacing="0em">Brightfold</text></svg></div>
-        <p>Concept for the public Daybreak brief, not affiliated. Sample week, saved in this browser.</p>
+        <p>Made for a public Daybreak design brief, not affiliated. Sample week, saved in this browser only.</p>
         <p class="footer-links footer-back"><a href="index.html#06-daybreak">Back to selected work</a></p>
         <p class="footer-links"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
       <p class="sb-label">Sample site, fictional brand</p></footer>
@@ -382,7 +393,15 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script type="module" src="daybreak-app.js"></script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
-<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(8+(92-8)*x).toFixed(2)+'%';document.querySelectorAll('.sky').forEach(function(n){n.style.setProperty('--hz',v)})})},{passive:true})})();</script>
+<script>
+/* Bug fix: a mouse press on a block captures the pointer for dragging, so Chrome sends the click to the block
+   itself and the block's own button never opened the editor. Pass that click on to the button. A click right
+   after a drag is still swallowed by the planner's own drag guard. */
+(function(){var tl=document.getElementById('dayTimeline');if(!tl)return;tl.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.tl-block');if(!b||e.target.closest('.tl-open'))return;var o=b.querySelector('.tl-open');if(o)o.click()})})();
+/* Bug fix: focus sessions are 25, 50 or 90 minutes, but blocks are saved in 15-minute steps, so "Add it to the plan"
+   opened a 50-minute block that could never be saved. Round the suggested block up to the next 15 minutes. */
+(function(){var a=document.getElementById('addSuggestedBlock');if(!a)return;a.addEventListener('click',function(){setTimeout(function(){var s=document.getElementById('eventDuration'),v=Number(s.value);if(!v||v%15===0)return;[].slice.call(s.options).forEach(function(o){if(Number(o.value)%15)o.remove()});s.value=String(Math.min(240,Math.ceil(v/15)*15))},0)})})();
+</script>
 <script>(function(){var t=document.querySelector('title');if(!t)return;function f(){if(document.title.indexOf('Daybreak planner')>-1)document.title=document.title.replace('Daybreak planner','Brightfold planner')}new MutationObserver(f).observe(t,{childList:true,characterData:true,subtree:true});f()})();</script>
 </body>
 </html>

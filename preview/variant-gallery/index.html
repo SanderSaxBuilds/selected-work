@@ -69,12 +69,12 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em
 .thumb-button { border-radius: 0; box-shadow: inset 0 0 0 1px var(--line); }
 .thumb-button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ink), 0 4px 0 -1px var(--lake); }
 
-.breadcrumbs ol { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
-h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em; margin-top: 18px; }
-.title-main { display: block; font-style: italic; transform: skewX(var(--sk, 0deg)); transform-origin: left bottom; }
-.title-sub { display: block; color: var(--lake); font-family: var(--sans); font-size: .22em; letter-spacing: .3em; text-transform: uppercase; line-height: 1.4; margin-top: 10px; }
-@media (min-width: 980px) and (max-height: 1000px) { h1 { font-size: clamp(60px, 5.6vw, 96px); } .title-sub { display: block; } }
-@media (min-width: 1900px) and (max-height: 1250px) { h1 { font-size: clamp(60px, 4.6vw, 96px); } .title-sub { display: block; } }
+.breadcrumbs ol { font-size: 13px; letter-spacing: 0; text-transform: none; }
+/* V3: the product name is a normal product title, not a display headline */
+h1, h1[id] { font: italic 400 clamp(40px, 3.4vw, 52px)/1 var(--serif); letter-spacing: -.01em; margin-top: 12px; }
+.title-main { display: inline; }
+@media (min-width: 980px) and (max-height: 1000px) { h1 { font-size: clamp(40px, 3.4vw, 52px); } }
+@media (min-width: 1900px) and (max-height: 1250px) { h1 { font-size: clamp(44px, 2.6vw, 60px); } }
 .price-row { border-top: 1px solid var(--ink); padding-top: 14px; }
 .price { font: 400 40px/1 var(--serif); }
 .product-description { font-size: 16px; }
@@ -120,7 +120,7 @@ h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em;
 .story .kicker { color: #9cc3d2; }
 .story-copy > p:not(.kicker) { color: #d4cbc6 !important; }
 .story-figure { border-radius: 0; }
-.story-copy h2, .sizes-copy h2 { font-size: clamp(40px, 5vw, 76px); line-height: .95; }
+.story-copy h2, .sizes-copy h2 { font-size: clamp(34px, 3.4vw, 46px); line-height: 1; }
 .spec-list div { border-top-color: rgba(239, 231, 226, .25); }
 .spec-list dt { color: #b4aaa5; letter-spacing: .1em; text-transform: uppercase; font-size: 12px; }
 .spec-list dd { color: #fbf7f4; }
@@ -128,18 +128,30 @@ h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em;
 .day-slider input { accent-color: var(--lake); }
 .ghost-button { border-radius: 0; box-shadow: inset 0 0 0 1.5px var(--ink); letter-spacing: .1em; text-transform: uppercase; font-size: 14px; }
 .ghost-button:hover:not(:disabled) { background: var(--lake); box-shadow: inset 0 0 0 1.5px var(--lake); }
-.care h2 { font-size: clamp(36px, 4vw, 58px); }
+.care h2 { font-size: clamp(34px, 3.4vw, 46px); }
 .care-list li { border-top-color: var(--ink); }
 .care-list li::before { font: 400 34px/1 var(--serif); color: var(--lake); }
 
 .study-panel { background: var(--lake-deep); color: #e3ecef; }
 .study-panel .kicker { color: #a9cbd8; }
-.study-copy h2 { font-size: clamp(34px, 4vw, 60px); }
+.study-copy h2 { font-size: clamp(30px, 3vw, 40px); }
 .study-copy p:last-child { color: #c4d6dd; }
 .study-control select { border-radius: 0; background: #143746; }
 .defect-note { border-left-color: #ecd9cf; border-radius: 0; background: rgba(236, 217, 207, .1); }
 
 .buy-bar { background: color-mix(in srgb, var(--tone) 94%, transparent); box-shadow: 0 -1px 0 var(--ink); }
+/* V3: on phones and tablets the slim buy bar also shows before you reach the main Add button,
+   so Add to bag is on the first screen under the photo */
+.buy-bar.pre { transform: none; }
+@media (max-width: 979px) { .site-footer { padding-bottom: 96px; } }
+@media (min-width: 721px) and (max-width: 979px) {
+  .media-stage { width: min(100%, calc((100svh - 420px) * .8)); max-height: none; margin: 0 auto; }
+  .gallery-thumbnails { justify-content: center; }
+}
+@media (max-width: 720px) {
+  .media-stage { aspect-ratio: 1 / 1; }
+  h1, h1[id] { font-size: 40px; margin-top: 8px; }
+}
 .buy-bar-swatch { border-radius: 0; width: 22px; height: 34px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25); }
 .site-footer { border-top: 1px solid var(--ink); }
 .footer-brand { font: 400 24px/1 var(--serif); font-style: italic; letter-spacing: 0; text-transform: none; }
@@ -167,9 +179,9 @@ h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em;
         </a>
         <nav class="main-nav" aria-label="Main navigation">
           <a href="#product">Bottle</a>
-          <a href="#story">Build</a>
+          <a href="#story">Details</a>
           <a href="#sizes">Sizes</a>
-          <a href="#study-panel">QA study</a>
+          <a href="#study-panel">Bug demo</a>
         </nav>
         <button class="bag-button" type="button" id="bagButton" aria-haspopup="dialog" aria-label="Bag, 0 items">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 13H6L5 8Zm4 0V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" /></svg>
@@ -233,12 +245,12 @@ h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em;
               <li aria-current="page">Stillwater</li>
             </ol>
           </nav>
-          <h1 id="productTitle"><span class="title-main">Stillwater</span> <span class="title-sub">Bottle</span></h1>
+          <h1 id="productTitle"><span class="title-main">Stillwater bottle</span></h1>
           <div class="price-row">
             <p class="price figure" id="priceValue">$36.00</p>
             <p class="price-meta" id="priceMeta">500 ml, Moss</p>
           </div>
-          <p class="product-description">Double-wall steel, soft powder coat, a loop that hooks onto a strap.</p>
+          <p class="product-description">Insulated steel water bottle with a powder-coated finish and a carry loop.</p>
 
           <div class="link-message" id="linkMessage" role="alert" hidden>
             <strong>That link points to an option we don't have.</strong>
@@ -259,7 +271,7 @@ h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em;
               <label class="engrave-toggle">
                 <input type="checkbox" id="engraveOn" />
                 <span class="toggle-track" aria-hidden="true"><span></span></span>
-                <span class="engrave-copy"><strong>Add engraving</strong> <span class="figure">+$6.00</span><small>Laser cut to the steel, 14 letters.</small></span>
+                <span class="engrave-copy"><strong>Add engraving</strong> <span class="figure">+$6.00</span><small>Laser engraved into the steel, up to 14 characters.</small></span>
               </label>
               <div class="engrave-field" id="engraveField" hidden>
                 <label class="sr-only" for="engraveInput">Engraving text</label>
@@ -304,9 +316,8 @@ h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em;
             <img id="storyImage" src="assets/moss-500-detail.svg" alt="Close view of the Moss cap, its knurled grip and the bare steel lip" width="1000" height="1250" loading="lazy" />
           </figure>
           <div class="story-copy">
-            <p class="kicker">How it is built</p>
-            <h2 id="storyTitle">A lid that sits on steel, not on paint.</h2>
-            <p>The coat stops below the mouth, so the seal meets bare metal.</p>
+            <h2 id="storyTitle">Details</h2>
+            <p>The paint stops below the rim, so the lid seals against bare steel.</p>
             <dl class="spec-list" id="details">
               <div><dt>Keeps cold</dt><dd>Up to 24 hours</dd></div>
               <div><dt>Keeps hot</dt><dd>Up to 10 hours</dd></div>
@@ -321,11 +332,10 @@ h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em;
 
       <section class="sizes shell" id="sizes" aria-labelledby="sizesTitle">
         <div class="sizes-copy">
-          <p class="kicker">Which size</p>
-          <h2 id="sizesTitle">How long are you out for?</h2>
-          <p>Drag to your hours away from a tap.</p>
+          <h2 id="sizesTitle">Size guide</h2>
+          <p>Move the slider to how many hours you will be away from water.</p>
           <div class="day-slider">
-            <label for="hoursOut">Hours out <output id="hoursOut-out" for="hoursOut">3 hours</output></label>
+            <label for="hoursOut">Hours away from water <output id="hoursOut-out" for="hoursOut">3 hours</output></label>
             <input type="range" id="hoursOut" min="1" max="10" step="1" value="3" />
             <div class="day-scale" aria-hidden="true"><span>1</span><span>5</span><span>10</span></div>
           </div>
@@ -338,20 +348,19 @@ h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em;
       </section>
 
       <section class="care shell" aria-labelledby="careTitle">
-        <h2 id="careTitle">Keep the finish new.</h2>
+        <h2 id="careTitle">Care</h2>
         <ol class="care-list">
-          <li><strong>Wash by hand.</strong> Mild soap, soft brush.</li>
-          <li><strong>Skip the scourer.</strong> It polishes the grain flat.</li>
-          <li><strong>Dry lid off.</strong> The seal lasts longer.</li>
+          <li><strong>Wash by hand.</strong> Mild soap and a soft brush.</li>
+          <li><strong>Do not use a scourer.</strong> It wears down the finish.</li>
+          <li><strong>Dry with the lid off.</strong> The seal lasts longer.</li>
         </ol>
       </section>
 
       <section class="study-panel" id="study-panel" aria-labelledby="studyTitle">
         <div class="shell study-grid">
           <div class="study-copy">
-            <p class="kicker">Store QA study</p>
-            <h2 id="studyTitle">The photo must always match the option you picked.</h2>
-            <p>Switch the behaviour to replay two common store bugs: a lagging photo and a broken photo link.</p>
+            <h2 id="studyTitle">Two common shop bugs</h2>
+            <p>Switch the gallery to replay two bugs that online shops often have: the photo stays on the previous option, or the photo link is broken.</p>
           </div>
           <div class="study-control">
             <label for="behaviorMode">Gallery behaviour</label>
@@ -407,11 +416,24 @@ h1 { font: 400 clamp(64px, 8vw, 132px)/.86 var(--serif); letter-spacing: -.02em;
           <span class="ship-track" aria-hidden="true"><span class="ship-fill" id="shipFill"></span></span>
         </div>
         <div class="bag-total"><span>Subtotal</span><strong class="figure" id="bagSubtotal">$0.00</strong></div>
-        <p class="bag-note">Checkout is switched off in this study store.</p>
+        <p class="bag-note">Checkout is turned off in this sample shop.</p>
       </div>
     </dialog>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
-<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(0+(-8-0)*x).toFixed(2)+'deg';document.querySelectorAll('.title-main').forEach(function(n){n.style.setProperty('--sk',v)})})},{passive:true})})();</script>
+<script>
+/* Preview: the shop's buy bar only showed after you scrolled past the Add button. On phones and tablets that left
+   no way to buy on the first screen, so here it also shows while the Add button is still below the screen. */
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('buyBar'), row = document.getElementById('buyRow'), add = document.getElementById('buyBarAdd');
+  if (!bar || !row || !('IntersectionObserver' in window)) return;
+  var narrow = matchMedia('(max-width: 979px)');
+  new IntersectionObserver(function (entries) {
+    var e = entries[0], pre = narrow.matches && !e.isIntersecting && e.boundingClientRect.top > 0;
+    bar.classList.toggle('pre', pre);
+    if (pre) { bar.setAttribute('aria-hidden', 'false'); add.tabIndex = 0; }
+  }).observe(row);
+});
+</script>
 </body>
 </html>

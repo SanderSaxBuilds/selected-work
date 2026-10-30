@@ -63,7 +63,7 @@ a { color: var(--blue-ink); }
   .tools select, .tools .search input { background: var(--rail-2); color: var(--rail-ink); border-color: var(--rail-line); }
   .tools .search input::placeholder { color: var(--rail-muted); }
   .tools .search svg { color: var(--rail-muted); }
-  .views label { color: var(--rail-muted); letter-spacing: .14em; text-transform: uppercase; font-size: 11px; }
+  .views label { color: var(--rail-muted); letter-spacing: 0; text-transform: none; font-size: 13px; }
   .chips { color: var(--rail-ink); }
   .chips-label, .chips-empty { color: var(--rail-muted); }
   .quick { background: transparent; color: var(--rail-ink); border-color: var(--rail-line); }
@@ -98,7 +98,7 @@ a { color: var(--blue-ink); }
 .grid-wrap { border: 1px solid var(--ink); background: var(--card); box-shadow: 10px 10px 0 rgba(18, 26, 34, .12); }
 .hrow, .hcell { background: var(--ink); color: #f0f3f5; }
 .hrow { border-bottom: 0; }
-.hcell { border-right-color: rgba(240, 243, 245, .14); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; font-weight: 600; }
+.hcell { border-right-color: rgba(240, 243, 245, .14); font-size: 12.5px; letter-spacing: 0; text-transform: none; font-weight: 600; }
 .hcell .sort-ind { color: #f3b6d8; }
 .fdot { width: 12px; height: 3px; border-radius: 0; background: #f3b6d8; }
 .hmenu { color: #c3ccd5; }
@@ -193,7 +193,7 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
 .gl-gauge { display: grid; gap: 8px; padding: 2px 0 6px; color: var(--rail-ink); font-family: var(--mono); }
 .gl-n { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 0; }
 .gl-n b { font: 200 64px/.9 var(--display); letter-spacing: -.055em; font-variant-numeric: tabular-nums; }
-.gl-n span { font: 600 11px/1.2 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--rail-muted); }
+.gl-n span { font: 500 13px/1.2 var(--body); letter-spacing: 0; color: var(--rail-muted); }
 .gl-meter { position: relative; height: 10px; background: var(--rail-2); box-shadow: inset 0 0 0 1px var(--rail-line); overflow: hidden; }
 .gl-meter i { position: absolute; inset: 0 auto 0 0; width: 100%; background: #f3b6d8; transform-origin: left; }
 .gl-sub { display: flex; justify-content: space-between; gap: 10px; margin: 0; font-size: 12px; color: var(--rail-muted); }
@@ -215,7 +215,9 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
 .chip .x:hover { background: #f3b6d8; color: var(--rail); }
 
 /* Header: numeric columns carry the spread of all 20,000 orders as a small histogram */
-.hcell { font-size: 11.5px; }
+.hcell { font-size: 12.5px; }
+/* column names were cut to "PO NUM..." and "UNIT C...": plain case and a slimmer menu button give them room */
+.hcell .hmenu { width: 22px; }
 .hcell.num { background-repeat: no-repeat; background-position: 8px calc(100% - 2px); background-size: calc(100% - 34px) 8px; }
 .hcell[aria-sort] { box-shadow: inset 0 -3px 0 #f3b6d8; }
 .hcell:hover .hlabel { color: #fff; }
@@ -270,6 +272,7 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
 }
 @media (max-width: 640px) {
   .gl-foot .sb-foot { display: none; }
+  .gl-n b { font-size: 38px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .row::before, .gl-meter i, .card-btn, .tools .btn.line, .bar .btn, .quick, .chip, .chip-clear { transition: none; }
@@ -301,7 +304,7 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
   <aside class="rail" aria-label="Controls">
   <header class="bar">
     <div class="brand"><div><h1><svg class="sb-logo sb-h" data-sb="gridline" viewBox="0 0 130 32" width="105.6" height="26" role="img" aria-label="Gridline" focusable="false"><g aria-hidden="true"><rect x="4" y="5" width="24" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 5v22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" class="f-n s-c"/><path d="M1.5 14h29" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Sora'" font-weight="700" font-size="21" letter-spacing="-0.02em">Gridline</text></svg></h1>
-        <p>Purchase orders for Larkfield Industrial Supply</p>
+        <p>Edit, filter and export purchase orders for Larkfield Industrial Supply.</p>
       </div>
     </div>
     <div class="bar-actions">
@@ -309,7 +312,7 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
       <button type="button" class="btn ghost icon-btn" id="redo" aria-keyshortcuts="Control+Y" aria-label="Redo" title="Redo" disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 5l4 4-4 4M16 9H8a4.5 4.5 0 0 0 0 9h3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <button type="button" class="btn ghost" id="review-open"><span class="desk-text">Review changes</span><span class="phone-text">Changes</span> <span class="count" id="change-count">0</span></button>
       <button type="button" class="btn ghost desk-only" id="import-open">Import</button>
-      <button type="button" class="btn amber" id="export-open" aria-haspopup="menu" aria-expanded="false" aria-controls="export-menu"><span class="desk-text">Export</span><span class="phone-text">Files</span></button>
+      <button type="button" class="btn amber" id="export-open" aria-haspopup="menu" aria-expanded="false" aria-controls="export-menu"><span class="desk-text">Export</span><span class="phone-text">Export</span></button>
       <button type="button" class="btn ghost icon-btn desk-only" id="shortcuts-open" aria-label="Keyboard shortcuts" title="Keyboard shortcuts"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="5" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 8h1M8 8h1M11 8h1M14 8h1M6 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
     </div>
   </header>
@@ -318,7 +321,7 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
     <div class="gl-gauge" aria-hidden="true">
       <p class="gl-n"><b id="gl-n">20,000</b><span id="gl-of">orders in view</span></p>
       <div class="gl-meter"><i id="gl-fill"></i></div>
-      <p class="gl-sub"><span id="gl-pct">Every order</span><span id="gl-ed"><b>0</b> edited cells</span></p>
+      <p class="gl-sub"><span id="gl-pct">All orders</span><span id="gl-ed"><b>0</b> edited cells</span></p>
     </div>
     <div class="search">
       <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -557,7 +560,7 @@ function gauge() {
   gof.textContent = m[2] ? `of ${t.toLocaleString('en-US')} in view` : 'orders in view';
   const f = t ? n / t : 1;
   fill.style.transform = `scaleX(${Math.max(f, n ? .004 : 0)})`;
-  pct.textContent = f === 1 ? 'Every order' : (f < .01 && n ? 'Under 1%' : Math.round(f * 100) + '%') + ' of the book';
+  pct.textContent = f === 1 ? 'All orders' : (f < .01 && n ? 'Under 1%' : Math.round(f * 100) + '%') + ' of all orders';
 }
 new MutationObserver(gauge).observe(rc, { childList: true, characterData: true, subtree: true });
 gauge();
@@ -574,11 +577,25 @@ new MutationObserver(() => { if (toastEl.hidden) toastEl.classList.remove('gl-on
 // Filter chips: only the new ones arrive with a small spring
 const chips = $('#chips');
 let chipKeys = new Set([...chips.querySelectorAll('.chip')].map(c => c.textContent.trim()));
+function plainHint() {
+  const t = chips.querySelector('.ce-text'), h = chips.querySelector('.ce-hint');
+  if (t) t.textContent = 'Saved views:';
+  if (h) h.textContent = 'Double-click a cell to edit it. Drag across numbers to see their sum.';
+}
+plainHint();
 new MutationObserver(() => {
+  plainHint();
   const next = new Set();
   chips.querySelectorAll('.chip').forEach(c => { const k = c.textContent.trim(); next.add(k); if (!chipKeys.has(k)) c.classList.add('gl-new'); });
   chipKeys = next;
 }).observe(chips, { childList: true });
+
+// Search box: the long hint was cut off in the 280px side rail, so the rail gets the short one
+const search = $('#search'), rail = matchMedia('(min-width: 1100px)');
+function shortHint() { const want = rail.matches ? 'Search orders' : null; if (want && search.placeholder !== want) search.placeholder = want; }
+new MutationObserver(shortHint).observe(search, { attributes: true, attributeFilter: ['placeholder'] });
+rail.addEventListener('change', () => { if (!rail.matches && search.placeholder === 'Search orders' && !matchMedia('(max-width: 640px)').matches) search.placeholder = 'Search PO, supplier, item, SKU or buyer'; shortHint(); });
+shortHint();
 </script>
 </body>
 </html>
