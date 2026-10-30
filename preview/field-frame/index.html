@@ -105,6 +105,7 @@ body{background:var(--film);font-size:17px}
 .work-row{background:var(--sheet);border:0;border-left:10px solid #111;transition:border-color .2s,background .2s}
 .work-row:hover{background:#fff;border-left-color:var(--tape)}
 .work-row>*+*{border-left:0}
+@media (min-width:1101px){.work-row{grid-template-columns:minmax(0,1.2fr) minmax(0,1.6fr) minmax(0,1.2fr) auto;align-items:center}.work-time{gap:12px}.work-time .time-bar{height:14px}}
 .work-row h3{font:900 28px/1 var(--display);font-variation-settings:"wdth" 104;text-transform:uppercase}
 .row-code{color:var(--ink-3);font-family:var(--display);font-weight:700}
 .time-bar{height:12px;border-color:#111}
@@ -267,7 +268,7 @@ select,textarea{border:2px solid #111;background:#fff}
       <div class="hero-copy">
         <p class="kicker mono">A-00 &nbsp;Cover sheet &nbsp;/&nbsp; Westbrook, Alder Falls, Fernbrook</p>
         <h1 id="hero-title">Houses built to the drawing you signed.</h1>
-        <p class="hero-lede">Renovations, additions, kitchens and new homes. We agree the scope and a fixed price in writing before anyone picks up a tool, then one site lead runs the job until the keys are back in your hand.</p>
+        <p class="hero-lede">Renovations, additions, kitchens and new homes. One written price, one site lead, start to keys.</p>
         <div class="hero-actions">
           <a class="button button-solid" href="#estimate">Get a rough estimate</a>
           <a class="text-link" href="#projects">Read the project sheets</a>
@@ -299,45 +300,41 @@ select,textarea{border:2px solid #111;background:#fff}
     <section class="terms" aria-label="What every job includes">
       <p class="terms-head mono">General conditions, on every job</p>
       <ol>
-        <li><span class="mono">1.</span><strong>Written fixed price</strong><p>Within ten working days of the site visit, with every line of work priced.</p></li>
-        <li><span class="mono">2.</span><strong>One site lead</strong><p>The same person answers your call from the first visit to handover.</p></li>
-        <li><span class="mono">3.</span><strong>Friday update</strong><p>A short written note with photos, progress and the decisions due next week.</p></li>
-        <li><span class="mono">4.</span><strong>Twelve-month return</strong><p>We come back after a year to check how the house has settled and fix what has moved.</p></li>
+        <li><span class="mono">1.</span><strong>Written fixed price</strong><p>in 10 working days</p></li>
+        <li><span class="mono">2.</span><strong>One site lead</strong><p>visit to handover</p></li>
+        <li><span class="mono">3.</span><strong>Friday update</strong><p>photos and next decisions</p></li>
+        <li><span class="mono">4.</span><strong>Twelve-month return</strong><p>we fix what has moved</p></li>
       </ol>
     </section>
 
     <section class="section drawing-sheet work" id="work" aria-labelledby="work-title">
       <header class="sheet-head">
         <p class="sheet-tag mono"><b>A-01</b>Schedule of work</p>
-        <h2 id="work-title">Four kinds of job, and the time each one usually spends on site.</h2>
+        <h2 id="work-title">Four kinds of job, and their time on site.</h2>
       </header>
       <div class="work-table" role="list">
         <div class="work-cols mono" aria-hidden="true"><span>Type</span><span>On site</span><span>Scope</span><span>Includes</span><span></span></div>
         <article class="work-row" role="listitem">
           <h3><span class="mono row-code">W1</span>Whole-home renovation</h3>
           <p class="work-time"><span class="mono">16 to 30 wk</span><span class="time-bar" style="--a:16;--b:30" aria-hidden="true"></span></p>
-          <p class="work-desc">Older houses rewired, replumbed and insulated, with walls moved so every room earns its place.</p>
           <ul><li>Structural openings and steel</li><li>Rewiring, plumbing, heating</li><li>Insulation and windows</li></ul>
           <button class="row-action" type="button" data-estimate="renovation">Estimate this</button>
         </article>
         <article class="work-row" role="listitem">
           <h3><span class="mono row-code">W2</span>Additions and extensions</h3>
           <p class="work-time"><span class="mono">12 to 20 wk</span><span class="time-bar" style="--a:12;--b:20" aria-hidden="true"></span></p>
-          <p class="work-desc">A family room, an office or a bigger kitchen that finally opens onto the garden.</p>
           <ul><li>Drawings and permit application</li><li>Foundations, frame and roof</li><li>Tie-in to the existing house</li></ul>
           <button class="row-action" type="button" data-estimate="addition">Estimate this</button>
         </article>
         <article class="work-row" role="listitem">
           <h3><span class="mono row-code">W3</span>Kitchens and bathrooms</h3>
           <p class="work-time"><span class="mono">6 to 10 wk</span><span class="time-bar" style="--a:6;--b:10" aria-hidden="true"></span></p>
-          <p class="work-desc">Rooms planned around how you cook, clean and get ready, then fitted with finishes that last.</p>
           <ul><li>Layout and cabinetry plans</li><li>Tiling, worktops, fixtures</li><li>Ventilation and lighting</li></ul>
           <button class="row-action" type="button" data-estimate="kitchen">Estimate this</button>
         </article>
         <article class="work-row" role="listitem">
           <h3><span class="mono row-code">W4</span>New homes</h3>
           <p class="work-time"><span class="mono">9 to 14 mo</span><span class="time-bar" style="--a:39;--b:61" aria-hidden="true"></span></p>
-          <p class="work-desc">Built from your architect's drawings or one of our two partner practices, on your plot and to a written specification.</p>
           <ul><li>Site preparation and groundwork</li><li>Timber or block construction</li><li>Full fit-out to handover</li></ul>
           <button class="row-action" type="button" data-estimate="newhome">Estimate this</button>
         </article>
@@ -350,7 +347,7 @@ select,textarea{border:2px solid #111;background:#fff}
           <p class="sheet-tag mono"><b>A-02</b>Project sheets</p>
           <h2 id="projects-title">What the house was, and what we left behind.</h2>
         </div>
-        <p class="section-lede">Every job ends with a one-page sheet for the owners. Switch between the plan we measured and the plan we built, or tap the drawing.</p>
+        <p class="section-lede">Measured plan, built plan. Switch or tap the drawing.</p>
       </header>
 
       <div class="sheet-wrap">
@@ -400,7 +397,7 @@ select,textarea{border:2px solid #111;background:#fff}
           <p class="sheet-tag mono"><b>A-03</b>Rough estimate</p>
           <h2 id="estimate-title">See where the money goes before the site visit.</h2>
         </div>
-        <p class="section-lede">These are the ranges we use for a first conversation, split by trade. The written price after the visit replaces them.</p>
+        <p class="section-lede">First-conversation ranges by trade. The written price replaces them.</p>
       </header>
 
       <div class="est-grid">
@@ -430,7 +427,7 @@ select,textarea{border:2px solid #111;background:#fff}
             <p class="seg-note" data-finish-note>Mid-range cabinetry, stone-effect worktops, mixer taps.</p>
           </fieldset>
           <label class="check"><input type="checkbox" name="old" id="est-old"><span>House built before 1950</span></label>
-          <p class="check-note">Older houses get a bigger contingency, for wiring, lath walls and surprises under the floor.</p>
+          <p class="check-note">Bigger contingency for wiring and lath walls.</p>
         </form>
 
         <div class="est-result" aria-live="polite">
@@ -508,11 +505,11 @@ select,textarea{border:2px solid #111;background:#fff}
             <p class="build-caption mono" data-build-caption>Stage 0 of 5. Empty plot, pegged out.</p>
           </div>
           <ol class="steps" data-steps>
-            <li><p class="mono">Week 0</p><h3>Site visit</h3><p>We walk the house with you, measure up and listen to what is not working. The first visit has no charge.</p></li>
-            <li><p class="mono">Within 10 working days</p><h3>Scope and fixed price</h3><p>A written scope, a fixed price and a start date. Nothing changes without your signature.</p></li>
-            <li><p class="mono">Before the start</p><h3>Drawings and permits</h3><p>For additions and new homes we prepare drawings with a partner architect and submit the permit application.</p></li>
-            <li><p class="mono">On site</p><h3>Build</h3><p>Your site lead runs the trades and the schedule, and sends the Friday note with photos and next decisions.</p></li>
-            <li><p class="mono">Handover, then 12 months</p><h3>Walkthrough and return</h3><p>We walk every room, clear the snag list, then come back after a year to check how the house has settled.</p></li>
+            <li><p class="mono">Week 0</p><h3>Site visit</h3><p>Measure and listen. Free.</p></li>
+            <li><p class="mono">Within 10 working days</p><h3>Scope and fixed price</h3><p>Nothing changes without your signature.</p></li>
+            <li><p class="mono">Before the start</p><h3>Drawings and permits</h3><p>With a partner architect.</p></li>
+            <li><p class="mono">On site</p><h3>Build</h3><p>One lead, a note every Friday.</p></li>
+            <li><p class="mono">Handover, then 12 months</p><h3>Walkthrough and return</h3><p>Snag list closed, back in a year.</p></li>
           </ol>
         </div>
       </div>
@@ -524,7 +521,7 @@ select,textarea{border:2px solid #111;background:#fff}
           <p class="sheet-tag mono"><b>A-05</b>Client brief</p>
           <h2 id="brief-title">Bring a one-page brief to the first visit.</h2>
         </div>
-        <p class="section-lede">Answer a few questions and download the brief as a text file. It helps us price the right job the first time. Your draft is kept in this browser until you clear it, and nothing is sent.</p>
+        <p class="section-lede">A few questions, one text file to download. Nothing is sent.</p>
       </header>
       <div class="brief-grid">
         <form class="brief-form" id="brief-form" novalidate>

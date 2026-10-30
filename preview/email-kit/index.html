@@ -136,7 +136,13 @@ body{background:var(--desk);color:var(--ink);font-family:var(--sans);font-optica
 .footer-contact a:hover{color:var(--accent)}
 .sample h1{font-family:var(--sans);font-weight:800}
 @media (max-width:720px){.intro h1{font-size:30px}.details h2{font-size:25px}}
-@media (prefers-reduced-motion:reduce){.tabs [role="tab"]{transform:none!important}}
+.stamps{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stamps li{display:flex;align-items:center;gap:8px;padding:9px 10px;border:1.5px dashed var(--accent);color:var(--ink);font-family:var(--mono);font-size:12.5px;line-height:1.2;background:#f3e8d2}
+.stamps svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.checks{display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:10px 0 18px}
+.checks li{margin:0;padding:5px 9px 5px 22px!important;border:1px solid var(--rule-2);background:var(--surface);font-family:var(--mono);font-size:12.5px;line-height:1.25;position:relative}
+.checks li::before{left:8px!important;top:50%!important;transform:translateY(-60%) rotate(-45deg)!important}
+@media (max-width:720px){.stamps{grid-template-columns:1fr 1fr}}@media (prefers-reduced-motion:reduce){.tabs [role="tab"]{transform:none!important}}
 </style>
 <script type="module">
 // Inkpost preview: the inbox list, client frames (bare canvas, webmail window,
@@ -350,7 +356,13 @@ document.documentElement.dataset.ready = 'true';
 <aside class="inbox" aria-labelledby="inbox-h">
 <div class="intro">
 <h1>Four emails, one layout</h1>
-<p class="lede">Built for Kettlewick Coffee Roasters, a fictional roaster, by a small Node script with its own CSS inliner. Each one carries Outlook fallbacks, stacks on phones and has a dark mode. Pick an email, then look at it in a webmail window or on a phone.</p>
+<p class="lede">For Kettlewick, a fictional roaster.</p>
+<ul class="stamps" aria-label="Every email has">
+<li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></svg>Outlook safe</li>
+<li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 18.5h3"/></svg>Stacks on phones</li>
+<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A8 8 0 1 1 9.5 5a6.5 6.5 0 0 0 9.5 9.5z"/></svg>Dark mode</li>
+<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h10M5 18h7"/></svg>Plain text copy</li>
+</ul>
 </div>
 <h2 class="inbox-h" id="inbox-h">Inbox <span class="num">4</span></h2>
 <div class="tabs" role="tablist" aria-label="Emails" aria-orientation="vertical">
@@ -399,20 +411,20 @@ document.documentElement.dataset.ready = 'true';
 <div class="details">
 <p class="d-k">Email 1 of 4</p>
 <h2>Welcome</h2>
-<p class="summary">Sent once, straight after someone joins the list.</p>
+<p class="summary">Sent once, on sign-up.</p>
 <dl class="meta">
 <div><dt>Subject</dt><dd>Welcome to Kettlewick</dd></div>
 <div><dt>Preview text</dt><dd>Your code for 15% off the first bag, and what to expect from us.</dd></div>
-<div><dt>Built size</dt><dd><span class="num">19.2 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(19.2 / 102 * 100%)"></i></span></dd></div>
+<div><dt>Built size</dt><dd><span class="num">19.2 KB</span> of 102 KB before Gmail clips<span class="clip" aria-hidden="true"><i style="width:calc(19.2 / 102 * 100%)"></i></span></dd></div>
 </dl>
-<h3>What it handles</h3>
+<h3>Built in</h3>
 <ul class="checks">
-<li>Hidden preheader followed by spacer characters, so the inbox preview stops where it should</li>
-<li>VML roundrect button for Outlook on Windows, with a styled link for every other client</li>
-<li>Logo badge with its own background, readable in light and dark inboxes</li>
-<li>Dashed code box and numbered steps built from table cells, so they show with images off</li>
-<li>Dark mode through prefers-color-scheme, repeated for Outlook.com with data-ogsc and data-ogsb</li>
-<li>Plain text version with every link written out</li>
+<li>Preheader spacer</li>
+<li>VML button</li>
+<li>Light and dark logo badge</li>
+<li>Images-off code box</li>
+<li>Outlook.com dark mode</li>
+<li>Plain text links</li>
 </ul>
 <div class="actions">
 <button type="button" class="action" aria-expanded="false" aria-controls="source-welcome" data-source="dist/welcome.html">View source</button>
@@ -444,20 +456,20 @@ document.documentElement.dataset.ready = 'true';
 <div class="details">
 <p class="d-k">Email 2 of 4</p>
 <h2>Order confirmation</h2>
-<p class="summary">Sent when an order is paid. Lists the items, the totals and where the order is going.</p>
+<p class="summary">Sent when an order is paid.</p>
 <dl class="meta">
 <div><dt>Subject</dt><dd>Order KW-20418 is confirmed</dd></div>
 <div><dt>Preview text</dt><dd>Thanks, Jamie. We roast your coffee on Tuesday and post it on Wednesday morning.</dd></div>
-<div><dt>Built size</dt><dd><span class="num">22.7 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(22.7 / 102 * 100%)"></i></span></dd></div>
+<div><dt>Built size</dt><dd><span class="num">22.7 KB</span> of 102 KB before Gmail clips<span class="clip" aria-hidden="true"><i style="width:calc(22.7 / 102 * 100%)"></i></span></dd></div>
 </dl>
-<h3>What it handles</h3>
+<h3>Built in</h3>
 <ul class="checks">
-<li>Line items in a real data table with column and row headers, so a screen reader can follow it</li>
-<li>Line totals, the discount and the total worked out at build time from unit prices, then checked again by the tests</li>
-<li>Delivery and payment details in two fluid hybrid columns that stack on phones without a media query</li>
-<li>Ghost tables in Outlook conditional comments keep those columns side by side in Outlook</li>
-<li>Thumbnails sized by width and height attributes, so Outlook on a high DPI screen keeps them at 56 pixels</li>
-<li>Figures right aligned with tabular numbers</li>
+<li>Accessible line items</li>
+<li>Totals computed at build</li>
+<li>Fluid hybrid columns</li>
+<li>Outlook ghost tables</li>
+<li>High DPI thumbnails</li>
+<li>Tabular figures</li>
 </ul>
 <div class="actions">
 <button type="button" class="action" aria-expanded="false" aria-controls="source-order-confirmation" data-source="dist/order-confirmation.html">View source</button>
@@ -489,19 +501,19 @@ document.documentElement.dataset.ready = 'true';
 <div class="details">
 <p class="d-k">Email 3 of 4</p>
 <h2>Shipping update</h2>
-<p class="summary">Sent when the parcel is handed to the carrier, with tracking and a delivery estimate.</p>
+<p class="summary">Sent when the parcel leaves.</p>
 <dl class="meta">
 <div><dt>Subject</dt><dd>Your coffee is on its way</dd></div>
 <div><dt>Preview text</dt><dd>Order KW-20418 left the roastery today. Harbour Post expects to deliver it on Friday 23 October.</dd></div>
-<div><dt>Built size</dt><dd><span class="num">21.0 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(21.0 / 102 * 100%)"></i></span></dd></div>
+<div><dt>Built size</dt><dd><span class="num">21.0 KB</span> of 102 KB before Gmail clips<span class="clip" aria-hidden="true"><i style="width:calc(21.0 / 102 * 100%)"></i></span></dd></div>
 </dl>
-<h3>What it handles</h3>
+<h3>Built in</h3>
 <ul class="checks">
-<li>Tracking button in VML for Outlook and a 48 pixel tall link everywhere else</li>
-<li>Four step progress bar made of table cells with bgcolor, so it shows with images off</li>
-<li>Tracking number in a monospaced face with letter spacing, and format detection off so iOS leaves it alone</li>
-<li>Brew tip callout with its own dark mode colours</li>
-<li>Every link and button is at least 44 pixels tall</li>
+<li>VML tracking button</li>
+<li>Images-off progress bar</li>
+<li>iOS-safe tracking number</li>
+<li>Dark mode callout</li>
+<li>44 px tap targets</li>
 </ul>
 <div class="actions">
 <button type="button" class="action" aria-expanded="false" aria-controls="source-shipping-update" data-source="dist/shipping-update.html">View source</button>
@@ -533,20 +545,20 @@ document.documentElement.dataset.ready = 'true';
 <div class="details">
 <p class="d-k">Email 4 of 4</p>
 <h2>Newsletter</h2>
-<p class="summary">Roast notes, the monthly email. A hero, a product grid, a brew tip and an event.</p>
+<p class="summary">Roast notes, once a month.</p>
 <dl class="meta">
 <div><dt>Subject</dt><dd>Roast notes: a Kenya and a Guatemala for November</dd></div>
 <div><dt>Preview text</dt><dd>Two new coffees, the brew ratio we use on the bar and a free cupping on Saturday 14 November.</dd></div>
-<div><dt>Built size</dt><dd><span class="num">28.8 KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc(28.8 / 102 * 100%)"></i></span></dd></div>
+<div><dt>Built size</dt><dd><span class="num">28.8 KB</span> of 102 KB before Gmail clips<span class="clip" aria-hidden="true"><i style="width:calc(28.8 / 102 * 100%)"></i></span></dd></div>
 </dl>
-<h3>What it handles</h3>
+<h3>Built in</h3>
 <ul class="checks">
-<li>Two column product grid in fluid hybrid columns, side by side at 600 pixels and stacked on phones even when a client strips media queries</li>
-<li>Media queries widen the stacked cards and images to the full width as an enhancement</li>
-<li>Young Serif headings where web fonts load, with Georgia as the fallback that Outlook is held to</li>
-<li>Full width hero that scales with height auto, sized for Outlook by its width and height attributes</li>
-<li>Outline buttons in VML as well, so all six buttons stay buttons in Outlook</li>
-<li>Unsubscribe and preference links in the footer, each a full size tap target</li>
+<li>Hybrid product grid</li>
+<li>Full width on phones</li>
+<li>Web font, Georgia fallback</li>
+<li>Fluid hero</li>
+<li>Six VML buttons</li>
+<li>Unsubscribe in reach</li>
 </ul>
 <div class="actions">
 <button type="button" class="action" aria-expanded="false" aria-controls="source-newsletter" data-source="dist/newsletter.html">View source</button>
@@ -563,7 +575,7 @@ document.documentElement.dataset.ready = 'true';
 </section>
 </main>
 <footer class="foot"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="letterkiln" viewBox="0 0 150 32" width="121.9" height="26" role="img" aria-label="Letterkiln" focusable="false"><g aria-hidden="true"><path d="M5 28V14a11 11 0 0 1 22 0v14z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M10.5 15.5l5.5 4.5 5.5-4.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/><path d="M10.5 23.5h11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Fraunces'" font-weight="600" font-size="22" letter-spacing="0em">Letterkiln</text></svg></div>
-<p>Kettlewick Coffee Roasters is a fictional business. Its people, orders and prices are sample content made for this portfolio piece, not client work. The webmail and phone frames are drawings around the real built email, not screenshots of a mail app. Rendering was checked in Chromium only. Outlook, Gmail and Apple Mail were not opened, so the Outlook code is checked by tests on its structure.</p>
+<p>Kettlewick is a fictional roaster. The mail frames are drawings around the real built email. Checked in Chromium, Outlook code checked by structure tests.</p>
 <p><a class="quiet" href="../">Back to selected work</a></p>
 <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
 <p class="sb-label">Sample site, fictional brand</p></footer>

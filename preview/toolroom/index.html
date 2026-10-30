@@ -189,6 +189,11 @@ dialog::backdrop{background:rgba(17,22,19,.55)}
 .skip{background:var(--yellow);color:var(--yellow-ink)}
 .noscript{border-color:var(--text)}
 @media (prefers-reduced-motion:reduce){.hero h1{transition:none}}
+/* 50-50 pass: the drawer cards speak through their artwork, only the featured tool keeps its summary */
+.product-card + .product-card .summary{display:none}
+.how li{min-height:0!important}
+.step-ic{width:44px;height:44px;margin:14px 0 10px;fill:none;stroke:var(--mint-ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;display:block}
+.hero .lede{font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.01em;color:var(--text)}
 </style>
   <script type="module" src="toolroom-app.mjs"></script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
@@ -214,7 +219,7 @@ dialog::backdrop{background:rgba(17,22,19,.55)}
         <div class="hero-copy">
           <p class="eyebrow"><span class="num">TR-01</span> Desktop tools for freelancers and small studios</p>
           <h1 id="hero-title"><span class="hl">Small</span> <span class="hl">tools for</span> <span class="hl">quotes, data</span> <span class="hl">and clean</span> <span class="hl">handoffs.</span></h1>
-          <p class="lede">Price a job before you send it, check a CSV before it ships, and leave every project in a state the next person can pick up. Each tool runs on your own computer.</p>
+          <p class="lede">Price it. Check it. Hand it off.</p>
           <div class="hero-actions">
             <a class="button primary" href="#collection">Open the drawer</a>
             <a class="button secondary" href="#how">How it works</a>
@@ -225,7 +230,7 @@ dialog::backdrop{background:rgba(17,22,19,.55)}
             <div><dt>Runs</dt><dd>Offline</dd></div>
             <div><dt>Account</dt><dd>None</dd></div>
           </dl>
-          <p class="hero-note">Every tool has a free sample, and every one runs on your own computer.</p>
+
         </div>
         <div class="bench" aria-labelledby="bench-title">
           <div class="bench-head">
@@ -285,7 +290,7 @@ dialog::backdrop{background:rgba(17,22,19,.55)}
               <span class="csv-stamp" id="csv-stamp" aria-hidden="true">Passed</span>
             </div>
           </div>
-          <p class="bench-note">A taste of each tool, worked in this page. The full apps do more, and nothing here leaves your browser.</p>
+          <p class="bench-note">Runs in this page. Nothing leaves your browser.</p>
         </div>
       </section>
 
@@ -303,7 +308,7 @@ dialog::backdrop{background:rgba(17,22,19,.55)}
       <section class="collection wrap" id="collection" aria-labelledby="collection-heading">
         <div class="section-head">
           <div><p class="eyebrow"><span class="num">TR-03</span> The drawer</p><h2 id="collection-heading">One job per tool.</h2></div>
-          <p class="section-note">Each tool sits in its own pocket. Put one in your bag and its outline stays behind, so you can see what is out.</p>
+          
         </div>
         <div class="catalog-tools">
           <div class="chips" role="group" aria-label="Filter tools">
@@ -325,22 +330,22 @@ dialog::backdrop{background:rgba(17,22,19,.55)}
       </section>
 
       <section class="how wrap" id="how" aria-labelledby="how-title">
-        <div class="how-intro"><p class="eyebrow"><span class="num">TR-04</span> How it works</p><h2 id="how-title">From loose end to tidy finish.</h2><p>No account to create. Pick a tool, check the sample, and keep everything in a library you can back up.</p></div>
+        <div class="how-intro"><p class="eyebrow"><span class="num">TR-04</span> How it works</p><h2 id="how-title">From loose end to tidy finish.</h2></div>
         <ol>
-          <li><span class="step num">01</span><div><h3>Find the friction</h3><p>A quote that keeps changing. A CSV that keeps breaking. A handoff that lives in your head.</p></div></li>
-          <li><span class="step num">02</span><div><h3>Try the sample</h3><p>Open a tool, read what is included and download its sample file.</p></div></li>
-          <li><span class="step num">03</span><div><h3>Keep your library</h3><p>Orders and downloads stay in this browser. Export a backup file and restore it on any device.</p></div></li>
+          <li><span class="step num">01</span><svg class="step-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34l10-10 7 7 15-15"/><path d="M32 16h8v8"/></svg><div><h3>Find the friction</h3><p>Quote, CSV or handoff.</p></div></li>
+          <li><span class="step num">02</span><svg class="step-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M14 6h14l8 8v28H14z"/><path d="M28 6v8h8M24 22v12M19 29l5 5 5-5"/></svg><div><h3>Try the sample</h3><p>Free file per tool.</p></div></li>
+          <li><span class="step num">03</span><svg class="step-ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="10" width="32" height="10"/><rect x="8" y="24" width="32" height="14"/><path d="M20 31h8"/></svg><div><h3>Keep your library</h3><p>Back it up as one file.</p></div></li>
         </ol>
       </section>
 
       <section class="faq wrap" aria-labelledby="faq-title">
         <div><p class="eyebrow"><span class="num">TR-05</span> Spec notes</p><h2 id="faq-title">Good to know.</h2></div>
         <div class="faq-list">
-          <details><summary>Can I buy these tools here?</summary><p>No. This storefront runs a demo checkout that saves a test order in your browser. No payment is taken, no license is issued and no email is sent.</p></details>
-          <details><summary>Do the tools need an internet connection?</summary><p>No. Each tool opens in your browser from a small local server on your own computer, so your quotes, CSV files and project notes stay on your machine. Exports are plain JSON, CSV and TXT files.</p></details>
-          <details><summary>What do I download?</summary><p>Each tool has a small sample file, either CSV or plain text, that shows the kind of output it produces. Full product archives are not served from this page.</p></details>
-          <details><summary>Where does my library live?</summary><p>In this browser on this device, when browser storage is available. Backup creates a portable JSON file, and restoring checks the file before anything changes. Private windows and cleared site data remove the local library.</p></details>
-          <details><summary>Is this connected to Etsy or another shop?</summary><p>No. Nothing here connects to Etsy, Payhip or a payment provider. A live store would need its own checkout and delivery service.</p></details>
+          <details><summary>Can I buy these tools here?</summary><p>No. It is a demo checkout, no payment is taken.</p></details>
+          <details><summary>Do the tools need an internet connection?</summary><p>No. Each one runs on your own computer and exports plain JSON, CSV and TXT.</p></details>
+          <details><summary>What do I download?</summary><p>A small CSV or text sample per tool.</p></details>
+          <details><summary>Where does my library live?</summary><p>In this browser. Back it up as one JSON file.</p></details>
+          <details><summary>Is this connected to Etsy or another shop?</summary><p>No. Nothing here connects to a shop or payment provider.</p></details>
         </div>
       </section>
     </div>
@@ -370,7 +375,7 @@ dialog::backdrop{background:rgba(17,22,19,.55)}
         <a href="preview/toolroom/studio.html">Seller workspace</a>
       </nav>
     </div>
-    <p class="wrap footer-note">Toolroom is a demo store by SanderSaxBuilds. Orders are fictional and no payments are taken.</p>
+    <p class="wrap footer-note">Demo store. Orders are fictional, no payments are taken.</p>
     <p class="wrap footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a><a href="index.html#toolroom">Back to selected work</a></p>
   <p class="sb-label wrap">Sample site, fictional brand</p></footer>
 

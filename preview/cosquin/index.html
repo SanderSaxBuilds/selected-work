@@ -362,6 +362,12 @@
     .inputs li::before { font: 400 26px/1 var(--display); }
     .sources .sid { font: 400 22px/1.3 var(--display); }
 
+    .missing { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+    .missing li { padding: 3px 10px; border: 1.5px dashed #4a1420; color: #4a1420; font-size: 15px; }
+    .fest { display: flex; gap: 36px; margin: 6px 0 14px; }
+    .fest div { display: flex; flex-direction: column-reverse; gap: 4px; }
+    .fest dt { font-size: 14px; color: var(--ink-2); }
+    .fest dd { margin: 0; font: 400 clamp(56px, 7vw, 96px)/.9 var(--display); color: var(--blue); }
     .site-footer { background: var(--ink); color: #d6cfe6; border-top: 0; }
     .site-footer .footer-contact { border-top-color: #3a3350; }
     .footer-contact span { color: #b9b0cf; }
@@ -384,7 +390,7 @@
       <div>
         <p class="series"><b>Relevamiento preliminar de fuentes públicas</b><span>Cosquín, Córdoba</span><span>Octubre de 2026</span></p>
         <h1 id="titulo">Señales de mercado <em>en Cosquín</em></h1>
-        <p class="lede">Una primera lectura de los comercios y precios visibles en línea, para ordenar la comparación entre carnicería, frutas y verduras, minimercado y un formato mixto.</p>
+        <p class="lede">Comercios y precios visibles en línea, para comparar cuatro formatos.</p>
         <div class="actions">
           <a class="button solid" href="sample-cosquin-evidence.csv" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Tabla de evidencia CSV</a>
           <a class="button" href="#fuentes">Ver las fuentes</a>
@@ -431,7 +437,8 @@
             <span class="pending-mark" aria-hidden="true">!</span>
             <div>
               <h2 id="pendiente-titulo">La recomendación de formato queda pendiente</h2>
-              <p>El planteo menciona un local y una operación de restaurante existentes, pero faltan la dirección exacta, el radio de captación, la superficie, los equipos, el presupuesto y los costos operativos. Sin la ubicación no se puede saber qué comercios compiten de verdad por los mismos clientes. Este relevamiento no concluye viabilidad ni rentabilidad.</p>
+              <p>Sin la ubicación no se sabe quién compite por los mismos clientes. No se concluye viabilidad ni rentabilidad.</p>
+              <ul class="missing" aria-label="Datos faltantes"><li>dirección</li><li>radio</li><li>superficie</li><li>equipos</li><li>presupuesto</li><li>costos</li></ul>
             </div>
           </div>
 
@@ -439,7 +446,7 @@
             <div class="sec-head">
               <span class="sec-n">SECCIÓN 1</span>
               <h2 id="comercios-titulo">Mapa inicial de comercios</h2>
-              <p>Son ocho nombres para cribar, no ocho competidores activos confirmados. El nivel indica qué tipo de fuente respalda cada ficha, no el tamaño ni el desempeño del negocio.</p>
+              <p>Ocho nombres para cribar, no ocho competidores confirmados. El nivel indica el tipo de fuente, no el tamaño.</p>
             </div>
 
             <div class="strip-wrap" id="filtro" hidden>
@@ -459,7 +466,7 @@
                 <span class="cid">C1</span>
                 <div><h3><i class="g" aria-hidden="true"></i>Almacor</h3><p class="format">Supermercado de cadena</p><span class="tier tier-direct">Fuente directa</span><p class="refs">Respaldo <a class="ref" href="#s1">S1</a> <a class="ref" href="#s2">S2</a></p></div>
                 <div>
-                  <p class="note">El localizador oficial incluye una entrada identificada como “Cosquín (4)”. El número se trata como identificador, no como cantidad de locales. El folleto de la cadena muestra varias categorías de alimentos, pero no asigna ofertas a esta sucursal.</p>
+                  <p class="note">El localizador lista “Cosquín (4)”, tratado como identificador, no como cantidad de locales. El folleto no asigna ofertas a esta sucursal.</p>
                   <div class="shop-foot"><span class="confidence">Confianza alta para la presencia declarada</span><a class="ext" href="https://www.almacor.com.ar/locales/">Abrir localizador<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
                 </div>
               </article>
@@ -483,7 +490,7 @@
                 <span class="cid">C4</span>
                 <div><h3><i class="g mirror" aria-hidden="true"></i>Carnicería El Nono</h3><p class="format">Carnicería y minimercado declarados</p><p class="address">Marimón 371 o 373, por resolver</p><span class="tier tier-mirror">Espejo</span><p class="refs">Respaldo <a class="ref" href="#s5">S5</a></p></div>
                 <div>
-                  <p class="note">Un espejo de publicaciones atribuidas al comercio muestra actividad fechada en 2026 y menciona carne, almacén, bebidas, panificados y lácteos. La dirección cambia entre publicaciones y no se pudo verificar la página propia del comercio.</p>
+                  <p class="note">Un espejo de publicaciones muestra actividad en 2026: carne, almacén, bebidas, panificados y lácteos. La dirección cambia y la página propia no se pudo verificar.</p>
                   <div class="shop-foot"><span class="confidence">Confianza media, verificar negocio y domicilio</span><a class="ext" href="https://www.foodbevg.com/AR/Cosqu%C3%ADn/100212929016897/Carnicer%C3%ADa-El-Nono-Cosqu%C3%ADn">Ver fuente espejo<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
                 </div>
               </article>
@@ -520,7 +527,7 @@
                 </div>
               </article>
             </div>
-            <p class="callout">Cinco fichas son solo pistas de descubrimiento, incluido el espejo de El Nono, y no se usan como prueba de comercios activos. Hay otra ficha de carnicería y verdulería en Marimón 373 que no se cuenta aparte hasta descartar que sea el mismo negocio.</p>
+            <p class="callout">Cinco fichas son solo pistas, no prueba de actividad. Otra ficha en Marimón 373 no se cuenta hasta descartar que sea El Nono.</p>
           </section>
 
           <section class="section" id="precios" aria-labelledby="precios-titulo">
@@ -542,7 +549,7 @@
                 </tbody>
               </table>
             </div>
-            <p class="table-note">Los catálogos advierten que los precios pueden cambiar y muestran el signo “$” sin código de moneda. Almacor tiene un folleto corporativo válido del 1 al 6 de octubre, pero no confirma ofertas para Cosquín. Los precios locales de carne, frutas, verduras y productos básicos siguen sin conocerse.</p>
+            <p class="table-note">Precios sujetos a cambio, signo “$” sin código de moneda. Carne, frutas, verduras y básicos locales: sin datos.</p>
           </section>
 
           <section class="section" id="formatos" aria-labelledby="formatos-titulo">
@@ -564,7 +571,11 @@
             <div class="context">
               <article>
                 <h3>Festival y estacionalidad</h3>
-                <p>La Municipalidad de Cosquín atribuyó al intendente una estimación de más de un millón de visitantes durante los nueve días del Festival Nacional de Folklore. El cuerpo de la nota lleva fecha 5 de febrero de 2026, aunque la ruta de la URL contiene otra fecha. Es una cifra reportada para un evento concentrado y no mide residentes, compras de alimentos ni ventas anuales.</p>
+                <dl class="fest" aria-label="Festival Nacional de Folklore, cifra municipal">
+                  <div><dt>visitantes estimados</dt><dd>+1 M</dd></div>
+                  <div><dt>días de festival</dt><dd>9</dd></div>
+                </dl>
+                <p>Estimación atribuida al intendente, nota del 5 de febrero de 2026. Un evento concentrado: no mide residentes, compras de alimentos ni ventas anuales.</p>
                 <a class="ext" href="https://cosquin.gob.ar/2026/07/28/el-festival-nacional-del-folklore-recibio-el-sello-de-evento-sostenible/">Leer la nota municipal<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
                 <p class="figure-note">Respaldo <a class="ref" href="#s10">S10</a></p>
               </article>
@@ -579,7 +590,7 @@
             <div class="sec-head">
               <span class="sec-n">SECCIÓN 5</span>
               <h2 id="insumos-titulo">Datos necesarios para avanzar</h2>
-              <p>Con estos datos se puede delimitar la competencia real y revisar opciones con menos supuestos.</p>
+              <p>Con estos datos se delimita la competencia real.</p>
             </div>
             <ol class="inputs">
               <li>Dirección del local y radio de captación esperado</li>
@@ -595,7 +606,7 @@
             <div class="sec-head">
               <span class="sec-n">SECCIÓN 6</span>
               <h2 id="fuentes-titulo">Fuentes y trazabilidad</h2>
-              <p>Cada enlace abre la página que respalda el dato. Todas se consultaron el 6 de octubre de 2026. Las fichas de terceros se presentan como pistas, no como confirmación de actividad.</p>
+              <p>Consultadas el 6 de octubre de 2026. Las fichas de terceros son pistas, no confirmación.</p>
             </div>
             <ul class="sources">
               <li id="s1"><span class="sid">S1</span><a href="https://www.almacor.com.ar/locales/">Almacor, localizador</a><p>Presencia declarada de una sucursal en Cosquín.</p> <a class="back" href="#c-almacor">Ver ficha</a></li>

@@ -56,6 +56,16 @@ h2{font-size:clamp(40px,6vw,84px)}
 .invite::before{content:"";position:absolute;inset:10px;border:1px solid var(--gold);pointer-events:none}
 .invite::after{content:"";position:absolute;inset:14px;border:1px solid rgba(200,162,90,.45);pointer-events:none}
 .invite .to{font:400 13px/1.4 var(--sans);color:var(--muted);text-align:center;margin:6px 0 10px}
+.scene{display:block;width:100%;height:auto;margin:0 0 14px}
+.scene .sun{fill:#f3d9c4}
+.scene .sea{fill:#2d5a63}
+.scene .wave{stroke:rgba(253,250,248,.55);stroke-width:2;stroke-linecap:round;fill:none}
+.scene .arch{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round}
+.scene .arch.thin{stroke-width:1.5;opacity:.7}
+.scene .fl circle{fill:var(--lac)}
+.scene .sand{fill:#efe3d3}
+.person .mono svg,.trust svg{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.trust svg{width:44px;height:44px;color:var(--lac);margin-bottom:16px;display:block}
 .invite .mono{font:400 clamp(30px,3vw,44px)/1 var(--serif);text-align:center;color:var(--lac);margin:0 0 18px}
 .facts{display:grid;gap:0;margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
 .facts li{display:grid;grid-template-columns:4.2em 1fr;gap:14px;align-items:baseline;padding:14px 4px;border-bottom:1px solid var(--line);font-size:15px;line-height:1.4;color:var(--muted)}
@@ -206,7 +216,7 @@ footer a{color:#f2c9cf}
       <div>
         <p class="since">Самуи, Таиланд, с 2010 года</p>
         <h1>Свадьба <em id="heroWord">вашей мечты</em> на Самуи</h1>
-        <p class="lead">Официальное свадебное агентство полного цикла: от концепции и флористики до авторского кейтеринга и шоу-программы. Слушаем вас, чувствуем ваш стиль и укладываемся в ваш бюджет.</p>
+        <p class="lead">Церемония, флористика, кейтеринг и шоу. Под ваш стиль и бюджет.</p>
         <div class="cta">
           <a class="btn btn-rice" href="#packages">Выбрать церемонию и дату</a>
           <a class="btn btn-line" href="#story"><span><span data-yrs>16 лет</span> на острове</span></a>
@@ -215,11 +225,20 @@ footer a{color:#f2c9cf}
       <div class="card-stage">
         <div class="invite" id="invite">
           <p class="to">Приглашение</p>
+          <svg class="scene" viewBox="0 0 320 150" aria-hidden="true">
+            <circle class="sun" cx="160" cy="112" r="34"/>
+            <rect class="sea" x="0" y="112" width="320" height="38"/>
+            <path class="wave" d="M20 124h40M92 131h60M190 124h46M262 133h38M40 141h70M150 143h90"/>
+            <path class="arch" d="M98 112V58c0-36 124-36 124 0v54"/>
+            <path class="arch thin" d="M108 112V60c0-28 104-28 104 0v52"/>
+            <g class="fl"><circle cx="98" cy="58" r="6"/><circle cx="108" cy="47" r="5"/><circle cx="90" cy="68" r="4.5"/><circle cx="222" cy="58" r="6"/><circle cx="212" cy="47" r="5"/><circle cx="230" cy="68" r="4.5"/><circle cx="160" cy="31" r="5"/><circle cx="148" cy="33" r="3.5"/><circle cx="172" cy="33" r="3.5"/></g>
+            <path class="sand" d="M0 150c60-10 120-12 160-12s100 2 160 12z"/>
+          </svg>
           <p class="mono">Coral Vow</p>
           <ul class="facts">
-            <li><b>2010</b>первое официальное ивент-агентство острова</li>
-            <li><b>2</b>собственные свадебные площадки</li>
-            <li><b>5★</b>свадьбы во всех пятизвёздочных отелях Самуи</li>
+            <li><b>2010</b>первое агентство острова</li>
+            <li><b>2</b>свои площадки</li>
+            <li><b>5★</b>все отели Самуи</li>
           </ul>
           <p class="sig">Самуи, Таиланд</p>
         </div>
@@ -232,8 +251,7 @@ footer a{color:#f2c9cf}
 <section id="packages">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="kick">Свадебные церемонии</p><h2>Выберите пакет и сразу отправьте дату</h2></div>
-      <p>Паре не нужно писать письмо с нуля. Она выбирает пакет, дату и число гостей, а вам приходит готовое сообщение.</p>
+      <div><p class="kick">Свадебные церемонии</p><h2>Пакет и дата за минуту</h2></div>
     </div>
     <div class="pk-tabs" role="tablist" aria-label="Пакеты">
       <button class="pk-tab" role="tab" aria-selected="false" data-k="buddh">Буддийская</button>
@@ -278,14 +296,13 @@ footer a{color:#f2c9cf}
 <section id="team" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="kick">Команда</p><h2>Наша главная гордость</h2></div>
-      <p>Большая и дружная команда на острове, без случайных подрядчиков.</p>
+      <div><p class="kick">Команда</p><h2>Наша главная гордость</h2></div>
     </div>
     <div class="team">
-      <div class="person"><div class="mono">С</div><h3>Сергей</h3><div class="role">Шеф-повар</div><p>Ученик мишленовского шефа Франсуа. Отвечает за гастрономическую карту вашей свадьбы.</p></div>
-      <div class="person"><div class="mono">Ф</div><h3>Фото и видео</h3><div class="role">Съёмка</div><p>Мастера из топ-15 специалистов мира. Сохранят самые трогательные моменты дня.</p></div>
-      <div class="person"><div class="mono">П</div><h3>Полина</h3><div class="role">Стилист</div><p>Основательница своей студии красоты на Самуи. Подберёт и создаст свадебный образ.</p></div>
-      <div class="person"><div class="mono">Р</div><h3>Радмир</h3><div class="role">Ведущий</div><p>Профессиональный ведущий, радиоведущий «Европы Плюс». Отвечает за ваш вечер.</p></div>
+      <div class="person"><div class="mono"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 26c-5 0-8-4-8-8s4-8 9-7c1-4 5-7 9-7s8 3 9 7c5-1 9 3 9 7s-3 8-8 8"/><path d="M14 26v14h20V26M14 33h20"/></svg></div><h3>Сергей</h3><div class="role">Шеф-повар, школа Мишлен</div></div>
+      <div class="person"><div class="mono"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="14" width="38" height="26" rx="4"/><path d="M16 14l3-6h10l3 6"/><circle cx="24" cy="27" r="8"/></svg></div><h3>Фото и видео</h3><div class="role">Съёмка, топ-15 мира</div></div>
+      <div class="person"><div class="mono"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 6v14a10 10 0 0 0 20 0V6"/><path d="M24 30v12M17 42h14"/><path d="M14 13h20"/></svg></div><h3>Полина</h3><div class="role">Стилист, своя студия</div></div>
+      <div class="person"><div class="mono"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="17" y="4" width="14" height="24" rx="7"/><path d="M10 22a14 14 0 0 0 28 0M24 36v8M17 44h14"/></svg></div><h3>Радмир</h3><div class="role">Ведущий, «Европа Плюс»</div></div>
     </div>
   </div>
 </section>
@@ -294,7 +311,7 @@ footer a{color:#f2c9cf}
   <div class="wrap">
     <div class="sec-head">
       <div><p class="kick">О нас</p><h2><span data-yrs>16 лет</span> на Самуи</h2></div>
-      <p>Мира Корнева, основательница Coral Vow. Выберите год.</p>
+      <p>Выберите год.</p>
     </div>
     <div class="years" id="years"></div>
     <div class="story-card"><div class="big" id="yBig">2010</div><p id="yText"></p></div>
@@ -303,20 +320,18 @@ footer a{color:#f2c9cf}
 
 <section>
   <div class="wrap">
-    <div class="sec-head"><div><p class="kick">Надёжность</p><h2>Гарантии и прозрачность</h2></div>
-      <p>Свой склад на острове: арки, декор, свежая флористика, фотобудка, звук, свет и мебель.</p></div>
+    <div class="sec-head"><div><p class="kick">Надёжность</p><h2>Гарантии и прозрачность</h2></div></div>
     <div class="trust">
-      <div><h3>Официальный договор</h3><p>Работаем официально и отвечаем за результат.</p></div>
-      <div><h3>Понятная смета</h3><p>Утверждаем подробный бюджет до начала подготовки. <a href="../../samui-wedding/smeta/">Посмотреть, как соберётся смета</a></p></div>
-      <div><h3>Фиксированная цена</h3><p>Стоимость согласуем заранее, и она не меняется.</p></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 4h18l8 8v32H12z"/><path d="M30 4v8h8M18 22h14M18 29h14M18 36h8"/></svg><h3>Договор</h3></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40h32"/><path d="M13 40V26M21 40V16M29 40V22M37 40V10"/></svg><h3>Смета до старта</h3><p><a href="../../samui-wedding/smeta/">Как соберётся смета</a></p></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="20" width="28" height="22" rx="3"/><path d="M16 20v-6a8 8 0 0 1 16 0v6"/><circle cx="24" cy="31" r="3"/></svg><h3>Цена не меняется</h3></div>
     </div>
   </div>
 </section>
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head"><div><p class="kick">Отзывы</p><h2>Нас рекомендуют</h2></div>
-      <p>К нам возвращаются отдыхать уже с детьми.</p></div>
+    <div class="sec-head"><div><p class="kick">Отзывы</p><h2>Нас рекомендуют</h2></div></div>
     <div class="reviews">
       <figure class="review"><blockquote>«Получила свадебную церемонию своей мечты. Видеооператор Артём и фотограф Дмитрий сделали наш день!»</blockquote><cite>Татьяна и Олег</cite></figure>
       <figure class="review"><blockquote>«Всё было как в сказке! Полина просто прелесть, сделала всё на высшем уровне.»</blockquote><cite>Анастасия Барыбина</cite></figure>
@@ -327,8 +342,7 @@ footer a{color:#f2c9cf}
 
 <section class="fixes" id="fixes">
   <div class="wrap">
-    <div class="sec-head"><div><p class="kick">Что поправлено</p><h2>Тексты, которые пара видит первыми</h2></div>
-      <p>Мелочи, но именно их замечают раньше, чем пишут вам.</p></div>
+    <div class="sec-head"><div><p class="kick">Что поправлено</p><h2>Тексты, которые пара видит первыми</h2></div></div>
     <div class="fix"><div class="was">«CORAL VOW»<small>под именем основательницы</small></div><div class="arrow">→</div><div class="now">Coral Vow<small>одно написание бренда везде</small></div></div>
     <div class="fix"><div class="was">агенства<small>дважды в тексте</small></div><div class="arrow">→</div><div class="now">агентства</div></div>
     <div class="fix"><div class="was">«10 лет в бизнесе» рядом с «С 2010 года»<small>выглядит как давно не обновлявшийся текст</small></div><div class="arrow">→</div><div class="now"><span data-yrs>16 лет</span> на Самуи, с 2010 года<small>цифра считается от года автоматически</small></div></div>
@@ -340,7 +354,6 @@ footer a{color:#f2c9cf}
   <div class="wrap">
     <h2>Свадьба вашей мечты на Самуи, в каждой детали</h2>
     <div>
-      <p>Слушаем вас, чувствуем ваш стиль и воплощаем сказку в рамках вашего бюджета.</p>
       <a class="btn btn-rice" href="#packages">Выбрать дату</a>
     </div>
   </div>

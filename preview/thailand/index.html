@@ -392,14 +392,20 @@ h2 .hl{color:inherit;background:none}
 /* included: eight items on a menu board */
 .incl{background:var(--mint)}
 .spec{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:sp;border-top:3px solid var(--green)}
-.spec li{counter-increment:sp;padding:26px 22px 30px 0;border-bottom:1.5px solid var(--line);min-width:0;position:relative}
+.spec li{padding:30px 22px 30px 0;border-bottom:1.5px solid var(--line);min-width:0;position:relative}
 .spec li:not(:nth-child(4n+1)){padding-left:22px;border-left:1.5px solid var(--line)}
-.spec li::before{content:counter(sp);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;margin-bottom:18px;background:#fff;border:2px solid var(--green);font:700 14px/1 var(--display);color:var(--green);transition:background .25s,color .25s,border-color .25s}
-.spec li:hover::before{background:var(--pink);border-color:var(--pink);color:var(--ink)}
-.spec h3{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:-.01em;margin:0 0 8px;line-height:1.3}
-.spec p{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+.spec svg{display:block;width:52px;height:52px;margin-bottom:22px;fill:none;stroke:var(--green);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s,transform .4s var(--ease)}
+.spec li:hover svg{stroke:var(--accent-ink);transform:translateY(-4px) rotate(-4deg)}
+.spec h3{font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-.015em;margin:0;line-height:1.25}
 @media (max-width:1000px){.spec{grid-template-columns:1fr 1fr}.spec li:not(:nth-child(4n+1)){padding-left:0;border-left:0}.spec li:nth-child(even){padding-left:20px;border-left:1.5px solid var(--line)}}
-@media (max-width:560px){.spec{grid-template-columns:1fr}.spec li:nth-child(even){padding-left:0;border-left:0}.spec li{display:grid;grid-template-columns:52px 1fr;padding:20px 0}.spec li::before{margin:0;grid-row:span 2}}
+@media (max-width:560px){.spec li{padding:22px 12px 22px 0}.spec li:nth-child(even){padding-left:16px}.spec svg{width:40px;height:40px;margin-bottom:14px}.spec h3{font-size:16px}}
+.split{display:flex;width:100%;max-width:420px;justify-self:end;border-radius:999px;overflow:hidden;font-family:var(--display)}
+.split span{flex:1;display:flex;align-items:baseline;gap:8px;padding:12px 18px;background:#fff;color:var(--green)}
+.split span+span{background:var(--pink);color:var(--ink)}
+.split b{font-size:22px;font-weight:700;letter-spacing:-.03em}
+.split i{font-style:normal;font-family:var(--body);font-size:14px;font-weight:500}
+@media (max-width:820px){.split{justify-self:start}}
+.fix .fi{width:46px;height:46px;fill:none;stroke:var(--green);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:6px}
 
 /* the before and after board keeps its own little world, framed in green */
 .ba{border:3px solid var(--green);border-radius:22px;box-shadow:none}
@@ -561,16 +567,11 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
   <div class="wrap">
     <div>
       <h1 class="rv d1"><span data-t="h1a">Сайты, на которых клиенты</span> <span class="rot" id="rot"><span>записываются сами</span></span></h1>
-      <p class="lead rv d2" data-t="lead">Я делаю быстрые сайты на русском, английском и тайском для местного бизнеса. Клиент открывает сайт с телефона, видит цены, выбирает время, и заявка сразу приходит вам в Telegram или LINE.</p>
+      <p class="lead rv d2" data-t="lead">Быстрые сайты на трёх языках. Клиент выбирает время с телефона, заявка приходит вам в Telegram или LINE.</p>
       <div class="btns rv d3">
         <a class="btn btn-mango" href="#contact"><span data-t="cta1">Получить бесплатный разбор</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn btn-ghost" href="#demo" data-t="cta2">Попробовать запись</a>
       </div>
-      <ul class="chips rv d4">
-        <li data-t="c1">Русский, английский, тайский</li>
-        <li data-t="c2">Заявки в Telegram и LINE</li>
-        <li data-t="c3">Цена фиксируется заранее</li>
-      </ul>
     </div>
 
     <div class="stage rv d2" id="demo">
@@ -613,15 +614,15 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
 <ul class="sr" id="typesList"></ul>
 
 <div class="stats"><div class="wrap">
-  <div class="stat rv"><b><span class="count" data-to="3">3</span></b><span data-t="st1">языка на сайте: русский, английский и тайский</span></div>
-  <div class="stat rv d1"><b><small data-t="from">от</small> <span class="count" data-to="3">3</span></b><span data-t="st2">дней до запуска простого сайта</span></div>
-  <div class="stat rv d2"><b>$0</b><span data-t="st3">стоит первый разбор и набросок главной</span></div>
-  <div class="stat rv d3"><b><span class="count" data-to="50">50</span>%</b><span data-t="st4">оплаты только после запуска</span></div>
+  <div class="stat rv"><b><span class="count" data-to="3">3</span></b><span data-t="st1">языка, RU · EN · TH</span></div>
+  <div class="stat rv d1"><b><small data-t="from">от</small> <span class="count" data-to="3">3</span></b><span data-t="st2">дней до запуска</span></div>
+  <div class="stat rv d2"><b>$0</b><span data-t="st3">первый разбор</span></div>
+  <div class="stat rv d3"><b><span class="count" data-to="50">50</span>%</b><span data-t="st4">оплаты после запуска</span></div>
 </div></div>
 
 <section id="fixes">
   <div class="wrap">
-    <div class="sec-head"><h2 class="rv" data-t="fxH">Потяните и посмотрите <span class="hl">разницу</span></h2><p class="rv d1" data-t="fxP">Слева типичный старый сайт, справа то, что я делаю. Большинство клиентов в Таиланде находят вас с телефона, и если сайт неудобен, они пишут конкурентам.</p></div>
+    <div class="sec-head"><h2 class="rv" data-t="fxH">Потяните и посмотрите <span class="hl">разницу</span></h2></div>
     <div class="ba rv" id="ba">
       <div class="pane old" id="oldPane" aria-hidden="true">
         <div class="ohead">★ WELCOME TO OUR WEB SITE ★</div>
@@ -670,11 +671,11 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
       <input type="range" id="baRange" min="0" max="100" value="50" aria-label="Сравнить старый и новый сайт" data-t-aria="baLabel">
       <span class="handle" id="baHandle" aria-hidden="true"></span>
     </div>
-    <p class="bahint rv" data-t="baHint"><b>Справа работает маленький настоящий сайт.</b> Смените бизнес, выберите время и нажмите кнопку. Можно лопнуть пузырь или нажать на логотип.</p>
+    <p class="bahint rv" data-t="baHint"><b>Справа живой мини-сайт.</b> Попробуйте записаться.</p>
     <div class="fixes">
-      <article class="fix rv"><span class="fn" aria-hidden="true">01</span><h3 data-t="f1h">Сайт неудобен на телефоне</h3><p class="was"><span class="lb" data-t="baOld">Было</span><span data-t="f1w">Мелкий текст, всё съезжает, страница грузится долго через мобильный интернет.</span></p><p class="now"><span class="lb" data-t="baNew">Стало</span><span data-t="f1n">Лёгкий сайт, который открывается быстро и читается одной рукой</span></p></article>
-      <article class="fix rv d1"><span class="fn" aria-hidden="true">02</span><h3 data-t="f2h">Нет цен и понятных услуг</h3><p class="was"><span class="lb" data-t="baOld">Было</span><span data-t="f2w">Клиенту приходится писать и ждать ответа, чтобы узнать, сколько стоит.</span></p><p class="now"><span class="lb" data-t="baNew">Стало</span><span data-t="f2n">Ясный список услуг с ценами на трёх языках</span></p></article>
-      <article class="fix rv d2"><span class="fn" aria-hidden="true">03</span><h3 data-t="f3h">Записаться можно только звонком</h3><p class="was"><span class="lb" data-t="baOld">Было</span><span data-t="f3w">Звонить иностранцам неудобно, а сообщения в директе теряются.</span></p><p class="now"><span class="lb" data-t="baNew">Стало</span><span data-t="f3n">Запись в пару нажатий, заявка сразу у вас в Telegram или LINE</span></p></article>
+      <article class="fix rv"><svg class="fi" viewBox="0 0 48 48" aria-hidden="true"><rect x="15" y="5" width="18" height="38" rx="4"/><path d="M21 38h6"/><path d="M19 14h10M19 19h7M19 24h10"/></svg><p class="was"><span class="lb" data-t="baOld">Было</span><span data-t="f1w">Мелко, долго грузится</span></p><p class="now"><span class="lb" data-t="baNew">Стало</span><span data-t="f1n">Быстро, под одну руку</span></p></article>
+      <article class="fix rv d1"><svg class="fi" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 24 24 8h14v14L22 38z"/><circle cx="31" cy="15" r="3"/></svg><p class="was"><span class="lb" data-t="baOld">Было</span><span data-t="f2w">Цена «по запросу»</span></p><p class="now"><span class="lb" data-t="baNew">Стало</span><span data-t="f2n">Цены на трёх языках</span></p></article>
+      <article class="fix rv d2"><svg class="fi" viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="10" width="34" height="30" rx="4"/><path d="M7 18h34M15 6v8M33 6v8"/><path d="m17 29 5 5 9-9"/></svg><p class="was"><span class="lb" data-t="baOld">Было</span><span data-t="f3w">Только звонок</span></p><p class="now"><span class="lb" data-t="baNew">Стало</span><span data-t="f3n">Запись в два касания</span></p></article>
     </div>
   </div>
 </section>
@@ -685,16 +686,16 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
 
 <section class="incl" id="included">
   <div class="wrap">
-    <div class="sec-head"><h2 class="rv" data-t="inH">Что входит в <span class="hl">каждый сайт</span></h2><p class="rv d1" data-t="inP">Не только красивая главная. Всё, что нужно, чтобы клиенты вас находили, понимали и записывались.</p></div>
+    <div class="sec-head"><h2 class="rv" data-t="inH">Что входит в <span class="hl">каждый сайт</span></h2></div>
     <ol class="spec">
-      <li class="rv"><h3 data-t="i1h">Быстрая загрузка</h3><p data-t="i1p">Лёгкие страницы без лишних библиотек открываются быстро даже на мобильном интернете.</p></li>
-      <li class="rv d1"><h3 data-t="i2h">Сначала для телефона</h3><p data-t="i2p">Крупные кнопки, читаемый текст и меню под большой палец. Потом уже компьютер.</p></li>
-      <li class="rv"><h3 data-t="i3h">Три языка</h3><p data-t="i3p">Русский, английский и тайский с переключателем. Перевод входит в работу.</p></li>
-      <li class="rv d1"><h3 data-t="i4h">Telegram и LINE</h3><p data-t="i4p">Кнопки связи и заявки, которые сразу приходят вам в мессенджер, без проверки почты.</p></li>
-      <li class="rv"><h3 data-t="i5h">Карта и Google</h3><p data-t="i5p">Карта с маршрутом, правильные часы работы и связь с вашим профилем в Google Maps.</p></li>
-      <li class="rv d1"><h3 data-t="i6h">Базовое SEO</h3><p data-t="i6p">Заголовки, описания, карта сайта и красивые превью ссылок в мессенджерах и соцсетях.</p></li>
-      <li class="rv"><h3 data-t="i7h">Статистика</h3><p data-t="i7p">Простой счётчик посещений, чтобы видеть, откуда приходят клиенты и что они смотрят.</p></li>
-      <li class="rv d1"><h3 data-t="i8h">Всё на ваше имя</h3><p data-t="i8p">Домен, хостинг и исходники принадлежат вам. Вы не привязаны ко мне.</p></li>
+      <li class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34a16 16 0 1 1 32 0"/><path d="m24 34 9-11"/><circle cx="24" cy="34" r="2.5"/></svg><h3 data-t="i1h">Быстрая загрузка</h3></li>
+      <li class="rv d1"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="15" y="5" width="18" height="38" rx="4"/><path d="M21 38h6"/></svg><h3 data-t="i2h">Сначала для телефона</h3></li>
+      <li class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="M7 24h34M24 7c-9 9-9 25 0 34M24 7c9 9 9 25 0 34"/></svg><h3 data-t="i3h">Три языка</h3></li>
+      <li class="rv d1"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M42 8 6 22l12 4 4 12 6-8 10 8z"/><path d="m18 26 24-18"/></svg><h3 data-t="i4h">Telegram и LINE</h3></li>
+      <li class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 43s-13-11-13-21a13 13 0 0 1 26 0c0 10-13 21-13 21z"/><circle cx="24" cy="21" r="4.5"/></svg><h3 data-t="i5h">Карта и Google</h3></li>
+      <li class="rv d1"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="21" cy="21" r="12"/><path d="m30 30 11 11"/></svg><h3 data-t="i6h">Базовое SEO</h3></li>
+      <li class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40h32"/><path d="M13 40V28M21 40V18M29 40V24M37 40V10"/></svg><h3 data-t="i7h">Статистика</h3></li>
+      <li class="rv d1"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="16" cy="24" r="8"/><path d="M24 24h18M36 24v7M42 24v5"/></svg><h3 data-t="i8h">Всё на ваше имя</h3></li>
     </ol>
   </div>
 </section>
@@ -702,13 +703,13 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
 <section class="prices" id="prices">
   <span class="grain" aria-hidden="true"></span>
   <div class="wrap">
-    <div class="sec-head"><h2 class="rv" data-t="pH">Понятные цены</h2><p class="rv d1" data-t="pP">Цена фиксируется до начала работы. Половина вперёд, вторая половина после запуска.</p></div>
+    <div class="sec-head"><h2 class="rv" data-t="pH">Понятные цены</h2><div class="split rv d1"><span><b>50%</b><i data-t="spA">до старта</i></span><span><b>50%</b><i data-t="spB">после запуска</i></span></div></div>
     <div class="plans">
       <article class="plan rv">
-        <h3 data-t="p1h">Сайт</h3><p class="sub" data-t="p1s">Для тех, кому нужна аккуратная витрина</p>
+        <h3 data-t="p1h">Сайт</h3>
         <p class="amount"><small data-t="from">от</small>$<span class="count" data-to="300">300</span></p><p class="when" data-t="p1t">Готово за 3-5 дней</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p1a">До 5 страниц: главная, услуги, цены, о вас, контакты</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p1a">До 5 страниц</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p1b">Русский, английский и тайский</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p1c">Кнопки Telegram, LINE, WhatsApp и карта</span></li>
         </ul>
@@ -716,23 +717,23 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
       </article>
       <article class="plan hot rv d1">
         <span class="tag" data-t="pTag">Как в демо выше</span>
-        <h3 data-t="p2h">Сайт с онлайн-записью</h3><p class="sub" data-t="p2s">Клиенты записываются сами, без звонков</p>
+        <h3 data-t="p2h">Сайт с онлайн-записью</h3>
         <p class="amount"><small data-t="from">от</small>$<span class="count" data-to="600">600</span></p><p class="when" data-t="p2t">Готово за 5-7 дней</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2a">Всё из пакета «Сайт»</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2b">Запись или заказ с выбором даты и времени</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2c">Заявка сразу приходит вам в Telegram или LINE</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2d">Время показывается в часовом поясе клиента</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2b">Запись с выбором даты и времени</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2c">Заявки в Telegram или LINE</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p2d">Время в поясе клиента</span></li>
         </ul>
         <a class="btn btn-mango" href="#contact" data-t="pBtn2">Хочу такой сайт</a>
       </article>
       <article class="plan rv d2">
-        <h3 data-t="p3h">Поддержка</h3><p class="sub" data-t="p3s">Чтобы сайт оставался свежим</p>
-        <p class="amount" style="font-size:clamp(20px,5.4vw,28px)" data-t="p3p">$30 в месяц</p><p class="when" data-t="p3t">Помесячно, без долгих договоров</p>
+        <h3 data-t="p3h">Поддержка</h3>
+        <p class="amount" style="font-size:clamp(20px,5.4vw,28px)" data-t="p3p">$30 в месяц</p><p class="when" data-t="p3t">Без договора</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p3a">Правки цен, фото и текстов</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p3b">Новые страницы и акции к сезону</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p3c">Проверка, что сайт и запись работают</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span data-t="p3c">Проверка записи</span></li>
         </ul>
         <a class="btn btn-line" href="#contact" data-t="pBtn">Обсудить</a>
       </article>
@@ -743,26 +744,26 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
 
 <section id="process">
   <div class="wrap">
-    <div class="sec-head"><h2 class="rv" data-t="sH">Как это <span class="hl">работает</span></h2><p class="rv d1" data-t="sP">Первый шаг бесплатный. Вы ничего не платите, пока не увидите, каким будет сайт.</p></div>
+    <div class="sec-head"><h2 class="rv" data-t="sH">Как это <span class="hl">работает</span></h2></div>
     <ol class="steps" id="steps">
-      <li class="step"><h3 data-t="s1h">Присылаете ссылку</h3><p data-t="s1p">Текущий сайт, Instagram, Facebook или Telegram-канал.</p></li>
-      <li class="step"><h3 data-t="s2h">Бесплатный разбор</h3><p data-t="s2p">За один день присылаю, что мешает клиентам, и набросок новой главной.</p></li>
-      <li class="step"><h3 data-t="s3h">Фиксируем цену</h3><p data-t="s3p">Договариваемся о составе и сроке, вы вносите половину.</p></li>
-      <li class="step"><h3 data-t="s4h">Запуск</h3><p data-t="s4p">Вы проверяете и правите, после запуска оплачиваете вторую половину.</p></li>
+      <li class="step"><h3 data-t="s1h">Присылаете ссылку</h3><p data-t="s1p">Сайт, Instagram или Telegram</p></li>
+      <li class="step"><h3 data-t="s2h">Бесплатный разбор</h3><p data-t="s2p">За день, с наброском главной</p></li>
+      <li class="step"><h3 data-t="s3h">Фиксируем цену</h3><p data-t="s3p">Состав, срок, 50% вперёд</p></li>
+      <li class="step"><h3 data-t="s4h">Запуск</h3><p data-t="s4p">Правки, запуск, остальные 50%</p></li>
     </ol>
   </div>
 </section>
 
 <section class="work" id="work">
   <div class="wrap">
-    <div class="sec-head"><h2 class="rv" data-t="wH">Мои работы</h2><p class="rv d1" data-t="wP">Настоящий сайт компании, который я сделал и запустил, и образцы, которые я собрал сам, чтобы показать запись, письма, отчёты и таблицы. Образцы помечены как образцы.</p></div>
+    <div class="sec-head"><h2 class="rv" data-t="wH">Мои работы</h2></div>
     <div class="cases">
-      <a class="case feat rv" href="../../email-kit/"><span class="im"><img src="../../assets/j/email.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w4k">Письма клиентам</span><h3>Inkpost</h3><p data-t="w4p">Четыре письма для вымышленной кофейни: приветствие, заказ, доставка и рассылка. Хорошо выглядят на телефоне и в тёмной теме.</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
-      <a class="case rv d1" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/"><span class="im"><img src="../../assets/j/ledger.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w3k">Отчёты</span><h3>LedgerLens</h3><p data-t="w3p">Отчёт о продажах из выгрузок заказов и возвратов, с графиком за год.</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
-      <a class="case rv d2" href="../../field-frame.html"><span class="im"><img src="../../assets/j/field.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w2k">Сайт компании</span><h3>Field and Frame</h3><p data-t="w2p">Сайт для вымышленной строительной компании с услугами, проектами и формой заявки.</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
-      <a class="case rv" href="../../gridline/"><span class="im"><img src="../../assets/j/gridline.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w5k">Рабочая таблица</span><h3>Gridline</h3><p data-t="w5p">Редактирование 20 000 заказов прямо в браузере: фильтры, вставка блоков, отмена и проверка изменений перед выгрузкой.</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
-      <a class="case rv d1" href="../../builder/"><span class="im"><img src="../../assets/j/builder.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w1k">Рабочее приложение</span><h3 data-t="w1h">Конструктор сайтов с записью</h3><p data-t="w1p">Мой набор для сайтов местного бизнеса: заполняете услуги, цены и часы работы, видите сайт на телефоне и компьютере и скачиваете готовый архив. Заявки уходят в WhatsApp, LINE или Telegram.</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
-      <a class="case rv d2" href="https://temirkhanclub.com/"><span class="im"><img src="../../assets/j/allex.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w0k">Сайт компании</span><h3>temirkhanclub.com</h3><p data-t="w0p">Каталог продукции для ALLEX RESPECT ASIA: анимированная витрина, четыре страницы товаров, таблица сравнения, информация о компании, библиотека документов и мобильное меню. Я сделал вёрстку, адаптивность и запуск. Фото и данные о товарах предоставила компания.</p><span class="go" data-t="wGo">Открыть сайт →</span></div></a>
+      <a class="case feat rv" href="../../email-kit/"><span class="im"><img src="../../assets/j/email.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w4k">Письма клиентам</span><h3>Inkpost</h3><p data-t="w4p">Четыре письма для кофейни, образец</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
+      <a class="case rv d1" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/"><span class="im"><img src="../../assets/j/ledger.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w3k">Отчёты</span><h3>LedgerLens</h3><p data-t="w3p">Отчёт о продажах с графиком</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
+      <a class="case rv d2" href="../../field-frame.html"><span class="im"><img src="../../assets/j/field.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w2k">Сайт компании</span><h3>Field and Frame</h3><p data-t="w2p">Сайт строительной фирмы, образец</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
+      <a class="case rv" href="../../gridline/"><span class="im"><img src="../../assets/j/gridline.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w5k">Рабочая таблица</span><h3>Gridline</h3><p data-t="w5p">20 000 заказов в браузере</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
+      <a class="case rv d1" href="../../builder/"><span class="im"><img src="../../assets/j/builder.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w1k">Рабочее приложение</span><h3 data-t="w1h">Конструктор сайтов с записью</h3><p data-t="w1p">Услуги и часы, на выходе готовый сайт</p><span class="go" data-t="wGo2">Открыть превью →</span></div></a>
+      <a class="case rv d2" href="https://temirkhanclub.com/"><span class="im"><img src="../../assets/j/allex.jpg" alt="" loading="lazy"></span><div class="tx"><span class="k" data-t="w0k">Сайт компании</span><h3>temirkhanclub.com</h3><p data-t="w0p">Каталог ALLEX RESPECT ASIA, настоящий запуск</p><span class="go" data-t="wGo">Открыть сайт →</span></div></a>
     </div>
     <p class="more"><span data-t="wMore">Все работы:</span> <a href="../../">sandersaxbuilds.github.io/<wbr>selected-work</a></p>
   </div>
@@ -788,11 +789,11 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
   <div class="wrap">
     <div>
       <h2 class="rv" data-t="kH">Пришлите ссылку, я пришлю разбор</h2>
-      <p class="lead rv d1" data-t="kP">Бесплатно и без обязательств. Отвечаю в течение суток, обычно быстрее.</p>
-      <a class="chk rv d3" href="#check"><span data-t="chk">Сначала проверьте свой сайт сами, это займёт 2 минуты</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <p class="lead rv d1" data-t="kP">Бесплатно. Ответ в течение суток.</p>
+      <a class="chk rv d3" href="#check"><span data-t="chk">Или проверьте сайт сами, 2 минуты</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="reach rv d1" id="reach">
-      <p class="reach-h" data-t="rH">Напишите или позвоните, как вам удобнее</p>
+      
       <a class="rc rc-tg" href="https://t.me/sandersax" target="_blank" rel="noopener"><i class="ri" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l12-9"/></svg></i><span><b data-t="rTg">Написать в Telegram</b><small>@sandersax</small></span><svg class="ra" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="rc rc-wa" id="waLink" href="https://wa.me/66961347329" target="_blank" rel="noopener"><i class="ri" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.4 7.6L3.5 20.5l1.4-4.4a8.5 8.5 0 1 1 15.6-4.5z"/><path d="M9 8.6c0 3.5 2.8 6.4 6.4 6.4l1.1-1.6-2-1-1 .8a4.6 4.6 0 0 1-2.7-2.7l.8-1-1-2z"/></svg></i><span><b data-t="rWa">Написать в WhatsApp</b><small>+66 96 134 7329</small></span><svg class="ra" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="rc rc-ph" href="tel:+66961347329"><i class="ri" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></i><span><b data-t="rTh">Звонок или SMS, Таиланд</b><small>+66 96 134 7329</small></span><svg class="ra" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -810,28 +811,28 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
 var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 var T={ru:{},
 en:{skip:"Skip to content",navLabel:"Sections",pickLabel:"Business type",nDemo:"Demo",nFix:"Before and after",nPrice:"Prices",nProc:"How it works",nWork:"Work",nFaq:"FAQ",ctaS:"Free review",
-kicker:"Anywhere in Thailand, fully remote",h1a:"Websites where customers",lead:"I build fast websites in English, Russian and Thai for local businesses. Customers open the site on a phone, see your prices, pick a time, and the request lands in your Telegram or LINE straight away.",
+kicker:"Anywhere in Thailand, fully remote",h1a:"Websites where customers",lead:"Fast sites in three languages. Customers pick a time on their phone, the request lands in your Telegram or LINE.",
 cta1:"Get a free review",cta2:"Try the booking",c1:"English, Russian, Thai",c2:"Requests in Telegram and LINE",c3:"Price fixed in advance",
 dBiz:"Demo · fictional business",dTitle:"Online booking demo",dSvc:"Service",dDay:"Day",dTime:"Time",dBook:"Book now",dNote:"This is a demo. Nothing is sent anywhere.",
 tgSub:"bot · now",tgAgain:"Try again",toast:"A new booking just reached Telegram",
 fxH:"Drag to see the <span class=\"hl\">difference</span>",fxP:"On the left, a typical old site. On the right, what I build. Most customers in Thailand find you on a phone, and if the site is awkward they message a competitor.",
-wGo2:"Open the preview →",baHint:"<b>The right side is a small working site.</b> Switch the business, pick a time and press the button. You can also pop the bubble or tap the logo.",baOld:"Before",baNew:"After",baLabel:"Compare the old and new site",
-f1h:"The site is hard to use on a phone",f1w:"Tiny text, things slide off the screen, and the page loads slowly on mobile data.",f1n:"A light site that opens fast and reads with one hand",
-f2h:"No prices or clear services",f2w:"Customers have to message you and wait just to find out the price.",f2n:"A clear list of services with prices in three languages",
-f3h:"Booking only by phone call",f3w:"Foreign visitors avoid calling, and direct messages get lost.",f3n:"Booking in a couple of taps, straight to your Telegram or LINE",
+wGo2:"Open the preview →",baHint:"<b>The right side is a working mini site.</b> Try booking.",baOld:"Before",baNew:"After",baLabel:"Compare the old and new site",
+f1h:"The site is hard to use on a phone",f1w:"Tiny, slow to load",f1n:"Fast, one-handed",
+f2h:"No prices or clear services",f2w:"Price on request",f2n:"Prices in three languages",
+f3h:"Booking only by phone call",f3w:"Phone calls only",f3n:"Booked in two taps",
 pH:"Clear prices",pP:"The price is fixed before work starts. Half up front, half at launch.",from:"from",
-p1h:"Website",p1s:"A tidy shop window for your business",p1t:"Ready in 3 to 5 days",p1a:"Up to 5 pages: home, services, prices, about, contact",p1b:"English, Russian and Thai",p1c:"Telegram, LINE, WhatsApp buttons and a map",pBtn:"Talk it through",
-pTag:"Like the demo above",p2h:"Website with online booking",p2s:"Customers book themselves, no calls needed",p2t:"Ready in 5 to 7 days",p2a:"Everything in Website",p2b:"Booking or ordering with a date and time picker",p2c:"Each request goes straight to your Telegram or LINE",p2d:"Times shown in the customer's own time zone",pBtn2:"I want this site",
-p3h:"Monthly support",p3s:"Keeps the site fresh",p3p:"$30 a month",p3t:"Stop any month, no contract",p3a:"Price, photo and text updates",p3b:"New pages and seasonal offers",p3c:"Checks that the site and booking keep working",
+p1h:"Website",p1s:"A tidy shop window for your business",p1t:"Ready in 3 to 5 days",p1a:"Up to 5 pages",p1b:"English, Russian and Thai",p1c:"Telegram, LINE, WhatsApp buttons and a map",pBtn:"Talk it through",
+pTag:"Like the demo above",p2h:"Website with online booking",p2s:"Customers book themselves, no calls needed",p2t:"Ready in 5 to 7 days",p2a:"Everything in Website",p2b:"Booking with a date and time picker",p2c:"Requests to Telegram or LINE",p2d:"Times in the customer's zone",pBtn2:"I want this site",
+p3h:"Monthly support",p3s:"Keeps the site fresh",p3p:"$30 a month",p3t:"No contract",p3a:"Price, photo and text updates",p3b:"New pages and seasonal offers",p3c:"Booking checks",
 tm1:"Domain and hosting in your name",tm2:"You keep the source files",tm3:"We talk in English, Russian or Thai",
 sH:"How it <span class=\"hl\">works</span>",sP:"The first step is free. You pay nothing until you see what the site will look like.",
-s1h:"Send a link",s1p:"Your current site, Instagram, Facebook or Telegram channel.",s2h:"Free review",s2p:"Within a day I send what is getting in your customers' way and a sketch of a new home page.",s3h:"Fix the price",s3p:"We agree on scope and timing, and you pay half.",s4h:"Launch",s4p:"You review and request changes, then pay the second half at launch.",
+s1h:"Send a link",s1p:"Site, Instagram or Telegram",s2h:"Free review",s2p:"Within a day, with a home page sketch",s3h:"Fix the price",s3p:"Scope, timing, 50% up front",s4h:"Launch",s4p:"Changes, launch, remaining 50%",
 wH:"My work",wP:"A real company website I built and launched, plus samples I made myself to show booking, emails, reports and tables. Samples are marked as samples.",
-w0k:"Company website",w0p:"A product catalogue for ALLEX RESPECT ASIA: an animated showcase, four product pages, a comparison table, company information, a document library and mobile navigation. I did the frontend, responsive layouts and launch. Product photos and records came from the company.",wGo:"Open the site →",
-w4k:"Customer emails",w4p:"Four emails for a fictional coffee roaster: welcome, order, shipping and a newsletter. They look right on phones and in dark mode.",
-w5k:"Working table",w5p:"Edit 20,000 orders right in the browser: filters, block paste, undo and a review of every change before export.",
-w1k:"Working web app",w1h:"Booking site builder",w1p:"My kit for local business sites: fill in services, prices and hours, see the site on phone and desktop, then download it ready to host. Requests go to WhatsApp, LINE or Telegram.",
-w2k:"Company website",w2p:"A site for a fictional builder with services, projects and a request form.",w3k:"Reports",w3p:"A sales report from order and refund exports, with a twelve-month chart.",wMore:"All work:",
+w0k:"Company website",w0p:"ALLEX RESPECT ASIA catalogue, a real launch",wGo:"Open the site →",
+w4k:"Customer emails",w4p:"Four emails for a coffee roaster, sample",
+w5k:"Working table",w5p:"20,000 orders in the browser",
+w1k:"Working web app",w1h:"Booking site builder",w1p:"Services and hours in, a finished site out",
+w2k:"Company website",w2p:"Builder company site, sample",w3k:"Reports",w3p:"Sales report with a chart",wMore:"All work:",
 qH:"Common <span class=\"hl\">questions</span>",q1:"Do I need my own domain?",a1:"Yes, and it will be registered in your name. If you do not have one yet, I will help you pick and register it. That is usually about $15 a year.",
 q2:"How much is hosting?",a2:"Sites like these can often use free hosting. If paid hosting is needed, I will tell you the cost up front, and the account will be yours too.",
 q3:"How does a request reach Telegram or LINE?",a3:"The form on the site sends the request to your bot, which messages you right away with the service, date, time and the customer's contact. Just like the demo above.",
@@ -839,38 +840,38 @@ q4:"Can I change prices and photos myself?",a4:"Yes. I will show you how, or han
 q5:"Do you only work in certain cities?",a5:"No. I work remotely with businesses anywhere in Thailand, from Chiang Mai to Samui, and beyond. We talk in Telegram, LINE or on a video call.",
 q6:"What do I need to prepare?",a6:"Your services with prices, a few photos, your address and contacts. If something is missing, I help with the text and the look. Translation into English and Thai is included.",
 q7:"Can you fix my current site instead of building a new one?",a7:"Yes. Sometimes it is enough to fix the mobile version, add prices and a booking button. In the free review I will tell you honestly which option makes more sense.",
-kH:"Send a link, get a review",kP:"Free and with no obligation. I reply within a day, usually sooner.",
-rH:"Message or call, whichever is easier",rTg:"Message on Telegram",rWa:"Message on WhatsApp",rTh:"Call or text, Thailand",rKz:"Phone, Kazakhstan",rEm:"Email",chk:"Check your own site first, it takes 2 minutes",
-nInc:"What you get",nChk:"Website check",st1:"languages on the site: English, Russian and Thai",st2:"days to launch a simple site",st3:"for the first review and a home page sketch",st4:"of the payment only after launch",
+kH:"Send a link, get a review",kP:"Free. Reply within a day.",
+rH:"Message or call, whichever is easier",rTg:"Message on Telegram",rWa:"Message on WhatsApp",rTh:"Call or text, Thailand",rKz:"Phone, Kazakhstan",rEm:"Email",chk:"Or check your site yourself, 2 minutes",
+nInc:"What you get",nChk:"Website check",st1:"languages, EN · RU · TH",st2:"days to launch",st3:"first review",st4:"paid after launch",
 inH:"What comes with <span class=\"hl\">every site</span>",inP:"Not just a pretty home page. Everything customers need to find you, understand you and book.",
 i1h:"Fast loading",i1p:"Light pages without extra libraries open quickly, even on mobile data.",i2h:"Phone first",i2p:"Big buttons, readable text and a menu within thumb reach. Desktop comes second.",
 i3h:"Three languages",i3p:"English, Russian and Thai with a switcher. Translation is included.",i4h:"Telegram and LINE",i4p:"Contact buttons and requests that land straight in your messenger, no inbox checking.",
 i5h:"Maps and Google",i5p:"A map with directions, correct opening hours and a link to your Google Maps profile.",i6h:"SEO basics",i6p:"Titles, descriptions, a sitemap and good link previews in messengers and social apps.",
 i7h:"Visitor stats",i7p:"A simple visit counter so you can see where customers come from and what they look at.",i8h:"All in your name",i8p:"The domain, hosting and source files belong to you. You are never tied to me.",
-fCity:"Thailand, working remotely",fAll:"All work"},
+fCity:"Thailand, working remotely",fAll:"All work",spA:"before start",spB:"after launch"},
 th:{skip:"ข้ามไปที่เนื้อหา",navLabel:"หมวด",pickLabel:"ประเภทธุรกิจ",nDemo:"เดโม",nFix:"ก่อนและหลัง",nPrice:"ราคา",nProc:"ขั้นตอน",nWork:"ผลงาน",nFaq:"คำถาม",ctaS:"รีวิวฟรี",
-kicker:"ทั่วประเทศไทย ทำงานออนไลน์",h1a:"เว็บไซต์ที่ลูกค้า",lead:"ผมทำเว็บไซต์ที่โหลดเร็ว ทั้งภาษาไทย อังกฤษ และรัสเซีย สำหรับธุรกิจท้องถิ่น ลูกค้าเปิดเว็บจากมือถือ เห็นราคา เลือกเวลา แล้วคำขอจองจะส่งเข้า Telegram หรือ LINE ของคุณทันที",
+kicker:"ทั่วประเทศไทย ทำงานออนไลน์",h1a:"เว็บไซต์ที่ลูกค้า",lead:"เว็บโหลดเร็ว สามภาษา ลูกค้าเลือกเวลาจากมือถือ คำขอส่งเข้า Telegram หรือ LINE ของคุณทันที",
 cta1:"รับรีวิวเว็บไซต์ฟรี",cta2:"ลองจองดู",c1:"ไทย อังกฤษ รัสเซีย",c2:"รับคำขอผ่าน Telegram และ LINE",c3:"ตกลงราคาก่อนเริ่มงาน",
 dBiz:"เดโม · ธุรกิจสมมติ",dTitle:"เดโมการจองออนไลน์",dSvc:"บริการ",dDay:"วัน",dTime:"เวลา",dBook:"จองเลย",dNote:"นี่คือเดโม ไม่มีการส่งข้อมูลใดๆ",
 tgSub:"บอท · ตอนนี้",tgAgain:"ลองอีกครั้ง",toast:"มีการจองใหม่เข้า Telegram แล้ว",
 fxH:"เลื่อนดู<span class=\"hl\">ความต่าง</span>",fxP:"ด้านซ้ายคือเว็บเก่าแบบที่เห็นบ่อย ด้านขวาคือสิ่งที่ผมทำ ลูกค้าส่วนใหญ่หาคุณผ่านมือถือ ถ้าเว็บใช้ยาก เขาจะไปทักร้านอื่นแทน",
-wGo2:"เปิดดูตัวอย่าง →",baHint:"<b>ด้านขวาคือเว็บเล็กๆ ที่ใช้งานได้จริง</b> ลองเปลี่ยนธุรกิจ เลือกเวลา แล้วกดปุ่ม กดฟองให้แตกหรือแตะโลโก้ก็ได้",baOld:"ก่อน",baNew:"หลัง",baLabel:"เปรียบเทียบเว็บเก่ากับเว็บใหม่",
-f1h:"เว็บใช้งานบนมือถือยาก",f1w:"ตัวหนังสือเล็ก หน้าเว็บล้นจอ และโหลดช้าเมื่อใช้เน็ตมือถือ",f1n:"เว็บเบา เปิดเร็ว อ่านง่ายด้วยมือเดียว",
-f2h:"ไม่มีราคาและรายการบริการที่ชัดเจน",f2w:"ลูกค้าต้องทักมาถามและรอคำตอบ เพียงเพื่อรู้ราคา",f2n:"รายการบริการพร้อมราคา ครบสามภาษา",
-f3h:"จองได้แค่ทางโทรศัพท์",f3w:"ลูกค้าต่างชาติไม่สะดวกโทร และข้อความในแชทก็ตกหล่น",f3n:"จองได้ในไม่กี่คลิก ส่งตรงเข้า Telegram หรือ LINE",
+wGo2:"เปิดดูตัวอย่าง →",baHint:"<b>ด้านขวาคือเว็บเล็กๆ ที่ใช้ได้จริง</b> ลองจองดู",baOld:"ก่อน",baNew:"หลัง",baLabel:"เปรียบเทียบเว็บเก่ากับเว็บใหม่",
+f1h:"เว็บใช้งานบนมือถือยาก",f1w:"ตัวเล็ก โหลดช้า",f1n:"เร็ว ใช้มือเดียวได้",
+f2h:"ไม่มีราคาและรายการบริการที่ชัดเจน",f2w:"ราคาต้องสอบถาม",f2n:"ราคาครบสามภาษา",
+f3h:"จองได้แค่ทางโทรศัพท์",f3w:"จองได้แค่โทร",f3n:"จองได้ในสองแตะ",
 pH:"ราคาชัดเจน",pP:"ตกลงราคาก่อนเริ่มงาน จ่ายครึ่งหนึ่งก่อน อีกครึ่งเมื่อเว็บพร้อมใช้งาน",from:"เริ่มต้น",
-p1h:"เว็บไซต์",p1s:"หน้าร้านออนไลน์ที่ดูดี",p1t:"เสร็จภายใน 3 ถึง 5 วัน",p1a:"สูงสุด 5 หน้า: หน้าแรก บริการ ราคา เกี่ยวกับเรา ติดต่อ",p1b:"ไทย อังกฤษ และรัสเซีย",p1c:"ปุ่ม Telegram, LINE, WhatsApp และแผนที่",pBtn:"คุยรายละเอียด",
-pTag:"แบบเดียวกับเดโมด้านบน",p2h:"เว็บไซต์พร้อมระบบจอง",p2s:"ลูกค้าจองเองได้ ไม่ต้องโทร",p2t:"เสร็จภายใน 5 ถึง 7 วัน",p2a:"ทุกอย่างในแพ็กเกจเว็บไซต์",p2b:"จองหรือสั่งซื้อ พร้อมเลือกวันและเวลา",p2c:"คำขอส่งตรงเข้า Telegram หรือ LINE ของคุณ",p2d:"แสดงเวลาตามเขตเวลาของลูกค้า",pBtn2:"อยากได้เว็บแบบนี้",
-p3h:"ดูแลรายเดือน",p3s:"ให้เว็บสดใหม่อยู่เสมอ",p3p:"$30 ต่อเดือน",p3t:"รายเดือน ไม่มีสัญญาผูกมัดยาว",p3a:"แก้ไขราคา รูปภาพ และข้อความ",p3b:"หน้าใหม่และโปรโมชันตามฤดูกาล",p3c:"ตรวจว่าเว็บและระบบจองยังทำงานดี",
+p1h:"เว็บไซต์",p1s:"หน้าร้านออนไลน์ที่ดูดี",p1t:"เสร็จภายใน 3 ถึง 5 วัน",p1a:"สูงสุด 5 หน้า",p1b:"ไทย อังกฤษ และรัสเซีย",p1c:"ปุ่ม Telegram, LINE, WhatsApp และแผนที่",pBtn:"คุยรายละเอียด",
+pTag:"แบบเดียวกับเดโมด้านบน",p2h:"เว็บไซต์พร้อมระบบจอง",p2s:"ลูกค้าจองเองได้ ไม่ต้องโทร",p2t:"เสร็จภายใน 5 ถึง 7 วัน",p2a:"ทุกอย่างในแพ็กเกจเว็บไซต์",p2b:"จองพร้อมเลือกวันและเวลา",p2c:"คำขอเข้า Telegram หรือ LINE",p2d:"เวลาตามเขตของลูกค้า",pBtn2:"อยากได้เว็บแบบนี้",
+p3h:"ดูแลรายเดือน",p3s:"ให้เว็บสดใหม่อยู่เสมอ",p3p:"$30 ต่อเดือน",p3t:"ไม่มีสัญญา",p3a:"แก้ไขราคา รูปภาพ และข้อความ",p3b:"หน้าใหม่และโปรโมชันตามฤดูกาล",p3c:"ตรวจระบบจอง",
 tm1:"โดเมนและโฮสติ้งเป็นชื่อของคุณ",tm2:"ไฟล์ต้นฉบับเป็นของคุณ",tm3:"คุยได้ทั้งไทย อังกฤษ และรัสเซีย",
 sH:"ขั้นตอน<span class=\"hl\">การทำงาน</span>",sP:"ขั้นแรกฟรี คุณไม่ต้องจ่ายอะไรจนกว่าจะเห็นว่าเว็บจะออกมาเป็นแบบไหน",
-s1h:"ส่งลิงก์มา",s1p:"เว็บปัจจุบัน Instagram Facebook หรือช่อง Telegram",s2h:"รีวิวฟรี",s2p:"ภายในหนึ่งวัน ผมจะส่งสิ่งที่ทำให้ลูกค้าติดขัด พร้อมภาพร่างหน้าแรกใหม่",s3h:"ตกลงราคา",s3p:"ตกลงขอบเขตและระยะเวลา แล้วจ่ายครึ่งหนึ่ง",s4h:"เปิดใช้งาน",s4p:"คุณตรวจและขอแก้ไข แล้วจ่ายอีกครึ่งเมื่อเว็บพร้อมใช้งาน",
+s1h:"ส่งลิงก์มา",s1p:"เว็บ Instagram หรือ Telegram",s2h:"รีวิวฟรี",s2p:"ภายในหนึ่งวัน พร้อมภาพร่างหน้าแรก",s3h:"ตกลงราคา",s3p:"ขอบเขต เวลา จ่าย 50% ก่อน",s4h:"เปิดใช้งาน",s4p:"แก้ไข เปิดใช้งาน จ่ายอีก 50%",
 wH:"ผลงานของผม",wP:"เว็บไซต์บริษัทจริงที่ผมทำและเปิดใช้งาน และตัวอย่างที่ผมทำเองเพื่อแสดงระบบจอง อีเมล รายงาน และตาราง ตัวอย่างมีการระบุไว้ชัดเจน",
-w0k:"เว็บไซต์บริษัท",w0p:"แคตตาล็อกสินค้าของ ALLEX RESPECT ASIA มีหน้าแสดงสินค้าแบบเคลื่อนไหว หน้าสินค้าสี่หน้า ตารางเปรียบเทียบ ข้อมูลบริษัท คลังเอกสาร และเมนูมือถือ ผมทำส่วนหน้าเว็บ การแสดงผลทุกขนาดจอ และการเปิดใช้งาน รูปและข้อมูลสินค้ามาจากบริษัท",wGo:"เปิดเว็บไซต์ →",
-w4k:"อีเมลถึงลูกค้า",w4p:"อีเมลสี่แบบของร้านกาแฟสมมติ: ต้อนรับ ยืนยันคำสั่งซื้อ จัดส่ง และจดหมายข่าว แสดงผลดีบนมือถือและโหมดมืด",
-w5k:"ตารางทำงาน",w5p:"แก้ไขคำสั่งซื้อ 20,000 รายการในเบราว์เซอร์ มีตัวกรอง วางข้อมูลเป็นบล็อก ย้อนกลับ และตรวจทุกการเปลี่ยนแปลงก่อนส่งออก",
-w1k:"เว็บแอปที่ใช้งานได้จริง",w1h:"เครื่องมือสร้างเว็บไซต์รับจอง",w1p:"ชุดสร้างเว็บไซต์ของผมสำหรับธุรกิจท้องถิ่น กรอกบริการ ราคา และเวลาเปิด ดูเว็บบนมือถือและคอมพิวเตอร์ แล้วดาวน์โหลดไปใช้งานได้ทันที คำขอจองส่งเข้า WhatsApp, LINE หรือ Telegram",
-w2k:"เว็บบริษัท",w2p:"เว็บไซต์ของบริษัทก่อสร้างสมมติ มีบริการ ผลงาน และแบบฟอร์มขอใบเสนอราคา",w3k:"รายงาน",w3p:"รายงานยอดขายจากไฟล์คำสั่งซื้อและการคืนเงิน พร้อมกราฟรายปี",wMore:"ผลงานทั้งหมด:",
+w0k:"เว็บไซต์บริษัท",w0p:"แคตตาล็อก ALLEX RESPECT ASIA เปิดใช้งานจริง",wGo:"เปิดเว็บไซต์ →",
+w4k:"อีเมลถึงลูกค้า",w4p:"อีเมลสี่แบบของร้านกาแฟ ตัวอย่าง",
+w5k:"ตารางทำงาน",w5p:"คำสั่งซื้อ 20,000 รายการในเบราว์เซอร์",
+w1k:"เว็บแอปที่ใช้งานได้จริง",w1h:"เครื่องมือสร้างเว็บไซต์รับจอง",w1p:"ใส่บริการและเวลา ได้เว็บพร้อมใช้",
+w2k:"เว็บบริษัท",w2p:"เว็บบริษัทก่อสร้าง ตัวอย่าง",w3k:"รายงาน",w3p:"รายงานยอดขายพร้อมกราฟ",wMore:"ผลงานทั้งหมด:",
 qH:"คำถาม<span class=\"hl\">ที่พบบ่อย</span>",q1:"ต้องมีโดเมนของตัวเองไหม",a1:"ต้องมี และจะจดในชื่อของคุณ ถ้ายังไม่มี ผมช่วยเลือกและจดให้ได้ ปกติประมาณ $15 ต่อปี",
 q2:"ค่าโฮสติ้งเท่าไร",a2:"เว็บแบบนี้มักใช้โฮสติ้งฟรีได้ ถ้าต้องใช้แบบเสียเงิน ผมจะแจ้งราคาก่อน และบัญชีก็เป็นของคุณ",
 q3:"คำขอจองเข้า Telegram หรือ LINE ได้อย่างไร",a3:"แบบฟอร์มบนเว็บจะส่งคำขอไปที่บอทของคุณ แล้วบอทจะส่งข้อความหาคุณทันที พร้อมบริการ วัน เวลา และช่องทางติดต่อลูกค้า เหมือนในเดโมด้านบน",
@@ -878,15 +879,15 @@ q4:"ฉันแก้ราคาและรูปเองได้ไหม"
 q5:"รับงานเฉพาะบางเมืองหรือเปล่า",a5:"ไม่ใช่ ผมทำงานออนไลน์กับธุรกิจได้ทุกที่ในประเทศไทย ตั้งแต่เชียงใหม่ถึงสมุย และต่างประเทศ คุยกันผ่าน Telegram, LINE หรือวิดีโอคอล",
 q6:"ต้องเตรียมอะไรบ้าง",a6:"รายการบริการพร้อมราคา รูปถ่ายสักหน่อย ที่อยู่ และช่องทางติดต่อ ถ้ายังไม่มีบางอย่าง ผมช่วยเรื่องข้อความและการออกแบบได้ การแปลเป็นภาษาอังกฤษและไทยรวมอยู่ในงานแล้ว",
 q7:"ปรับปรุงเว็บเดิมแทนการทำใหม่ได้ไหม",a7:"ได้ บางครั้งแค่แก้เวอร์ชันมือถือ เพิ่มราคา และปุ่มจองก็พอ ในรีวิวฟรี ผมจะบอกตรงๆ ว่าแบบไหนคุ้มกว่าสำหรับคุณ",
-kH:"ส่งลิงก์มา รับรีวิวกลับไป",kP:"ฟรีและไม่มีข้อผูกมัด ตอบภายในหนึ่งวัน ส่วนใหญ่เร็วกว่านั้น",
-rH:"ทักหรือโทรมาได้ตามสะดวก",rTg:"ทักทาง Telegram",rWa:"ทักทาง WhatsApp",rTh:"โทรหรือส่ง SMS ในไทย",rKz:"โทรศัพท์ คาซัคสถาน",rEm:"อีเมล",chk:"ลองเช็กเว็บไซต์ของคุณเองก่อน ใช้เวลาแค่ 2 นาที",
-nInc:"สิ่งที่ได้รับ",nChk:"เช็กเว็บไซต์",st1:"ภาษาบนเว็บ: ไทย อังกฤษ และรัสเซีย",st2:"วันจนเว็บพื้นฐานพร้อมใช้งาน",st3:"สำหรับรีวิวครั้งแรกและภาพร่างหน้าแรก",st4:"ของค่าบริการจ่ายหลังเว็บพร้อมใช้งาน",
+kH:"ส่งลิงก์มา รับรีวิวกลับไป",kP:"ฟรี ตอบภายในหนึ่งวัน",
+rH:"ทักหรือโทรมาได้ตามสะดวก",rTg:"ทักทาง Telegram",rWa:"ทักทาง WhatsApp",rTh:"โทรหรือส่ง SMS ในไทย",rKz:"โทรศัพท์ คาซัคสถาน",rEm:"อีเมล",chk:"หรือเช็กเว็บเองก่อน 2 นาที",
+nInc:"สิ่งที่ได้รับ",nChk:"เช็กเว็บไซต์",st1:"ภาษา ไทย · อังกฤษ · รัสเซีย",st2:"วันจนเปิดใช้งาน",st3:"รีวิวครั้งแรก",st4:"จ่ายหลังเปิดใช้งาน",
 inH:"สิ่งที่มาพร้อม<span class=\"hl\">ทุกเว็บไซต์</span>",inP:"ไม่ใช่แค่หน้าแรกที่สวย แต่ครบทุกอย่างที่ช่วยให้ลูกค้าหาคุณเจอ เข้าใจ และจองได้",
 i1h:"โหลดเร็ว",i1p:"หน้าเว็บเบา ไม่มีไลบรารีเกินจำเป็น เปิดเร็วแม้ใช้เน็ตมือถือ",i2h:"ออกแบบเพื่อมือถือก่อน",i2p:"ปุ่มใหญ่ ตัวหนังสืออ่านง่าย เมนูกดได้ด้วยนิ้วโป้ง แล้วค่อยปรับสำหรับคอมพิวเตอร์",
 i3h:"สามภาษา",i3p:"ไทย อังกฤษ และรัสเซีย พร้อมปุ่มสลับภาษา รวมค่าแปลแล้ว",i4h:"Telegram และ LINE",i4p:"ปุ่มติดต่อและคำขอจองที่ส่งตรงเข้าแชทของคุณ ไม่ต้องคอยเช็กอีเมล",
 i5h:"แผนที่และ Google",i5p:"แผนที่พร้อมเส้นทาง เวลาเปิดปิดที่ถูกต้อง และลิงก์ไปยังโปรไฟล์ Google Maps ของคุณ",i6h:"SEO พื้นฐาน",i6p:"หัวข้อ คำอธิบาย แผนผังเว็บไซต์ และภาพตัวอย่างลิงก์ที่สวยงามในแชทและโซเชียล",
 i7h:"สถิติผู้เข้าชม",i7p:"ตัวนับผู้เข้าชมแบบง่าย ให้เห็นว่าลูกค้ามาจากไหนและดูอะไรบ้าง",i8h:"ทุกอย่างเป็นชื่อคุณ",i8p:"โดเมน โฮสติ้ง และไฟล์ต้นฉบับเป็นของคุณ ไม่ผูกมัดกับผม",
-fCity:"ประเทศไทย ทำงานออนไลน์",fAll:"ผลงานทั้งหมด"}
+fCity:"ประเทศไทย ทำงานออนไลน์",fAll:"ผลงานทั้งหมด",spA:"ก่อนเริ่มงาน",spB:"หลังเปิดใช้งาน"}
 };
 var ROT={ru:["записываются сами","бронируют сами","заказывают сами","находят вас сами"],en:["book themselves","order themselves","find you first","come back again"],th:["จองได้เอง","สั่งได้เอง","หาคุณเจอเอง","กลับมาอีกครั้ง"]};
 var TYPES={ru:["Экскурсии и туры","Спа и массаж","Стоматология","Аренда байков и авто","Недвижимость","Школы и секции","Яхты и трансферы","Кафе и доставка","Фитнес и муай-тай"],

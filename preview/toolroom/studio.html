@@ -164,7 +164,7 @@ dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px 
     <main id="main">
       <section class="page" id="catalog-page" aria-labelledby="catalog-title">
         <div class="page-heading">
-          <div><p class="eyebrow"><span class="num">TR-S1</span> Seller workspace</p><h1 id="catalog-title"><span class="hl">Get your next</span> <span class="hl">release ready.</span></h1><p class="intro">For people who sell digital downloads. Write each listing, attach its file and pass five checks, then export one ZIP catalog that runs on any static host.</p></div>
+          <div><p class="eyebrow"><span class="num">TR-S1</span> Seller workspace</p><h1 id="catalog-title"><span class="hl">Get your next</span> <span class="hl">release ready.</span></h1><p class="intro">Write, attach, check, export one ZIP.</p></div>
           <div class="heading-actions"><button type="button" class="button primary" id="add-product"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a product</button><button type="button" class="button secondary" id="example-open">Open the worked example</button></div>
         </div>
         <div class="demo-banner" id="demo-banner" role="region" aria-label="Worked example" hidden><span class="demo-tag num">Example</span><p id="demo-copy"></p><div class="demo-actions"><button type="button" class="button primary" id="demo-go">Review the open listing</button><button type="button" class="button secondary" id="demo-clear">Clear and start my own</button></div></div>
@@ -178,27 +178,27 @@ dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px 
         <section class="shop-strip" aria-labelledby="shop-name"><div class="shop-monogram" id="shop-monogram" aria-hidden="true">M</div><div class="shop-copy"><h2 id="shop-name">My download catalog</h2><p id="shop-tagline">Add a short introduction for your catalog.</p></div><button type="button" class="button secondary" id="shop-edit">Edit catalog</button></section>
         <div class="catalog-toolbar"><h2>Listings <span id="list-count" class="num">0</span></h2><label class="search"><span class="sr-only">Search listings</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><input id="search" type="search" placeholder="Search listings" autocomplete="off"></label></div>
         <div id="product-grid" class="product-grid"></div>
-        <div id="empty-catalog" class="empty"><div class="empty-art" aria-hidden="true"><span class="paper one"></span><span class="paper two"></span><b class="num">01</b></div><h2>Start with one listing.</h2><p>Add a listing, attach its file and check it. Or open the worked example to see a finished catalog first.</p><button type="button" class="button primary" id="empty-add">Create your first listing</button></div>
+        <div id="empty-catalog" class="empty"><div class="empty-art" aria-hidden="true"><span class="paper one"></span><span class="paper two"></span><b class="num">01</b></div><h2>Start with one listing.</h2><p>Or open the worked example first.</p><button type="button" class="button primary" id="empty-add">Create your first listing</button></div>
         <p id="no-results" class="no-results" hidden>No listings match that search.</p>
-        <p class="workspace-note">Listings save in this browser. File contents stay in memory until you close the tab, so keep the exported catalog ZIP to recover both, or reattach your original files.</p>
+        <p class="workspace-note">Listings save in this browser. Files stay in memory until the tab closes, so keep the exported ZIP.</p>
       </section>
       <section class="page" id="release-page" hidden aria-labelledby="release-title">
         <div class="page-heading"><div><p class="eyebrow"><span class="num">TR-S2</span> Before you share</p><h1 id="release-title">Release checks.</h1><p class="intro">See exactly what goes into the ZIP.</p></div><a class="button secondary" href="#catalog">Back to catalog</a></div>
         <div class="release-layout">
           <div><section class="release-summary" id="release-summary" aria-live="polite"></section>
             <section class="match" id="match" aria-labelledby="match-title">
-              <div class="match-copy"><h2 id="match-title">Is this the file you listed?</h2><p>Drop any file here, or choose one. Studio fingerprints it in this browser and looks for the listing it belongs to. Nothing is uploaded.</p></div>
+              <div class="match-copy"><h2 id="match-title">Is this the file you listed?</h2><p>Drop a file. It is fingerprinted here, never uploaded.</p></div>
               <label class="match-drop" for="match-file"><input id="match-file" type="file"><span class="match-hole" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span><span class="match-label">Choose a file</span></label>
               <p class="match-result" id="match-result" role="status" aria-live="polite"></p>
             </section>
             <div id="release-list"></div></div>
           <aside class="export-panel" aria-labelledby="export-title">
             <h2 id="export-title">Export your catalog</h2>
-            <p>The ZIP holds a working catalog page, every attached download, the catalog data and a file manifest.</p>
+            <p>Catalog page, downloads, data and manifest.</p>
             <h3 class="pack-title">Packing list <span id="pack-total" class="num"></span></h3>
             <ol class="pack" id="pack" aria-label="Files that go into the ZIP"></ol>
             <p class="pack-note">No account or subscription needed to host it.</p>
-            <div class="public-notice"><b>Hosted files are public.</b><p>The export uses open download links. Include only files you have checked and have the right to share. Prices are shown for reference, with no payment step.</p></div>
+            <div class="public-notice"><b>Hosted files are public.</b><p>Share only files you have the right to share. No payment step.</p></div>
             <label class="check-row publish-check"><input type="checkbox" id="public-confirm"><span>I understand that hosting this ZIP makes its downloads public.</span></label>
             <button type="button" class="button primary full" id="export-release" disabled>Export catalog ZIP</button>
             <p class="export-help" id="export-help">Complete the release checks first.</p>

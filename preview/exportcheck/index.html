@@ -122,6 +122,32 @@ h2 { font-weight: 900; text-transform: none; letter-spacing: -.035em; font-size:
 .needs { background: var(--sheet); border-left: 0; border-top: 6px solid var(--pass); }
 h3.small-h { text-transform: none; font-weight: 900; font-size: 24px; }
 .foot { background: var(--ink); color: #a9bad0; }
+/* Hero flow: one file in, three files out */
+.flow { margin: 0; display: grid; grid-template-columns: minmax(0, .8fr) 64px minmax(0, 1.3fr); align-items: center; gap: 8px; font: 500 13px/1.2 var(--mono); }
+.fl-in { display: grid; gap: 10px; justify-items: start; }
+.fl-file { display: inline-flex; flex-direction: column; gap: 4px; padding: 10px 12px; background: var(--sheet); border: 2px solid var(--ink); white-space: nowrap; max-width: 100%; }
+.fl-file b { font-weight: 400; font-size: 11.5px; color: var(--muted); white-space: normal; }
+.fl-file.ok { border-left: 8px solid var(--pass); }
+.fl-file.bad { border-left: 8px solid var(--reject); }
+.fl-file.st { border-left: 8px solid var(--rule-2); }
+.fl-rows { display: grid; gap: 4px; width: 100%; max-width: 110px; }
+.fl-rows i { height: 6px; background: var(--pass); }
+.fl-rows i.x { background: var(--reject); }
+.fl-gate { position: relative; height: 150px; }
+.fl-gate span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-90deg); padding: 2px 6px; background: var(--floor); font-size: 11px; color: var(--muted); white-space: nowrap; z-index: 1; }
+.fl-gate svg { width: 100%; height: 100%; fill: none; stroke: var(--ink); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.fl-gate path { vector-effect: non-scaling-stroke; }
+.fl-out { display: grid; gap: 8px; justify-items: start; min-width: 0; }
+@media (max-width: 520px) { .flow { grid-template-columns: minmax(0, .75fr) 34px minmax(0, 1.3fr); font-size: 12px; } .fl-file { padding: 8px 8px; } .fl-gate span { display: none; } }
+.fuzz { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 22px 0 0; border-top: 2px solid var(--ink); }
+.fuzz div { display: flex; flex-direction: column-reverse; gap: 4px; padding: 14px 16px 0 0; }
+.fuzz dt { font: 500 12.5px/1.3 var(--mono); color: var(--muted); }
+.fuzz dd { margin: 0; font: 900 clamp(36px, 5vw, 64px)/1 var(--sans); letter-spacing: -.03em; }
+.fuzz div:last-child dd { color: var(--pass); }
+.needs-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; margin: 14px 0 0; }
+.needs-stats div { display: flex; flex-direction: column-reverse; gap: 2px; border-top: 1px solid var(--rule-2); padding-top: 8px; }
+.needs-stats dt { font: 500 12px/1.3 var(--mono); color: var(--muted); }
+.needs-stats dd { margin: 0; font: 900 34px/1 var(--sans); letter-spacing: -.02em; }
 .foot .foot-contact { border-top-color: #2a3a52; }
 .foot-contact span { color: #9fb4cc; }
 </style>
@@ -142,7 +168,15 @@ h3.small-h { text-transform: none; font-weight: 900; font-size: 24px; }
       <p class="kicker"><b>CSV preflight</b>, a command-line tool in Python</p>
       <h1 id="title"><span class="ln">Check the CSV</span><span class="ln">before it leaves.</span><span class="ln cut">Keep the rows that fail.</span></h1>
       <div class="hero-row">
-        <p class="lede">ExportCheck reads one CSV against a small JSON rules file. Rows that pass go to <code>clean.csv</code>. Every rejected row goes to <code>row-errors.csv</code> with each reason and the full original row, so nothing quietly disappears. A <code>summary.json</code> keeps the counts.</p>
+        <figure class="flow" aria-label="orders.csv is checked against rules.json. Passing rows go to clean.csv, rejected rows with their reasons go to row-errors.csv, the counts go to summary.json.">
+          <div class="fl-in"><span class="fl-file">orders.csv</span><span class="fl-rows" aria-hidden="true"><i></i><i class="x"></i><i></i><i class="x"></i><i></i></span></div>
+          <div class="fl-gate" aria-hidden="true"><span>rules.json</span><svg viewBox="0 0 60 120" preserveAspectRatio="none"><path d="M0 60h22M22 60C36 60 36 20 60 20M22 60C36 60 36 100 60 100M22 60h38"/></svg></div>
+          <div class="fl-out">
+            <span class="fl-file ok">clean.csv <b>rows that pass</b></span>
+            <span class="fl-file st">summary.json <b>the counts</b></span>
+            <span class="fl-file bad">row-errors.csv <b>full row + every reason</b></span>
+          </div>
+        </figure>
         <pre class="cmd" aria-label="Command"><span class="p">$ </span>python <span class="f">exportcheck.py</span> --input orders.csv \
     --rules rules.json --output runs/orders</pre>
       </div>
@@ -159,7 +193,7 @@ h3.small-h { text-transform: none; font-weight: 900; font-size: 24px; }
     <div class="wrap">
       <header class="sec-head">
         <div><span class="sign">Bench</span><h2 id="bench-title">Edit a file and watch it split.</h2></div>
-        <p>The same checks run in your browser. Change a cell, paste your own export or open a CSV from your computer. Nothing is uploaded. Point at a record in either tray or in the list to find its lines in the input.</p>
+        <p>Same checks, in your browser. Edit a cell or open your own CSV. Nothing is uploaded.</p>
       </header>
 
       <div class="bench" id="bench-box">
@@ -220,7 +254,7 @@ h3.small-h { text-transform: none; font-weight: 900; font-size: 24px; }
     <div class="wrap">
       <header class="sec-head">
         <div><span class="sign">Recorded runs</span><h2 id="parity-title">Same bytes as the Python run.</h2></div>
-        <p>The three sample files were run through ExportCheck 1.0.0 on the command line and the result files saved. When this page loads, the bench runs the same inputs again and compares every output file with the recorded one, byte for byte.</p>
+        <p>Recorded on the command line, re-run here on every load, compared byte for byte.</p>
       </header>
       <p class="parity-verdict" id="parity-verdict" aria-live="polite"><b>...</b><span>Comparing the recorded runs.</span></p>
       <table class="parity" id="parity-table">
@@ -228,7 +262,12 @@ h3.small-h { text-transform: none; font-weight: 900; font-size: 24px; }
         <thead><tr><th scope="col">Input</th><th scope="col">Exit</th><th scope="col">clean.csv</th><th scope="col">row-errors.csv</th><th scope="col">summary.json</th></tr></thead>
         <tbody><tr><td colspan="5">Comparing the recorded runs.</td></tr></tbody>
       </table>
-      <p class="parity-note">I also ran 1,500 generated CSV files and 44 rules files through both the Python tool and this bench. Every exit code, message and output file matched. The one difference is order: when a record has several missing values or bad dates, Python lists those issues in set order, which can change between runs. The bench keeps the order of the rules file.</p>
+      <dl class="fuzz">
+        <div><dt>generated CSV files</dt><dd>1,500</dd></div>
+        <div><dt>rules files</dt><dd>44</dd></div>
+        <div><dt>mismatched outputs</dt><dd>0</dd></div>
+      </dl>
+      <p class="parity-note">One known difference: several issues on one record can list in another order in Python. The bench keeps the rules order.</p>
     </div>
   </section>
 
@@ -236,7 +275,7 @@ h3.small-h { text-transform: none; font-weight: 900; font-size: 24px; }
     <div class="wrap">
       <header class="sec-head">
         <div><span class="sign">Exit 3</span><h2 id="refusal-title">Run it twice and the first results stay put.</h2></div>
-        <p>After the clean run created its result folder, I pointed ExportCheck at the same folder again. It refused with exit code 3. The three result files had the same paths, sizes and SHA-256 hashes before and after. This one only happens on disk, so it is recorded here rather than run in the bench.</p>
+        <p>Same output folder, second run. Exit 3, and all three files keep their bytes and hashes. Recorded from disk.</p>
       </header>
       <div class="refusal">
         <div class="term">
@@ -256,16 +295,16 @@ h3.small-h { text-transform: none; font-weight: 900; font-size: 24px; }
     <div class="wrap limits">
       <div>
         <h2 id="limits-title">Where this stops</h2>
-        <p style="margin-top:14px">ExportCheck 1.0.0 has been tested on synthetic files only and has no customer use yet. The bench is a JavaScript port of the same checks, written so the tool can be tried without installing anything.</p>
+        <p style="margin-top:14px">Tested on synthetic files only. The bench is a JavaScript port.</p>
         <ul>
-          <li>Amounts are checked as exact decimals within a range. It doesn't infer currency or reconcile totals.</li>
-          <li>It doesn't repair rows, guess delimiters or read Excel files.</li>
-          <li>It doesn't connect to an ERP or send the file anywhere.</li>
+          <li>No currency inference or totals reconciliation</li>
+          <li>No row repair, delimiter guessing or Excel files</li>
+          <li>No ERP connection, nothing is sent</li>
         </ul>
       </div>
       <div class="needs">
         <h3 class="small-h">What it needs</h3>
-        <p>Python 3.10 or newer and nothing else. The standard library covers the CSV reading, decimal checks and file writing. Inputs up to 5,000,000 bytes and 10,000 rows by default, adjustable in the rules file.</p>
+        <dl class="needs-stats"><div><dt>Python</dt><dd>3.10+</dd></div><div><dt>dependencies</dt><dd>0</dd></div><div><dt>default input limit</dt><dd>5 MB</dd></div><div><dt>default row limit</dt><dd>10,000</dd></div></dl>
       </div>
     </div>
   </section>

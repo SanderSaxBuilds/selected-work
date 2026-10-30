@@ -38,7 +38,7 @@
 }
 body { background: var(--stone); font-size: 17px; }
 .h1, .h2, .h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.02em; font-stretch: normal !important; }
-.h1 { font-size: clamp(2.6rem, 1rem + 6vw, 6.4rem); line-height: .95; font-weight: var(--hw, 420); }
+.h1 { font-size: clamp(2.6rem, 1rem + 4.4vw, 5.2rem); line-height: .95; font-weight: var(--hw, 420); }
 .h1 .soft, .h2 .soft { font-style: italic; font-weight: 400; color: var(--brass); }
 .dark .h2 .soft { color: var(--brass-hi); }
 .h2 { font-size: clamp(2rem, 1.1rem + 3vw, 3.9rem); line-height: 1; }
@@ -256,7 +256,7 @@ input[type="range"] { accent-color: var(--brass); }
         <div>
           <p class="label">Self-paced course</p>
           <h1 class="h1" id="title">The leasing <span class="soft">conversation</span></h1>
-          <p class="lede">Nine short lessons on asking useful questions, explaining the options that matter to this prospect and agreeing a follow-up they can act on.</p>
+          <p class="lede">Ask, explain, agree. Nine short lessons.</p>
           <div class="button-row">
             <a class="button button-brass" href="#outline">Explore the modules <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <a class="button button-ghost" href="#sample">Try a lesson preview</a>
@@ -282,7 +282,7 @@ input[type="range"] { accent-color: var(--brass); }
       <section class="section reveal" id="outline" aria-labelledby="outline-title">
         <div class="section-head split">
           <div><p class="label">Module explorer</p><h2 class="h2" id="outline-title" style="margin-top:16px">Three rooms, <span class="soft">sized by the minute</span></h2></div>
-          <p>Each module has two short lessons and one practice exercise you can use on your next tour. Every room below is drawn to its length. Choose one to see what is inside.</p>
+          <p>Each room is drawn to its length. Open one.</p>
         </div>
         <div class="explorer">
           <div>
@@ -298,7 +298,7 @@ input[type="range"] { accent-color: var(--brass); }
             <section class="module-panel" id="mod-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
               <p class="label">Module 1, 3 lessons, 35 min</p>
               <h3 class="h3">Understand the prospect's priorities</h3>
-              <p>Replace a broad opening with two focused questions, and find out what the prospect needs to understand before you explain anything.</p>
+              <p>Two focused questions before you explain anything.</p>
               <ol class="lessons">
                 <li><span class="l-title">Why the first two questions matter</span><span class="l-min">8 min</span><span class="l-bar" aria-hidden="true"><i style="width:53%"></i></span></li>
                 <li><span class="l-title">Replacing a broad opener</span><span class="l-min">12 min</span><span class="l-bar" aria-hidden="true"><i style="width:80%"></i></span></li>
@@ -308,7 +308,7 @@ input[type="range"] { accent-color: var(--brass); }
             <section class="module-panel" id="mod-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
               <p class="label">Module 2, 3 lessons, 37 min</p>
               <h3 class="h3">Explain the options that matter</h3>
-              <p>Compare two options using the priorities the prospect already stated, and keep a known fact apart from an assumption that still needs checking.</p>
+              <p>Their priorities, facts apart from assumptions.</p>
               <ol class="lessons">
                 <li><span class="l-title">Linking options to stated priorities</span><span class="l-min">10 min</span><span class="l-bar" aria-hidden="true"><i style="width:67%"></i></span></li>
                 <li><span class="l-title">Facts and assumptions to confirm</span><span class="l-min">12 min</span><span class="l-bar" aria-hidden="true"><i style="width:80%"></i></span></li>
@@ -318,7 +318,7 @@ input[type="range"] { accent-color: var(--brass); }
             <section class="module-panel" id="mod-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
               <p class="label">Module 3, 3 lessons, 33 min</p>
               <h3 class="h3">Agree a useful follow-up</h3>
-              <p>Summarize the open question, name the next action and who owns it, and agree when it will happen.</p>
+              <p>The open question, its owner and a date.</p>
               <ol class="lessons">
                 <li><span class="l-title">Summarizing the open question</span><span class="l-min">8 min</span><span class="l-bar" aria-hidden="true"><i style="width:53%"></i></span></li>
                 <li><span class="l-title">Naming the next action and its owner</span><span class="l-min">10 min</span><span class="l-bar" aria-hidden="true"><i style="width:67%"></i></span></li>
@@ -333,7 +333,7 @@ input[type="range"] { accent-color: var(--brass); }
       <section class="section reveal" id="estimate" aria-labelledby="est-title">
         <div class="section-head split">
           <div><p class="label">Time to finish</p><h2 class="h2" id="est-title" style="margin-top:16px">Fit it around <span class="soft">your tours</span></h2></div>
-          <p>Tell us how long you can sit down for and how often. The plan below keeps each lesson whole where it fits, so you finish one idea before the next tour.</p>
+          <p>Set your sitting length and how often.</p>
         </div>
         <div class="estimator">
           <form class="est-controls" id="est-form" aria-describedby="est-big">
@@ -364,7 +364,7 @@ input[type="range"] { accent-color: var(--brass); }
       <section class="section reveal" id="sample" aria-labelledby="sample-title">
         <div class="section-head split">
           <div><p class="label">Lesson preview</p><h2 class="h2" id="sample-title" style="margin-top:16px">Turn a vague follow-up into <span class="soft">a clear one</span></h2></div>
-          <p>This is the practice exercise from module 3, as it appears inside the course. It takes about a minute.</p>
+          <p>The module 3 exercise, about a minute.</p>
         </div>
         <div class="player">
           <div class="player-bar"><span>Module 3, lesson 3, <b>Rewrite a vague follow-up</b></span><span>15 min</span></div>
@@ -392,9 +392,9 @@ input[type="range"] { accent-color: var(--brass); }
         <div class="faq-wrap">
           <div class="section-head"><p class="label">Before you enroll</p><h2 class="h2" id="faq-title">Questions</h2></div>
           <div class="faq">
-            <details><summary>How long do I have access?</summary><div><p>Twelve months from the day you enroll, on any device. You can repeat lessons as often as you like.</p></div></details>
-            <details><summary>Do I need leasing experience?</summary><div><p>No. New agents use it to build habits and experienced agents use the exercises as a refresher. The examples assume apartment tours, but the moments apply to any viewing.</p></div></details>
-            <details><summary>Is there a version for teams?</summary><div><p>Yes. The team pathway gives up to ten learners the course plus a discussion guide and review worksheets for three team sessions.</p><p><a href="preview/leasing-practice/bundle.html">Compare the team pathway</a></p></div></details>
+            <details><summary>How long do I have access?</summary><div><p>Twelve months, any device, repeat freely.</p></div></details>
+            <details><summary>Do I need leasing experience?</summary><div><p>No. New agents build habits, experienced ones refresh. Works for any viewing.</p></div></details>
+            <details><summary>Is there a version for teams?</summary><div><p>Yes. Up to ten learners, plus a discussion guide and worksheets.</p><p><a href="preview/leasing-practice/bundle.html">Compare the team pathway</a></p></div></details>
           </div>
         </div>
       </section>
@@ -403,7 +403,7 @@ input[type="range"] { accent-color: var(--brass); }
         <div class="band">
           <div>
             <h2 class="h2" id="team-title">Learning together?</h2>
-            <p>The team pathway adds a discussion guide and a worksheet for each module.</p>
+            <p>A guide and worksheets for each module.</p>
           </div>
           <a class="button button-brass" href="preview/leasing-practice/bundle.html">Build a team bundle <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
@@ -413,7 +413,7 @@ input[type="range"] { accent-color: var(--brass); }
 
   <footer class="site-footer">
     <div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="leasing" viewBox="0 0 198 32" width="160.9" height="26" role="img" aria-label="Leasing Practice" focusable="false"><g aria-hidden="true"><path d="M12 28v-8.5a4 4 0 0 1 8 0V28z" fill="currentColor" class="f-a s-n"/><path d="M7 28V13a9 9 0 0 1 18 0v15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M3 28h26" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Newsreader'" font-weight="600" font-size="22" letter-spacing="0em">Leasing Practice</text></svg></div>
-      <p><strong>Speculative sample by Alexandr Khrustalev</strong> for a public course-marketing brief. Leasing Practice, its courses and its prices are fictional, and the brief's author did not commission or review this work.</p>
+      <p><strong>Speculative sample by Alexandr Khrustalev</strong> for a public brief. Brand, courses and prices are fictional, not commissioned.</p>
       <div class="kit-links"><a href="preview/leasing-practice/emails.html">Launch emails</a><a href="sample-wrongcreative-handoff.md">Handoff notes</a><a href="./">Selected work</a></div>
       <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
     <p class="sb-label">Sample site, fictional brand</p></div>
