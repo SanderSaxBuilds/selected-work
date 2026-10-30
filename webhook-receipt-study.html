@@ -3,75 +3,275 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#081214">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#13201a">
+<meta name="color-scheme" content="light">
 <title>Webhook receipt study</title>
-<meta name="description" content="A small Python service that stores each signed webhook once, refuses a reused event ID with changed content and keeps the receipt and shipment state in one SQLite transaction. Try the receiver in the browser, then read the source, tests and recorded responses.">
+<meta name="description" content="A small Python service that saves each signed shipment update once, refuses a reused ID with changed content and keeps the update and the shipment status in one SQLite transaction. Try the receiver in the browser, then read the source, tests and recorded responses.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Webhook receipt study">
-<meta property="og:description" content="A small Python service that stores each signed webhook once, refuses a reused event ID with changed content and keeps the receipt and shipment state in one SQLite transaction. Try the receiver in the browser, then read the source, tests and recorded responses.">
+<meta property="og:description" content="A small Python service that saves each signed shipment update once, refuses a reused ID with changed content and keeps the update and the shipment status in one SQLite transaction. Try the receiver in the browser, then read the source, tests and recorded responses.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/webhook-receipt-study.html">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/webhook-receipt-study.html">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/webhook.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23081214'/%3E%3Cpath d='M8 6v20M24 6v20M8 12h14M24 20H10' stroke='%236fd6cf' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
-<link href="assets/gfonts/css/c576fbbc6165.css" rel="stylesheet">
+<link href="assets/gfonts/css/c8a4c19be7fb.css" rel="stylesheet">
 <link rel="stylesheet" href="webhook-style.css">
-</head>
+<style>
+/* Webhook receipts preview. Pale mint paper, forest ink, one cerulean for the database, and status colours that
+   mean one thing each: green saved, violet duplicate, red refused. The page opens on the sequence diagram itself,
+   drawn full width from real calls to the receiver, with the database contents beside it. */
+:root {
+  color-scheme: light;
+  --bg: #e2ebe1; --panel: #f5f8f2; --panel-2: #e9f0e6; --well: #ffffff;
+  --line: #c3d1c0; --line-2: #8ea58b; --text: #13201a; --dim: #46584a; --faint: #5e7262;
+  --probe: #0a6fa8; --probe-2: #075a89;
+  --ok: #1d7a3e; --ok-bg: rgba(29, 122, 62, .1); --dup: #5b3fc4; --dup-bg: rgba(91, 63, 196, .1); --bad: #c4263c; --bad-bg: rgba(196, 38, 60, .09);
+  --sans: "Rethink Sans", system-ui, sans-serif; --cond: "Rethink Sans", system-ui, sans-serif; --mono: "Fragment Mono", ui-monospace, Consolas, monospace;
+}
+body { background: var(--bg); color: var(--text); }
+
+/* Top bar */
+.cap { background: var(--text); border-bottom: 0; }
+.cap .wrap { min-height: 56px; font: 500 14.5px/1.3 var(--sans); }
+.cap a { color: #e2ebe1; }
+.cap-links { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 0 24px; }
+.cap-links small { margin-left: 6px; font: 400 12px/1 var(--mono); color: #a9bdab; }
+
+/* Opening: the sequence diagram, full width, and the database beside it */
+.op { padding: 22px 0 30px; border-bottom: 2px solid var(--text); }
+.op-grid { display: grid; grid-template-columns: minmax(0, 1fr) 292px; grid-template-areas: "cap cap" "seq db" "try db"; gap: 14px 40px; align-items: start; }
+.op-cap { grid-area: cap; margin: 0; max-width: 62ch; font: 500 17px/1.45 var(--sans); letter-spacing: 0; color: var(--dim); }
+.op-seq { grid-area: seq; --x1: 12%; --x2: 50%; --x3: 88%; min-width: 0; margin: 0; }
+.op-heads { position: relative; height: 54px; }
+.op-heads span { position: absolute; top: 0; transform: translateX(-50%); display: grid; justify-items: center; padding: 7px 16px 6px; background: var(--text); color: #f5f8f2; font: 700 15px/1.15 var(--sans); white-space: nowrap; }
+.op-heads small { font: 400 12px/1.35 var(--mono); color: #a9bdab; }
+.op-heads span:nth-child(1) { left: var(--x1); }
+.op-heads span:nth-child(2) { left: var(--x2); }
+.op-heads span:nth-child(3) { left: var(--x3); background: var(--probe); }
+.op-heads span:nth-child(3) small { color: #cfe6f5; }
+#op-scroll { max-height: 520px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+#op-scroll:focus-visible { outline-offset: 4px; }
+#op-inner { position: relative; padding-bottom: 10px; }
+#op-inner > i { position: absolute; top: 0; bottom: 0; width: 0; border-left: 2px dashed var(--line-2); }
+#op-inner > i:nth-of-type(1) { left: var(--x1); }
+#op-inner > i:nth-of-type(2) { left: var(--x2); }
+#op-inner > i:nth-of-type(3) { left: var(--x3); border-left-color: #7fa9c6; }
+.of { position: relative; }
+.of .fh { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 9px; margin: 14px 0 0; padding: 2px 12px 2px 0; background: var(--bg); font: 600 14.5px/1.3 var(--sans); color: var(--text); animation: fade .3s var(--ease) both; animation-delay: var(--d, 0s); }
+.of .fh b { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; background: var(--text); color: #f5f8f2; font: 500 12.5px/1 var(--mono); }
+.of.note .fh { margin-top: 12px; color: var(--dup); font-weight: 500; }
+.m { position: relative; height: 44px; }
+.m .ln { position: absolute; top: 31px; height: 0; border-top: 2px solid var(--c); transform-origin: left; animation: draw .42s var(--ease) both; animation-delay: var(--d, 0s); }
+.m .ln::after { content: ""; position: absolute; top: -6.5px; width: 0; height: 0; border-top: 5.5px solid transparent; border-bottom: 5.5px solid transparent; }
+.m.sr .ln, .m.rd .ln { } .m.sr .ln::after, .m.rd .ln::after { right: -2px; border-left: 9px solid var(--c); }
+.m.rs .ln::after, .m.lost .ln::after { left: -2px; border-right: 9px solid var(--c); }
+.m.sr .ln, .m.rs .ln { left: var(--x1); width: calc(var(--x2) - var(--x1)); }
+.m.rs .ln, .m.lost .ln { transform-origin: right; }
+.m.rd .ln { left: var(--x2); width: calc(var(--x3) - var(--x2)); }
+.m.lost .ln { left: calc(var(--x1) + (var(--x2) - var(--x1)) * .42); width: calc((var(--x2) - var(--x1)) * .58); border-top-style: dashed; }
+.m.lost .ln::after { display: none; }
+.m .x { position: absolute; top: 22px; width: 18px; height: 18px; color: var(--bad); animation: fade .3s var(--ease) both; animation-delay: calc(var(--d, 0s) + .3s); }
+.m .x::before, .m .x::after { content: ""; position: absolute; left: 8px; top: 0; width: 2.5px; height: 18px; background: currentColor; transform: rotate(45deg); }
+.m .x::after { transform: rotate(-45deg); }
+.m.lost .x { left: calc(var(--x1) + (var(--x2) - var(--x1)) * .42 - 10px); }
+.m.stop .x { left: calc(var(--x2) - 9px); }
+.m .lb { position: absolute; top: 7px; left: calc(var(--x1) + 6px); padding: 0 4px; background: var(--bg); max-width: calc(100% - var(--x1) - 10px); font: 500 14.5px/1.3 var(--sans); color: var(--c); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: fade .3s var(--ease) both; animation-delay: var(--d, 0s); }
+.m.rd .lb { left: calc(var(--x2) + 6px); max-width: calc(100% - var(--x2) - 6px); }
+.m.stop .lb { top: 20px; left: calc(var(--x2) + 14px); max-width: calc(100% - var(--x2) - 14px); color: var(--bad); }
+.m.sr .lb { font-weight: 600; }
+
+.op-db { grid-area: db; margin-top: 0; border: 2px solid var(--text); background: var(--panel); }
+.op-db h2 { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 14px; background: var(--probe); color: #fff; font: 700 15px/1.3 var(--sans); letter-spacing: 0; }
+.op-db h2 small { font: 400 12px/1 var(--mono); color: #cfe6f5; }
+.db-n { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-bottom: 1px solid var(--line); }
+.db-n div { display: flex; flex-direction: column-reverse; padding: 12px 14px 10px; }
+.db-n div + div { border-left: 1px solid var(--line); }
+.db-n dd { margin: 0; font: 700 50px/1 var(--sans); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.db-n div:last-child dd { color: var(--ok); }
+.db-n dt { margin-top: 4px; font: 500 13.5px/1.3 var(--sans); color: var(--dim); }
+.db-l { margin: 12px 14px 0; font: 600 13px/1.3 var(--sans); color: var(--dim); }
+#op-rows { list-style: none; margin: 4px 0 0; padding: 0 14px; }
+#op-rows li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--line); font: 400 13px/1.3 var(--mono); }
+#op-rows li span { color: var(--dim); white-space: nowrap; }
+#op-rows li.none { font-family: var(--sans); color: var(--dim); }
+#op-more { margin: 6px 14px 0; font: 400 12.5px/1.3 var(--mono); color: var(--dim); }
+#op-ship { margin: 12px 14px 14px; padding-top: 10px; border-top: 1px solid var(--line); font: 500 14px/1.45 var(--sans); }
+#op-ship::before { content: "Shipment status: "; color: var(--dim); font-weight: 400; }
+
+.op-try { grid-area: try; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-top: 4px; }
+.op-try button { min-height: 44px; padding: 0 16px; border: 2px solid var(--text); background: var(--panel); color: var(--text); font: 600 14.5px/1.2 var(--sans); cursor: pointer; transition: background-color .15s var(--ease), color .15s var(--ease); }
+.op-try button:hover { background: var(--text); color: var(--panel); }
+.op-try button.main { background: var(--text); color: var(--panel); }
+.op-try button.main:hover { background: var(--probe); border-color: var(--probe); }
+.op-try button.reset { margin-left: auto; padding: 0 4px; border-color: transparent; background: none; color: var(--dim); font-weight: 500; text-decoration: underline; text-underline-offset: 4px; }
+.op-try button.reset:hover { background: none; color: var(--text); }
+.op-try button:active { transform: translateY(1px); }
+
+/* Sections below */
+.sec { border-top: 0; padding: 64px 0; }
+.sec + .sec { border-top: 2px solid var(--text); }
+h2 { font-weight: 700; font-size: clamp(26px, 2.6vw, 36px); letter-spacing: -.02em; line-height: 1.1; }
+.sec-head { margin-bottom: 26px; }
+.sec-head p { color: var(--dim); }
+.btn { border: 2px solid var(--text); color: var(--text); font-weight: 600; }
+.btn:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+.btn.solid { background: var(--probe); border-color: var(--probe); color: #fff; }
+.btn.solid:hover { background: var(--probe-2); border-color: var(--probe-2); color: #fff; }
+.bench, .trace { border: 2px solid var(--text); }
+.trace { border-top: 0; }
+@media (min-width: 1081px) {
+  .bench { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); }
+  .bench .side:first-child { order: 2; border-left: 2px solid var(--text); }
+  .side + .side { border-left: 0; }
+}
+.side-h { background: var(--text); color: #e2ebe1; border-bottom: 0; text-transform: none; letter-spacing: 0; font: 600 13.5px/1.4 var(--sans); }
+.side-h span:last-child { color: #a9bdab; font-family: var(--mono); font-size: 12.5px; }
+.presets button { background: var(--well); color: var(--text); border-color: var(--line-2); font-family: var(--sans); font-size: 14px; }
+.presets button[aria-pressed="true"] { background: var(--probe); color: #fff; border-color: var(--probe); }
+.req-line { color: var(--text); }
+textarea, .hdrs select { background: var(--well); color: var(--text); border-color: var(--line-2); }
+.stage::before { height: 3px; top: 6px; }
+.stage::after { top: 0; width: 4px; height: 16px; border: 0; background: var(--line-2); }
+.stage[data-state="pass"]::after { background: var(--ok); }
+.stage[data-state="stop"]::after { width: 4px; background: var(--bad); box-shadow: none; }
+.resp code { color: var(--text); }
+.resp p { color: var(--dim); }
+.resp .status { font-weight: 400; font-size: 56px; }
+.tbl h3 { text-transform: none; letter-spacing: 0; font: 600 13.5px/1.5 var(--sans); }
+table.st th { background: var(--panel); }
+.seq-heads span { background: var(--text); color: #e2ebe1; border-color: var(--text); text-transform: none; letter-spacing: 0; }
+.c-req { --c: #13201a; }
+.bench-note { margin-top: 16px; max-width: 80ch; color: var(--dim); font-size: 15px; }
+.bench-note code { color: var(--probe); }
+.log { border: 2px solid var(--text); }
+.log thead th { text-transform: none; letter-spacing: 0; font: 600 13px/1.4 var(--sans); }
+.log tr.restart > * { border-top-color: var(--dup); }
+figure.code { border: 2px solid var(--text); background: var(--text); color: #dbe7dc; }
+figure.code figcaption { background: #22332a; color: #a9bdab; border-bottom: 0; }
+figure.code figcaption span:first-child { color: #e2ebe1; }
+figure.code .hl { color: #fff; background: rgba(143, 208, 245, .16); box-shadow: inset 3px 0 0 #8fd0f5; }
+figure.code .c { color: #a9bdab; } figure.code .okk { color: #7fdc9c; }
+.side-notes h3 { margin: 0 0 4px; font: 700 16px/1.3 var(--sans); }
+.side-notes p { color: var(--dim); }
+.side-notes p b, .sec-head p b { color: var(--text); }
+.shot img { border: 2px solid var(--text); }
+.shot figcaption, .stops p, .stops li { color: var(--dim); }
+.stops li::before { background: var(--probe); height: 3px; }
+.stops h2 { font-size: clamp(26px, 2.6vw, 36px); }
+.foot { background: var(--text); color: #a9bdab; border-top: 0; }
+.foot a { color: #e2ebe1; }
+.foot .foot-contact { border-top-color: #34473a; }
+.foot-contact span { color: #8fd0f5; text-transform: none; letter-spacing: 0; font-family: var(--sans); font-size: 14px; }
+.covers { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.covers li { padding: 4px 8px; border: 1px solid var(--text); font: 500 13px/1.3 var(--sans); color: var(--text); }
+.covers li::before { content: none !important; display: none !important; }
+.covers-h { margin-top: 18px; font: 600 14px/1.3 var(--sans); }
+
+@media (max-width: 1080px) {
+  .side + .side, .trace > div + div { border-top: 2px solid var(--text); }
+}
+@media (max-width: 1000px) {
+  .op-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "cap" "seq" "try" "db"; gap: 12px; }
+  .op-db { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); margin-top: 8px; }
+  .op-db h2 { grid-column: 1 / -1; }
+  .op-db .db-n { border-bottom: 0; border-right: 1px solid var(--line); align-content: start; }
+  .op-db .db-list { min-width: 0; padding-bottom: 4px; }
+}
+@media (max-width: 640px) {
+  .cap-links .src { display: none; }
+  .op { padding: 14px 0 22px; }
+  .op-grid { grid-template-areas: "cap" "seq" "db" "try"; gap: 10px; }
+  .op-cap { font-size: 15.5px; }
+  .op-seq { --x1: 13%; --x3: 87%; }
+  .op-heads { height: 44px; }
+  .op-heads span { padding: 5px 9px 4px; font-size: 13px; }
+  .op-heads small { font-size: 10.5px; }
+  #op-scroll { max-height: 408px; }
+  .of .fh { margin-top: 8px; font-size: 13.5px; }
+  .of .fh b { min-width: 21px; height: 21px; font-size: 11.5px; }
+  .m { height: 34px; }
+  .m .ln { top: 25px; }
+  .m .x { top: 16px; }
+  .m .lb { top: 4px; font-size: 12.5px; left: calc(var(--x1) + 4px); }
+  .m.rd .lb { left: calc(var(--x2) + 4px); max-width: calc(100% - var(--x2) - 4px); }
+  .m.stop .lb { top: 14px; left: calc(var(--x2) + 12px); }
+  .op-try { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 0; }
+  .op-try button { padding: 4px 10px; font-size: 14px; }
+  .op-try button.reset { grid-column: 1 / -1; margin: 0; justify-self: start; min-height: 36px; }
+  .op-db { display: grid; grid-template-columns: auto minmax(0, 1fr); margin-top: 0; border-width: 2px; }
+  .op-db h2 { grid-column: auto; padding: 0 12px; align-items: center; }
+  .op-db h2 small, .db-l, #op-rows, #op-more { display: none; }
+  .op-db .db-n { display: flex; gap: 18px; padding: 6px 12px; border: 0; }
+  .db-n div { flex-direction: row-reverse; justify-content: flex-end; align-items: baseline; gap: 6px; padding: 0; }
+  .db-n div + div { border-left: 0; }
+  .db-n dd { font-size: 26px; }
+  .db-n dt { margin: 0; }
+  .op-db .db-list { grid-column: 1 / -1; padding: 0; }
+  #op-ship { margin: 0; padding: 7px 12px; font-size: 13.5px; }
+  .log tbody tr { border: 2px solid var(--text); background: var(--panel); }
+  .log { border: 0; }
+  .resp .status { font-size: 40px; }
+  .sec { padding: 48px 0; }
+}
+@media (max-width: 340px) {
+  .op-try { grid-template-columns: 1fr; }
+  .m .lb { font-size: 11.5px; }
+}
+@media (pointer: coarse) { .op-try button { min-height: 48px; } }
+</style>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--probe)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.cap .wrap{gap:18px}.sb-hbrand{display:flex;align-items:center;color:#f5f8f2}.cap .sb-logo{--sb-acc:#8fd0f5}</style></head>
 <body>
-<a class="skip" href="#main">Skip to the study</a>
+<a class="skip" href="#main">Skip to the receiver</a>
 <header class="cap">
-  <div class="wrap">
-    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg><span>Selected work</span></a>
-    <div class="meters" aria-label="Receiver in this tab">
-      <span>receipt_store.py</span>
-      <span>start <b id="cap-boot">1</b></span>
-      <span>deliveries <b id="cap-sent">0</b></span>
-      <span>stored <b id="cap-count">0</b></span>
-    </div>
+  <div class="wrap"><div class="sb-hbrand"><svg class="sb-logo sb-h" data-sb="receiptwell" viewBox="0 0 149 32" width="121.1" height="26" role="img" aria-label="Receiptwell" focusable="false"><g aria-hidden="true"><path d="M7 3h18v25l-3-2-3 2-3-2-3 2-3-2-3 2z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M11 13.5l3.8 3.8 6.2-7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Rethink Sans'" font-weight="700" font-size="21" letter-spacing="-0.01em">Receiptwell</text></svg></div>
+    <nav class="cap-links" aria-label="Links">
+      <a class="src" href="webhook-receipt-source.zip" download>Source and tests<small>12 KB</small></a>
+      <a href="index.html">Selected work</a>
+    </nav>
   </div>
 </header>
 
 <main id="main">
-  <section class="wrap hero" aria-labelledby="title">
-    <div>
-      <p class="kicker">Webhook receiver study, fictional shipments</p>
-      <h1 id="title">A retried webhook should <em>never count twice.</em></h1>
-      <p class="lede">Senders retry when a reply is slow or lost. This small Python service checks each signed delivery, stores every event ID once and refuses an old ID that comes back with different content. The receipt and the shipment update are saved in one SQLite transaction, so they can't drift apart.</p>
-      <div class="hero-actions">
-        <a class="btn solid" href="#bench">Try the receiver</a>
-        <a class="btn" href="webhook-receipt-source.zip" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Source and tests <small>12 KB</small></a>
-      </div>
-    </div>
-    <figure class="story" id="story" aria-labelledby="story-cap">
-      <figcaption class="story-h"><span id="story-cap"><b>Capture 01</b>, a lost reply and two retries</span><button type="button" class="replay" id="story-replay">Replay</button></figcaption>
-      <div class="seq" id="story-seq">
-        <div class="seq-heads" aria-hidden="true"><span>Sender</span><span>Receiver</span><span>SQLite</span></div>
-        <div class="seq-body"><i></i>
-          <div class="msg sr c-req" style="--d:.1s"><span class="lb">POST evt_demo_001, in_transit</span><span class="ln"></span></div>
-          <div class="msg rd c-db" style="--d:.45s"><span class="lb">BEGIN IMMEDIATE, insert</span><span class="ln"></span></div>
-          <div class="msg sr back dash c-ok" style="--d:.8s"><span class="lb">200 recorded, reply lost</span><span class="ln"></span></div>
-          <div class="msg sr c-req" style="--d:1.25s"><span class="lb">retry, same body</span><span class="ln"></span></div>
-          <div class="msg rd back c-db" style="--d:1.6s"><span class="lb">digest already stored</span><span class="ln"></span></div>
-          <div class="msg sr back c-dup" style="--d:1.95s"><span class="lb">200 duplicate</span><span class="ln"></span></div>
-          <div class="msg sr c-req" style="--d:2.4s"><span class="lb">same ID, delivered</span><span class="ln"></span></div>
-          <div class="msg rd back c-db" style="--d:2.75s"><span class="lb">digest differs</span><span class="ln"></span></div>
-          <div class="msg sr back c-bad" style="--d:3.1s"><span class="lb">409 event_id_conflict</span><span class="ln"></span></div>
+  <section class="op" aria-labelledby="op-cap">
+    <div class="wrap op-grid">
+      <h1 class="op-cap" id="op-cap">Saves each shipment update once, even when the sender sends it again.</h1>
+      <figure class="op-seq" aria-label="Sequence diagram of every delivery to the receiver">
+        <div class="op-heads" aria-hidden="true"><span>Sender<small>courier</small></span><span>Receiver<small>Python</small></span><span>Database<small>SQLite</small></span></div>
+        <div id="op-scroll" tabindex="0" aria-label="Deliveries, newest at the bottom">
+          <div id="op-inner"><i></i><i></i><i></i></div>
         </div>
+      </figure>
+      <div class="op-try" id="op-try" role="group" aria-label="Send to the receiver">
+        <button type="button" class="main" data-op="again">Send it again</button>
+        <button type="button" data-op="changed">Send it with a changed status</button>
+        <button type="button" data-op="new">Send a new update</button>
+        <button type="button" data-op="burst">Send a new update 24 times at once</button>
+        <button type="button" class="reset" data-op="reset">Start over</button>
       </div>
-      <p class="story-foot">Result: <b>1 receipt</b>, shipment DEMO_1042 still in_transit. Ran 32 tests, OK. 24 copies sent at once are stored once.</p>
-    </figure>
+      <aside class="op-db" aria-labelledby="db-h">
+        <h2 id="db-h">Database<small>events table</small></h2>
+        <dl class="db-n" aria-live="polite">
+          <div><dt>received</dt><dd id="op-recv">0</dd></div>
+          <div><dt>saved</dt><dd id="op-saved">0</dd></div>
+        </dl>
+        <div class="db-list">
+          <p class="db-l">Saved updates, newest first</p>
+          <ol id="op-rows"></ol>
+          <p id="op-more" hidden></p>
+          <p id="op-ship"></p>
+        </div>
+      </aside>
+    </div>
   </section>
 
   <section class="sec" id="bench" aria-labelledby="bench-title">
     <div class="wrap">
       <div class="sec-head">
-        <div>
-          <span class="layer">Layer 1, the receiver</span>
-          <h2 id="bench-title">Send deliveries and watch where each one stops.</h2>
-        </div>
-        <p>This is the receiver's logic running in your browser, with the same checks in the same order and the same replies. Pick a delivery, edit the body or the headers, then send it. Every delivery is drawn on the capture below. The database here lives in this tab. Restart keeps it, like the SQLite file does.</p>
+        <h2 id="bench-title">Send any delivery</h2>
+        <p>Pick a delivery or edit it, then send it. The checks show where it stops.</p>
       </div>
 
       <div class="bench">
@@ -79,15 +279,15 @@
           <div class="side-h"><span id="send-h">Sender</span><span>POST /webhook</span></div>
           <div class="presets" role="group" aria-label="Prepared deliveries">
             <button type="button" data-preset="first" aria-pressed="true">First delivery</button>
-            <button type="button" data-preset="retry" aria-pressed="false">Identical retry</button>
-            <button type="button" data-preset="reordered" aria-pressed="false">Retry, keys reordered</button>
+            <button type="button" data-preset="retry" aria-pressed="false">Same again</button>
+            <button type="button" data-preset="reordered" aria-pressed="false">Same, keys in another order</button>
             <button type="button" data-preset="conflict" aria-pressed="false">Same ID, changed status</button>
-            <button type="button" data-preset="older" aria-pressed="false">Older event</button>
-            <button type="button" data-preset="newer" aria-pressed="false">Newer event</button>
-            <button type="button" data-preset="badsig" aria-pressed="false">Wrong key</button>
-            <button type="button" data-preset="stale" aria-pressed="false">Sent 6 minutes ago</button>
+            <button type="button" data-preset="older" aria-pressed="false">Older update</button>
+            <button type="button" data-preset="newer" aria-pressed="false">Newer update</button>
+            <button type="button" data-preset="badsig" aria-pressed="false">Signed with the wrong key</button>
+            <button type="button" data-preset="stale" aria-pressed="false">Signed 6 minutes ago</button>
             <button type="button" data-preset="dupkeys" aria-pressed="false">Duplicate JSON key</button>
-            <button type="button" data-preset="baddate" aria-pressed="false">30 February</button>
+            <button type="button" data-preset="baddate" aria-pressed="false">Date 30 February</button>
           </div>
           <div class="req">
             <p class="req-line"><span>POST</span> /webhook HTTP/1.1</p>
@@ -128,67 +328,64 @@
           <div class="side-h"><span id="recv-h">Receiver</span><span>receipt_store.receive</span></div>
           <ol class="rail" aria-label="Checks, in order">
             <li class="stage" data-stage="size" data-state="idle">size<small>not reached</small></li>
-            <li class="stage" data-stage="clock" data-state="idle">clock<small>not reached</small></li>
+            <li class="stage" data-stage="clock" data-state="idle">time<small>not reached</small></li>
             <li class="stage" data-stage="hmac" data-state="idle">signature<small>not reached</small></li>
-            <li class="stage" data-stage="schema" data-state="idle">schema<small>not reached</small></li>
+            <li class="stage" data-stage="schema" data-state="idle">format<small>not reached</small></li>
             <li class="stage" data-stage="store" data-state="idle">store<small>not reached</small></li>
           </ol>
           <div class="resp" id="wh-response" data-kind="none" aria-live="polite">
             <span class="status" id="wh-status">...</span>
-            <span class="for" id="wh-for">Nothing sent yet</span>
+            <span class="for" id="wh-for">Nothing sent from this form yet</span>
             <code id="wh-json">Send a delivery to see the reply.</code>
             <p id="wh-meaning"></p>
           </div>
           <div class="tables">
             <div class="tbl">
-              <h3>events <span><b id="wh-count">0</b> stored</span></h3>
-              <div class="tscroll" tabindex="0" aria-label="Stored events"><table class="st"><thead><tr><th>event_id</th><th>shipment</th><th>status</th><th>event_at</th></tr></thead><tbody id="wh-events"></tbody></table></div>
+              <h3>events <span><b id="wh-count">0</b> saved</span></h3>
+              <div class="tscroll" tabindex="0" aria-label="Saved updates"><table class="st"><thead><tr><th>event_id</th><th>shipment</th><th>status</th><th>event_at</th></tr></thead><tbody id="wh-events"></tbody></table></div>
               <p id="wh-more" hidden></p>
             </div>
             <div class="tbl">
-              <h3>shipments <span>latest state</span></h3>
-              <div class="tscroll" tabindex="0" aria-label="Shipment state"><table class="st"><thead><tr><th>shipment</th><th>status</th><th>latest_event_at</th><th>latest_event_id</th></tr></thead><tbody id="wh-ships"></tbody></table></div>
+              <h3>shipments <span>latest status</span></h3>
+              <div class="tscroll" tabindex="0" aria-label="Shipment status"><table class="st"><thead><tr><th>shipment</th><th>status</th><th>latest_event_at</th><th>latest_event_id</th></tr></thead><tbody id="wh-ships"></tbody></table></div>
             </div>
           </div>
         </div>
       </div>
       <div class="trace">
         <div>
-          <div class="side-h"><span>Capture</span><span>every delivery in this tab, in order</span></div>
+          <div class="side-h"><span>Sequence</span><span>deliveries from this form, in order</span></div>
           <div class="seq" id="wh-seq" tabindex="0" aria-label="Sequence of deliveries, drawn as they happen">
             <div class="seq-heads" aria-hidden="true"><span>Sender</span><span>Receiver</span><span>SQLite</span></div>
-            <div class="seq-body" id="wh-seq-body"><i></i><p class="seq-empty" id="wh-seq-empty">Nothing captured yet. Send a delivery.</p></div>
+            <div class="seq-body" id="wh-seq-body"><i></i><p class="seq-empty" id="wh-seq-empty">Nothing sent yet. Send a delivery.</p></div>
           </div>
         </div>
         <div>
-          <div class="side-h"><span>Response journal</span><span>newest first</span></div>
-          <p id="wh-journal-empty">Each reply lands here with its status and code.</p>
-          <ol id="wh-journal" aria-label="Response journal"></ol>
+          <div class="side-h"><span>Replies</span><span>newest first</span></div>
+          <p id="wh-journal-empty">Replies show up here.</p>
+          <ol id="wh-journal" aria-label="Replies"></ol>
         </div>
       </div>
-      <p class="bench-note">How I know it matches: I generated 1,500 random delivery sequences, 6,692 deliveries in all, with valid and broken bodies, odd timestamps, wrong keys, restarts and repeats. I ran them through the real <code>ReceiptStore</code> on SQLite and through this page's code. Every reply and every stored state after each delivery was identical. One honest difference: the browser has one thread, so the 24 copies queue inside it, while the Python test sends them from 12 threads and relies on <code>BEGIN IMMEDIATE</code>.</p>
+      <p class="bench-note">Checked against the Python service: 1,500 random runs, 6,692 deliveries, 0 differences. In the browser, copies sent at once wait in line.</p>
     </div>
   </section>
 
   <section class="sec" id="responses" aria-labelledby="responses-title">
     <div class="wrap">
       <div class="sec-head">
-        <div>
-          <span class="layer">Layer 2, the recorded run</span>
-          <h2 id="responses-title">The Python service, five deliveries and a restart.</h2>
-        </div>
-        <p>I started the service from the published ZIP with a new database and sent its five demo deliveries in order, reading the stored state after each one. Then I stopped it, started it again on the same database and replayed the first event.</p>
+        <h2 id="responses-title">Recorded run of the Python service</h2>
+        <p>A fresh database, five deliveries, then a restart and one more retry.</p>
       </div>
       <table class="log">
-        <caption>Replayed on 19 October 2026. Shipment DEMO_1042, fictional data.</caption>
-        <thead><tr><th scope="col">Delivery</th><th scope="col">HTTP</th><th scope="col">Response body</th><th scope="col" class="n">Stored</th><th scope="col">Shipment</th></tr></thead>
+        <caption>Run on 19 October 2026. Shipment DEMO_1042, made-up data.</caption>
+        <thead><tr><th scope="col">Delivery</th><th scope="col">HTTP</th><th scope="col">Response body</th><th scope="col" class="n">Saved</th><th scope="col">Shipment</th></tr></thead>
         <tbody>
-          <tr><th scope="row">First delivery<span>evt_demo_001, in_transit</span></th><td data-label="HTTP" class="http ok">200</td><td data-label="Response"><code>{"result": "recorded", "event_id": "evt_demo_001", "projection_changed": true}</code></td><td data-label="Stored" class="n">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
-          <tr><th scope="row">Identical retry<span>same ID, same body</span></th><td data-label="HTTP" class="http ok">200</td><td data-label="Response"><code>{"result": "duplicate", "event_id": "evt_demo_001", "projection_changed": false}</code></td><td data-label="Stored" class="n">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
-          <tr><th scope="row">Changed body<span>same ID, status delivered</span></th><td data-label="HTTP" class="http warn">409</td><td data-label="Response"><code>{"error": "event_id_conflict"}</code></td><td data-label="Stored" class="n">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
-          <tr><th scope="row">Bad signature<span>refused before storage</span></th><td data-label="HTTP" class="http bad">401</td><td data-label="Response"><code>{"error": "invalid_signature"}</code></td><td data-label="Stored" class="n">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
-          <tr><th scope="row">Older, distinct event<span>evt_demo_older, created</span></th><td data-label="HTTP" class="http ok">200</td><td data-label="Response"><code>{"result": "recorded", "event_id": "evt_demo_older", "projection_changed": false}</code></td><td data-label="Stored" class="n">2</td><td data-label="Shipment"><code>in_transit</code></td></tr>
-          <tr class="restart"><th scope="row">Restart, then retry<span>same database</span></th><td data-label="HTTP" class="http ok">200</td><td data-label="Response"><code>{"result": "duplicate", "event_id": "evt_demo_001", "projection_changed": false}</code></td><td data-label="Stored" class="n">2</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+          <tr><th scope="row">First delivery<span>evt_demo_001, in_transit</span></th><td data-label="HTTP" class="http ok">200</td><td data-label="Response"><code>{"result": "recorded", "event_id": "evt_demo_001", "projection_changed": true}</code></td><td data-label="Saved" class="n">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+          <tr><th scope="row">Same again<span>same ID, same body</span></th><td data-label="HTTP" class="http ok">200</td><td data-label="Response"><code>{"result": "duplicate", "event_id": "evt_demo_001", "projection_changed": false}</code></td><td data-label="Saved" class="n">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+          <tr><th scope="row">Changed body<span>same ID, status delivered</span></th><td data-label="HTTP" class="http warn">409</td><td data-label="Response"><code>{"error": "event_id_conflict"}</code></td><td data-label="Saved" class="n">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+          <tr><th scope="row">Wrong signature<span>refused before saving</span></th><td data-label="HTTP" class="http bad">401</td><td data-label="Response"><code>{"error": "invalid_signature"}</code></td><td data-label="Saved" class="n">1</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+          <tr><th scope="row">Older update<span>evt_demo_older, created</span></th><td data-label="HTTP" class="http ok">200</td><td data-label="Response"><code>{"result": "recorded", "event_id": "evt_demo_older", "projection_changed": false}</code></td><td data-label="Saved" class="n">2</td><td data-label="Shipment"><code>in_transit</code></td></tr>
+          <tr class="restart"><th scope="row">Restart, then retry<span>same database</span></th><td data-label="HTTP" class="http ok">200</td><td data-label="Response"><code>{"result": "duplicate", "event_id": "evt_demo_001", "projection_changed": false}</code></td><td data-label="Saved" class="n">2</td><td data-label="Shipment"><code>in_transit</code></td></tr>
         </tbody>
       </table>
     </div>
@@ -197,11 +394,8 @@
   <section class="sec" aria-labelledby="code-title">
     <div class="wrap">
       <div class="sec-head">
-        <div>
-          <span class="layer">Layer 3, the code</span>
-          <h2 id="code-title">Decide inside the transaction.</h2>
-        </div>
-        <p>The duplicate check, the insert and the shipment update all run under <code>BEGIN IMMEDIATE</code>. Two copies arriving at once can't both see an empty table, which is what the 24-request concurrency test checks: one recorded, 23 duplicates.</p>
+        <h2 id="code-title">How a duplicate is caught</h2>
+        <p>The lookup and the save run in one transaction, so 24 copies at once give <b>1</b> saved and <b>23</b> duplicates.</p>
       </div>
       <div class="codegrid">
         <figure class="code">
@@ -226,17 +420,22 @@ with self.connect() as db:
     return {"result": "recorded", "event_id": event["event_id"], "projection_changed": changed}</pre>
         </figure>
         <div class="side-notes">
-          <p><b>The digest.</b> The body is parsed, then written back with sorted keys and no spaces and hashed. A retry with different spacing or key order is the same event. A changed value is not.</p>
-          <p><b>The ordering rule.</b> An older event is kept as its own receipt, but the shipment keeps the newest status. Events with an equal time keep the first projection.</p>
+          <h3>How two copies are compared</h3>
+          <p>The keys are sorted and the spaces removed, then the text is hashed. Different spacing counts as the same update. A different value does not.</p>
+          <h3>Older updates</h3>
+          <p>An older update is saved too, but the shipment keeps the newest status.</p>
           <figure class="code">
-            <figcaption><span>Run it yourself</span><span>Python 3.10 or newer</span></figcaption>
+            <figcaption><span>Run the tests</span><span>Python 3.10 or newer</span></figcaption>
 <pre tabindex="0" aria-label="Commands and test result">python -m unittest test_receipts
 <span class="c">Ran 32 tests in 0.950s</span>
 <span class="okk">OK</span>
 
 python server.py --db runs/study.sqlite --port 8962</pre>
           </figure>
-          <p>The tests cover the cases above plus expired and future timestamps, unknown and missing fields, duplicate JSON keys, invalid UTF-8, a deeply nested signed body, oversized bodies, cross-origin requests and unexpected hosts. I reran them from a fresh copy of the ZIP on 24 October 2026.</p>
+          <p class="covers-h">Also tested</p>
+          <ul class="covers" aria-label="Also tested">
+            <li>old and future times</li><li>unknown fields</li><li>duplicate JSON keys</li><li>invalid UTF-8</li><li>deep nesting</li><li>oversized bodies</li><li>cross-origin requests</li><li>unexpected hosts</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -245,15 +444,11 @@ python server.py --db runs/study.sqlite --port 8962</pre>
   <section class="sec" aria-labelledby="ui-title">
     <div class="wrap">
       <div class="sec-head">
-        <div>
-          <span class="layer">Layer 4, the local page</span>
-          <h2 id="ui-title">The ZIP has its own test page.</h2>
-        </div>
-        <p>The Python process also serves a small page on loopback. Each button sends one fixed delivery and reads the stored events back.</p>
+        <h2 id="ui-title">Test page in the download</h2>
       </div>
       <figure class="shot">
-        <img src="webhook-receipt-desktop.png" width="1265" height="1449" loading="lazy" decoding="async" alt="Local receipt test page after a restart. Two stored events, the demo shipment in transit, five delivery buttons and a response journal showing duplicate, conflict and bad-signature responses.">
-        <figcaption>Captured after a restart. Both events survived, and replaying the first one returned a duplicate. The journal lives in the browser tab, the stored events live in SQLite.</figcaption>
+        <img src="webhook-receipt-desktop.png" width="1265" height="1449" loading="lazy" decoding="async" alt="Local receipt test page after a restart. Two saved updates, the demo shipment in transit, five delivery buttons and a list of replies showing duplicate, conflict and wrong-signature responses.">
+        <figcaption>After a restart. Both saved updates are still there and the retry is a duplicate. Each button sends one fixed delivery.</figcaption>
       </figure>
     </div>
   </section>
@@ -261,30 +456,31 @@ python server.py --db runs/study.sqlite --port 8962</pre>
   <section class="sec" aria-labelledby="limits-title">
     <div class="wrap stops">
       <div>
-        <h2 id="limits-title">Where this stops</h2>
-        <p>This is a study with fictional shipment events, not a client project or a production service. It shows one way to make a receiver safe to retry.</p>
+        <h2 id="limits-title">Limits</h2>
+        <p>A study with made-up shipments, not a production service.</p>
         <ul>
-          <li>One event namespace and one local SQLite database.</li>
-          <li>A new signing key is generated each time the service starts.</li>
-          <li>The five-minute window and the ordering rule are study choices.</li>
-          <li>It doesn't make external side effects exactly-once, and it isn't connected to any provider.</li>
+          <li>One kind of event and one local SQLite database.</li>
+          <li>A new signing key is made each time the service starts.</li>
+          <li>The five-minute window and the ordering rule are choices for this study.</li>
+          <li>It is not connected to a real courier, and it does not make other side effects run exactly once.</li>
         </ul>
       </div>
       <div>
-        <h3>How a real repair would start</h3>
-        <p>I'd reproduce the failure from an anonymized event and your receiving code first. Then we'd agree the event ID contract, the retry window, the ordering rule and the checks that prove it's fixed, before touching storage or anything that calls out.</p>
+        <h3>For a real project</h3>
+        <p>First I reproduce the failure from one anonymized event. Then we agree the ID, retry and ordering rules before changing storage.</p>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    <p>Independent study by Alexandr Khrustalev. All shipment data is fictional.</p>
+  <div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="receiptwell" viewBox="0 0 149 32" width="121.1" height="26" role="img" aria-label="Receiptwell" focusable="false"><g aria-hidden="true"><path d="M7 3h18v25l-3-2-3 2-3-2-3 2-3-2-3 2z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M11 13.5l3.8 3.8 6.2-7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Rethink Sans'" font-weight="700" font-size="21" letter-spacing="-0.01em">Receiptwell</text></svg></div>
+    <p>Independent study by Alexandr Khrustalev. All shipment data is made up.</p>
     <a href="index.html#webhook-receipt">Back to selected work</a>
     <p class="foot-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-  </div>
+  <p class="sb-label">Sample site, fictional brand</p></div>
 </footer>
-<script type="module" src="webhook-page.mjs"></script>
+<script type="module" src="webhook-v3-page.mjs"></script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
 </body>
 </html>

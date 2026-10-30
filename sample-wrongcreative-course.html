@@ -3,28 +3,244 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0f2621">
+  <meta name="theme-color" content="#1d1a2b">
   <title>The leasing conversation | Leasing Practice</title>
   <meta name="description" content="A self-paced course in three modules: ask focused first questions, explain the options that matter and agree a follow-up the prospect can act on.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="The leasing conversation | Leasing Practice">
   <meta property="og:description" content="A self-paced course in three modules: ask focused first questions, explain the options that matter and agree a follow-up the prospect can act on.">
   <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sample-wrongcreative-course.html">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/sample-wrongcreative-course.html">
   <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/courses.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The leasing conversation | Leasing Practice">
   <meta name="twitter:description" content="A self-paced course in three modules: ask focused first questions, explain the options that matter and agree a follow-up the prospect can act on.">
   <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/courses.jpg">
-  <link href="assets/gfonts/css/fe5c5c9b6bc4.css" rel="stylesheet">
+  <link href="assets/gfonts/css/09cebb41cbfc.css" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230f2621%27/%3E%3Cpath d=%27M7 25V7h18v18M7 25h6M13 25a8 8 0 0 1 8-8%27 fill=%27none%27 stroke=%27%23d6b25a%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
   <link rel="stylesheet" href="sample-wrongcreative.css">
+<style>
+/* Leasing Practice preview. The drafting room: lavender tracing paper, violet-black ink, a berry pencil.
+   Newsreader for the voice of the course, Karla for labels and controls.
+   On wide screens the site bar becomes a fixed index down the left edge. */
+:root {
+  --green: #1d1a2b; --green-2: #2a263d; --green-3: #4a4562; --green-4: #6f6990;
+  --brass: #a3194f; --brass-hi: #f2b8cd; --brass-ink: #8a1342; --brass-soft: #f3dce6;
+  --stone: #e2dfec; --stone-2: #d6d2e4; --card: #f6f5fa;
+  --ink: #1d1a2b; --ink-2: #3c3852; --muted: #5d5874;
+  --line: #c9c4da; --line-strong: #9a94b3;
+  --on-dark: #f1effa; --on-dark-2: #c3bed8;
+  --good: #24576b; --good-soft: #dde9ee; --miss: #8a1342; --miss-soft: #f5e0e8;
+  --display: "Newsreader", Georgia, serif;
+  --text: "Karla", "Segoe UI", system-ui, sans-serif;
+  --focus: 0 0 0 3px var(--stone), 0 0 0 5px var(--brass);
+}
+body { background: var(--stone); font-size: 17px; }
+.h1, .h2, .h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.02em; font-stretch: normal !important; }
+.h1 { font-size: clamp(2.6rem, 1rem + 4.4vw, 5.2rem); line-height: .95; font-weight: var(--hw, 420); }
+.h1 .soft, .h2 .soft { font-style: italic; font-weight: 400; color: var(--brass); }
+.dark .h2 .soft { color: var(--brass-hi); }
+.h2 { font-size: clamp(2rem, 1.1rem + 3vw, 3.9rem); line-height: 1; }
+.label { font: 700 12px/1.2 var(--text); font-stretch: normal; letter-spacing: .18em; }
+.label::before { width: 28px; height: 1px; background: var(--brass); }
+.brand-mark { display: none !important; }
+
+/* Buttons: ink rectangles with a berry underline */
+.button { font: 700 15px/1.1 var(--text); letter-spacing: .06em; text-transform: uppercase; border-radius: 0; }
+.button-brass { color: #fff; background: var(--brass); border-color: var(--brass); box-shadow: none; }
+.button-brass:hover { background: var(--brass-ink); border-color: var(--brass-ink); color: #fff; }
+.button-green { background: var(--ink); border-color: var(--ink); }
+.button-line { color: var(--ink); border-color: var(--ink); }
+.button-line:hover { background: var(--ink); color: var(--on-dark); }
+
+/* Site bar */
+.topbar { background: var(--green); border-bottom: 0; }
+.brand { font: 500 24px/1 var(--display); font-stretch: normal; font-style: italic; letter-spacing: -.01em; }
+.topnav a { font: 600 13px/1.2 var(--text); font-stretch: normal; letter-spacing: .12em; text-transform: uppercase; }
+.topnav a::after { background: var(--brass-hi); height: 1px; }
+@media (min-width: 1100px) {
+  body { padding-left: 232px; }
+  .topbar { position: fixed; left: 0; top: 0; bottom: 0; width: 232px; overflow-y: auto; }
+  .topbar .wrap.topbar-inner { flex-direction: column; flex-wrap: nowrap; align-items: stretch; justify-content: flex-start; gap: 36px; min-height: 100%; padding: 30px 26px; max-width: none; }
+  .brand { font-size: 30px; line-height: 1.02; align-items: flex-start; }
+  .topnav { flex-direction: column; gap: 0; border-top: 1px solid var(--green-3); }
+  .topnav a { min-height: 50px; padding: 0 2px; border-bottom: 1px solid var(--green-3); }
+  .topnav a::after { left: auto; right: 0; top: 50%; bottom: auto; width: 18px; transform: scaleX(0); transform-origin: right; }
+  .topbar .back-link { order: 3; margin-top: auto; }
+  .receipt, .is-client .inbox { top: 32px !important; }
+}
+
+/* Hero: pale tracing paper instead of the dark stage, plan first, words second */
+.hero { color: var(--ink); background: var(--stone-2) !important; border-bottom: 1px solid var(--line-strong);
+  --on-dark: #1d1a2b; --on-dark-2: #4a4562; --green-3: #9a94b3; --green-4: #9a94b3; }
+.hero :focus-visible { box-shadow: 0 0 0 3px var(--stone-2), 0 0 0 5px var(--brass); }
+.hero::before, .hero::after { display: none !important; }
+.hero .lede { color: var(--ink-2); }
+.hero .lede b { color: var(--ink); }
+.hero .label { color: var(--brass-ink); }
+.hero .button-ghost { color: var(--ink); border-color: var(--ink); }
+.hero .button-ghost:hover { background: var(--ink); color: var(--on-dark); border-color: var(--ink); }
+.hero .button-ghost:hover { color: #f1effa; }
+@media (min-width: 980px) {
+  .hero-inner { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 64px; }
+  .hero:not(.hero-short) .hero-inner > div:last-child { order: -1; }
+}
+.plan .wall { stroke: var(--ink); stroke-width: 4; }
+.plan .wall-thin { stroke: var(--green-4); }
+.plan .swing { stroke: var(--green-4); }
+.plan .room { fill: rgba(29, 26, 43, .02); }
+.plan .room:hover, .plan .room.is-on, .plan .room:focus-visible { fill: rgba(163, 25, 79, .1); }
+.plan .room:focus-visible { stroke: var(--brass); }
+.plan .rlabel { fill: var(--ink); font-family: var(--display); font-weight: 600; font-style: italic; }
+.plan .rnum { fill: var(--brass); font-family: var(--text); }
+.plan .rsub { fill: var(--ink-2); font-family: var(--text); }
+.plan .path { stroke: var(--brass); stroke-width: 2.5; stroke-dasharray: 8 6; }
+.plan .stop { display: none; }
+.plan .dim { stroke: var(--green-4); }
+.plan .dimt { fill: var(--ink-2); font-family: var(--text); }
+.plan-caption { color: var(--ink-2); font-family: var(--text); border-top-color: var(--ink); }
+.titleblock { border-color: var(--ink); background: var(--card); }
+.titleblock-head { border-bottom-color: var(--ink); font-family: var(--text); }
+.titleblock-head b { color: var(--brass); }
+.titleblock dd { font-family: var(--display); font-weight: 500; }
+
+/* Sections */
+.section + .section { border-top-color: var(--line-strong); }
+.outcomes { border-top: 1px solid var(--ink); }
+.outcomes li::before { font: italic 400 3rem/1 var(--display); color: var(--brass); }
+.outcomes strong { font: 600 1.4rem/1.2 var(--display); font-stretch: normal; }
+.script { border-color: var(--ink); background: var(--card); }
+.meter { font-family: var(--text); }
+.meter-keys { gap: 3px; }
+.meter-keys i { width: 26px; height: 6px; border-radius: 0; border: 1px solid var(--line-strong); }
+.meter-keys i.on { background: var(--brass); border-color: var(--brass); }
+.moment-label .room-no { color: var(--brass); font-family: var(--text); }
+.moment-label strong { font: 600 1.35rem/1.2 var(--display); font-stretch: normal; }
+.line dt { font-family: var(--text); }
+.line.agent dt { color: var(--brass); }
+.line dd { font-family: var(--display); font-size: 1.22rem; }
+.said-after .mark { background: linear-gradient(transparent 60%, var(--brass-soft) 60%); box-shadow: inset 0 -1px 0 var(--brass); }
+.said-after.typing::after { background: var(--brass); }
+.rewrite { border-color: var(--ink); border-radius: 0; font-family: var(--text); }
+.rewrite:hover { background: var(--ink); color: var(--on-dark); }
+.note { border-left-color: var(--line-strong); background: var(--stone); }
+.note b { font-family: var(--text); }
+.is-rewritten .note { border-left-color: var(--brass); background: var(--brass-soft); }
+
+/* Price cards: no punched hole, a ruled card with a berry spine */
+.keytag { border-radius: 0; padding: 28px 26px 26px 34px; box-shadow: inset 6px 0 0 var(--brass) !important; }
+.keytag::before { display: none !important; }
+.keytag::after { left: 18px; border-left-style: solid; border-color: var(--line); }
+.keytag.on-stone { background: var(--card); border: 1px solid var(--ink); }
+.keytag h2, .keytag h3 { font: 600 1.6rem/1.1 var(--display); font-stretch: normal; }
+.price { font: 500 3.2rem/1 var(--display); font-stretch: normal; }
+.keytag.is-featured { background: var(--ink); }
+.facts dd { font-family: var(--display); font-weight: 500; font-stretch: normal; }
+.checks svg { stroke: var(--brass); }
+.keytag.is-featured .checks svg { stroke: var(--brass-hi); }
+.band { background: var(--ink) !important; border-radius: 0; }
+.faq { border-top: 1px solid var(--ink); }
+.faq summary { font-family: var(--display); font-weight: 600; font-size: 1.3rem; }
+.faq summary::after { border-color: var(--ink); background-image: linear-gradient(var(--ink), var(--ink)), linear-gradient(var(--ink), var(--ink)); }
+.faq details[open] summary::after { background-color: var(--brass-soft); }
+
+/* Course page */
+.rooms { border-color: var(--ink); }
+.rooms [role="tab"] + [role="tab"] { border-left-color: var(--ink); }
+.rooms .r-no { color: var(--brass); font-family: var(--text); }
+.rooms .r-name { font-family: var(--display); font-weight: 600; font-stretch: normal; }
+.rooms .r-min { font-family: var(--display); font-weight: 500; font-stretch: normal; }
+.rooms [aria-selected="true"] .r-no { color: var(--brass-hi); }
+.lessons { border-top-color: var(--ink); }
+.lessons .l-bar i { background: var(--green-4); }
+.lessons .is-practice .l-bar i { background: var(--brass); }
+.lessons .tag { border-color: var(--brass); color: var(--brass); border-radius: 0; padding: 0; border: 0; text-decoration: underline; text-underline-offset: 3px; }
+.estimator { border-color: var(--ink); }
+.chips span { border-radius: 0; font-family: var(--text); }
+.chips input:checked + span { background: var(--ink); border-color: var(--ink); }
+input[type="range"] { accent-color: var(--brass); }
+.est-big { font-family: var(--display); font-weight: 500; font-stretch: normal; }
+.est-big em { font-style: italic; color: var(--brass); }
+.sessions i { width: 18px; }
+.sessions i.m1 { background: var(--ink); }
+.sessions i.m2 { background: var(--green-4); }
+.sessions i.m3 { background: var(--brass); }
+.legend span::before { width: 18px; height: 4px; vertical-align: 3px; }
+.player { border-color: var(--ink); }
+.player-bar { background: var(--ink) !important; }
+.player-steps li { font-family: var(--text); }
+.player-steps li.on { background: var(--brass-soft); box-shadow: inset 0 -3px 0 var(--brass); }
+.scenario { border-left-color: var(--brass); }
+.ask { font-family: var(--display); font-weight: 600; font-stretch: normal; font-size: 1.4rem; }
+.option { border-radius: 0; }
+.option input { border-radius: 2px; }
+.option input::after { border-radius: 0; background: var(--brass); }
+.option input:checked { border-color: var(--brass); }
+.option:has(input:checked) { border-color: var(--ink); }
+.feedback strong { font-family: var(--display); }
+
+/* Team page */
+.route li::before { border-radius: 0; border: 0; background: transparent !important; color: var(--brass-hi); font: italic 400 2.4rem/1 var(--display); width: auto; height: auto; place-items: start; }
+.route li::after { border-left-style: solid; border-color: var(--green-3); left: 12px; top: 48px; }
+.route strong { font-family: var(--display); font-weight: 600; font-stretch: normal; font-size: 1.35rem; }
+.stepper, .choice { border-color: var(--line-strong); }
+.step-ctrl { border-color: var(--ink); }
+.step-ctrl button { color: var(--ink); font-family: var(--text); }
+.step-ctrl output { border-color: var(--ink); font-family: var(--display); }
+.choice { background: var(--card); }
+.choice:has(input:checked) { border-color: var(--ink); box-shadow: 6px 6px 0 var(--brass); }
+.choice:has(input:checked:focus-visible) { box-shadow: 6px 6px 0 var(--brass), var(--focus); }
+.choice h3 { font-family: var(--display); font-weight: 600; font-stretch: normal; font-size: 1.35rem; }
+.choice .c-price { font-family: var(--display); font-weight: 500; font-stretch: normal; }
+.choice .badge { position: static; justify-self: start; order: -1; padding: 0; border: 0; background: transparent; color: var(--brass); font-family: var(--text); letter-spacing: .14em; text-transform: uppercase; font-size: 11.5px; }
+.choice h3 { padding-right: 0; }
+.receipt { background: var(--ink); }
+.receipt .r-name { font-family: var(--display); font-weight: 600; font-stretch: normal; }
+.receipt .total b { font-family: var(--display); font-weight: 500; font-stretch: normal; color: var(--brass-hi); }
+.table-wrap { border-color: var(--ink); }
+.compare-table thead th { background: var(--ink); font-family: var(--text); }
+.compare-table td svg { stroke: var(--good); }
+.fit { border-top-color: var(--ink); }
+.fit.is-featured { border-top-color: var(--brass); }
+
+/* Emails page */
+.sequence { border-top-color: var(--ink); }
+.sequence li::before { display: none; }
+.sequence li:has(button[aria-pressed="true"]) { box-shadow: inset 0 3px 0 var(--brass); }
+.sequence li { padding-top: 18px; }
+.sequence b { color: var(--brass); font-family: var(--display); font-style: italic; font-weight: 500; font-stretch: normal; font-size: 2.2rem; }
+.sequence button { color: var(--ink); }
+.sequence span { color: var(--ink-2); font-family: var(--text); }
+.sequence button[aria-pressed="true"] span { color: var(--ink); }
+.sequence button:hover b { color: var(--ink); }
+.is-client .inbox { border-color: var(--ink); }
+.inbox-head { background: var(--ink); }
+.inbox-item[aria-selected="true"] { box-shadow: inset 4px 0 0 var(--brass); }
+.avatar { border: 0; width: auto; height: auto; place-items: start; color: var(--brass); font: italic 500 18px/1.2 var(--display); }
+.inbox-item em { color: var(--brass); }
+.view-toggle { border-color: var(--ink); }
+.view-toggle button { color: var(--ink); font-family: var(--text); }
+.view-toggle button + button { border-left-color: var(--ink); }
+.view-toggle button[aria-pressed="true"] { background: var(--ink); }
+.email-sheet { border-top-color: var(--brass); }
+.email-brand { color: var(--ink); font-family: var(--display); font-style: italic; font-weight: 600; font-stretch: normal; }
+.email-sheet h3 { font-family: var(--display); font-weight: 600; font-stretch: normal; }
+.email-meta .num { color: var(--brass); }
+
+/* Footer */
+.site-footer { background: var(--ink); }
+.footer-contact span { color: var(--brass-hi); font-family: var(--text); font-stretch: normal; }
+.kit-links a, .footer-contact a { font-family: var(--text); }
+.skip-link { background: var(--brass); color: #fff; }
+@media (max-width: 640px) { .h1 { font-size: clamp(2.5rem, 11vw, 3.4rem); } }
+</style>
   <script>document.documentElement.classList.add('js');</script>
-</head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--brass)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.topbar .brand .sb-logo{x:0}</style></head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="sample-wrongcreative.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V4h16v16M4 20h5M9 20a7 7 0 0 1 7-7"/></svg></span>Leasing Practice</a>
+      <a class="brand" href="sample-wrongcreative.html"><svg class="sb-logo sb-h" data-sb="leasing" viewBox="0 0 198 32" width="185.6" height="30" role="img" aria-label="Leasing Practice" focusable="false"><g aria-hidden="true"><path d="M12 28v-8.5a4 4 0 0 1 8 0V28z" fill="currentColor" class="f-a s-n"/><path d="M7 28V13a9 9 0 0 1 18 0v15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M3 28h26" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Newsreader'" font-weight="600" font-size="22" letter-spacing="0em">Leasing Practice</text></svg></a>
       <nav class="topnav" aria-label="Site">
         <a href="sample-wrongcreative.html">Courses</a>
         <a href="sample-wrongcreative-course.html" aria-current="page">The course</a>
@@ -39,7 +255,7 @@
         <div>
           <p class="label">Self-paced course</p>
           <h1 class="h1" id="title">The leasing <span class="soft">conversation</span></h1>
-          <p class="lede">Nine short lessons on asking useful questions, explaining the options that matter to this prospect and agreeing a follow-up they can act on.</p>
+          <p class="lede">Ask, explain, agree. Nine short lessons.</p>
           <div class="button-row">
             <a class="button button-brass" href="#outline">Explore the modules <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <a class="button button-ghost" href="#sample">Try a lesson preview</a>
@@ -65,7 +281,7 @@
       <section class="section reveal" id="outline" aria-labelledby="outline-title">
         <div class="section-head split">
           <div><p class="label">Module explorer</p><h2 class="h2" id="outline-title" style="margin-top:16px">Three rooms, <span class="soft">sized by the minute</span></h2></div>
-          <p>Each module has two short lessons and one practice exercise you can use on your next tour. Every room below is drawn to its length. Choose one to see what is inside.</p>
+          <p>Each room is drawn to its length. Open one.</p>
         </div>
         <div class="explorer">
           <div>
@@ -81,7 +297,7 @@
             <section class="module-panel" id="mod-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
               <p class="label">Module 1, 3 lessons, 35 min</p>
               <h3 class="h3">Understand the prospect's priorities</h3>
-              <p>Replace a broad opening with two focused questions, and find out what the prospect needs to understand before you explain anything.</p>
+              <p>Two focused questions before you explain anything.</p>
               <ol class="lessons">
                 <li><span class="l-title">Why the first two questions matter</span><span class="l-min">8 min</span><span class="l-bar" aria-hidden="true"><i style="width:53%"></i></span></li>
                 <li><span class="l-title">Replacing a broad opener</span><span class="l-min">12 min</span><span class="l-bar" aria-hidden="true"><i style="width:80%"></i></span></li>
@@ -91,7 +307,7 @@
             <section class="module-panel" id="mod-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
               <p class="label">Module 2, 3 lessons, 37 min</p>
               <h3 class="h3">Explain the options that matter</h3>
-              <p>Compare two options using the priorities the prospect already stated, and keep a known fact apart from an assumption that still needs checking.</p>
+              <p>Their priorities, facts apart from assumptions.</p>
               <ol class="lessons">
                 <li><span class="l-title">Linking options to stated priorities</span><span class="l-min">10 min</span><span class="l-bar" aria-hidden="true"><i style="width:67%"></i></span></li>
                 <li><span class="l-title">Facts and assumptions to confirm</span><span class="l-min">12 min</span><span class="l-bar" aria-hidden="true"><i style="width:80%"></i></span></li>
@@ -101,7 +317,7 @@
             <section class="module-panel" id="mod-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
               <p class="label">Module 3, 3 lessons, 33 min</p>
               <h3 class="h3">Agree a useful follow-up</h3>
-              <p>Summarize the open question, name the next action and who owns it, and agree when it will happen.</p>
+              <p>The open question, its owner and a date.</p>
               <ol class="lessons">
                 <li><span class="l-title">Summarizing the open question</span><span class="l-min">8 min</span><span class="l-bar" aria-hidden="true"><i style="width:53%"></i></span></li>
                 <li><span class="l-title">Naming the next action and its owner</span><span class="l-min">10 min</span><span class="l-bar" aria-hidden="true"><i style="width:67%"></i></span></li>
@@ -116,7 +332,7 @@
       <section class="section reveal" id="estimate" aria-labelledby="est-title">
         <div class="section-head split">
           <div><p class="label">Time to finish</p><h2 class="h2" id="est-title" style="margin-top:16px">Fit it around <span class="soft">your tours</span></h2></div>
-          <p>Tell us how long you can sit down for and how often. The plan below keeps each lesson whole where it fits, so you finish one idea before the next tour.</p>
+          <p>Set your sitting length and how often.</p>
         </div>
         <div class="estimator">
           <form class="est-controls" id="est-form" aria-describedby="est-big">
@@ -147,7 +363,7 @@
       <section class="section reveal" id="sample" aria-labelledby="sample-title">
         <div class="section-head split">
           <div><p class="label">Lesson preview</p><h2 class="h2" id="sample-title" style="margin-top:16px">Turn a vague follow-up into <span class="soft">a clear one</span></h2></div>
-          <p>This is the practice exercise from module 3, as it appears inside the course. It takes about a minute.</p>
+          <p>The module 3 exercise, about a minute.</p>
         </div>
         <div class="player">
           <div class="player-bar"><span>Module 3, lesson 3, <b>Rewrite a vague follow-up</b></span><span>15 min</span></div>
@@ -175,9 +391,9 @@
         <div class="faq-wrap">
           <div class="section-head"><p class="label">Before you enroll</p><h2 class="h2" id="faq-title">Questions</h2></div>
           <div class="faq">
-            <details><summary>How long do I have access?</summary><div><p>Twelve months from the day you enroll, on any device. You can repeat lessons as often as you like.</p></div></details>
-            <details><summary>Do I need leasing experience?</summary><div><p>No. New agents use it to build habits and experienced agents use the exercises as a refresher. The examples assume apartment tours, but the moments apply to any viewing.</p></div></details>
-            <details><summary>Is there a version for teams?</summary><div><p>Yes. The team pathway gives up to ten learners the course plus a discussion guide and review worksheets for three team sessions.</p><p><a href="sample-wrongcreative-bundle.html">Compare the team pathway</a></p></div></details>
+            <details><summary>How long do I have access?</summary><div><p>Twelve months, any device, repeat freely.</p></div></details>
+            <details><summary>Do I need leasing experience?</summary><div><p>No. New agents build habits, experienced ones refresh. Works for any viewing.</p></div></details>
+            <details><summary>Is there a version for teams?</summary><div><p>Yes. Up to ten learners, plus a discussion guide and worksheets.</p><p><a href="sample-wrongcreative-bundle.html">Compare the team pathway</a></p></div></details>
           </div>
         </div>
       </section>
@@ -186,7 +402,7 @@
         <div class="band">
           <div>
             <h2 class="h2" id="team-title">Learning together?</h2>
-            <p>The team pathway adds a discussion guide and a worksheet for each module.</p>
+            <p>A guide and worksheets for each module.</p>
           </div>
           <a class="button button-brass" href="sample-wrongcreative-bundle.html">Build a team bundle <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
@@ -195,11 +411,11 @@
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">
-      <p><strong>Speculative sample by Alexandr Khrustalev</strong> for a public course-marketing brief. Leasing Practice, its courses and its prices are fictional, and the brief's author did not commission or review this work.</p>
+    <div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="leasing" viewBox="0 0 198 32" width="160.9" height="26" role="img" aria-label="Leasing Practice" focusable="false"><g aria-hidden="true"><path d="M12 28v-8.5a4 4 0 0 1 8 0V28z" fill="currentColor" class="f-a s-n"/><path d="M7 28V13a9 9 0 0 1 18 0v15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M3 28h26" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Newsreader'" font-weight="600" font-size="22" letter-spacing="0em">Leasing Practice</text></svg></div>
+      <p><strong>Speculative sample by Alexandr Khrustalev</strong> for a public brief. Brand, courses and prices are fictional, not commissioned.</p>
       <div class="kit-links"><a href="sample-wrongcreative-emails.html">Launch emails</a><a href="sample-wrongcreative-handoff.md">Handoff notes</a><a href="./">Selected work</a></div>
       <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-    </div>
+    <p class="sb-label">Sample site, fictional brand</p></div>
   </footer>
 
   <script>
@@ -302,5 +518,7 @@
       });
     })();
   </script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(300+(620-300)*x).toFixed(2)+'';document.querySelectorAll('.h1').forEach(function(n){n.style.setProperty('--hw',v)})})},{passive:true})})();</script><script>/* the pointer moves the heading's type axis, which changes its width, so its lines are locked at the widest setting and the page never reflows */(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var S='.h1',P='--hw',M='620',t=0;function lock(){document.querySelectorAll(S).forEach(function(h){h.querySelectorAll('br.ll').forEach(function(b){b.remove()});h.normalize();h.style.whiteSpace='';var v=h.style.getPropertyValue(P),tr=h.style.transition;h.style.transition='none';h.style.setProperty(P,M);var fs=parseFloat(getComputedStyle(h).fontSize)||16,last=null,cut=[],w=document.createTreeWalker(h,NodeFilter.SHOW_TEXT),n,r=document.createRange();while(n=w.nextNode()){var re=/\S+/g,m;while(m=re.exec(n.data)){r.setStart(n,m.index);r.setEnd(n,m.index+m[0].length);var q=r.getClientRects()[0];if(!q)continue;if(last!==null&&q.top>last+fs*.5)cut.push([n,m.index]);last=q.top}}cut.reverse().forEach(function(c){var b=document.createElement('br'),e=c[0];b.className='ll';if(c[1]){e=e.splitText(c[1])}else{while(e.parentNode!==h&&e.parentNode.firstChild===e)e=e.parentNode}e.parentNode.insertBefore(b,e)});h.style.whiteSpace='nowrap';if(v)h.style.setProperty(P,v);else h.style.removeProperty(P);void h.offsetWidth;h.style.transition=tr})}(document.fonts?document.fonts.ready:Promise.resolve()).then(lock);addEventListener('resize',function(){clearTimeout(t);t=setTimeout(lock,150)})})();</script>
 </body>
 </html>

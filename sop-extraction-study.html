@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#1b2f52">
+<meta name="theme-color" content="#2b1630">
 <meta name="color-scheme" content="light">
 <title>Work instruction extraction</title>
 <meta name="description" content="A Python parser that turns a Word work instruction written to a set template into JSON and CSV steps, keeps a reference to each source paragraph and refuses content it can't read reliably. Edit a document in the browser and run the same rules on it.">
@@ -11,101 +11,210 @@
 <meta property="og:title" content="Work instruction extraction">
 <meta property="og:description" content="A Python parser that turns a Word work instruction written to a set template into JSON and CSV steps, keeps a reference to each source paragraph and refuses content it can't read reliably. Edit a document in the browser and run the same rules on it.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sop-extraction-study.html">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/sop-extraction-study.html">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/sop.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='3' width='20' height='26' fill='%23fff' stroke='%231b2f52' stroke-width='2'/%3E%3Cpath d='M10 10h12M10 15h12M10 20h7' stroke='%231b2f52' stroke-width='2'/%3E%3Cpath d='M3 8v16' stroke='%23b42318' stroke-width='3'/%3E%3C/svg%3E">
-<link href="assets/gfonts/css/5f69ba2d9c4e.css" rel="stylesheet">
+<link href="assets/gfonts/css/6b384f816440.css" rel="stylesheet">
 <link rel="stylesheet" href="sop-style.css">
-</head>
+<style>
+/* Work instruction preview. Pink duplicate-form paper, aubergine ink, green for what the parser accepted and red
+   for where it stopped. Bitter for the window, Spectral inside the document, Victor Mono for what the parser writes.
+   The page opens on the editor: a Word page on the left, and in the margin beside each paragraph the JSON it becomes. */
+:root {
+  --desk: #f2d7dc; --desk-2: #e6c3ca; --paper: #fffafb; --ink: #2b1630; --ink-2: #4d2a55; --text: #24162a; --muted: #6e5470;
+  --rule: #ecd6db; --rule-2: #c9a9b1; --red: #b3122e; --red-soft: #fbe3e6; --green: #12704f; --green-soft: #ddf1e8;
+  --hl: #d5f2e4; --hl-line: #12704f; --term: #24162a; --term-text: #f6e9ee; --term-dim: #c0a5b8;
+  --serif: "Spectral", Georgia, serif; --sans: "Bitter", Georgia, serif; --mono: "Victor Mono", Consolas, monospace;
+  --page-shadow: 0 0 0 2px var(--ink);
+  --margin: #f8e8ec;
+}
+body { background: var(--desk); }
+h1, h2, h3 { letter-spacing: -.015em; }
+.bar .wrap { justify-content: flex-start; gap: 6px 24px; }
+.bar .src small { margin-left: 6px; font: 400 12px/1 var(--mono); color: #c0a5b8; }
+.btn { border-radius: 0; border-width: 2px; }
+.btn:hover { background: #fbeef1; }
+.btn.solid { background: var(--green); border-color: var(--green); }
+.btn.solid:hover { background: var(--ink); border-color: var(--ink); }
+
+/* Opening: the editor window */
+.ed { padding: 18px 0 0; outline: none; }
+.cap { margin: 0 0 12px; font: 500 17px/1.4 var(--sans); color: var(--text); letter-spacing: 0; }
+#paper { --mw: clamp(250px, 36%, 450px); --lead: 26px; display: flex; flex-direction: column; background: var(--margin); box-shadow: none; border: 2px solid var(--ink); }
+.tbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; padding: 7px 8px 7px 14px; background: var(--ink); color: #fff; }
+.fname { display: flex; align-items: center; gap: 10px; min-width: 0; font: 600 15px/1.3 var(--sans); }
+.fname .w { display: inline-grid; place-items: center; flex: none; width: 22px; height: 22px; background: #fff; color: var(--ink); font: 700 13px/1 var(--sans); }
+.fname .meta { font: 400 12.5px/1.3 var(--mono); color: #c0a5b8; }
+#file-name { overflow-wrap: anywhere; }
+.tbar .ptools .btn { min-height: 38px; background: transparent; border-color: #8a6a8f; color: #fff; }
+.tbar .ptools .btn:hover { background: #fff; color: var(--ink); border-color: #fff; }
+.tbar .ptools .btn:disabled:hover { background: transparent; color: #fff; }
+#paper > .presets { margin: 0; padding: 8px 14px; gap: 6px; background: var(--paper); border-bottom: 1px solid var(--rule-2); }
+.presets .lab { margin-right: 6px; text-transform: none; letter-spacing: 0; font: 600 14px/1 var(--sans); color: var(--muted); }
+.pill { min-height: 38px; padding: 4px 12px; border: 2px solid var(--rule-2); border-radius: 0; font-size: 14.5px; }
+.pill:hover { border-color: var(--ink); }
+.pill[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.inserts { padding: 6px 14px; background: var(--paper); border-bottom: 1px solid var(--rule-2); }
+.inserts button { border-radius: 0; min-height: 34px; }
+.rhead { display: grid; grid-template-columns: minmax(0, 1fr) var(--mw); align-items: end; background: var(--paper); border-bottom: 1px solid var(--rule-2); }
+.rhead .ruler { margin: 0; border-bottom: 0; background: linear-gradient(90deg, #f6e6ea 0 44px, #fff 44px calc(100% - 26px), #f6e6ea calc(100% - 26px)); }
+.rhead .ruler::after { left: 44px; }
+.rhead p { align-self: stretch; display: flex; align-items: center; padding: 0 14px 0 var(--lead); background: var(--margin); border-left: 1px solid var(--rule-2); font: 600 12.5px/1.2 var(--sans); color: var(--muted); }
+
+/* Page rows: number, paragraph, what the parser reads it as, and the JSON note in the margin */
+#doc, #fdoc { display: grid; grid-template-columns: 44px minmax(0, 1fr) 104px var(--mw); padding: 10px 0 16px; background: linear-gradient(90deg, var(--paper) calc(100% - var(--mw)), var(--rule-2) calc(100% - var(--mw)) calc(100% - var(--mw) + 1px), transparent 0); }
+.para, .fpara { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: start; border-left: 3px solid transparent; }
+.para > .pno, .fpara > .pno { grid-column: 1; }
+.para > .pbody, .fpara > p { grid-column: 2; }
+.para > .read, .fpara > .read, .para > .rm-table { grid-column: 3; }
+.read { padding: 11px 10px 0 6px; font-size: 12.5px; }
+.para.hot, .fpara.hot, .para.flash, .fpara.flash { background: linear-gradient(90deg, var(--hl) calc(100% - var(--mw)), transparent 0); }
+.para.err, .fpara.err { border-left-color: var(--red); background: linear-gradient(90deg, var(--red-soft) calc(100% - var(--mw)), transparent 0); }
+.para textarea:focus { background: #fbeef1; }
+.note { grid-column: 4; grid-row: 1; position: relative; min-width: 0; margin: 3px 14px 8px var(--lead); padding: 6px 10px 8px; background: var(--paper); border: 1.5px solid var(--green); border-left-width: 4px; }
+.note::before { content: ""; position: absolute; top: 14px; left: calc(-1 * var(--lead) - 4px); width: var(--lead); border-top: 1.5px dashed var(--green); }
+.note::after { content: ""; position: absolute; top: 11px; left: calc(-1 * var(--lead) - 7px); width: 7px; height: 7px; background: var(--green); }
+.nh { display: flex; justify-content: space-between; gap: 10px; font: 600 12.5px/1.5 var(--mono); color: var(--green); }
+.nh span { font-weight: 400; color: var(--muted); }
+.note code { display: block; margin-top: 2px; font: 400 12.5px/1.5 var(--mono); color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
+.note .k { color: var(--muted); }
+.note .n { color: var(--green); font-weight: 600; }
+.note.bad { border-color: var(--red); }
+.note.bad::before { border-top-color: var(--red); }
+.note.bad::after { background: var(--red); }
+.note.bad .nh { color: var(--red); }
+.nm { margin-top: 2px; font: 400 14px/1.45 var(--sans); color: var(--text); }
+.nw { margin-top: 4px; font: 600 13px/1.4 var(--sans); color: var(--red); }
+.note.solo { grid-column: 2 / -1; margin: 6px 14px 0 calc(100% - var(--mw) + var(--lead)); }
+.note.solo::before, .note.solo::after { display: none; }
+.tbl .pbody { padding: 6px 8px; }
+.hint { padding: 0 16px 10px; background: linear-gradient(90deg, var(--paper) calc(100% - var(--mw)), transparent 0); }
+.fnote, .ptools.pad { background: var(--paper); }
+.ptools.pad { padding-bottom: 6px; }
+
+/* Status bar, held at the bottom of the screen while the window is in view */
+.sbar { position: sticky; bottom: 0; z-index: 3; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 46px; padding: 5px 8px 5px 14px; background: var(--ink); color: #fff; }
+#stamp { display: inline-flex; align-items: center; gap: 9px; padding: 0; border: 0; outline: 0; transform: none; text-transform: none; letter-spacing: 0; font: 600 14.5px/1.3 var(--sans); }
+#stamp::before { content: ""; width: 11px; height: 11px; flex: none; background: currentColor; }
+#res[data-state="ok"] #stamp { color: #9ef0c8; }
+#res[data-state="bad"] #stamp { color: #ffb3c0; }
+#jump { min-height: 36px; margin: 0; padding: 2px 12px; background: transparent; border-color: #ffb3c0; color: #fff; font-size: 14px; }
+#jump:hover { background: #fff; color: var(--ink); }
+
+/* Under the window: the command and the two files */
+.outs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 0; margin-top: 14px; border: 2px solid var(--ink); }
+.outs .term { min-width: 0; }
+.term .th { border-bottom-color: #4d2a55; }
+#res[data-state="ok"] #exit { color: #9ef0c8; }
+#res[data-state="bad"] #exit { color: #ffb3c0; }
+.files { box-shadow: none; }
+.ftabs { background: #f9e9ec; }
+#file-out { max-height: 300px; }
+
+/* Sections below */
+section { padding-top: 72px; }
+.shead { display: block; margin-bottom: 22px; }
+.shead h2 { font-size: clamp(26px, 2.6vw, 34px); font-weight: 700; }
+.shead p { margin-top: 8px; color: var(--text); }
+figcaption { background: #f9e9ec; }
+.stage > header { background: #fbeef1; }
+.stage li { border-bottom-color: var(--rule); }
+.register { border-left: 6px solid var(--red); }
+.try { border-radius: 0; }
+.reg-tools input { border-radius: 0; }
+.limits-list b { color: var(--green); }
+.stops { border-top: 0; border-left: 6px solid var(--red); }
+.formula { display: grid; gap: 0; margin: 0 0 14px; border-top: 3px solid var(--ink); }
+.formula div { display: grid; grid-template-columns: 80px minmax(0, 1fr); align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule, #d9b8c0); }
+.formula span { font: 500 12.5px/1.2 var(--mono); color: var(--muted); }
+.formula code { font: 600 clamp(17px, 1.8vw, 22px)/1.2 var(--mono); color: var(--text); overflow-wrap: anywhere; }
+.formula mark { background: var(--red); color: #fff; padding: 0 3px; }
+.sop-parity { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 16px 0 18px; border-top: 2px solid var(--ink); }
+.sop-parity div { display: flex; flex-direction: column-reverse; gap: 4px; padding: 12px 12px 0 0; }
+.sop-parity dt { font: 500 12.5px/1.3 var(--sans); color: var(--muted); }
+.sop-parity dd { margin: 0; font: 700 clamp(30px, 3.4vw, 46px)/1 var(--serif); color: var(--ink); }
+.sop-parity div:last-child dd { color: var(--green); }
+footer { background: var(--ink); color: #e7d3dc; }
+footer .foot-contact { border-top-color: #4d2a55; }
+.foot-contact span { color: #c0a5b8; text-transform: none; letter-spacing: 0; font-family: var(--sans); font-size: 14px; }
+
+@media (max-width: 1080px) {
+  #paper { --mw: clamp(240px, 38%, 400px); }
+  #doc, #fdoc { grid-template-columns: 40px minmax(0, 1fr) 88px var(--mw); }
+  .hint { display: none; }
+}
+@media (max-width: 860px) {
+  .outs { grid-template-columns: minmax(0, 1fr); }
+}
+/* Narrow screens: the note sits under its paragraph instead of in the margin */
+@media (max-width: 699px) {
+  .bar .src { display: none; }
+  .bar .wrap { justify-content: space-between; }
+  .ed { padding-top: 12px; }
+  .cap { font-size: 15.5px; margin-bottom: 10px; }
+  #paper { --lead: 0px; background: var(--paper); }
+  .tbar { padding: 6px 8px 6px 12px; }
+  .fname { font-size: 14px; }
+  #paper > .presets { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 8px 12px; }
+  #paper > .presets::-webkit-scrollbar { display: none; }
+  #paper > .presets .pill { flex: none; min-height: 40px; }
+  .inserts { order: 1; border-top: 1px solid var(--rule-2); border-bottom: 0; padding: 8px 12px; }
+  .hint { display: none; }
+  .sbar { order: 2; }
+  .rhead { display: none; }
+  #doc, #fdoc { grid-template-columns: 30px minmax(0, 1fr); padding: 6px 0 10px; background: var(--paper); }
+  .para > .read, .fpara > .read, .para > .rm-table { grid-column: 2; }
+  .para > .read, .fpara > .read { margin-top: -4px; padding: 0 8px 8px; }
+  .para:has(.note) > .read, .fpara:has(.note) > .read { display: none; }
+  .para.hot, .fpara.hot, .para.flash, .fpara.flash { background: var(--hl); }
+  .para.err, .fpara.err { background: var(--red-soft); }
+  .note { grid-column: 2; grid-row: auto; margin: 0 10px 10px 8px; padding: 5px 9px 7px; }
+  .note::before, .note::after { display: none; }
+  .note code, .nh { font-size: 12px; }
+  .note.solo { grid-column: 1 / -1; margin: 8px 10px; }
+  .shead h2 { font-size: 26px; }
+  section { padding-top: 52px; }
+}
+@media (max-width: 340px) {
+  .tbar .ptools .btn { padding-inline: 8px; }
+}
+</style>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--green)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.bar .wrap{gap:18px}.sb-hbrand{display:flex;align-items:center;margin-right:auto}</style></head></head>
 <body>
-<a class="skip" href="#main">Skip to the study</a>
+<a class="skip" href="#main">Skip to the editor</a>
 <header class="bar">
-  <div class="wrap">
+  <div class="wrap"><div class="sb-hbrand"><svg class="sb-logo sb-h" data-sb="paraform" viewBox="0 0 139 32" width="112.9" height="26" role="img" aria-label="Paraform" focusable="false"><g aria-hidden="true"><path d="M9.5 4H5v24h4.5M22.5 4H27v24h-4.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M10.5 11h11M10.5 16h11M10.5 21h7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Bitter'" font-weight="700" font-size="21" letter-spacing="0em">Paraform</text></svg></div>
+    <a class="src" href="sop-parser-and-previews.zip" download>Parser and tests<small>14 KB</small></a>
     <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
-    <span class="docid"><span>Controlled study </span><b>WI-PARSE</b> rev 1.0.0</span>
   </div>
 </header>
 
 <main id="main">
-  <div class="hero wrap">
-    <div>
-      <p class="kind">Study, Python document parsing</p>
-      <h1>Word work instructions, read to the paragraph.</h1>
-      <p class="lede">Work instructions usually live in Word. This parser reads one written to a set template and writes the title, safety notes and steps to JSON and CSV. Every value keeps the number of the paragraph it came from and the hash of the source file. Anything outside the template stops the run instead of being guessed at.</p>
-      <div class="acts">
-        <a class="btn solid" href="#bench">Edit a document and run it</a>
-        <a class="btn" href="sop-parser-and-previews.zip" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Parser and tests <small>14 KB</small></a>
-      </div>
-    </div>
-    <figure class="map" id="map" aria-labelledby="map-cap">
-      <div class="map-cap" id="map-cap"><span>synthetic_sop.docx</span><span>work_instruction_preview.json</span></div>
-      <div class="map-grid" id="map-grid">
-        <div class="mini-page" role="group" aria-label="The template, one labeled paragraph each. Choose a paragraph to see where it goes.">
-          <div class="ruler" aria-hidden="true"></div>
-          <button type="button" class="mp" data-k="title" aria-pressed="false"><span class="pn">¶1</span><span><b>Title:</b> Review a sample café record</span></button>
-          <button type="button" class="mp" data-k="safety" aria-pressed="false"><span class="pn">¶2</span><span><b>Safety notes:</b> Synthetic example only.<br>No equipment is involved.</span></button>
-          <button type="button" class="mp" data-k="s1" aria-pressed="true"><span class="pn">¶3</span><span><b>Step 1:</b> Open the sample record.<br>Check that the café record ID is present.</span></button>
-          <button type="button" class="mp" data-k="s2" aria-pressed="false"><span class="pn">¶4</span><span><b>Step 2:</b> Mark the sample record Complete.</span></button>
-        </div>
-<pre class="mini-json" aria-label="The extracted JSON, shortened"><span class="pl">{</span><span class="jk" data-k="title">  "title": {
-    "source_paragraph_index": <b>1</b>,
-    "text": "Review a sample café record" },</span><span class="jk" data-k="safety">  "safety_notes": {
-    "source_paragraph_index": <b>2</b>,
-    "text": "Synthetic example only.\n..." },</span><span class="pl">  "steps": [</span><span class="jk on" data-k="s1">    { "step_number": 1,
-      "source_paragraph_index": <b>3</b>,
-      "text": "Open the sample record.\n..." },</span><span class="jk" data-k="s2">    { "step_number": 2,
-      "source_paragraph_index": <b>4</b>,
-      "text": "Mark the sample record Complete." }</span><span class="pl">  ],
-  "source": { "sha256": "4a68545d...", ... }
-}</span></pre>
-        <svg class="wire" id="wire" aria-hidden="true"><path id="wire-path" d=""/><circle id="wire-a" r="3.5" cx="-9" cy="-9"/><circle id="wire-b" r="3.5" cx="-9" cy="-9"/></svg>
-      </div>
-      <p class="map-note" id="map-note" aria-live="polite">Paragraph 3 becomes <code>steps[0]</code>. Its line break stays inside the step, and <code>source_paragraph_index</code> points back to it.</p>
-    </figure>
-  </div>
-  <div class="wrap props">
-    <dl class="fields" aria-label="Document properties">
-      <div><dt>Parser</dt><dd>1.0.0</dd></div>
-      <div><dt>Schema</dt><dd>work-instruction-preview/1</dd></div>
-      <div><dt>Runtime</dt><dd>Python 3.12, standard library</dd></div>
-      <div><dt>Unit tests</dt><dd>28, all pass</dd></div>
-      <div><dt>Refusal codes</dt><dd>42</dd></div>
-      <div><dt>Outputs</dt><dd>JSON and CSV, never overwritten</dd></div>
-    </dl>
-  </div>
-
-  <section class="wrap" id="bench" aria-labelledby="bench-title">
-    <div class="shead">
-      <span class="no">01</span>
-      <h2 id="bench-title">Write the instruction, read what the parser reads.</h2>
-      <p>The page builds a real .docx from these paragraphs on every change and runs the parser's rules on it in your browser. Nothing is uploaded. Break the template on purpose, the result says where and why it stopped.</p>
-    </div>
-    <div class="presets" role="group" aria-label="Example documents">
-      <span class="lab">Load</span>
-      <button type="button" class="pill" data-preset="sample" aria-pressed="true">Café record</button>
-      <button type="button" class="pill" data-preset="ribbon" aria-pressed="false">Printer ribbon</button>
-      <button type="button" class="pill" data-preset="fixture" aria-pressed="false">Test fixture file</button>
-      <button type="button" class="pill" data-preset="gap" aria-pressed="false">Missing step</button>
-      <button type="button" class="pill" data-preset="loose" aria-pressed="false">Loose note</button>
-      <button type="button" class="pill" data-preset="formula" aria-pressed="false">Formula-like text</button>
-    </div>
-    <div class="bench">
-      <div id="paper" data-mode="edit">
-        <div class="phead">
-          <div>
-            <h3 class="edit-only">work_instruction.docx</h3>
-            <h3 class="file-only" id="file-name"></h3>
-            <span class="meta" id="src-size"></span>
-          </div>
+  <section class="wrap ed" id="bench" tabindex="-1" aria-labelledby="cap">
+    <h1 class="cap" id="cap">Reads Word work instructions into structured data.</h1>
+    <div class="desk" id="res" data-state="ok">
+      <div class="win" id="paper" data-mode="edit">
+        <div class="tbar">
+          <p class="fname"><span class="w" aria-hidden="true">W</span><span class="edit-only">work_instruction.docx</span><span class="file-only" id="file-name"></span><span class="meta" id="src-size"></span></p>
           <div class="ptools">
             <label class="btn filebtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h6l2 2h8v10H4z"/></svg>Open a .docx<input type="file" id="open" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></label>
             <button type="button" class="btn edit-only" id="docx-dl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Save as .docx</button>
           </div>
         </div>
+        <div class="presets" role="group" aria-label="Example documents">
+          <span class="lab">Examples</span>
+          <button type="button" class="pill" data-preset="sample" aria-pressed="true">Café record</button>
+          <button type="button" class="pill" data-preset="ribbon" aria-pressed="false">Printer ribbon</button>
+          <button type="button" class="pill" data-preset="fixture" aria-pressed="false">Test file</button>
+          <button type="button" class="pill" data-preset="gap" aria-pressed="false">Missing step</button>
+          <button type="button" class="pill" data-preset="loose" aria-pressed="false">Loose note</button>
+          <button type="button" class="pill" data-preset="formula" aria-pressed="false">Text starting with =</button>
+        </div>
         <div class="inserts edit-only" id="inserts" role="group" aria-label="Insert Word content">
-          <span>Add to <b id="ins-target">the last paragraph</b></span>
+          <span>Insert into <b id="ins-target">the last paragraph</b></span>
           <button type="button" data-insert="list">Word list</button>
           <button type="button" data-insert="tracked">Tracked change</button>
           <button type="button" data-insert="field">Date field</button>
@@ -113,8 +222,7 @@
           <button type="button" data-insert="pagebreak">Page break</button>
           <button type="button" data-insert="table">Table after it</button>
         </div>
-        <div class="ruler edit-only" aria-hidden="true"></div>
-        <p class="hint edit-only"><kbd>Enter</kbd> new paragraph, <kbd>Shift</kbd>+<kbd>Enter</kbd> line break inside one, <kbd>Backspace</kbd> at the start joins it to the one above.</p>
+        <div class="rhead" aria-hidden="true"><div class="ruler"></div><p>JSON for each paragraph</p></div>
         <div id="doc" class="edit-only"></div>
         <div class="file-only">
           <p class="fnote" id="file-note"></p>
@@ -124,18 +232,15 @@
           </div>
           <div id="fdoc"></div>
         </div>
+        <p class="hint edit-only"><kbd>Enter</kbd> new paragraph, <kbd>Shift</kbd>+<kbd>Enter</kbd> line break inside one, <kbd>Backspace</kbd> at the start joins it to the one above.</p>
+        <div class="sbar"><b id="stamp" role="status">Accepted</b><button type="button" class="btn" id="jump" hidden></button></div>
       </div>
 
-      <div class="res" id="res" data-state="ok">
+      <div class="outs">
         <div class="term">
-          <div class="th"><span>shell</span><b id="exit">exit 0</b></div>
+          <div class="th"><span>Command line</span><b id="exit">exit 0</b></div>
           <pre><span class="cmd">$ python sop_to_work_instruction.py <b id="cmd-file">work_instruction.docx</b> --output-dir out</span>
 <span id="out-line"></span></pre>
-        </div>
-        <div class="sheet">
-          <div class="lab"><span>Extracted instruction</span><b id="stamp" role="status">Accepted</b></div>
-          <button type="button" class="btn" id="jump" hidden></button>
-          <div id="view"></div>
         </div>
         <div class="files" id="files">
           <div class="ftabs" role="tablist" aria-label="Output files">
@@ -151,9 +256,8 @@
 
   <section class="wrap" id="codes" aria-labelledby="codes-title">
     <div class="shead">
-      <span class="no">02</span>
-      <h2 id="codes-title">Every reason it can refuse.</h2>
-      <p>A parser that skips what it doesn't understand hands someone an instruction with a missing step. This one stops with one of 42 codes, listed here by the stage that checks them. The run writes nothing on any of them.</p>
+      <h2 id="codes-title">Refusal codes</h2>
+      <p>If a document does not fit the template, the tool stops with one of these <b>42</b> codes and writes nothing.</p>
     </div>
     <div class="reg-tools">
       <label for="find">Find a code</label>
@@ -238,9 +342,8 @@
 
   <section class="wrap" aria-labelledby="rec-title">
     <div class="shead">
-      <span class="no">03</span>
-      <h2 id="rec-title">The recorded run.</h2>
-      <p>The two files the Python tool wrote for the test fixture, a fictional two-step instruction. The paragraph numbers are the parser's one-based body paragraphs, not Word's line numbers. Both files are in the download.</p>
+      <h2 id="rec-title">Output from the Python tool</h2>
+      <p>The two files it wrote for the test file. Paragraphs are counted from 1.</p>
     </div>
     <div class="rec">
       <figure>
@@ -289,17 +392,21 @@ step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797f
 </pre>
       </figure>
     </div>
-    <p class="parity" id="parity">Checking the bench against these files.</p>
+    <p class="parity" id="parity">Checking the editor against these files.</p>
   </section>
 
   <section class="wrap" aria-labelledby="code-title">
     <div class="shead">
-      <span class="no">04</span>
-      <h2 id="code-title">Safe in a spreadsheet, exact in JSON.</h2>
+      <h2 id="code-title">Formulas, size limits and tests</h2>
     </div>
     <div class="code">
       <div class="notes">
-        <p>Step text that starts with <code>=</code>, <code>+</code>, <code>-</code> or <code>@</code> would run as a formula when the CSV opens in Excel. The CSV gets a leading apostrophe. The JSON keeps the original text, so nothing is lost. Load "Formula-like text" on the bench and compare the two tabs.</p>
+        <div class="formula" aria-label="A step starting with an equals sign: the CSV gets a leading apostrophe, the JSON keeps the original.">
+          <div><span>step text</span><code>=SUM(A1:A9)</code></div>
+          <div><span>.csv</span><code><mark>'</mark>=SUM(A1:A9)</code></div>
+          <div><span>.json</span><code>"=SUM(A1:A9)"</code></div>
+        </div>
+        <p>Applies to <code>=</code> <code>+</code> <code>-</code> <code>@</code>. Try "Text starting with =" in the examples.</p>
         <figure>
           <figcaption><span>sop_to_work_instruction.py</span><span>lines 450 to 455</span></figcaption>
 <pre tabindex="0" aria-label="Excerpt: CSV formula guard">def _csv_safe_text(value: str) -&gt; str:
@@ -311,7 +418,7 @@ step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797f
         </figure>
       </div>
       <div class="notes">
-        <p>The parser reads the package directly with the standard library and checks the ZIP directory before it decompresses anything.</p>
+        <p>Python standard library only. The list of files inside the .docx is checked before anything is unpacked.</p>
         <ul class="limits-list">
           <li>Source file <b>8 MiB</b></li>
           <li>One member, expanded <b>4 MiB</b></li>
@@ -332,32 +439,36 @@ Ran 28 tests in 0.558s
   <section class="wrap" aria-labelledby="limits-title">
     <div class="stops">
       <div>
-        <h2 id="limits-title">Where this stops</h2>
-        <p>This is an extraction building block tested on fictional documents. It reads one labeled template, not any Word file. The test document is generated in code and hasn't been opened in Word itself.</p>
-        <p>The bench runs a JavaScript port of the same rules. On 1,373 generated and damaged documents, plus 600 documents built by the editor, it gave the same files or the same refusal as the Python tool every time. The editor saves its .docx uncompressed, Word itself compresses.</p>
+        <h2 id="limits-title">Limits</h2>
+        <p>One labeled template and made-up documents, not any Word file.</p>
+        <dl class="sop-parity" aria-label="Browser version checked against the Python tool">
+          <div><dt>generated and damaged files</dt><dd>1,373</dd></div>
+          <div><dt>files built in the editor</dt><dd>600</dd></div>
+          <div><dt>differences</dt><dd>0</dd></div>
+        </dl>
         <ul>
-          <li>Supported: one title, optional safety notes before the steps, then consecutive steps of one paragraph each.</li>
-          <li>Not supported: other layouts, tables, automatic lists, headers and footers.</li>
-          <li>No upload, MES connection or production deployment.</li>
+          <li>Reads a title, optional safety notes and one paragraph per step.</li>
+          <li>Does not read tables, automatic lists, headers or footers.</li>
+          <li>No upload, no MES connection, no production setup.</li>
         </ul>
       </div>
       <div>
-        <h3>How a real project would start</h3>
-        <p>With an anonymized copy of one of your real documents. We'd agree which structure the parser accepts and how each field maps to your system, then test against a set of known documents before connecting anything.</p>
+        <h3>For a real project</h3>
+        <p>Start with one anonymized real document. Agree the structure and field mapping, then test on known documents before connecting anything.</p>
       </div>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="wrap">
-    <p>Independent study by Alexandr Khrustalev. The work instructions are fictional.</p>
+  <div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="paraform" viewBox="0 0 139 32" width="112.9" height="26" role="img" aria-label="Paraform" focusable="false"><g aria-hidden="true"><path d="M9.5 4H5v24h4.5M22.5 4H27v24h-4.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M10.5 11h11M10.5 16h11M10.5 21h7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Bitter'" font-weight="700" font-size="21" letter-spacing="0em">Paraform</text></svg></div>
+    <p>Independent study by Alexandr Khrustalev. The work instructions are made up.</p>
     <a href="index.html#sop-extraction">Back to selected work</a>
     <p class="foot-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-  </div>
+  <p class="sb-label">Sample site, fictional brand</p></div>
 </footer>
 <script type="text/plain" id="fixture-docx">UEsDBBQAAAAIAAAAIVDXeYTq8QAAALgBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbH2QzU7DMBCE730Ky9cqccoBIZSkB36OwKE8wMreJFb9J69b2rdn00KREOVozXwz62nXB+/EHjPZGDq5qhspMOhobBg7+b55ru6koALBgIsBO3lEkut+0W6OCUkwHKiTUynpXinSE3qgOiYMrAwxeyj8zKNKoLcworppmlulYygYSlXmDNkvhGgfcYCdK+LpwMr5loyOpHg4e+e6TkJKzmoorKt9ML+Kqq+SmsmThyabaMkGqa6VzOL1jh/0lSfK1qB4g1xewLNRfcRslIl65xmu/0/649o4DFbjhZ/TUo4aiXh77+qL4sGG71+06jR8/wlQSwMEFAAAAAgAAAAhUCAbhuqyAAAALgEAAAsAAABfcmVscy8ucmVsc43Puw6CMBQG4J2naM4uBQdjDIXFmLAafICmPZRGeklbL7y9HRzEODie23fyN93TzOSOIWpnGdRlBQStcFJbxeAynDZ7IDFxK/nsLDJYMELXFs0ZZ57yTZy0jyQjNjKYUvIHSqOY0PBYOo82T0YXDE+5DIp6Lq5cId1W1Y6GTwPagpAVS3rJIPSyBjIsHv/h3ThqgUcnbgZt+vHlayPLPChMDB4uSCrf7TKzQHNKuorZvgBQSwMEFAAAAAgAAAAhUHWOcao+AQAAzAIAABEAAAB3b3JkL2RvY3VtZW50LnhtbKWSQU7DMBBFrzLynrjtAiGrSRdFSF1QEAWxNs60sZrYxp4mzZE4BxfDTlUBohKobL5l2Xr//9FMZ/umhhZ90NbkbJyNGKBRttRmk7Onx5uLKwaBpCllbQ3mrMfAZsW0E6VVuwYNQQSYILqcVUROcB5UhY0MmXVo4tva+kZSvPoN76wvnbcKQ4j8puaT0eiSN1IblpAvtuzT6ZL4JANdBCdVtHYeA/oWWfFs/RYWJpDfKYrBBTxgq7EDCUE2rkZQcv3+Bh5VdJzyCCqS+kHdnzxWco3Uw9ISBgGr3lCFpBXg/uBgTd1n39CxgOe/YZcW8HWn3TA6HUCb1tYtltmZKQkdjAXcxWFDTHjsf2h+Rr55hWobSZIG3Nc5wuI6JR7+GvpP4ImAW+m3PwPD3KYb4Wl6QEX3qQM/Lgv/XMTiA1BLAQIUABQAAAAIAAAAIVDXeYTq8QAAALgBAAATAAAAAAAAAAAAAACAAQAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAhQAFAAAAAgAAAAhUCAbhuqyAAAALgEAAAsAAAAAAAAAAAAAAIABIgEAAF9yZWxzLy5yZWxzUEsBAhQAFAAAAAgAAAAhUHWOcao+AQAAzAIAABEAAAAAAAAAAAAAAIAB/QEAAHdvcmQvZG9jdW1lbnQueG1sUEsFBgAAAAADAAMAuQAAAGoDAAAAAA==</script>
-<script type="module" src="sop-page.mjs"></script>
+<script type="module" src="sop-v3-page.mjs"></script>
 <script type="module">
 const find = document.getElementById("find"), count = document.getElementById("find-count");
 find.addEventListener("input", () => {
@@ -373,54 +484,7 @@ find.addEventListener("input", () => {
   }
   count.textContent = n === 1 ? "1 code" : `${n} codes`;
 });
-
-// Hero: point at a template paragraph, see the JSON it becomes, joined by a drawn wire.
-const NOTES = {
-  title: "Paragraph 1 becomes <code>title</code>. The label is dropped, the text is kept as written.",
-  safety: "Paragraph 2 becomes <code>safety_notes</code>. Safety notes are optional, but only allowed before the first step.",
-  s1: "Paragraph 3 becomes <code>steps[0]</code>. Its line break stays inside the step, and <code>source_paragraph_index</code> points back to it.",
-  s2: "Paragraph 4 becomes <code>steps[1]</code>. Step numbers must start at 1 and never skip, or the run stops.",
-};
-const grid = document.getElementById("map-grid"), path = document.getElementById("wire-path");
-const dotA = document.getElementById("wire-a"), dotB = document.getElementById("wire-b");
-const still = matchMedia("(prefers-reduced-motion: reduce)");
-let cur = "s1";
-function wire(animate) {
-  const p = grid.querySelector(`.mp[data-k="${cur}"]`), j = grid.querySelector(`.jk[data-k="${cur}"]`);
-  const g = grid.getBoundingClientRect(), a = p.getBoundingClientRect(), b = j.getBoundingClientRect();
-  if (getComputedStyle(path.parentNode).display === "none" || !a.width) return;
-  // On very wide screens the page is zoomed. Rects are in screen pixels, the wire is drawn in page pixels.
-  const z = grid.offsetWidth ? g.width / grid.offsetWidth : 1;
-  const ax = (a.right - g.left) / z, ay = (a.top + a.height / 2 - g.top) / z, bx = (b.left - g.left) / z, by = (b.top + b.height / 2 - g.top) / z;
-  const mx = (ax + bx) / 2;
-  path.setAttribute("d", `M${ax},${ay} C${mx},${ay} ${mx},${by} ${bx},${by}`);
-  dotA.setAttribute("cx", ax); dotA.setAttribute("cy", ay); dotB.setAttribute("cx", bx); dotB.setAttribute("cy", by);
-  path.classList.remove("draw");
-  if (animate && !still.matches) { path.style.setProperty("--len", Math.ceil(path.getTotalLength())); void path.getBoundingClientRect(); path.classList.add("draw"); }
-}
-function pick(k, animate) {
-  cur = k;
-  for (const b of grid.querySelectorAll(".mp")) b.setAttribute("aria-pressed", String(b.dataset.k === k));
-  for (const s of grid.querySelectorAll(".jk")) s.classList.toggle("on", s.dataset.k === k);
-  document.getElementById("map-note").innerHTML = NOTES[k];
-  wire(animate);
-}
-for (const b of grid.querySelectorAll(".mp")) {
-  b.addEventListener("click", () => pick(b.dataset.k, true));
-  b.addEventListener("pointerenter", () => { if (cur !== b.dataset.k) pick(b.dataset.k, true); });
-}
-// Hold the note at its longest text so hovering the paragraphs never moves the page below it.
-function fitNote() {
-  const n = document.getElementById("map-note"), keep = n.innerHTML;
-  n.style.minHeight = ""; n.removeAttribute("aria-live");
-  let mx = 0;
-  for (const k in NOTES) { n.innerHTML = NOTES[k]; mx = Math.max(mx, n.offsetHeight); }
-  n.innerHTML = keep; n.style.minHeight = mx + "px"; n.setAttribute("aria-live", "polite");
-}
-addEventListener("resize", () => { fitNote(); wire(false); });
-document.fonts.ready.then(() => { fitNote(); wire(false); });
-fitNote();
-wire(false);
 </script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
 </body>
 </html>
