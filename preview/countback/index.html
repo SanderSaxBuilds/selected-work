@@ -122,6 +122,12 @@ body { background: var(--paper); }
 dialog { border-top-color: var(--yellow); border-top-width: 12px; }
 .live-total { background: var(--yellow-soft); border-left-color: var(--ink); }
 .skip-link { background: var(--yellow); }
+.flag-row { list-style: none; margin: 18px 0 0; padding: 0; display: flex; gap: 0; border-top: 2px solid var(--ink); }
+.flag-row li { flex: 1 1 0; padding: 10px 12px 0 0; font: 700 15px/1.2 var(--heading); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+.flag-row b { display: block; font: 800 clamp(40px, 4vw, 60px)/.9 var(--heading); letter-spacing: 0; }
+.flag-row .f-short b { color: var(--error-ink); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
+.flag-row .f-dmg b { text-decoration: line-through; text-decoration-color: var(--error-ink); text-decoration-thickness: 3px; }
+.flag-row .f-extra b { color: var(--dock); }
 @media (max-width: 860px) {
   .delivery { box-shadow: 6px 6px 0 #141512; }
 }
@@ -152,7 +158,12 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
         <h1 id="po-title">PO-1048</h1>
         <p class="delivery-route" id="route">Northside Supply to Larch Street Café</p>
         <dl class="delivery-meta" id="delivery-meta"><div><dt>Arrived</dt><dd>7:42 AM</dd></div><div><dt>Drop-off</dt><dd>Back door</dd></div><div><dt>Expected</dt><dd>25 cartons</dd></div><div><dt>Lines</dt><dd>6</dd></div></dl>
-        <p class="delivery-promise">Check a delivery against its order on the dock. Short, damaged and extra units flag themselves, every correction is kept, and the receipt exports once the last line is counted.</p>
+        <p class="delivery-promise">Count on the dock. Problems flag themselves, like this.</p>
+        <ul class="flag-row" aria-label="Example flags">
+          <li class="f-short"><b>-2</b>Short</li>
+          <li class="f-dmg"><b>1</b>Damaged</li>
+          <li class="f-extra"><b>+3</b>Extra</li>
+        </ul>
         <div class="delivery-actions"><button class="button button-primary" id="hero-demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l11-7z"/></svg>Watch a delivery</button><button class="button button-door" id="hero-count" type="button">Count the next line</button></div>
       </div>
       <div class="delivery-progress">
@@ -169,7 +180,7 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
     <div class="workspace">
       <aside class="panel" aria-labelledby="walkthrough-title">
         <h2 id="walkthrough-title">Watch it count</h2>
-        <p class="panel-copy">Play a scripted delivery. Each spoken count is read back, a correction replaces the first oat milk count and the receipt fills in line by line.</p>
+        <p class="panel-copy">A scripted delivery, read back count by count, with one correction.</p>
         <div class="panel-actions">
           <button class="button button-primary" id="demo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l11-7z"/></svg>Play the walkthrough</button>
           <button class="button button-secondary" id="stop-demo" type="button" hidden>Stop</button>
@@ -181,7 +192,7 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
 
       <section class="receipt" id="receipt" aria-labelledby="receipt-title" tabindex="-1">
         <div class="receipt-head">
-          <div><h2 id="receipt-title">Receipt</h2><p>A new count replaces the line total. Earlier counts stay in the history.</p></div>
+          <div><h2 id="receipt-title">Receipt</h2><p>New counts replace the total. History keeps the rest.</p></div>
           <span class="draft-chip" id="draft-chip">Draft</span>
         </div>
         <div class="totals" id="totals"></div>
@@ -208,7 +219,7 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
     </div>
   </main>
   <footer class="page-footer"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="countback" viewBox="0 0 144 32" width="117.0" height="26" role="img" aria-label="Countback" focusable="false"><g aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="currentColor" class="f-a s-n"/><rect x="7" y="8" width="4.5" height="17" rx="1" fill="currentColor" class="f-i s-n"/><rect x="13.75" y="12" width="4.5" height="13" rx="1" fill="currentColor" class="f-i s-n"/><rect x="20.5" y="16" width="4.5" height="9" rx="1" fill="currentColor" class="f-i s-n"/></g><text x="42" y="25.7" fill="currentColor" font-family="'Saira Extra Condensed'" font-weight="700" font-size="27" letter-spacing="0.02em">COUNTBACK</text></svg></div>
-    <p>Countback is an independent prototype. The order, supplier and café are fictional. The draft is kept in this browser only, and nothing on this page is sent anywhere.</p>
+    <p>Countback is an independent prototype with a fictional order. Nothing is sent anywhere.</p>
     <p class="footer-back"><a href="index.html#08-countback">Back to selected work</a></p>
     <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
   <p class="sb-label">Sample site, fictional brand</p></footer>

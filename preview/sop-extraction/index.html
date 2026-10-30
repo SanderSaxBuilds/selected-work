@@ -98,6 +98,16 @@ h1, h2, h3 { letter-spacing: -.015em; }
 .limits-list b { color: var(--green); }
 .stops { border-top: 0; border-left: 6px solid var(--red); }
 
+.formula { display: grid; gap: 0; margin: 0 0 14px; border-top: 3px solid var(--ink); }
+.formula div { display: grid; grid-template-columns: 80px minmax(0, 1fr); align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule, #d9b8c0); }
+.formula span { font: 500 12.5px/1.2 var(--mono); color: var(--muted); }
+.formula code { font: 600 clamp(17px, 1.8vw, 22px)/1.2 var(--mono); color: var(--text); overflow-wrap: anywhere; }
+.formula mark { background: var(--red); color: #fff; padding: 0 3px; }
+.sop-parity { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 16px 0 18px; border-top: 2px solid var(--ink); }
+.sop-parity div { display: flex; flex-direction: column-reverse; gap: 4px; padding: 12px 12px 0 0; }
+.sop-parity dt { font: 500 12px/1.3 var(--mono); color: var(--muted); }
+.sop-parity dd { margin: 0; font: 700 clamp(32px, 4vw, 54px)/1 var(--serif); color: var(--ink); }
+.sop-parity div:last-child dd { color: var(--green); }
 footer { background: var(--ink); color: #e7d3dc; }
 footer .foot-contact { border-top-color: #4d2a55; }
 .foot-contact span { color: #c0a5b8; }
@@ -117,7 +127,7 @@ footer .foot-contact { border-top-color: #4d2a55; }
     <div>
       <p class="kind">Study, Python document parsing</p>
       <h1>Word work instructions, read to the paragraph.</h1>
-      <p class="lede">Work instructions usually live in Word. This parser reads one written to a set template and writes the title, safety notes and steps to JSON and CSV. Every value keeps the number of the paragraph it came from and the hash of the source file. Anything outside the template stops the run instead of being guessed at.</p>
+      <p class="lede">A templated .docx in, JSON and CSV out. Every value points back to its paragraph and the file hash. Off-template stops the run.</p>
       <div class="acts">
         <a class="btn solid" href="#bench">Edit a document and run it</a>
         <a class="btn" href="sop-parser-and-previews.zip" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Parser and tests <small>14 KB</small></a>
@@ -164,7 +174,7 @@ footer .foot-contact { border-top-color: #4d2a55; }
     <div class="shead">
       <span class="no">01</span>
       <h2 id="bench-title">Write the instruction, read what the parser reads.</h2>
-      <p>The page builds a real .docx from these paragraphs on every change and runs the parser's rules on it in your browser. Nothing is uploaded. Break the template on purpose, the result says where and why it stopped.</p>
+      <p>A real .docx, rebuilt on every change and parsed in your browser. Break the template and see where it stops.</p>
     </div>
     <div class="presets" role="group" aria-label="Example documents">
       <span class="lab">Load</span>
@@ -237,7 +247,7 @@ footer .foot-contact { border-top-color: #4d2a55; }
     <div class="shead">
       <span class="no">02</span>
       <h2 id="codes-title">Every reason it can refuse.</h2>
-      <p>A parser that skips what it doesn't understand hands someone an instruction with a missing step. This one stops with one of 42 codes, listed here by the stage that checks them. The run writes nothing on any of them.</p>
+      <p>Skipping what it doesn't understand would drop a step. It stops instead, with one of <b>42</b> codes, and writes nothing.</p>
     </div>
     <div class="reg-tools">
       <label for="find">Find a code</label>
@@ -324,7 +334,7 @@ footer .foot-contact { border-top-color: #4d2a55; }
     <div class="shead">
       <span class="no">03</span>
       <h2 id="rec-title">The recorded run.</h2>
-      <p>The two files the Python tool wrote for the test fixture, a fictional two-step instruction. The paragraph numbers are the parser's one-based body paragraphs, not Word's line numbers. Both files are in the download.</p>
+      <p>What the Python tool wrote for a fictional two-step fixture. Paragraph numbers are one-based body paragraphs.</p>
     </div>
     <div class="rec">
       <figure>
@@ -383,7 +393,12 @@ step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797f
     </div>
     <div class="code">
       <div class="notes">
-        <p>Step text that starts with <code>=</code>, <code>+</code>, <code>-</code> or <code>@</code> would run as a formula when the CSV opens in Excel. The CSV gets a leading apostrophe. The JSON keeps the original text, so nothing is lost. Load "Formula-like text" on the bench and compare the two tabs.</p>
+        <div class="formula" aria-label="A step starting with an equals sign: the CSV gets a leading apostrophe, the JSON keeps the original.">
+          <div><span>step text</span><code>=SUM(A1:A9)</code></div>
+          <div><span>.csv</span><code><mark>'</mark>=SUM(A1:A9)</code></div>
+          <div><span>.json</span><code>"=SUM(A1:A9)"</code></div>
+        </div>
+        <p>Applies to <code>=</code> <code>+</code> <code>-</code> <code>@</code>. Try "Formula-like text" on the bench.</p>
         <figure>
           <figcaption><span>sop_to_work_instruction.py</span><span>lines 450 to 455</span></figcaption>
 <pre tabindex="0" aria-label="Excerpt: CSV formula guard">def _csv_safe_text(value: str) -&gt; str:
@@ -395,7 +410,7 @@ step,2,Mark the sample record Complete.,4,4a68545d3a8b70d49bd683844b3f021e22797f
         </figure>
       </div>
       <div class="notes">
-        <p>The parser reads the package directly with the standard library and checks the ZIP directory before it decompresses anything.</p>
+        <p>Standard library only. The ZIP directory is checked before anything decompresses.</p>
         <ul class="limits-list">
           <li>Source file <b>8 MiB</b></li>
           <li>One member, expanded <b>4 MiB</b></li>
@@ -417,17 +432,21 @@ Ran 28 tests in 0.558s
     <div class="stops">
       <div>
         <h2 id="limits-title">Where this stops</h2>
-        <p>This is an extraction building block tested on fictional documents. It reads one labeled template, not any Word file. The test document is generated in code and hasn't been opened in Word itself.</p>
-        <p>The bench runs a JavaScript port of the same rules. On 1,373 generated and damaged documents, plus 600 documents built by the editor, it gave the same files or the same refusal as the Python tool every time. The editor saves its .docx uncompressed, Word itself compresses.</p>
+        <p>One labeled template, fictional documents, not any Word file.</p>
+        <dl class="sop-parity" aria-label="Bench port against the Python tool">
+          <div><dt>generated and damaged docs</dt><dd>1,373</dd></div>
+          <div><dt>editor-built docs</dt><dd>600</dd></div>
+          <div><dt>mismatches</dt><dd>0</dd></div>
+        </dl>
         <ul>
-          <li>Supported: one title, optional safety notes before the steps, then consecutive steps of one paragraph each.</li>
-          <li>Not supported: other layouts, tables, automatic lists, headers and footers.</li>
+          <li>Supported: title, optional safety notes, one paragraph per step.</li>
+          <li>Not supported: tables, automatic lists, headers, footers.</li>
           <li>No upload, MES connection or production deployment.</li>
         </ul>
       </div>
       <div>
         <h3>How a real project would start</h3>
-        <p>With an anonymized copy of one of your real documents. We'd agree which structure the parser accepts and how each field maps to your system, then test against a set of known documents before connecting anything.</p>
+        <p>One anonymized real document. Agree the structure and field mapping, then test on known documents before connecting anything.</p>
       </div>
     </div>
   </section>

@@ -34,7 +34,7 @@
     <div>
       <p class="kicker">Project backups</p>
       <h1 id="page-title">A backup you can inspect.</h1>
-      <p class="lede">Before you hand over or archive a project, pack the folder into a ZIP, prove the saved copy is intact file by file and see exactly what changed since. Nothing leaves your browser.</p>
+      <p class="lede">Pack a folder into a ZIP, prove every file survived, see what changed. Nothing leaves your browser.</p>
     </div>
     <div class="heading-actions"><button class="button primary" id="run-tour" type="button">Watch a sample backup</button><button class="button secondary" id="load-demo" type="button">Load sample files</button></div>
   </section>
@@ -55,7 +55,7 @@
           <div class="dropzone" id="dropzone">
             <div class="drop-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7.5V18a1.5 1.5 0 0 0 1.5 1.5h15A1.5 1.5 0 0 0 21 18V9a1.5 1.5 0 0 0-1.5-1.5h-7.2L10.5 5H4.5A1.5 1.5 0 0 0 3 6.5z"/><path d="M12 11v5M9.5 13.5h5"/></svg></div>
             <h3>Bring the whole small project.</h3>
-            <p>Drop a folder here, or choose one to keep its relative paths. You can also pick single files.</p>
+            <p>Drop a folder, or pick files.</p>
             <div class="drop-actions"><button class="button primary" id="choose-folder" type="button">Choose folder</button><button class="button secondary" id="choose-files" type="button">Choose files</button></div>
             <p class="limit-note">Up to <strong>500</strong> files and <strong>50 MiB</strong> in total, with <strong>20 MiB</strong> per file.</p>
           </div>
@@ -69,7 +69,7 @@
         <aside class="sidebar" aria-label="Create a backup">
           <section class="panel build-card" aria-labelledby="build-title">
             <h2 id="build-title">Create the backup ZIP</h2>
-            <p>Every backup carries a manifest with the size and SHA-256 fingerprint of each file.</p>
+            <p>With a SHA-256 manifest of every file.</p>
             <label for="archive-name">Backup name</label>
             <input id="archive-name" type="text" value="project-backup" maxlength="60" autocomplete="off" spellcheck="false">
             <button class="button primary full" id="build-archive" type="button" disabled>Create backup</button>
@@ -91,7 +91,7 @@
               <li id="check-reopened"><span>3</span><div><strong>Reopen the saved copy</strong><small>Verify it before you rely on it.</small></div></li>
             </ol>
           </section>
-          <div class="privacy-note"><strong>Plain ZIP, nothing uploaded.</strong><p>The page has no upload endpoint and the ZIP is not encrypted. Download it to keep a copy after you close this tab.</p></div>
+          <div class="privacy-note"><strong>Plain ZIP, nothing uploaded.</strong><p>No upload endpoint. The ZIP is not encrypted.</p></div>
         </aside>
       </div>
     </section>
@@ -100,7 +100,7 @@
       <div class="workspace-grid">
         <section class="panel verify-panel" aria-labelledby="verify-title">
           <div class="panel-heading"><div><p class="eyebrow">Check a saved copy</p><h2 id="verify-title">Verify the archive, file by file</h2></div></div>
-          <p class="section-intro">Open a backup made by Archive Desk. The check reads the ZIP structure, each CRC value and every SHA-256 fingerprint before it offers the files back.</p>
+          <p class="section-intro">Checks the ZIP structure, every CRC and every SHA-256 before it hands the files back.</p>
           <label class="file-picker" for="verify-input"><span class="picker-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 15v3.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V15"/></svg></span><span><strong>Choose a backup ZIP</strong><small id="verify-file-name">No archive selected</small></span></label>
           <input class="visually-hidden" type="file" id="verify-input" accept=".zip,application/zip" aria-label="Backup ZIP to verify">
           <div class="verify-alt"><button class="button secondary" id="verify-created" type="button" disabled>Check the backup made in this tab</button><span class="small muted">Quick check before you download. Only the saved file completes check 3.</span></div>
@@ -114,14 +114,14 @@
         <aside class="sidebar" aria-label="Recover files">
           <section class="panel recovery-card" aria-labelledby="recovery-title">
             <h2 id="recovery-title">Take the checked files with you</h2>
-            <p>The recovery ZIP holds the original relative paths and file bytes. Extract it into a new folder and look through the result.</p>
+            <p>Original paths and bytes. Extract into a new folder.</p>
             <button class="button primary full" id="download-recovered" type="button" disabled>Download recovered files</button>
             <p class="small muted">Nothing is written into your original project folder.</p>
           </section>
           <section class="panel format-card" aria-labelledby="format-title">
             <span class="format-tag">ZIP, stored</span>
             <h3 id="format-title">One deliberate format</h3>
-            <p>Archive Desk opens its own uncompressed backups. Compressed, encrypted and ZIP64 archives are not supported.</p>
+            <p>Its own uncompressed backups only. No compressed, encrypted or ZIP64.</p>
             <p>Keep a second copy of important work somewhere else.</p>
           </section>
         </aside>
@@ -158,7 +158,7 @@
 
   <footer class="site-footer"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="archive" viewBox="0 0 181 32" width="147.1" height="26" role="img" aria-label="Archive Desk" focusable="false"><g aria-hidden="true"><rect x="3" y="4" width="26" height="7" rx="2" fill="currentColor" class="f-a s-n"/><path d="M5 11v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 17h8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Literata'" font-weight="600" font-size="21" letter-spacing="0em">Archive Desk</text></svg></div>
     <nav aria-label="More from Archive Desk"><a href="preview/archive-desk/protection.html">Encrypted copies</a><a href="preview/archive-desk/cli.html">Command line</a><a href="preview/archive-desk/history.html">Workbench for Windows</a><a href="archive-desk-source.zip" download>Source code</a></nav>
-    <p class="footer-about">Built by SanderSaxBuilds. The sample files are fictional, and your own files never leave this tab.</p>
+    <p class="footer-about">Built by SanderSaxBuilds. Sample files are fictional.</p>
     <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
   <p class="sb-label">Sample site, fictional brand</p></footer>
 </main>

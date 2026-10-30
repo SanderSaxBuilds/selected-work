@@ -278,6 +278,15 @@ h1 em { color: var(--hi); }
 .col { border-top: 2px solid var(--ink); }
 .col h3 { font: 700 26px/1.1 var(--display); text-transform: uppercase; }
 .col p { color: var(--ink-2); }
+.specimens figure { margin: 0; }
+.specimens svg { display: block; width: 100%; height: auto; margin-top: 18px; overflow: visible; }
+.specimens svg text { fill: var(--muted); font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.specimens figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line-2); }
+.specimens figcaption span { color: var(--ink-2); font-size: 13px; text-align: right; }
+.specimens .scale { display: flex; gap: 0; }
+.specimens .scale b { width: 52px; text-align: center; font-weight: 500; color: var(--hi); font-variant-numeric: tabular-nums; }
+.col:hover svg circle { transition: transform .5s var(--ease); }
+@media (max-width: 520px) { .specimens .scale b { width: 40px; font-size: 12px; } }
 .code { background: var(--ink); border: 0; border-radius: 0; }
 .code figcaption { color: #9bb4bd; border-bottom-color: rgba(230, 238, 241, .15); }
 .code pre { color: #dbe7eb; }
@@ -309,7 +318,7 @@ h1 em { color: var(--hi); }
       <div class="intro">
         <p class="kicker">WebGL material study</p>
         <h1 id="title">Six finishes under <em>one lamp.</em></h1>
-        <p class="lede">The same three rings, rendered live with no libraries. Pick a specimen from the rack, turn the rings by hand, swing the lamp around and pull roughness and metal until the surface tells you what it is made of.</p>
+        <p class="lede">Live WebGL, no libraries. Pick a chip, drag the rings, move the lamp.</p>
       </div>
 
       <section class="sheet" aria-labelledby="spec-name">
@@ -367,11 +376,40 @@ h1 em { color: var(--hi); }
 
   <section class="notes wrap" aria-labelledby="notes-title">
     <p class="kicker">How a finish reads</p>
-    <h2 id="notes-title">Three numbers decide what a surface is made of.</h2>
-    <div class="cols">
-      <div class="col"><h3>Roughness</h3><p>How wide the lamp's reflection spreads. Polish keeps it a sharp window, satin smears it into a glow, matte spreads it until only shading is left. The two smaller rings always run one and two steps rougher than the specimen, so you can read the scale at a glance.</p></div>
-      <div class="col"><h3>Metal</h3><p>Metals have no body colour of their own, only a tinted reflection. Turn metal down on brass and the gold leaves the highlights and moves into a painted base under a white sheen.</p></div>
-      <div class="col"><h3>Clear coat</h3><p>Enamel and lacquer carry a thin, glossy layer on top of their colour. It catches the room at grazing angles, which is why the edges of the red ring stay crisp even where its paint is dark.</p></div>
+    <h2 id="notes-title">Three numbers decide the surface.</h2>
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+      <radialGradient id="sp-steel" cx=".38" cy=".34" r=".72"><stop offset="0" stop-color="#d7dbe0"/><stop offset=".7" stop-color="#7d838a"/><stop offset="1" stop-color="#2d3136"/></radialGradient>
+      <radialGradient id="sp-brass" cx=".38" cy=".34" r=".72"><stop offset="0" stop-color="#f0cf86"/><stop offset=".7" stop-color="#a9792f"/><stop offset="1" stop-color="#4f3712"/></radialGradient>
+      <radialGradient id="sp-paint" cx=".38" cy=".34" r=".72"><stop offset="0" stop-color="#e2a07a"/><stop offset=".55" stop-color="#c0342b"/><stop offset="1" stop-color="#6d1410"/></radialGradient>
+      <radialGradient id="sp-dark" cx=".38" cy=".34" r=".72"><stop offset="0" stop-color="#3a3d40"/><stop offset=".8" stop-color="#1c1e20"/><stop offset="1" stop-color="#0d0e0f"/></radialGradient>
+      <radialGradient id="hl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    </defs></svg>
+    <div class="cols specimens">
+      <figure class="col">
+        <svg viewBox="0 0 320 110" role="img" aria-label="Four steel balls, the highlight spreading from a sharp point to a wide glow as roughness rises">
+          <g><circle cx="40" cy="55" r="34" fill="url(#sp-steel)"/><ellipse cx="28" cy="40" rx="5" ry="4" fill="#fff"/></g>
+          <g><circle cx="120" cy="55" r="34" fill="url(#sp-steel)"/><ellipse cx="108" cy="41" rx="11" ry="9" fill="url(#hl)"/></g>
+          <g><circle cx="200" cy="55" r="34" fill="url(#sp-steel)"/><ellipse cx="190" cy="44" rx="20" ry="17" fill="url(#hl)" opacity=".9"/></g>
+          <g><circle cx="280" cy="55" r="34" fill="url(#sp-steel)"/><circle cx="276" cy="50" r="30" fill="url(#hl)" opacity=".6"/></g>
+        </svg>
+        <figcaption><h3>Roughness</h3><span class="scale"><b>0.05</b><b>0.30</b><b>0.60</b><b>0.90</b></span></figcaption>
+      </figure>
+      <figure class="col">
+        <svg viewBox="0 0 320 110" role="img" aria-label="Brass as metal, gold in the highlight, beside painted brass with a white highlight on a gold body">
+          <g><circle cx="90" cy="55" r="40" fill="url(#sp-brass)"/><ellipse cx="76" cy="40" rx="12" ry="9" fill="#ffe7ad" opacity=".9"/></g>
+          <g><circle cx="230" cy="55" r="40" fill="#c99a44"/><circle cx="230" cy="55" r="40" fill="url(#sp-dark)" opacity=".35"/><ellipse cx="216" cy="40" rx="11" ry="8" fill="#fff"/></g>
+          <text x="90" y="108" text-anchor="middle">M 1.00</text><text x="230" y="108" text-anchor="middle">M 0.00</text>
+        </svg>
+        <figcaption><h3>Metal</h3><span>Colour in the reflection, or in the body.</span></figcaption>
+      </figure>
+      <figure class="col">
+        <svg viewBox="0 0 320 110" role="img" aria-label="Red paint without a coat, flat at the edges, beside red paint under a clear coat with crisp edge highlights">
+          <g><circle cx="90" cy="55" r="40" fill="url(#sp-paint)"/></g>
+          <g><circle cx="230" cy="55" r="40" fill="url(#sp-paint)"/><path d="M196 36a40 40 0 0 1 30-20" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M262 78a40 40 0 0 1-22 14" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/><ellipse cx="215" cy="38" rx="6" ry="4" fill="#fff"/></g>
+          <text x="90" y="108" text-anchor="middle">no coat</text><text x="230" y="108" text-anchor="middle">clear coat</text>
+        </svg>
+        <figcaption><h3>Clear coat</h3><span>Crisp edges over dark paint.</span></figcaption>
+      </figure>
     </div>
     <figure class="code">
       <figcaption><span>orbit-study.html</span><span>fragment shader, excerpt</span></figcaption>

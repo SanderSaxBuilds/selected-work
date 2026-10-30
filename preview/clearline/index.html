@@ -387,6 +387,7 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+.ck-ic{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-right:10px;vertical-align:-6px;color:#1f5c7a}
 </style>
 <style>
 /* Clearline preview. A butter-yellow ledger desk in daylight: ink-black type, a lake blue for approved,
@@ -518,7 +519,7 @@ kbd { border-radius: 0; }
     <a class="back" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
     <p class="eyebrow">Mobile interface, Clearline</p>
     <h1 id="intro-title">Clear the month's receipts with <em>one thumb.</em></h1>
-    <p class="lede">A phone app for a small team lead. Swipe a receipt right to approve it or left to send it back with a reason. Every card shows its policy checks and what approving does to the budget, and every decision can be undone.</p>
+    <p class="lede">Swipe right to approve, left to send back. Every decision can be undone.</p>
     <ul class="keys" aria-label="Keyboard shortcuts in the app">
       <li><kbd>&rarr;</kbd>Approve</li>
       <li><kbd>&larr;</kbd>Send back</li>
@@ -633,7 +634,7 @@ kbd { border-radius: 0; }
 
   <section class="notes" aria-labelledby="notes-title">    <div class="notes-head"><h2 id="notes-title">What the team receives</h2><span class="mono" id="notes-count" style="font-size:12px;color:var(--env-muted)"></span></div>
     <div class="note-empty" id="note-empty">
-      <p>Nothing sent yet. Each decision you make in the app lands here as the note the teammate gets, worded for them, not for the finance team. This is what they look like:</p>
+      <p>Each decision lands here as the note the teammate gets.</p>
       <ul class="note-list ghost" aria-label="Example notes">
         <li class="note is-ok"><span class="who" aria-hidden="true">OP</span><div><div class="note-top"><span>Example, to <b>Owen Park</b></span></div><p>FastFreight, $312.75, is approved. It goes into the next reimbursement run.</p></div></li>
         <li class="note is-back"><span class="who" aria-hidden="true">PN</span><div><div class="note-top"><span>Example, to <b>Priya Nair</b></span></div><p>Foundry Type, $49.00, came back to you. Itemized receipt missing.</p></div></li>
@@ -643,18 +644,18 @@ kbd { border-radius: 0; }
     <div class="checks">
       <h3>Checked on every receipt</h3>
       <ul>
-        <li><b>Same merchant, same amount.</b> A likely double claim is flagged before anyone pays it twice.</li>
-        <li><b>Budget after approval.</b> The card shows where the category lands against its monthly limit.</li>
-        <li><b>Receipt on file.</b> Approving without one asks for a short note for the auditor.</li>
-        <li><b>Undo for every decision.</b> A mistaken swipe is one tap, or the Z key, away from fixed.</li>
+        <li><svg class="ck-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="11" height="14"/><path d="M9 4h11v14"/></svg><b>Double claims</b> flagged first.</li>
+        <li><svg class="ck-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Budget after</b> approval, shown live.</li>
+        <li><svg class="ck-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg><b>No receipt</b> needs an auditor note.</li>
+        <li><svg class="ck-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><b>Undo</b> every swipe, or press Z.</li>
       </ul>
     </div>
   </section>
 
   <section class="about" aria-labelledby="about-title"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="clearline" viewBox="0 0 128 32" width="104.0" height="26" role="img" aria-label="Clearline" focusable="false"><g aria-hidden="true"><rect x="7" y="3" width="18" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M2 16h28" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Red Hat Display'" font-weight="700" font-size="21" letter-spacing="-0.01em">Clearline</text></svg></div>
     <h2 id="about-title">About this sample</h2>
-    <p>A speculative sample for a public brief that asked for a refresh of an existing expense app. It is not the buyer's app and was not commissioned.</p>
-    <p>Clearline, the team and every receipt are fictional. Totals, flags and budget figures are worked out from the sample receipts. Decisions stay on this page and nothing is sent anywhere.</p>
+    <p>Speculative sample for a public expense app brief. Not commissioned.</p>
+    <p>Clearline, the team and the receipts are fictional. Nothing is sent anywhere.</p>
     <button type="button" class="text-btn" data-reset>Restore the sample month</button>
     <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
   <p class="sb-label">Sample site, fictional brand</p></section>

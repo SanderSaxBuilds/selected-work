@@ -32,7 +32,7 @@
   <section class="g-hero" aria-labelledby="page-title">
     <p class="kicker">Archive Desk for the terminal</p>
     <h1 id="page-title">Back up a project folder from the terminal.</h1>
-    <p class="lede">Create an Archive Desk ZIP, check the saved copy and compare a later version of the folder. Restore a checked backup into a new folder, or open it in the browser app.</p>
+    <p class="lede">Create, check, compare, restore. Four commands.</p>
     <div class="actions"><a class="button primary" href="archive-desk-cli-source.zip" download>Download the command line source</a><a class="button secondary" href="preview/archive-desk/">Open the browser app</a></div>
     <p class="meta">Needs Node.js 24 and nothing else. Tested on Windows with Node.js 24.19.0.</p>
   </section>
@@ -40,7 +40,7 @@
   <section id="commands" class="g-split" aria-labelledby="commands-title">
     <div>
       <div class="section-head"><h2 id="commands-title">Four commands, one saved baseline</h2></div>
-      <p class="note">Extract the source into a new folder and open a terminal in its ArchiveDeskCLI folder. Type your own folders below and the four commands are rewritten to match. Pick an existing output folder outside the project and close editors that might change its files.</p>
+      <p class="note">Type your folders and the commands rewrite to match. Use an output folder outside the project.</p>
       <form class="paths" id="paths" autocomplete="off" novalidate>
         <div class="field"><label for="p-project">Project folder</label><input id="p-project" type="text" spellcheck="false" value="C:\Projects\MyProject" data-default="C:\Projects\MyProject" data-name="project folder"></div>
         <div class="field"><label for="p-backups">Backup folder</label><input id="p-backups" type="text" spellcheck="false" value="C:\Backups" data-default="C:\Backups" data-name="backup folder"></div>
@@ -51,17 +51,17 @@
       <ol class="cmd-list">
         <li><span class="step-no">1</span><div><h3>Create and verify a backup</h3>
 <div class="cmd"><pre class="code" data-cmd="backup">node cli.mjs backup "C:\Projects\MyProject" --out "C:\Backups\project-new.zip"</pre><button class="copy" type="button" hidden>Copy</button></div>
-          <p>Reads the regular project files, saves a new ZIP and verifies the bytes it reads back from disk. An existing output file is refused.</p></div></li>
+          <p>Saves a new ZIP and verifies it from disk. Never overwrites.</p></div></li>
         <li><span class="step-no">2</span><div><h3>Check a saved copy again</h3>
 <div class="cmd"><pre class="code" data-cmd="verify">node cli.mjs verify "C:\Backups\project-new.zip"</pre><button class="copy" type="button" hidden>Copy</button></div>
-          <p>Reads the ZIP records, CRC values and every manifest fingerprint. Keep another checked copy somewhere else.</p></div></li>
+          <p>Records, CRCs and every fingerprint.</p></div></li>
         <li><span class="step-no">3</span><div><h3>Compare the project later</h3>
 <div class="cmd"><pre class="code" data-cmd="compare">node cli.mjs compare "C:\Backups\project-new.zip" "C:\Projects\MyProject" --report "C:\Backups\project-new-comparison.json"</pre><button class="copy" type="button" hidden>Copy</button></div>
-          <p>The JSON report lists added, removed, changed and unchanged paths, plus the SHA-256 of the exact backup it compared against.</p></div></li>
+          <p>JSON of added, removed, changed and unchanged paths.</p></div></li>
         <li><span class="step-no">4</span><div><h3>Restore into a new folder</h3>
 <div class="cmd"><pre class="code" data-cmd="restore">node cli.mjs restore "C:\Backups\project-new.zip" --out "C:\Recovered\project-new"</pre><button class="copy" type="button" hidden>Copy</button></div>
-          <p>The parent folder must exist and the destination must be new. Each file is written, synced and read back against the manifest. Existing destinations and linked parent paths are refused.</p>
-          <p>If a restore stops partway, the command reports the exact folder and leaves the partial files there for you to inspect. Timestamps, empty folders and permissions are not restored.</p></div></li>
+          <p>New destination only. Each file is read back against the manifest.</p>
+          <p>A partial restore is reported and left to inspect. No timestamps or permissions.</p></div></li>
       </ol>
       <p class="result-line">In the sample comparison: 1 added, 1 removed, 1 changed and 2 unchanged. The project files stayed untouched.</p>
     </div>
@@ -80,7 +80,7 @@
       </div>
       <div class="card">
         <h3>Recover in the browser</h3>
-        <p class="note">Open <a href="preview/archive-desk/">Archive Desk</a>, choose Verify and pick the ZIP the command saved. Once it passes, download the recovery ZIP and extract it into a new folder.</p>
+        <p class="note">Open <a href="preview/archive-desk/">Archive Desk</a>, Verify, then download the recovery ZIP.</p>
         <p class="note">The command line makes unencrypted ZIPs. For a locked copy, use the <a href="preview/archive-desk/protection.html">encrypted copies preview</a>.</p>
       </div>
     </aside>
@@ -95,15 +95,15 @@
         <li><code>.env</code>, <code>.env.*</code> and <code>credentials.json</code></li>
         <li>Files ending in <code>.pem</code>, <code>.key</code>, <code>.p12</code> or <code>.pfx</code></li>
       </ul>
-      <p>These are filename patterns, not a scan of file contents, so review the project before you share a backup. Symlinks, junctions and special files are refused. Empty files are kept. Empty folders and permissions are not.</p>
-      <p>The command watches for changes while it scans and reads, but it is a manual capture, not an atomic snapshot. Close anything that writes to the project before you run it.</p>
+      <p>Filename patterns, not a content scan. Symlinks and special files are refused.</p>
+      <p>Not an atomic snapshot. Close editors first.</p>
     </div>
     <div class="card">
       <h2>What has been checked</h2>
       <ul class="checks">
-        <li>Twelve command tests pass, five of them for restore: saved-file recovery, existing destinations, corrupt and path-traversal archives, linked paths and kept partial output.</li>
-        <li>A separate script checked a five-file restore with nested Unicode names, an empty file, binary data and a UTF-8 byte-order mark. All 1,351 bytes matched.</li>
-        <li>Refused restores left existing files and folders alone, and corrupt or traversal archives created no destination.</li>
+        <li>Twelve command tests pass, five for restore.</li>
+        <li>Unicode, empty and binary files restored, all 1,351 bytes matched.</li>
+        <li>Refused restores touched nothing.</li>
       </ul>
       <p class="note">Tested on Windows only. Linux and macOS have not been checked. There is no installer or scheduled sync.</p>
     </div>
@@ -112,7 +112,7 @@
 
 <footer class="g-footer"><div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="archive" viewBox="0 0 181 32" width="147.1" height="26" role="img" aria-label="Archive Desk" focusable="false"><g aria-hidden="true"><rect x="3" y="4" width="26" height="7" rx="2" fill="currentColor" class="f-a s-n"/><path d="M5 11v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 17h8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Literata'" font-weight="600" font-size="21" letter-spacing="0em">Archive Desk</text></svg></div>
   <nav aria-label="More from Archive Desk"><a href="preview/archive-desk/">Browser app</a><a href="preview/archive-desk/protection.html">Encrypted copies</a><a href="preview/archive-desk/history.html">Workbench for Windows</a></nav>
-  <p>Built by SanderSaxBuilds with Node.js built-in modules and no third-party runtime packages. The sample project is fictional.</p>
+  <p>Built by SanderSaxBuilds with Node.js built-ins only. Sample project is fictional.</p>
   <p class="g-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
 <p class="sb-label">Sample site, fictional brand</p></div></footer>
 <script>

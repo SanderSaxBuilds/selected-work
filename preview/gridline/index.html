@@ -276,10 +276,29 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
   .cell.gl-just, .cell.gl-just .v, .cell.gl-just .pill, .cell.gl-just .pri, #change-count.gl-bump, .toast.gl-on, .chip.gl-new { animation: none; }
   .toast.gl-on::after { animation: none; transform: scaleX(0); }
 }
-</style></head>
-<body data-mode="grid">
+/* 50-50 pass: the rail is one scrolling column, so its footer can never sit on top of the views and filters,
+   and it is a little narrower so the first eight columns, Total included, fit a 1440 wide screen. */
+@media (min-width: 1100px) {
+  .app { grid-template-columns: 280px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; grid-template-areas: "rail main" "rail status"; background: var(--paper); }
+  .rail { grid-area: rail; display: flex; flex-direction: column; min-height: 0; overflow-y: auto; overscroll-behavior: contain; background: var(--rail); scrollbar-width: thin; scrollbar-color: var(--rail-2) transparent; }
+  .rail > * { grid-area: auto; flex: none; }
+  .rail .note { margin-top: auto; }
+  .bar { padding: 22px 18px 14px; }
+  .tools { padding: 4px 18px 14px; }
+  .chips { padding: 0 18px 12px; }
+  .note { padding: 14px 18px 16px; }
+  .main { padding: 16px 12px 0 16px; }
+  .status { padding: 10px 16px 14px; }
+  .gl-n b { font-size: 56px; }
+}
+@media (max-width: 1099px) {
+  .rail { display: contents; }
+  .note { order: 1; }
+}
+</style></head><body data-mode="grid">
 <a class="skip" href="#grid">Skip to the order grid</a>
 <div class="app">
+  <aside class="rail" aria-label="Controls">
   <header class="bar">
     <div class="brand"><div><h1><svg class="sb-logo sb-h" data-sb="gridline" viewBox="0 0 130 32" width="105.6" height="26" role="img" aria-label="Gridline" focusable="false"><g aria-hidden="true"><rect x="4" y="5" width="24" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 5v22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" class="f-n s-c"/><path d="M1.5 14h29" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Sora'" font-weight="700" font-size="21" letter-spacing="-0.02em">Gridline</text></svg></h1>
         <p>Purchase orders for Larkfield Industrial Supply</p>
@@ -321,6 +340,8 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
   </section>
 
   <div class="chips" id="chips" aria-label="Active filters and sort"></div>
+  <div class="note gl-foot"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="gridline" viewBox="0 0 130 32" width="89.4" height="22" role="img" aria-label="Gridline" focusable="false"><g aria-hidden="true"><rect x="4" y="5" width="24" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 5v22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" class="f-n s-c"/><path d="M1.5 14h29" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Sora'" font-weight="700" font-size="21" letter-spacing="-0.02em">Gridline</text></svg></div><p>Fictional sample data. Edits stay in this tab until you export. <a href="../">Back to selected work</a></p><p class="sb-label">Sample site, fictional brand</p></div>
+  </aside>
 
   <main class="main" id="main">
     <div class="grid-wrap" id="grid-wrap">
@@ -342,7 +363,6 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
     <span id="row-count" class="row-count" aria-live="polite"></span>
     <span id="summary" class="summary"></span>
   </footer>
-  <div class="note gl-foot"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="gridline" viewBox="0 0 130 32" width="89.4" height="22" role="img" aria-label="Gridline" focusable="false"><g aria-hidden="true"><rect x="4" y="5" width="24" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 5v22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" class="f-n s-c"/><path d="M1.5 14h29" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Sora'" font-weight="700" font-size="21" letter-spacing="-0.02em">Gridline</text></svg></div><p>All suppliers, orders and people here are fictional sample data. Edits stay in this browser tab until you export them. Built by Alexandr Khrustalev. <a href="../">Back to selected work</a></p><p class="sb-label">Sample site, fictional brand</p></div>
 </div>
 
 <p class="sr" id="grid-help">Use arrow keys to move. Shift with arrows selects a range. Enter or F2 edits a cell, Escape cancels. Control C copies, Control V pastes, Control D fills down, Control Z undoes.</p>
