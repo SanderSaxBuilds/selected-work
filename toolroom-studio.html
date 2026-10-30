@@ -3,26 +3,147 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#e9eae6">
+  <meta name="theme-color" content="#e6ebe8">
   <meta name="description" content="Toolroom Studio is a seller workspace for digital downloads. Write listings, attach and fingerprint files, run release checks and export a portable catalog ZIP.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Toolroom Studio | Get your next release ready">
   <meta property="og:description" content="Toolroom Studio is a seller workspace for digital downloads. Write listings, attach and fingerprint files, run release checks and export a portable catalog ZIP.">
   <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/toolroom-studio.html">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/toolroom-studio.html">
   <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/toolroom.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="750">
   <meta name="twitter:card" content="summary_large_image">
-  <title>Toolroom Studio | Get your next release ready</title>
+  <title>Toolroom Studio | Seller workspace</title>
   <link rel="icon" href="toolroom-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/gfonts/css/6f68ff865a06.css">
+  <link rel="preload" href="assets/gfonts/syne/8vIH7w4qzmVxm2BL9A.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/gfonts/spline-sans-mono/R70BjzAei_CDNLfgZxrW6wrZOF2WX5KZmA.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/gfonts/css/daef8601f6f5.css">
   <link rel="stylesheet" href="toolroom-studio.css">
-  <script type="module" src="toolroom-studio-app.mjs"></script>
+<style>
+/* preview: "Signal mint workshop", studio side. Same wall and graphite as the store preview.
+   The rail moves to the right edge, the top bar becomes a painted wall strip, headings get big. */
+:root{
+  --floor:#e6ebe8;--floor-2:#d9e1dc;--panel:#f3f6f4;--white:#ffffff;
+  --ink:#111613;--muted:#47524c;--dim:#5f6a64;--rule:#bfc9c3;--rule-soft:#d3dbd6;
+  --yellow:#19c48a;--yellow-2:#45d9a4;--yellow-ink:#04261a;--yellow-wash:#d3f2e5;--mint-ink:#0a7350;
+  --ok:#0f6b48;--ok-bg:#d5efe3;--warning:#6b4f00;--warn-bg:#efeedd;--error:#a3242c;
+  --rail:#17191c;--rail-2:#23262a;--rail-line:#353a3f;--rail-text:#eef2ef;--rail-muted:#aab4ae;
+  --body:"Syne",ui-sans-serif,system-ui,sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,Consolas,monospace;
+}
+body{background:var(--floor);font-family:var(--body)}
+h1,h2,h3{font-family:var(--body);font-stretch:100%;font-weight:700;letter-spacing:-.025em}
+::selection{background:var(--yellow);color:var(--yellow-ink)}
+
+/* plain labels, no badges or pills */
+.eyebrow{font-family:var(--mono);font-weight:500;letter-spacing:.06em}
+.eyebrow .num{background:none!important;padding:0!important;border-radius:0!important;color:var(--mint-ink)!important}
+.brand b{background:none!important;padding:0!important;border-radius:0!important;color:var(--mint-ink)!important;font-family:var(--mono);font-weight:500;letter-spacing:.04em;text-transform:lowercase}
+.nav-count{background:none!important;padding:0!important;min-width:0!important;border-radius:0!important;color:var(--yellow)!important;font-size:13px}
+.nav-dot{width:auto!important;height:auto!important;border:0!important;border-radius:0!important;background:none!important;margin-left:auto;font:500 11px/1 var(--mono);color:var(--rail-muted);letter-spacing:.04em}
+.nav-dot::after{content:"open" / "";}
+.nav-dot.ready::after{content:"ready" / "";color:var(--yellow)}
+.demo-tag{background:none!important;padding:0!important;border-radius:0!important;color:var(--mint-ink)!important;font-family:var(--mono)}
+.art-number{background:none!important;padding:0!important;border-radius:0!important;color:var(--ink)!important;font-size:22px!important;font-weight:500}
+.catalog-toolbar h2 .num{background:none!important;padding:0!important;border-radius:0!important;color:var(--mint-ink)!important;font-size:22px!important}
+
+/* buttons */
+.button{border-radius:999px;font-family:var(--body);font-weight:700}
+.primary{background:var(--ink);color:var(--yellow);box-shadow:none}
+.primary:hover:not(:disabled){background:#252b27}
+.secondary{background:transparent;border:1.5px solid var(--ink)}
+.secondary:hover{background:#fff}
+
+/* top strip on the wall */
+.topbar{background:var(--floor);color:var(--ink);border-bottom:2px solid var(--ink)}
+.topbar :focus-visible{outline-color:var(--ink)}
+.brand{font-stretch:100%;font-weight:700;font-size:18px;letter-spacing:-.01em}
+@media (max-width:760px){.brand{font-size:15px}.page-heading h1{font-size:clamp(28px,8.4vw,42px)}}
+.brand img{filter:hue-rotate(105deg) saturate(.9)}
+.top-status{color:var(--muted);font-family:var(--mono);font-size:12.5px}
+.top-status svg{color:var(--mint-ink)}
+.topbar .secondary{background:transparent;border-color:var(--ink);color:var(--ink)}
+.topbar .secondary:hover{border-color:var(--ink);background:#fff}
+
+/* rail on the right */
+@media (min-width:761px){
+  .shell{grid-template-columns:minmax(0,1fr) var(--rail-w,236px);background:linear-gradient(270deg,var(--rail) 0 var(--rail-w,236px),transparent var(--rail-w,236px))}
+  .sidebar{order:2}
+  main{order:1}
+}
+.sidebar nav a{border-radius:999px;font-family:var(--body)}
+.sidebar nav a[aria-current="page"]{background:var(--yellow)!important;color:var(--yellow-ink)!important;box-shadow:none!important}
+.sidebar nav a[aria-current="page"] .nav-count,.sidebar nav a[aria-current="page"] .nav-dot{color:var(--yellow-ink)!important}
+.sidebar-bottom{border-radius:20px}
+.sidebar-bottom a{color:var(--yellow)}
+
+/* headings and overview */
+.page-heading h1{font-size:clamp(36px,4.3vw,66px);font-weight:var(--hw,700);line-height:.95;letter-spacing:-.035em;transition:font-weight .25s ease}
+.demo-banner{background:var(--yellow-wash);box-shadow:inset 0 0 0 1.5px var(--ink);border-radius:20px}
+.overview > div{background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink);border-radius:20px}
+.metric-label{font-family:var(--mono);font-weight:500;letter-spacing:.05em}
+.overview strong{font-family:var(--mono)}
+.overview-link{background:var(--yellow);border-radius:20px;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.overview-link:hover{background:var(--yellow-2)}
+.line-board{background:var(--rail);border-radius:24px}
+.line li{border-radius:14px}
+.line-step{color:var(--yellow);font-family:var(--mono)}
+.line-bar{border-radius:0;background:#353a3f}
+.line-bar i{background:var(--yellow)}
+.shop-strip{background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink);border-radius:20px}
+.shop-monogram{background:var(--yellow);color:var(--yellow-ink);border-radius:999px;font-stretch:100%}
+.search{border:1.5px solid var(--rule);border-radius:999px}
+
+/* listing cards */
+.product-card{border-radius:20px;box-shadow:0 0 0 1.5px var(--ink)}
+.card-art{background:var(--rail)}
+.art-number{color:var(--yellow)!important}
+.art-paper{border-radius:10px}
+.card-kicker{font-family:var(--mono);font-weight:500;letter-spacing:.05em}
+.track li.done::before{background:var(--ink)}
+.track i{border-radius:2px}
+.track li.done i{background:var(--ink);border-color:var(--ink)}
+.track li.next i{background:var(--yellow);border-color:var(--ink)}
+.track b{font-family:var(--mono);font-weight:500}
+.card-state{border-radius:12px}
+.card-price{background:transparent;border:1.5px solid var(--ink);color:var(--ink);border-radius:999px}
+.empty{border-radius:20px;background:#fff}
+.empty-art b{border-radius:999px}
+
+/* release */
+.release-summary{border-radius:20px}
+.release-summary.issue{box-shadow:inset 4px 0 0 var(--ink)}
+.release-row{border-radius:20px;box-shadow:0 0 0 1.5px var(--rule)}
+.hash{font-family:var(--mono)}
+.export-panel{border-radius:24px;box-shadow:12px 12px 0 var(--yellow)}
+.export-panel .primary{background:var(--yellow);color:var(--yellow-ink)}
+.public-notice{border-radius:14px}
+.public-notice b{color:var(--yellow)}
+.workspace-footer{border-top:2px solid var(--ink);font-family:var(--mono);font-size:12.5px}
+
+/* dialogs */
+dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px var(--ink)}
+.close{border-radius:999px}
+.dialog-body input:not([type="checkbox"]):not([type="file"]),.dialog-body textarea,.dialog-body select{border-radius:12px}
+.skip{background:var(--yellow);color:var(--yellow-ink)}
+@media (prefers-reduced-motion:reduce){.page-heading h1{transition:none}}
+/* the pointer-driven weight changes the heading width, so lock its lines and the button row to stop the page reflowing */
+.page-heading h1 .hl{white-space:nowrap}
+@media (min-width:900px){.page-heading h1{white-space:nowrap}}
+@media (max-width:899px) and (pointer:fine){.page-heading h1 .hl{display:block}}
+@media (max-width:1399px){.page-heading>div:has(>#catalog-title){flex:1 1 100%}}
+/* the workspace fills in after the saved listings load, so keep it out of sight until the first render instead of letting it jump */
+.tr-wait #catalog-page>:not(.page-heading),.tr-wait #example-open{visibility:hidden}
+</style>
+  <script type="module" src="toolroom-v3-studio-app.mjs"></script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--yellow)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.topbar .brand{display:inline-flex;align-items:center;gap:8px}.workspace-footer{flex-wrap:wrap}.workspace-footer .sb-foot{flex-basis:100%;margin:0}.workspace-footer .sb-label{flex-basis:100%;margin:0}</style><style>.page-heading h1{font-size:clamp(34px,4vw,52px);letter-spacing:-.02em}</style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="topbar">
-    <a class="brand" href="#catalog"><img src="toolroom-mark.svg" alt="" width="32" height="32"><span>Toolroom <b>Studio</b></span></a>
+    <a class="brand" href="#catalog"><svg class="sb-logo sb-h" data-sb="toolroom" viewBox="0 0 155 32" width="135.6" height="28" role="img" aria-label="Toolroom" focusable="false"><g aria-hidden="true"><path d="M16 2.5 27.5 9.25v13.5L16 29.5 4.5 22.75V9.25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><circle cx="16" cy="16" r="5.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Syne'" font-weight="700" font-size="21" letter-spacing="0em">Toolroom</text></svg><span><b>Studio</b></span></a>
     <p class="top-status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 9.5 17 19 7.5"/></svg><span id="save-status">Saved on this device</span></p>
     <button type="button" class="button secondary" id="backup-open">Backup and restore</button>
   </header>
@@ -33,49 +154,50 @@
         <a href="#release" id="nav-release"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Release checks<span class="nav-dot" id="nav-dot"><span class="sr-only">Checks pending</span></span></a>
       </nav>
       <div class="sidebar-bottom">
-        <h2>Keep the files. Own the handoff.</h2>
-        <p>Export a plain catalog you can move to any static host.</p>
+        <h2>Host it anywhere</h2>
+        <p>Export your catalog as one ZIP and put it on any static host.</p>
         <a href="toolroom.html">See the Toolroom store</a>
       </div>
     </aside>
+    <script>(function(){var d=document.documentElement,n=document.getElementById('nav-count');if(!n||!window.MutationObserver)return;d.classList.add('tr-wait');var done=function(){d.classList.remove('tr-wait')};new MutationObserver(function(l,o){o.disconnect();requestAnimationFrame(done)}).observe(n,{childList:true,characterData:true,subtree:true});setTimeout(done,2500)})();</script>
     <main id="main">
       <section class="page" id="catalog-page" aria-labelledby="catalog-title">
         <div class="page-heading">
-          <div><p class="eyebrow"><span class="num">TR-S1</span> Seller workspace</p><h1 id="catalog-title">Get your next release ready.</h1><p class="intro">For people who sell digital downloads. Write each listing, attach its file and pass five checks, then export one ZIP catalog that runs on any static host.</p></div>
+          <div><h1 id="catalog-title">Catalog</h1><p class="intro">Write a listing, attach the file, check it, export one ZIP.</p></div>
           <div class="heading-actions"><button type="button" class="button primary" id="add-product"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a product</button><button type="button" class="button secondary" id="example-open">Open the worked example</button></div>
         </div>
         <div class="demo-banner" id="demo-banner" role="region" aria-label="Worked example" hidden><span class="demo-tag num">Example</span><p id="demo-copy"></p><div class="demo-actions"><button type="button" class="button primary" id="demo-go">Review the open listing</button><button type="button" class="button secondary" id="demo-clear">Clear and start my own</button></div></div>
         <div class="overview">
-          <div><span class="metric-label">Listings</span><strong id="product-count" class="num">0</strong><span>on the shelf</span></div>
+          <div><span class="metric-label">Listings</span><strong id="product-count" class="num">0</strong><span>in the catalog</span></div>
           <div><span class="metric-label">Files attached</span><strong id="asset-count" class="num">0</strong><span>this session</span></div>
-          <div><span class="metric-label">Ready to ship</span><strong id="ready-count" class="num">0</strong><span>all checks complete</span></div>
+          <div><span class="metric-label">Ready to export</span><strong id="ready-count" class="num">0</strong><span>all checks complete</span></div>
           <a class="overview-link" href="#release">Go to release checks<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
-        <section class="line-board" id="line-board" aria-labelledby="line-title-text"><h2 class="line-title" id="line-title-text">Release line</h2></section>
+        <section class="line-board" id="line-board" aria-labelledby="line-title-text"><h2 class="line-title" id="line-title-text">Progress</h2></section>
         <section class="shop-strip" aria-labelledby="shop-name"><div class="shop-monogram" id="shop-monogram" aria-hidden="true">M</div><div class="shop-copy"><h2 id="shop-name">My download catalog</h2><p id="shop-tagline">Add a short introduction for your catalog.</p></div><button type="button" class="button secondary" id="shop-edit">Edit catalog</button></section>
         <div class="catalog-toolbar"><h2>Listings <span id="list-count" class="num">0</span></h2><label class="search"><span class="sr-only">Search listings</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><input id="search" type="search" placeholder="Search listings" autocomplete="off"></label></div>
         <div id="product-grid" class="product-grid"></div>
-        <div id="empty-catalog" class="empty"><div class="empty-art" aria-hidden="true"><span class="paper one"></span><span class="paper two"></span><b class="num">01</b></div><h2>Start with one listing.</h2><p>Add a listing, attach its file and check it. Or open the worked example to see a finished catalog first.</p><button type="button" class="button primary" id="empty-add">Create your first listing</button></div>
+        <div id="empty-catalog" class="empty"><div class="empty-art" aria-hidden="true"><span class="paper one"></span><span class="paper two"></span><b class="num">01</b></div><h2>Start with one listing.</h2><p>Or open the worked example first.</p><button type="button" class="button primary" id="empty-add">Create your first listing</button></div>
         <p id="no-results" class="no-results" hidden>No listings match that search.</p>
-        <p class="workspace-note">Listings save in this browser. File contents stay in memory until you close the tab, so keep the exported catalog ZIP to recover both, or reattach your original files.</p>
+        <p class="workspace-note">Listings save in this browser. Files stay in memory until the tab closes, so keep the exported ZIP.</p>
       </section>
       <section class="page" id="release-page" hidden aria-labelledby="release-title">
-        <div class="page-heading"><div><p class="eyebrow"><span class="num">TR-S2</span> Before you share</p><h1 id="release-title">Release checks.</h1><p class="intro">See exactly what goes into the ZIP.</p></div><a class="button secondary" href="#catalog">Back to catalog</a></div>
+        <div class="page-heading"><div><h1 id="release-title">Release checks</h1><p class="intro">See exactly what goes into the ZIP.</p></div><a class="button secondary" href="#catalog">Back to catalog</a></div>
         <div class="release-layout">
           <div><section class="release-summary" id="release-summary" aria-live="polite"></section>
             <section class="match" id="match" aria-labelledby="match-title">
-              <div class="match-copy"><h2 id="match-title">Is this the file you listed?</h2><p>Drop any file here, or choose one. Studio fingerprints it in this browser and looks for the listing it belongs to. Nothing is uploaded.</p></div>
+              <div class="match-copy"><h2 id="match-title">Check a file against its listing</h2><p>Choose a file. It is checked in this browser and never uploaded.</p></div>
               <label class="match-drop" for="match-file"><input id="match-file" type="file"><span class="match-hole" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span><span class="match-label">Choose a file</span></label>
               <p class="match-result" id="match-result" role="status" aria-live="polite"></p>
             </section>
             <div id="release-list"></div></div>
           <aside class="export-panel" aria-labelledby="export-title">
             <h2 id="export-title">Export your catalog</h2>
-            <p>The ZIP holds a working catalog page, every attached download, the catalog data and a file manifest.</p>
-            <h3 class="pack-title">Packing list <span id="pack-total" class="num"></span></h3>
+            <p>Catalog page, downloads, data and manifest.</p>
+            <h3 class="pack-title">Files in the ZIP <span id="pack-total" class="num"></span></h3>
             <ol class="pack" id="pack" aria-label="Files that go into the ZIP"></ol>
             <p class="pack-note">No account or subscription needed to host it.</p>
-            <div class="public-notice"><b>Hosted files are public.</b><p>The export uses open download links. Include only files you have checked and have the right to share. Prices are shown for reference, with no payment step.</p></div>
+            <div class="public-notice"><b>Hosted files are public.</b><p>Share only files you have the right to share. No payment step.</p></div>
             <label class="check-row publish-check"><input type="checkbox" id="public-confirm"><span>I understand that hosting this ZIP makes its downloads public.</span></label>
             <button type="button" class="button primary full" id="export-release" disabled>Export catalog ZIP</button>
             <p class="export-help" id="export-help">Complete the release checks first.</p>
@@ -83,7 +205,7 @@
           </aside>
         </div>
       </section>
-      <footer class="workspace-footer"><span>Toolroom Studio 1.1</span><span>A seller workspace by SanderSaxBuilds. Example listings are fictional.</span><p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a><a href="index.html#toolroom">Back to selected work</a></p></footer>
+      <footer class="workspace-footer"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="toolroom" viewBox="0 0 155 32" width="106.6" height="22" role="img" aria-label="Toolroom" focusable="false"><g aria-hidden="true"><path d="M16 2.5 27.5 9.25v13.5L16 29.5 4.5 22.75V9.25z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><circle cx="16" cy="16" r="5.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Syne'" font-weight="700" font-size="21" letter-spacing="0em">Toolroom</text></svg></div><span>Toolroom Studio 1.1</span><span>A seller workspace by SanderSaxBuilds. Example listings are fictional.</span><p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a><a href="index.html#toolroom">Back to selected work</a></p><p class="sb-label">Sample site, fictional brand</p></footer>
     </main>
   </div>
 

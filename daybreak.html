@@ -3,33 +3,250 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#dfeaf7">
+  <meta name="theme-color" content="#0b2730">
   <meta name="description" content="Plan your day and week in time blocks, drag them into place, see open stretches at a glance, protect focus time and run a focus timer. Works in the browser without an account.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Daybreak planner">
+  <meta property="og:title" content="Brightfold planner">
   <meta property="og:description" content="Plan your day and week in time blocks, drag them into place, see open stretches at a glance, protect focus time and run a focus timer. Works in the browser without an account.">
   <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/daybreak.html">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/daybreak.html">
   <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/daybreak.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="750">
   <meta name="twitter:card" content="summary_large_image">
-  <title>Daybreak planner</title>
-  <link href="assets/gfonts/css/43a4e33a95c6.css" rel="stylesheet">
+  <title>Brightfold planner</title>
+  <link href="assets/gfonts/css/f0f7169576fa.css" rel="stylesheet">
   <link rel="stylesheet" href="daybreak-styles.css">
+<style>
+/* Daybreak preview. Before dawn: a petrol night desk, mist type and one pale lemon light.
+   Young Serif for the day, Albert Sans for the plan. Menu on the right, focus tools on the left. */
+:root {
+  --porcelain: #0b2730; --panel: #10333d; --panel-solid: #123a45;
+  --ink: #dce8e5; --ink-soft: #b7cbc7; --muted: #8fa9a5;
+  --line: rgba(220, 232, 229, .12); --line-strong: rgba(220, 232, 229, .26);
+  --night: #071c23; --night-2: #0e2f39; --dawn: #efe48a;
+  --work: #9cc9e8; --personal: #a9d6a6; --family: #e7a9bf; --rose: #efe48a;
+  --lemon: #efe48a; --lemon-ink: #1d2a0c;
+  --display: "Young Serif", Georgia, serif; --ui: "Albert Sans", "Segoe UI", system-ui, sans-serif;
+  --radius: 6px; --radius-s: 4px;
+  --shadow: 0 0 0 1px rgba(220, 232, 229, .1);
+  --focus: 0 0 0 2px #0b2730, 0 0 0 4px var(--lemon);
+}
+body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); }
+:root { color-scheme: dark; }
+.brand-mark, .nav-glyph { display: none !important; }
+
+/* Shell: menu moves to the right edge */
+@media (min-width: 861px) {
+  .shell { grid-template-columns: minmax(0, 1fr) 288px; }
+  .sidebar { order: 2; border-right: 0; border-left: 1px solid var(--line); }
+}
+@media (min-width: 1900px) { .shell { grid-template-columns: minmax(0, 1fr) 320px; } }
+.sidebar { background: #082129; backdrop-filter: none; gap: 26px; }
+@media (max-width: 860px) { .sidebar { background: #082129; box-shadow: 20px 0 50px -20px rgba(0, 0, 0, .7); } }
+.brand { font: 400 30px/1 var(--display); letter-spacing: -.01em; color: var(--lemon); }
+.main-nav { background: transparent; padding: 0; gap: 0; border-top: 1px solid var(--line); }
+.nav-button { border-radius: 0; border-bottom: 1px solid var(--line); min-height: 52px; padding: 8px 2px; color: var(--muted); font-size: 15px; letter-spacing: .02em; }
+.nav-button:hover { color: var(--ink); }
+.nav-button.is-current { background: transparent; box-shadow: inset 4px 0 0 var(--lemon); padding-left: 16px; color: var(--ink); }
+.side-heading { font: 400 20px/1.2 var(--display); color: var(--ink); }
+.filter { border-radius: 0; padding: 0 4px; border-bottom: 1px solid var(--line); }
+.filter:hover { background: rgba(220, 232, 229, .05); }
+.filter input { border-radius: 2px; width: 18px; height: 18px; border-color: var(--c); }
+.filter input:checked { background: var(--c); box-shadow: inset 0 0 0 3px #082129; }
+.load-row { border-radius: 0; }
+.load-row:hover { background: rgba(220, 232, 229, .05); }
+.load-row.is-selected { background: rgba(239, 228, 138, .1); box-shadow: inset 3px 0 0 var(--lemon); }
+.load-bar { border-radius: 0; height: 6px; background: rgba(220, 232, 229, .08); }
+.load-planned, .load-protected { border-radius: 0; }
+.load-planned { background: #4f7f8a; }
+.load-protected { background: var(--lemon); }
+.key { width: 16px; height: 4px; border-radius: 0; }
+.key.planned { background: #4f7f8a; }
+.key.protected { background: var(--lemon); }
+.plan-backup { border-radius: 0; background: transparent; border: 1px solid var(--line); }
+.side-button { background: transparent; color: var(--ink); border-color: var(--line-strong); border-radius: 3px; }
+.side-button:hover { border-color: var(--lemon); color: var(--lemon); }
+.link-button { color: var(--ink); text-decoration-color: rgba(239, 228, 138, .55); }
+.plan-backup .link-button { color: var(--muted); }
+
+/* Buttons */
+.add-button { background: var(--lemon); color: var(--lemon-ink); border-radius: 3px; box-shadow: none; font-weight: 700; }
+.add-button:hover { background: #f5eda8; }
+.icon-button { border-radius: 3px; }
+.icon-button:hover { background: rgba(220, 232, 229, .08); }
+
+/* The sky becomes a night desk: flat, no gradient. The date is a working heading, not a poster, so the plan starts on the first screen */
+.sky { background: var(--porcelain) !important; color: var(--ink) !important; padding-top: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.sky.is-night .add-button { background: var(--lemon); color: var(--lemon-ink); }
+/* one brand per screen: on a desktop the top bar carries it, the menu column does not repeat it */
+@media (min-width: 861px) { .sidebar .brand { display: none; } .sidebar { padding-top: 30px; } }
+.mobile-brand { font: 400 24px/1 var(--display); color: var(--lemon); }
+.date-nav, .view-switch { background: transparent; backdrop-filter: none; border: 1px solid var(--line-strong); border-radius: 3px; color: var(--ink); }
+.today-button { border-radius: 2px; }
+.today-button:hover:not(:disabled) { background: rgba(220, 232, 229, .08); }
+.jump-date { background: transparent; backdrop-filter: none; border: 1px solid var(--line-strong); border-radius: 3px; color: var(--ink); color-scheme: dark; }
+.view-switch button { border-radius: 2px; color: var(--muted); }
+.view-switch button[aria-pressed="true"] { background: var(--ink); color: var(--porcelain); }
+.sky-title { grid-template-columns: minmax(0, 1fr); gap: 6px 32px; margin-top: 22px; }
+.sky-promise { order: -1; grid-column: 1 / -1; max-width: 46rem; margin: 0 0 14px; color: var(--muted); font-size: 15px; line-height: 1.45; }
+.eyebrow { order: 0; color: var(--lemon); opacity: 1; letter-spacing: 0; text-transform: none; font-size: 15px; font-weight: 600; }
+.sky-title h1 { order: 1; font: 400 clamp(34px, 3.6vw, 54px)/1 var(--display); letter-spacing: -.02em; color: #eef5f2; }
+.day-summary { order: 2; justify-content: flex-start; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0; }
+.stat { text-align: left; padding: 10px 28px 10px 0; margin-right: 28px; border-right: 1px solid var(--line); }
+.stat:last-child { border-right: 0; }
+/* desktop: date on the left, the day's numbers on the right of it, both above the strip */
+@media (min-width: 1181px) {
+  .sky-title { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+  .eyebrow { grid-column: 1; grid-row: 2; }
+  .sky-title h1 { grid-column: 1; grid-row: 3; }
+  .day-summary { grid-column: 2; grid-row: 2 / span 2; align-self: end; border-top: 0; border-bottom: 0; }
+  .day-summary .stat:last-child { margin-right: 0; padding-right: 0; }
+}
+/* hold the summary row's height until the script fills it, so the page does not jump on load */
+#daySummary:empty { min-height: 96px; }
+@media (min-width: 861px) and (max-width: 940px) { #daySummary:empty { min-height: 190px; } }
+@media (max-width: 860px) { #daySummary:empty { min-height: 92px; } }
+@media (max-width: 600px) { #daySummary:empty { min-height: 98px; } }
+@media (max-width: 430px) { #daySummary:empty { min-height: 116px; } }
+#dayStrip:empty { min-height: 152px; }
+@media (max-width: 600px) { #dayStrip:empty { min-height: 140px; } }
+#loadList:empty { min-height: 264px; }
+.week-load .side-row { min-height: 48px; }
+.week-load .side-heading, .week-load .side-total { white-space: nowrap; }
+.stat-label { letter-spacing: 0; text-transform: none; font-size: 13px; color: var(--muted); opacity: 1; }
+.stat-value { font: 400 30px/1.05 var(--display); color: #eef5f2; }
+@media (max-width: 860px) {
+  .day-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stat { margin-right: 0; padding: 10px 10px 10px 0; }
+  .stat + .stat { padding-left: 10px; }
+}
+
+/* The horizon strip: one flat track, lemon open hours, a bar instead of a sun */
+.strip-track { background: #082129 !important; border-radius: 3px; box-shadow: inset 0 0 0 1px var(--line-strong); }
+.strip-gap { background: rgba(239, 228, 138, .07); border-left: 1px solid rgba(239, 228, 138, .35); border-right: 1px solid rgba(239, 228, 138, .35); }
+.strip-block { border-radius: 2px; background: color-mix(in srgb, var(--c) 55%, #0b2730); box-shadow: none; }
+.strip-block.is-protected { background: var(--c); box-shadow: 0 0 0 1px #0b2730; }
+.strip-now { background: var(--lemon); width: 2px; }
+.strip-sun { width: 4px; height: auto; top: 4px; bottom: 4px; margin: 0 0 0 -2px; border-radius: 0; background: var(--lemon); box-shadow: 0 0 0 3px rgba(11, 39, 48, .9); }
+.strip-sun.is-busy { box-shadow: 0 0 0 3px rgba(11, 39, 48, .9), 0 0 0 4px var(--ink); }
+.strip-tick { color: var(--muted); opacity: 1; }
+.strip-read strong { font: 400 20px/1 var(--display); color: var(--lemon); }
+.strip-plan { border-radius: 3px; border-color: var(--line-strong); }
+.strip-plan:hover { background: var(--lemon); color: var(--lemon-ink); border-color: var(--lemon); }
+
+.storage-banner { background: var(--panel); border-radius: 3px; box-shadow: inset 4px 0 0 var(--lemon); }
+.banner-actions button { background: transparent; border-radius: 3px; }
+.banner-actions .banner-primary { background: var(--lemon); color: var(--lemon-ink); border-color: var(--lemon); }
+
+/* Workspace: focus tools move to the left of the day */
+.workspace { gap: 36px; padding-top: 22px; }
+@media (min-width: 1181px) {
+  .workspace { grid-template-columns: 330px minmax(0, 1fr); }
+  .workspace .rail { order: -1; }
+  .workspace.is-week { grid-template-columns: minmax(0, 1fr); }
+}
+@media (min-width: 1900px) { .workspace { grid-template-columns: 380px minmax(0, 1fr); } }
+.agenda-head h3 { font: 400 30px/1.15 var(--display); }
+.agenda-hint { color: var(--muted); }
+.tl-hour { color: var(--muted); }
+.tl-hour::after { background: var(--line); }
+.tl-gap { border-radius: 2px; border: 1px dashed rgba(239, 228, 138, .3); background: rgba(239, 228, 138, .04); }
+.gap-text { color: var(--ink-soft); }
+.gap-text strong { color: var(--lemon); }
+.gap-button { border-radius: 3px; background: transparent; border-color: rgba(239, 228, 138, .5); color: var(--lemon); }
+.gap-button:hover { background: var(--lemon); color: var(--lemon-ink); }
+.tl-block { border-radius: 3px; background: color-mix(in srgb, var(--c) 16%, #0e2f39); box-shadow: inset 3px 0 0 var(--c); color: var(--ink); }
+.tl-block.is-protected { background: var(--c); color: #0b2730; box-shadow: none; }
+.tl-block.has-overlap { box-shadow: inset 3px 0 0 var(--c), 0 0 0 2px var(--lemon); }
+.tl-block.is-dragging { box-shadow: inset 3px 0 0 var(--c), 0 22px 40px -16px rgba(0, 0, 0, .8); }
+.tl-open { border-radius: 3px; }
+.tl-title { font-weight: 600; }
+.tag { padding: 0; border-radius: 0; background: transparent !important; box-shadow: none !important; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; }
+.tag.focus { color: inherit; opacity: .8; }
+.tag.warn { color: var(--lemon); }
+.tl-block.is-protected .tag.warn { color: #0b2730; text-decoration: underline; }
+.tl-now { background: var(--lemon); }
+.tl-now::before { display: none; }
+.tl-scrub { border-top-color: var(--ink); }
+.tl-scrub::after { border-radius: 2px; background: var(--lemon); color: var(--lemon-ink); }
+.empty-state { border-radius: 3px; background: var(--panel); box-shadow: none; border: 1px solid var(--line); }
+.empty-title { font: 400 30px/1.15 var(--display); }
+
+.week-day { border-radius: 3px; background: rgba(220, 232, 229, .03); border: 1px solid var(--line); }
+.week-day.is-selected { background: var(--panel); box-shadow: inset 0 3px 0 var(--lemon); }
+.week-head { border-radius: 2px; }
+.week-head:hover { background: rgba(220, 232, 229, .06); }
+.week-date { font: 400 36px/1 var(--display); }
+.week-day.is-today .week-date { color: var(--lemon); }
+.week-event { border-radius: 2px; background: color-mix(in srgb, var(--c) 18%, #0e2f39); color: var(--ink); }
+.week-event.is-protected { background: var(--c); color: #0b2730; }
+.week-event.has-overlap { box-shadow: inset 3px 0 0 var(--c), 0 0 0 1.5px var(--lemon); }
+
+/* Rail: the focus card turns lemon, the break card stays quiet */
+.focus-card { border-radius: 4px; background: var(--lemon); color: var(--lemon-ink); box-shadow: none; }
+.focus-card h2, .quiet-card h2 { font: 400 30px/1.1 var(--display); }
+.state-pill { padding: 0; border-radius: 0; background: transparent; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; opacity: .75; }
+.dial-track { stroke: rgba(29, 42, 12, .14); stroke-width: 3; }
+.dial-fill { stroke: var(--lemon-ink); stroke-width: 3; stroke-linecap: butt; filter: none; }
+.timer-display { font: 400 60px/1 var(--display); letter-spacing: -.02em; }
+.presets { border-radius: 3px; background: rgba(29, 42, 12, .08); }
+.presets button { border-radius: 2px; }
+.presets button[aria-pressed="true"] { background: var(--lemon-ink); color: var(--lemon); }
+.light-button { background: var(--lemon-ink); color: var(--lemon); border-radius: 3px; }
+.light-button:hover { background: #2c3d14; }
+.ghost-button { border-color: rgba(29, 42, 12, .4); color: var(--lemon-ink); border-radius: 3px; }
+.ghost-button:hover:not(:disabled) { border-color: var(--lemon-ink); }
+.find-focus { border-top-color: rgba(29, 42, 12, .2); }
+.find-button, .find-add { color: var(--lemon-ink); text-decoration-color: rgba(29, 42, 12, .5); }
+#focusSuggestion { color: rgba(29, 42, 12, .85); }
+.quiet-card { border-radius: 4px; background: var(--panel); backdrop-filter: none; box-shadow: none; border: 1px solid var(--line); }
+.breathing-orb { border-radius: 4px; width: 84px; height: 84px; background: transparent; border: 2px solid var(--lemon); box-shadow: none; }
+.breath-cue { font: 400 19px/1.3 var(--display); }
+.presets.small { background: rgba(220, 232, 229, .06); }
+.presets.small button[aria-pressed="true"] { background: var(--ink); color: var(--porcelain); }
+#meditationDisplay { font: 400 30px/1 var(--display); color: var(--lemon); }
+
+.page-footer { color: var(--muted); border-top: 1px solid var(--line); }
+.footer-links { border-top-color: var(--line); }
+.footer-links span { color: var(--lemon); }
+.footer-links a { color: var(--ink); text-decoration-color: rgba(239, 228, 138, .5); }
+
+/* Dialog */
+.dialog-backdrop { background: rgba(4, 16, 20, .7); }
+.dialog { border-radius: 4px; background: #0f313b; color: var(--ink); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .9); border: 1px solid var(--line-strong); }
+.dialog h2 { font: 400 32px/1.1 var(--display); }
+#eventForm label { color: var(--ink-soft); }
+#eventForm input:not([type=checkbox]), #eventForm select { background: #0b2730; border-color: var(--line-strong); color: var(--ink); border-radius: 3px; color-scheme: dark; }
+#eventForm input:focus-visible, #eventForm select:focus-visible { border-color: var(--lemon); }
+.checkbox-row input { accent-color: var(--lemon); }
+.field-error { color: var(--lemon); }
+.overlap-warning { border-radius: 3px; background: rgba(239, 228, 138, .1); color: var(--lemon); }
+.danger-button { border-color: rgba(231, 169, 191, .5); color: var(--family); border-radius: 3px; }
+.danger-button:hover { background: rgba(231, 169, 191, .1); }
+.toast { border-radius: 3px; background: var(--lemon); color: var(--lemon-ink); }
+.skip-link { background: var(--lemon); color: var(--lemon-ink); border-radius: 3px; }
+@media (max-width: 600px) {
+  .sky-title h1 { font-size: clamp(30px, 9vw, 38px); }
+  .sky-promise { font-size: 14px; margin-bottom: 10px; }
+  .stat-value { font-size: 22px; }
+  .timer-display { font-size: 52px; }
+}
+</style>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%2716%27 fill=%27%23c9dcf2%27/%3E%3Ccircle cx=%2716%27 cy=%2720%27 r=%276%27 fill=%27%23fff6e8%27/%3E%3Cpath d=%27M5 22h22%27 stroke=%27%231d2346%27 stroke-width=%272%27/%3E%3C/svg%3E">
-</head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--dawn)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.mobile-brand{display:inline-flex;align-items:center}.mobile-brand .sb-logo{--sb-h:24px}.sidebar .brand .sb-logo{x:0}</style></head>
 <body>
   <a class="skip-link" href="#main">Skip to planner</a>
   <div class="shell">
     <aside class="sidebar" id="sidebar" aria-label="Planner menu">
       <div class="sidebar-top">
-        <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M4 22h24"/><path d="M9 22a7 7 0 0 1 14 0"/><path d="M16 5v4M7 9.5l2.6 2.6M25 9.5l-2.6 2.6"/></svg></span><span>Daybreak</span></div>
+        <div class="brand"><svg class="sb-logo sb-h" data-sb="brightfold" viewBox="0 0 152 32" width="142.5" height="30" role="img" aria-label="Brightfold" focusable="false"><g aria-hidden="true"><path d="M6 20a10 10 0 0 1 20 0z" fill="currentColor" class="f-a s-n"/><path d="M3 20h26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M9 25.5h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Young Serif'" font-weight="400" font-size="21" letter-spacing="0em">Brightfold</text></svg></div>
         <button type="button" class="icon-button sidebar-close" id="closeMenu" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
 
       <nav class="main-nav" aria-label="Views">
         <button type="button" class="nav-button" id="navToday"><span class="nav-glyph" aria-hidden="true">D</span>Day plan</button>
-        <button type="button" class="nav-button" id="navWeek"><span class="nav-glyph" aria-hidden="true">W</span>Week ahead</button>
+        <button type="button" class="nav-button" id="navWeek"><span class="nav-glyph" aria-hidden="true">W</span>Week plan</button>
       </nav>
 
       <section class="side-block calendar-filters" aria-labelledby="calendarHeading">
@@ -37,21 +254,21 @@
         <label class="filter work"><input type="checkbox" data-calendar="work" checked><span class="filter-name">Work</span><span class="filter-count" id="count-work"></span></label>
         <label class="filter personal"><input type="checkbox" data-calendar="personal" checked><span class="filter-name">Personal</span><span class="filter-count" id="count-personal"></span></label>
         <label class="filter family"><input type="checkbox" data-calendar="family" checked><span class="filter-name">Family</span><span class="filter-count" id="count-family"></span></label>
-        <p class="side-note">Hidden calendars still count when Daybreak looks for overlaps and open time.</p>
+        <p class="side-note">Hidden calendars still block free time.</p>
       </section>
 
       <section class="side-block week-load" aria-labelledby="loadHeading">
-        <div class="side-row"><h2 id="loadHeading" class="side-heading">The week, by weight</h2><span id="weekTotal" class="side-total"></span></div>
+        <div class="side-row"><h2 id="loadHeading" class="side-heading">Hours per day</h2><span id="weekTotal" class="side-total"></span></div>
         <ol class="load-list" id="loadList"></ol>
         <p class="load-key"><span class="key planned" aria-hidden="true"></span>Planned <span class="key protected" aria-hidden="true"></span>Protected focus</p>
       </section>
 
       <section class="side-block plan-backup" aria-labelledby="backupHeading">
-        <h2 id="backupHeading" class="side-heading">Keep a copy</h2>
-        <p class="side-note">Your plan lives in this browser. Download a copy before you clear it or switch devices.</p>
+        <h2 id="backupHeading" class="side-heading">Backup</h2>
+        <p class="side-note">Saved in this browser only. Download a copy to keep it.</p>
         <div class="backup-actions">
           <button class="side-button" type="button" id="exportPlan">Download plan</button>
-          <label class="side-button file-button" for="restorePlan">Restore a file<input type="file" id="restorePlan" accept=".json,application/json"></label>
+          <label class="side-button file-button" for="restorePlan">Load a saved plan<input type="file" id="restorePlan" accept=".json,application/json"></label>
         </div>
         <button class="link-button" type="button" id="resetDemo">Start over with the sample week</button>
       </section>
@@ -61,7 +278,7 @@
     <main id="main" tabindex="-1">
       <header class="sky" id="sky">
         <div class="sky-bar">
-          <button id="mobileMenu" type="button" class="icon-button mobile-menu" aria-controls="sidebar" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h11"/></svg></button><span class="mobile-brand" aria-hidden="true">Daybreak</span>
+          <button id="mobileMenu" type="button" class="icon-button mobile-menu" aria-controls="sidebar" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h11"/></svg></button><span class="mobile-brand" aria-hidden="true"><svg class="sb-logo sb-h" data-sb="brightfold" viewBox="0 0 152 32" width="114.0" height="24" role="img" aria-label="Brightfold" focusable="false"><g aria-hidden="true"><path d="M6 20a10 10 0 0 1 20 0z" fill="currentColor" class="f-a s-n"/><path d="M3 20h26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M9 25.5h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Young Serif'" font-weight="400" font-size="21" letter-spacing="0em">Brightfold</text></svg></span>
           <div class="controls">
             <div class="date-nav" role="group" aria-label="Change date">
               <button id="previousDate" type="button" class="icon-button" aria-label="Previous day"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -77,7 +294,7 @@
           <button class="add-button" id="addEvent" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add block</span></button>
         </div>
         <div class="sky-title">
-          <p class="sky-promise">A day planner in time blocks. See where the open hours are, protect focus time and run the timer, all on a sample week you can change.</p>
+          <p class="sky-promise">Day and week planner. Drag blocks into place, see your free hours.</p>
           <p class="eyebrow" id="eyebrow">Today</p>
           <h1 id="pageTitle">Monday, October 19</h1>
           <div class="day-summary" id="daySummary"></div>
@@ -92,8 +309,8 @@
           <h2 id="plannerHeading" class="visually-hidden">Planner</h2>
 
           <div id="dayView" class="day-view">
-            <div class="agenda-head"><h3>The day, hour by hour</h3><span id="visibleCount"></span></div>
-            <p class="agenda-hint" id="agendaHint">Drag a block to move it, or tap an open hour to plan there. With the keyboard, focus a block and press Alt with the up or down arrow.</p>
+            <div class="agenda-head"><h3>Schedule</h3><span id="visibleCount"></span></div>
+            <p class="agenda-hint" id="agendaHint">Drag a block to move it. Tap a free slot to plan. Keyboard: Alt and arrow keys.</p>
             <div id="dayTimeline" class="timeline"></div>
             <div id="dayEmpty" class="empty-state" hidden>
               <p class="empty-title" id="emptyTitle">Nothing planned yet</p>
@@ -109,7 +326,7 @@
 
         <aside class="rail" aria-label="Focus tools">
           <section class="focus-card" aria-labelledby="focusHeading">
-            <div class="card-top"><h2 id="focusHeading">Focus</h2><span id="timerState" class="state-pill">Ready</span></div>
+            <div class="card-top"><h2 id="focusHeading">Focus timer</h2><span id="timerState" class="state-pill">Ready</span></div>
             <div class="dial">
               <svg class="dial-ring" viewBox="0 0 200 200" aria-hidden="true"><circle class="dial-track" cx="100" cy="100" r="88"/><circle class="dial-fill" id="dialFill" cx="100" cy="100" r="88" pathLength="1000"/></svg>
               <div class="timer-display" id="timerDisplay">50:00</div>
@@ -128,7 +345,7 @@
           </section>
 
           <section class="quiet-card" aria-labelledby="quietHeading">
-            <div class="card-head"><h2 id="quietHeading">Breathing break</h2></div>
+            <div class="card-head"><h2 id="quietHeading">Break timer</h2></div>
             <div class="breath">
               <span class="breathing-orb" id="breathingOrb" aria-hidden="true"></span>
               <p class="breath-cue" id="breathCue" aria-live="off">Step away between blocks</p>
@@ -143,11 +360,11 @@
           </section>
         </aside>
       </div>
-      <footer class="page-footer">
-        <p>Independent concept for the public Daybreak brief, not affiliated with Daybreak. The sample week is fictional and your changes stay in this browser.</p>
+      <footer class="page-footer"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="brightfold" viewBox="0 0 152 32" width="123.5" height="26" role="img" aria-label="Brightfold" focusable="false"><g aria-hidden="true"><path d="M6 20a10 10 0 0 1 20 0z" fill="currentColor" class="f-a s-n"/><path d="M3 20h26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M9 25.5h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Young Serif'" font-weight="400" font-size="21" letter-spacing="0em">Brightfold</text></svg></div>
+        <p>Made for a public Daybreak design brief, not affiliated. Sample week, saved in this browser only.</p>
         <p class="footer-links footer-back"><a href="index.html#06-daybreak">Back to selected work</a></p>
         <p class="footer-links"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-      </footer>
+      <p class="sb-label">Sample site, fictional brand</p></footer>
     </main>
   </div>
 
@@ -174,5 +391,16 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script type="module" src="daybreak-app.js"></script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+<script>
+/* Bug fix: a mouse press on a block captures the pointer for dragging, so Chrome sends the click to the block
+   itself and the block's own button never opened the editor. Pass that click on to the button. A click right
+   after a drag is still swallowed by the planner's own drag guard. */
+(function(){var tl=document.getElementById('dayTimeline');if(!tl)return;tl.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.tl-block');if(!b||e.target.closest('.tl-open'))return;var o=b.querySelector('.tl-open');if(o)o.click()})})();
+/* Bug fix: focus sessions are 25, 50 or 90 minutes, but blocks are saved in 15-minute steps, so "Add it to the plan"
+   opened a 50-minute block that could never be saved. Round the suggested block up to the next 15 minutes. */
+(function(){var a=document.getElementById('addSuggestedBlock');if(!a)return;a.addEventListener('click',function(){setTimeout(function(){var s=document.getElementById('eventDuration'),v=Number(s.value);if(!v||v%15===0)return;[].slice.call(s.options).forEach(function(o){if(Number(o.value)%15)o.remove()});s.value=String(Math.min(240,Math.ceil(v/15)*15))},0)})})();
+</script>
+<script>(function(){var t=document.querySelector('title');if(!t)return;function f(){if(document.title.indexOf('Daybreak planner')>-1)document.title=document.title.replace('Daybreak planner','Brightfold planner')}new MutationObserver(f).observe(t,{childList:true,characterData:true,subtree:true});f()})();</script>
 </body>
 </html>

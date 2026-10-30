@@ -3,28 +3,200 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0f2621">
-  <title>Leasing Practice courses</title>
-  <meta name="description" content="Short practical courses for leasing teams. Ask better first questions, explain the options that matter and leave every conversation with a clear next step.">
+  <meta name="theme-color" content="#1d1a2b">
+  <title>Leasing Practice, training for leasing agents</title>
+  <meta name="description" content="An online training course for leasing agents on how to show an apartment: the first questions, explaining the options and agreeing the next step.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Leasing Practice courses">
-  <meta property="og:description" content="Short practical courses for leasing teams. Ask better first questions, explain the options that matter and leave every conversation with a clear next step.">
+  <meta property="og:description" content="An online training course for leasing agents on how to show an apartment: the first questions, explaining the options and agreeing the next step.">
   <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sample-wrongcreative.html">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/sample-wrongcreative.html">
   <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/courses.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Leasing Practice courses">
-  <meta name="twitter:description" content="Short practical courses for leasing teams. Ask better first questions, explain the options that matter and leave every conversation with a clear next step.">
+  <meta name="twitter:description" content="An online training course for leasing agents on how to show an apartment: the first questions, explaining the options and agreeing the next step.">
   <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/courses.jpg">
-  <link href="assets/gfonts/css/fe5c5c9b6bc4.css" rel="stylesheet">
+  <link href="assets/gfonts/css/09cebb41cbfc.css" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230f2621%27/%3E%3Cpath d=%27M7 25V7h18v18M7 25h6M13 25a8 8 0 0 1 8-8%27 fill=%27none%27 stroke=%27%23d6b25a%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
   <link rel="stylesheet" href="sample-wrongcreative.css">
+<style>
+/* Leasing Practice preview, V3. The first screen is the course itself: a floor plan of one apartment,
+   the three places in a showing where the course works, and a title block with the lessons and the price.
+   Lavender tracing paper, violet-black ink, one berry pencil. Newsreader for names, Karla for everything else. */
+:root {
+  --green: #1d1a2b; --green-2: #2a263d; --green-3: #4a4562; --green-4: #6f6990;
+  --brass: #a3194f; --brass-hi: #f2b8cd; --brass-ink: #8a1342; --brass-soft: #f3dce6;
+  --stone: #e2dfec; --stone-2: #d6d2e4; --card: #f6f5fa;
+  --ink: #1d1a2b; --ink-2: #3c3852; --muted: #5d5874;
+  --line: #c9c4da; --line-strong: #9a94b3;
+  --on-dark: #f1effa; --on-dark-2: #c3bed8;
+  --good: #24576b; --good-soft: #dde9ee; --miss: #8a1342; --miss-soft: #f5e0e8;
+  --display: "Newsreader", Georgia, serif;
+  --text: "Karla", "Segoe UI", system-ui, sans-serif;
+  --focus: 0 0 0 3px var(--stone), 0 0 0 5px var(--brass);
+}
+body { background: var(--stone); font-size: 17px; }
+.h2, .h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.02em; font-stretch: normal !important; }
+.h2 { font-size: clamp(2rem, 1.1rem + 3vw, 3.6rem); line-height: 1; }
+.brand-mark { display: none !important; }
+
+/* Buttons */
+.button { font: 700 15px/1.1 var(--text); letter-spacing: .02em; text-transform: none; border-radius: 0; }
+.button-brass { color: #fff; background: var(--brass); border-color: var(--brass); box-shadow: none; }
+.button-brass:hover { background: var(--brass-ink); border-color: var(--brass-ink); color: #fff; }
+.button-green { background: var(--ink); border-color: var(--ink); color: var(--on-dark); }
+.button-line { color: var(--ink); border-color: var(--ink); }
+.button-line:hover { background: var(--ink); color: var(--on-dark); }
+
+/* Site bar, a fixed index down the left edge on wide screens */
+.topbar { background: var(--green); border-bottom: 0; }
+.brand { font: 500 24px/1 var(--display); font-stretch: normal; font-style: italic; letter-spacing: -.01em; }
+.topnav a { font: 600 13px/1.2 var(--text); font-stretch: normal; letter-spacing: .12em; text-transform: uppercase; }
+.topnav a::after { background: var(--brass-hi); height: 1px; }
+@media (min-width: 1100px) {
+  body { padding-left: 232px; }
+  .topbar { position: fixed; left: 0; top: 0; bottom: 0; width: 232px; overflow-y: auto; }
+  .topbar .wrap.topbar-inner { flex-direction: column; flex-wrap: nowrap; align-items: stretch; justify-content: flex-start; gap: 36px; min-height: 100%; padding: 30px 26px; max-width: none; }
+  .brand { font-size: 30px; line-height: 1.02; align-items: flex-start; }
+  .topnav { flex-direction: column; gap: 0; border-top: 1px solid var(--green-3); }
+  .topnav a { min-height: 50px; padding: 0 2px; border-bottom: 1px solid var(--green-3); }
+  .topnav a::after { left: auto; right: 0; top: 50%; bottom: auto; width: 18px; transform: scaleX(0); transform-origin: right; }
+}
+
+/* First screen: the drawing sheet */
+.sheet-wrap { padding: 28px 32px 36px; background: var(--stone-2); border-bottom: 1px solid var(--line-strong); }
+.sheet { max-width: 1240px; margin: 0 auto; background: var(--card); border: 1.5px solid var(--ink); box-shadow: 10px 10px 0 rgba(29, 26, 43, .1); }
+.sheet-cap { margin: 0; padding: 13px 22px; border-bottom: 1px solid var(--ink); font: 500 16px/1.4 var(--text); color: var(--ink); }
+.sheet-body { display: grid; grid-template-columns: minmax(0, 1fr) 330px; }
+.map { display: flex; flex-direction: column; justify-content: center; padding: 22px 24px 24px; min-width: 0; }
+.map-in { position: relative; aspect-ratio: 860 / 600; container-type: inline-size; }
+.map-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.map-svg .furn { fill: none; stroke: var(--green-4); stroke-width: 1.4; }
+.map-svg .swing { fill: none; stroke: var(--line-strong); stroke-width: 1.2; }
+.map-svg .walls-in { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: square; }
+.map-svg .walls-out { fill: none; stroke: var(--ink); stroke-width: 8; stroke-linecap: square; }
+.map-svg .win { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.map-svg .walk { fill: none; stroke: var(--brass); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 9; }
+.map-svg .stops circle { fill: var(--brass); }
+@media (prefers-reduced-motion: no-preference) {
+  .map-svg .walk-reveal { stroke-dasharray: 1; stroke-dashoffset: 1; animation: walk 2.2s cubic-bezier(.4, 0, .3, 1) .5s forwards; }
+  .map-svg .stops circle { opacity: 0; animation: stop .3s ease-out forwards; }
+  .map-svg .stops circle:nth-child(1) { animation-delay: .7s; }
+  .map-svg .stops circle:nth-child(2) { animation-delay: 1.5s; }
+  .map-svg .stops circle:nth-child(3) { animation-delay: 2.4s; }
+}
+@keyframes walk { to { stroke-dashoffset: 0; } }
+@keyframes stop { to { opacity: 1; } }
+.rm { position: absolute; display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border: 0; background: transparent; color: var(--ink); text-align: left; cursor: pointer; font: inherit; transition: background-color .2s ease-out; }
+.rm:hover { background: rgba(163, 25, 79, .05); }
+.rm[aria-pressed="true"] { background: rgba(163, 25, 79, .09); }
+.rm:focus-visible { outline: 2px solid var(--brass); outline-offset: -2px; }
+.rm-n { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border: 1.5px solid var(--ink); border-radius: 50%; background: var(--card); font: 700 15px/1 var(--text); }
+.rm[aria-pressed="true"] .rm-n { background: var(--brass); border-color: var(--brass); color: #fff; }
+.rm-t { display: grid; gap: 2px; padding-top: 2px; }
+.rm-t b { font: 600 20px/1.1 var(--display); }
+.rm-t small { font: 400 14.5px/1.3 var(--text); color: var(--ink-2); }
+.rm-plain { position: absolute; font: 400 14px/1 var(--text); color: var(--muted); pointer-events: none; }
+@container (max-width: 660px) { .rm { padding: 9px 10px; gap: 8px; } .rm-t small { display: none; } .rm-t b { font-size: 17px; } .rm-n { width: 26px; height: 26px; font-size: 13.5px; } }
+
+/* Title block */
+.tb { display: grid; grid-template-rows: minmax(0, 1fr) auto; border-left: 1px solid var(--ink); min-width: 0; }
+.tb-cell { padding: 20px 22px; }
+.tb-cell + .tb-cell { border-top: 1px solid var(--ink); }
+.tb-k { margin: 0; font: 600 14px/1.3 var(--text); color: var(--brass-ink); }
+.tb-room h2 { margin: 6px 0 14px; font: 500 25px/1.12 var(--display); letter-spacing: -.01em; }
+.tb-room ol { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-strong); }
+.tb-room li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; line-height: 1.35; color: var(--ink-2); }
+.tb-room li span:last-child { flex: none; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tb-room li em { font-style: normal; color: var(--brass-ink); font-weight: 600; }
+.tb-hear { display: inline-block; margin-top: 14px; color: var(--ink); font-weight: 600; font-size: 15.5px; text-underline-offset: 3px; }
+.tb-hear:hover { color: var(--brass); }
+.tb-name { margin: 0; font: 600 21px/1.15 var(--display); }
+.tb-info { margin: 4px 0 0; color: var(--ink-2); font-size: 15px; }
+.tb-price { display: flex; align-items: baseline; gap: 8px; margin: 14px 0 12px; font: 500 40px/1 var(--display); }
+.tb-price small { font: 400 15px/1 var(--text); color: var(--ink-2); }
+.tb-buy .button { width: 100%; }
+.tb-team { display: inline-block; margin-top: 12px; color: var(--ink); font-size: 15px; text-underline-offset: 3px; }
+.tb-team:hover { color: var(--brass); }
+
+@media (max-width: 979px) {
+  .sheet-body { grid-template-columns: 1fr; }
+  .tb { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); grid-template-rows: auto; border-left: 0; border-top: 1px solid var(--ink); }
+  .tb-cell + .tb-cell { border-top: 0; border-left: 1px solid var(--ink); }
+}
+@media (max-width: 640px) {
+  .sheet-wrap { padding: 12px 12px 22px; }
+  .sheet { box-shadow: 6px 6px 0 rgba(29, 26, 43, .1); }
+  .sheet-cap { padding: 10px 14px; font-size: 15px; }
+  .map { padding: 10px 8px 12px; }
+  .rm { gap: 5px; padding: 5px 6px; }
+  .rm-n { width: 22px; height: 22px; font-size: 12.5px; border-width: 1.2px; }
+  .rm-t b { font-size: 14px; line-height: 1.15; }
+  .rm-t small { display: none; }
+  .rm-plain { font-size: 11.5px; }
+  .tb { grid-template-columns: 1fr; }
+  .tb-cell { padding: 14px 16px; }
+  .tb-cell + .tb-cell { border-left: 0; border-top: 1px solid var(--ink); }
+  .tb-room h2 { font-size: 21px; margin: 4px 0 10px; }
+  .tb-room li { padding: 7px 0; font-size: 14.5px; }
+  .tb-hear { margin-top: 10px; font-size: 15px; }
+  .tb-buy { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 14px; }
+  .tb-buy .tb-name { font-size: 18px; }
+  .tb-buy .tb-info { display: none; }
+  .tb-price { grid-column: 2; grid-row: 1; margin: 0; font-size: 30px; }
+  .tb-price small { display: none; }
+  .tb-buy .button { grid-column: 1 / -1; margin-top: 8px; }
+  .tb-team { grid-column: 1 / -1; justify-self: center; margin-top: 6px; }
+}
+
+/* Sections */
+.section + .section { border-top-color: var(--line-strong); }
+.section-head .h2 { margin: 0; }
+.script { border-color: var(--ink); background: var(--card); }
+.meter { font: 600 15px/1 var(--text); letter-spacing: 0; text-transform: none; color: var(--ink-2); }
+.meter-keys { gap: 3px; }
+.meter-keys i { width: 26px; height: 6px; border-radius: 0; border: 1px solid var(--line-strong); }
+.meter-keys i.on { background: var(--brass); border-color: var(--brass); }
+.moment-label .room-no { color: var(--brass-ink); font: 600 14.5px/1.2 var(--text); letter-spacing: 0; text-transform: none; }
+.moment-label strong { font: 600 1.35rem/1.2 var(--display); font-stretch: normal; }
+.line dt { font: 600 14px/1.4 var(--text); letter-spacing: 0; text-transform: none; }
+.line.agent dt { color: var(--brass); }
+.line dd { font-family: var(--display); font-size: 1.22rem; }
+.said-after .mark { background: linear-gradient(transparent 60%, var(--brass-soft) 60%); box-shadow: inset 0 -1px 0 var(--brass); }
+.said-after.typing::after { background: var(--brass); }
+.rewrite { border-color: var(--ink); border-radius: 0; font-family: var(--text); color: var(--ink); }
+.rewrite:hover { background: var(--ink); color: var(--on-dark); }
+.note { border-left-color: var(--line-strong); background: var(--stone); }
+.note b { font: 700 14px/1.2 var(--text); letter-spacing: 0; text-transform: none; }
+.is-rewritten .note { border-left-color: var(--brass); background: var(--brass-soft); }
+.moment:focus-visible { outline: 2px solid var(--brass); outline-offset: -2px; }
+
+/* Price cards: a ruled card with a berry spine */
+.keytag { border-radius: 0; padding: 28px 26px 26px 34px; box-shadow: inset 6px 0 0 var(--brass) !important; }
+.keytag::before { display: none !important; }
+.keytag::after { left: 18px; border-left-style: solid; border-color: var(--line); }
+.keytag.on-stone { background: var(--card); border: 1px solid var(--ink); }
+.keytag h3 { font: 600 1.6rem/1.1 var(--display); font-stretch: normal; }
+.price { font: 500 3.2rem/1 var(--display); font-stretch: normal; }
+.price small { font-family: var(--text); }
+.keytag.is-featured { background: var(--ink); }
+.checks svg { stroke: var(--brass); }
+.keytag.is-featured .checks svg { stroke: var(--brass-hi); }
+.band { background: var(--ink) !important; border-radius: 0; }
+
+/* Footer */
+.site-footer { background: var(--ink); }
+.footer-contact span { color: var(--brass-hi); font-family: var(--text); font-stretch: normal; letter-spacing: 0; text-transform: none; }
+.kit-links a, .footer-contact a { font-family: var(--text); }
+.skip-link { background: var(--brass); color: #fff; }
+</style>
   <script>document.documentElement.classList.add('js');</script>
-</head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--brass)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.topbar .brand .sb-logo{x:0}</style></head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="sample-wrongcreative.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V4h16v16M4 20h5M9 20a7 7 0 0 1 7-7"/></svg></span>Leasing Practice</a>
+      <a class="brand" href="sample-wrongcreative.html"><svg class="sb-logo sb-h" data-sb="leasing" viewBox="0 0 198 32" width="185.6" height="30" role="img" aria-label="Leasing Practice" focusable="false"><g aria-hidden="true"><path d="M12 28v-8.5a4 4 0 0 1 8 0V28z" fill="currentColor" class="f-a s-n"/><path d="M7 28V13a9 9 0 0 1 18 0v15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M3 28h26" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Newsreader'" font-weight="600" font-size="22" letter-spacing="0em">Leasing Practice</text></svg></a>
       <nav class="topnav" aria-label="Site">
         <a href="sample-wrongcreative.html" aria-current="page">Courses</a>
         <a href="sample-wrongcreative-course.html">The course</a>
@@ -34,75 +206,70 @@
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="hero" aria-labelledby="title">
-      <div class="wrap hero-inner">
-        <div>
-          <p class="label">Practical courses for leasing teams</p>
-          <h1 class="h1" id="title">Better leasing conversations, <span class="soft">one moment at a time.</span></h1>
-          <p class="lede">Short, self-paced lessons on the three moments that shape a tour: <b>the first questions</b>, <b>how you explain the options</b> and <b>the follow-up you agree</b> before the prospect leaves.</p>
-          <div class="button-row">
-            <a class="button button-brass" href="sample-wrongcreative-course.html">See the course <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <a class="button button-ghost" href="sample-wrongcreative-bundle.html">Training a whole team?</a>
+    <section class="sheet-wrap" aria-label="The course on a floor plan">
+      <div class="sheet">
+        <p class="sheet-cap">Training course for leasing agents, how to show an apartment.</p>
+        <div class="sheet-body">
+          <div class="map">
+            <div class="map-in" id="map">
+              <svg class="map-svg" viewBox="0 0 860 600" aria-hidden="true" focusable="false">
+                <defs><mask id="walk-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="860" height="620"><path class="walk-reveal" pathLength="1" d="M100 598V432Q100 420 112 420H463Q475 420 475 408V157Q475 145 463 145H262" fill="none" stroke="#fff" stroke-width="12"/></mask></defs>
+                <g class="furn">
+                  <rect x="26" y="112" width="44" height="142"/><rect x="34" y="128" width="28" height="36" rx="4"/><circle cx="48" cy="198" r="8"/><circle cx="48" cy="228" r="8"/>
+                  <circle cx="200" cy="178" r="34"/><rect x="190" y="128" width="20" height="14" rx="3"/><rect x="190" y="214" width="20" height="14" rx="3"/><rect x="150" y="168" width="14" height="20" rx="3"/><rect x="236" y="168" width="14" height="20" rx="3"/>
+                  <rect x="244" y="474" width="80" height="100"/><path d="M244 474l80 100M324 474l-80 100"/>
+                  <rect x="26" y="372" width="30" height="80" rx="3"/>
+                  <rect x="392" y="518" width="190" height="56" rx="8"/><path d="M392 556h190M455 518v38M519 518v38"/>
+                  <rect x="440" y="446" width="92" height="46" rx="4"/>
+                  <rect x="556" y="140" width="52" height="54" rx="8"/><path d="M600 144v46"/>
+                  <rect x="698" y="26" width="136" height="168" rx="4"/><rect x="710" y="36" width="52" height="28" rx="5"/><rect x="770" y="36" width="52" height="28" rx="5"/><path d="M698 92h136"/>
+                  <rect x="656" y="26" width="36" height="34" rx="2"/>
+                  <rect x="740" y="472" width="94" height="102" rx="12"/><rect x="752" y="484" width="70" height="78" rx="20"/>
+                  <rect x="790" y="346" width="32" height="14" rx="3"/><ellipse cx="806" cy="380" rx="13" ry="17"/>
+                  <rect x="690" y="346" width="50" height="30" rx="3"/><ellipse cx="715" cy="361" rx="14" ry="9"/>
+                </g>
+                <g class="swing"><path d="M60 500v80M60 500a80 80 0 0 1 80 80"/><path d="M620 320h70M690 320a70 70 0 0 0 -70 -70"/><path d="M620 450h60M680 450a60 60 0 0 0 -60 -60"/></g>
+                <path class="walls-in" d="M20 260H190M280 260H330M330 20V90M330 200V380M330 470V580M620 20V250M620 320V390M620 450V580M620 340H840"/>
+                <path class="walls-out" d="M60 580H20V20H400M560 20H700M800 20H840V580H140"/>
+                <path class="win" d="M400 16h160M400 24h160M700 16h100M700 24h100"/>
+                <path class="walk" mask="url(#walk-mask)" d="M100 598V432Q100 420 112 420H463Q475 420 475 408V157Q475 145 463 145H262"/>
+                <g class="stops"><circle cx="100" cy="470" r="7"/><circle cx="475" cy="300" r="7"/><circle cx="262" cy="145" r="7"/></g>
+              </svg>
+              <button type="button" class="rm" data-m="0" aria-pressed="true" style="left:2.8%;top:44%;width:35.2%;height:52.2%"><span class="rm-n">1</span><span class="rm-t"><b>Front door</b><small>First questions, 35 min</small></span></button>
+              <button type="button" class="rm" data-m="1" aria-pressed="false" style="left:38.9%;top:4%;width:32.7%;height:92.2%"><span class="rm-n">2</span><span class="rm-t"><b>Living room</b><small>The options, 37 min</small></span></button>
+              <button type="button" class="rm" data-m="2" aria-pressed="false" style="left:2.8%;top:4%;width:35.2%;height:39.2%"><span class="rm-n">3</span><span class="rm-t"><b>Kitchen table</b><small>The next step, 33 min</small></span></button>
+              <span class="rm-plain" style="left:82.5%;top:40%">Bedroom</span>
+              <span class="rm-plain" style="left:74.4%;top:88%">Bath</span>
+            </div>
           </div>
-        </div>
-
-        <div>
-          <figure class="plan is-drawing" id="plan">
-            <svg viewBox="0 0 560 450" role="group" aria-label="The course drawn as one tour through a home. Three rooms, one for each module. Choose a room to read its moment below.">
-              <a href="#m1" class="room-link" data-room="0" aria-label="Room 1, first questions. Read this moment of the example tour.">
-                <rect class="room" x="22" y="202" width="196" height="196"/>
-              </a>
-              <a href="#m2" class="room-link" data-room="1" aria-label="Room 2, the options. Read this moment of the example tour.">
-                <rect class="room" x="222" y="22" width="316" height="376"/>
-              </a>
-              <a href="#m3" class="room-link" data-room="2" aria-label="Room 3, the follow-up. Read this moment of the example tour.">
-                <rect class="room" x="22" y="22" width="196" height="176"/>
-              </a>
-              <path class="wall" d="M60 400H20V20h520v380H130"/>
-              <path class="wall" d="M220 20v60M220 140v150M220 350v50M20 200h200"/>
-              <path class="swing" d="M60 400a70 70 0 0 1 70 -70M60 400v-70"/>
-              <path class="wall-thin" d="M262 200h80v60h-80zM418 200h80v60h-80z"/>
-              <text class="dimt" x="282" y="236">4B</text>
-              <text class="dimt" x="438" y="236">7A</text>
-              <path class="wall-thin" d="M80 90h80v60H80z"/>
-              <text class="rnum" x="40" y="236">ROOM 01</text>
-              <text class="rlabel" x="40" y="262">First questions</text>
-              <text class="rsub" x="40" y="286">35 min</text>
-              <text class="rnum" x="244" y="56">ROOM 02</text>
-              <text class="rlabel" x="244" y="82">The options</text>
-              <text class="rsub" x="244" y="106">37 min, two homes that fit</text>
-              <text class="rnum" x="40" y="56">ROOM 03</text>
-              <text class="rlabel" x="40" y="82">The follow-up</text>
-              <text class="rsub" x="40" y="180">33 min</text>
-              <path class="path path-draw" id="plan-path" d="M95 446V340C95 330 100 322 110 322H360C372 322 380 314 380 302V122C380 114 374 110 366 110H160"/>
-              <circle class="stop" cx="95" cy="330" r="9"/>
-              <circle class="stop" cx="380" cy="230" r="9"/>
-              <circle class="stop" cx="160" cy="110" r="9"/>
-              <path class="dim" d="M20 430h520M20 422v16M540 422v16"/>
-            </svg>
-            <figcaption class="plan-caption"><span>Sheet 01, the tour</span><span>3 rooms, 9 lessons, 105 min</span></figcaption>
-          </figure>
+          <aside class="tb" aria-label="Course details">
+            <div class="tb-cell tb-room" aria-live="polite">
+              <p class="tb-k" id="tb-k">Room 1 of 3, front door</p>
+              <h2 id="tb-title">Understand the prospect's priorities</h2>
+              <ol id="tb-lessons">
+                <li><span>Why the first two questions matter</span><span>8 min</span></li>
+                <li><span>Replacing a broad opener</span><span>12 min</span></li>
+                <li><span>Write two focused questions <em>practice</em></span><span>15 min</span></li>
+              </ol>
+              <a class="tb-hear" id="tb-hear" href="#m1">Before and after for this room</a>
+            </div>
+            <div class="tb-cell tb-buy">
+              <p class="tb-name">The leasing conversation</p>
+              <p class="tb-info">Online, 9 lessons, 105 minutes in total.</p>
+              <p class="tb-price">$149 <small>per agent</small></p>
+              <a class="button button-brass" href="sample-wrongcreative-course.html">Start the course</a>
+              <a class="tb-team" href="sample-wrongcreative-bundle.html">A team of up to ten, $990</a>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
 
     <div class="wrap">
-      <section class="section reveal" aria-labelledby="out-title">
-        <div class="section-head split">
-          <div><p class="label">What changes</p><h2 class="h2" id="out-title" style="margin-top:16px">Three habits you take <span class="soft">into the next tour</span></h2></div>
-          <p>Each module takes one moment, shows what a clearer version sounds like and ends with a short exercise you can try on your next tour.</p>
-        </div>
-        <ol class="outcomes">
-          <li><strong>Ask two focused questions</strong><p>Replace a broad opener with two questions whose answers decide which homes you show and what you say about them.</p></li>
-          <li><strong>Compare on their priorities</strong><p>Explain two options using what the prospect already told you, and keep a known fact apart from what still needs checking.</p></li>
-          <li><strong>Leave with a dated next step</strong><p>Name the open question, who acts on it and by when, and agree a time for the next visit.</p></li>
-        </ol>
-      </section>
-
       <section class="section reveal" aria-labelledby="moments-title">
         <div class="section-head split">
-          <div><p class="label">One example tour</p><h2 class="h2" id="moments-title" style="margin-top:16px">Hear the difference, <span class="soft">line by line</span></h2></div>
-          <p>An example tour, written for the course. One prospect, two homes that fit. Rewrite each agent line to see the practiced version and why it works.</p>
+          <h2 class="h2" id="moments-title">Before and after</h2>
+          <p>One prospect, two apartments. See each agent line before and after the course.</p>
         </div>
         <div class="script" id="tour">
           <div class="script-tools">
@@ -111,7 +278,7 @@
           </div>
 
           <article class="moment" id="m1" aria-labelledby="m1-title" tabindex="-1">
-            <div class="moment-label"><span class="room-no">Room 01</span><strong id="m1-title">Open with focused questions</strong></div>
+            <div class="moment-label"><span class="room-no">Room 1, front door</span><strong id="m1-title">Ask two clear questions</strong></div>
             <div>
               <dl class="lines">
                 <div class="line prospect"><dt>Prospect</dt><dd>“Hi, I'm here for the two o'clock tour.”</dd></div>
@@ -119,11 +286,11 @@
               </dl>
               <button type="button" class="rewrite" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg><span>Rewrite this line</span></button>
             </div>
-            <p class="note"><span class="before-note"><b>As often said</b>A broad opener. The prospect has to guess what you want to know, so you start the tour without a plan.</span><span class="after-note"><b>As practiced</b>Two focused questions. The answers decide which two homes you show and what you say about them.</span></p>
+            <p class="note"><span class="before-note"><b>Before</b>A broad question. Nothing to decide which homes to show.</span><span class="after-note"><b>After</b>Two questions that decide which homes to show.</span></p>
           </article>
 
           <article class="moment" id="m2" aria-labelledby="m2-title" tabindex="-1">
-            <div class="moment-label"><span class="room-no">Room 02</span><strong id="m2-title">Explain the options that matter</strong></div>
+            <div class="moment-label"><span class="room-no">Room 2, living room</span><strong id="m2-title">Explain the options</strong></div>
             <div>
               <dl class="lines">
                 <div class="line prospect"><dt>Prospect</dt><dd>“Quiet matters most, I work nights. And I have a car.”</dd></div>
@@ -131,11 +298,11 @@
               </dl>
               <button type="button" class="rewrite" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg><span>Rewrite this line</span></button>
             </div>
-            <p class="note"><span class="before-note"><b>As often said</b>Every amenity in order. Nothing links back to what the prospect just said.</span><span class="after-note"><b>As practiced</b>Two options, compared on the prospect's own priorities, with a known fact kept apart from what still needs checking.</span></p>
+            <p class="note"><span class="before-note"><b>Before</b>Every amenity, none of it tied to what they said.</span><span class="after-note"><b>After</b>Only what matters to them, and what still needs checking.</span></p>
           </article>
 
           <article class="moment" id="m3" aria-labelledby="m3-title" tabindex="-1">
-            <div class="moment-label"><span class="room-no">Room 03</span><strong id="m3-title">Agree a follow-up they can act on</strong></div>
+            <div class="moment-label"><span class="room-no">Room 3, kitchen table</span><strong id="m3-title">Agree the next step</strong></div>
             <div>
               <dl class="lines">
                 <div class="line prospect"><dt>Prospect</dt><dd>“I like them both. I'll need to talk it over with my partner.”</dd></div>
@@ -143,38 +310,36 @@
               </dl>
               <button type="button" class="rewrite" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg><span>Rewrite this line</span></button>
             </div>
-            <p class="note"><span class="before-note"><b>As often said</b>A promise with no what and no when. The next step is left open.</span><span class="after-note"><b>As practiced</b>The open question, who acts on it, by when, and a time for the next visit.</span></p>
+            <p class="note"><span class="before-note"><b>Before</b>No task and no time.</span><span class="after-note"><b>After</b>Who does what, by when, and the next visit.</span></p>
           </article>
         </div>
       </section>
 
       <section class="section reveal" aria-labelledby="routes-title">
         <div class="section-head split">
-          <div><p class="label">Two ways in</p><h2 class="h2" id="routes-title" style="margin-top:16px">Learn on your own <span class="soft">or as a team</span></h2></div>
-          <p>The lessons are the same. The team pathway adds a guided discussion and a worksheet so everyone practices the same moment in the same week.</p>
+          <h2 class="h2" id="routes-title">Prices</h2>
+          <p>Same lessons. The team price adds a guide and worksheets for team meetings.</p>
         </div>
         <div class="tags">
           <article class="keytag on-stone">
-            <div class="keytag-head"><h3>The leasing conversation</h3><span class="label">One learner</span></div>
-            <p class="price">$149<small>per learner</small></p>
-            <p class="muted">For one learner working through the lessons at their own pace.</p>
+            <div class="keytag-head"><h3>One agent</h3></div>
+            <p class="price">$149<small>per agent</small></p>
             <ul class="checks">
-              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Three modules, nine lessons</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Three practice exercises</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Twelve months of access</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>3 modules, 9 lessons</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>3 practice exercises</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>12 months of access</li>
             </ul>
-            <a class="button button-line" href="sample-wrongcreative-course.html">See the course <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="button button-line" href="sample-wrongcreative-course.html">See the lessons <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </article>
           <article class="keytag is-featured">
-            <div class="keytag-head"><h3>Team pathway</h3><span class="label">Up to ten</span></div>
+            <div class="keytag-head"><h3>A team of up to ten</h3></div>
             <p class="price">$990<small>per team</small></p>
-            <p class="muted">For up to ten learners who want to practice together.</p>
             <ul class="checks">
-              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Everything in the course, for each learner</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Discussion guide for three team sessions</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Review worksheet for each module</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>The course for every agent on the team</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>A guide for three team meetings</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>A worksheet for each module</li>
             </ul>
-            <a class="button button-brass" href="sample-wrongcreative-bundle.html">Build your team bundle <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="button button-brass" href="sample-wrongcreative-bundle.html">Price your team <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </article>
         </div>
       </section>
@@ -182,21 +347,21 @@
       <section class="section reveal" aria-labelledby="try-title">
         <div class="band">
           <div>
-            <h2 class="h2" id="try-title">Try a lesson before you decide.</h2>
-            <p>Pick the clearest of three follow-ups and see why it works. It takes about a minute.</p>
+            <h2 class="h2" id="try-title">Try a free lesson</h2>
+            <p>Pick the best follow-up message. It takes about a minute.</p>
           </div>
-          <a class="button button-brass" href="sample-wrongcreative-course.html#sample">Open the lesson preview <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="button button-brass" href="sample-wrongcreative-course.html#sample">Open the free lesson <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </section>
     </div>
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">
-      <p><strong>Speculative sample by Alexandr Khrustalev</strong> for a public course-marketing brief. Leasing Practice, its courses and its prices are fictional, and the brief's author did not commission or review this work.</p>
+    <div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="leasing" viewBox="0 0 198 32" width="160.9" height="26" role="img" aria-label="Leasing Practice" focusable="false"><g aria-hidden="true"><path d="M12 28v-8.5a4 4 0 0 1 8 0V28z" fill="currentColor" class="f-a s-n"/><path d="M7 28V13a9 9 0 0 1 18 0v15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M3 28h26" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.9" fill="currentColor" font-family="'Newsreader'" font-weight="600" font-size="22" letter-spacing="0em">Leasing Practice</text></svg></div>
+      <p><strong>Sample site by Alexandr Khrustalev</strong> for a public brief. The brand, courses and prices are made up.</p>
       <div class="kit-links"><a href="sample-wrongcreative-emails.html">Launch emails</a><a href="sample-wrongcreative-handoff.md">Handoff notes</a><a href="./">Selected work</a></div>
       <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-    </div>
+    <p class="sb-label">Sample site, fictional brand</p></div>
   </footer>
 <script>
   (() => {
@@ -209,15 +374,10 @@
       rv.forEach(s => io.observe(s));
     } else rv.forEach(s => s.classList.add('is-in'));
 
-    // The walk through the plan draws itself once.
-    const path = document.getElementById('plan-path');
-    if (path) path.style.setProperty('--len', Math.ceil(path.getTotalLength()));
-
     const moments = [...document.querySelectorAll('.moment')];
     const all = document.getElementById('rewrite-all');
     const segs = [...document.querySelectorAll('.meter-keys i')];
     const meterText = document.getElementById('meter-text');
-    const rooms = [...document.querySelectorAll('.room-link')];
 
     // Type the better line out, keeping its highlighted phrases intact.
     const typers = new WeakMap();
@@ -264,7 +424,6 @@
       const every = count === moments.length;
       all.setAttribute('aria-pressed', String(every));
       all.textContent = every ? 'Show the originals' : 'Rewrite all three';
-      rooms.forEach((r, i) => r.querySelector('.room').classList.toggle('is-on', moments[i].classList.contains('is-rewritten')));
     };
     moments.forEach(m => {
       set(m, false);
@@ -277,15 +436,42 @@
     });
     sync();
 
-    // A room on the plan opens its moment in the tour.
-    rooms.forEach((r, i) => r.addEventListener('click', e => {
+    // The plan: each room is one module. Picking a room fills the title block.
+    const MODS = [
+      { k: 'Room 1 of 3, front door', title: "Understand the prospect's priorities", lessons: [['Why the first two questions matter', 8], ['Replacing a broad opener', 12], ['Write two focused questions', 15, 1]] },
+      { k: 'Room 2 of 3, living room', title: 'Explain the options that matter', lessons: [['Linking options to stated priorities', 10], ['Facts and assumptions to confirm', 12], ['Compare two options out loud', 15, 1]] },
+      { k: 'Room 3 of 3, kitchen table', title: 'Agree a useful follow-up', lessons: [['Summarizing the open question', 8], ['Naming the next action and its owner', 10], ['Rewrite a vague follow-up', 15, 1]] }
+    ];
+    const rms = [...document.querySelectorAll('.rm')];
+    const tbK = document.getElementById('tb-k'), tbTitle = document.getElementById('tb-title'), tbList = document.getElementById('tb-lessons'), hear = document.getElementById('tb-hear');
+    let cur = 0;
+    const pickRoom = (i) => {
+      cur = i;
+      rms.forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
+      const d = MODS[i];
+      tbK.textContent = d.k;
+      tbTitle.textContent = d.title;
+      tbList.replaceChildren(...d.lessons.map(([t, min, practice]) => {
+        const li = document.createElement('li'), a = document.createElement('span'), b = document.createElement('span');
+        a.textContent = t;
+        if (practice) { const em = document.createElement('em'); em.textContent = 'practice'; a.append(' ', em); }
+        b.textContent = min + ' min';
+        li.append(a, b);
+        return li;
+      }));
+      hear.setAttribute('href', '#m' + (i + 1));
+    };
+    rms.forEach((b, i) => b.addEventListener('click', () => pickRoom(i)));
+    // The link under the lessons opens that room's line in the example tour, already rewritten.
+    hear.addEventListener('click', e => {
       e.preventDefault();
-      const m = moments[i];
+      const m = moments[cur];
       m.scrollIntoView({ behavior: still() ? 'auto' : 'smooth', block: 'center' });
       m.focus({ preventScroll: true });
       if (!m.classList.contains('is-rewritten')) setTimeout(() => { set(m, true, true); sync(); }, still() ? 0 : 450);
-    }));
+    });
   })();
 </script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
 </body>
 </html>

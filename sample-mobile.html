@@ -3,20 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0d2a22">
+<meta name="theme-color" content="#f1e4a6">
 <title>Clearline expense review</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123a2c'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23e9f2ec' stroke-width='2.4'/%3E%3Cpath d='M9 24 23 8' stroke='%23e9f2ec' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="description" content="A phone-first expense review app for a small team. Swipe a receipt right to approve it or left to send it back with a reason, with policy checks, budget impact and undo on every card.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Clearline expense review">
-<meta property="og:description" content="Clear the month's receipts with one thumb. Swipe to approve or send back, with policy checks, budget impact and undo on every card.">
+<meta property="og:description" content="Approve or send back expense receipts on your phone. Policy checks, budget left and undo on every receipt.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sample-mobile.html">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/sample-mobile.html">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/mobile.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Clearline expense review">
 <meta name="twitter:description" content="A phone-first expense review app. Swipe to approve or send back, with undo on every card.">
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/mobile.jpg">
-<link href="assets/gfonts/css/ca4732d30880.css" rel="stylesheet">
+<link href="assets/gfonts/css/41c9f93b5ce4.css" rel="stylesheet">
 <style>
 /* Clearline. A finance room after hours: deep bottle green around a bright paper app, Manrope for people,
    Martian Mono for money, mint for approved and a brick red for sent back. */
@@ -385,28 +386,211 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+.ck-ic{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-right:10px;vertical-align:-6px;color:#1f5c7a}
 </style>
-</head>
+<style>
+/* Clearline preview. A butter-yellow ledger desk in daylight: ink-black type, a lake blue for approved,
+   brick for sent back. Red Hat Display for people, Red Hat Mono for money.
+   V3: the phone stands in the middle, October totals on its left, the notes it sends on its right. */
+:root {
+  --env: #f1e4a6; --env-2: #ead98c; --env-3: #dccb78; --env-ink: #1d1a12; --env-muted: #5a5236; --env-line: rgba(29, 26, 18, .2); --mint: #1f5f7a;
+  --ink: #1d1a12; --ink-2: #3a3527; --muted: #625b45; --faint: #8c8468;
+  --app: #fbf8ee; --paper: #fffdf6; --line: #e3dcc6; --line-strong: #c4bb9c;
+  --green: #1f5f7a; --green-deep: #174a5f; --green-soft: #dcebf0;
+  --red: #9b2f25; --red-deep: #7c241c; --red-soft: #f5e1dc;
+  --sans: "Red Hat Display", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "Red Hat Mono", ui-monospace, Consolas, monospace;
+}
+body { background: var(--env) !important; color: var(--env-ink); font-stretch: normal; }
+
+/* Desk layout: phone on the left, the words in the middle, the team feed on the right */
+@media (min-width: 960px) {
+  .page { grid-template-columns: 404px minmax(0, 1fr); grid-template-areas: "app intro" "app summary" "app notes" "app about"; }
+}
+@media (min-width: 1240px) {
+  .page { grid-template-columns: 404px minmax(0, 1fr) minmax(0, .8fr); grid-template-areas: "app intro intro" "app summary notes" "app about notes"; grid-template-rows: auto auto 1fr; }
+  .notes { position: static; padding-top: 0; }
+}
+.back { color: var(--env-ink); }
+.back:hover { color: var(--mint); }
+.keys { color: var(--env-muted); }
+.keys kbd { border-color: var(--env-ink); background: transparent; color: var(--env-ink); border-radius: 0; }
+kbd { border-radius: 0; }
+
+/* Summary: a printed ledger slip, no rounded panel */
+.summary { border: 0; border-top: 2px solid var(--env-ink); border-radius: 0; background: transparent; padding: 16px 0 0; }
+.summary h2, .notes h2, .about h2 { color: var(--env-ink); font-family: var(--mono); letter-spacing: .14em; font-weight: 600; }
+.sum-figs div { border-bottom: 1px solid var(--env-line); }
+.sum-figs dt { color: var(--env-muted); }
+.sum-figs dd { font-family: var(--mono); font-size: 22px; }
+.sum-figs .ok dd { color: var(--mint); }
+.sum-figs .back dd { color: var(--red); }
+.sum-bar { border-radius: 0; height: 12px; background: var(--env-2); }
+.sum-bar .ok { background: var(--mint); }
+.sum-bar .wait { background: var(--env-3); background: repeating-linear-gradient(-45deg, #b9a85a 0 3px, var(--env-2) 3px 6px); }
+.sum-bar .back { background: var(--red); }
+.people { border-top-color: var(--env-ink); }
+.person { border-bottom-color: var(--env-line); }
+.person:hover { background: rgba(29, 26, 18, .05); }
+.person .who { width: auto; height: auto; border-radius: 0; background: transparent; place-items: start; font: 700 12px/1 var(--mono); letter-spacing: .08em; color: var(--env-muted); }
+.person small { color: var(--env-muted); }
+.person .amt em { color: var(--mint); }
+.sum-help { color: var(--env-muted); }
+
+/* Team feed */
+.note-empty { border: 1px dashed var(--env-ink); border-radius: 0; color: var(--env-ink); }
+.note { border-radius: 0; box-shadow: 4px 4px 0 var(--env-ink); border: 1px solid var(--env-ink); }
+.note .who { width: auto; height: auto; border-radius: 0; background: transparent !important; color: var(--ink); place-items: start; font: 700 12px/1.4 var(--mono); letter-spacing: .06em; }
+.note.is-back .who { color: var(--red); }
+.note.is-ok .who { color: var(--green); }
+.checks h3 { color: var(--env-ink); }
+.checks li { border-bottom-color: var(--env-line); color: var(--env-muted); }
+.checks b { color: var(--env-ink); }
+.about { color: var(--env-muted); }
+.about .text-btn { color: var(--env-ink); text-decoration-color: rgba(29, 26, 18, .4); }
+.about .footer-contact { border-top-color: var(--env-ink); }
+.footer-contact span { color: var(--env-ink); font: 600 14px/1.4 var(--sans); letter-spacing: 0; text-transform: none; }
+.footer-contact a { color: var(--env-ink); text-decoration-color: rgba(31, 95, 122, .5); }
+
+/* Device: a square ink slab with a hard shadow instead of a rounded bezel */
+.device { border: 3px solid var(--ink); border-radius: 0; box-shadow: 12px 12px 0 var(--mint); }
+.app-bar { border-bottom: 1px solid var(--line); }
+.brand { font-weight: 900; letter-spacing: -.04em; font-size: 21px; }
+.brand-mark { display: none; }
+.bar-end { color: var(--muted); font-family: var(--mono); }
+.avatar { width: auto; height: auto; border-radius: 0; background: transparent; color: var(--ink); font: 700 12px/1 var(--mono); letter-spacing: .08em; border-left: 1px solid var(--line-strong); padding-left: 10px; }
+.screen-head h2 { font-size: 30px; font-weight: 900; letter-spacing: -.04em; }
+.ticks { gap: 2px; height: 8px; }
+.ticks i { border-radius: 0; }
+.undo-chip { border-radius: 0; border-color: var(--ink); }
+.receipt { font-family: var(--sans); }
+.r-merchant { font-weight: 900; }
+.r-cat { border-radius: 0; border-color: var(--ink); }
+.flag { border-left-color: var(--ink); background: #f4ecc9; color: var(--ink); }
+.impact-bar, .impact-bar i { border-radius: 0; }
+.stamp { border-radius: 0; }
+.act { border-radius: 0; font-weight: 800; letter-spacing: .02em; }
+.act.ok:hover { background: var(--green-deep); }
+.done-seal { border-radius: 0; transform: rotate(-4deg); }
+.done-sums { border-radius: 0; }
+.search { border-radius: 0; border-color: var(--ink); }
+.chip { border-radius: 0; }
+.st::before { display: none; }
+.st { text-transform: uppercase; letter-spacing: .08em; font-size: 11px; font-family: var(--mono); }
+.big-meter { border-radius: 0; background: var(--ink); }
+.bm-bar, .cat-bar { border-radius: 0; }
+.bm-bar .a { background: #8fc1d4; }
+.bm-legend i { width: 18px; height: 4px; border-radius: 0; }
+.bm-legend .a { background: #8fc1d4; }
+.cat-bar .a { background: var(--green); }
+.tabbar { border-top: 2px solid var(--ink); }
+.tab { border-radius: 0; }
+.tab[aria-current="page"] { background: var(--ink); color: var(--app); }
+.tab b { position: static; min-width: 0; height: auto; padding: 0; border-radius: 0; background: transparent; color: inherit; font: 700 11px/1 var(--mono); }
+.tab b:empty { display: none; }
+.tab b::before { content: "("; }
+.tab b::after { content: ")"; }
+.sheet { border-radius: 0; border-top: 3px solid var(--ink); }
+.sheet::before { border-radius: 0; background: var(--ink); width: 56px; height: 3px; }
+.reason span { border-radius: 0; }
+.field textarea { border-radius: 0; }
+.error { border-left-color: var(--red); }
+.timeline { border-left-color: var(--ink); }
+.timeline li::before { left: -24px; top: 9px; width: 12px; height: 2px; border: 0; border-radius: 0; }
+.toast { border-radius: 0; box-shadow: 6px 6px 0 var(--mint); }
+.toast button { border-radius: 0; background: var(--mint); }
+.toast button:hover { background: var(--green-deep); }
+@media (max-width: 520px), (max-height: 500px) and (max-width: 959px) {
+  .device { border: 0; border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); box-shadow: none; }
+  .summary { margin: 0 16px; }
+}
+</style>
+<style>
+/* V3 layout. No headline: the phone is the page. A short caption and the month's totals sit on its left,
+   the notes it sends to the team on its right, the rest of the facts below. */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 1440px; margin: 0 auto; padding: 10px 32px 0; color: var(--env-ink); }
+.top-brand { display: inline-flex; }
+.sb-logo.sb-t { height: 24px !important; }
+.top-back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--env-ink); font-weight: 600; font-size: 15px; text-decoration: none; }
+.top-back:hover { color: var(--mint); }
+.top-back svg { width: 16px; height: 16px; stroke-width: 2.2; }
+
+.page { grid-template-areas: "cap" "app" "lead" "notes" "more"; grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 12px 24px 56px; }
+.cap { grid-area: cap; justify-self: center; max-width: 30ch; margin: 0; color: var(--env-ink); font: 600 17px/1.4 var(--sans); letter-spacing: -.005em; text-align: center; text-wrap: balance; }
+.lead { grid-area: lead; display: grid; gap: 22px; width: 100%; max-width: 520px; justify-self: center; }
+.summary { grid-area: auto; }
+.notes { grid-area: notes; width: 100%; max-width: 520px; justify-self: center; }
+.more { grid-area: more; display: grid; gap: 40px; padding-top: 32px; border-top: 2px solid var(--env-ink); }
+.more > * { grid-area: auto; }
+.app-wrap { position: relative; top: auto; }
+.device { height: min(820px, calc(100vh - 96px)); height: min(820px, calc(100svh - 96px)); min-height: 640px; }
+
+.summary h2, .notes h2, .more h2 { color: var(--env-ink); font: 700 17px/1.3 var(--sans); letter-spacing: -.01em; text-transform: none; }
+.sum-figs dd { font-size: 24px; padding: 0 4px; margin-right: -4px; }
+@keyframes bump { from { background: rgba(31, 95, 122, .2); } to { background: rgba(31, 95, 122, 0); } }
+.sum-figs dd.bump { animation: bump 1s ease-out; }
+.keys { margin: 0; color: var(--env-ink); font-size: 14.5px; }
+.notes-head { max-width: none; }
+#notes-count { font-size: 13px; color: var(--env-muted); }
+.note-empty { max-width: none; }
+.note-empty > p { color: var(--env-ink); }
+.note-list { max-width: none; }
+.note p { font-size: 15px; }
+.checks { max-width: none; margin-top: 0; }
+.checks ul { margin-top: 8px; }
+.checks li { display: flex; align-items: flex-start; color: var(--env-ink); }
+.checks .ck-ic { margin-top: 0; vertical-align: 0; }
+.by-person .people { margin-top: 10px; }
+.about { max-width: none; color: var(--env-muted); }
+.about h2 { margin-top: 2px; }
+
+@media (min-width: 960px) {
+  .page { grid-template-columns: minmax(0, 1fr) 404px; grid-template-areas: "cap app" "lead app" "notes app" "more more"; grid-template-rows: auto auto 1fr auto; column-gap: clamp(40px, 5vw, 80px); row-gap: 28px; padding: 18px 32px 64px; align-items: start; }
+  .cap, .lead, .notes { justify-self: stretch; max-width: 420px; }
+  .cap { justify-self: start; max-width: 22ch; font-size: 20px; line-height: 1.35; text-align: left; }
+  .app-wrap { position: relative; top: auto; }
+  .more { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(32px, 4vw, 64px); margin-top: 24px; }
+  .note-list:not(.ghost) .note:nth-child(n+5) { display: none; }
+}
+@media (min-width: 1240px) {
+  .page { grid-template-columns: minmax(0, 1fr) 404px minmax(0, 1fr); grid-template-areas: "cap app notes" "lead app notes" "more more more"; grid-template-rows: auto 1fr auto; column-gap: clamp(48px, 5vw, 80px); }
+  .cap, .lead { justify-self: end; width: min(100%, 340px); max-width: none; }
+  .notes { justify-self: start; width: min(100%, 380px); padding-top: 0; }
+  .cap { position: relative; padding-top: 64px; }
+  .cap::after, .notes-head::before { content: ""; position: absolute; height: 0; border-top: 1.5px solid var(--env-ink); }
+  .cap::after { top: calc(64px + .68em); left: calc(100% + 14px); width: calc(clamp(48px, 5vw, 80px) - 14px); }
+  .notes-head { position: relative; padding-top: 64px; }
+  .notes-head::before { top: calc(64px + .62em); right: calc(100% + 14px); width: calc(clamp(48px, 5vw, 80px) - 14px); }
+  .lead { align-self: center; gap: 28px; }
+}
+@media (max-width: 959px) { .keys { display: none; } }
+@media (max-width: 520px), (max-height: 500px) and (max-width: 959px) {
+  .top { display: none; }
+  .page { padding: 0 0 40px; gap: 22px; }
+  .cap { justify-self: stretch; max-width: none; padding: 12px 16px 0; font-size: 15.5px; text-align: left; }
+  .lead, .notes { padding: 0 16px; }
+  .summary { margin: 0; }
+  .more { margin: 0 16px; }
+  .about { padding: 0; }
+}
+@media (max-height: 500px) and (min-width: 521px) and (max-width: 959px) {
+  .cap { padding-left: max(24px, env(safe-area-inset-left)); padding-right: max(24px, env(safe-area-inset-right)); }
+}
+</style>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--green)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.app-bar .brand{display:inline-flex;align-items:center}</style></head>
 <body>
+<header class="top">
+  <span class="top-brand"><svg class="sb-logo sb-t" data-sb="clearline" viewBox="0 0 128 32" width="96.0" height="24" role="img" aria-label="Clearline" focusable="false"><g aria-hidden="true"><rect x="7" y="3" width="18" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M2 16h28" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Red Hat Display'" font-weight="700" font-size="21" letter-spacing="-0.01em">Clearline</text></svg></span>
+  <a class="top-back" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
+</header>
 <main class="page">
-  <section class="intro" aria-labelledby="intro-title">
-    <a class="back" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Selected work</a>
-    <p class="eyebrow">Mobile interface, Clearline</p>
-    <h1 id="intro-title">Clear the month's receipts with <em>one thumb.</em></h1>
-    <p class="lede">A phone app for a small team lead. Swipe a receipt right to approve it or left to send it back with a reason. Every card shows its policy checks and what approving does to the budget, and every decision can be undone.</p>
-    <ul class="keys" aria-label="Keyboard shortcuts in the app">
-      <li><kbd>&rarr;</kbd>Approve</li>
-      <li><kbd>&larr;</kbd>Send back</li>
-      <li><kbd>L</kbd>Later</li>
-      <li><kbd>Z</kbd>Undo</li>
-    </ul>
-  </section>
+  <h1 class="cap" id="intro-title">Approve or send back expense receipts on your phone.</h1>
 
   <div class="app-wrap">
     <article class="device" id="device" aria-label="Clearline app">
       <div class="viewport" id="viewport">
         <header class="app-bar">
-          <span class="brand"><i class="brand-mark" aria-hidden="true"></i>Clearline</span>
+          <span class="brand"><svg class="sb-logo sb-h" data-sb="clearline" viewBox="0 0 128 32" width="112.0" height="28" role="img" aria-label="Clearline" focusable="false"><g aria-hidden="true"><rect x="7" y="3" width="18" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M2 16h28" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Red Hat Display'" font-weight="700" font-size="21" letter-spacing="-0.01em">Clearline</text></svg></span>
           <span class="bar-end"><span>Oct 2026</span><span class="avatar" role="img" aria-label="Signed in as Dana Ruiz, team lead">DR</span></span>
         </header>
 
@@ -494,45 +678,60 @@ kbd { display: inline-grid; place-items: center; min-width: 26px; height: 24px; 
     </article>
   </div>
 
-  <section class="summary" aria-labelledby="sum-title">
-    <h2 id="sum-title">October so far</h2>
-    <dl class="sum-figs">
-      <div class="ok"><dt>Approved</dt><dd id="s-ok"></dd></div>
-      <div class="wait"><dt>Waiting</dt><dd id="s-wait"></dd></div>
-      <div class="back"><dt>Sent back</dt><dd id="s-back"></dd></div>
-    </dl>
-    <div class="sum-bar" id="sum-bar" role="img"><i class="ok" id="sb-ok"></i><i class="wait" id="sb-wait"></i><i class="back" id="sb-back"></i></div>
-    <ul class="people" id="people" aria-label="Spend by teammate"></ul>
-    <p class="sum-help">Pick a teammate to open their expenses in the ledger.</p>
-  </section>
+  <div class="lead">
+    <section class="summary" aria-labelledby="sum-title">
+      <h2 id="sum-title">October totals</h2>
+      <dl class="sum-figs">
+        <div class="ok"><dt>Approved</dt><dd id="s-ok"></dd></div>
+        <div class="wait"><dt>Waiting</dt><dd id="s-wait"></dd></div>
+        <div class="back"><dt>Sent back</dt><dd id="s-back"></dd></div>
+      </dl>
+      <div class="sum-bar" id="sum-bar" role="img"><i class="ok" id="sb-ok"></i><i class="wait" id="sb-wait"></i><i class="back" id="sb-back"></i></div>
+    </section>
+    <ul class="keys" aria-label="Keyboard shortcuts in the app">
+      <li><kbd>&rarr;</kbd>Approve</li>
+      <li><kbd>&larr;</kbd>Send back</li>
+      <li><kbd>L</kbd>Later</li>
+      <li><kbd>Z</kbd>Undo</li>
+    </ul>
+  </div>
 
-  <section class="notes" aria-labelledby="notes-title">    <div class="notes-head"><h2 id="notes-title">What the team receives</h2><span class="mono" id="notes-count" style="font-size:12px;color:var(--env-muted)"></span></div>
+  <section class="notes" aria-labelledby="notes-title">
+    <div class="notes-head"><h2 id="notes-title">Notes sent to the team</h2><span class="mono" id="notes-count"></span></div>
     <div class="note-empty" id="note-empty">
-      <p>Nothing sent yet. Each decision you make in the app lands here as the note the teammate gets, worded for them, not for the finance team. This is what they look like:</p>
       <ul class="note-list ghost" aria-label="Example notes">
-        <li class="note is-ok"><span class="who" aria-hidden="true">OP</span><div><div class="note-top"><span>Example, to <b>Owen Park</b></span></div><p>FastFreight, $312.75, is approved. It goes into the next reimbursement run.</p></div></li>
-        <li class="note is-back"><span class="who" aria-hidden="true">PN</span><div><div class="note-top"><span>Example, to <b>Priya Nair</b></span></div><p>Foundry Type, $49.00, came back to you. Itemized receipt missing.</p></div></li>
+        <li class="note is-ok"><span class="who" aria-hidden="true">OP</span><div><div class="note-top"><span>Example, to <b>Owen Park</b></span></div><p>FastFreight, $312.75, is approved. It will be paid with the next reimbursements.</p></div></li>
+        <li class="note is-back"><span class="who" aria-hidden="true">PN</span><div><div class="note-top"><span>Example, to <b>Priya Nair</b></span></div><p>Foundry Type, $49.00, was sent back to you. Itemized receipt missing.</p></div></li>
       </ul>
     </div>
     <ul class="note-list" id="note-list" aria-live="polite"></ul>
-    <div class="checks">
-      <h3>Checked on every receipt</h3>
-      <ul>
-        <li><b>Same merchant, same amount.</b> A likely double claim is flagged before anyone pays it twice.</li>
-        <li><b>Budget after approval.</b> The card shows where the category lands against its monthly limit.</li>
-        <li><b>Receipt on file.</b> Approving without one asks for a short note for the auditor.</li>
-        <li><b>Undo for every decision.</b> A mistaken swipe is one tap, or the Z key, away from fixed.</li>
-      </ul>
-    </div>
   </section>
 
-  <section class="about" aria-labelledby="about-title">
-    <h2 id="about-title">About this sample</h2>
-    <p>A speculative sample for a public brief that asked for a refresh of an existing expense app. It is not the buyer's app and was not commissioned.</p>
-    <p>Clearline, the team and every receipt are fictional. Totals, flags and budget figures are worked out from the sample receipts. Decisions stay on this page and nothing is sent anywhere.</p>
-    <button type="button" class="text-btn" data-reset>Restore the sample month</button>
-    <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-  </section>
+  <div class="more">
+    <section class="by-person" aria-labelledby="people-title">
+      <h2 id="people-title">By person</h2>
+      <ul class="people" id="people" aria-label="Spend by teammate"></ul>
+      <p class="sum-help">Pick a person to see their expenses in the app.</p>
+    </section>
+    <section class="checks" aria-labelledby="checks-title">
+      <h2 id="checks-title">What Clearline checks</h2>
+      <ul>
+        <li><svg class="ck-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="11" height="14"/><path d="M9 4h11v14"/></svg>Flags the same receipt sent twice.</li>
+        <li><svg class="ck-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Shows the budget left before you approve.</li>
+        <li><svg class="ck-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>Asks for a note when there is no receipt.</li>
+        <li><svg class="ck-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Every decision can be undone.</li>
+      </ul>
+    </section>
+    <section class="about" aria-labelledby="about-title">
+      <div class="sb-foot"><svg class="sb-logo sb-f" data-sb="clearline" viewBox="0 0 128 32" width="104.0" height="26" role="img" aria-label="Clearline" focusable="false"><g aria-hidden="true"><rect x="7" y="3" width="18" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M2 16h28" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Red Hat Display'" font-weight="700" font-size="21" letter-spacing="-0.01em">Clearline</text></svg></div>
+      <h2 id="about-title">About this sample</h2>
+      <p>A sample design for an expense app. Not a client project.</p>
+      <p>Clearline, the team and the receipts are made up. Nothing is sent anywhere.</p>
+      <button type="button" class="text-btn" data-reset>Restore the sample month</button>
+      <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a><a href="./">Back to selected work</a></p>
+      <p class="sb-label">Sample site, fictional brand</p>
+    </section>
+  </div>
 </main>
 <script>
 const ME = 'Dana Ruiz';
@@ -655,7 +854,7 @@ function renderReview(pend) {
   const body = $('review-body');
   if (loading) {
     const s = el('div', 'skeleton'); for (let k = 0; k < 7; k++) s.append(el('i'));
-    body.replaceChildren(s, el('p', 'loading-label', 'Fetching October receipts'));
+    body.replaceChildren(s, el('p', 'loading-label', 'Loading October receipts'));
     body.setAttribute('aria-busy', 'true');
     return;
   }
@@ -665,7 +864,7 @@ function renderReview(pend) {
     const back = items.filter(i => i.status === 'back');
     const d = el('div', 'done');
     const seal = el('div', 'done-seal'); seal.setAttribute('aria-hidden', 'true');
-    const inner = el('div'); inner.append(el('span', null, 'October'), el('b', null, 'Clear'), el('span', null, 'Reviewed')); seal.append(inner);
+    const inner = el('div'); inner.append(el('span', null, 'October'), el('b', null, 'Done'), el('span', null, 'All reviewed')); seal.append(inner);
     const sums = el('dl', 'done-sums');
     [[`Approved, ${ok.length}`, money(sumOf(ok))], [`Sent back, ${back.length}`, money(sumOf(back))]].forEach(([k, v]) => { const w = el('div'); w.append(el('dt', null, k), el('dd', null, v)); sums.append(w); });
     const led = el('button', 'act ok', 'Open the ledger'); led.type = 'button'; led.addEventListener('click', () => go('ledger'));
@@ -753,7 +952,7 @@ function renderBudget(pend) {
 function renderSummary() {
   const by = s => sumOf(items.filter(i => i.status === s));
   const ok = by('approved'), wait = by('pending'), back = by('back'), all = ok + wait + back || 1;
-  $('s-ok').textContent = money(ok); $('s-wait').textContent = money(wait); $('s-back').textContent = money(back);
+  [['s-ok', ok], ['s-wait', wait], ['s-back', back]].forEach(([id, v]) => { const d = $(id), t = money(v); if (d.textContent && d.textContent !== t) { d.classList.remove('bump'); void d.offsetWidth; d.classList.add('bump'); } d.textContent = t; });
   $('sb-ok').style.width = ok / all * 100 + '%'; $('sb-wait').style.width = wait / all * 100 + '%'; $('sb-back').style.width = back / all * 100 + '%';
   $('sum-bar').setAttribute('aria-label', `${money(ok)} approved, ${money(wait)} waiting, ${money(back)} sent back`);
   const names = [...new Set(items.map(i => i.by))];
@@ -765,7 +964,7 @@ function renderSummary() {
     const mid = el('span'); mid.append(el('b', null, r.n), el('small', null, `${r.count} ${r.count === 1 ? 'expense' : 'expenses'}`));
     const amt = el('span', 'amt', money(r.total)); if (r.waiting) amt.append(el('em', null, `${r.waiting} waiting`));
     b.append(who, mid, amt);
-    b.addEventListener('click', () => { closeSheet(false); $('search').value = r.n; setFilter('all'); go('ledger'); if (innerWidth < 960) $('device').scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' }); });
+    b.addEventListener('click', () => { closeSheet(false); $('search').value = r.n; setFilter('all'); go('ledger'); const box = $('device').getBoundingClientRect(); if (box.top < 0 || box.bottom > innerHeight) $('device').scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: innerWidth < 960 ? 'start' : 'center' }); });
     li.append(b); return li;
   }));
 }
@@ -814,10 +1013,10 @@ function commit(i, status, extra) {
     const n = { id: nextNote++, to: i.by, kind: status === 'approved' ? 'ok' : 'back', time: clock() };
     if (status === 'approved') {
       i.log.push({ kind: 'ok', text: `Approved by ${ME}${extra.note ? `. Auditor note: ${extra.note}` : ''}`, when: n.time, byMe: true });
-      n.text = `${i.name}, ${money(i.amount)}, is approved. It goes into the next reimbursement run.`;
+      n.text = `${i.name}, ${money(i.amount)}, is approved. It will be paid with the next reimbursements.`;
     } else {
       i.log.push({ kind: 'back', text: `Sent back: ${extra.reasons.join(', ')}${extra.note ? `. “${extra.note}”` : ''}`, when: n.time, byMe: true });
-      n.text = `${i.name}, ${money(i.amount)}, came back to you. ${extra.reasons.join('. ')}.${extra.note ? ' ' + extra.note : ''}`;
+      n.text = `${i.name}, ${money(i.amount)}, was sent back to you. ${extra.reasons.join('. ')}.${extra.note ? ' ' + extra.note : ''}`;
     }
     if (i.by === ME) n.to = ME;
     notes.push(n);
@@ -992,5 +1191,7 @@ document.addEventListener('keydown', e => {
 });
 reset();
 </script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
+
 </body>
 </html>
