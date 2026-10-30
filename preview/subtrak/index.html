@@ -5,43 +5,38 @@
 <base href="../../">
 <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#d8d2c4">
+  <meta name="theme-color" content="#171716">
   <title>Construction content kit</title>
-  <meta name="description" content="Three social posts for a construction workflow product, with square graphics, a 24-second vertical motion piece, captions and a production calendar.">
+  <meta name="description" content="Three social posts for a construction workflow app, with square graphics, a 24-second vertical video, captions and a posting calendar.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Construction content kit">
-  <meta property="og:description" content="Three posts about the small things that slow a job down, with square graphics, a 24-second vertical piece and a production calendar.">
+  <meta property="og:description" content="Three social posts for a construction workflow app, with square graphics, a 24-second vertical video and a posting calendar.">
   <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/sample-subtrak.html">
   <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/subtrak.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Construction content kit">
-  <meta name="twitter:description" content="Three social posts, square graphics and a 24-second vertical motion piece for a construction workflow product.">
+  <meta name="twitter:description" content="Three social posts, square graphics and a 24-second vertical video for a construction workflow app.">
   <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/subtrak.jpg">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141412'/%3E%3Crect x='4' y='20' width='24' height='6' fill='%23f2d21b'/%3E%3Cpath d='M9 18V11l7-5 7 5v7' fill='none' stroke='%23f2d21b' stroke-width='2.6'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141412'/%3E%3Crect x='4' y='20' width='24' height='6' fill='%23ff2e7e'/%3E%3Cpath d='M9 18V11l7-5 7 5v7' fill='none' stroke='%23ff2e7e' stroke-width='2.6'/%3E%3C/svg%3E">
   <link href="assets/gfonts/css/cb07db7db341.css" rel="stylesheet">
   <style>
-    /* Construction content kit. Its own sheet.
-       Design language: the site board. Poured-concrete grey, black steel, one strip of safety
-       yellow tape for whatever is live, and the kit's own spruce green as the bay where the
-       finished posts hang. Big Shoulders Display for signage-scale headings, Barlow for reading,
-       JetBrains Mono for timecodes, counts and file names. Square corners, heavy rules,
-       nothing rounded that would not be rounded on a job site. */
+    /* V3: the page opens on the three posts themselves, as they would sit in a feed,
+       on warm stone with black site ink and one survey pink for what is selected. */
     :root {
       color-scheme: light;
-      --concrete: #e8e5de; --slab: #f4f2ed; --steel: #141412; --steel-2: #2a2a26; --grey: #5b5a54; --rule: #c7c3b8; --rule-soft: #d9d5cc;
-      --tape: #f2d21b; --tape-ink: #3d3400;
-      --spruce: #0e2621; --spruce-2: #153530; --spruce-3: #1f4a42; --mint: #b9f4c9; --aqua: #a8ddd2; --on-spruce: #e4f1ec; --on-spruce-muted: #a1bbb0;
-      --sign: "Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
-      --sans: "Barlow", Arial, "Helvetica Neue", system-ui, sans-serif;
-      --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
-      --focus: 0 0 0 3px var(--concrete), 0 0 0 6px var(--steel);
+      --stone: #d8d2c4; --slab: #efebe2; --paper: #fffdf8; --ink: #171716; --ink-2: #2d2c29; --grey: #554f45; --rule: #b8b0a0; --rule-soft: #e6e0d4;
+      --pink: #ff2e7e; --pink-ink: #b0004a;
+      --spruce: #0e2621;
+      --sign: "Teko", Impact, "Arial Narrow", sans-serif;
+      --sans: "Instrument Sans", Arial, system-ui, sans-serif;
+      --mono: "Space Mono", ui-monospace, Consolas, monospace;
+      --focus: 0 0 0 3px var(--stone), 0 0 0 6px var(--ink);
     }
     * { box-sizing: border-box; }
     html { -webkit-text-size-adjust: 100%; scroll-padding-top: 16px; }
     @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-    body { margin: 0; color: var(--steel); background: var(--concrete); font: 500 17.5px/1.55 var(--sans); }
+    body { margin: 0; color: var(--ink); background: var(--stone); font: 500 17px/1.55 var(--sans); }
     h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; }
-    h1, h2, h3 { text-wrap: balance; }
     a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 4px; }
     img, video { display: block; max-width: 100%; }
     button { font: inherit; color: inherit; }
@@ -49,299 +44,175 @@
     [hidden] { display: none !important; }
     .mono { font-family: var(--mono); }
     .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-    .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+    .wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 16px; }
     @media (min-width: 760px) { .wrap { padding: 0 32px; } }
-    @media (min-width: 1900px) { .wrap { max-width: 1480px; } body { font-size: 18.5px; } }
-    .skip-link { position: fixed; z-index: 10; top: 8px; left: 8px; display: inline-flex; align-items: center; min-height: 44px; padding: 10px 14px; color: var(--steel); background: var(--tape); font-weight: 700; transform: translateY(-180%); }
+    @media (min-width: 1900px) { .wrap { max-width: 1480px; } body { font-size: 18px; } }
+    .skip-link { position: fixed; z-index: 10; top: 8px; left: 8px; display: inline-flex; align-items: center; min-height: 44px; padding: 10px 14px; color: var(--ink); background: var(--pink); font-weight: 700; transform: translateY(-180%); }
     .skip-link:focus { transform: none; }
-    .tape { display: inline-block; padding: 3px 10px 2px; background: var(--tape); color: var(--tape-ink); font: 700 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 
-    /* Header: a steel strip */
-    .topbar { background: var(--steel); color: #f4f2ed; }
-    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: #fff; font: 800 22px/1 var(--sign); letter-spacing: .03em; text-decoration: none; text-transform: uppercase; }
-    .brand svg { width: 30px; height: 30px; flex: none; }
-    .back { display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px; color: #d9d6cf; font: 500 14px var(--mono); text-decoration: none; white-space: nowrap; }
-    .back:hover { color: var(--tape); }
-    @media (max-width: 480px) { .brand { font-size: 18px; line-height: 1.05; } }
-    @media (max-width: 340px) { .topbar .wrap { gap: 10px; } .brand { gap: 8px; font-size: 16px; } .brand svg { width: 26px; height: 26px; } .back { font-size: 13px; } }
+    /* top bar */
+    .topbar { background: var(--ink); color: #f4f2ed; }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: #fff; text-decoration: none; }
+    .back { display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px; color: #d9d6cf; font: 500 14px var(--sans); text-decoration: none; white-space: nowrap; transition: color .15s ease-out; }
+    .back:hover { color: var(--pink); }
 
-    /* Hero: the job sheet */
-    .hero { display: grid; gap: 40px; padding: 44px 0 56px; }
-    @media (min-width: 960px) { .hero { grid-template-columns: minmax(0, 1fr) 420px; gap: 64px; align-items: center; padding: 72px 0 88px; } }
-    h1 { margin-top: 18px; font: 900 clamp(48px, 8.4vw, 124px)/.86 var(--sign); letter-spacing: -.005em; text-transform: uppercase; }
-    h1 mark { padding: 0 .06em; background: linear-gradient(transparent 58%, var(--tape) 58%, var(--tape) 92%, transparent 92%); color: inherit; }
-    .lede { max-width: 600px; margin-top: 24px; color: var(--steel-2); font-size: clamp(18px, 1.6vw, 21px); }
-    .spec { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 28px; border-top: 3px solid var(--steel); border-bottom: 1px solid var(--steel); }
-    .spec div { padding: 12px 12px 12px 0; }
-    .spec div + div { padding-left: 14px; border-left: 1px solid var(--rule); }
-    .spec b { display: block; font: 900 clamp(38px, 5vw, 56px)/.9 var(--sign); font-variant-numeric: tabular-nums; }
-    .spec span { display: block; margin-top: 4px; color: var(--grey); font-size: 14px; line-height: 1.35; }
-    .contents { margin-top: 14px; color: var(--grey); font-size: 15px; }
-    .contents b { color: var(--steel); font: 700 15px var(--mono); }
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 12px 22px; border: 2px solid var(--steel); color: var(--steel); background: transparent; font: 700 16px/1.2 var(--sans); letter-spacing: .04em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out, transform .15s ease-out, box-shadow .15s ease-out; }
-    .button:hover { background: var(--steel); color: #fff; }
-    .button:active { transform: translate(2px, 2px); box-shadow: none !important; }
-    .button.solid { background: var(--tape); border-color: var(--steel); box-shadow: 4px 4px 0 var(--steel); }
-    .button.solid:hover { background: var(--steel); color: var(--tape); }
-    .button.solid:focus-visible { box-shadow: var(--focus), 4px 4px 0 6px var(--steel); }
+    /* buttons */
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 10px 20px; border: 2px solid var(--ink); color: var(--ink); background: transparent; font: 700 15px/1.2 var(--sans); text-decoration: none; cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out; }
+    .button:hover { background: var(--ink); color: #fff; }
     .button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; }
 
-    main { overflow-x: clip; }
-    .board { position: relative; width: 100%; max-width: 420px; justify-self: center; }
-    .board .behind { position: absolute; width: 78%; aspect-ratio: 1; border: 6px solid var(--slab); box-shadow: 0 12px 26px -16px rgba(0,0,0,.5); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
-    .board .behind img { width: 100%; height: 100%; object-fit: cover; }
-    .board .b1 { right: -6%; top: -4%; transform: rotate(6deg); }
-    .board .b2 { left: -8%; top: 12%; transform: rotate(-7deg); }
-    .board:hover .b1 { transform: rotate(9deg) translate(14px, -6px); }
-    .board:hover .b2 { transform: rotate(-10deg) translate(-14px, 4px); }
-    .feed { position: relative; background: var(--slab); border: 2px solid var(--steel); box-shadow: 8px 8px 0 var(--steel); transform: rotate(-1deg); }
-    .feed::before { content: ""; position: absolute; z-index: 2; left: 50%; top: -14px; width: 96px; height: 26px; margin-left: -48px; background: rgba(242,210,27,.88); transform: rotate(-3deg); }
-    .feed-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
-    .feed-head i { width: 32px; height: 32px; background: var(--spruce); flex: none; }
-    .feed-head span { display: block; font-size: 14px; font-weight: 700; line-height: 1.2; }
-    .feed-head small { color: var(--grey); font: 12px var(--mono); }
-    .feed img { width: 100%; height: auto; aspect-ratio: 1; }
-    .feed p { padding: 12px 14px 14px; font-size: 14px; line-height: 1.5; }
-    @media (max-width: 480px) { .board { max-width: 300px; } }
+    /* the opening: three posts in a row */
+    main { position: relative; overflow-x: clip; }
+    .posts { padding: 22px 0 64px; }
+    .cap { font: 500 16px/1.45 var(--sans); color: var(--ink-2); margin: 0 0 18px; }
+    .row { display: grid; gap: 28px; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; list-style: none; padding: 0; margin: 0; }
+    .row > li { min-width: 0; }
+    @media (min-width: 1100px) {
+      .row > li:nth-child(2) { margin-top: 34px; }
+      .row > li:nth-child(3) { margin-top: 12px; }
+    }
+    .post { position: relative; background: var(--paper); border: 2px solid var(--ink); box-shadow: 7px 7px 0 var(--ink); display: flex; flex-direction: column; min-width: 0; }
+    .switch { display: grid; grid-template-columns: auto minmax(0, 1fr); border-bottom: 2px solid var(--ink); }
+    .switch button { min-height: 44px; padding: 6px 18px; border: 0; background: var(--slab); color: var(--grey); font: 600 14px/1.2 var(--sans); cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out; }
+    .switch button + button { border-left: 2px solid var(--ink); }
+    .switch button[aria-selected=true] { background: var(--paper); color: var(--ink); box-shadow: inset 0 -4px 0 var(--pink); }
+    .switch button:not([aria-selected=true]):hover { color: var(--ink); background: #f7f3ea; }
+    .shot-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px 0; }
+    .shot-head i { width: 38px; height: 38px; flex: none; background: var(--spruce); display: grid; place-items: center; }
+    .shot-head i::after { content: ""; width: 14px; height: 4px; background: var(--pink); box-shadow: 0 -7px 0 #e4f1ec; }
+    .shot-head b { display: block; font-size: 14.5px; line-height: 1.2; }
+    .shot-head small { display: block; color: #6a6459; font: 12.5px/1.3 var(--sans); }
+    .caption { padding: 10px 16px 0; font-size: 15px; line-height: 1.5; color: #22211f; }
+    .caption p + p { margin-top: 8px; }
+    .post:not(.open) .caption { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+    .post:not(.open) .caption p { display: inline; }
+    .post:not(.open) .caption p + p::before { content: " "; }
+    .more { align-self: flex-start; min-height: 32px; margin: 0 0 0 16px; padding: 2px 0; border: 0; background: none; color: #6a6459; font: 600 14px/1.2 var(--sans); cursor: pointer; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+    .more:hover { color: var(--ink); text-decoration-color: currentColor; }
+    .art { margin-top: 12px; border-top: 1px solid var(--rule-soft); border-bottom: 1px solid var(--rule-soft); }
+    .art img { width: 100%; height: auto; aspect-ratio: 1; }
+    .caption-foot { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; align-items: center; padding: 12px 16px 0; }
+    .meter { grid-column: 1 / -1; height: 5px; background: var(--rule-soft); position: relative; overflow: hidden; }
+    .meter i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--pink); transition: width .5s cubic-bezier(.2,.8,.2,1); }
+    .count { color: var(--grey); font: 12.5px/1.4 var(--mono); }
+    .count b { color: var(--ink); font-weight: 700; }
+    .copy-btn { min-height: 44px; padding: 8px 14px; font-size: 14px; background: var(--ink); color: #fff; }
+    .copy-btn:hover { background: var(--pink); color: var(--ink); border-color: var(--ink); }
+    .files-row { display: flex; flex-wrap: wrap; gap: 0 18px; padding: 2px 16px 8px; font: 500 13px var(--sans); }
+    .files-row a { display: inline-flex; align-items: center; min-height: 44px; color: var(--grey); text-decoration-color: var(--rule); }
+    .files-row a:hover { color: var(--ink); text-decoration-color: var(--pink); }
 
-    /* Spruce bay where the posts hang */
-    .bay { background: var(--spruce); color: var(--on-spruce); }
-    .bay .tape { background: var(--mint); color: var(--spruce); }
-    .section { padding: 64px 0; }
-    @media (min-width: 900px) { .section { padding: 96px 0; } }
-    .head { display: grid; gap: 14px; margin-bottom: 40px; }
-    @media (min-width: 900px) { .head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: end; } }
-    h2 { margin-top: 12px; font: 900 clamp(40px, 6vw, 80px)/.9 var(--sign); text-transform: uppercase; }
-    .head p { max-width: 620px; color: var(--grey); }
-    .bay .head p { color: var(--on-spruce-muted); }
+    /* tablets and phones: the posts scroll sideways, the next one peeks in */
+    @media (max-width: 1099px) {
+      .row { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(380px, 84%); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+        margin: 0 -32px; padding: 0 32px 18px; scroll-padding: 0 32px; scrollbar-width: thin; scrollbar-color: var(--rule) transparent; }
+      .row > li { scroll-snap-align: start; }
+    }
+    @media (max-width: 759px) {
+      .posts { padding-top: 14px; }
+      .cap { font-size: 15px; margin-bottom: 12px; }
+      .row { margin: 0 -16px; padding: 0 16px 16px; scroll-padding: 0 16px; gap: 14px; }
+      .post { box-shadow: 5px 5px 0 var(--ink); }
+      .shot-head { padding-top: 12px; }
+    }
 
-    .post { display: grid; gap: 24px; padding: 36px 0; border-top: 1px solid var(--spruce-3); }
-    .post:first-of-type { border-top: 3px solid var(--mint); }
-    @media (min-width: 900px) { .post { grid-template-columns: 380px minmax(0, 1fr); gap: 48px; align-items: start; padding: 48px 0; } }
-    .post-art { position: relative; width: 100%; max-width: 420px; border: 1px solid var(--spruce-3); }
-    .post-art img { width: 100%; height: auto; aspect-ratio: 1; }
-    .post-n { position: absolute; left: -1px; top: -1px; padding: 4px 10px; background: var(--mint); color: var(--spruce); font: 700 14px var(--mono); }
-    .post-body { min-width: 0; }
-    .post .topic { display: inline-block; color: var(--aqua); font: 700 13px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
-    .post h3 { margin-top: 6px; color: #fff; font: 800 clamp(30px, 3.2vw, 42px)/.95 var(--sign); text-transform: uppercase; }
-    .switch { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 22px; border: 2px solid var(--mint); max-width: 560px; }
-    .switch button { min-height: 48px; padding: 8px 12px; border: 0; color: var(--mint); background: transparent; font: 700 14px/1.2 var(--sans); text-transform: uppercase; letter-spacing: .06em; cursor: pointer; transition: background-color .2s ease-out, color .2s ease-out; }
-    .switch button + button { border-left: 2px solid var(--mint); }
-    .switch button[aria-selected=true] { color: var(--spruce); background: var(--mint); }
-    .switch button:not([aria-selected=true]):hover { background: var(--spruce-2); }
-    .shot { max-width: 560px; margin-top: 14px; background: #fff; color: #1d2422; }
-    .shot-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px 0; }
-    .shot-head i { width: 36px; height: 36px; flex: none; background: var(--spruce); }
-    .shot-head b { display: block; font-size: 14px; line-height: 1.2; }
-    .shot-head small { display: block; color: #6a716f; font: 12px/1.3 var(--sans); }
-    .caption { padding: 12px 16px 16px; font-size: 16px; line-height: 1.55; }
-    .caption p + p { margin-top: 10px; }
-    .caption-foot { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 16px; align-items: center; max-width: 560px; margin-top: 14px; }
-    .meter { grid-column: 1 / -1; height: 8px; background: var(--spruce-3); position: relative; overflow: hidden; }
-    .meter i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--mint); transition: width .5s cubic-bezier(.2,.8,.2,1); }
-    .count { color: var(--on-spruce-muted); font: 13px/1.5 var(--mono); }
-    .count b { color: #fff; font-weight: 700; }
-    .copy-btn { min-height: 44px; padding: 8px 16px; border-color: var(--mint); color: var(--mint); font-size: 14px; }
-    .copy-btn:hover { background: var(--mint); color: var(--spruce); }
-    .files-row { display: flex; flex-wrap: wrap; gap: 0 24px; margin-top: 12px; font: 500 14px var(--mono); }
-    .files-row a { display: inline-flex; align-items: center; min-height: 44px; color: var(--mint); }
+    /* sections below */
+    .section { padding: 64px 0; border-top: 2px solid var(--ink); }
+    @media (min-width: 900px) { .section { padding: 88px 0; } }
+    h2 { font: 600 clamp(38px, 4.6vw, 60px)/.95 var(--sign); text-transform: uppercase; letter-spacing: .005em; }
+    .lede { max-width: 600px; margin-top: 14px; color: var(--ink-2); font-size: 17px; }
 
-    /* Motion: a cutting-room timeline */
     .motion { display: grid; gap: 40px; }
     @media (min-width: 900px) { .motion { grid-template-columns: minmax(0, 1fr) 340px; gap: 72px; align-items: start; } }
-    .motion .lede { margin-top: 18px; }
     .player { width: 100%; max-width: 340px; justify-self: center; }
-    .player video { width: 100%; height: auto; aspect-ratio: 9 / 16; background: var(--spruce); border: 2px solid var(--steel); box-shadow: 8px 8px 0 var(--steel); }
-    .player figcaption { margin-top: 16px; color: var(--grey); font: 13px/1.5 var(--mono); text-align: center; }
-    .timeline { margin-top: 32px; }
+    .player video { width: 100%; height: auto; aspect-ratio: 9 / 16; background: var(--spruce); border: 2px solid var(--ink); box-shadow: 7px 7px 0 var(--ink); }
+    .player figcaption { margin-top: 14px; color: var(--grey); font: 13px/1.5 var(--sans); text-align: center; }
+    .timeline { margin-top: 28px; }
     .ruler { display: flex; justify-content: space-between; color: var(--grey); font: 12px var(--mono); padding-bottom: 6px; }
     .track { position: relative; }
-    .beats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding: 0; list-style: none; border: 2px solid var(--steel); background: var(--slab); }
-    .beats li + li { border-left: 2px solid var(--steel); }
-    .beats button { position: relative; display: grid; align-content: start; gap: 8px; width: 100%; height: 100%; min-height: 150px; padding: 14px 14px 18px; border: 0; background: transparent; text-align: left; cursor: pointer; overflow: hidden; isolation: isolate; transition: background-color .2s ease-out; }
+    .beats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding: 0; list-style: none; border: 2px solid var(--ink); background: var(--slab); }
+    .beats li + li { border-left: 2px solid var(--ink); }
+    .beats button { position: relative; display: grid; align-content: start; gap: 8px; width: 100%; height: 100%; min-height: 140px; padding: 14px 14px 18px; border: 0; background: transparent; text-align: left; cursor: pointer; overflow: hidden; isolation: isolate; transition: background-color .2s ease-out; }
     .beats button:hover { background: #fff; }
     .beats button .mono { font-size: 13px; font-weight: 700; }
     .beats button > span:last-child { font-size: 15.5px; line-height: 1.4; }
-    .beats .fill { position: absolute; z-index: -1; inset: 0 auto 0 0; width: 0; background: var(--tape); }
-    .beats li.now button .mono { color: var(--steel); }
-    .beats li.now button { box-shadow: inset 0 -5px 0 var(--steel); }
-    .playhead { position: absolute; top: -10px; bottom: -10px; left: 0; width: 3px; background: var(--steel); pointer-events: none; transform: translateX(-1px); }
-    .playhead::before { content: ""; position: absolute; top: 0; left: -6px; border: 7px solid transparent; border-top: 9px solid var(--steel); }
+    .beats .fill { position: absolute; z-index: -1; inset: 0 auto 0 0; width: 0; background: var(--pink); }
+    .beats li.now button { box-shadow: inset 0 -5px 0 var(--ink); }
+    .playhead { position: absolute; top: -10px; bottom: -10px; left: 0; width: 3px; background: var(--ink); pointer-events: none; transform: translateX(-1px); }
+    .playhead::before { content: ""; position: absolute; top: 0; left: -6px; border: 7px solid transparent; border-top: 9px solid var(--ink); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
     @media (max-width: 640px) {
       .beats { grid-template-columns: 1fr; }
-      .beats li + li { border-left: 0; border-top: 2px solid var(--steel); }
+      .beats li + li { border-left: 0; border-top: 2px solid var(--ink); }
       .beats button { min-height: 0; }
-      .playhead { display: none; }
+      .playhead, .ruler { display: none; }
     }
 
-    /* Production files and the board */
-    .yard { border-top: 3px solid var(--steel); }
-    .downloads { display: grid; gap: 0; padding: 0; list-style: none; border-top: 3px solid var(--steel); }
+    .downloads { display: grid; gap: 0; margin-top: 28px; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
     @media (min-width: 760px) { .downloads { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-    .downloads li { display: grid; gap: 2px; padding: 16px 16px 18px 0; border-bottom: 1px solid var(--rule); }
+    .downloads li { display: grid; gap: 2px; padding: 14px 16px 16px 0; border-bottom: 1px solid var(--rule); }
     @media (min-width: 760px) { .downloads li + li { padding-left: 16px; border-left: 1px solid var(--rule); } }
-    .downloads a { display: inline-flex; align-items: center; min-height: 44px; font: 800 24px/1 var(--sign); text-transform: uppercase; }
-    .downloads a:hover { background: var(--tape); }
+    .downloads a { display: inline-flex; align-items: center; min-height: 44px; font: 600 26px/1 var(--sign); text-transform: uppercase; }
+    .downloads a:hover { background: var(--pink); }
     .downloads span { color: var(--grey); font: 13px var(--mono); }
-    .cal-wrap { margin-top: 40px; overflow-x: auto; border: 2px solid var(--steel); background: var(--slab); }
-    .cal { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 15px; }
-    .cal caption { padding: 12px 16px; background: var(--steel); color: var(--tape); font: 800 20px/1.2 var(--sign); letter-spacing: .03em; text-align: left; text-transform: uppercase; }
+    .cal-wrap { margin-top: 36px; overflow-x: auto; border: 2px solid var(--ink); background: var(--slab); }
+    .cal { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 15px; }
+    .cal caption { padding: 12px 16px; background: var(--ink); color: #fff; font: 600 22px/1.2 var(--sign); letter-spacing: .02em; text-align: left; text-transform: uppercase; }
     .cal th, .cal td { padding: 12px 16px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
-    .cal th { color: var(--grey); font: 700 12px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; background: var(--concrete); }
+    .cal th { color: var(--grey); font: 600 13px/1.4 var(--sans); background: var(--stone); }
     .cal td:first-child { font: 700 15px var(--mono); }
     .cal tr:last-child td { border-bottom: 0; }
-    .cal td.st span { display: inline-block; padding: 2px 8px; background: var(--rule-soft); font-size: 13px; font-weight: 600; }
-    .cal tbody tr { transition: background-color .15s ease-out; }
-    .cal tbody tr:hover { background: #fff; }
-    .scroll-note { margin-top: 10px; color: var(--grey); font: 13px var(--mono); }
+    .cal td.st { white-space: nowrap; }
+    .cal td.st span { display: inline-block; border-bottom: 3px solid var(--pink); font-size: 14px; font-weight: 600; }
+    .scroll-note { margin-top: 10px; color: var(--grey); font: 13px var(--sans); }
     @media (min-width: 900px) { .scroll-note { display: none; } }
 
-    .scope { display: grid; gap: 32px; }
+    .scope { display: grid; gap: 32px; margin-top: 28px; }
     @media (min-width: 860px) { .scope { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; } }
-    .scope h3 { padding: 10px 0; border-top: 3px solid var(--steel); font: 800 26px/1 var(--sign); text-transform: uppercase; }
+    .scope h3 { padding: 10px 0; border-top: 2px solid var(--ink); font: 600 28px/1 var(--sign); text-transform: uppercase; }
     .scope ul { padding: 0; list-style: none; }
     .scope li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
-    .scope li::before { content: ""; width: 18px; height: 18px; margin-top: 4px; background: var(--tape); border: 2px solid var(--steel); }
-    .scope .out li::before { background: transparent; border-style: dashed; }
+    .scope li::before { content: ""; width: 18px; height: 4px; margin-top: 12px; background: var(--pink); }
+    .scope .out li::before { background: transparent; border-top: 3px dashed var(--ink); height: 0; }
 
-    footer { padding: 36px 0 48px; background: var(--steel); color: #c9c6be; font-size: 15px; }
+    footer { padding: 36px 0 48px; background: var(--ink); color: #c9c6be; font-size: 15px; }
     footer p { max-width: 80ch; }
     footer p + p { margin-top: 8px; }
     footer strong { color: #fff; }
-    footer .footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 0 22px; max-width: none; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--steel-2); font: 500 14px var(--mono); }
-    .footer-contact span { color: var(--tape); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    footer .footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 0 22px; max-width: none; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--ink-2); font: 500 14px var(--sans); }
     .footer-contact a { display: inline-flex; align-items: center; min-height: 44px; color: #f4f2ed; }
-    .footer-contact a:hover { color: var(--tape); }
-    .back { transition: color .15s ease-out; }
-
-    /* Phones: reading sizes */
+    .footer-contact a:hover { color: var(--pink); }
     @media (max-width: 640px) {
-      footer, .feed p { font-size: 16px; }
+      footer { font-size: 16px; }
       .beats button > span:last-child { font-size: 16px; }
     }
-
-    /* Short landscape phones: the title, the summary and the first button fit on the first screen */
-    @media (max-height: 500px) and (orientation: landscape) and (max-width: 959px) {
-      .topbar .wrap { min-height: 50px; }
-      .hero { padding: 18px 0 40px; }
-      .hero > div:first-child { display: flex; flex-direction: column; align-items: flex-start; }
-      h1 { margin-top: 12px; font-size: clamp(36px, 10vh, 54px); }
-      .lede { margin-top: 12px; font-size: 17px; line-height: 1.5; }
-      .actions { order: 3; margin-top: 16px; }
-      .spec { order: 4; align-self: stretch; }
-    }
-
-    /* Very large screens: scale the whole board instead of leaving a narrow column */
     @media (min-width: 2400px) { body { zoom: 1.3; } }
     @media (min-width: 3200px) { body { zoom: 1.6; } }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
   </style>
-<style>
-    /* Construction kit preview. Survey marking on sandstone: warm stone ground, black site ink,
-       one fluorescent survey pink for what is marked and live, a charcoal bay where the posts hang.
-       Teko for signage, Instrument Sans for reading, Space Mono for timecodes and files.
-       The board leads the hero and the posts alternate sides down the bay. */
-    :root {
-      --concrete: #d8d2c4; --slab: #efebe2; --steel: #171716; --steel-2: #2d2c29; --grey: #554f45; --rule: #b8b0a0; --rule-soft: #cbc4b5;
-      --tape: #ff2e7e; --tape-ink: #171716;
-      --spruce: #1b1d1c; --spruce-2: #262927; --spruce-3: #3a3e3b; --mint: #ff2e7e; --aqua: #ffa8c9; --on-spruce: #f1ede6; --on-spruce-muted: #b8b2a8;
-      --sign: "Teko", Impact, "Arial Narrow", sans-serif;
-      --sans: "Instrument Sans", Arial, system-ui, sans-serif;
-      --mono: "Space Mono", ui-monospace, Consolas, monospace;
-    }
-    .brand { font-weight: 600; }
-    @media (min-width: 481px) { .brand { font-size: 28px; } }
-    .brand svg rect:nth-child(2) { fill: var(--tape); }
-    .brand svg path { stroke: var(--tape); }
-
-    /* Hero: the board on the left, a tall condensed headline on the right */
-    h1 { font: var(--hw, 700) clamp(56px, 7.2vw, 124px)/.88 var(--sign); letter-spacing: 0; }
-    h1 mark { background: linear-gradient(transparent 34%, var(--tape) 34%, var(--tape) 62%, transparent 62%); }
-    @media (min-width: 960px) {
-      .hero { grid-template-columns: 400px minmax(0, 1fr); gap: 80px; }
-      .board { order: -1; }
-    }
-    .feed::before { background: rgba(255, 46, 126, .86); }
-    .spec b, h2, .post h3, .downloads a, .scope h3, .cal caption { font-weight: 600; }
-    .spec b { font-size: clamp(48px, 6vw, 72px); }
-    .button { font-family: var(--sans); }
-
-    /* Bay: charcoal, a pink rule, posts alternating sides */
-    .bay { border-top: 8px solid var(--tape); }
-    h2 { font-size: clamp(52px, 7vw, 108px); line-height: .86; }
-    .post h3 { font-size: clamp(36px, 3.8vw, 54px); line-height: .9; }
-    @media (min-width: 900px) {
-      .post:nth-of-type(even) { grid-template-columns: minmax(0, 1fr) 380px; }
-      .post:nth-of-type(even) .post-art { order: 2; }
-    }
-    .switch button { font-family: var(--sans); }
-
-    /* Timeline and files */
-    .beats .fill { background: var(--tape); }
-    .downloads a { font-size: 32px; }
-    .cal td.st span { background: transparent; padding: 0; border-bottom: 3px solid var(--tape); }
-    .scope li::before { width: 18px; height: 4px; margin-top: 12px; border: 0; background: var(--tape); }
-    .scope .out li::before { background: transparent; border: 0; border-top: 3px dashed var(--steel); height: 0; }
-    .scope h3 { font-size: 34px; }
-  </style>
-<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--tape)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.topbar .brand{display:inline-flex;align-items:center;gap:12px}.sb-sub{font:600 11px/1.2 "Space Mono",monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.75}@media (max-width:620px){.sb-sub{display:none}}</style></head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--pink)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.topbar .brand{display:inline-flex;align-items:center;gap:12px}</style></head>
 <body>
-  <a class="skip-link" href="#main">Skip to the posts</a>
+  <a class="skip-link" href="#posts">Skip to the posts</a>
   <header class="topbar">
     <div class="wrap">
-      <a class="brand" href="#main" aria-label="Sitepost Studio, construction content kit"><svg class="sb-logo sb-h" data-sb="sitepost" viewBox="0 0 216 32" width="202.5" height="30" role="img" aria-label="Sitepost Studio" focusable="false"><g aria-hidden="true"><path d="M9.5 4v25" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><rect x="9.5" y="6" width="19.5" height="12" fill="currentColor" class="f-a s-n"/><path d="M14 12h10.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M5 29h9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="25.7" fill="currentColor" font-family="'Teko'" font-weight="600" font-size="27" letter-spacing="0.03em">SITEPOST STUDIO</text></svg><small class="sb-sub">Construction content kit</small></a>
-      <a class="back" href="./">Selected work</a>
+      <a class="brand" href="#main" aria-label="Sitepost Studio"><svg class="sb-logo sb-h" data-sb="sitepost" viewBox="0 0 216 32" width="202.5" height="30" role="img" aria-label="Sitepost Studio" focusable="false"><g aria-hidden="true"><path d="M9.5 4v25" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><rect x="9.5" y="6" width="19.5" height="12" fill="currentColor" class="f-a s-n"/><path d="M14 12h10.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M5 29h9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="25.7" fill="currentColor" font-family="'Teko'" font-weight="600" font-size="27" letter-spacing="0.03em">SITEPOST STUDIO</text></svg></a>
+      <a class="back" href="./">All work</a>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
-    <div class="wrap">
-      <section class="hero" aria-labelledby="title">
-        <div>
-          <span class="tape">Social content for a construction workflow product</span>
-          <h1 id="title">Three posts about the <mark>small things</mark> that slow a job down.</h1>
-          <p class="lede">One everyday problem per post, one thing to try this week.</p>
-          <dl class="spec" aria-label="What is in the kit">
-            <div><dt class="visually-hidden">Posts</dt><dd><b>3</b><span>posts with LinkedIn and short-form copy</span></dd></div>
-            <div><dt class="visually-hidden">Graphics</dt><dd><b>3</b><span>square graphics with SVG sources</span></dd></div>
-            <div><dt class="visually-hidden">Motion</dt><dd><b>0:24</b><span>vertical motion piece with captions</span></dd></div>
-          </dl>
-          <div class="actions">
-            <a class="button solid" href="#posts">Read the posts</a>
-            <a class="button" href="#motion">Watch the motion piece</a>
-          </div>
-        </div>
-        <div class="board">
-          <div class="behind b1" aria-hidden="true"><img src="sample-subtrak-03-evidence.png" width="1080" height="1080" decoding="async" alt=""></div>
-          <div class="behind b2" aria-hidden="true"><img src="sample-subtrak-02-handoff.png" width="1080" height="1080" decoding="async" alt=""></div>
-          <figure class="feed" aria-label="Post 01 as it would appear in a feed">
-            <div class="feed-head"><i aria-hidden="true"></i><div><span>Post 01, Process</span><small>Square, 1080 by 1080</small></div></div>
-            <img src="sample-subtrak-01-process.png" width="1080" height="1080" fetchpriority="high" alt="Dark green square graphic headed Pick one repeatable process, with three numbered steps: define the steps, name the owner, run it again.">
-            <p>One repeated process is enough to begin. Write the steps, name the owner and review what the team needs next.</p>
-          </figure>
-        </div>
-      </section>
-    </div>
-
-    <section class="bay section" id="posts" aria-labelledby="posts-title">
+    <section class="posts" id="posts" aria-labelledby="posts-title">
       <div class="wrap">
-        <div class="head">
-          <div><span class="tape">Bay 1</span><h2 id="posts-title">The posts</h2></div>
-          <p>Product claims stick to features on the public website. Switch LinkedIn or short-form, then copy.</p>
-        </div>
-
-        <article class="post" aria-labelledby="p1">
-          <div class="post-art"><span class="post-n" aria-hidden="true">01</span><img src="sample-subtrak-01-process.png" width="1080" height="1080" loading="lazy" alt="Dark green square graphic headed Pick one repeatable process, with three numbered steps: define the steps, name the owner, run it again."></div>
-          <div class="post-body">
-            <span class="topic">Process</span>
-            <h3 id="p1">Pick one repeated process</h3>
-            <div class="switch" role="tablist" aria-label="Copy for post 01">
-              <button type="button" role="tab" id="p1-li-tab" aria-controls="p1-li" aria-selected="true">LinkedIn</button>
-              <button type="button" role="tab" id="p1-ig-tab" aria-controls="p1-ig" aria-selected="false" tabindex="-1">Instagram and Facebook</button>
-            </div>
-            <div class="shot">
+        <h1 class="cap" id="posts-title">Three social posts for a construction workflow app.</h1>
+        <ol class="row" aria-label="The three posts">
+          <li>
+            <article class="post" aria-labelledby="p1">
+              <h2 class="visually-hidden" id="p1">Post 1, pick one repeated process</h2>
+              <div class="switch" role="tablist" aria-label="Text for post 1">
+                <button type="button" role="tab" id="p1-li-tab" aria-controls="p1-li" aria-selected="true">LinkedIn</button>
+                <button type="button" role="tab" id="p1-ig-tab" aria-controls="p1-ig" aria-selected="false" tabindex="-1">Instagram and Facebook</button>
+              </div>
               <div class="shot-head" aria-hidden="true"><i></i><div><b>Company page</b><small class="shot-where">LinkedIn post</small></div></div>
               <div class="caption" role="tabpanel" id="p1-li" aria-labelledby="p1-li-tab" data-limit="3000" data-platform="LinkedIn">
                 <p>Before you document everything, choose one process that keeps coming back. A project handoff. A material order. A closeout check.</p>
@@ -352,21 +223,18 @@
                 <p>One repeated process is enough to begin. Write the steps, name the owner and review what the team needs next.</p>
                 <p>Which handoff keeps creating follow-up for your team?</p>
               </div>
-            </div>
-            <div class="files-row"><a href="sample-subtrak-01-process.svg">Open the SVG source</a><a href="sample-subtrak-01-process.png" download>Download the PNG</a></div>
-          </div>
-        </article>
-
-        <article class="post" aria-labelledby="p2">
-          <div class="post-art"><span class="post-n" aria-hidden="true">02</span><img src="sample-subtrak-02-handoff.png" width="1080" height="1080" loading="lazy" alt="Dark green square graphic headed Make the next step clear, with three questions: who owns it, when is it due, what is needed."></div>
-          <div class="post-body">
-            <span class="topic">Handoff</span>
-            <h3 id="p2">Give the handoff a clear next step</h3>
-            <div class="switch" role="tablist" aria-label="Copy for post 02">
-              <button type="button" role="tab" id="p2-li-tab" aria-controls="p2-li" aria-selected="true">LinkedIn</button>
-              <button type="button" role="tab" id="p2-ig-tab" aria-controls="p2-ig" aria-selected="false" tabindex="-1">Instagram and Facebook</button>
-            </div>
-            <div class="shot">
+              <button type="button" class="more" aria-expanded="false">See more</button>
+              <div class="art"><img src="sample-subtrak-01-process.png" width="1080" height="1080" fetchpriority="high" alt="Dark green square graphic headed Pick one repeatable process, with three numbered steps: define the steps, name the owner, run it again."></div>
+              <div class="files-row"><a href="sample-subtrak-01-process.png" download>Download PNG</a><a href="sample-subtrak-01-process.svg">SVG source</a></div>
+            </article>
+          </li>
+          <li>
+            <article class="post" aria-labelledby="p2">
+              <h2 class="visually-hidden" id="p2">Post 2, give the handoff a clear next step</h2>
+              <div class="switch" role="tablist" aria-label="Text for post 2">
+                <button type="button" role="tab" id="p2-li-tab" aria-controls="p2-li" aria-selected="true">LinkedIn</button>
+                <button type="button" role="tab" id="p2-ig-tab" aria-controls="p2-ig" aria-selected="false" tabindex="-1">Instagram and Facebook</button>
+              </div>
               <div class="shot-head" aria-hidden="true"><i></i><div><b>Company page</b><small class="shot-where">LinkedIn post</small></div></div>
               <div class="caption" role="tabpanel" id="p2-li" aria-labelledby="p2-li-tab" data-limit="3000" data-platform="LinkedIn">
                 <p>“Can you take care of it?” leaves a lot to interpret.</p>
@@ -377,21 +245,18 @@
                 <p>Who owns it? When is it due? What is needed?</p>
                 <p>Three useful questions for the next handoff. Keep the instructions close to the task.</p>
               </div>
-            </div>
-            <div class="files-row"><a href="sample-subtrak-02-handoff.svg">Open the SVG source</a><a href="sample-subtrak-02-handoff.png" download>Download the PNG</a></div>
-          </div>
-        </article>
-
-        <article class="post" aria-labelledby="p3">
-          <div class="post-art"><span class="post-n" aria-hidden="true">03</span><img src="sample-subtrak-03-evidence.png" width="1080" height="1080" loading="lazy" alt="Dark green square graphic headed Make complete visible, with three steps: finish the step, attach the proof, review the result."></div>
-          <div class="post-body">
-            <span class="topic">Closeout</span>
-            <h3 id="p3">Agree what complete means</h3>
-            <div class="switch" role="tablist" aria-label="Copy for post 03">
-              <button type="button" role="tab" id="p3-li-tab" aria-controls="p3-li" aria-selected="true">LinkedIn</button>
-              <button type="button" role="tab" id="p3-ig-tab" aria-controls="p3-ig" aria-selected="false" tabindex="-1">Instagram and Facebook</button>
-            </div>
-            <div class="shot">
+              <button type="button" class="more" aria-expanded="false">See more</button>
+              <div class="art"><img src="sample-subtrak-02-handoff.png" width="1080" height="1080" alt="Dark green square graphic headed Make the next step clear, with three questions: who owns it, when is it due, what is needed."></div>
+              <div class="files-row"><a href="sample-subtrak-02-handoff.png" download>Download PNG</a><a href="sample-subtrak-02-handoff.svg">SVG source</a></div>
+            </article>
+          </li>
+          <li>
+            <article class="post" aria-labelledby="p3">
+              <h2 class="visually-hidden" id="p3">Post 3, agree what complete means</h2>
+              <div class="switch" role="tablist" aria-label="Text for post 3">
+                <button type="button" role="tab" id="p3-li-tab" aria-controls="p3-li" aria-selected="true">LinkedIn</button>
+                <button type="button" role="tab" id="p3-ig-tab" aria-controls="p3-ig" aria-selected="false" tabindex="-1">Instagram and Facebook</button>
+              </div>
               <div class="shot-head" aria-hidden="true"><i></i><div><b>Company page</b><small class="shot-where">LinkedIn post</small></div></div>
               <div class="caption" role="tabpanel" id="p3-li" aria-labelledby="p3-li-tab" data-limit="3000" data-platform="LinkedIn">
                 <p>A status update is more useful when everyone knows what it means.</p>
@@ -402,10 +267,12 @@
                 <p>Make complete visible. Agree the final check, attach the relevant proof and make the next step clear.</p>
                 <p>What would your team need to see before moving on?</p>
               </div>
-            </div>
-            <div class="files-row"><a href="sample-subtrak-03-evidence.svg">Open the SVG source</a><a href="sample-subtrak-03-evidence.png" download>Download the PNG</a></div>
-          </div>
-        </article>
+              <button type="button" class="more" aria-expanded="false">See more</button>
+              <div class="art"><img src="sample-subtrak-03-evidence.png" width="1080" height="1080" alt="Dark green square graphic headed Make complete visible, with three steps: finish the step, attach the proof, review the result."></div>
+              <div class="files-row"><a href="sample-subtrak-03-evidence.png" download>Download PNG</a><a href="sample-subtrak-03-evidence.svg">SVG source</a></div>
+            </article>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -413,12 +280,11 @@
       <section class="section" id="motion" aria-labelledby="motion-title">
         <div class="motion">
           <div>
-            <span class="tape">Bay 2</span>
-            <h2 id="motion-title">A 24-second vertical piece</h2>
-            <p class="lede">Three 8-second beats, one per post. Silent, captioned. Pick a beat to jump.</p>
+            <h2 id="motion-title">24-second video</h2>
+            <p class="lede">Vertical, for Reels and Stories. Three 8-second parts, one per post. No sound, captions on. Click a part to jump to it.</p>
             <div class="timeline">
               <div class="ruler" aria-hidden="true"><span>0:00</span><span>0:08</span><span>0:16</span><span>0:24</span></div>
-              <div class="track"><ol class="beats" id="beats" aria-label="Beats in the motion piece">
+              <div class="track"><ol class="beats" id="beats" aria-label="Parts of the video">
                 <li><button type="button" data-t="0"><i class="fill" aria-hidden="true"></i><span class="mono">0:00 to 0:08</span><span>Pick one repeated process. Define the steps and name the owner.</span></button></li>
                 <li><button type="button" data-t="8"><i class="fill" aria-hidden="true"></i><span class="mono">0:08 to 0:16</span><span>Make the next step clear. Who owns it, when is it due, what is needed?</span></button></li>
                 <li><button type="button" data-t="16"><i class="fill" aria-hidden="true"></i><span class="mono">0:16 to 0:24</span><span>Make complete visible. Finish the step, attach proof and review the result.</span></button></li>
@@ -429,59 +295,57 @@
             </div>
           </div>
           <figure class="player">
-            <video id="piece" controls preload="metadata" playsinline muted width="720" height="1280" poster="sample-subtrak-poster.jpg" aria-label="24-second vertical motion piece">
+            <video id="piece" controls preload="metadata" playsinline muted width="720" height="1280" poster="sample-subtrak-poster.jpg" aria-label="24-second vertical video">
               <source src="sample-subtrak-construction-vertical-concept.mp4" type="video/mp4">
               <track kind="captions" src="sample-subtrak-captions.vtt" srclang="en" label="English" default>
             </video>
-            <figcaption>720 by 1280, no audio, captions on</figcaption>
+            <figcaption>720 by 1280, no sound, captions on</figcaption>
           </figure>
         </div>
       </section>
 
-      <section class="section yard" id="files" aria-labelledby="files-title">
-        <div class="head">
-          <div><span class="tape">Bay 3</span><h2 id="files-title">Production files</h2></div>
-          <p>All editable. Copy, clip edit map, calendar with approval checks.</p>
-        </div>
+      <section class="section" id="files" aria-labelledby="files-title">
+        <h2 id="files-title">Files</h2>
+        <p class="lede">Everything is editable: the post texts, the posting calendar and the captions.</p>
         <ul class="downloads">
-          <li><a href="sample-subtrak-copy_and_handoff.md">Post copy and handoff</a><span>Markdown, 3,799 bytes</span></li>
-          <li><a href="sample-subtrak-calendar.csv" download>Production calendar</a><span>CSV, 4 items</span></li>
-          <li><a href="sample-subtrak-captions.vtt" download>Caption track</a><span>WebVTT, 3 cues</span></li>
+          <li><a href="sample-subtrak-copy_and_handoff.md">Post texts and notes</a><span>Markdown, 3,799 bytes</span></li>
+          <li><a href="sample-subtrak-calendar.csv" download>Posting calendar</a><span>CSV, 4 items</span></li>
+          <li><a href="sample-subtrak-captions.vtt" download>Video captions</a><span>WebVTT, 3 lines</span></li>
         </ul>
         <div class="cal-wrap" tabindex="0" role="region" aria-labelledby="cal-cap">
           <table class="cal">
-            <caption id="cal-cap">Production calendar, as in the CSV</caption>
-            <thead><tr><th scope="col">Item</th><th scope="col">Channels</th><th scope="col">Theme</th><th scope="col">Source needed</th><th scope="col">Approval check</th><th scope="col">Status</th></tr></thead>
+            <caption id="cal-cap">Posting calendar</caption>
+            <thead><tr><th scope="col">Post</th><th scope="col">Where</th><th scope="col">Topic</th><th scope="col">Needed from the client</th><th scope="col">Checked before posting</th><th scope="col">Status</th></tr></thead>
             <tbody>
-              <tr><td>01</td><td>LinkedIn, Instagram, Facebook</td><td>Pick one repeated process</td><td>Approved product facts and one founder example</td><td>Claims, wording, brand and private-data review</td><td class="st"><span>Independent concept, unsent</span></td></tr>
-              <tr><td>02</td><td>LinkedIn, Instagram, Facebook</td><td>Give the handoff a clear next step</td><td>Approved product facts and one founder example</td><td>Claims, wording, brand and private-data review</td><td class="st"><span>Independent concept, unsent</span></td></tr>
-              <tr><td>03</td><td>LinkedIn, Instagram, Facebook</td><td>Agree what complete means</td><td>Approved product facts and one founder example</td><td>Claims, wording, brand and private-data review</td><td class="st"><span>Independent concept, unsent</span></td></tr>
-              <tr><td>04</td><td>Instagram, Facebook</td><td>Workflow motion concept</td><td>Approved source recording if a founder clip is required</td><td>Caption timing, safe framing, meaning and source rights</td><td class="st"><span>Original motion example, no audio</span></td></tr>
+              <tr><td>01</td><td>LinkedIn, Instagram, Facebook</td><td>Pick one repeated process</td><td>Approved product facts and one example from the founder</td><td>Facts, wording, brand and private data</td><td class="st"><span>Sample, not posted</span></td></tr>
+              <tr><td>02</td><td>LinkedIn, Instagram, Facebook</td><td>Give the handoff a clear next step</td><td>Approved product facts and one example from the founder</td><td>Facts, wording, brand and private data</td><td class="st"><span>Sample, not posted</span></td></tr>
+              <tr><td>03</td><td>LinkedIn, Instagram, Facebook</td><td>Agree what complete means</td><td>Approved product facts and one example from the founder</td><td>Facts, wording, brand and private data</td><td class="st"><span>Sample, not posted</span></td></tr>
+              <tr><td>04</td><td>Instagram, Facebook</td><td>The 24-second video</td><td>A founder clip, only if the video should include one</td><td>Caption timing, framing, meaning and rights to the footage</td><td class="st"><span>Sample video, no sound</span></td></tr>
             </tbody>
           </table>
         </div>
-        <p class="scroll-note">Scroll sideways for every column.</p>
+        <p class="scroll-note">Scroll sideways to see every column.</p>
       </section>
 
-      <section class="section yard" id="scope" aria-labelledby="scope-title">
-        <div class="head"><div><span class="tape">Next</span><h2 id="scope-title">What a monthly engagement would need</h2></div></div>
+      <section class="section" id="scope" aria-labelledby="scope-title">
+        <h2 id="scope-title">For a monthly plan</h2>
         <div class="scope">
           <div>
-            <h3>From the team</h3>
+            <h3>Needed from your team</h3>
             <ul>
-              <li>Weekly volume</li>
-              <li>Approved facts and brand assets</li>
-              <li>Founder recordings, if clips</li>
-              <li>Who approves, publishes and replies</li>
+              <li>How many posts a week</li>
+              <li>Approved facts, logo and brand colours</li>
+              <li>Founder video clips, if you want them</li>
+              <li>Who approves, posts and answers comments</li>
             </ul>
           </div>
           <div>
-            <h3>What this kit does not include</h3>
+            <h3>Not included</h3>
             <ul class="out">
-              <li>Product footage</li>
-              <li>Audio or voiceover</li>
-              <li>Publishing or account access</li>
-              <li>Past campaign results</li>
+              <li>Filming the product</li>
+              <li>Sound or voiceover</li>
+              <li>Posting, or access to your accounts</li>
+              <li>Results from past campaigns</li>
             </ul>
           </div>
         </div>
@@ -491,9 +355,9 @@
 
   <footer>
     <div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="sitepost" viewBox="0 0 216 32" width="175.5" height="26" role="img" aria-label="Sitepost Studio" focusable="false"><g aria-hidden="true"><path d="M9.5 4v25" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><rect x="9.5" y="6" width="19.5" height="12" fill="currentColor" class="f-a s-n"/><path d="M14 12h10.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M5 29h9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="25.7" fill="currentColor" font-family="'Teko'" font-weight="600" font-size="27" letter-spacing="0.03em">SITEPOST STUDIO</text></svg></div>
-      <p><strong>Speculative sample by Alexandr Khrustalev</strong> for Subtrak's public content and marketing brief. It was not commissioned, reviewed or published by Subtrak.</p>
-      <p>Graphics and motion are original illustrations, not product screens. Construction examples are editorial, not safety instructions.</p>
-      <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
+      <p><strong>A sample by Alexandr Khrustalev</strong> for Subtrak's public content brief. Subtrak did not order, review or publish it.</p>
+      <p>The graphics and the video are drawn from scratch, they are not screens from the product. The building examples are not safety advice.</p>
+      <p class="footer-contact"><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
     <p class="sb-label">Sample site, fictional brand</p></div>
   </footer>
   <script>
@@ -509,21 +373,36 @@
     for (const post of document.querySelectorAll('.post')) {
       const tabs = [...post.querySelectorAll('[role=tab]')]
       const where = post.querySelector('.shot-where')
+      const more = post.querySelector('.more')
       const foot = document.createElement('div'); foot.className = 'caption-foot'
       const meter = document.createElement('div'); meter.className = 'meter'; meter.setAttribute('aria-hidden', 'true'); meter.append(document.createElement('i'))
       const count = document.createElement('p'); count.className = 'count'; count.setAttribute('aria-live', 'polite')
       const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'button copy-btn'
       foot.append(meter, count, btn); post.querySelector('.files-row').before(foot)
       const current = () => post.querySelector('[role=tabpanel]:not([hidden])')
+      // "See more" shows only when the text is longer than the three lines a feed shows.
+      const fit = () => {
+        if (post.classList.contains('open')) { more.hidden = false; return }
+        const p = current()
+        more.hidden = p.scrollHeight <= p.clientHeight + 2
+      }
       const show = tab => {
         for (const t of tabs) { const on = t === tab; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; document.getElementById(t.getAttribute('aria-controls')).hidden = !on }
         const p = current(), n = textOf(p).length, lim = +p.dataset.limit
-        count.innerHTML = `<b>${fmt(n)}</b> characters of the ${p.dataset.platform} limit of ${fmt(lim)}`
+        count.innerHTML = `<b>${fmt(n)}</b> of ${fmt(lim)} characters`
         meter.firstChild.style.width = Math.max(1, Math.min(100, n / lim * 100)) + '%'
-        meter.title = `${Math.round(n / lim * 100)} percent of the limit`
+        meter.title = `${Math.round(n / lim * 100)} percent of the ${p.dataset.platform} limit`
         where.textContent = p.dataset.platform === 'LinkedIn' ? 'LinkedIn post' : 'Instagram and Facebook caption'
-        btn.textContent = `Copy the ${tab.textContent.split(' ')[0]} text`
+        btn.textContent = `Copy ${tab.textContent.split(' ')[0]} text`
+        more.setAttribute('aria-controls', p.id)
+        fit()
       }
+      more.addEventListener('click', () => {
+        const open = post.classList.toggle('open')
+        more.setAttribute('aria-expanded', open)
+        more.textContent = open ? 'See less' : 'See more'
+        fit()
+      })
       tabs.forEach((t, i) => {
         t.addEventListener('click', () => show(t))
         t.addEventListener('keydown', e => {
@@ -539,9 +418,11 @@
         setTimeout(() => { btn.textContent = label }, 1800)
       })
       show(tabs[0])
+      let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 120) })
+      if (document.fonts) document.fonts.ready.then(fit)
     }
 
-    // Timeline: the playhead and the beat fills follow the video, and each beat seeks it.
+    // Timeline: the playhead and the part fills follow the video, and each part seeks it.
     const v = document.getElementById('piece'), beats = [...document.querySelectorAll('#beats li')], head = document.getElementById('playhead')
     const DUR = 24
     const mark = () => {
@@ -566,6 +447,5 @@
   })()
   </script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
-<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=((300)+((700)-(300))*x).toFixed(2)+'';document.querySelectorAll('#title').forEach(function(n){n.style.setProperty('--hw',v)})})},{passive:true})})();</script><script>/* the pointer moves the heading's type axis, which changes its width, so its lines are locked at the widest setting and the page never reflows */(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var S='#title',P='--hw',M='700',t=0;function lock(){document.querySelectorAll(S).forEach(function(h){h.querySelectorAll('br.ll').forEach(function(b){b.remove()});h.normalize();h.style.whiteSpace='';var v=h.style.getPropertyValue(P),tr=h.style.transition;h.style.transition='none';h.style.setProperty(P,M);var fs=parseFloat(getComputedStyle(h).fontSize)||16,last=null,cut=[],w=document.createTreeWalker(h,NodeFilter.SHOW_TEXT),n,r=document.createRange();while(n=w.nextNode()){var re=/\S+/g,m;while(m=re.exec(n.data)){r.setStart(n,m.index);r.setEnd(n,m.index+m[0].length);var q=r.getClientRects()[0];if(!q)continue;if(last!==null&&q.top>last+fs*.5)cut.push([n,m.index]);last=q.top}}cut.reverse().forEach(function(c){var b=document.createElement('br'),e=c[0];b.className='ll';if(c[1]){e=e.splitText(c[1])}else{while(e.parentNode!==h&&e.parentNode.firstChild===e)e=e.parentNode}e.parentNode.insertBefore(b,e)});h.style.whiteSpace='nowrap';if(v)h.style.setProperty(P,v);else h.style.removeProperty(P);void h.offsetWidth;h.style.transition=tr})}(document.fonts?document.fonts.ready:Promise.resolve()).then(lock);addEventListener('resize',function(){clearTimeout(t);t=setTimeout(lock,150)})})();</script>
 </body>
 </html>
