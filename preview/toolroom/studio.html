@@ -15,7 +15,7 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="750">
   <meta name="twitter:card" content="summary_large_image">
-  <title>Toolroom Studio | Get your next release ready</title>
+  <title>Toolroom Studio | Seller workspace</title>
   <link rel="icon" href="toolroom-mark.svg" type="image/svg+xml">
   <link rel="preload" href="assets/gfonts/syne/8vIH7w4qzmVxm2BL9A.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/gfonts/spline-sans-mono/R70BjzAei_CDNLfgZxrW6wrZOF2WX5KZmA.woff2" as="font" type="font/woff2" crossorigin>
@@ -137,10 +137,10 @@ dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px 
 /* the workspace fills in after the saved listings load, so keep it out of sight until the first render instead of letting it jump */
 .tr-wait #catalog-page>:not(.page-heading),.tr-wait #example-open{visibility:hidden}
 </style>
-  <script type="module" src="toolroom-studio-app.mjs"></script>
+  <script type="module" src="preview/toolroom/studio-app.mjs"></script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>
-<script>(function(){if(!matchMedia('(pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var raf=0,x=.5;addEventListener('pointermove',function(e){x=e.clientX/innerWidth;if(raf)return;raf=requestAnimationFrame(function(){raf=0;var v=(480+(700-480)*x).toFixed(2)+'';document.querySelectorAll('.page-heading h1').forEach(function(n){n.style.setProperty('--hw',v)})})},{passive:true})})();</script>
-<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--yellow)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.topbar .brand{display:inline-flex;align-items:center;gap:8px}.workspace-footer{flex-wrap:wrap}.workspace-footer .sb-foot{flex-basis:100%;margin:0}.workspace-footer .sb-label{flex-basis:100%;margin:0}</style></head>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--yellow)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.topbar .brand{display:inline-flex;align-items:center;gap:8px}.workspace-footer{flex-wrap:wrap}.workspace-footer .sb-foot{flex-basis:100%;margin:0}.workspace-footer .sb-label{flex-basis:100%;margin:0}</style><style>.page-heading h1{font-size:clamp(34px,4vw,52px);letter-spacing:-.02em}</style>
+</head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="topbar">
@@ -155,8 +155,8 @@ dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px 
         <a href="#release" id="nav-release"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Release checks<span class="nav-dot" id="nav-dot"><span class="sr-only">Checks pending</span></span></a>
       </nav>
       <div class="sidebar-bottom">
-        <h2>Keep the files. Own the handoff.</h2>
-        <p>Export a plain catalog you can move to any static host.</p>
+        <h2>Host it anywhere</h2>
+        <p>Export your catalog as one ZIP and put it on any static host.</p>
         <a href="preview/toolroom/">See the Toolroom store</a>
       </div>
     </aside>
@@ -164,17 +164,17 @@ dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px 
     <main id="main">
       <section class="page" id="catalog-page" aria-labelledby="catalog-title">
         <div class="page-heading">
-          <div><p class="eyebrow"><span class="num">TR-S1</span> Seller workspace</p><h1 id="catalog-title"><span class="hl">Get your next</span> <span class="hl">release ready.</span></h1><p class="intro">Write, attach, check, export one ZIP.</p></div>
+          <div><h1 id="catalog-title">Catalog</h1><p class="intro">Write a listing, attach the file, check it, export one ZIP.</p></div>
           <div class="heading-actions"><button type="button" class="button primary" id="add-product"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a product</button><button type="button" class="button secondary" id="example-open">Open the worked example</button></div>
         </div>
         <div class="demo-banner" id="demo-banner" role="region" aria-label="Worked example" hidden><span class="demo-tag num">Example</span><p id="demo-copy"></p><div class="demo-actions"><button type="button" class="button primary" id="demo-go">Review the open listing</button><button type="button" class="button secondary" id="demo-clear">Clear and start my own</button></div></div>
         <div class="overview">
-          <div><span class="metric-label">Listings</span><strong id="product-count" class="num">0</strong><span>on the shelf</span></div>
+          <div><span class="metric-label">Listings</span><strong id="product-count" class="num">0</strong><span>in the catalog</span></div>
           <div><span class="metric-label">Files attached</span><strong id="asset-count" class="num">0</strong><span>this session</span></div>
-          <div><span class="metric-label">Ready to ship</span><strong id="ready-count" class="num">0</strong><span>all checks complete</span></div>
+          <div><span class="metric-label">Ready to export</span><strong id="ready-count" class="num">0</strong><span>all checks complete</span></div>
           <a class="overview-link" href="#release">Go to release checks<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
-        <section class="line-board" id="line-board" aria-labelledby="line-title-text"><h2 class="line-title" id="line-title-text">Release line</h2></section>
+        <section class="line-board" id="line-board" aria-labelledby="line-title-text"><h2 class="line-title" id="line-title-text">Progress</h2></section>
         <section class="shop-strip" aria-labelledby="shop-name"><div class="shop-monogram" id="shop-monogram" aria-hidden="true">M</div><div class="shop-copy"><h2 id="shop-name">My download catalog</h2><p id="shop-tagline">Add a short introduction for your catalog.</p></div><button type="button" class="button secondary" id="shop-edit">Edit catalog</button></section>
         <div class="catalog-toolbar"><h2>Listings <span id="list-count" class="num">0</span></h2><label class="search"><span class="sr-only">Search listings</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><input id="search" type="search" placeholder="Search listings" autocomplete="off"></label></div>
         <div id="product-grid" class="product-grid"></div>
@@ -183,11 +183,11 @@ dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px 
         <p class="workspace-note">Listings save in this browser. Files stay in memory until the tab closes, so keep the exported ZIP.</p>
       </section>
       <section class="page" id="release-page" hidden aria-labelledby="release-title">
-        <div class="page-heading"><div><p class="eyebrow"><span class="num">TR-S2</span> Before you share</p><h1 id="release-title">Release checks.</h1><p class="intro">See exactly what goes into the ZIP.</p></div><a class="button secondary" href="#catalog">Back to catalog</a></div>
+        <div class="page-heading"><div><h1 id="release-title">Release checks</h1><p class="intro">See exactly what goes into the ZIP.</p></div><a class="button secondary" href="#catalog">Back to catalog</a></div>
         <div class="release-layout">
           <div><section class="release-summary" id="release-summary" aria-live="polite"></section>
             <section class="match" id="match" aria-labelledby="match-title">
-              <div class="match-copy"><h2 id="match-title">Is this the file you listed?</h2><p>Drop a file. It is fingerprinted here, never uploaded.</p></div>
+              <div class="match-copy"><h2 id="match-title">Check a file against its listing</h2><p>Choose a file. It is checked in this browser and never uploaded.</p></div>
               <label class="match-drop" for="match-file"><input id="match-file" type="file"><span class="match-hole" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span><span class="match-label">Choose a file</span></label>
               <p class="match-result" id="match-result" role="status" aria-live="polite"></p>
             </section>
@@ -195,7 +195,7 @@ dialog{border-radius:22px;box-shadow:16px 16px 0 rgba(17,22,19,.85),0 0 0 1.5px 
           <aside class="export-panel" aria-labelledby="export-title">
             <h2 id="export-title">Export your catalog</h2>
             <p>Catalog page, downloads, data and manifest.</p>
-            <h3 class="pack-title">Packing list <span id="pack-total" class="num"></span></h3>
+            <h3 class="pack-title">Files in the ZIP <span id="pack-total" class="num"></span></h3>
             <ol class="pack" id="pack" aria-label="Files that go into the ZIP"></ol>
             <p class="pack-note">No account or subscription needed to host it.</p>
             <div class="public-notice"><b>Hosted files are public.</b><p>Share only files you have the right to share. No payment step.</p></div>
