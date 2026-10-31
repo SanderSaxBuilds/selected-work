@@ -53,6 +53,7 @@ a{color:inherit}
 .bar nav{margin-left:auto;display:flex;gap:20px;font-size:15px;white-space:nowrap}
 .bar nav a{color:var(--rail-ink);text-decoration:none}
 .bar nav a:hover{text-decoration:underline;text-underline-offset:3px}
+.bar nav a{position:relative}.bar nav a::after{content:"";position:absolute;inset:-10px -4px}
 .bar :focus-visible{outline-color:var(--accent-light)}
 
 /* app frame: inbox rail and reading pane */
@@ -169,6 +170,7 @@ a{color:inherit}
 .foot .back{font-weight:650}
 .footer-contact{display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:14px;margin-top:4px!important;border-top:1px solid var(--rail-line);font-family:var(--mono);font-size:13.5px}
 .footer-contact span{color:var(--rail-muted)}
+.footer-contact a{position:relative}.footer-contact a::after{content:"";position:absolute;inset:-5px 0}
 .foot :focus-visible{outline-color:var(--accent-light)}
 
 @media (min-width:1400px){
