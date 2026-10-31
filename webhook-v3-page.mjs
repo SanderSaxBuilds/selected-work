@@ -110,7 +110,7 @@ function showResponse(res, title) {
   out.dataset.kind = kind;
   $("wh-status").textContent = res.status;
   $("wh-json").textContent = JSON.stringify(res.json);
-  $("wh-meaning").textContent = MEANING[res.code] || "";
+  $("wh-meaning").textContent = res.code === "recorded" && res.json && res.json.projection_changed === false ? "Saved. This update is older than the saved status, so the shipment status stays as it is." : MEANING[res.code] || "";
   $("wh-for").textContent = title;
 }
 

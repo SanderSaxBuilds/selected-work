@@ -737,7 +737,11 @@ $("#findFocusButton").addEventListener("click", () => {
   suggestion = start === null ? null : { date: state.selectedDate, start: minutesToTime(start), revision: state.revision, duration };
   $("#focusSuggestion").textContent = suggestion
     ? `${formatMinutes(start)} to ${formatMinutes(start + duration)} on ${formatDate(state.selectedDate, { weekday: "long" })} is open on every calendar.`
-    : `No ${duration}-minute stretch is open between 9 AM and 6 PM on ${formatDate(state.selectedDate, { weekday: "long" })}.`;
+    : notBefore >= 18 * 60
+      ? "The 9 AM to 6 PM window is over for today. Pick tomorrow to find a stretch."
+      : notBefore > 9 * 60
+        ? `No ${duration}-minute stretch is left before 6 PM today.`
+        : `No ${duration}-minute stretch is open between 9 AM and 6 PM on ${formatDate(state.selectedDate, { weekday: "long" })}.`;
   $("#addSuggestedBlock").hidden = !suggestion;
 });
 $("#addSuggestedBlock").addEventListener("click", () => { if (suggestion) openEditor(null, suggestion.date, suggestion.start, true, suggestion.duration, "Focus time"); });
