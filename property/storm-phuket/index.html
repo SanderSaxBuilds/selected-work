@@ -44,6 +44,7 @@ h1,h2,h3,h4,.dsp{font-family:"Sofia Sans Semi Condensed","Sofia Sans Semi Conden
 .top{position:fixed;inset:0 0 auto;z-index:50;color:#fff;transition:background .35s,color .35s,box-shadow .35s}
 .rib{font-size:13px;line-height:1.35;text-align:center;padding:8px 16px;background:rgba(20,23,27,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#e8eaee;max-height:64px;overflow:hidden;transition:max-height .35s,padding .35s}
 .rib a{color:#fff;font-weight:600;white-space:nowrap}
+.rib a{position:relative}.rib a::after{content:"";position:absolute;inset:-8px -4px}
 .nav{display:flex;align-items:center;gap:28px;height:66px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Sofia Sans Semi Condensed","Sofia Sans Semi Condensed Fallback";font-weight:600;font-size:17px;letter-spacing:-.01em;white-space:nowrap}
 .brand svg{width:28px;height:28px;flex:none}
@@ -787,7 +788,7 @@ function toggleCmp(id){const i=cmp.indexOf(id);if(i>=0)cmp.splice(i,1);else{if(c
 function renderCbar(){$('#cbar').classList.toggle('on',cmp.length>0);
  $('#slots').innerHTML=[0,1].map(i=>cmp[i]?`<div class="slot"><img src="../img/t-${cmp[i]}.jpg" alt=""></div>`:'<div class="slot"></div>').join('');
  $('#cbt').textContent=cmp.length<2?t('cmpPick'):t('cmpReady');$('#cbgo').textContent=t('cmpGo');$('#cbgo').disabled=cmp.length<2}
-$('#cbx').onclick=()=>{cmp=[];toggleCmp('__none');cmp=[];cards.forEach(el=>{const b=el.querySelector('.cmp');b.setAttribute('aria-pressed',false);b.textContent='+'});renderCbar()};
+$('#cbx').onclick=()=>{cmp=[];cards.forEach(el=>{const b=el.querySelector('.cmp');b.setAttribute('aria-pressed',false);b.textContent='+'});renderCbar()};
 $('#cbgo').onclick=()=>{if(cmp.length<2)return;lastFocus=$('#cbgo');renderMod();$('#ov').classList.add('on');$('#mod').classList.add('on');document.body.style.overflow='hidden';document.body.classList.add('lock');setTimeout(()=>$('#mod .x').focus({preventScroll:true}),60)};
 function renderMod(){const [a,b]=cmp.map(id=>L.find(x=>x.id===id)),ya=yieldOf(a),yb=yieldOf(b);
  const rows=[[t('kPrice'),a.price,b.price,'low',money],[t('kSqm'),a.price/a.area,b.price/b.area,'low',money],[t('kArea'),a.area,b.area,'high',v=>v+' '+t('m2')],[t('kBed'),a.bed,b.bed,'high',v=>v||t('studio')],[t('kBeach'),a.beach,b.beach,'low',distTxt],[t('kAir'),dOf(a).min,dOf(b).min,'low',v=>v+' '+t('min')],[t('cY'),ya.y,yb.y,'high',pct],[t('kOwn'),a.own,b.own,null,v=>v==='free'?t('free'):t('lease')]];

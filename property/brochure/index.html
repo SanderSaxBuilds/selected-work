@@ -52,6 +52,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.45}
 .sw{display:inline-flex;gap:6px;background:var(--panel);border-radius:999px;padding:6px 8px}
 .sw button{width:22px;height:22px;border-radius:50%;border:0;cursor:pointer;box-shadow:0 0 0 2px var(--panel),0 0 0 3px transparent;transition:box-shadow .12s,transform .12s}
 .sw button:hover{transform:scale(1.1)}
+.sw button{position:relative}.sw button::after{content:"";position:absolute;inset:-3px}
 .sw button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--tx)}
 .pvwrap{position:relative;width:100%;max-width:794px}
 .pvwrap .sheet{position:absolute;left:0;top:0;transform-origin:0 0;box-shadow:0 1px 2px rgba(0,0,0,.08),0 18px 50px -12px rgba(0,0,0,.28);border-radius:3px}
