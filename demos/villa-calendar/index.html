@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Villa calendar demo | Hillnook Villas</title>
+<meta name="description" content="Demo of one calendar per villa that merges Airbnb, Booking.com and direct bookings, blocks double bookings and tracks deposits.">
+<link rel="icon" href="data:,">
+<meta name="theme-color" content="#eef1ef">
+<link href="../../assets/gfonts/css/3c9702430141.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef1ef; --paper:#ffffff; --ink:#18231f; --muted:#5f6b66; --faint:#a9b2ae; --line:#dde2df;
+  --deep:#1f3b35; --air:#c24d6b; --bk:#2c4f9a; --dir:#2f7a5b; --block:#b3261e;
+  --display:"Instrument Serif",Georgia,serif;
+  --body:"Familjen Grotesk","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.w{width:min(1080px,calc(100% - 32px));margin-inline:auto}
+
+.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 16px;padding:18px 0 14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:40px;height:28px;flex:none}
+.brand b{font:400 27px/1 var(--display)}
+.brand small{display:block;font-size:11.5px;color:var(--muted);letter-spacing:.02em;margin-top:2px}
+.src{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);align-items:center}
+.src span{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink)}
+.src i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.src em{font-style:normal}
+
+.board{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+.board>*{min-width:0}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px}
+.cal{padding:6px 18px 16px}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line);margin:0 -18px 14px;padding:0 10px}
+.tab{border:0;background:transparent;padding:12px 6px 10px;cursor:pointer;text-align:center;border-bottom:2.5px solid transparent;margin-bottom:-1px}
+.tab b{display:block;font:400 21px/1.1 var(--display)}
+.tab small{display:block;font-size:12px;color:var(--muted)}
+.tab[aria-selected=true]{border-bottom-color:var(--deep)}
+.tab[aria-selected=false] b{color:var(--muted)}
+.mhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+.mhead strong{font:400 24px/1.1 var(--display)}
+.mhead span{font-size:13px;color:var(--muted)}
+.dow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));font-size:11.5px;color:var(--muted);text-align:center;padding-bottom:4px}
+.wk{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));height:62px;border-top:1px solid var(--line)}
+.wk.tall{height:84px}
+.wk .d{font-size:12.5px;padding:5px 0 0 6px;color:var(--ink)}
+.wk .d.out{color:var(--faint)}
+.bar{position:absolute;height:20px;top:28px;border:0;padding:0 7px;font-size:11.5px;font-weight:600;color:#fff;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;line-height:20px}
+.bar.l{border-top-left-radius:6px;border-bottom-left-radius:6px}
+.bar.r{border-top-right-radius:6px;border-bottom-right-radius:6px}
+.bar.air{background:var(--air)}.bar.bk{background:var(--bk)}.bar.dir{background:var(--dir)}
+.bar.sel{box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--ink);z-index:2}
+.bar.blocked{top:54px;background:#fff;color:var(--block);border:1.5px dashed var(--block);line-height:17px;cursor:default;text-decoration:line-through}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted);margin-top:12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:16px;height:9px;border-radius:3px;display:inline-block}
+.legend i.x{background:#fff;border:1.5px dashed var(--block)}
+.tip{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+
+.side{display:grid;gap:14px}
+.box{padding:16px 18px}
+.alert{border-left:4px solid var(--block)}
+.alert svg{display:block;width:100%;height:auto;margin:2px 0 10px}
+.alert b{display:flex;align-items:center;gap:8px;font-size:16px}
+.alert b svg{width:18px;height:18px;margin:0;flex:none}
+.alert p{margin:4px 0 0;font-size:13.5px;color:var(--muted)}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;border-radius:999px;padding:2px 9px}
+.pill.air{background:var(--air)}.pill.bk{background:var(--bk)}.pill.dir{background:var(--dir)}
+.stay h3{margin:8px 0 2px;font:400 25px/1.1 var(--display)}
+.stay .when{font-size:14px;color:var(--muted);margin:0 0 10px}
+.kv{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:6px 0;border-top:1px solid var(--line)}
+.kv b{font-weight:700;text-align:right}
+.dep{margin-top:10px}
+.track{height:8px;border-radius:99px;background:var(--bg);overflow:hidden}
+.track i{display:block;height:100%;background:var(--deep);border-radius:99px;transition:width .4s}
+.dep p{margin:6px 0 0;font-size:13.5px;color:var(--ink)}
+.msg .to{font-size:12.5px;color:var(--muted);margin:0 0 8px}
+.bubble{background:#e7efe9;border-radius:14px 14px 14px 4px;padding:10px 12px;font-size:14px;line-height:1.45}
+.send{margin-top:10px;width:100%;border:0;border-radius:10px;background:var(--deep);color:#fff;padding:12px;font-weight:700;font-size:15px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:8px}
+.send svg{width:16px;height:16px}
+.send.done{background:var(--paper);color:var(--dir);box-shadow:inset 0 0 0 1.5px var(--dir);cursor:default}
+
+.offer{padding:40px 0 10px;text-align:center}
+.offer p{margin:0}
+.price{font:400 clamp(28px,5vw,42px)/1.15 var(--display)}
+.contact{margin-top:14px !important;font-size:15.5px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
+.contact a{color:var(--deep);font-weight:700;text-decoration:none;border-bottom:1px solid currentColor;padding:4px 0}
+.foot{font-size:13px;color:var(--muted);text-align:center;padding:26px 16px 34px;margin:0}
+.foot a{color:var(--deep)}
+
+@media (max-width:860px){
+  .board{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:420px){
+  .cal{padding:4px 10px 14px}
+  .tabs{margin:0 -10px 12px;padding:0 4px}
+  .tab b{font-size:19px}
+  .wk .d{padding-left:4px;font-size:12px}
+  .bar{padding:0 4px;font-size:10.5px}
+  .box{padding:14px 14px}
+}
+@media (prefers-reduced-motion:reduce){.track i{transition:none}}
+</style>
+</head>
+<body>
+<div class="w">
+  <header class="top">
+    <a class="brand" href="#" aria-label="Hillnook Villas">
+      <svg viewBox="0 0 40 28" aria-hidden="true"><path d="M2 25c5-9 9-13 13-13s7 4 10 8" fill="none" stroke="#1f3b35" stroke-width="2.2" stroke-linecap="round"/><path d="M17 25c4-7 8-11 11.5-11S35 18 38 25" fill="none" stroke="#2f7a5b" stroke-width="2.2" stroke-linecap="round"/><path d="M8 14V8.5l4-3.5l4 3.5V14" fill="none" stroke="#1f3b35" stroke-width="1.8" stroke-linejoin="round"/><circle cx="31" cy="6" r="2.6" fill="#2f7a5b"/></svg>
+      <span><b>Hillnook Villas</b><small>three pool villas</small></span>
+    </a>
+    <div class="src"><span><i style="background:var(--air)"></i>Airbnb</span><span><i style="background:var(--bk)"></i>Booking.com</span><span><i style="background:var(--dir)"></i>Direct</span><em>synced 10:22</em></div>
+  </header>
+
+  <main class="board">
+    <section class="panel cal">
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div class="mhead"><strong>December 2026</strong><span id="occ"></span></div>
+      <div class="dow"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+      <div id="weeks"></div>
+      <div class="legend"><span><i style="background:var(--air)"></i>Airbnb</span><span><i style="background:var(--bk)"></i>Booking.com</span><span><i style="background:var(--dir)"></i>Direct</span><span><i class="x"></i>Blocked request</span></div>
+      <p class="tip">Tap a stay to open it.</p>
+    </section>
+
+    <aside class="side">
+      <div class="panel box alert">
+        <svg viewBox="0 0 300 74" aria-hidden="true">
+          <g font-family="Familjen Grotesk,system-ui,sans-serif" font-size="10" fill="#5f6b66">
+            <text x="10" y="70">9</text><text x="52" y="70">10</text><text x="95" y="70">11</text><text x="138" y="70">12</text><text x="181" y="70">13</text><text x="224" y="70">14</text><text x="267" y="70">15</text>
+          </g>
+          <rect x="12" y="6" width="216" height="20" rx="6" fill="#c24d6b"/>
+          <text x="20" y="20" font-family="Familjen Grotesk,system-ui,sans-serif" font-size="11" font-weight="600" fill="#fff">Airbnb, S. Okafor</text>
+          <rect x="141" y="33" width="129" height="20" rx="6" fill="#fff" stroke="#b3261e" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="149" y="47" font-family="Familjen Grotesk,system-ui,sans-serif" font-size="11" font-weight="600" fill="#b3261e" text-decoration="line-through">Booking.com</text>
+          <rect x="141" y="4" width="87" height="51" rx="4" fill="#b3261e" fill-opacity=".08"/>
+        </svg>
+        <b><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="none" stroke="#b3261e" stroke-width="1.8"/><path d="M3.5 14.5l11-11" stroke="#b3261e" stroke-width="1.8"/></svg>Double booking blocked</b>
+        <p>Villa Stone. Booking.com asked for 12 to 15 Dec, Airbnb already has 9 to 14 Dec. Dates closed on every channel at 09:12.</p>
+      </div>
+
+      <div class="panel box stay" id="stay"></div>
+
+      <div class="panel box msg">
+        <p class="to" id="to"></p>
+        <div class="bubble" id="bubble"></div>
+        <button class="send" id="send"></button>
+      </div>
+    </aside>
+  </main>
+
+  <section class="offer">
+    <p class="price">Setup from 19,900 THB, care 1,500 THB a month</p>
+    <p class="contact"><span>Telegram <a href="https://t.me/sandersax" target="_blank" rel="noopener">t.me/sandersax</a></span><span>WhatsApp <a href="https://wa.me/66961347329" target="_blank" rel="noopener">+66 96 134 7329</a></span></p>
+  </section>
+</div>
+<p class="foot">Demo made by Alexandr, SanderSax. Hillnook Villas is a made-up brand, guests, dates and prices are examples. <a href="https://sandersaxbuilds.github.io/selected-work/">More work</a></p>
+
+<script>
+const D=(m,d)=>m===13?new Date(2027,0,d):new Date(2026,m-1,d);
+const VILLAS=[
+  {id:"fern",name:"Villa Fern",sub:"3 bedrooms",rate:7500},
+  {id:"stone",name:"Villa Stone",sub:"4 bedrooms",rate:9500},
+  {id:"reef",name:"Villa Reef",sub:"2 bedrooms",rate:6200}
+];
+const SRC={air:"Airbnb",bk:"Booking.com",dir:"Direct"};
+const TO={air:"Airbnb inbox",bk:"Booking.com inbox",dir:"WhatsApp"};
+const B=[
+  {v:"fern",s:"air",g:"J. Lindqvist",fn:"Johan",ci:D(12,1),co:D(12,4)},
+  {v:"fern",s:"dir",g:"Olga P.",fn:"Olga",ci:D(12,5),co:D(12,9),dep:"paid",on:"28 Oct",by:"bank transfer"},
+  {v:"fern",s:"bk",g:"T. Nakamura",fn:"Taro",ci:D(12,11),co:D(12,15)},
+  {v:"fern",s:"dir",g:"Hannah W.",fn:"Hannah",ci:D(12,18),co:D(12,22),dep:"due",on:"7 Dec"},
+  {v:"fern",s:"air",g:"Brandt family",fn:"Lukas",ci:D(12,24),co:D(12,31)},
+  {v:"stone",s:"dir",g:"Daniel K.",fn:"Daniel",ci:D(12,2),co:D(12,6),dep:"paid",on:"30 Oct",by:"PromptPay"},
+  {v:"stone",s:"air",g:"S. Okafor",fn:"Sam",ci:D(12,9),co:D(12,14)},
+  {v:"stone",s:"bk",g:"R. Duval",ci:D(12,12),co:D(12,15),blocked:true},
+  {v:"stone",s:"bk",g:"L. Moreau",fn:"Lea",ci:D(12,16),co:D(12,20)},
+  {v:"stone",s:"air",g:"Chen family",fn:"Wei",ci:D(12,21),co:D(12,27)},
+  {v:"stone",s:"dir",g:"Mia R.",fn:"Mia",ci:D(12,28),co:D(13,2),dep:"paid",on:"2 Nov",by:"PromptPay"},
+  {v:"reef",s:"bk",g:"P. Novak",fn:"Petr",ci:D(12,1),co:D(12,3)},
+  {v:"reef",s:"dir",g:"Irina S.",fn:"Irina",ci:D(12,4),co:D(12,10),dep:"paid",on:"1 Nov",by:"bank transfer"},
+  {v:"reef",s:"air",g:"E. Rossi",fn:"Elena",ci:D(12,13),co:D(12,17)},
+  {v:"reef",s:"bk",g:"K. Tanaka",fn:"Kenji",ci:D(12,19),co:D(12,23)},
+  {v:"reef",s:"dir",g:"Somchai T.",fn:"Somchai",ci:D(12,26),co:D(12,30),dep:"due",on:"10 Dec"}
+];
+B.forEach((b,i)=>b.i=i);
+const $=id=>document.getElementById(id);
+const DAY=864e5,first=D(12,1),last=D(12,31);
+const gs=new Date(first);gs.setDate(gs.getDate()-((gs.getDay()+6)%7));
+const ge=new Date(D(13,2));ge.setDate(ge.getDate()+(6-((ge.getDay()+6)%7)));
+const weeks=(Math.round((ge-gs)/DAY)+1)/7;
+const n=(a,b)=>Math.round((b-a)/DAY);
+const fmt=d=>d.getDate()+" "+d.toLocaleDateString("en-GB",{month:"short"});
+const thb=x=>x.toLocaleString("en-US")+" THB";
+let villa=VILLAS[1],sel=B[10];
+
+function tabs(){
+  $("tabs").innerHTML=VILLAS.map(v=>`<button class="tab" role="tab" aria-selected="${v===villa}" data-v="${v.id}"><b>${v.name.replace("Villa ","")}</b><small>${v.sub}</small></button>`).join("");
+  $("tabs").querySelectorAll(".tab").forEach(t=>t.onclick=()=>{villa=VILLAS.find(v=>v.id===t.dataset.v);
+    sel=B.find(b=>b.v===villa.id&&b.s==="dir"&&!b.blocked);render()});
+}
+function cal(){
+  const list=B.filter(b=>b.v===villa.id);let h="";
+  for(let w=0;w<weeks;w++){
+    const w0=w*7,w1=w0+7;let cells="",bars="",tall=false;
+    for(let k=0;k<7;k++){const d=new Date(gs);d.setDate(d.getDate()+w0+k);
+      cells+=`<span class="d${d<first||d>last?" out":""}">${d.getDate()}</span>`}
+    list.forEach(b=>{
+      const a=n(gs,b.ci)+.5,z=n(gs,b.co)+.5,s=Math.max(a,w0),e=Math.min(z,w1);
+      if(e<=s)return;
+      const cls=`bar ${b.s}${a>=w0?" l":""}${z<=w1?" r":""}${b.blocked?" blocked":""}${b===sel?" sel":""}`;
+      const st=`left:${(s-w0)/7*100}%;width:${(e-s)/7*100}%`;
+      const label=b.blocked?(e-s>=3?"Booking.com, blocked":"Blocked"):(e-s>=1.4?b.g:"");
+      if(b.blocked){tall=true;bars+=`<span class="${cls}" style="${st}" title="Blocked request">${label}</span>`}
+      else bars+=`<button class="${cls}" style="${st}" data-i="${b.i}" aria-label="${SRC[b.s]}, ${b.g}, ${fmt(b.ci)} to ${fmt(b.co)}">${label}</button>`;
+    });
+    h+=`<div class="wk${tall?" tall":""}">${cells}${bars}</div>`;
+  }
+  $("weeks").innerHTML=h;
+  $("weeks").querySelectorAll("button.bar").forEach(x=>x.onclick=()=>{sel=B[+x.dataset.i];render()});
+  let nights=0;list.filter(b=>!b.blocked).forEach(b=>{for(let d=new Date(b.ci);d<b.co;d.setDate(d.getDate()+1))if(d>=first&&d<=last)nights++});
+  $("occ").textContent=`${nights} of 31 nights booked`;
+}
+function stay(){
+  const b=sel,v=VILLAS.find(x=>x.id===b.v),nn=n(b.ci,b.co),tot=nn*v.rate,dep=Math.round(tot*.3),bal=tot-dep;
+  let fill=100,line=`Paid in full on ${SRC[b.s]}. Payout after check-in.`;
+  if(b.s==="dir"){
+    if(b.dep==="paid"){fill=30;line=`Deposit 30%, ${thb(dep)}, paid ${b.on} by ${b.by}. Balance ${thb(bal)} on arrival.`}
+    else{fill=0;line=`Deposit 30%, ${thb(dep)}, due ${b.on}. Balance ${thb(bal)} on arrival.`}
+  }
+  $("stay").innerHTML=`<span class="pill ${b.s}">${SRC[b.s]}</span><h3>${b.g}</h3><p class="when">${v.name}, ${fmt(b.ci)} to ${fmt(b.co)}</p>
+    <div class="kv"><span>Nights</span><b>${nn} x ${thb(v.rate)}</b></div><div class="kv"><span>Total</span><b>${thb(tot)}</b></div>
+    <div class="dep"><div class="track"><i style="width:${fill}%"></i></div><p>${line}</p></div>`;
+  let m;
+  if(b.s!=="dir")m=`Hello ${b.fn}, thank you for booking ${v.name} on ${SRC[b.s]}. ${fmt(b.ci)} to ${fmt(b.co)}, ${nn} nights. Check-in from 14:00, we send the map and gate code one day before.`;
+  else if(b.dep==="paid")m=`Hello ${b.fn}, your stay at ${v.name} is confirmed. ${fmt(b.ci)} to ${fmt(b.co)}, ${nn} nights. Deposit ${thb(dep)} received, balance ${thb(bal)} on arrival. Check-in from 14:00.`;
+  else m=`Hello ${b.fn}, ${v.name} is held for you, ${fmt(b.ci)} to ${fmt(b.co)}, ${nn} nights. Please pay the ${thb(dep)} deposit by ${b.on} to confirm. PromptPay QR attached.`;
+  $("to").textContent=`To ${b.g}, ${TO[b.s]}`;
+  $("bubble").textContent=m;
+  const s=$("send");s.className="send";s.disabled=false;
+  s.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8l12-5.5l-4 12l-2.5-4.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Send confirmation';
+}
+$("send").onclick=()=>{const s=$("send");if(s.disabled)return;s.className="send done";s.disabled=true;
+  s.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Sent 10:24, example only'};
+function render(){tabs();cal();stay()}
+render();
+</script>
+</body>
+</html>
