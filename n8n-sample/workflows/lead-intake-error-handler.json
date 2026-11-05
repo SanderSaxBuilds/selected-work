@@ -1,0 +1,169 @@
+{
+  "id": "leadIntakeErr001",
+  "name": "Lead Intake - Error Handler",
+  "active": false,
+  "nodes": [
+    {
+      "id": "34ffcb51-5b13-46a4-a21d-639e8441b957",
+      "name": "Error - Catch Failed Execution",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "eb008819-4f13-496f-a680-484142b6208a",
+      "name": "Error - Find Lead By Execution",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "leads"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "execution_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.execution.id }}"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "8923ae75-1f3a-4350-a926-936825c061af",
+      "name": "Error - Build Dead Letter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Anything no branch expected lands here. The lead row is found by execution id,\n// so even an unhandled crash points back to the exact lead.\nconst failure = $('Error - Catch Failed Execution').first().json;\nconst lead = $input.first().json;\nconst hasLead = Boolean(lead.lead_id);\nconst leadId = hasLead ? lead.lead_id : 'unknown';\nconst execution = failure.execution || {};\nconst message = String((execution.error || {}).message || 'no message');\n\n// n8n reports a run killed by a restart here too. Every step is safe to repeat,\n// so an interrupted run may go straight back through Replay.\nconst interrupted = /did not finish|crashed/i.test(message + ' ' + String((execution.error || {}).name || ''));\n\nreturn [{\n  json: {\n    deadLetterId: (hasLead ? leadId : 'exec_' + execution.id) + ':unhandled',\n    leadId,\n    stage: 'unhandled',\n    errorClass: interrupted ? 'interrupted' : 'unknown',\n    httpStatus: '',\n    reason: (execution.lastNodeExecuted || 'unknown node') + ', ' + message.slice(0, 300),\n    attempts: 1,\n    retryable: hasLead && interrupted,\n    executionId: String(execution.id || ''),\n    executionUrl: execution.url || '',\n    payload: lead.payload || '',\n    severity: interrupted ? 'warning' : 'action_needed',\n    action: interrupted\n      ? 'Run was interrupted. Every step is safe to repeat, so run Replay.'\n      : 'Unexpected failure. Open the execution, fix the cause, set retryable to true, then run Replay.',\n  },\n}];"
+      }
+    },
+    {
+      "id": "3859edfc-0cb8-4ba1-a6e7-c7c0d135465f",
+      "name": "Dead Letter - Store And Alert",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "leadIntakeDLQ001"
+        },
+        "mode": "once",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "e1fcbce3-4135-45d9-a1e0-04971c620a85",
+      "name": "Alert - Last Resort Direct Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        120
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:4010/alerts",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ severity: 'critical', stage: 'error_workflow', reason: 'Dead letter store failed, record is only in this execution', execution: $('Error - Catch Failed Execution').first().json.execution.url }) }}",
+        "options": {
+          "timeout": 4000
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000
+    }
+  ],
+  "connections": {
+    "Error - Catch Failed Execution": {
+      "main": [
+        [
+          {
+            "node": "Error - Find Lead By Execution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error - Find Lead By Execution": {
+      "main": [
+        [
+          {
+            "node": "Error - Build Dead Letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error - Build Dead Letter": {
+      "main": [
+        [
+          {
+            "node": "Dead Letter - Store And Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dead Letter - Store And Alert": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Alert - Last Resort Direct Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "pinData": {},
+  "meta": {},
+  "tags": []
+}

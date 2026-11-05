@@ -1,0 +1,378 @@
+{
+  "id": "leadIntakeRpl001",
+  "name": "Lead Intake - Dead Letter Replay",
+  "active": false,
+  "nodes": [
+    {
+      "id": "0ea67ad7-8e08-4e43-a916-ed1495ea59cf",
+      "name": "Replay - Run By Operator",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -150
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "2e0ac046-0904-40d8-a99f-04345e5a57b7",
+      "name": "Replay - Webhook For Operator",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-replay",
+        "responseMode": "lastNode",
+        "responseData": "firstEntryJson",
+        "options": {}
+      },
+      "webhookId": "42a1f898-9af7-42ff-a4f7-212a007d81d8"
+    },
+    {
+      "id": "aca0182e-379f-4647-a925-fdfba6a7d62a",
+      "name": "Replay - Sweep Every 15 Minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        150
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ffc6be96-96ce-474a-a1bc-6027436df73a",
+      "name": "Replay - Define Scope",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Operator runs replay dead letters and stale leads. The timed sweep only picks\n// up leads that were left half done by an interrupted execution.\nconst input = $input.first().json;\nconst fromWebhook = input.body !== undefined;\nconst fromSchedule = input.timestamp !== undefined || input.Hour !== undefined;\nconst staleMinutes = fromWebhook && input.body.staleMinutes !== undefined ? Number(input.body.staleMinutes) : 10;\n\nreturn [{\n  json: {\n    includeDeadLetters: !fromSchedule,\n    staleBefore: new Date(Date.now() - staleMinutes * 60000).toISOString(),\n    intakeUrl: 'http://127.0.0.1:5678/webhook/lead-intake',\n  },\n}];"
+      }
+    },
+    {
+      "id": "c11d317c-486c-4f3a-a15a-d8230a3ede05",
+      "name": "Replay - Find Open Dead Letters",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "dead_letters"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "eq",
+              "keyValue": "open"
+            },
+            {
+              "keyName": "retryable",
+              "condition": "isTrue",
+              "keyValue": true
+            }
+          ]
+        },
+        "limit": 50
+      },
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "id": "f6b6f597-0b7c-45ff-a398-05e4107e2797",
+      "name": "Replay - Find Stale Leads",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "leads"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "eq",
+              "keyValue": "processing"
+            },
+            {
+              "keyName": "updatedAt",
+              "condition": "lt",
+              "keyValue": "={{ $('Replay - Define Scope').first().json.staleBefore }}"
+            }
+          ]
+        },
+        "limit": 50
+      },
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "id": "f4cf0e18-b16d-454b-a05d-71b21d4593ef",
+      "name": "Replay - Collect Targets",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// One replay per lead, even when a lead shows up in both lists.\nconst scope = $('Replay - Define Scope').first().json;\nconst letters = $('Replay - Find Open Dead Letters').all().map((i) => i.json).filter((r) => r.dead_letter_id);\nconst stale = $input.all().map((i) => i.json).filter((r) => r.lead_id);\nconst targets = new Map();\n\nif (scope.includeDeadLetters) {\n  for (const row of letters) {\n    targets.set(row.lead_id, { leadId: row.lead_id, replayOf: row.dead_letter_id, payload: row.payload });\n  }\n}\nfor (const row of stale) {\n  if (!targets.has(row.lead_id)) {\n    targets.set(row.lead_id, { leadId: row.lead_id, replayOf: 'stale:' + row.lead_id, payload: row.payload });\n  }\n}\n\nif (targets.size === 0) return [{ json: { nothingToDo: true } }];\n\nreturn [...targets.values()].map((t) => ({\n  json: { ...t, nothingToDo: false, intakeUrl: scope.intakeUrl, body: { ...JSON.parse(t.payload), replayOf: t.replayOf } },\n}));"
+      }
+    },
+    {
+      "id": "2bbbb1e3-266c-4bb4-a306-08119ad851b3",
+      "name": "Replay - Check Targets Found",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1100,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4683e789-c34c-4fab-a601-70ca34013a77",
+              "leftValue": "={{ $json.nothingToDo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "bf368259-4cf6-44d1-a12b-ccccaa6d8cd9",
+      "name": "Replay - Report Nothing To Do",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1320,
+        150
+      ],
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\"replayed\":0,\"accepted\":0,\"rejected\":0}",
+        "options": {}
+      }
+    },
+    {
+      "id": "20d5f8b3-d1a8-44e8-a5a0-0b68823f8c4e",
+      "name": "Replay - Re-Post Lead To Intake",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.intakeUrl }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {
+          "timeout": 8000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          },
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 500
+            }
+          }
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "a860ee5b-8aae-4e3f-a161-760a7a096657",
+      "name": "Replay - Summarise Run",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const rows = $input.all().map((i) => i.json);\nconst accepted = rows.filter((r) => r.statusCode >= 200 && r.statusCode < 300).length;\nreturn [{ json: { replayed: rows.length, accepted, rejected: rows.length - accepted } }];"
+      }
+    }
+  ],
+  "connections": {
+    "Replay - Run By Operator": {
+      "main": [
+        [
+          {
+            "node": "Replay - Define Scope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replay - Webhook For Operator": {
+      "main": [
+        [
+          {
+            "node": "Replay - Define Scope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replay - Sweep Every 15 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Replay - Define Scope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replay - Define Scope": {
+      "main": [
+        [
+          {
+            "node": "Replay - Find Open Dead Letters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replay - Find Open Dead Letters": {
+      "main": [
+        [
+          {
+            "node": "Replay - Find Stale Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replay - Find Stale Leads": {
+      "main": [
+        [
+          {
+            "node": "Replay - Collect Targets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replay - Collect Targets": {
+      "main": [
+        [
+          {
+            "node": "Replay - Check Targets Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replay - Check Targets Found": {
+      "main": [
+        [
+          {
+            "node": "Replay - Re-Post Lead To Intake",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Replay - Report Nothing To Do",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replay - Re-Post Lead To Intake": {
+      "main": [
+        [
+          {
+            "node": "Replay - Summarise Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "leadIntakeErr001"
+  },
+  "pinData": {},
+  "meta": {},
+  "tags": []
+}

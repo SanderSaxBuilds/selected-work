@@ -1,0 +1,524 @@
+{
+  "id": "leadIntakeDLQ001",
+  "name": "Lead Intake - Dead Letter And Alert",
+  "active": false,
+  "nodes": [
+    {
+      "id": "19542192-4db7-4e7f-ae36-600311b02b32",
+      "name": "Dead Letter - Receive Failure",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "inputSource": "passthrough"
+      }
+    },
+    {
+      "id": "57a034b4-4f0e-4b70-a0be-6a59225b0a02",
+      "name": "Dead Letter - Upsert Record",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "dead_letters"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "dead_letter_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.deadLetterId }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "dead_letter_id": "={{ $json.deadLetterId }}",
+            "lead_id": "={{ $json.leadId }}",
+            "stage": "={{ $json.stage }}",
+            "error_class": "={{ $json.errorClass }}",
+            "http_status": "={{ $json.httpStatus }}",
+            "reason": "={{ $json.reason }}",
+            "attempts": "={{ $json.attempts }}",
+            "retryable": "={{ $json.retryable }}",
+            "execution_id": "={{ $json.executionId }}",
+            "payload": "={{ $json.payload }}",
+            "status": "open",
+            "alert_status": "pending"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "dead_letter_id",
+              "displayName": "dead_letter_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "lead_id",
+              "displayName": "lead_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "stage",
+              "displayName": "stage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error_class",
+              "displayName": "error_class",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "http_status",
+              "displayName": "http_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "reason",
+              "displayName": "reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "attempts",
+              "displayName": "attempts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "retryable",
+              "displayName": "retryable",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "execution_id",
+              "displayName": "execution_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "payload",
+              "displayName": "payload",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "alert_status",
+              "displayName": "alert_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      }
+    },
+    {
+      "id": "ab9ff888-cd89-4998-af8a-cefaf4b3e132",
+      "name": "Lead - Mark Dead Letter",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "leads"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "lead_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Dead Letter - Receive Failure').first().json.leadId }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "dead_letter",
+            "stage": "={{ $('Dead Letter - Receive Failure').first().json.stage }}",
+            "last_error": "={{ $('Dead Letter - Receive Failure').first().json.reason }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "stage",
+              "displayName": "stage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_error",
+              "displayName": "last_error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "alwaysOutputData": true
+    },
+    {
+      "id": "a80e4bc8-adda-48c5-ac4b-1e2f891a702d",
+      "name": "Config - Alert Endpoint",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\"alertUrl\":\"http://127.0.0.1:4010/alerts\"}",
+        "options": {}
+      }
+    },
+    {
+      "id": "8aead63f-b16e-4b37-af6a-c893e63c1c23",
+      "name": "Alert - Notify Operator",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.alertUrl }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ severity: $('Dead Letter - Receive Failure').first().json.severity, stage: $('Dead Letter - Receive Failure').first().json.stage, leadId: $('Dead Letter - Receive Failure').first().json.leadId, reason: $('Dead Letter - Receive Failure').first().json.reason, action: $('Dead Letter - Receive Failure').first().json.action, execution: $('Dead Letter - Receive Failure').first().json.executionUrl }) }}",
+        "options": {
+          "timeout": 4000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000
+    },
+    {
+      "id": "83abf5d2-4225-42b9-ade7-82b8cf099e71",
+      "name": "Alert - Route Delivery Result",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1100,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2f44a0b4-72c9-450a-ab07-6935df8154e0",
+              "leftValue": "={{ $json.ok }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "ec5665cb-4f13-4f41-a2b8-c17745693631",
+      "name": "Dead Letter - Flag Alert Sent",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        -90
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "dead_letters"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "dead_letter_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Dead Letter - Receive Failure').first().json.deadLetterId }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "alert_status": "sent"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "alert_status",
+              "displayName": "alert_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      }
+    },
+    {
+      "id": "66da0e56-957d-4a44-a645-36873b1af266",
+      "name": "Dead Letter - Flag Alert Failed",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        90
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "dead_letters"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "dead_letter_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Dead Letter - Receive Failure').first().json.deadLetterId }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "alert_status": "failed"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "alert_status",
+              "displayName": "alert_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Dead Letter - Receive Failure": {
+      "main": [
+        [
+          {
+            "node": "Dead Letter - Upsert Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dead Letter - Upsert Record": {
+      "main": [
+        [
+          {
+            "node": "Lead - Mark Dead Letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead - Mark Dead Letter": {
+      "main": [
+        [
+          {
+            "node": "Config - Alert Endpoint",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config - Alert Endpoint": {
+      "main": [
+        [
+          {
+            "node": "Alert - Notify Operator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert - Notify Operator": {
+      "main": [
+        [
+          {
+            "node": "Alert - Route Delivery Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert - Route Delivery Result": {
+      "main": [
+        [
+          {
+            "node": "Dead Letter - Flag Alert Sent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Dead Letter - Flag Alert Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "pinData": {},
+  "meta": {},
+  "tags": []
+}
