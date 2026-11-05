@@ -1,0 +1,13 @@
+This is a sample build, not a client job. We built it to show how we handle failure in n8n. It is lead intake for a small service business. The CRM, the model and the messaging service are local mocks, so every failure here is a real HTTP error.
+
+First, naming. Every node reads as area, dash, verb, object. CRM, Upsert Lead. Follow-up, Check Ledger. Dead Letter, Build Record. When a run fails, the node name alone tells you which stage broke and what it was doing.
+
+A lead comes in, gets validated, then deduped on email and phone, all before the model is called. If the model fails, times out, or returns bad JSON, a fixed rules node scores the lead instead.
+
+Now a failure. We set the mock CRM to return 503 on every call, and send a lead in. Watch the retry loop. Attempt, classify, wait, go again. Two seconds, then four, then eight. A 5xx, a timeout or a 429 is temporary. A 400 is permanent, so it skips this loop, because trying again cannot help. After four attempts, this one stops.
+
+It lands here, in the dead letters table. Stage, error class, attempts and the original payload, so nothing is lost. The operator also gets an alert that says what to do next.
+
+The CRM is healthy again, so we run the replay workflow. It picks up open dead letters and posts them back through the same intake. The dead letter flips to resolved, and the mock console shows one CRM record and one message.
+
+That one message is on purpose. A ledger key is reserved before the send, and the same key goes to the provider. If a send works and the reply gets lost, the retry sends nothing. Anything no branch expected goes to the error workflow. Full test results are in the test file.
