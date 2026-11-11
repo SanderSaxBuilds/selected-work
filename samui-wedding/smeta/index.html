@@ -3,122 +3,171 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Смета свадьбы, пример</title>
+<title>Coral Vow, смета свадьбы на Самуи</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Смета свадьбы, пример">
-<meta property="og:description" content="Пара собирает свадьбу на Самуи и сразу видит смету по статьям, цену на гостя и предоплату. Пример для свадебного агентства.">
+<meta property="og:title" content="Coral Vow, смета свадьбы на Самуи">
+<meta property="og:description" content="Соберите свадьбу на Самуи и сразу увидите смету по статьям, цену на гостя и предоплату.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/samui-wedding/smeta/">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/home/samui-d1440.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:,">
-<meta name="description" content="Пара собирает свадьбу на Самуи и сразу видит смету по статьям, цену на гостя и предоплату. Пример для свадебного агентства.">
-<meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#11131a" media="(prefers-color-scheme: dark)">
-<link href="../../assets/gfonts/css/b08d038b7d33.css" rel="stylesheet">
+<meta name="description" content="Соберите свадьбу на Самуи и сразу увидите смету по статьям, цену на гостя и предоплату.">
+<meta name="theme-color" content="#a3b2c9">
+<link href="../../assets/gfonts/css/e54bfa0f7b31.css" rel="stylesheet">
 <style>
-:root{--bg:#f5f2ec;--paper:#fffdf9;--tx:#1b1f2c;--hint:#636674;--sep:rgba(27,31,44,.12);--field:#f2efe8;--acc:#23324f;--acctx:#fffdf9;--soft:#e7e9f0;--bar:#3b4f7a;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11131a;--paper:#1a1d27;--tx:#ebe8e1;--hint:#a3a5b1;--sep:rgba(235,232,225,.12);--field:#232734;--acc:#a9b8db;--acctx:#141a2b;--soft:#283048;--bar:#8195c4;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#11131a;--paper:#1a1d27;--tx:#ebe8e1;--hint:#a3a5b1;--sep:rgba(235,232,225,.12);--field:#232734;--acc:#a9b8db;--acctx:#141a2b;--soft:#283048;--bar:#8195c4;color-scheme:dark}
+:root{
+  --sea:#12363e;--sea-2:#0b272e;--lagoon:#2c6a72;--sky:#a3b2c9;--dusk:#d7d6dc;
+  --sand:#e9e1d3;--mist:#f4f6f5;--paper:#fff;--ink:#132a30;--muted:#4c5f65;--line:#d3dcdc;--tint:#eef3f3;
+  --flower:#9a1f3c;
+  --f:"Ysabeau Office",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--tx);font:15px/1.55 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--mist);color:var(--ink);font:400 17px/1.5 var(--f);overflow-x:hidden;font-variant-numeric:lining-nums tabular-nums;-webkit-font-smoothing:antialiased}
 a{color:inherit}
+i{font-style:normal}
 button,input,select{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-.top{padding-top:36px;padding-bottom:24px;text-align:center}
-.lbl{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--hint)}
-h1{font:500 44px/1.08 'Cormorant Garamond',Georgia,serif;margin:12px auto 12px;max-width:14em}
-.lede{color:var(--hint);max-width:38em;margin:0 auto}
-.toplink{display:inline-block;margin-top:14px;font-weight:600;color:var(--acc);text-decoration:none;border-bottom:1px solid transparent}
-.toplink:hover{border-bottom-color:var(--acc)}
-.lay{display:grid;grid-template-columns:1fr 380px;gap:20px;align-items:start}
-.lay>*,.pair>*{min-width:0}
-.panel{background:var(--paper);border-radius:22px;padding:22px}
-h2{font:600 22px/1.2 'Cormorant Garamond',Georgia,serif;margin-bottom:12px}
-.grp{padding:14px 0;border-top:1px solid var(--sep)}
-.grp:first-of-type{border-top:0;padding-top:0}
-.gl{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:600;margin-bottom:8px}
-.gl small{font-weight:500;color:var(--hint);font-size:13px}
-.opts{display:flex;flex-wrap:wrap;gap:6px}
-.opt{border:1px solid var(--sep);background:transparent;border-radius:999px;padding:7px 13px;font-size:14px;cursor:pointer;transition:background .12s,border-color .12s,color .12s}
-.opt:hover{border-color:var(--hint)}
-.opt[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acctx)}
-.rng{width:100%;accent-color:var(--acc)}
-.tog{display:flex;flex-wrap:wrap;gap:6px}
-select.sel{width:100%;background:var(--field);border:1px solid transparent;border-radius:10px;padding:9px 11px;font-size:15px}
-select.sel:focus{outline:0;border-color:var(--acc)}
-.sum{position:sticky;top:16px}
-.tot span{display:block;font-size:13px;color:var(--hint)}
-.tot b{display:block;font:600 40px/1.1 'Cormorant Garamond',Georgia,serif;letter-spacing:-.01em;margin:4px 0 2px;transition:transform .15s}
-.tot b.bump{transform:scale(1.04)}
-.tri{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 18px}
-.tri div{background:var(--field);border-radius:14px;padding:10px 12px}
-.tri span{display:block;font-size:12.5px;color:var(--hint)}
-.tri b{font-size:17px;font-weight:700}
+:focus-visible{outline:3px solid var(--lagoon);outline-offset:2px}
+.wrap{width:min(1240px,100% - 32px);margin-inline:auto}
+h1,h2{font-weight:600;line-height:1.08;letter-spacing:-.01em}
+
+/* top: the same dusk sky as the main page, closed by the gulf and the sand */
+.top{background:linear-gradient(180deg,var(--sky) 0%,#b9bfcf 55%,var(--dusk) 100%);color:var(--sea)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;min-height:44px;color:var(--sea);text-decoration:none}
+.tel{display:flex;align-items:center;min-height:44px;padding:0 6px;font-weight:600;font-size:17px;text-decoration:none;color:var(--sea);white-space:nowrap}
+.head{padding:clamp(18px,4vw,48px) 0 clamp(26px,4vw,44px)}
+.head h1{font-size:clamp(34px,4.1vw,60px);letter-spacing:-.02em;line-height:1.02}
+.head p{margin-top:12px;font-size:clamp(18px,1.5vw,21px);font-weight:500;max-width:30em}
+.gulf{display:block;width:100%;height:46px}
+
+/* choices */
+.lay{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:24px clamp(28px,4vw,64px);align-items:start;padding:clamp(28px,4vw,48px) 0 clamp(48px,6vw,80px)}
+h2{font-size:clamp(26px,2.6vw,34px);margin-bottom:8px}
+.grp{padding:16px 0;border-top:1px solid var(--line)}
+.grp:first-of-type{border-top:0}
+.gl{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:17px;font-weight:600;margin-bottom:10px}
+.gl small{font-weight:500;color:var(--muted);font-size:16px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:44px;border:1.5px solid var(--line);background:var(--paper);border-radius:4px;padding:0 14px;font-size:16px;font-weight:500;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.opt:hover{border-color:var(--sea)}
+.opt[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:#fff}
+.rng{display:block;width:100%;height:44px;accent-color:var(--sea);cursor:pointer}
+select.sel{width:100%;min-height:44px;border:0;border-bottom:1.5px solid var(--ink);background:transparent;padding:0 2px;font-size:18px;font-weight:600;border-radius:0;cursor:pointer}
+
+/* the estimate: one sheet of paper */
+.sum{position:sticky;top:16px;background:var(--paper);border-radius:4px;padding:24px 24px 20px;box-shadow:0 22px 50px -30px rgba(11,39,46,.55)}
+.sh{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sh span{font-size:17px;font-weight:600}
+.cur{display:flex;background:var(--tint);border-radius:6px;padding:2px}
+.cur button{border:0;background:none;min-width:44px;min-height:44px;padding:0 8px;border-radius:4px;font-size:17px;font-weight:600;color:var(--sea);cursor:pointer}
+.cur button[aria-pressed="true"]{background:var(--sea);color:#fff}
+.tot b{display:block;font-size:clamp(40px,4vw,52px);font-weight:600;line-height:1.05;letter-spacing:-.02em;color:var(--sea);margin:10px 0 4px;white-space:nowrap;transition:transform .15s;transform-origin:0 50%}
+.tot b.bump{transform:scale(1.03)}
+.tot span{display:block;font-size:16px;color:var(--muted)}
+.tri{display:grid;grid-template-columns:1fr 1fr;margin:18px 0 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tri div{padding:12px 0}
+.tri div+div{border-left:1px solid var(--line);padding-left:16px}
+.tri span{display:block;font-size:15px;line-height:1.3;color:var(--muted)}
+.tri b{display:block;margin-top:4px;font-size:22px;font-weight:600;color:var(--sea)}
 .hb{position:relative}
-.hb .row{display:grid;grid-template-columns:118px 1fr auto;gap:8px;align-items:center;font-size:13.5px;padding:4px 0;cursor:default}
+.hb .row{display:grid;grid-template-columns:118px 1fr auto;gap:10px;align-items:center;font-size:15px;padding:3px 0;cursor:default}
 .hb .row .tr{height:12px}
-.hb .row i{display:block;height:12px;border-radius:0 4px 4px 0;background:var(--bar);min-width:2px;transition:width .25s ease,opacity .12s}
-.hb .row b{font-weight:600;white-space:nowrap}
+.hb .row i{display:block;height:12px;border-radius:0 3px 3px 0;background:var(--lagoon);min-width:2px;transition:width .25s ease,opacity .12s}
+.hb .row b{font-weight:600;white-space:nowrap;min-width:3ch;text-align:right}
 .hb.hov .row i{opacity:.35}
 .hb.hov .row.on i{opacity:1}
-.tip{position:absolute;pointer-events:none;background:var(--tx);color:var(--paper);font-size:12.5px;line-height:1.45;padding:6px 9px;border-radius:8px;max-width:250px;opacity:0;transition:opacity .1s;z-index:2}
-.items{list-style:none;margin-top:16px;font-size:14px}
-.items li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--sep)}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:14px;line-height:1.45;padding:6px 9px;border-radius:4px;max-width:260px;opacity:0;transition:opacity .1s;z-index:2}
+.items{list-style:none;margin-top:18px;font-size:16px}
+.items li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
 .items li span:last-child{white-space:nowrap;font-weight:600}
-.items li small{display:block;color:var(--hint);font-size:12.5px}
-.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:11px 16px;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;transition:transform .12s,filter .12s,background .12s;position:relative;flex:1}
-.btn.p{background:var(--acc);color:var(--acctx)}
-.btn.p:hover{filter:brightness(1.1)}
-.btn.s{background:var(--field);color:var(--tx)}
-.btn.s:hover{background:var(--soft)}
-.btn:active{transform:scale(.97)}
-.cur{display:flex;gap:4px;justify-content:flex-end;margin-bottom:8px}
-.cur button{border:0;background:transparent;color:var(--hint);font-weight:700;font-size:14px;padding:4px 9px;border-radius:8px;cursor:pointer}
-.cur button[aria-pressed="true"]{background:var(--field);color:var(--tx)}
+.items li small{display:block;color:var(--muted);font-size:14px;line-height:1.35}
+.items li:last-child{border-bottom:0;padding-top:12px;font-size:18px}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 16px;border:1.5px solid var(--sea);border-radius:4px;background:var(--paper);color:var(--sea);font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;position:relative;transition:background .2s,color .2s}
+.btn:hover{background:var(--tint)}
+.btn.p{grid-column:1/-1;background:var(--sea);color:#fff;font-size:17px}
+.btn.p:hover{background:var(--sea-2)}
 .prt{display:none}
-.pitch{margin-top:24px;padding-bottom:48px}
-.pitch .in{background:var(--paper);border-radius:22px;padding:26px;display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
-.pitch ul{list-style:none}
-.pitch li{padding:9px 0 9px 20px;border-top:1px solid var(--sep);position:relative;font-size:14.5px}
-.pitch li::before{content:"";position:absolute;left:2px;top:17px;width:7px;height:7px;border-radius:50%;background:var(--acc)}
-.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.cta .btn{flex:0 1 auto}
-.note{font-size:12.5px;color:var(--hint);margin-top:14px}
-.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--tx);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:40;max-width:calc(100% - 32px)}
+
+/* phone: the total stays in view until the sheet scrolls in */
+.bar{display:none}
+@media (max-width:900px){
+  .lay{grid-template-columns:minmax(0,1fr)}
+  .sum{position:static}
+  .bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;align-items:center;justify-content:space-between;gap:12px;padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:var(--sea);color:#fff;transition:transform .2s}
+  .bar.away{transform:translateY(110%)}
+  .bar span{font-size:15px;color:#d4e2e4}
+  .bar b{display:block;font-size:24px;font-weight:600;line-height:1.1;color:#fff;white-space:nowrap}
+  .bar a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #fff;border-radius:4px;color:#fff;font-weight:600;text-decoration:none;white-space:nowrap}
+  body{padding-bottom:72px}
+}
+@media (max-width:560px){
+  .tel{display:none}
+  .nav{padding:8px 0}
+  .sum{padding:20px 16px 16px;margin-inline:-4px}
+  .hb .row{grid-template-columns:100px 1fr auto}
+  .tri b{font-size:20px}
+}
+@media (max-width:380px){
+  .acts{grid-template-columns:1fr}
+}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:12px 16px;border-radius:4px;font-size:16px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:40;max-width:calc(100% - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .petal{position:absolute;width:8px;height:8px;border-radius:50% 0;pointer-events:none;animation:petal .9s ease-out forwards}
 @keyframes petal{from{transform:translate(0,0) rotate(0) scale(1);opacity:1}to{transform:translate(var(--x),var(--y)) rotate(160deg) scale(.4);opacity:0}}
-@media (max-width:900px){.lay{grid-template-columns:1fr}.sum{position:static}}
-@media (max-width:560px){.wrap{padding:0 16px}.top{padding-top:24px}h1{font-size:33px}.panel{padding:18px}.pitch .in{grid-template-columns:1fr;padding:20px}.hb .row{grid-template-columns:98px 1fr auto}.tot b{font-size:34px}}
-@media (prefers-reduced-motion:reduce){.petal{display:none}.tot b{transition:none}}
+
+footer{background:var(--sea);color:#d4e2e4;font-size:15px;padding:28px 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between;align-items:center}
+footer .links{display:flex;flex-wrap:wrap;gap:0 18px}
+footer a{display:inline-flex;align-items:center;min-height:44px;color:#e6f0f1;text-underline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){.petal{display:none}*{transition:none!important}}
 @media print{
- @page{size:A4;margin:14mm}
- :root,:root[data-theme="dark"]{--bg:#fff;--paper:#fff;--tx:#1b1f2c;--hint:#636674;--sep:rgba(27,31,44,.16);--field:#f2efe8;--acc:#23324f;--bar:#3b4f7a;color-scheme:light}
- html,body{background:#fff}
- body{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:12.5px}
- .top,.pick,.pitch,.toast,.acts,.cur{display:none!important}
- .wrap{max-width:none;padding:0}.lay{display:block}.panel{padding:0}
- .prt{display:block;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #1b1f2c}
- .prt b{display:block;font:600 26px/1.2 'Cormorant Garamond',serif}
+  @page{size:A4;margin:14mm}
+  html,body{background:#fff}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:12.5px;padding:0}
+  .top,.pick,.toast,.acts,.cur,.sh,.bar,footer{display:none!important}
+  .wrap{width:auto}
+  .lay{display:block;padding:0}
+  .sum{padding:0;box-shadow:none;position:static}
+  .prt{display:block;margin-bottom:14px;padding-bottom:10px;border-bottom:1.5px solid var(--sea);color:var(--sea)}
+  .prt b{display:block;font-size:26px;font-weight:600;line-height:1.2}
+  .tot b{font-size:36px;margin-top:0}
+  .tri{margin:12px 0 14px}.tri div{padding:8px 0}.tri b{font-size:18px}
+  .hb .row{padding:1px 0;font-size:12.5px}
+  .items{margin-top:12px;font-size:12.5px}.items li{padding:4px 0;break-inside:avoid}.items li small{font-size:11px}.items li:last-child{font-size:14px;padding-top:8px}
 }
 </style>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:#fbf3e6}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important}.nav .brand .sb-logo{--sb-h:30px;--sb-acc:var(--sea)}footer .sb-foot{flex-basis:100%;margin:0 0 6px}</style>
 </head>
 <body>
-<header class="wrap top">
- <p class="lbl">Пример для свадебного агентства на Самуи</p>
- <h1>Соберите свадьбу и сразу увидите смету</h1>
- <p class="lede">Пара выбирает церемонию, место, число гостей и детали. Сумма, цена на гостя и предоплата пересчитываются на глазах, а готовую смету можно отправить агентству или партнёру.</p>
- <a class="toplink" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такую смету на сайт агентства →</a>
+<header class="top">
+ <nav class="nav wrap" aria-label="Coral Vow">
+  <a class="brand" href="../" aria-label="Coral Vow, главная"><svg class="sb-logo sb-h" data-sb="coralvow" viewBox="0 0 155 32" width="145" height="30" role="img" aria-label="Coral Vow" focusable="false"><g aria-hidden="true"><circle cx="16" cy="12.5" r="8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/><path d="M3 26.5c3-3 6.5-3 9.5 0s6.5 3 9.5 0 5-3 7 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="40" y="24.5" fill="currentColor" font-family="'Ysabeau Office'" font-weight="600" font-size="25" letter-spacing="0.01em">Coral Vow</text></svg></a>
+  <a class="tel" href="tel:+66000000000">+66 00 000 0000</a>
+ </nav>
+ <div class="head wrap">
+  <h1>Смета вашей свадьбы</h1>
+  <p>Выберите церемонию, место, гостей и детали. Сумма, цена на гостя и предоплата пересчитываются сразу. После подписания договора итог не растёт.</p>
+ </div>
+ <svg class="gulf" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <defs><linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d4952"/><stop offset="1" stop-color="#3b7a80"/></linearGradient></defs>
+  <rect width="1440" height="46" fill="url(#seaG)"/>
+  <path d="M180 12H330M1010 10H1190M1060 22H1150M560 20H640" stroke="#fbf4ea" stroke-width="2" stroke-linecap="round" opacity=".55" vector-effect="non-scaling-stroke"/>
+  <path d="M0 36Q720 30 1440 36V46H0Z" fill="#e9e1d3"/>
+  <path d="M0 42Q720 40 1440 42V46H0Z" fill="#f4f6f5"/>
+ </svg>
 </header>
 <main class="wrap lay">
- <section class="panel pick" aria-label="Выбор">
-  <h2>Ваша свадьба</h2>
+ <section class="pick" aria-labelledby="pickH">
+  <h2 id="pickH">Ваша свадьба</h2>
   <div class="grp"><div class="gl">Церемония</div><div class="opts" data-k="cer"></div></div>
   <div class="grp"><div class="gl">Место</div><div class="opts" data-k="ven"></div></div>
   <div class="grp"><div class="gl"><span>Гостей</span><small id="gv"></small></div><input class="rng" type="range" id="guests" min="2" max="80" step="1" aria-label="Число гостей"></div>
-  <div class="grp"><div class="gl">Месяц</div><select class="sel" id="mon" aria-label="Месяц свадьбы"></select></div>
+  <div class="grp"><div class="gl"><label for="mon">Месяц</label></div><select class="sel" id="mon" aria-label="Месяц свадьбы"></select></div>
   <div class="grp"><div class="gl">Декор и флористика</div><div class="opts" data-k="dec"></div></div>
   <div class="grp"><div class="gl"><span>Фотограф</span><small id="phv"></small></div><input class="rng" type="range" id="ph" min="0" max="10" step="1" aria-label="Часов фотографа"></div>
   <div class="grp"><div class="gl">Видео</div><div class="opts" data-k="vid"></div></div>
@@ -128,32 +177,18 @@ select.sel:focus{outline:0;border-color:var(--acc)}
   <div class="grp"><div class="gl">Музыка</div><div class="opts" data-k="mus"></div></div>
   <div class="grp"><div class="gl">Ещё</div><div class="opts tog" data-k="ext"></div></div>
  </section>
- <aside class="panel sum" aria-label="Смета">
+ <aside class="sum" id="sum" aria-label="Смета">
   <div class="prt" id="prt"></div>
-  <div class="cur" id="cur" role="group" aria-label="Валюта"><button type="button" data-v="thb">฿</button><button type="button" data-v="usd">$</button><button type="button" data-v="rub">₽</button></div>
-  <div class="tot"><span>Смета свадьбы</span><b id="total" aria-live="polite"></b><span id="sub"></span></div>
+  <div class="sh"><span>Смета свадьбы</span><div class="cur" id="cur" role="group" aria-label="Валюта"><button type="button" data-v="thb" aria-label="Баты">฿</button><button type="button" data-v="usd" aria-label="Доллары">$</button><button type="button" data-v="rub" aria-label="Рубли">₽</button></div></div>
+  <div class="tot"><b id="total" aria-live="polite"></b><span id="sub"></span></div>
   <div class="tri"><div><span>На одного гостя</span><b id="pg"></b></div><div><span>Предоплата 30%, чтобы закрепить дату</span><b id="dep"></b></div></div>
   <div class="hb" id="hb"><div class="tip" aria-hidden="true"></div><div id="hbR"></div></div>
   <ul class="items" id="items"></ul>
-  <div class="acts"><button class="btn p" type="button" id="send">Отправить смету</button><button class="btn s" type="button" id="share">Ссылка партнёру</button><button class="btn s" type="button" id="pdf">PDF</button></div>
+  <div class="acts"><button class="btn p" type="button" id="send">Скопировать смету для Миры</button><button class="btn" type="button" id="share">Ссылка партнёру</button><button class="btn" type="button" id="pdf">Сохранить PDF</button></div>
  </aside>
 </main>
-<section class="wrap pitch">
- <div class="in">
-  <div>
-   <h2>Для свадебных агентств</h2>
-   <p>Пары из России и Казахстана первым делом спрашивают, сколько это стоит. Смета на сайте отвечает честно и сразу, а агентство получает заявку уже с датой, числом гостей и выбранными деталями.</p>
-   <div class="cta"><a class="btn p" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такую смету</a><a class="btn s" href="../">← Набросок сайта</a></div>
-  </div>
-  <ul>
-   <li>Ваши пакеты, площадки и реальные цены</li>
-   <li>Смета приходит менеджеру в Telegram или WhatsApp</li>
-   <li>Ссылка, по которой пара открывает ту же смету</li>
-   <li>Рубли, доллары, тенге и баты</li>
-  </ul>
- </div>
- <p class="note">Это пример. Цены, пакеты и курс валют условные, они не относятся к конкретному агентству.</p>
-</section>
+<div class="bar" id="bar"><div><span>Смета свадьбы</span><b id="barT"></b></div><a href="#sum">Открыть смету</a></div>
+<footer><div class="wrap"><div class="sb-foot"><a href="../" aria-label="Coral Vow, главная"><svg class="sb-logo sb-f" data-sb="coralvow" viewBox="0 0 155 32" width="135.6" height="28" role="img" aria-label="Coral Vow" focusable="false"><g aria-hidden="true"><circle cx="16" cy="12.5" r="8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/><path d="M3 26.5c3-3 6.5-3 9.5 0s6.5 3 9.5 0 5-3 7 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="40" y="24.5" fill="currentColor" font-family="'Ysabeau Office'" font-weight="600" font-size="25" letter-spacing="0.01em">Coral Vow</text></svg></a></div><span>Дизайн и разработка: Александр Хрусталев, Паттайя.</span><span class="links"><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram</a><a href="https://wa.me/66961347329">WhatsApp</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a><a href="../">Coral Vow</a><a href="../../">Selected work</a></span></div></footer>
 <div class="toast" id="toast" role="status"></div>
 <script>
 (function(){
@@ -217,12 +252,13 @@ function opts(){document.querySelectorAll('.opts').forEach(box=>{const k=box.dat
 function render(){E=calc();const g=S.guests;
  $('gv').textContent=g+' '+plural(g,'гость','гостя','гостей');$('phv').textContent=S.ph?S.ph+' '+plural(S.ph,'час','часа','часов'):'без фотографа';
  const t=$('total');t.textContent=fm(E.tot);if(lastTot&&lastTot!==E.tot){t.classList.add('bump');setTimeout(()=>t.classList.remove('bump'),160);}lastTot=E.tot;
+ $('barT').textContent=fm(E.tot);
  $('sub').textContent=monL(S.mon)+', '+(isHigh(S.mon)?'высокий сезон':'низкий сезон')+', '+g+' '+plural(g,'гость','гостя','гостей');
  $('pg').textContent=fm(E.tot/(g+2));$('dep').textContent=fm(Math.round(E.tot*.3/100)*100);
  const mx=E.cats[0]?E.cats[0].a:1;
  $('hbR').innerHTML=E.cats.map((c,i)=>'<div class="row" data-i="'+i+'"><span>'+c.k+'</span><span class="tr"><i style="width:'+(c.a/mx*100).toFixed(1)+'%"></i></span><b>'+Math.round(c.a/E.tot*100)+'%</b></div>').join('');
  $('items').innerHTML=E.L.map(x=>'<li><span>'+x.l+(x.n?'<small>'+x.n+'</small>':'')+'</span><span>'+fm(x.a)+'</span></li>').join('')+'<li><span><b>Итого</b><small>на '+g+' '+plural(g,'гостя','гостей','гостей')+' и пару</small></span><span>'+fm(E.tot)+'</span></li>';
- $('prt').innerHTML='<b>Смета свадьбы на Самуи</b>'+lab('cer',S.cer)+', '+monL(S.mon)+', '+g+' '+plural(g,'гость','гостя','гостей')+'. Пример, цены условные.';
+ $('prt').innerHTML='<b>Coral Vow, смета свадьбы на Самуи</b>'+lab('cer',S.cer)+', '+monL(S.mon)+', '+g+' '+plural(g,'гость','гостя','гостей')+'.';
  save();}
 (function(){const el=$('hb'),tip=el.querySelector('.tip');
  el.addEventListener('pointermove',e=>{const r=e.target.closest('.row');if(!r){el.classList.remove('hov');tip.style.opacity=0;return;}const c=E.cats[+r.dataset.i];
@@ -241,14 +277,17 @@ $('cur').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
 let svT=0;function save(){clearTimeout(svT);svT=setTimeout(()=>{try{localStorage.setItem('pn_wed',JSON.stringify(S));}catch(e){}},300);}
 function link(){const p=new URLSearchParams();['cer','ven','guests','mon','dec','ph','vid','din','drk','bty','mus','cur'].forEach(k=>p.set(k,S[k]));p.set('ext',S.ext.join('.'));return location.origin+location.pathname+'#'+p.toString();}
 function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2600);}
-function petals(el){if(getComputedStyle(el).position==='static')el.style.position='relative';const r=el.getBoundingClientRect(),cols=['#e9b9c4','#f3e3b5','#c9d4ee'];
+function petals(el){if(getComputedStyle(el).position==='static')el.style.position='relative';const r=el.getBoundingClientRect(),cols=['#9a1f3c','#e7b9c2','#fbf3e6'];
  for(let i=0;i<10;i++){const d=document.createElement('i');d.className='petal';const a=-Math.PI/2+(Math.random()-.5)*2.4,dist=24+Math.random()*26;d.style.left=(r.width/2-4)+'px';d.style.top=(r.height/2-4)+'px';d.style.background=cols[i%3];d.style.setProperty('--x',Math.cos(a)*dist+'px');d.style.setProperty('--y',Math.sin(a)*dist+'px');el.appendChild(d);setTimeout(()=>d.remove(),950);}}
 async function copy(t){try{await navigator.clipboard.writeText(t);return true;}catch(_){try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();return ok;}catch(__){return false;}}}
-function msgText(){const g=S.guests;return ['Смета свадьбы на Самуи',lab('cer',S.cer)+', '+monL(S.mon)+', '+g+' '+plural(g,'гость','гостя','гостей'),'',
+function msgText(){const g=S.guests;return ['Смета свадьбы на Самуи, Coral Vow',lab('cer',S.cer)+', '+monL(S.mon)+', '+g+' '+plural(g,'гость','гостя','гостей'),'',
  ...E.L.map(x=>'- '+x.l+': '+fm(x.a)),'','Итого: '+fm(E.tot),'Предоплата 30%: '+fm(Math.round(E.tot*.3/100)*100),'','Открыть смету: '+link()].join('\n');}
-$('send').addEventListener('click',async e=>{petals(e.currentTarget);toast(await copy(msgText())?'Смета скопирована, вставьте в чат агентству':'Не получилось скопировать');});
+$('send').addEventListener('click',async e=>{petals(e.currentTarget);toast(await copy(msgText())?'Смета скопирована, вставьте её в чат с Мирой':'Не получилось скопировать');});
 $('share').addEventListener('click',async e=>{petals(e.currentTarget);history.replaceState(null,'',link());toast(await copy(link())?'Ссылка скопирована, партнёр увидит эту же смету':'Не получилось скопировать');});
 $('pdf').addEventListener('click',()=>{const old=document.title;document.title='Смета свадьбы '+monL(S.mon);setTimeout(()=>{window.print();document.title=old;},300);});
+/* phone: hide the total bar while the sheet itself is on screen */
+if('IntersectionObserver' in window){new IntersectionObserver(es=>{es.forEach(x=>$('bar').classList.toggle('away',x.isIntersecting));}).observe($('sum'));}
+$('bar').querySelector('a').addEventListener('click',e=>{e.preventDefault();$('sum').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});
 opts();render();
 })();
 </script>

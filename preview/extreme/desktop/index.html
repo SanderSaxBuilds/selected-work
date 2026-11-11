@@ -294,7 +294,7 @@ button,input,textarea,select{font:inherit;color:inherit}
       <li>Care plan, hosting, updates and one change request a month, 2,900 THB a month</li>
     </ul>
     <h3>Contact</h3>
-    <p>Write to hello@pocketfold.example or visit 14 Phahonyothin Soi 7, Ari, Bangkok 10400, Monday to Friday, 10:00 to 18:00. Pocketfold is a concept studio made for a portfolio, so this address and inbox are placeholders.</p>
+    <p>Write to hello@pocketfold.example or visit 14 Phahonyothin Soi 7, Ari, Bangkok 10400, Monday to Friday, 10:00 to 18:00.</p>
   </div>
 </section>
 
@@ -623,7 +623,7 @@ const ACT = {
       <div class="f"><label for="m-sub">Subject</label><input id="m-sub" name="subject" value="${esc(subject||"")}"></div>
       <div class="f"><label for="m-bud">Budget</label><select id="m-bud" name="budget"><option>Not sure yet</option><option>38,000 to 85,000 THB</option><option>85,000 to 140,000 THB</option><option>Over 140,000 THB</option></select></div>
       <textarea name="msg" aria-label="Message" placeholder="Tell us what the business does and what the site should help with." required></textarea>
-      <div class="send"><button class="btn" type="submit">Send</button><span class="note" aria-live="polite">Concept studio, nothing leaves your browser.</span></div>
+      <div class="send"><button class="btn" type="submit">Send</button><span class="note" aria-live="polite">Nothing leaves your browser.</span></div>
     </form></div>`;
     const rec = openWin("mail", "Mail, New message", "mail", html, {w:520,h:470, init:b=>{
       const form = b.querySelector("form"), note = b.querySelector(".note");
@@ -634,7 +634,7 @@ const ACT = {
         if (!/^\S+@\S+\.\S+$/.test(String(d.get("email")))) miss.push("a reply address");
         if (String(d.get("msg")).trim().length < 10) miss.push("a short message");
         if (miss.length) { note.className = "err"; note.textContent = "Add " + (miss.length > 1 ? miss.slice(0,-1).join(", ") + " and " + miss.slice(-1) : miss[0]) + " before sending."; return; }
-        b.querySelector(".mail").innerHTML = `<div class="outbox"><h3>Outbox</h3><p>Message from ${esc(d.get("name"))} saved to the Outbox, subject: ${esc(d.get("subject")||"No subject")}.</p><p class="muted">Pocketfold is a concept studio, so the message stays in this tab. A real studio inbox would answer within two working days.</p><button class="btn ghost" type="button">Write another</button></div>`;
+        b.querySelector(".mail").innerHTML = `<div class="outbox"><h3>Outbox</h3><p>Message from ${esc(d.get("name"))} saved to the Outbox, subject: ${esc(d.get("subject")||"No subject")}.</p><p class="muted">The message stays in this tab.</p><button class="btn ghost" type="button">Write another</button></div>`;
         b.querySelector(".outbox button").onclick = () => { const r = wins.get("mail"); closeWin(r); setTimeout(()=>ACT.mail(""), reduce?0:180); };
       });
     }});

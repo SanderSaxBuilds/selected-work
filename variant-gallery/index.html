@@ -4,177 +4,30 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#ecd9cf">
+    <meta name="theme-color" content="#dee3db">
     <title>Stillwater Bottle | Fieldnote Goods</title>
     <meta name="description" content="The Stillwater Bottle in three colours and two sizes. A double-wall steel bottle with a soft powder coat, a carry loop and optional engraving." />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Stillwater Bottle, a product page study" />
-    <meta property="og:description" content="A product page where photo, price, stock, engraving and the link stay in step with every option, plus two store bugs reproduced on purpose." />
+    <meta property="og:title" content="Stillwater Bottle, Fieldnote Goods" />
+    <meta property="og:description" content="Pick a coat, a size and an engraving. Photo, price, stock and the link follow every choice." />
     <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/variant-gallery/" />
 <link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/variant-gallery/">
     <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/variant.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Stillwater Bottle, a product page study" />
+    <meta name="twitter:title" content="Stillwater Bottle, Fieldnote Goods" />
     <meta name="twitter:description" content="Photo, price, stock, engraving and the link stay in step with every option." />
     <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/variant.jpg" />
-    <link rel="stylesheet" href="../assets/gfonts/css/3c9702430141.css" />
-    <link rel="stylesheet" href="styles.css?v=20261025s" />
-<style>
-/* Stillwater preview. A plaster showroom: warm plaster rose, basalt type, deep lake blue for choices.
-   Instrument Serif for the name, Familjen Grotesk for everything you click. Options left, photo right. */
-:root {
-  --ink: #211e1d; --ink-2: #3d3735; --muted: #6a605c; --white: #fbf7f4;
-  --line: rgba(33, 30, 29, .16); --line-strong: rgba(33, 30, 29, .38);
-  --lake: #24576b; --lake-deep: #1a4152; --sold: #8c2f2a; --ok: #24576b;
-  --sans: "Familjen Grotesk", "Segoe UI", system-ui, sans-serif;
-  --serif: "Instrument Serif", Georgia, serif;
-  --radius: 2px;
-}
-body[data-tone="moss"] { --tone: #ecd9cf; --tone-deep: #e1c8bb; --tone-ink: #24576b; }
-body[data-tone="glacier"] { --tone: #e2e2e4; --tone-deep: #d3d4d8; --tone-ink: #24576b; }
-body[data-tone="basalt"] { --tone: #e6ddd5; --tone-deep: #d7cbc0; --tone-ink: #24576b; }
-body { font-family: var(--sans); }
-h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; font-stretch: normal !important; }
-.kicker { font-family: var(--sans); color: var(--lake); letter-spacing: .2em; font-size: 12px; }
-
-.ribbon { background: var(--lake); color: #e9eef0; letter-spacing: .14em; text-transform: uppercase; font-size: 11.5px; }
-
-/* Header: the wordmark is the only mark, the bag count is plain text */
-.site-header { background: color-mix(in srgb, var(--tone) 92%, transparent); border-bottom: 1px solid var(--ink); }
-.brand-mark { display: none; }
-.brand-name { font: 400 30px/1 var(--serif); font-stretch: normal; letter-spacing: 0; text-transform: none; font-style: italic; }
-.main-nav a { border-radius: 0; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
-.main-nav a:hover { background: transparent; text-decoration: underline; text-underline-offset: 6px; }
-.bag-button { width: auto; height: 46px; padding: 0 6px; border-radius: 0; display: inline-flex; gap: 2px; align-items: center; }
-.bag-button:hover { background: transparent; }
-.bag-count { position: static; display: inline-block; white-space: nowrap; min-width: 0; height: auto; padding: 0; border-radius: 0; background: transparent; color: var(--ink); font: 600 15px/1 var(--sans); }
-.bag-count::before { content: "("; }
-.bag-count::after { content: ")"; }
-
-/* Product: options column on the left, a tall photo on the right, views in a strip below it */
-@media (min-width: 980px) {
-  .product-layout { grid-template-columns: minmax(380px, .78fr) minmax(0, 1.22fr); gap: 64px; }
-  .gallery-column { order: 2; }
-  .product-info { order: 1; padding-top: 12px; }
-  .gallery { grid-template-columns: minmax(0, 1fr); }
-  .gallery-thumbnails { order: 2; flex-direction: row; }
-}
-.media-stage { border-radius: 0; box-shadow: inset 0 0 0 1px var(--line); }
-.image-index, .view-name { border-radius: 0; background: transparent; backdrop-filter: none; color: var(--ink); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; padding: 6px 4px; }
-.zoom-button { border-radius: 0; background: var(--ink); color: var(--white); }
-.zoom-button:hover { background: var(--lake); }
-.zoom-button[aria-pressed="true"] { background: var(--lake); }
-.arrow-button { border-radius: 0; background: var(--white); }
-.thumb-button { border-radius: 0; box-shadow: inset 0 0 0 1px var(--line); }
-.thumb-button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ink), 0 4px 0 -1px var(--lake); }
-
-.breadcrumbs ol { font-size: 13px; letter-spacing: 0; text-transform: none; }
-/* V3: the product name is a normal product title, not a display headline */
-h1, h1[id] { font: italic 400 clamp(40px, 3.4vw, 52px)/1 var(--serif); letter-spacing: -.01em; margin-top: 12px; }
-.title-main { display: inline; }
-@media (min-width: 980px) and (max-height: 1000px) { h1 { font-size: clamp(40px, 3.4vw, 52px); } }
-@media (min-width: 1900px) and (max-height: 1250px) { h1 { font-size: clamp(44px, 2.6vw, 60px); } }
-.price-row { border-top: 1px solid var(--ink); padding-top: 14px; }
-.price { font: 400 40px/1 var(--serif); }
-.product-description { font-size: 16px; }
-.link-message { border-radius: 0; border-left: 3px solid var(--sold); }
-
-/* Options: square chips and bars instead of round pills */
-.option-fieldset legend { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
-.legend-key { font-weight: 700; }
-.color-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--ink); }
-.color-choice { flex-direction: column; align-items: stretch; gap: 0; min-height: 0; padding: 0; border-radius: 0; background: transparent; box-shadow: none; }
-.color-choice + .color-choice { border-left: 1px solid var(--ink); }
-.color-choice:hover { background: var(--white); }
-.swatch { width: 100%; height: 44px; border-radius: 0; background: var(--swatch); box-shadow: inset 0 -1px 0 var(--ink); }
-.choice-text { padding: 10px 12px; font-size: 14px; font-weight: 600; }
-.color-choice:has(input:checked) { background: var(--ink); color: var(--white); box-shadow: none; }
-.size-options { gap: 0; border: 1px solid var(--ink); }
-.size-choice { border-radius: 0; background: transparent; box-shadow: none; padding: 16px; }
-.size-choice + .size-choice { border-left: 1px solid var(--ink); }
-.size-choice:hover { background: var(--white); }
-.size-choice:has(input:checked) { background: var(--ink); color: var(--white); box-shadow: none; }
-.size-choice:has(input:checked) .size-price, .size-choice:has(input:checked) .size-hint { color: #d9d2cd; }
-.size-label { font: 400 26px/1 var(--serif); }
-@media (max-width: 360px) { .size-choice + .size-choice { border-left: 0; border-top: 1px solid var(--ink); } }
-.engrave-fieldset { border-radius: 0; background: transparent; box-shadow: inset 0 0 0 1px var(--line-strong); }
-.toggle-track { border-radius: 0; background: rgba(33, 30, 29, .2); }
-.toggle-track span { border-radius: 0; box-shadow: none; }
-.engrave-toggle input:checked + .toggle-track { background: var(--lake); }
-.engrave-field input { border-radius: 0; }
-.engrave-field input:focus { box-shadow: inset 0 0 0 2px var(--lake); }
-.availability strong { color: var(--ok); }
-.swap-button { border-radius: 0; }
-.quantity { border-radius: 0; background: transparent; box-shadow: inset 0 0 0 1px var(--ink); }
-.add-button { border-radius: 0; background: var(--lake); font-size: 15px; letter-spacing: .14em; text-transform: uppercase; }
-.add-button:hover { background: var(--lake-deep); }
-.promise-list { border-radius: 0; background: transparent; gap: 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-.promise-list li { background: transparent; text-align: left; padding: 12px 10px 12px 0; }
-.promise-list li + li { border-left: 1px solid var(--line-strong); padding-left: 12px; }
-.promise-list b { font: 400 26px/1.05 var(--serif); }
-@media (max-width: 720px) { .promise-list li:nth-child(3) { border-left: 0; padding-left: 0; } .promise-list li:nth-child(n+3) { border-top: 1px solid var(--line-strong); } }
-
-/* Story band goes dark basalt */
-.story { background: var(--ink); color: #efe7e2; }
-.story .kicker { color: #9cc3d2; }
-.story-copy > p:not(.kicker) { color: #d4cbc6 !important; }
-.story-figure { border-radius: 0; }
-.story-copy h2, .sizes-copy h2 { font-size: clamp(34px, 3.4vw, 46px); line-height: 1; }
-.spec-list div { border-top-color: rgba(239, 231, 226, .25); }
-.spec-list dt { color: #b4aaa5; letter-spacing: .1em; text-transform: uppercase; font-size: 12px; }
-.spec-list dd { color: #fbf7f4; }
-.sizes-figure { border-radius: 0; }
-.day-slider input { accent-color: var(--lake); }
-.ghost-button { border-radius: 0; box-shadow: inset 0 0 0 1.5px var(--ink); letter-spacing: .1em; text-transform: uppercase; font-size: 14px; }
-.ghost-button:hover:not(:disabled) { background: var(--lake); box-shadow: inset 0 0 0 1.5px var(--lake); }
-.care h2 { font-size: clamp(34px, 3.4vw, 46px); }
-.care-list li { border-top-color: var(--ink); }
-.care-list li::before { font: 400 34px/1 var(--serif); color: var(--lake); }
-
-.study-panel { background: var(--lake-deep); color: #e3ecef; }
-.study-panel .kicker { color: #a9cbd8; }
-.study-copy h2 { font-size: clamp(30px, 3vw, 40px); }
-.study-copy p:last-child { color: #c4d6dd; }
-.study-control select { border-radius: 0; background: #143746; }
-.defect-note { border-left-color: #ecd9cf; border-radius: 0; background: rgba(236, 217, 207, .1); }
-
-.buy-bar { background: color-mix(in srgb, var(--tone) 94%, transparent); box-shadow: 0 -1px 0 var(--ink); }
-/* V3: on phones and tablets the slim buy bar also shows before you reach the main Add button,
-   so Add to bag is on the first screen under the photo */
-.buy-bar.pre { transform: none; }
-@media (max-width: 979px) { .site-footer { padding-bottom: 96px; } }
-@media (min-width: 721px) and (max-width: 979px) {
-  .media-stage { width: min(100%, calc((100svh - 420px) * .8)); max-height: none; margin: 0 auto; }
-  .gallery-thumbnails { justify-content: center; }
-}
-@media (max-width: 720px) {
-  .media-stage { aspect-ratio: 1 / 1; }
-  h1, h1[id] { font-size: 40px; margin-top: 8px; }
-}
-.buy-bar-swatch { border-radius: 0; width: 22px; height: 34px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25); }
-.site-footer { border-top: 1px solid var(--ink); }
-.footer-brand { font: 400 24px/1 var(--serif); font-style: italic; letter-spacing: 0; text-transform: none; }
-.footer-contact span { color: var(--lake); }
-.bag-dialog { background: var(--white); }
-.bag-head h2 { font: 400 32px/1 var(--serif); }
-.bag-thumb { border-radius: 0; }
-.line-qty { border-radius: 0; }
-.bag-foot { background: #f1e7e1; }
-.ship-track, .ship-fill { border-radius: 0; }
-.ship-fill { background: var(--lake); }
-.toast { border-radius: 0; background: var(--lake-deep); }
-.skip-link:focus { border-radius: 0; }
-:focus-visible { outline-color: var(--lake); }
-</style>
+    <link rel="stylesheet" href="../assets/gfonts/css/1f204999d72a.css" />
+    <link rel="stylesheet" href="styles.css?v=20261112g" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d2320'/%3E%3Cpath d='M16 7l8 4.6v8.8L16 25l-8-4.6v-8.8z' fill='none' stroke='%23e4e8e1' stroke-width='2'/%3E%3C/svg%3E" />
     <script src="app.js" defer></script>
-  <style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--lake)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.brand .sb-logo,.footer-brand .sb-logo{x:0}</style></head>
+  <style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--coat)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.brand .sb-logo,.footer-brand .sb-logo{x:0}</style></head>
   <body data-tone="moss">
     <a class="skip-link" href="#main">Skip to product</a>
     <p class="ribbon">Free shipping over $50. Free returns for 30 days.</p>
     <header class="site-header">
       <div class="shell header-row">
-        <a class="brand" href="#product" aria-label="Fieldnote Goods, back to product"><svg class="sb-logo sb-h" data-sb="fieldnote" viewBox="0 0 184 32" width="172.5" height="30" role="img" aria-label="Fieldnote Goods" focusable="false"><g aria-hidden="true"><path d="M13 3h6v6l3.5 4.5V27a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V13.5L13 9z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><rect x="9.5" y="17" width="13" height="6" fill="currentColor" class="f-a s-n"/></g><text x="42" y="25.0" fill="currentColor" font-family="'Instrument Serif'" font-weight="400" font-size="25" letter-spacing="0em">Fieldnote Goods</text></svg>
+        <a class="brand" href="#product" aria-label="Fieldnote Goods, back to product"><svg class="sb-logo sb-h" data-sb="fieldnote" viewBox="0 0 184 32" width="172.5" height="30" role="img" aria-label="Fieldnote Goods" focusable="false"><g aria-hidden="true"><path d="M13 3h6v6l3.5 4.5V27a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V13.5L13 9z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><rect x="9.5" y="17" width="13" height="6" fill="currentColor" class="f-a s-n"/></g><text x="40" y="23.5" fill="currentColor" font-family="'Archivo'" font-weight="700" font-size="20" letter-spacing="-0.01em">Fieldnote Goods</text></svg>
         </a>
         <nav class="main-nav" aria-label="Main navigation">
           <a href="#product">Bottle</a>
@@ -394,11 +247,10 @@ h1, h1[id] { font: italic 400 clamp(40px, 3.4vw, 52px)/1 var(--serif); letter-sp
 
     <footer class="site-footer">
       <div class="shell footer-row">
-        <span class="footer-brand"><svg class="sb-logo sb-f" data-sb="fieldnote" viewBox="0 0 184 32" width="149.5" height="26" role="img" aria-label="Fieldnote Goods" focusable="false"><g aria-hidden="true"><path d="M13 3h6v6l3.5 4.5V27a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V13.5L13 9z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><rect x="9.5" y="17" width="13" height="6" fill="currentColor" class="f-a s-n"/></g><text x="42" y="25.0" fill="currentColor" font-family="'Instrument Serif'" font-weight="400" font-size="25" letter-spacing="0em">Fieldnote Goods</text></svg></span>
-        <p>Fieldnote Goods is fictional. Nothing is for sale. Bottles are original SVG drawings.</p>
+        <span class="footer-brand"><svg class="sb-logo sb-f" data-sb="fieldnote" viewBox="0 0 184 32" width="149.5" height="26" role="img" aria-label="Fieldnote Goods" focusable="false"><g aria-hidden="true"><path d="M13 3h6v6l3.5 4.5V27a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V13.5L13 9z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><rect x="9.5" y="17" width="13" height="6" fill="currentColor" class="f-a s-n"/></g><text x="40" y="23.5" fill="currentColor" font-family="'Archivo'" font-weight="700" font-size="20" letter-spacing="-0.01em">Fieldnote Goods</text></svg></span>
         <a href="../index.html">Back to selected work</a>
         <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-      <p class="sb-label">Sample site, fictional brand</p></div>
+      </div>
     </footer>
 
     <dialog class="bag-dialog" id="bagDialog" aria-labelledby="bagTitle">
@@ -415,7 +267,7 @@ h1, h1[id] { font: italic 400 clamp(40px, 3.4vw, 52px)/1 var(--serif); letter-sp
           <span class="ship-track" aria-hidden="true"><span class="ship-fill" id="shipFill"></span></span>
         </div>
         <div class="bag-total"><span>Subtotal</span><strong class="figure" id="bagSubtotal">$0.00</strong></div>
-        <p class="bag-note">Checkout is turned off in this sample shop.</p>
+        <p class="bag-note">Free returns for 30 days.</p>
       </div>
     </dialog>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

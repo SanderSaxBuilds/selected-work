@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Калькулятор лизхолда, пример</title>
+<title>Калькулятор лизхолда</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Калькулятор лизхолда, пример">
-<meta property="og:description" content="Сколько стоит год владения виллой в лизхолд, когда она окупится и что останется к концу срока. Пример для агентств на Пхукете и Бали.">
+<meta property="og:title" content="Калькулятор лизхолда">
+<meta property="og:description" content="Сколько стоит год владения виллой в лизхолд, когда она окупится и что останется к концу срока. Для агентств на Пхукете и Бали.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/property/leasehold/">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/property/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../../assets/sandersax-icon-32.png">
-<meta name="description" content="Сколько стоит год владения виллой в лизхолд, когда она окупится и что останется к концу срока. Пример для агентств на Пхукете и Бали.">
+<meta name="description" content="Сколько стоит год владения виллой в лизхолд, когда она окупится и что останется к концу срока. Для агентств на Пхукете и Бали.">
 <meta name="theme-color" content="#f1f0ea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121410" media="(prefers-color-scheme: dark)">
 <link href="../../assets/gfonts/css/217cae33facb.css" rel="stylesheet">
@@ -115,7 +115,7 @@ h2{font:400 19px/1.25 Prata,Georgia,serif;margin-bottom:12px}
 </head>
 <body>
 <header class="wrap top">
- <p class="lbl">Пример для агентства, Пхукет и Бали</p>
+ <p class="lbl">Для агентства, Пхукет и Бали</p>
  <h1>Сколько стоит год владения виллой в лизхолд</h1>
  <p class="lede">Главный вопрос покупателя лизхолда: окупится ли вилла до конца срока и что останется после. Двигайте загрузку и цену ночи, и график ответит сразу.</p>
  <a class="toplink" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такой калькулятор на свой сайт →</a>
@@ -123,7 +123,7 @@ h2{font:400 19px/1.25 Prata,Georgia,serif;margin-bottom:12px}
 <main class="wrap lay">
  <aside class="panel side" aria-label="Параметры">
   <h2>Объект</h2>
-  <div class="seg" id="pre" role="group" aria-label="Пример"><button type="button" data-v="ph">Пхукет 30+30</button><button type="button" data-v="bl">Бали 25 лет</button></div>
+  <div class="seg" id="pre" role="group" aria-label="Готовый расчёт"><button type="button" data-v="ph">Пхукет 30+30</button><button type="button" data-v="bl">Бали 25 лет</button></div>
   <label class="field">Цена виллы, <span class="cs"></span><input id="price" inputmode="numeric" maxlength="17"></label>
   <div class="pair">
    <label class="field">Осталось лет<input id="left" inputmode="numeric" maxlength="2"></label>
@@ -175,7 +175,7 @@ h2{font:400 19px/1.25 Prata,Georgia,serif;margin-bottom:12px}
    <li>Заявка с выбранной виллой сразу менеджеру</li>
   </ul>
  </div>
- <p class="note">Цены, загрузка, расходы и курс валют условные. Расчёт упрощённый, это не оферта и не финансовая или юридическая консультация.</p>
+ <p class="note">Расчёт упрощённый, это не оферта и не финансовая или юридическая консультация.</p>
 </section>
 <div class="toast" id="toast" role="status"></div>
 <script>
@@ -214,7 +214,7 @@ function render(){M=model();const m=M;
  $('kp').innerHTML=kp.map(k=>'<div><span>'+k[0]+'</span><b>'+k[1]+'</b><small>'+k[2]+'</small></div>').join('');
  const f=[['Покупка',fm(m.P)],m.X?['Продление на '+yr(m.E)+', через '+yr(m.L),fm(m.X)]:null,['Срок владения',yr(m.T)],['Доход от аренды за срок, чистыми',fm(m.rows.reduce((a,r)=>a+(r.net||0),0))],['Средний доход в месяц, 1-й год',fm(m.first.net/12)],['Загрузка и цена ночи',S.occ+'%, '+fm(S.night)]].filter(Boolean);
  $('facts').innerHTML=f.map(x=>'<li><span>'+x[0]+'</span><span>'+x[1]+'</span></li>').join('');
- $('prt').innerHTML='<b>'+PRE[S.pre].n+'</b>Расчёт для покупателя, цифры условные.';
+ $('prt').innerHTML='<b>'+PRE[S.pre].n+'</b>Расчёт для покупателя.';
  drawChart();drawTable();save();}
 function drawTable(){$('tblBox').hidden=!TBL;if(!TBL)return;
  $('yt').innerHTML='<thead><tr><th>Год</th><th class="r">Чистый доход</th><th class="r">Итого с начала</th><th class="r">Стоимость срока</th></tr></thead><tbody>'+M.rows.slice(1).map(r=>'<tr'+(r.y===M.pay?' class="pb"':'')+'><td>'+r.y+(r.ext?', продление':'')+(r.y===M.pay?', окупаемость':'')+'</td><td class="r">'+fm(r.net)+'</td><td class="r">'+fm(r.cum)+'</td><td class="r">'+fm(r.val)+'</td></tr>').join('')+'</tbody>';}
@@ -261,7 +261,7 @@ function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');cl
 function burst(el){const r=el.getBoundingClientRect();for(let i=0;i<14;i++){const d=document.createElement('i');d.className='burst';const a=i/14*Math.PI*2,dist=30+Math.random()*24;d.style.left=(r.width/2-3)+'px';d.style.top=(r.height/2-3)+'px';d.style.background=i%2?'var(--s1)':'#e3c45a';d.style.setProperty('--x',Math.cos(a)*dist+'px');d.style.setProperty('--y',Math.sin(a)*dist+'px');el.appendChild(d);setTimeout(()=>d.remove(),750);}}
 function msgText(){const m=M;return [PRE[S.pre].n,'Цена '+fm(m.P)+(m.X?', продление на '+yr(m.E)+' '+fm(m.X):'')+', срок '+yr(m.T),'Загрузка '+S.occ+'%, ночь '+fm(S.night),'',
  'Год владения обходится в '+fm(m.perYear),'Чистый доход в первый год: '+fm(m.first.net)+' ('+(m.yield*100).toFixed(1).replace('.',',')+'%)',
- m.pay?'Окупаемость на '+m.pay+'-й год':'При этих цифрах вилла не окупается за срок','Итог за весь срок: '+(m.end>=0?'+':'')+fm(m.end),'','Расчёт предварительный, цифры условные.'].join('\n');}
+ m.pay?'Окупаемость на '+m.pay+'-й год':'При этих цифрах вилла не окупается за срок','Итог за весь срок: '+(m.end>=0?'+':'')+fm(m.end),'','Расчёт предварительный.'].join('\n');}
 $('copy').addEventListener('click',async e=>{burst(e.currentTarget);const t=msgText();let ok=false;
  try{await navigator.clipboard.writeText(t);ok=true;}catch(_){try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();ok=document.execCommand('copy');ta.remove();}catch(__){}}
  toast(ok?'Расчёт скопирован, вставьте в чат клиенту':'Не получилось скопировать');});

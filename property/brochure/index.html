@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>PDF-буклет объекта, пример для агентства</title>
+<title>PDF-буклет объекта для агентства</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="PDF-буклет объекта, пример для агентства">
-<meta property="og:description" content="Заполните данные объекта и получите PDF-буклет A4 и текст для мессенджера. Пример инструмента для агентства недвижимости в Таиланде.">
+<meta property="og:title" content="PDF-буклет объекта для агентства">
+<meta property="og:description" content="Заполните данные объекта и получите PDF-буклет A4 и текст для мессенджера. Инструмент для агентства недвижимости в Таиланде.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/property/brochure/">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/property/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../../assets/sandersax-icon-32.png">
-<meta name="description" content="Заполните данные объекта и получите PDF-буклет A4 и текст для мессенджера. Пример инструмента для агентства недвижимости в Таиланде.">
+<meta name="description" content="Заполните данные объекта и получите PDF-буклет A4 и текст для мессенджера. Инструмент для агентства недвижимости в Таиланде.">
 <meta name="theme-color" content="#e9e7e3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141416" media="(prefers-color-scheme: dark)">
 <link href="../../assets/gfonts/css/3d3255e73976.css" rel="stylesheet">
@@ -89,7 +89,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.45}
 .sheet{width:794px;height:1123px;background:#fff;color:#1b1a20;font:13px/1.5 Commissioner,'Golos Text',sans-serif;overflow:hidden;display:grid;-webkit-print-color-adjust:exact;print-color-adjust:exact;--ac:#6a2c70}
 .sheet img{display:block;width:100%;height:100%;object-fit:cover}
 .s-hero{grid-area:hero;position:relative;overflow:hidden}
-.s-mark{position:absolute;right:16px;top:16px;background:rgba(20,18,24,.62);color:#fff;font-size:10.5px;letter-spacing:.04em;padding:4px 9px;border-radius:999px}
+.s-mark:empty{display:none}.s-mark{position:absolute;right:16px;top:16px;background:rgba(20,18,24,.62);color:#fff;font-size:10.5px;letter-spacing:.04em;padding:4px 9px;border-radius:999px}
 .s-brand{font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);min-height:18px}
 .s-brand img{height:30px;width:auto;object-fit:contain}
 .s-kind{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#77737f;margin-top:10px}
@@ -167,7 +167,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.45}
 </head>
 <body>
 <header class="top">
- <p class="lbl">Пример инструмента для агентства недвижимости</p>
+ <p class="lbl">Инструмент для агентства недвижимости</p>
  <h1>PDF-буклет объекта за минуту</h1>
  <p class="lede">Заполните данные, замените фото и скачайте буклет A4 для клиента. Текст для Telegram и WhatsApp собирается из тех же полей.</p>
  <a class="toplink" href="https://t.me/sandersax" target="_blank" rel="noopener">Хочу такой для агентства →</a>
@@ -251,7 +251,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.45}
    <li>Ваш логотип, цвета и шаблоны</li>
   </ul>
  </div>
- <p class="note">Объект, фото и цифры в примере условные.</p>
+ 
 </section>
 <div class="mbar"><button class="btn p" type="button" id="pdfM">Скачать PDF</button><button class="btn s" type="button" id="copyM">Текст</button></div>
 <div class="printRoot" id="printRoot"></div>
@@ -275,8 +275,8 @@ const RATE={thb:1,usd:1/33,rub:2.44};
 const SYM={thb:'฿',usd:'$',rub:'₽'};
 const ACS=['#6a2c70','#1f2a44','#1d5c45','#3a3a40'];
 const L={
- ru:{kind:{villa:'Вилла',condo:'Кондо',town:'Таунхаус',land:'Земля'},deal:{sale:'Продажа',rent:'Аренда'},bed:'спальни',bath:'ванные',area:'площадь',land:'участок',beach:'до пляжа',own:'собственность',about:'Об объекте',feat:'Особенности',agent:'Ваш агент',approx:'ориентировочно',mo:'/мес',mark:'Пример буклета, объект условный',m:'м',km:'км',sq:'м²'},
- en:{kind:{villa:'Villa',condo:'Condo',town:'Townhouse',land:'Land'},deal:{sale:'For sale',rent:'For rent'},bed:'bedrooms',bath:'bathrooms',area:'living area',land:'land plot',beach:'to the beach',own:'ownership',about:'About',feat:'Highlights',agent:'Your agent',approx:'approx.',mo:'/mo',mark:'Sample brochure, fictional property',m:'m',km:'km',sq:'m²'}};
+ ru:{kind:{villa:'Вилла',condo:'Кондо',town:'Таунхаус',land:'Земля'},deal:{sale:'Продажа',rent:'Аренда'},bed:'спальни',bath:'ванные',area:'площадь',land:'участок',beach:'до пляжа',own:'собственность',about:'Об объекте',feat:'Особенности',agent:'Ваш агент',approx:'ориентировочно',mo:'/мес',mark:'',m:'м',km:'км',sq:'м²'},
+ en:{kind:{villa:'Villa',condo:'Condo',town:'Townhouse',land:'Land'},deal:{sale:'For sale',rent:'For rent'},bed:'bedrooms',bath:'bathrooms',area:'living area',land:'land plot',beach:'to the beach',own:'ownership',about:'About',feat:'Highlights',agent:'Your agent',approx:'approx.',mo:'/mo',mark:'',m:'m',km:'km',sq:'m²'}};
 let S=Object.assign({},DEF);
 try{const sv=JSON.parse(localStorage.getItem('pn_brochure')||'null');if(sv&&typeof sv==='object')Object.keys(DEF).forEach(k=>{if(typeof sv[k]==='string')S[k]=sv[k];});}catch(e){}
 const num=v=>{const n=parseFloat(String(v||'').replace(/[^\d.,]/g,'').replace(',','.'));return isFinite(n)?n:0;};

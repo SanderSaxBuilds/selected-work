@@ -59,7 +59,7 @@ main{overflow-x:clip}
 .nav a{display:inline-flex;align-items:center;min-height:44px;white-space:nowrap;padding:0 11px;border-radius:999px;text-decoration:none;font-size:14.5px;font-weight:500;color:var(--muted);transition:color .2s,background .2s}
 .nav a:hover{color:var(--ink);background:rgba(14,77,54,.08)}
 .lang{display:flex;background:#fff;border:2px solid var(--green);border-radius:999px;padding:2px;position:relative}
-.lang button{border:0;background:transparent;color:var(--green);min-width:44px;min-height:40px;border-radius:999px;font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.04em;position:relative;z-index:1;transition:color .25s}
+.lang button{border:0;background:transparent;color:var(--green);min-width:44px;min-height:44px;border-radius:999px;font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.04em;position:relative;z-index:1;transition:color .25s}
 .lang button[aria-pressed="true"]{color:var(--ink)}
 .lang .pill{position:absolute;top:2px;bottom:2px;left:2px;width:44px;border-radius:999px;background:var(--pink);transition:transform .35s var(--ease)}
 .bar .cta-s{background:var(--green);color:#fff;text-decoration:none;font-weight:600;padding:0 18px;min-height:44px;border-radius:999px;display:inline-flex;align-items:center;font-size:14.5px;white-space:nowrap;transition:background .2s}
@@ -143,18 +143,19 @@ html[lang="th"] .cap{line-height:1.6}
 .oh .ava{flex:0 0 auto;width:36px;height:36px;border-radius:50%;background:var(--biz);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:15px;box-shadow:0 0 0 2px rgba(255,255,255,.85)}
 .oh div{min-width:0}
 .oh strong{display:block;font-size:15px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.oh small{display:block;font-size:12px;opacity:.85}
+.oh small{display:block;font-size:12px}
 .chat{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;padding:12px 10px}
-.day-chip{align-self:center;background:rgba(15,31,24,.22);color:#fff;font-size:11.5px;font-weight:600;border-radius:999px;padding:2px 10px}
+.day-chip{align-self:center;background:rgba(15,31,24,.55);color:#fff;font-size:11.5px;font-weight:600;border-radius:999px;padding:2px 10px}
 .m{display:flex;flex-direction:column;gap:5px;max-width:92%}
 .m.fresh{animation:min .5s var(--ease)}
 @keyframes min{from{opacity:0;transform:translateY(14px)}}
 .mb{background:#fff;border-radius:14px 14px 14px 4px;padding:8px 11px 7px;font-size:13px;line-height:1.45;box-shadow:0 1px 1px rgba(0,0,0,.08)}
 .mb b{display:block;color:var(--tg-d);font-size:13px;margin-bottom:1px}
-.mb time{float:right;margin:4px 0 0 10px;font-size:11px;color:#8a94a6}
+.mb time{float:right;margin:4px 0 0 10px;font-size:11px;color:#66707f}
 .kb{display:flex;gap:5px}
 .kb button{flex:1;min-height:34px;border:0;border-radius:9px;background:rgba(255,255,255,.82);color:var(--tg-d);font-size:13px;font-weight:600;transition:background .2s}
 .kb button:hover{background:#fff}
+.kb button{position:relative}.kb button::before{content:"";position:absolute;inset:-5px 0}
 .mst{display:flex;align-items:center;gap:6px;margin:0;align-self:flex-start;background:rgba(255,255,255,.82);color:#1f6f43;font-size:12px;font-weight:600;line-height:1.3;border-radius:9px;padding:6px 10px}
 .mst svg{width:14px;height:14px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .oi{display:flex;align-items:center;gap:8px;padding:8px 10px 14px;background:#fff;color:#8a94a6;font-size:13px}
@@ -215,7 +216,7 @@ html[lang="th"] .cap{line-height:1.6}
   html[lang="th"] .cap{font-size:15px;line-height:1.55}
   .picker{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
   .picker::-webkit-scrollbar{display:none}
-  .picker button{min-height:40px;padding:0 14px 0 12px;font-size:14px}
+  .picker button{min-height:44px;padding:0 14px 0 12px;font-size:14px}
   .scene{display:block;width:auto;justify-self:stretch;margin-top:12px;--pw:auto;--sh:auto}
   .wire{display:none}
   .tag{height:auto;margin:0 0 6px;font-size:13px}
@@ -234,7 +235,7 @@ html[lang="th"] .cap{line-height:1.6}
   .days{margin-top:8px}
   .days button{min-height:46px}
   .times{display:flex;gap:5px;overflow-x:auto;margin:8px -12px 0;padding:0 12px;scrollbar-width:none}
-  .times button{flex:0 0 60px;min-height:40px}
+  .times button{flex:0 0 60px;min-height:44px}
   .book{margin-top:10px;min-height:46px}
   .demo-note{display:none}
   .oh{padding:8px 12px}
@@ -300,7 +301,7 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.2vw,44px);l
 .nthemes button:hover,.nthemes button[aria-pressed="true"]{color:#fff}
 .nth-pk{position:absolute;top:3px;bottom:3px;left:3px;width:0;border-radius:999px;background:color-mix(in srgb,var(--na) 24%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--na) 55%,transparent);transition:left .45s var(--ease),width .45s var(--ease)}
 .nlinks{display:flex;gap:18px;margin-left:auto;white-space:nowrap}
-.new .nlang{position:relative;font-size:11px;letter-spacing:.06em;border:1px solid var(--line-d);border-radius:999px;padding:0 10px;min-height:30px;white-space:nowrap;color:#8d99a8;transition:border-color .3s}
+.new .nlang{position:relative;font-size:11px;letter-spacing:.06em;border:1px solid var(--line-d);border-radius:999px;padding:0 10px;min-height:30px;white-space:nowrap;color:#9ca7b5;transition:border-color .3s}
 .new .nlang:hover{border-color:color-mix(in srgb,var(--na) 70%,transparent)}
 .nlang .on{color:#fff;font-weight:700}
 .ntg{background:var(--nm);color:#fff;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;white-space:nowrap}
@@ -366,7 +367,7 @@ html[lang="th"] .new .nh,.new[lang="th"] .nh{line-height:1.35;letter-spacing:0}
   .nsub,.nfeat,.nrow span:nth-child(3){display:none}
   .nrow{margin:10px 0 12px}
   .new .nslots button:nth-child(-n+4){display:none}
-  .new .nslots button{min-height:40px}
+  .new .nslots button{min-height:44px}
   .nslots{grid-template-columns:repeat(4,minmax(0,1fr))}
   .new .nbook{min-height:44px}
   .nnote{right:10px;width:calc(83% - 20px)}
@@ -437,7 +438,7 @@ html[lang="th"] .new .nh,.new[lang="th"] .nh{line-height:1.35;letter-spacing:0}
 .amount small{font-family:var(--body);font-size:15px;font-weight:500;color:var(--muted);letter-spacing:0;margin-right:6px}
 .amount.month{font-size:30px;letter-spacing:-.03em}
 .when{font-size:14.5px;color:var(--muted);margin:0 0 26px}
-.plan.hot .when,.plan.hot .amount small{color:#4a1027}
+.plan.hot .when,.plan.hot .amount small{color:#3f0c21}
 .plan.hot .amount{color:var(--ink)}
 .plan ul{list-style:none;margin:0 0 28px;padding:24px 0 0;border-top:2px dashed var(--line);display:grid;gap:12px;font-size:15px}
 .plan.hot ul{border-top-color:rgba(15,31,24,.3)}
@@ -503,7 +504,7 @@ details p{margin:0;padding:0 40px 22px 0;color:var(--muted);font-size:16px}
 /* contact */
 .contact{background:var(--pink);color:var(--ink)}
 .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.contact .lead{font-size:18px;margin:18px 0 0;color:#4a1027;max-width:30em}
+.contact .lead{font-size:18px;margin:18px 0 0;color:#3f0c21;max-width:30em}
 .chk{display:flex;align-items:center;gap:10px;margin-top:28px;padding:16px 20px;border-radius:16px;background:var(--ink);color:#fff;font-size:15px;line-height:1.45;text-decoration:none;max-width:30em;transition:background .2s}
 .chk:hover{background:var(--green)}
 .chk svg{flex:0 0 auto;width:18px;height:18px;color:var(--pink);transition:transform .25s}
@@ -576,9 +577,9 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
         <div class="phone" id="phone">
           <div class="screen" id="screen">
             <span class="notch" aria-hidden="true"></span>
-            <div class="app-head"><strong id="bizName">Saiyai Spa</strong><small data-t="dBiz">Пример сайта</small></div>
+            <div class="app-head"><strong id="bizName">Saiyai Spa</strong><small data-t="dBiz">Онлайн-запись</small></div>
             <div class="app-body">
-              <h2 class="sr" data-t="dTitle">Пример онлайн-записи</h2>
+              <h2 class="sr" data-t="dTitle">Онлайн-запись</h2>
               <p class="lbl" id="l-svc" data-t="dSvc">Услуга</p>
               <div class="svc" id="svc" role="group" aria-labelledby="l-svc"></div>
               <p class="lbl" id="l-day" data-t="dDay">День</p>
@@ -586,7 +587,7 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
               <p class="lbl" id="l-time" data-t="dTime">Время</p>
               <div class="times" id="times" role="group" aria-labelledby="l-time"></div>
               <button class="book" id="book" type="button" disabled><span id="bookT">Выберите время</span></button>
-              <p class="demo-note" data-t="dNote">Это пример, никакие данные не отправляются.</p>
+              <p class="demo-note" data-t="dNote">Никакие данные не отправляются.</p>
             </div>
           </div>
         </div>
@@ -753,9 +754,9 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:#fff}
   <div class="wrap">
     <div class="sec-head"><h2 data-t="wH">Мои работы</h2></div>
     <div class="cases">
-      <a class="case feat" href="../email-kit/"><span class="im"><img class="cz-ink" src="../assets/j/email.jpg" alt="" width="1200" height="750" loading="lazy"></span><div class="tx"><span class="k" data-t="w4k">Письма клиентам</span><h3>Inkpost</h3><p data-t="w4p">Четыре письма для обжарщика кофе, образец</p><span class="go" data-t="wGo2">Открыть →</span></div></a>
+      <a class="case feat" href="../email-kit/"><span class="im"><img class="cz-ink" src="../assets/j/email.jpg" alt="" width="1200" height="750" loading="lazy"></span><div class="tx"><span class="k" data-t="w4k">Письма клиентам</span><h3>Inkpost</h3><p data-t="w4p">Четыре письма для обжарщика кофе</p><span class="go" data-t="wGo2">Открыть →</span></div></a>
       <a class="case" href="https://sandersaxbuilds.github.io/ledgerlens-report-builder/"><span class="im"><img src="../assets/j/ledger.jpg" alt="" width="1200" height="750" loading="lazy"></span><div class="tx"><span class="k" data-t="w3k">Отчёты</span><h3>LedgerLens</h3><p data-t="w3p">Отчёт о продажах с графиком</p><span class="go" data-t="wGo2">Открыть →</span></div></a>
-      <a class="case" href="../field-frame.html"><span class="im"><img class="cz-ff" src="../assets/j/field.jpg" alt="" width="1200" height="750" loading="lazy"></span><div class="tx"><span class="k" data-t="w2k">Сайт компании</span><h3>Field and Frame</h3><p data-t="w2p">Сайт строительной фирмы, образец</p><span class="go" data-t="wGo2">Открыть →</span></div></a>
+      <a class="case" href="../field-frame.html"><span class="im"><img class="cz-ff" src="../assets/j/field.jpg" alt="" width="1200" height="750" loading="lazy"></span><div class="tx"><span class="k" data-t="w2k">Сайт компании</span><h3>Field and Frame</h3><p data-t="w2p">Сайт строительной фирмы</p><span class="go" data-t="wGo2">Открыть →</span></div></a>
       <a class="case" href="../gridline/"><span class="im"><img src="../assets/j/gridline.jpg" alt="" width="1200" height="750" loading="lazy"></span><div class="tx"><span class="k" data-t="w5k">Таблица заказов</span><h3>Gridline</h3><p data-t="w5p">20 000 заказов в браузере</p><span class="go" data-t="wGo2">Открыть →</span></div></a>
       <a class="case" href="../builder/"><span class="im"><img src="../assets/j/builder.jpg" alt="" width="1200" height="750" loading="lazy"></span><div class="tx"><span class="k" data-t="w1k">Веб-приложение</span><h3 data-t="w1h">Конструктор сайтов с записью</h3><p data-t="w1p">Вводите услуги и часы работы, получаете готовый сайт</p><span class="go" data-t="wGo2">Открыть →</span></div></a>
       <a class="case" href="https://temirkhanclub.com/"><span class="im"><img src="../assets/j/allex.jpg" alt="" width="1200" height="750" loading="lazy"></span><div class="tx"><span class="k" data-t="w0k">Сайт компании</span><h3>temirkhanclub.com</h3><p data-t="w0p">Каталог ALLEX RESPECT ASIA, настоящий запуск</p><span class="go" data-t="wGo">Открыть сайт →</span></div></a>
@@ -805,7 +806,7 @@ var $=function(id){return document.getElementById(id)};
 var T={ru:{},
 en:{skip:"Skip to content",navLabel:"Sections",nChk:"Website check",nInc:"What you get",nPrice:"Prices",nProc:"How it works",nWork:"Work",nFaq:"Questions",ctaS:"Free review",
 cap:"Booking websites for salons, spas and tours in Thailand.",pickLabel:"Business type",cuLabel:"A customer books on your site",ownA:"The booking comes to your",ownB:"",msgrLabel:"Messenger",
-dBiz:"Sample site",dTitle:"Online booking example",dSvc:"Service",dDay:"Day",dTime:"Time",dNote:"This is an example, nothing is sent anywhere.",ownInput:"Message",
+dBiz:"Online booking",dTitle:"Online booking",dSvc:"Service",dDay:"Day",dTime:"Time",dNote:"Nothing is sent anywhere.",ownInput:"Message",
 oBook:"Website with online booking",from:"from",oSite:"Simple website from $300",cta1:"Free site review",
 fxH:"An old site and a new one",baHint:"Drag the handle. The right side is a working example, you can book on it.",baOld:"Before",baNew:"After",baLabel:"Compare the old and the new site",oMarq:"!!! SALE !!! CALL NOW !!! BEST PRICE !!! SALE !!! CALL NOW !!!",oMenu:"<li>Home</li><li>About us</li><li>Services</li><li>Services 2</li><li>Photos</li><li>Guestbook</li><li>Contacts</li>",oP1:"Welcome to our web site! We offer a wide range of services for our dear customers. Please call for prices. Serving you since 2009...",oP2:"To book, call the number below or send us an email. We reply within a few days.",oTab:"<tr><th>Service</th><th>Price</th></tr><tr><td>Massage</td><td>call us</td></tr><tr><td>Manicure</td><td>call us</td></tr>",oTel:"Tel: +66 XX XXX XXXX",
 f1w:"Tiny text, slow to load",f1n:"Opens fast on a phone",f2w:"Price on request",f2n:"Prices in three languages",f3w:"Phone calls only",f3n:"Booked in two taps",
@@ -817,9 +818,9 @@ p3h:"Monthly support",p3p:"$30 a month",p3t:"No contract",p3a:"Price, photo and 
 tm1:"Domain and hosting in your name",tm2:"You keep the source files",tm3:"We talk in English, Russian or Thai",
 sH:"How it works",s1h:"You send a link",s1p:"Your site, Instagram or Telegram",s2h:"Free review",s2p:"Within a day, with a home page sketch",s3h:"We agree on the price",s3p:"What is included, the dates, 50% up front",s4h:"Launch",s4p:"Changes, launch, the other 50%",
 wH:"My work",wGo:"Open the site →",wGo2:"Open →",wMore:"All work:",
-w0k:"Company website",w0p:"ALLEX RESPECT ASIA catalogue, a real launch",w4k:"Customer emails",w4p:"Four emails for a coffee roaster, sample",
+w0k:"Company website",w0p:"ALLEX RESPECT ASIA catalogue, a real launch",w4k:"Customer emails",w4p:"Four emails for a coffee roaster",
 w5k:"Order table",w5p:"20,000 orders in the browser",w1k:"Web app",w1h:"Booking site builder",w1p:"Enter services and hours, get a finished site",
-w2k:"Company website",w2p:"Home builder site, sample",w3k:"Reports",w3p:"Sales report with a chart",
+w2k:"Company website",w2p:"Home builder site",w3k:"Reports",w3p:"Sales report with a chart",
 qH:"Questions",q1:"Do I need my own domain?",a1:"Yes, and it is registered in your name. If you do not have one yet, I will help you pick and register it. It is usually about $15 a year.",
 q2:"How much is hosting?",a2:"Sites like these can often run on free hosting. If paid hosting is needed, I tell you the price first, and the account is yours.",
 q3:"How does a booking reach Telegram or LINE?",a3:"The form on the site sends the booking to your bot, and the bot messages you right away with the service, date, time and the customer's contact. Like the example at the top of this page.",
@@ -832,7 +833,7 @@ rTg:"Message on Telegram",rWa:"Message on WhatsApp",rTh:"Call or text, Thailand"
 fCity:"Thailand, working remotely",fAll:"All work"},
 th:{skip:"ข้ามไปที่เนื้อหา",navLabel:"หมวด",nChk:"เช็กเว็บไซต์",nInc:"สิ่งที่ได้รับ",nPrice:"ราคา",nProc:"ขั้นตอน",nWork:"ผลงาน",nFaq:"คำถาม",ctaS:"รีวิวฟรี",
 cap:"เว็บไซต์รับจองออนไลน์ สำหรับร้านเสริมสวย สปา และทัวร์ในประเทศไทย",pickLabel:"ประเภทธุรกิจ",cuLabel:"ลูกค้าจองผ่านเว็บไซต์ของคุณ",ownA:"การจองเข้า",ownB:"ของคุณ",msgrLabel:"แอปแชต",
-dBiz:"ตัวอย่างเว็บไซต์",dTitle:"ตัวอย่างการจองออนไลน์",dSvc:"บริการ",dDay:"วัน",dTime:"เวลา",dNote:"นี่คือตัวอย่าง ไม่มีการส่งข้อมูลใดๆ",ownInput:"ข้อความ",
+dBiz:"จองออนไลน์",dTitle:"จองออนไลน์",dSvc:"บริการ",dDay:"วัน",dTime:"เวลา",dNote:"ไม่มีการส่งข้อมูลใดๆ",ownInput:"ข้อความ",
 oBook:"เว็บไซต์พร้อมระบบจอง",from:"เริ่มต้น",oSite:"เว็บไซต์ทั่วไป เริ่มต้น $300",cta1:"รีวิวเว็บไซต์ฟรี",
 fxH:"เว็บเก่ากับเว็บใหม่",baHint:"ลากแถบเลื่อน ด้านขวาเป็นตัวอย่างที่ใช้งานได้จริง ลองจองดูได้",baOld:"ก่อน",baNew:"หลัง",baLabel:"เปรียบเทียบเว็บเก่ากับเว็บใหม่",oMarq:"!!! ลดราคา !!! โทรเลย !!! BEST PRICE !!! ลดราคา !!! โทรเลย !!!",oMenu:"<li>หน้าแรก</li><li>เกี่ยวกับเรา</li><li>บริการ</li><li>บริการ 2</li><li>รูปภาพ</li><li>สมุดเยี่ยม</li><li>ติดต่อ</li>",oP1:"ยินดีต้อนรับสู่เว็บไซต์ของเรา! เรามีบริการหลากหลายสำหรับลูกค้าคนสำคัญ สอบถามราคาทางโทรศัพท์ เปิดให้บริการตั้งแต่ปี 2009...",oP2:"ต้องการจอง โทรตามเบอร์ด้านล่างหรือส่งอีเมลมา เราจะตอบกลับภายในไม่กี่วัน",oTab:"<tr><th>บริการ</th><th>ราคา</th></tr><tr><td>นวด</td><td>โทรถาม</td></tr><tr><td>ทำเล็บ</td><td>โทรถาม</td></tr>",oTel:"โทร. +66 XX XXX XXXX",
 f1w:"ตัวหนังสือเล็ก โหลดช้า",f1n:"เปิดเร็วบนมือถือ",f2w:"ราคาต้องสอบถาม",f2n:"ราคาครบสามภาษา",f3w:"จองได้แค่ทางโทรศัพท์",f3n:"จองได้ในสองแตะ",
@@ -844,9 +845,9 @@ p3h:"ดูแลรายเดือน",p3p:"$30 ต่อเดือน",p3
 tm1:"โดเมนและโฮสติ้งเป็นชื่อของคุณ",tm2:"ไฟล์ต้นฉบับเป็นของคุณ",tm3:"คุยได้ทั้งไทย อังกฤษ และรัสเซีย",
 sH:"ขั้นตอนการทำงาน",s1h:"ส่งลิงก์มา",s1p:"เว็บไซต์ Instagram หรือ Telegram",s2h:"รีวิวฟรี",s2p:"ภายในหนึ่งวัน พร้อมภาพร่างหน้าแรก",s3h:"ตกลงราคา",s3p:"สิ่งที่รวมอยู่ กำหนดส่ง จ่าย 50% ก่อน",s4h:"เปิดใช้งาน",s4p:"แก้ไข เปิดใช้งาน จ่ายอีก 50%",
 wH:"ผลงานของผม",wGo:"เปิดเว็บไซต์ →",wGo2:"เปิดดู →",wMore:"ผลงานทั้งหมด:",
-w0k:"เว็บไซต์บริษัท",w0p:"แคตตาล็อก ALLEX RESPECT ASIA เปิดใช้งานจริง",w4k:"อีเมลถึงลูกค้า",w4p:"อีเมลสี่แบบของร้านคั่วกาแฟ ตัวอย่าง",
+w0k:"เว็บไซต์บริษัท",w0p:"แคตตาล็อก ALLEX RESPECT ASIA เปิดใช้งานจริง",w4k:"อีเมลถึงลูกค้า",w4p:"อีเมลสี่แบบของร้านคั่วกาแฟ",
 w5k:"ตารางคำสั่งซื้อ",w5p:"คำสั่งซื้อ 20,000 รายการในเบราว์เซอร์",w1k:"เว็บแอป",w1h:"เครื่องมือสร้างเว็บไซต์รับจอง",w1p:"ใส่บริการและเวลาเปิด ได้เว็บไซต์พร้อมใช้",
-w2k:"เว็บไซต์บริษัท",w2p:"เว็บไซต์บริษัทสร้างบ้าน ตัวอย่าง",w3k:"รายงาน",w3p:"รายงานยอดขายพร้อมกราฟ",
+w2k:"เว็บไซต์บริษัท",w2p:"เว็บไซต์บริษัทสร้างบ้าน",w3k:"รายงาน",w3p:"รายงานยอดขายพร้อมกราฟ",
 qH:"คำถามที่พบบ่อย",q1:"ต้องมีโดเมนของตัวเองไหม",a1:"ต้องมี และจดเป็นชื่อของคุณ ถ้ายังไม่มี ผมช่วยเลือกและจดให้ได้ ปกติประมาณ $15 ต่อปี",
 q2:"ค่าโฮสติ้งเท่าไร",a2:"เว็บแบบนี้มักใช้โฮสติ้งฟรีได้ ถ้าต้องใช้แบบเสียเงิน ผมจะแจ้งราคาก่อน และบัญชีเป็นของคุณ",
 q3:"การจองเข้า Telegram หรือ LINE ได้อย่างไร",a3:"ฟอร์มบนเว็บส่งการจองไปที่บอทของคุณ แล้วบอทจะส่งข้อความหาคุณทันที พร้อมบริการ วัน เวลา และช่องทางติดต่อลูกค้า เหมือนตัวอย่างด้านบนของหน้านี้",

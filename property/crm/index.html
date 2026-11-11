@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Заявки агентства, пример CRM</title>
+<title>Заявки агентства, CRM</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Заявки агентства, пример CRM">
-<meta property="og:description" content="Все заявки агентства недвижимости в одной доске: этапы, напоминания, воронка, источники и выгрузка в Excel. Пример для агентства в Таиланде.">
+<meta property="og:title" content="Заявки агентства, CRM">
+<meta property="og:description" content="Все заявки агентства недвижимости в одной доске: этапы, напоминания, воронка, источники и выгрузка в Excel. Для агентства в Таиланде.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/property/crm/">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/property/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../../assets/sandersax-icon-32.png">
-<meta name="description" content="Все заявки агентства недвижимости в одной доске: этапы, напоминания, воронка, источники и выгрузка в Excel. Пример для агентства в Таиланде.">
+<meta name="description" content="Все заявки агентства недвижимости в одной доске: этапы, напоминания, воронка, источники и выгрузка в Excel. Для агентства в Таиланде.">
 <meta name="theme-color" content="#f2f3ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101311" media="(prefers-color-scheme: dark)">
 <link rel="preload" href="../../assets/gfonts/geologica/3c1a4b71ef15fc15.woff2" as="font" type="font/woff2" crossorigin>
@@ -160,7 +160,7 @@ h1{font-weight:600;font-size:34px;line-height:1.08;letter-spacing:-.025em;margin
 <body>
 <header class="wrap top">
  <div>
-  <p class="lbl">Пример для агентства недвижимости</p>
+  <p class="lbl">Для агентства недвижимости</p>
   <h1>Все заявки в одной доске</h1>
   <p class="lede">Заявки с сайта, из Telegram и WhatsApp, напоминания, воронка и источники. Перетащите карточку на другой этап или откройте её, чтобы поменять данные и записать шаг.</p>
  </div>
@@ -178,7 +178,7 @@ h1{font-weight:600;font-size:34px;line-height:1.08;letter-spacing:-.025em;margin
   <span class="sp"></span>
   <button class="btn s sm" type="button" id="add">+ Заявка</button>
   <button class="mini" type="button" id="csv">Выгрузить в Excel</button>
-  <button class="mini" type="button" id="rs">Сбросить демо</button>
+  <button class="mini" type="button" id="rs">Сбросить доску</button>
  </div>
 </div>
 <div class="wrap"><main class="board" id="board" aria-label="Этапы заявок"></main></div>
@@ -204,7 +204,7 @@ h1{font-weight:600;font-size:34px;line-height:1.08;letter-spacing:-.025em;margin
    <li>Выгрузка в Excel и Google Таблицы</li>
   </ul>
  </div>
- <p class="note">Имена, объекты и цифры условные. В этом примере данные хранятся только в вашем браузере.</p>
+ <p class="note">Данные хранятся только в вашем браузере.</p>
 </section>
 <div class="ov" id="ov" hidden></div>
 <aside class="dr" id="dr" role="dialog" aria-modal="true" aria-labelledby="drT" hidden>
@@ -407,7 +407,7 @@ $('csv').addEventListener('click',e=>{burst(e.currentTarget);const H=['Имя','
  const rows=LEADS.slice().sort((a,b)=>b.created-a.created).map(l=>[l.name,l.contact,SRCN[l.src],l.want==='rent'?'Аренда':'Покупка',OBJ[l.obj]||'',l.budget||'',STN[l.stage],ymd(l.created),l.next,l.note]);
  const s='﻿'+[H].concat(rows).map(r=>r.map(q).join(';')).join('\r\n');
  try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'text/csv;charset=utf-8'}));a.download='zayavki.csv';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);toast('Файл zayavki.csv открывается в Excel');}catch(_){toast('Не получилось выгрузить');}});
-$('rs').addEventListener('click',async()=>{LEADS=seed();await dbReset(LEADS);resetF();render();toast('Демо восстановлено');});
+$('rs').addEventListener('click',async()=>{LEADS=seed();await dbReset(LEADS);resetF();render();toast('Доска восстановлена');});
 /* feedback */
 function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2600);}
 function burst(el){const host=el.style.position||getComputedStyle(el).position!=='static'?el:el.parentElement,r=el.getBoundingClientRect(),hr=host.getBoundingClientRect();

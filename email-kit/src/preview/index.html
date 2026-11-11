@@ -4,118 +4,210 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#e9ebf1">
-<title>Inkpost email templates</title>
-<meta name="description" content="An email design studio for four responsive HTML emails for a fictional coffee roaster, with Outlook fallbacks, fluid hybrid columns, dark mode and plain text versions, previewed in webmail and phone mail frames.">
+<meta name="theme-color" content="#6c1727">
+<title>Letterkiln email templates</title>
+<meta name="description" content="Four HTML email templates for a coffee roaster. They work in Gmail and Outlook, on phones and in dark mode, and each one has a plain text version.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Inkpost email templates">
-<meta property="og:description" content="Four responsive HTML emails for a fictional coffee roaster, with Outlook fallbacks, dark mode and plain text versions, previewed in webmail and phone mail frames.">
+<meta property="og:title" content="Letterkiln email templates">
+<meta property="og:description" content="Four HTML email templates for a coffee roaster, ready for Gmail and Outlook.">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/email-kit/">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/email-kit/">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/email.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Inkpost email templates">
-<meta name="twitter:description" content="Four responsive HTML emails with Outlook fallbacks, dark mode and plain text versions, previewed in webmail and phone mail frames.">
+<meta name="twitter:title" content="Letterkiln email templates">
+<meta name="twitter:description" content="Four HTML email templates for a coffee roaster, ready for Gmail and Outlook.">
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/email.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233341d6'/%3E%3Cpath d='M7 10.5h18v12H7z' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cpath d='M7 11l9 7 9-7' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../../assets/gfonts/css/62f34ce91280.css">
-<link rel="stylesheet" href="preview.css?v=20261025q">
-<script type="module" src="preview.js?v=20261024u"></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%236c1727'/%3E%3Cpath d='M7 10.5h18v12H7z' fill='none' stroke='%23f6eedd' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cpath d='M7 11l9 7 9-7' fill='none' stroke='%23f6a5b0' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/gfonts/css/3eb3bfcd3d83.css">
+<link rel="stylesheet" href="preview.css">
+
+<script type="module" src="preview.js"></script>
+<script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}var t=document.getElementById(h.slice(1));if(t){t.focus({preventScroll:true});t.scrollIntoView()}});</script>
+<style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,24px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,24px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0!important;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}.sb-logo{--sb-acc:var(--accent-light)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}</style>
 </head>
 <body>
-<a class="skip" href="#viewer">Skip to the preview</a>
-<header class="appbar">
-<div class="appbar-in">
-<p class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4z"/><path d="M4 7.5l8 6 8-6"/></svg></span><span class="logo-w">Inkpost</span><span class="logo-t">Email studio</span></p>
-<nav class="appnav" aria-label="Links">
-<a class="quiet" href="../">Selected work</a>
-<a class="quiet" href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source on GitHub</a>
+<a class="skip" href="#viewer">Skip to the open email</a>
+<header class="wrap bar">
+<p class="logo"><svg class="sb-logo sb-h" data-sb="letterkiln" viewBox="0 0 150 32" width="112.5" height="24" role="img" aria-label="Letterkiln" focusable="false"><g aria-hidden="true"><path d="M5 28V14a11 11 0 0 1 22 0v14z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M10.5 15.5l5.5 4.5 5.5-4.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/><path d="M10.5 23.5h11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="40" y="23.5" fill="currentColor" font-family="'Wix Madefor Display'" font-weight="700" font-size="21" letter-spacing="-0.01em">Letterkiln</text></svg></p>
+<nav aria-label="Links">
+<a href="../">Selected work</a>
+<a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/email-kit">Source</a>
 </nav>
-</div>
 </header>
-<main id="viewer" class="studio" tabindex="-1">
-<aside class="inbox" aria-labelledby="inbox-h">
-<div class="intro">
-<h1>Four emails, one layout</h1>
-<p class="lede">Built for {{brand.name}}, a fictional roaster, by a small Node script with its own CSS inliner. Each one carries Outlook fallbacks, stacks on phones and has a dark mode. Pick an email, then look at it in a webmail window or on a phone.</p>
+<main>
+<div class="wrap intro">
+<h1>Four emails for a coffee roaster, ready for Gmail and Outlook</h1>
+<div class="track" role="tablist" aria-label="The four emails, in the order a customer gets them" aria-orientation="horizontal">
+<button type="button" role="tab" id="tab-welcome" aria-controls="panel-welcome" aria-selected="true" tabindex="0" data-id="welcome"><span class="t-name">Welcome</span><span class="t-date">Sign-up</span></button>
+<button type="button" role="tab" id="tab-order-confirmation" aria-controls="panel-order-confirmation" aria-selected="false" tabindex="-1" data-id="order-confirmation"><span class="t-name">Order<span class="t-sr-sm"> confirmation</span></span><span class="t-date"><span class="t-sr-sm">Mon </span>19 Oct</span></button>
+<button type="button" role="tab" id="tab-shipping-update" aria-controls="panel-shipping-update" aria-selected="false" tabindex="-1" data-id="shipping-update"><span class="t-name">Shipping<span class="t-sr-sm"> update</span></span><span class="t-date"><span class="t-sr-sm">Wed </span>21 Oct</span></button>
+<button type="button" role="tab" id="tab-newsletter" aria-controls="panel-newsletter" aria-selected="false" tabindex="-1" data-id="newsletter"><span class="t-name">Newsletter</span><span class="t-date"><span class="t-sr-sm">Fri </span>6 Nov</span></button>
 </div>
-<h2 class="inbox-h" id="inbox-h">Inbox <span class="num">{{emails.length}}</span></h2>
-<div class="tabs" role="tablist" aria-label="Emails" aria-orientation="vertical">
-{{#each emails}}
-<button type="button" role="tab" id="tab-{{id}}" aria-controls="panel-{{id}}" aria-selected="{{#if first}}true{{else}}false{{/if}}" tabindex="{{#if first}}0{{else}}-1{{/if}}" data-id="{{id}}"><span class="av" aria-hidden="true">K</span><span class="mail"><span class="mail-top"><span class="from">{{brand.short}}</span><span class="tab-size">{{kb}} KB</span></span><span class="subj">{{subject}}</span><span class="pre">{{preheader}}</span><span class="tab-name">{{name}}</span></span></button>
-{{/each}}
 </div>
-</aside>
-<section class="desk" aria-label="Preview">
-<div class="controls">
-<fieldset class="seg seg-client">
-<legend>Client</legend>
-<label><input type="radio" name="client" value="none"><span>Canvas</span></label>
-<label><input type="radio" name="client" value="web" checked><span>Webmail</span></label>
-<label><input type="radio" name="client" value="phone"><span>Phone mail</span></label>
-</fieldset>
-<div class="toggles">
-<fieldset class="seg">
-<legend>Width</legend>
-<label><input type="radio" name="width" value="375"><span>375</span></label>
-<label><input type="radio" name="width" value="680" checked><span>680</span></label>
+<section class="wrap reader" id="viewer" tabindex="-1" aria-label="Open email">
+<div class="tools">
+<fieldset class="seg seg-view">
+<legend class="sr">View</legend>
+<label><input type="radio" name="view" value="desktop"><span>Desktop</span></label>
+<label><input type="radio" name="view" value="phone"><span>Phone</span></label>
+<label><input type="radio" name="view" value="text"><span>Plain text</span></label>
 </fieldset>
 <fieldset class="seg">
-<legend>Mode</legend>
-<label><input type="radio" name="theme" value="light" checked><span>Light</span></label>
+<legend class="sr">Mode</legend>
+<label><input type="radio" name="theme" value="light"><span>Light</span></label>
 <label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
 </fieldset>
+<a class="dl" id="dl" href="dist/welcome.html" download="kettlewick-welcome.html"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8M4.5 6.8 8 10.3l3.5-3.5M3 13.5h10"/></svg>Download HTML</a>
 </div>
-</div>
-{{#each emails}}
-<section class="panel" role="tabpanel" id="panel-{{id}}" aria-labelledby="tab-{{id}}" data-id="{{id}}">
+<section class="panel" role="tabpanel" id="panel-welcome" aria-labelledby="tab-welcome" data-id="welcome">
 <div class="stage">
-<div class="client" data-client="web" data-theme="light">
-<div class="cl-bar" aria-hidden="true"><span class="cl-time">9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
-<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span><span class="cl-dots"><i></i><i></i><i></i></span></div>
+<div class="client" data-client="web" data-theme="light" data-view="html">
+<div class="cl-bar" aria-hidden="true"><span>9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span></div>
 <div class="cl-head">
-<p class="cl-subj">{{subject}}</p>
-<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>{{brand.name}}</b><span>to you</span></span><span class="cl-when">Today</span></p>
+<p class="cl-subj">Welcome to Kettlewick</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
 </div>
 <div class="cl-body">
-<div class="frame-box"><iframe title="{{name}} email" data-src="{{html}}" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<div class="frame-box"><iframe title="Welcome email" data-src="dist/welcome.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<pre class="plain" data-text="dist/welcome.txt" tabindex="0" aria-label="Plain text version of the Welcome email"></pre>
 </div>
 </div>
 <p class="scale-note" aria-live="polite"></p>
 </div>
 <div class="details">
-<p class="d-k">Email {{@number}} of {{emails.length}}</p>
-<h2>{{name}}</h2>
-<p class="summary">{{summary}}</p>
+<h2 class="sr">Welcome</h2>
+<p class="summary">Sent once, straight after someone joins the list.</p>
 <dl class="meta">
-<div><dt>Subject</dt><dd>{{subject}}</dd></div>
-<div><dt>Preview text</dt><dd>{{preheader}}</dd></div>
-<div><dt>Built size</dt><dd><span class="num">{{kb}} KB</span> of the 102 KB where Gmail starts clipping<span class="clip" aria-hidden="true"><i style="width:calc({{kb}} / 102 * 100%)"></i></span></dd></div>
+<div><dt>Inbox preview line</dt><dd>Your code for 15% off the first bag, and what to expect from us.</dd></div>
+<div><dt>Size</dt><dd>18.9 KB of the 102 KB Gmail shows before it cuts an email off<span class="clip" aria-hidden="true"><i style="width:calc(18.9 / 102 * 100%)"></i></span></dd></div>
 </dl>
-<h3>What it handles</h3>
-<ul class="checks">
-{{#each handles}}
-<li>{{this}}</li>
-{{/each}}
-</ul>
+<h3>Built in</h3>
+<ul class="checks"><li>Clean preview line in the inbox</li><li>Button that works in Outlook</li><li>Logo readable in dark mode</li><li>Discount code readable with images off</li><li>Dark mode in Outlook.com</li><li>Plain text version with every link</li></ul>
 <div class="actions">
-<button type="button" class="action" aria-expanded="false" aria-controls="source-{{id}}" data-source="{{html}}">View source</button>
-<a class="action" href="{{html}}" download="kettlewick-{{id}}.html">Download HTML</a>
-<a class="action" href="{{text}}" download="kettlewick-{{id}}.txt">Download plain text</a>
-<a class="action" href="{{html}}" target="_blank" rel="noopener">Open on its own</a>
+<button type="button" class="action" aria-expanded="false" aria-controls="source-welcome" data-source="dist/welcome.html">View source</button>
+<a class="action" href="dist/welcome.txt" download="kettlewick-welcome.txt">Download plain text</a>
+<a class="action" href="dist/welcome.html" target="_blank" rel="noopener">Open on its own</a>
 </div>
 </div>
-<div class="source" id="source-{{id}}" hidden>
-<p class="source-head"><span>{{html}}</span><span class="num">{{bytes}} bytes</span></p>
-<pre tabindex="0" aria-label="Built HTML of the {{name}} email"><code></code></pre>
+<div class="source" id="source-welcome" hidden>
+<p class="source-head"><span>dist/welcome.html</span><span>19345 bytes</span></p>
+<pre tabindex="0" aria-label="HTML source of the Welcome email"><code></code></pre>
 </div>
 </section>
-{{/each}}
+<section class="panel" role="tabpanel" id="panel-order-confirmation" aria-labelledby="tab-order-confirmation" data-id="order-confirmation" hidden>
+<div class="stage">
+<div class="client" data-client="web" data-theme="light" data-view="html">
+<div class="cl-bar" aria-hidden="true"><span>9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span></div>
+<div class="cl-head">
+<p class="cl-subj">Order KW-20418 is confirmed</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
+<div class="frame-box"><iframe title="Order confirmation email" data-src="dist/order-confirmation.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<pre class="plain" data-text="dist/order-confirmation.txt" tabindex="0" aria-label="Plain text version of the Order confirmation email"></pre>
+</div>
+</div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<h2 class="sr">Order confirmation</h2>
+<p class="summary">Sent when an order is paid. Lists the items, the totals and the delivery address.</p>
+<dl class="meta">
+<div><dt>Inbox preview line</dt><dd>Thanks, Jamie. We roast your coffee on Tuesday and post it on Wednesday morning.</dd></div>
+<div><dt>Size</dt><dd>22.4 KB of the 102 KB Gmail shows before it cuts an email off<span class="clip" aria-hidden="true"><i style="width:calc(22.4 / 102 * 100%)"></i></span></dd></div>
+</dl>
+<h3>Built in</h3>
+<ul class="checks"><li>Order lines that screen readers read in order</li><li>Totals added up when the email is built</li><li>Columns that stack on phones</li><li>Layout that holds in old Outlook</li><li>Sharp product photos on retina screens</li><li>Prices lined up in columns</li></ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-order-confirmation" data-source="dist/order-confirmation.html">View source</button>
+<a class="action" href="dist/order-confirmation.txt" download="kettlewick-order-confirmation.txt">Download plain text</a>
+<a class="action" href="dist/order-confirmation.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-order-confirmation" hidden>
+<p class="source-head"><span>dist/order-confirmation.html</span><span>22949 bytes</span></p>
+<pre tabindex="0" aria-label="HTML source of the Order confirmation email"><code></code></pre>
+</div>
+</section>
+<section class="panel" role="tabpanel" id="panel-shipping-update" aria-labelledby="tab-shipping-update" data-id="shipping-update" hidden>
+<div class="stage">
+<div class="client" data-client="web" data-theme="light" data-view="html">
+<div class="cl-bar" aria-hidden="true"><span>9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span></div>
+<div class="cl-head">
+<p class="cl-subj">Your coffee is on its way</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
+<div class="frame-box"><iframe title="Shipping update email" data-src="dist/shipping-update.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<pre class="plain" data-text="dist/shipping-update.txt" tabindex="0" aria-label="Plain text version of the Shipping update email"></pre>
+</div>
+</div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<h2 class="sr">Shipping update</h2>
+<p class="summary">Sent when the parcel goes to the courier, with tracking and a delivery date.</p>
+<dl class="meta">
+<div><dt>Inbox preview line</dt><dd>Order KW-20418 left the roastery today. Harbour Post expects to deliver it on Friday 23 October.</dd></div>
+<div><dt>Size</dt><dd>20.7 KB of the 102 KB Gmail shows before it cuts an email off<span class="clip" aria-hidden="true"><i style="width:calc(20.7 / 102 * 100%)"></i></span></dd></div>
+</dl>
+<h3>Built in</h3>
+<ul class="checks"><li>Track button that works in Outlook</li><li>Delivery progress that shows with images off</li><li>Tracking number the iPhone will not turn into a link</li><li>Delivery note readable in dark mode</li><li>Buttons big enough for a thumb</li></ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-shipping-update" data-source="dist/shipping-update.html">View source</button>
+<a class="action" href="dist/shipping-update.txt" download="kettlewick-shipping-update.txt">Download plain text</a>
+<a class="action" href="dist/shipping-update.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-shipping-update" hidden>
+<p class="source-head"><span>dist/shipping-update.html</span><span>21212 bytes</span></p>
+<pre tabindex="0" aria-label="HTML source of the Shipping update email"><code></code></pre>
+</div>
+</section>
+<section class="panel" role="tabpanel" id="panel-newsletter" aria-labelledby="tab-newsletter" data-id="newsletter" hidden>
+<div class="stage">
+<div class="client" data-client="web" data-theme="light" data-view="html">
+<div class="cl-bar" aria-hidden="true"><span>9:41</span><span class="cl-sys"><i></i><i></i><i></i></span></div>
+<div class="cl-nav" aria-hidden="true"><span class="cl-back">Inbox</span></div>
+<div class="cl-head">
+<p class="cl-subj">Roast notes: a Kenya and a Guatemala for November</p>
+<p class="cl-from"><span class="cl-av" aria-hidden="true">K</span><span class="cl-who"><b>Kettlewick Coffee Roasters</b><span>to you</span></span><span class="cl-when">Today</span></p>
+</div>
+<div class="cl-body">
+<div class="frame-box"><iframe title="Newsletter email" data-src="dist/newsletter.html" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+<pre class="plain" data-text="dist/newsletter.txt" tabindex="0" aria-label="Plain text version of the Newsletter email"></pre>
+</div>
+</div>
+<p class="scale-note" aria-live="polite"></p>
+</div>
+<div class="details">
+<h2 class="sr">Newsletter</h2>
+<p class="summary">Sent on the first Friday of each month. New coffees, a brew tip and an event.</p>
+<dl class="meta">
+<div><dt>Inbox preview line</dt><dd>Two new coffees, the brew ratio we use on the bar and a free cupping on Saturday 14 November.</dd></div>
+<div><dt>Size</dt><dd>28.5 KB of the 102 KB Gmail shows before it cuts an email off<span class="clip" aria-hidden="true"><i style="width:calc(28.5 / 102 * 100%)"></i></span></dd></div>
+</dl>
+<h3>Built in</h3>
+<ul class="checks"><li>Product grid that stacks on phones</li><li>Full width on phones</li><li>Web font with a Georgia fallback</li><li>Header photo that scales</li><li>Six buttons that work in Outlook</li><li>Unsubscribe link that is easy to find</li></ul>
+<div class="actions">
+<button type="button" class="action" aria-expanded="false" aria-controls="source-newsletter" data-source="dist/newsletter.html">View source</button>
+<a class="action" href="dist/newsletter.txt" download="kettlewick-newsletter.txt">Download plain text</a>
+<a class="action" href="dist/newsletter.html" target="_blank" rel="noopener">Open on its own</a>
+</div>
+</div>
+<div class="source" id="source-newsletter" hidden>
+<p class="source-head"><span>dist/newsletter.html</span><span>29194 bytes</span></p>
+<pre tabindex="0" aria-label="HTML source of the Newsletter email"><code></code></pre>
+</div>
+</section>
 </section>
 </main>
-<footer class="foot">
-<p>{{brand.name}} is a fictional business. Its people, orders and prices are sample content made for this portfolio piece, not client work. The webmail and phone frames are drawings around the real built email, not screenshots of a mail app. Rendering was checked in Chromium only. Outlook, Gmail and Apple Mail were not opened, so the Outlook code is checked by tests on its structure.</p>
-<p><a class="quiet" href="../">Back to selected work</a></p>
+<footer class="foot"><div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="letterkiln" viewBox="0 0 150 32" width="112.5" height="24" role="img" aria-label="Letterkiln" focusable="false"><g aria-hidden="true"><path d="M5 28V14a11 11 0 0 1 22 0v14z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M10.5 15.5l5.5 4.5 5.5-4.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/><path d="M10.5 23.5h11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="40" y="23.5" fill="currentColor" font-family="'Wix Madefor Display'" font-weight="700" font-size="21" letter-spacing="-0.01em">Letterkiln</text></svg></div>
+<p><a class="back" href="../">Back to selected work</a></p>
 <p class="footer-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-</footer>
+</div></footer>
 </body>
 </html>

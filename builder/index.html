@@ -155,7 +155,7 @@ select option{background:#fff;color:var(--ink)}
 .pv-note{background:#fbfaf7;color:#17181a;border:1px solid #17181a}
 .pv-err{color:#eeeee9}
 .toast{background:#17181a;color:#f3f2ee;border:0}
-.skip{background:var(--ink);color:var(--hl)}
+.skip{background:var(--ink);color:var(--hl);min-height:44px}
 
 /* tablet and phone: the site on top, the settings under it, no view switch */
 @media (max-width:1023px){
@@ -384,12 +384,12 @@ select option{background:#fff;color:var(--ink)}
     <footer class="p-foot"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="baanpage" viewBox="0 0 146 32" width="118.6" height="26" role="img" aria-label="Baanpage" focusable="false"><g aria-hidden="true"><rect x="8" y="15" width="16" height="13" rx="1.5" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-a s-c"/><path d="M3.5 16 16 5.5 28.5 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 21.5h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Geologica'" font-weight="700" font-size="21" letter-spacing="-0.01em">Baanpage</text></svg></div>
       <p data-v3="foot1">A personal project by Alexandr Khrustalev. The download is a plain HTML site that works on any hosting.</p>
       <div class="p-links">
-        <a href="kit/site.html" target="_blank" rel="noopener" data-v3="kitDemo">Open the sample site</a>
+        <a href="kit/site.html" target="_blank" rel="noopener" data-v3="kitDemo">Open the finished site</a>
         <a href="README.md" target="_blank" rel="noopener" data-i18n="readme">Read the guide</a>
         <button type="button" class="linkbtn" id="resetAll" data-i18n="reset">Start over</button>
       </div>
       <div class="p-links p-contacts"><a href="../" data-i18n="allWork">All work</a><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></div>
-    <p class="sb-label" data-v3="label">Sample site, fictional brand</p></footer>
+</footer>
   </section>
 
   <section class="preview" id="preview" aria-labelledby="pvTitle">
@@ -436,9 +436,9 @@ select option{background:#fff;color:var(--ink)}
 (function(){
   var V3={
     en:{h1:'Baanpage, a builder for booking sites',pTitle:'Settings',editIn:'Texts in',cap1:'Build a booking site for',cap2:'in a few clicks.',tryIt:'Try booking a time, like a customer',
-      foot1:'A personal project by Alexandr Khrustalev. The download is a plain HTML site that works on any hosting.',kitDemo:'Open the sample site',label:'Sample site, fictional brand',faqEmptyP:'Short answers to what people often ask in chat.'},
+      foot1:'A personal project by Alexandr Khrustalev. The download is a plain HTML site that works on any hosting.',kitDemo:'Open the finished site',faqEmptyP:'Short answers to what people often ask in chat.'},
     ru:{h1:'Baanpage, конструктор сайтов с онлайн-записью',pTitle:'Настройки',editIn:'Тексты на',cap1:'Сайт с онлайн-записью для',cap2:'за несколько кликов.',tryIt:'Попробуйте записаться, как клиент',
-      foot1:'Личный проект Александра Хрусталёва. Скачанный сайт состоит из обычных HTML-файлов и работает на любом хостинге.',kitDemo:'Открыть пример сайта',label:'Пример сайта, бренд вымышленный',faqEmptyP:'Короткие ответы на то, что чаще всего спрашивают в чате.'}
+      foot1:'Личный проект Александра Хрусталёва. Скачанный сайт состоит из обычных HTML-файлов и работает на любом хостинге.',kitDemo:'Открыть готовый сайт',faqEmptyP:'Короткие ответы на то, что чаще всего спрашивают в чате.'}
   };
   var root=document.documentElement;
   function apply(){

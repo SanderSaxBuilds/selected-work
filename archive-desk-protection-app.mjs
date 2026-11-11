@@ -151,7 +151,7 @@ function selection(files, message) {
   $('compare-current').textContent = `${countText(files.length)} selected, ${formatBytes(total(files))}`
   $('selection-rows').replaceChildren()
   if (!files.length) {
-    const empty = row(['No files yet. Try the sample files or choose a project.'])
+    const empty = row(['No files yet. Open the website folder or choose a project.'])
     empty.className = 'empty-row'
     empty.firstChild.colSpan = 3
     $('selection-rows').append(empty)
@@ -266,7 +266,7 @@ const demoFiles = () => [
 ]
 $('load-demo').addEventListener('click', async () => {
   if (!await replaceAllowed()) return
-  selection(demoFiles(), 'Four sample files loaded. Create a backup to try the full check and recovery flow.')
+  selection(demoFiles(), 'Website folder open, 4 files. Create a backup to try the full check and recovery flow.')
   mode('create')
 })
 
@@ -281,11 +281,11 @@ $('load-changed-demo').addEventListener('click', async () => {
   const files = demoFiles().filter(file => !file.path.endsWith('release.txt'))
   files[0].data = encoder.encode('<!doctype html>\n<title>North Studio</title>\n<h1>A revised homepage.</h1>\n')
   files.push({ path: 'website/README.txt', data: encoder.encode('Added after the first backup.\n'), modifiedAt: 1792285200000 })
-  if (state.baseline) { selection(files, 'Changed sample loaded. Select Compare to see what moved.'); return }
-  await run('Preparing the original sample backup to compare against.', async () => {
+  if (state.baseline) { selection(files, 'Edited copy loaded. Select Compare to see what moved.'); return }
+  await run('Making the first backup of the website folder to compare against.', async () => {
     const bytes = await buildArchive(demoFiles())
-    setBaseline({ bytes, result: await verifyArchive(bytes), hash: await hash(bytes), name: 'sample-backup.archive.zip' })
-    selection(files, 'Changed sample loaded, with the original sample backup as A. Select Compare to see what moved.')
+    setBaseline({ bytes, result: await verifyArchive(bytes), hash: await hash(bytes), name: 'website-backup.archive.zip' })
+    selection(files, 'Edited copy loaded, with the first backup as A. Select Compare to see what moved.')
   })
 })
 $('back-to-files').addEventListener('click', () => mode('create', true))
@@ -542,12 +542,12 @@ let touring = false
 $('run-tour').addEventListener('click', async () => {
   if (touring || state.busy || !await replaceAllowed()) return
   touring = true
-  $('run-tour').textContent = 'Running the sample'
+  $('run-tour').textContent = 'Playing all 4 steps'
   $('run-tour').classList.add('running')
   try {
     document.querySelector('.tabbar').scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' })
     mode('create')
-    selection(demoFiles(), 'Step 1 of 4. Four sample files are selected, with their relative paths and sizes listed below.')
+    selection(demoFiles(), 'Step 1 of 4. Four files are selected, with their relative paths and sizes listed below.')
     await beat(1600)
     $('build-archive').click()
     if (!await settle()) return
@@ -574,7 +574,7 @@ $('run-tour').addEventListener('click', async () => {
     if (result.bottom > innerHeight) $('comparison-result').scrollIntoView({ block: 'center', behavior: reduced() ? 'auto' : 'smooth' })
   } finally {
     touring = false
-    $('run-tour').textContent = 'Watch it again'
+    $('run-tour').textContent = 'Play all 4 steps'
     $('run-tour').classList.remove('running')
   }
 })

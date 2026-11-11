@@ -455,11 +455,11 @@ function setBaseline(archive) {
 }
 $('load-changed-demo').addEventListener('click', async () => {
   if (!await replaceAllowed()) return
-  if (state.baseline) { selection(editedFiles(), 'Edited sample loaded as B. Press Compare.', true); return }
-  await run('Making the original sample backup to compare with.', async () => {
+  if (state.baseline) { selection(editedFiles(), 'Edited copy loaded as B. Press Compare.', true); return }
+  await run('Making the first backup of the website folder to compare with.', async () => {
     const bytes = await buildArchive(demoFiles())
-    setBaseline({ bytes, result: await verifyArchive(bytes), hash: await hash(bytes), name: 'sample-backup.archive.zip' })
-    selection(editedFiles(), 'Edited sample loaded as B, with the original sample backup as A. Press Compare.', true)
+    setBaseline({ bytes, result: await verifyArchive(bytes), hash: await hash(bytes), name: 'website-backup.archive.zip' })
+    selection(editedFiles(), 'Edited copy loaded as B, with the first backup as A. Press Compare.', true)
   })
 })
 $('back-to-files').addEventListener('click', () => mode('create', true))
@@ -594,16 +594,16 @@ let touring = false
 $('run-tour').addEventListener('click', async () => {
   if (touring || state.busy || !await replaceAllowed()) return
   touring = true
-  $('run-tour').textContent = 'Running the sample'
+  $('run-tour').textContent = 'Playing all 3 steps'
   $('run-tour').classList.add('running')
   try {
     mode('create')
     document.querySelector('.rail').scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' })
-    selection(demoFiles(), 'Step 1 of 3. Packing the sample project into a ZIP.', true)
+    selection(demoFiles(), 'Step 1 of 3. Packing the website folder into a ZIP.', true)
     await beat(500)
     $('build-archive').click()
     if (!await settle()) return
-    status('Step 1 of 3. All 6 sample files are in the ZIP, and each one passed its check.')
+    status('Step 1 of 3. All 6 files are in the ZIP, and each one passed its check.')
     await beat(2200)
     mode('verify')
     $('verify-created').click()
@@ -623,7 +623,7 @@ $('run-tour').addEventListener('click', async () => {
     if (result.bottom > innerHeight) $('comparison-result').scrollIntoView({ block: 'center', behavior: reduced() ? 'auto' : 'smooth' })
   } finally {
     touring = false
-    $('run-tour').textContent = 'Run the sample through all 3 steps'
+    $('run-tour').textContent = 'Play all 3 steps'
     $('run-tour').classList.remove('running')
     // The button was disabled while each step ran, so give focus back to it.
     if (document.activeElement === document.body) $('run-tour').focus({ preventScroll: true })
@@ -637,12 +637,12 @@ nameField.addEventListener('input', fitName)
 fitName()
 
 // First screen: the sample project is packed and checked once.
-selection(demoFiles(), 'Packing the sample project into a ZIP.', true)
+selection(demoFiles(), 'Packing the website folder into a ZIP.', true)
 ;(async () => {
   try { await document.fonts?.ready } catch { /* fonts are optional */ }
   await new Promise(resolve => setTimeout(resolve, reduced() ? 0 : 450))
   if (!state.sample || state.busy || state.created) return
   try {
-    if (await makeBackup()) status('Sample done. 6 files packed into a ZIP and checked. Choose a folder to back up your own files.')
-  } catch (error) { status(error instanceof Error ? error.message : 'The sample could not run.', true) }
+    if (await makeBackup()) status('Done. 6 files packed into a ZIP and checked. Choose a folder to back up your own files.')
+  } catch (error) { status(error instanceof Error ? error.message : 'The first backup could not run.', true) }
 })()

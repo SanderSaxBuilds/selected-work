@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Виллы и поездки на Бали · набросок для GidNaBali</title>
-<meta name="description" content="Набросок главной страницы для GidNaBali. Виллы с фильтром по району, спальням и цене, экскурсии и свадьбы в одной поездке, итог и запрос в мессенджер.">
+<title>Виллы и поездки на Бали · сайт для GidNaBali</title>
+<meta name="description" content="Главная страница для GidNaBali. Виллы с фильтром по району, спальням и цене, экскурсии и свадьбы в одной поездке, итог и запрос в мессенджер.">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Виллы и поездки на Бали · набросок для GidNaBali">
-<meta property="og:description" content="Набросок главной страницы для GidNaBali от SanderSax. Виллы, экскурсии и цены условные.">
+<meta property="og:title" content="Виллы и поездки на Бали · сайт для GidNaBali">
+<meta property="og:description" content="Главная страница для GidNaBali от SanderSax. Виллы, экскурсии и цены условные.">
 <meta property="og:image" content="https://sandersaxbuilds.github.io/selected-work/property/img/og-samui.jpg">
 <meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/property/gidnabali/">
 <meta name="theme-color" content="#20264f">
@@ -139,11 +139,11 @@ footer p{margin:4px 0}
 </style>
 </head>
 <body>
-<div class="rib">Набросок сайта для GidNaBali от Александра Хрусталева (SanderSax). Это не официальный сайт, виллы, экскурсии и цены условные. <a href="#about">Что здесь поправлено</a></div>
+<div class="rib">Сайт для GidNaBali от Александра Хрусталева (SanderSax). Это не официальный сайт, виллы, экскурсии и цены условные. <a href="#about">Что здесь поправлено</a></div>
 <header class="top">
  <div class="wrap nav">
   <a class="brand" href="#hero"><b>G</b>GidNaBali</a>
-  <nav class="links"><a href="#villas">Виллы</a><a href="#tours">Экскурсии и свадьбы</a><a href="#villas">Ваша поездка</a><a href="#about">О наброске</a></nav>
+  <nav class="links"><a href="#villas">Виллы</a><a href="#tours">Экскурсии и свадьбы</a><a href="#villas">Ваша поездка</a><a href="#about">О сайте</a></nav>
   <a class="btn" href="#villas">Собрать поездку</a>
  </div>
 </header>
@@ -189,7 +189,7 @@ footer p{margin:4px 0}
     <div class="tb" style="padding-top:4px">
      <div class="total"><span>Итого</span><b id="tt">$0</b></div>
      <button type="button" class="btn" id="send">Отправить менеджеру</button>
-     <p class="tnote" id="tn">Цены в наброске условные.</p>
+     <p class="tnote" id="tn">Цены условные.</p>
     </div>
    </div>
   </aside>
@@ -209,7 +209,7 @@ footer p{margin:4px 0}
 <section id="about" style="padding-top:0;background:var(--mist)">
  <div class="wrap">
   <div class="box rv">
-   <div><div class="eb">О наброске</div><h2 class="h2">Набросок для GidNaBali</h2><p class="sub">Я собрал эту главную, чтобы показать, как вилла, экскурсии и свадьба могут собираться в одну поездку. Виллы, программы и цены условные, в рабочей версии будут ваши.</p>
+   <div><div class="eb">О сайте</div><h2 class="h2">Сайт для GidNaBali</h2><p class="sub">Я собрал эту главную, чтобы показать, как вилла, экскурсии и свадьба могут собираться в одну поездку. Виллы, программы и цены условные, в рабочей версии будут ваши.</p>
     <p style="margin-top:22px"><a class="btn l" href="https://t.me/sandersax" target="_blank" rel="noopener">Написать в Telegram</a></p></div>
    <div><div class="eb">Что поправлено по сравнению с текущим сайтом</div>
     <ul class="fix">
@@ -222,7 +222,7 @@ footer p{margin:4px 0}
  </div>
 </section>
 
-<footer><div class="wrap"><p>Набросок для GidNaBali от SanderSax, не официальный сайт. Виллы, экскурсии, цены и цифры условные. Фото с Unsplash.</p><p>Сделал <a href="../../">Sander Sax</a> · <a href="https://t.me/sandersax" target="_blank" rel="noopener">t.me/sandersax</a></p></div></footer>
+<footer><div class="wrap"><p>Сделано для GidNaBali, не официальный сайт. Виллы, экскурсии, цены и цифры условные. Фото с Unsplash.</p><p>Сделал <a href="../../">Sander Sax</a> · <a href="https://t.me/sandersax" target="_blank" rel="noopener">t.me/sandersax</a></p></div></footer>
 
 <script>
 (function(){
@@ -266,7 +266,7 @@ function ticket(){const v=sel===null?null:V[sel];let sum=0;
  const P=all().filter(t=>picks.has(t.id));P.forEach(t=>sum+=t.p);
  $('#tx').innerHTML=P.map(t=>'<div class="tl"><span>'+t.n+'</span><span>$'+grp(t.p)+'</span></div>').join('')||'<div class="tl mut"><span>Экскурсии не добавлены</span><span></span></div>';
  $('#tbn').innerHTML=v&&v.bonus?'<div class="tl mut"><span>Бонус: '+v.bonus.toLowerCase()+'</span><span>0</span></div>':'';
- const tt=$('#tt');tt.textContent='$'+grp(sum);$('#tn').textContent='Цены в наброске условные.';}
+ const tt=$('#tt');tt.textContent='$'+grp(sum);$('#tn').textContent='Цены условные.';}
 $('#nm').onclick=()=>{nights=Math.max(1,nights-1);$('#nv').textContent=nights;ticket();};
 $('#np').onclick=()=>{nights=Math.min(60,nights+1);$('#nv').textContent=nights;ticket();};
 ['#fA','#fB','#fP'].forEach(id=>$(id).onchange=villas);
@@ -274,7 +274,7 @@ $$('#tabs button').forEach(b=>b.onclick=()=>{$$('#tabs button').forEach(x=>x.set
 $$('.kinds button').forEach(b=>b.onclick=()=>{$$('.kinds button').forEach(x=>x.setAttribute('aria-pressed',x===b));const k=K[b.dataset.k];$('#hw').textContent=k.h;$('#tk').textContent=k.t;
  if(b.dataset.k==='wed'){cat='wed';$$('#tabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.c==='wed'));tours();}
  if(b.dataset.k==='family'){cat='ex';$$('#tabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.c==='ex'));tours();}});
-$('#send').onclick=()=>{$('#tn').textContent=sel===null&&picks.size===0?'Сначала выберите виллу или экскурсию.':'Это набросок, поездка никуда не уходит. На рабочем сайте она приходит менеджеру в WhatsApp или Telegram одним сообщением.';};
+$('#send').onclick=()=>{$('#tn').textContent=sel===null&&picks.size===0?'Сначала выберите виллу или экскурсию.':'Поездка никуда не уходит. На рабочем сайте она приходит менеджеру в WhatsApp или Telegram одним сообщением.';};
 villas();tours();ticket();
 if('IntersectionObserver' in window&&!RM){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});$$('.rv').forEach(e=>io.observe(e));}else $$('.rv').forEach(e=>e.classList.add('in'));
 })();

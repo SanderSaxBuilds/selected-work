@@ -96,6 +96,7 @@
       const swatch = document.createElement("span");
       swatch.className = "swatch";
       swatch.style.setProperty("--swatch", color.swatch);
+      swatch.style.backgroundImage = `url("assets/${color.key}-500-detail.svg")`;
       swatch.setAttribute("aria-hidden", "true");
       const text = document.createElement("span");
       text.className = "choice-text";
@@ -680,4 +681,6 @@
   renderBag();
   setQuantity(1);
   syncView();
+  /* Colour cross-fades start only after the first paint, so a shared link opens in its own colour at once */
+  window.setTimeout(() => document.body.classList.add("ready"), 120);
 })();

@@ -309,7 +309,7 @@ button,input,select{font:inherit;color:inherit}
   <h3>This week</h3>
   <ul id="plain-week"></ul>
   <h3>Bookings</h3>
-  <p>Use the Book a table station above, or message +66 00 000 0000 on LINE. Kluen is a concept bar made for a portfolio, so the number is a placeholder.</p>
+  <p>Use the Book a table station above, or message +66 00 000 0000 on LINE.</p>
 </section>
 
 <script>
@@ -605,7 +605,7 @@ bf.addEventListener("submit", e => {
   const d = new Date(bf.date.value + "T12:00");
   if (d.getDay() === 1) { err.textContent = "Mondays are off air. Pick another day."; return; }
   const day = d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
-  $("#bookmsg").innerHTML = `<div class="bookmsg"><b>Request ready, ${esc(bf.name.value.trim())}</b>${bf.ppl.value} at the ${bf.seat.value.toLowerCase()}, ${day}, ${bf.time.value}. A real bar would confirm on LINE. This is a concept bar and +66 00 000 0000 is a placeholder.</div>`;
+  $("#bookmsg").innerHTML = `<div class="bookmsg"><b>Request ready, ${esc(bf.name.value.trim())}</b>${bf.ppl.value} at the ${bf.seat.value.toLowerCase()}, ${day}, ${bf.time.value}. Nothing was sent from this page.</div>`;
 });
 
 /* start */

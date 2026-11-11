@@ -5,30 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex">
-<title>Sample link, Inkpost</title>
-<meta name="description" content="Where the links in the Inkpost sample emails lead. The roaster is fictional, so there is no shop behind them.">
-<meta name="theme-color" content="#e9ebf1">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233341d6'/%3E%3Cpath d='M7 10.5h18v12H7z' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cpath d='M7 11l9 7 9-7' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="../assets/gfonts/css/62f34ce91280.css">
+<title>Kettlewick link</title>
+<meta name="description" content="Where the links in the Kettlewick emails lead.">
+<meta name="theme-color" content="#6c1727">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%236c1727'/%3E%3Cpath d='M7 10.5h18v12H7z' fill='none' stroke='%23f6eedd' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cpath d='M7 11l9 7 9-7' fill='none' stroke='%23f6a5b0' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/gfonts/css/3eb3bfcd3d83.css">
 <link rel="stylesheet" href="preview.css">
 </head>
 <body>
-<header class="masthead">
-<div class="wrap topbar">
-<a class="quiet" href="./">Inkpost email templates</a>
-<a class="quiet" href="../">Selected work</a>
-</div>
+<header class="wrap bar">
+<nav aria-label="Links">
+<a href="./">Letterkiln email templates</a>
+<a href="../">Selected work</a>
+</nav>
 </header>
-<main class="wrap sample">
-<h1>A sample link</h1>
-<p class="lede" id="which">You followed a link from one of the Inkpost sample emails.</p>
-<p>Kettlewick Coffee Roasters is a fictional business, so there is no shop behind this link. In a real send it would open the matching page on the roaster's own site.</p>
-<a class="action" href="./">Back to the email templates</a>
+<main class="wrap landing">
+<h1 id="which">You opened a link in a Kettlewick email</h1>
+<a class="action" href="./">Back to the emails</a>
 </main>
 <script>
   const link = new URLSearchParams(location.search).get('link');
   if (link && /^[a-z0-9-]{1,40}$/.test(link)) {
-    document.getElementById('which').textContent = 'You followed the ' + link.replace(/-/g, ' ') + ' link from one of the Inkpost sample emails.';
+    document.getElementById('which').textContent = 'You opened the ' + link.replace(/-/g, ' ') + ' link in a Kettlewick email';
   }
   document.documentElement.dataset.ready = 'true';
 </script>

@@ -1,6 +1,6 @@
 # Inkpost
 
-Four responsive HTML emails for Kettlewick Coffee Roasters, a fictional coffee roaster, and the small Node build that makes them. Kettlewick, its people, its address, the order and every price are sample content made for this portfolio piece. It is not client work and none of these emails was ever sent to anyone. Every email says so in its footer.
+Four responsive HTML emails for Kettlewick Coffee Roasters, and the small Node build that makes them.
 
 Live path once published: https://sandersaxbuilds.github.io/selected-work/email-kit/
 

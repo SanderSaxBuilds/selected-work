@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#23260f">
+<meta name="theme-color" content="#eef1ec">
 <title>Import an existing backup | Archive Desk Workbench</title>
 <meta name="description" content="Inspect an existing Archive Desk backup, add a verified copy to a fresh library and recover its files into a new folder. Archive Desk Workbench guide.">
 <meta property="og:type" content="website">
@@ -16,14 +16,14 @@
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="archive-desk-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/gfonts/css/92162eb9f83d.css">
+<link rel="stylesheet" href="assets/gfonts/css/archive-desk-type.css">
 <link rel="stylesheet" href="archive-desk-guide.css">
 <link rel="stylesheet" href="archive-desk-v3-guide.css">
 <link rel="stylesheet" href="archive-desk-v3-brand.css" id="sb-brand"></head>
 <body>
 <a class="skip-link" href="#main">Skip to the content</a>
 <header class="g-top">
-  <div class="wrap g-bar"><a class="g-brand" href="archive-desk-workbench-history.html"><svg class="sb-logo sb-h" data-sb="archive" viewBox="0 0 181 32" width="169.7" height="30" role="img" aria-label="Archive Desk" focusable="false"><g aria-hidden="true"><rect x="3" y="4" width="26" height="7" rx="2" fill="currentColor" class="f-a s-n"/><path d="M5 11v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 17h8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Literata'" font-weight="600" font-size="21" letter-spacing="0em">Archive Desk</text></svg> <span>Workbench</span></a><a class="g-back" href="index.html#archive-desk">Selected work</a></div>
+  <div class="wrap g-bar"><a class="g-brand" href="archive-desk-workbench-history.html"><svg class="sb-logo sb-h" data-sb="archive" viewBox="0 0 181 32" width="169.7" height="30" role="img" aria-label="Archive Desk" focusable="false"><g aria-hidden="true"><rect x="3" y="4" width="26" height="7" rx="2" fill="currentColor" class="f-a s-n"/><path d="M5 11v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 17h8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Archivo'" font-weight="700" font-size="20" letter-spacing="0em">Archive Desk</text></svg> <span>Workbench</span></a><a class="g-back" href="index.html#archive-desk">Selected work</a></div>
   <nav class="wrap g-nav" aria-label="Workbench guides"><a href="archive-desk-workbench-history.html">Overview</a><a href="archive-desk-workbench.html">Backups</a><a href="archive-desk-workbench-import.html" aria-current="page">Import</a><a href="archive-desk-workbench-recovery.html">Recovery</a><a href="archive-desk-workbench-library-check.html">Library check</a><a href="archive-desk-workbench-sets.html">Backup sets</a><a href="archive-desk-workbench-history.html#history">Run history</a></nav>
 </header>
 
@@ -33,17 +33,18 @@
     <h1 id="page-title">Recover an existing backup.</h1>
     <p class="lede">Inspect a ZIP, add a verified copy, restore it. No original library needed.</p>
     <div class="actions"><a class="button primary" href="https://github.com/SanderSaxBuilds/selected-work/releases/tag/archive-desk-workbench-0.6-windows-r2">Download for Windows x64</a><a class="button secondary" href="archive-desk-workbench-history.html#start">How to start</a></div>
+    <a class="g-seal" href="archive-desk-workbench-0.2-source.zip" download><span class="g-seal-disc"><svg class="seal-art" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle class="ring" cx="32" cy="32" r="30"/><line class="tick" x1="32.00" y1="14.00" x2="32.00" y2="12.38"/><line class="tick" x1="38.89" y1="15.37" x2="40.69" y2="11.01"/><line class="tick" x1="44.73" y1="19.27" x2="52.01" y2="11.99"/><line class="tick" x1="48.63" y1="25.11" x2="57.57" y2="21.41"/><line class="tick" x1="50.00" y1="32.00" x2="53.48" y2="32.00"/><line class="tick" x1="48.63" y1="38.89" x2="56.43" y2="42.12"/><line class="tick" x1="44.73" y1="44.73" x2="51.13" y2="51.13"/><line class="tick" x1="38.89" y1="48.63" x2="42.59" y2="57.57"/><line class="tick" x1="32.00" y1="50.00" x2="32.00" y2="59.68"/><line class="tick" x1="25.11" y1="48.63" x2="23.31" y2="52.99"/><line class="tick" x1="19.27" y1="44.73" x2="14.62" y2="49.38"/><line class="tick" x1="15.37" y1="38.89" x2="12.73" y2="39.98"/><line class="tick" x1="14.00" y1="32.00" x2="5.56" y2="32.00"/><line class="tick" x1="15.37" y1="25.11" x2="9.29" y2="22.59"/><line class="tick" x1="19.27" y1="19.27" x2="11.99" y2="11.99"/><line class="tick" x1="25.11" y1="15.37" x2="23.07" y2="10.44"/><polygon class="core" points="32.00,24.06 40.49,23.51 44.88,32.00 40.39,40.39 32.00,43.08 26.19,37.81 17.11,32.00 25.81,25.81"/></svg></span><span class="g-seal-text"><span class="g-seal-name">archive-desk-workbench-0.2-source.zip</span><code>16fe 4cde ... 2f73 77f7</code></span></a>
   </section>
 
   <figure class="g-shot lead">
     <div class="frame"><img src="archive-desk-import-preview-crop.png" alt="The import panel showing six verified files, the ZIP fingerprint and separate inspect and import controls" width="1010" height="540"></div>
-    <figcaption>A fictional backup with six checked files and its fingerprint, inspected before anything is added.</figcaption>
+    <figcaption>A backup with six checked files and its fingerprint, inspected before anything is added.</figcaption>
   </figure>
 
   <ol class="g-steps">
-    <li><span class="step-no">01</span><h3>Check the archive first.</h3><p>Manifest, CRCs and fingerprints, before anything is added.</p></li>
-    <li><span class="step-no">02</span><h3>Save a verified copy.</h3><p>The new copy is checked before it is registered. Duplicates are refused.</p></li>
-    <li><span class="step-no">03</span><h3>Use a new folder.</h3><p>Every written file is checked.</p></li>
+    <li><h3>Check the archive first.</h3><p>Manifest, CRCs and fingerprints, before anything is added.</p></li>
+    <li><h3>Save a verified copy.</h3><p>The new copy is checked before it is registered. Duplicates are refused.</p></li>
+    <li><h3>Use a new folder.</h3><p>Every written file is checked.</p></li>
   </ol>
 
   <figure class="g-shot g-section">
@@ -86,11 +87,11 @@
   <nav class="pager" aria-label="More guides"><a href="archive-desk-workbench.html"><span>Previous</span><strong>Back up and compare</strong></a><a class="next" href="archive-desk-workbench-recovery.html"><span>Next guide</span><strong>Review a recovery</strong></a></nav>
 </main>
 
-<footer class="g-footer"><div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="archive" viewBox="0 0 181 32" width="147.1" height="26" role="img" aria-label="Archive Desk" focusable="false"><g aria-hidden="true"><rect x="3" y="4" width="26" height="7" rx="2" fill="currentColor" class="f-a s-n"/><path d="M5 11v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 17h8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Literata'" font-weight="600" font-size="21" letter-spacing="0em">Archive Desk</text></svg></div>
+<footer class="g-footer"><div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="archive" viewBox="0 0 181 32" width="147.1" height="26" role="img" aria-label="Archive Desk" focusable="false"><g aria-hidden="true"><rect x="3" y="4" width="26" height="7" rx="2" fill="currentColor" class="f-a s-n"/><path d="M5 11v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12 17h8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Archivo'" font-weight="700" font-size="20" letter-spacing="0em">Archive Desk</text></svg></div>
   <nav aria-label="More from Archive Desk"><a href="archive-desk.html">Browser app</a><a href="archive-desk-protection.html">Encrypted copies</a><a href="archive-desk-cli.html">Command line</a></nav>
-  <p>Built by SanderSaxBuilds. Projects shown are fictional.</p>
+  <p>Built by SanderSaxBuilds.</p>
   <p class="g-contact"><span>Contact</span><a href="https://t.me/sandersax" target="_blank" rel="noopener">Telegram @sandersax</a><a href="https://wa.me/66961347329" target="_blank" rel="noopener">WhatsApp +66 96 134 7329</a><a href="tel:+77776093373">+7 777 609 33 73</a><a href="mailto:leshadqq@gmail.com">leshadqq@gmail.com</a></p>
-<p class="sb-label">Sample site, fictional brand</p></div></footer>
+</div></footer>
 <script src="archive-desk-v3-motion.js"></script>
 </body>
 </html>

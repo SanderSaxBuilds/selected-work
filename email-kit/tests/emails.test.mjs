@@ -241,11 +241,12 @@ for (const email of manifest.emails) {
     assert.doesNotMatch(visible, /[()]/);
   });
 
-  test(`${name}: says plainly that it is a sample from a fictional business`, () => {
+  test(`${name}: footer names the sender and its address, with no disclaimer line`, () => {
     const body = textOf(byName(docs().std, 'body')[0]);
-    assert.match(body, /sample email from the Inkpost kit/);
-    assert.match(body, /fictional business/);
-    assert.match(read(email.text).replace(/\s+/g, ' '), /fictional business/);
+    const text = read(email.text).replace(/\s+/g, ' ');
+    assert.match(body, /Kettlewick Coffee Roasters, 18 Wharf Lane, Port Ellery/);
+    assert.match(text, /Kettlewick Coffee Roasters, 18 Wharf Lane, Port Ellery/);
+    assert.doesNotMatch(body + text, /sample email|fictional/i);
   });
 
   if (name === 'order-confirmation') {
