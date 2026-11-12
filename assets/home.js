@@ -1,4 +1,4 @@
-/* Home pages: the folio drawer, the index filter, the hover screen, old hash links. No libraries. */
+/* Home pages: the folio drawer, the index filter, old hash links. No libraries. */
 (function(){
   var d=document,root=d.documentElement,rm=root.classList.contains('rm');
   function each(l,f){Array.prototype.forEach.call(l,f)}
@@ -12,7 +12,7 @@
   if(pile){
     var cards=[].slice.call(pile.querySelectorAll('.card')),n=cards.length,cur=0,busy=false;
     var num=d.getElementById('cur'),drawer=d.getElementById('drawer');
-    var aura=[].slice.call(d.querySelectorAll('.aura img')),ai=0;
+    var open=d.getElementById('open'),opn=d.getElementById('opn');
 
     function lay(skip){
       cards.forEach(function(c,i){
@@ -30,15 +30,7 @@
       var c=cards[cur];
       if(num)num.textContent=cur+1;
       root.style.setProperty('--desk',c.style.getPropertyValue('--bg'));
-      if(aura.length===2){
-        var src=c.dataset.aura,a=aura[ai];
-        if(a.getAttribute('src')!==src||!a.classList.contains('on')){
-          var b=aura[1-ai];
-          b.onload=function(){b.classList.add('on');a.classList.remove('on');ai=1-ai};
-          b.src=src;
-          if(b.complete&&b.naturalWidth){b.onload()}
-        }
-      }
+      if(open){open.href=c.getAttribute('href');opn.textContent=c.dataset.name}
     }
 
     function next(dir){
@@ -144,34 +136,6 @@
       rows.forEach(function(r){r.classList.toggle('off',!(g==='all'||r.dataset.g===g))});
     });
   });
-
-  /* hover a row on a mouse: the real screen follows the pointer */
-  var peek=d.getElementById('peek');
-  if(peek&&matchMedia('(hover:hover) and (pointer:fine)').matches){
-    var px=0,py=0,tx=0,ty=0,on=false,raf=0;
-    function step(){
-      px+=(tx-px)*(rm?1:.22);py+=(ty-py)*(rm?1:.22);
-      peek.style.transform='translate('+Math.round(px)+'px,'+Math.round(py)+'px)';
-      if(on&&(Math.abs(tx-px)>.5||Math.abs(ty-py)>.5))raf=requestAnimationFrame(step);else raf=0;
-    }
-    function aim(e){
-      var w=peek.offsetWidth||380,h=peek.offsetHeight||214;
-      tx=e.clientX+28;ty=e.clientY-h/2;
-      if(tx+w>innerWidth-12)tx=e.clientX-w-28;
-      ty=Math.max(12,Math.min(innerHeight-h-12,ty));
-      if(!raf)raf=requestAnimationFrame(step);
-    }
-    rows.forEach(function(r){
-      r.addEventListener('mouseenter',function(e){
-        var s=r.dataset.peek;peek.classList.toggle('tp',/-p520/.test(s));
-        if(peek.getAttribute('src')!==s)peek.src=s;
-        if(!on){aim(e);px=tx;py=ty}
-        on=true;peek.classList.add('on');aim(e);
-      });
-      r.addEventListener('mousemove',aim);
-      r.addEventListener('mouseleave',function(){on=false;peek.classList.remove('on')});
-    });
-  }
 
   /* links into the earlier index (#data, #07 and similar) still land on the matching row or section */
   var A={"01":"01-northline","02":"02-werksupply","03":"03-financial-report","04":"04-ledgerlens","05":"05-property-documents","06":"06-daybreak","07":"07-field-frame","08":"08-countback","09":"09-migration-proof","10":"10-allex-website",all:"work","new":"work",data:"work",systems:"work",research:"work",websites:"work",content:"work",integrations:"work",space:"",top:""};
