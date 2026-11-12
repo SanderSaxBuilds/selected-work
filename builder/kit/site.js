@@ -480,7 +480,7 @@
 
   /* ---------- page sections ---------- */
   function sampleBar() {
-    return cfg.sample ? h('div', { class: 'sample', role: 'note' }, h('div', { class: 'wrap', text: t('sample') })) : null;
+    return null;
   }
 
   function header() {
@@ -803,8 +803,7 @@
           phoneHref() ? h('a', { href: phoneHref(), text: cfg.contact.phone }) : null,
           h('span', { text: status(days).text }))),
       h('div', { class: 'wrap foot-s' },
-        h('span', { text: t('rights', { y: now.y, n: name }) }),
-        cfg.sample ? h('span', { text: t('sample') }) : null));
+        h('span', { text: t('rights', { y: now.y, n: name }) })));
   }
 
   /* ---------- rendering ---------- */

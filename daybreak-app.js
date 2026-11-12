@@ -124,7 +124,7 @@ function keepRecoveredPlan() {
 }
 
 function resetToSample() {
-  if (!window.confirm("Replace the plan in this browser with the fictional sample week?")) return;
+  if (!window.confirm("Replace the plan in this browser with the sample week?")) return;
   if (storageIssue === "unreadable" || storageIssue === "partial") { try { localStorage.setItem(DAMAGED_KEY, storedRaw ?? ""); } catch { /* ignore */ } }
   readOnly = false; clearStorageIssue();
   state = initialState(); suggestion = null;

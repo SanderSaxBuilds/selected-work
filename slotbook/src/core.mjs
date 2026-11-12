@@ -328,7 +328,7 @@ export function buildIcs({ booking, service, business, dtstamp }) {
     `Booking ${booking.ref} for ${service.name}, ${service.duration} minutes.`,
     `Bike: ${booking.bike}.`,
     booking.notes ? `Notes: ${booking.notes}` : '',
-    'Sample booking made with Slotbook. The workshop is fictional.'
+    'Booking made with Slotbook.'
   ].filter(Boolean).join('\n');
   const lines = [
     'BEGIN:VCALENDAR',

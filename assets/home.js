@@ -14,7 +14,7 @@
     var num=d.getElementById('cur'),drawer=d.getElementById('drawer');
     var open=d.getElementById('open'),opn=d.getElementById('opn');
     var body=d.body,stage=pile.querySelector('.stage'),mir=d.getElementById('mir'),tm=d.querySelector('meta[name="theme-color"]');
-    var room=body.classList.contains('bg-b')?'b':body.classList.contains('bg-c')?'c':'a';
+    var room=body.classList.contains('bg-b')?'b':body.classList.contains('bg-c')?'c':body.classList.contains('bg-w')?'w':'a';
     /* light or dark text colour of the front project, so the colour field picks shades that keep its text readable */
     function light(hex){var h=hex.replace('#','');if(h.length===3)h=h.replace(/./g,'$&$&');var v=parseInt(h,16);
       return (.2126*(v>>16&255)+.7152*(v>>8&255)+.0722*(v&255))>140}
@@ -45,7 +45,7 @@
       root.style.setProperty('--desk',bg);root.style.setProperty('--deskfg',fg);
       root.style.setProperty('--far',lt?'#000':'#fff');root.style.setProperty('--dinv',lt?1:0);
       if(stage)stage.setAttribute('data-v',cur%4);
-      if(tm)tm.setAttribute('content',room==='b'?bg:room==='c'?'#040405':'#08080a');
+      if(tm)tm.setAttribute('content',room==='b'?bg:room==='c'?'#040405':room==='w'?'#b4b9ae':'#08080a');
       if(room==='c')reflect(c);
       if(open){open.href=c.getAttribute('href');opn.textContent=c.dataset.name}
     }

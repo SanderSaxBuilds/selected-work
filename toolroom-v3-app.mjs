@@ -216,10 +216,10 @@ function download(name, content, type) {
 }
 
 const samples = {
-  quotecheck: { ext: 'csv', type: 'text/csv;charset=utf-8', text: 'QuoteCheck sample file. Not the full product.\r\nItem,Hours,Hourly rate USD,Amount USD\r\nDesign and build,40,35,1400\r\nRevision allowance,8,35,280\r\nEstimate,,,1680\r\n' },
-  exportcheck: { ext: 'csv', type: 'text/csv;charset=utf-8', text: 'ExportCheck sample file. Not the full product.\r\nRow,Email,Finding\r\n001,alex@example.com,Ready\r\n002,,Missing email\r\n003,taylor@example.com,Ready\r\n' },
-  handoffdesk: { ext: 'txt', type: 'text/plain;charset=utf-8', text: 'Handoff Desk sample file. Not the full product. Fictional project.\n\nProject: Fieldwork Studio website refresh\nOwner: Jordan Example\nStatus: Ready for review\n\nDecisions\nKeep the current logo. Use the supplied photography.\n\nDelivery checklist\n[ ] Review the homepage at desktop and phone widths\n[ ] Check contact links and downloaded assets\n[ ] Record the approved revision\n\nNext step\nConfirm the approved copy and final image set.\n' },
-  quotehandoffkit: { ext: 'txt', type: 'text/plain;charset=utf-8', text: 'Quote and Handoff Kit sample file. Not the full product.\n\n1. Define the brief and what it depends on.\n2. Separate the base estimate from revisions.\n3. Record agreed changes before changing the scope.\n4. Keep decisions, files and next steps together.\n5. Check the delivered file before handing it over.\n\nThe full kit combines the QuoteCheck and Handoff Desk apps. This text file shows the workflow.\n' }
+  quotecheck: { ext: 'csv', type: 'text/csv;charset=utf-8', text: 'QuoteCheck sample file.\r\nItem,Hours,Hourly rate USD,Amount USD\r\nDesign and build,40,35,1400\r\nRevision allowance,8,35,280\r\nEstimate,,,1680\r\n' },
+  exportcheck: { ext: 'csv', type: 'text/csv;charset=utf-8', text: 'ExportCheck sample file.\r\nRow,Email,Finding\r\n001,alex@example.com,Ready\r\n002,,Missing email\r\n003,taylor@example.com,Ready\r\n' },
+  handoffdesk: { ext: 'txt', type: 'text/plain;charset=utf-8', text: 'Handoff Desk sample file.\n\nProject: Fieldwork Studio website refresh\nOwner: Jordan Example\nStatus: Ready for review\n\nDecisions\nKeep the current logo. Use the supplied photography.\n\nDelivery checklist\n[ ] Review the homepage at desktop and phone widths\n[ ] Check contact links and downloaded assets\n[ ] Record the approved revision\n\nNext step\nConfirm the approved copy and final image set.\n' },
+  quotehandoffkit: { ext: 'txt', type: 'text/plain;charset=utf-8', text: 'Quote and Handoff Kit sample file.\n\n1. Define the brief and what it depends on.\n2. Separate the base estimate from revisions.\n3. Record agreed changes before changing the scope.\n4. Keep decisions, files and next steps together.\n5. Check the delivered file before handing it over.\n\nThe full kit combines the QuoteCheck and Handoff Desk apps. This text file shows the workflow.\n' }
 }
 
 function downloadPreview(id) {
@@ -524,7 +524,7 @@ if (hoInputs.length) {
       return `[${input.checked ? 'x' : ' '}] ${row.querySelector('span').textContent.trim()}${date ? ` (${date})` : ''}`
     })
     const done = hoInputs.filter(input => input.checked).length
-    const text = `Handoff note. Fictional project.\n\nProject: Fieldwork Studio website\nClient: Jordan Example\nDone: ${done} of ${hoInputs.length}\n\n${lines.join('\n')}\n`
+    const text = `Handoff note.\n\nProject: Fieldwork Studio website\nClient: Jordan Example\nDone: ${done} of ${hoInputs.length}\n\n${lines.join('\n')}\n`
     download('Fieldwork_Studio_handoff.txt', text, 'text/plain;charset=utf-8')
     notify('Fieldwork_Studio_handoff.txt downloaded.')
   })

@@ -127,7 +127,7 @@
       cBusiness: 'Business', cLook: 'Look', cServices: 'Services', cHours: 'Hours', cContact: 'Booking', cLocation: 'Location', cFaq: 'FAQ',
       hBusiness: 'Business', hLook: 'Look and languages', hServices: 'Services and prices', hHours: 'Opening hours', hContact: 'Booking channel', hLocation: 'Location', hFaq: 'Questions and answers',
       fType: 'Type of business', fTypeHelp: 'Fills in sample services, questions and hours. You can undo it.', fName: 'Business name', fTagline: 'Headline',
-      fTaglineHelp: 'What you do and where, in one line. Shown large at the top.', fSub: 'Sub line', fSample: 'Sample banner', fSampleHelp: 'Marks the site as a demo. Turn it off for a real client.',
+      fTaglineHelp: 'What you do and where, in one line. Shown large at the top.', fSub: 'Sub line', fSample: 'Sample contacts', fSampleHelp: 'Fills in stand-in contacts until you type the real ones.',
       fAccent: 'Accent colour', fCustom: 'Custom colour', fHex: 'Hex code', hexErr: 'Use a hex code like #1f5c46.', fTheme: 'Theme', dark: 'Dark', light: 'Light',
       fLangs: 'Site languages', fLangsHelp: 'Visitors can switch between these. At least one stays on.', fDefault: 'Default language',
       fDefaultHelp: 'Used by search engines and when the browser language of a visitor is not on the list.', lastLang: 'At least one language stays on.',
@@ -174,7 +174,7 @@
       cBusiness: 'Бизнес', cLook: 'Вид', cServices: 'Услуги', cHours: 'Часы', cContact: 'Запись', cLocation: 'Адрес', cFaq: 'Вопросы',
       hBusiness: 'Бизнес', hLook: 'Оформление и языки', hServices: 'Услуги и цены', hHours: 'Часы работы', hContact: 'Канал для заявок', hLocation: 'Адрес', hFaq: 'Вопросы и ответы',
       fType: 'Тип бизнеса', fTypeHelp: 'Подставляет примеры услуг, вопросов и часов работы. Это можно отменить.', fName: 'Название', fTagline: 'Заголовок',
-      fTaglineHelp: 'Чем вы занимаетесь и где, одной строкой. Крупно вверху страницы.', fSub: 'Подзаголовок', fSample: 'Плашка «пример»', fSampleHelp: 'Помечает сайт как демо. Выключите для настоящего клиента.',
+      fTaglineHelp: 'Чем вы занимаетесь и где, одной строкой. Крупно вверху страницы.', fSub: 'Подзаголовок', fSample: 'Контакты для примера', fSampleHelp: 'Подставляет временные контакты, пока вы не впишете свои.',
       fAccent: 'Акцентный цвет', fCustom: 'Свой цвет', fHex: 'HEX-код', hexErr: 'Введите код вида #1f5c46.', fTheme: 'Тема', dark: 'Тёмная', light: 'Светлая',
       fLangs: 'Языки сайта', fLangsHelp: 'Посетитель может переключаться между ними. Хотя бы один язык остаётся включённым.', fDefault: 'Основной язык',
       fDefaultHelp: 'Для поисковиков и для посетителей, чей язык браузера не в списке.', lastLang: 'Хотя бы один язык должен остаться.',
@@ -1318,7 +1318,7 @@
     ui.lang = 'en';
     const todo = issues().map(x => '- ' + x.msg);
     ui.lang = uiLang;
-    if (c.sample) todo.push('- Set "sample" to false in config.js, or switch off Sample banner in the site builder.');
+    if (c.sample) todo.push('- Set "sample" to false in config.js, or switch off Sample contacts in the site builder.');
     if (hd && hd === cleanHandle(ch, SAMPLE_HANDLE[ch])) todo.push('- Replace the placeholder ' + CH[ch] + ' contact with the real one.');
     todo.push('- Check every price, duration and opening time with the owner.', '- Open the site on a phone and send one test request to yourself.');
     const chLine = hd
