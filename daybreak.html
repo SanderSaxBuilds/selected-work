@@ -162,7 +162,7 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 .tl-block.is-dragging { box-shadow: inset 3px 0 0 var(--c), 0 22px 40px -16px rgba(0, 0, 0, .8); }
 .tl-open { border-radius: 3px; }
 .tl-title { font-weight: 600; }
-.tag { padding: 0; border-radius: 0; background: transparent !important; box-shadow: none !important; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; }
+.tag { padding: 0; border-radius: 0; background: transparent !important; box-shadow: none !important; font-size: 12px; letter-spacing: 0; text-transform: none; }
 .tag.focus { color: inherit; opacity: .8; }
 .tag.warn { color: var(--lemon); }
 .tl-block.is-protected .tag.warn { color: #0b2730; text-decoration: underline; }
@@ -186,7 +186,7 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 /* Rail: the focus card turns lemon, the break card stays quiet */
 .focus-card { border-radius: 4px; background: var(--lemon); color: var(--lemon-ink); box-shadow: none; }
 .focus-card h2, .quiet-card h2 { font: 400 30px/1.1 var(--display); }
-.state-pill { padding: 0; border-radius: 0; background: transparent; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; opacity: .75; }
+.state-pill { padding: 0; border-radius: 0; background: transparent; font-size: 13px; letter-spacing: 0; text-transform: none; opacity: .75; }
 .dial-track { stroke: rgba(29, 42, 12, .14); stroke-width: 3; }
 .dial-fill { stroke: var(--lemon-ink); stroke-width: 3; stroke-linecap: butt; filter: none; }
 .timer-display { font: 400 60px/1 var(--display); letter-spacing: -.02em; }
@@ -209,7 +209,8 @@ body { background: var(--porcelain); color: var(--ink); font-family: var(--ui); 
 
 .page-footer { color: var(--muted); border-top: 1px solid var(--line); }
 .footer-links { border-top-color: var(--line); }
-.footer-links span { color: var(--lemon); }
+.footer-links span { color: var(--lemon); font-size: 14px; letter-spacing: 0; text-transform: none; }
+.week-name { letter-spacing: 0; text-transform: none; font-size: 13px; }
 .footer-links a { color: var(--ink); text-decoration-color: rgba(239, 228, 138, .5); }
 
 /* Dialog */

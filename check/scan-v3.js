@@ -470,7 +470,7 @@ function render(anim){
   var c=cur,M=c.M,t=T(),k=K(),isS=c.src==="sample",V=verdict(M,c.top),id="rp"+(++rpN),other=M.device==="mobile"?"desktop":"mobile";
   var h='<p class="po ph">'+esc(k.printHead)+', sandersaxbuilds.github.io/selected-work/check/</p>';
   h+='<header class="rp-h"><span class="tag'+(isS?" s":"")+'">'+esc(isS?k.tagS:k.tagL)+'</span><h2 id="'+id+'">'+esc(fmt(k.rpFor,{u:disp(M.final||M.url)}))+'</h2>'+
-    '<p class="meta">'+[t.dev[M.device],when(M.at,lang),"Lighthouse "+M.ver+(M.src?", "+M.src:"")].map(esc).join('<span aria-hidden="true"> · </span>')+'</p></header>';
+    '<p class="meta">'+[t.dev[M.device],when(M.at,lang),"Lighthouse "+M.ver+(M.src?", "+M.src:"")].map(esc).join(', ')+'</p></header>';
   h+='<div class="rp-g"><div class="rp-sc"><h3 class="sec">'+esc(k.scores)+'</h3><ul class="scs">';
   CATS.forEach(function(cat){var v=M.cats[cat],b=band(v);
     h+='<li class="sc b'+b+'"><span class="sc-n">'+(v==null?"--":v)+'<span class="sr"> '+esc(t.of)+',</span></span><span class="sc-w">'+(b<0?"":esc(t.band[b]))+'</span><span class="sc-l">'+esc(t.cats[cat])+'<small>'+esc(t.catSub[cat])+'</small></span><span class="sc-b" aria-hidden="true"><i style="width:'+(v==null?0:v)+'%"></i></span></li>'});

@@ -509,7 +509,7 @@
     return h('section', { class: 'hero', id: 'top', 'aria-labelledby': 'heroT' },
       h('div', { class: 'wrap hero-g' },
         h('div', { class: 'hero-c' },
-          h('p', { class: 'kicker' }, t('types')[cfg.type] + (city ? ' · ' + city : '')),
+          h('p', { class: 'kicker' }, t('types')[cfg.type] + (city ? ', ' + city : '')),
           h('h1', { id: 'heroT', text: tx(cfg.tagline) || tx(cfg.name) }),
           sub ? h('p', { class: 'lead', text: sub }) : null,
           h('p', { class: 'status is-' + st.cls }, ic('clock'), st.text),
@@ -603,7 +603,7 @@
       list.length ? h('div', { class: 'opts', role: 'group', 'aria-labelledby': 'stS' }, list.map((s, i) => h('button', {
         type: 'button', class: 'opt', 'data-k': 'svc-' + i, 'aria-pressed': String(i === S.svc),
         onclick: () => { S.svc = i; renderBooking(); }
-      }, h('span', { class: 'o-n', text: svcName(s, i) }), h('span', { class: 'o-m', text: dur(s.minutes) + ' · ' + price(s.price) })))) : h('p', { class: 'empty', text: t('noServices') })));
+      }, h('span', { class: 'o-n', text: svcName(s, i) }), h('span', { class: 'o-m', text: dur(s.minutes) + ', ' + price(s.price) })))) : h('p', { class: 'empty', text: t('noServices') })));
 
     steps.append(h('div', { class: 'step' },
       h('h3', { class: 'step-t', id: 'stD' }, h('span', { class: 'n', text: '2' }), t('stepDay')),
@@ -698,7 +698,7 @@
         row(t('stepDay'), d ? dateLong(d) : t('notChosen'), !!d),
         row(t('stepTime'), S.time >= 0 ? tm(S.time) : t('notChosen'), S.time >= 0)),
       h('div', { class: 'bubble' },
-        h('p', { class: 'b-h' }, ic('chat'), h('span', { text: hd ? chName() + ' · ' + handleLabel() : chName() })),
+        h('p', { class: 'b-h' }, ic('chat'), h('span', { text: hd ? chName() + ', ' + handleLabel() : chName() })),
         h('pre', { class: 'b-t', id: 'bkMsg', text: msg })),
       send, hint,
       h('div', { class: 'sum-f' }, copyBtn),
@@ -797,7 +797,7 @@
       h('div', { class: 'wrap foot-g' },
         h('div', { class: 'foot-b' },
           h('span', { class: 'mark', 'aria-hidden': 'true', text: (Array.from(name)[0] || 'L').toUpperCase() }),
-          h('div', null, h('strong', { text: name }), h('span', { text: t('types')[cfg.type] + (tx(cfg.address.city) ? ' · ' + tx(cfg.address.city) : '') }))),
+          h('div', null, h('strong', { text: name }), h('span', { text: t('types')[cfg.type] + (tx(cfg.address.city) ? ', ' + tx(cfg.address.city) : '') }))),
         h('div', { class: 'foot-l' },
           link ? h('a', { href: link, target: '_blank', rel: 'noopener', text: chName() + ' ' + handleLabel() }) : null,
           phoneHref() ? h('a', { href: phoneHref(), text: cfg.contact.phone }) : null,

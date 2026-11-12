@@ -385,7 +385,7 @@ body{counter-reset:sec}
 .hero .lead,#areas .sub,#buy .sub,#agency .sub,#visit .sub,.air,#stops{display:none}
 
 /* type: a louder scale, Prata against heavy Manrope */
-.eb{font-size:12.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.eb{font-size:13px;font-weight:700;letter-spacing:0}
 .shead .eb,.box .eb{counter-increment:sec}
 .shead .eb::before,.box .eb::before{content:counter(sec,decimal-leading-zero);margin-right:14px;color:var(--ink);opacity:.35}
 .agency .eb::before,.box .eb::before{color:#fff;opacity:.45}
@@ -409,7 +409,7 @@ body{counter-reset:sec}
 .ktag .kt-b{position:relative;display:grid;grid-template-columns:auto 1fr;align-items:end;column-gap:14px;min-width:260px;padding:20px 26px 20px 66px;background:#fff;color:var(--ink);border-radius:16px 44px 44px 16px;box-shadow:0 34px 60px -26px rgba(14,26,36,.65);-webkit-mask:radial-gradient(circle at 32px 50%,transparent 11px,#000 11.5px);mask:radial-gradient(circle at 32px 50%,transparent 11px,#000 11.5px)}
 .ktag .ring{position:absolute;left:-26px;top:50%;width:70px;height:70px;margin-top:-35px;border-radius:50%;border:4px solid #d5d9df;box-shadow:inset 0 0 0 1px rgba(14,26,36,.18),0 1px 0 rgba(255,255,255,.6);clip-path:polygon(0 0,62% 0,62% 100%,0 100%)}
 .ktag b{grid-row:1/3;font:400 76px/.8 var(--serif);color:var(--lag);letter-spacing:-.04em}
-.ktag span{font:800 13px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.ktag span{font:700 13px/1.2 var(--sans);letter-spacing:0}
 .ktag small{font-size:13.5px;color:var(--mut);line-height:1.3}
 .ktag.bump .kt-b{animation:kk-bump .45s cubic-bezier(.2,1.5,.4,1)}
 @keyframes kk-bump{0%{transform:scale(1.06)}100%{transform:none}}
@@ -445,7 +445,7 @@ body{counter-reset:sec}
 .pin .pl{position:absolute;right:calc(100% + 4px);top:50%;transform:translateY(-50%);text-align:right;white-space:nowrap;line-height:1.1;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .pin.r .pl{right:auto;left:calc(100% + 4px);text-align:left}
 .pin .pl b{display:block;font:400 clamp(14px,1.25vw,18px)/1.1 var(--serif);color:var(--ink)}
-.pin .pl small{font-size:11.5px;font-weight:800;letter-spacing:.08em;color:var(--mut);text-transform:uppercase}
+.pin .pl small{font-size:12px;font-weight:700;letter-spacing:0;color:var(--mut)}
 .pin:hover .pd,.pin:focus-visible .pd{transform:scale(1.3)}
 .pin:hover .pl{transform:translate(-4px,-50%)}
 .pin.r:hover .pl{transform:translate(4px,-50%)}
@@ -453,7 +453,7 @@ body{counter-reset:sec}
 .pin[aria-pressed=true] .pl b{color:var(--lag)}
 .apt{position:absolute;margin:-13px 0 0 -13px;width:26px;height:26px;border-radius:50%;background:var(--ink);display:grid;place-items:center;pointer-events:none}
 .apt svg{width:15px;height:15px;fill:#fff}
-.apt span{position:absolute;left:calc(100% + 8px);font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.apt span{position:absolute;left:calc(100% + 8px);font-size:12.5px;font-weight:700;letter-spacing:0;white-space:nowrap}
 .amap .adet{grid-template-columns:1fr;position:sticky;top:110px;box-shadow:0 40px 70px -40px rgba(14,26,36,.35)}
 .amap .aimg{min-height:0;aspect-ratio:16/10}
 .adet .atx h3{font-size:clamp(34px,3.4vw,56px);letter-spacing:-.02em;line-height:1}
@@ -684,7 +684,7 @@ body{counter-reset:sec}
   <div class="box rv">
    <div><h2 class="h2" data-t="oH">Такой сайт для вашего агентства</h2><p class="sub" data-t="oSub">Первая версия главной бесплатно.</p></div>
    <div><div class="pr" data-t="oPr">от $2 400</div><div class="pt" data-t="oTime">Готово за 2-3 недели</div>
-    <ul><li data-t="o1">Объекты из Google Таблицы</li><li data-t="o2">RU · EN · TH</li><li data-t="o3">Подбор и доходность</li><li data-t="o4">Заявки в Telegram, WhatsApp, LINE</li></ul>
+    <ul><li data-t="o1">Объекты из Google Таблицы</li><li data-t="o2">RU, EN, TH</li><li data-t="o3">Подбор и доходность</li><li data-t="o4">Заявки в Telegram, WhatsApp, LINE</li></ul>
     <p class="tlh" data-t="oTl">Можно добавить к сайту</p>
     <div class="tls"><a class="tl" href="tg/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 12-9"/></svg><span data-t="o6">Каталог в Telegram</span></a><a class="tl" href="sun/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg><span data-t="o7">Солнце и тень</span></a><a class="tl" href="brochure/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9 13h6M9 17h6"/></svg><span data-t="o8">PDF-буклет</span></a><a class="tl" href="crm/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="10" rx="1"/><rect x="17" y="4" width="4" height="13" rx="1"/></svg><span data-t="o9">Доска заявок</span></a><a class="tl" href="owner-report/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M7 20v-6M12 20V8M17 20v-9"/></svg><span data-t="o10">Отчёт собственнику</span></a><a class="tl" href="payment-plan/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2M7 17h2"/></svg><span data-t="o11">Рассрочка</span></a><a class="tl" href="leasehold/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg><span data-t="o12">Лизхолд</span></a><a class="tl" href="costs/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v12H4z"/><path d="M4 11h16M8 15h3"/></svg><span data-t="o14">Расходы покупателя</span></a></div>
     <a class="tla" href="tools/" data-t="o13">Все инструменты на одной странице</a>
@@ -693,7 +693,7 @@ body{counter-reset:sec}
  </div>
 </section>
 
-<footer><div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="keystone" viewBox="0 0 218 32" width="177.1" height="26" role="img" aria-label="Kamala Keystone" focusable="false"><g aria-hidden="true"><path d="M4 29V16a12 12 0 0 1 24 0v13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12.6 1.5h6.8l-1.4 8h-4z" fill="currentColor" class="f-a s-n"/><path d="M9 23c2.4-2 4.6-2 7 0s4.6 2 7 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Prata'" font-weight="400" font-size="21" letter-spacing="0em">Kamala Keystone</text></svg></div><p data-t="foot">Фото с Unsplash.</p><p><span data-t="made">Сделал</span> <a href="../">Sander Sax</a> · <a href="https://t.me/sandersax" target="_blank" rel="noopener">t.me/sandersax</a></p></div></footer>
+<footer><div class="wrap"><div class="sb-foot"><svg class="sb-logo sb-f" data-sb="keystone" viewBox="0 0 218 32" width="177.1" height="26" role="img" aria-label="Kamala Keystone" focusable="false"><g aria-hidden="true"><path d="M4 29V16a12 12 0 0 1 24 0v13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-c"/><path d="M12.6 1.5h6.8l-1.4 8h-4z" fill="currentColor" class="f-a s-n"/><path d="M9 23c2.4-2 4.6-2 7 0s4.6 2 7 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="f-n s-a"/></g><text x="42" y="23.6" fill="currentColor" font-family="'Prata'" font-weight="400" font-size="21" letter-spacing="0em">Kamala Keystone</text></svg></div><p data-t="foot">Фото с Unsplash.</p><p><span data-t="made">Сделал</span> <a href="../">Sander Sax</a>, <a href="https://t.me/sandersax" target="_blank" rel="noopener">t.me/sandersax</a></p></div></footer>
 
 <div class="ov" id="ov"></div>
 <aside class="drw" id="drw" role="dialog" aria-modal="true" aria-label="Property"></aside>

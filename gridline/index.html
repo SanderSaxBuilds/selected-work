@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/assets/j/gridline.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2322744a'/%3E%3Cpath d='M7 12h18M7 17h18M7 22h18M13 7v18' stroke='%23ffffff' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="../assets/gfonts/css/be0c57956bf6.css">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20261113f">
 <style>
 /* Gridline preview. Cold rolled steel: a pale steel sheet for the orders, a dark slate rail for the controls,
    one magenta for edits and the working action. Sora for words, Azeret Mono for every figure.
@@ -297,6 +297,9 @@ kbd { background: #fff; border-radius: 0; border-color: var(--ink); }
   .rail { display: contents; }
   .note { order: 1; }
 }
+/* Labels and counts in Sora, the grid's own figures stay in Azeret Mono */
+.count, .count.on, .count.soft, .status, .gl-gauge, .row-count { font-family: var(--body); font-variant-numeric: tabular-nums; }
+.pill { letter-spacing: 0; text-transform: none; font-size: 12.5px; }
 </style></head><body data-mode="grid">
 <a class="skip" href="#grid">Skip to the order grid</a>
 <div class="app">

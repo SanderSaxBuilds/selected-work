@@ -324,6 +324,9 @@ dialog::backdrop{background:rgba(17,22,19,.55)}
   .win-ico{display:none}
 }
 @media (prefers-reduced-motion:reduce){.win-panel{animation:none}}
+/* Labels in Syne, Spline Sans Mono only for the money and hours the tools work out */
+.eyebrow,.main-nav a,.nav-link,.bag-button,.win-status,.dock [role="tab"] span,.csv-stamp,.ho-list time,.chips button,.chips .num,.catalog-caption,.card-meta,.card-meta .num,.step,.footer-links a,.footer-links .nav-link,.library-stats dt,.q-job span,.bag-count{font-family:var(--body);font-variant-numeric:tabular-nums}
+.pocket-label{text-transform:none;letter-spacing:0}
 </style>
   <script type="module" src="toolroom-v3-app.mjs"></script>
 <script>window.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;e.preventDefault();var h=a.getAttribute('href');if(h==='#'){scrollTo(0,0);return}if(location.hash===h){var t=document.getElementById(h.slice(1));if(t)t.scrollIntoView()}else location.hash=h});</script>

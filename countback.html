@@ -147,6 +147,11 @@ dialog { border-top-color: var(--yellow); border-top-width: 12px; }
   .receipt { box-shadow: none; }
   .delivery { box-shadow: none; }
 }
+/* Small labels in sentence case, SKU codes in the text face */
+.delivery-meta dt, .progress-label, .total-label, .lines th, .utterance-label, .mode-label, dialog label, .footer-contact span { text-transform: none; letter-spacing: 0; }
+.delivery-meta dt { font-size: 14px; }
+.lines td[data-label]::before { text-transform: none; letter-spacing: 0; }
+.product-meta .sku { font-family: var(--body); font-weight: 700; letter-spacing: .02em; }
 </style>
   <script type="module" src="countback-app.mjs"></script>
 <style id="sb-brand">.sb-logo{display:block;height:var(--sb-h,30px)!important;width:auto!important;max-width:100%;overflow:visible;flex:none}.sb-logo.sb-f{height:var(--sb-fh,26px)!important}.sb-foot{margin:0 0 16px;color:inherit}.sb-label{margin:16px 0 0;font-size:12px;line-height:1.45;letter-spacing:.02em;opacity:.78}@media (max-width:480px){.sb-logo.sb-h{height:calc(var(--sb-h,30px)*.84)!important}}.sb-logo{--sb-acc:var(--yellow)}.sb-logo .f-n{fill:none!important}.sb-logo .f-c{fill:currentColor!important}.sb-logo .f-a{fill:var(--sb-acc)!important}.sb-logo .f-i{fill:var(--ink)!important}.sb-logo .s-n{stroke:none!important}.sb-logo .s-c{stroke:currentColor!important}.sb-logo .s-a{stroke:var(--sb-acc)!important}.sb-logo text{fill:currentColor!important;stroke:none!important;text-transform:none!important;text-shadow:none!important}.topbar .brand{gap:0}</style></head>

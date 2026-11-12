@@ -19,7 +19,7 @@
 <link rel="preload" href="../assets/gfonts/bricolage-grotesque/3y996as8bTXq_nANBjzKo3IeZx8z6up5L-iNGQ.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/gfonts/dm-mono/aFTR7PB1QTsUX8KYvumzEYOtbQ.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/gfonts/css/f95aba2439d7.css">
-<link rel="stylesheet" href="styles.css?v=20261025t">
+<link rel="stylesheet" href="styles.css?v=20261113f">
 <style>
 /* V3: the page opens as the workshop's booking diary, laid open on the desk.
    Left page: what you need done and the month. Right page: the day, hour by hour,
@@ -32,7 +32,7 @@
   --now:#8a2f4e;--ok:#2f6e8e;--bad:#b0283a;--tone:#6d2a63;
   --chalk:#bcd8f2;--plum:#6d2a63;
   --sans:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
-  --mono:"DM Mono",ui-monospace,Consolas,monospace;
+  --mono:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
   --r:6px;--shadow:none;--top-h:66px;
 }
 [style*="2b78c5"]{--tone:#3d6fa3!important}
@@ -42,6 +42,8 @@
 .stub{--tone:#2f6e8e}
 html{scroll-padding-top:calc(var(--top-h) + 12px)}
 body{background:var(--desk);color:var(--ink);font-family:var(--sans)}
+/* The workshop wall: painted pegboard behind the diary, where the tools hang */
+body{background-color:var(--desk);background-image:radial-gradient(circle at 50% 50%,transparent 0 3.6px,rgba(255,255,255,.55) 3.8px 4.6px,transparent 4.8px),radial-gradient(circle at 50% 42%,#8d9daa 0 2.2px,#aab8c3 2.6px 3.6px,transparent 3.8px);background-size:34px 34px;background-position:17px 17px;background-attachment:fixed}
 ::selection{background:var(--chalk);color:var(--ink)}
 :focus-visible{outline-color:var(--plum)}
 
@@ -244,6 +246,8 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{border-color:var
   .service-list{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){#slots{scroll-behavior:auto}}
+/* Times, prices and counts in the diary face with even figures */
+.svc-meta,.slot .t,.row .t,.tk,.nw,.dcount,.mono,.hours-in dd{font-variant-numeric:tabular-nums}
 </style>
 <link rel="modulepreload" href="src/app.mjs?v=20261024u">
 <link rel="modulepreload" href="src/core.mjs">
