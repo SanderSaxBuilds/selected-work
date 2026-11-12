@@ -81,7 +81,7 @@
       const [app, col] = APP[d.channel] || APP.line;
       const lines = String(d.text || '').split('\n').map(s => s.trim()).filter(Boolean).slice(0, 5);
       box.innerHTML = `<div class="nt-h"><span class="nt-app" style="background:${col}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5c-4.7 0-8.5 3-8.5 6.8 0 2.2 1.3 4.2 3.4 5.4l-.6 2.8 3.1-1.7c.8.2 1.7.3 2.6.3 4.7 0 8.5-3 8.5-6.8S16.7 4.5 12 4.5z"/></svg></span><b>${esc(app)}</b><span>${esc(T('noteNow'))}</span></div>` +
-        `<strong>${esc(T('noteTitle'))}${d.business ? ', ' + esc(d.business) : ''}</strong><p>${lines.map(esc).join('<br>')}</p><small>${esc(T('noteCap'))}</small>`;
+        `<strong>${esc(T('noteTitle'))}${d.business ? ' · ' + esc(d.business) : ''}</strong><p>${lines.map(esc).join('<br>')}</p><small>${esc(T('noteCap'))}</small>`;
       box.hidden = false;
       box.classList.remove('is-in'); void box.offsetWidth; box.classList.add('is-in');
       if (tryBtn) tryBtn.classList.add('is-gone');
@@ -616,7 +616,7 @@
       if (li && focus.isNew) li.classList.add('is-new');
     }
   }
-  function svcHint(li, s) { $('[data-hint]', li).textContent = [fmtDur(s.minutes), fmtPrice(s.price)].filter(Boolean).join(', '); }
+  function svcHint(li, s) { $('[data-hint]', li).textContent = [fmtDur(s.minutes), fmtPrice(s.price)].filter(Boolean).join(' · '); }
 
   function renderFaq(focus) {
     const list = cfg.faq;
@@ -1173,7 +1173,7 @@
     }
     device.dataset.dev = kind;
     device.style.transform = s === 1 ? 'none' : `scale(${s})`;
-    $('#pvMeta').textContent = vw + ' px, ' + Math.round(s * 100) + '%';
+    $('#pvMeta').textContent = vw + ' px · ' + Math.round(s * 100) + '%';
     const grip = $('#pvGrip');
     if (grip) {
       grip.hidden = ui.device === 'phone';
@@ -1301,7 +1301,7 @@
     const desc = txt(cfg.sub, L) || tag;
     let out = html
       .replace(/<html lang="[^"]*" data-theme="[^"]*">/, `<html lang="${L}" data-theme="${cfg.theme === 'dark' ? 'dark' : 'light'}">`)
-      .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(name + (tag ? ', ' + tag : ''))}</title>`)
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(name + (tag ? ' · ' + tag : ''))}</title>`)
       .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(desc)}">`)
       .replace(/<meta name="theme-color" content="[^"]*">/, `<meta name="theme-color" content="${cfg.theme === 'dark' ? '#0a1020' : '#f5f3ee'}">`);
     if (ld) out = out.replace('</head>', `<script type="application/ld+json" id="lanta-ld">${ld.replace(/</g, '\\u003c')}</script>\n</head>`);

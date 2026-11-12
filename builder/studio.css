@@ -1,7 +1,7 @@
 /* Site builder studio. A creative tool, not a landing page: graphite workspace,
    the site sits on a canvas as an artboard you can resize, and an inspector on
-   the right holds every setting. Le Murmure for headings and Libertinage for text
-   (set in index.html), one selection colour. */
+   the right holds every setting. Space Grotesk with JetBrains Mono, one violet
+   selection colour. */
 *,*::before,*::after{box-sizing:border-box}
 :root{
   --app:#0f1012;--chrome:#141518;--panel:#17181b;--panel-2:#1d1e22;--field:#212227;--field-2:#26272d;
@@ -10,9 +10,9 @@
   --line:#26282d;--line-2:#32343b;--line-3:#4a4d56;
   --accent:#8b7bff;--accent-2:#b0a6ff;--on-accent:#0f0d1f;--accent-soft:rgba(139,123,255,.14);--ring:rgba(139,123,255,.32);
   --ok:#72d69f;--ok-soft:rgba(114,214,159,.14);--danger:#ff7a6e;--warn:#e9c46a;
-  --display:"Le Murmure","Noto Sans Thai","Arial Narrow",sans-serif;
-  --body:"Libertinage","Noto Sans Thai",Georgia,serif;
-  --mono:var(--body);
+  --display:"Space Grotesk","Noto Sans Thai",system-ui,sans-serif;
+  --body:"Space Grotesk","Noto Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
   --ease:cubic-bezier(.2,.7,.2,1);
   --top:52px;--tabs:0px;--bar:48px;
   color-scheme:dark;
@@ -64,7 +64,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .top{position:sticky;top:0;z-index:40;height:var(--top);display:flex;align-items:center;gap:16px;padding:0 12px 0 16px;background:var(--chrome);color:var(--ink);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:0 0 auto;font-weight:600;font-size:14px;white-space:nowrap}
 .brand-mark{flex:0 0 auto;width:18px;height:28px;background:var(--ink);-webkit-mask:url(../assets/sandersax-mark.png) center/contain no-repeat;mask:url(../assets/sandersax-mark.png) center/contain no-repeat}
-.brand-w{font-family:var(--display);font-weight:600;font-size:24px;letter-spacing:.01em;color:var(--ink)}
+.brand-w{font-family:"Barlow Condensed",var(--display);font-weight:700;font-size:18px;letter-spacing:.06em;color:var(--ink)}
 .brand-tag{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--on-accent);background:var(--accent);border-radius:5px;padding:2px 7px;letter-spacing:.02em}
 .top-note{color:var(--dim);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;padding-left:16px;border-left:1px solid var(--line-2)}
 .top-r{display:flex;align-items:center;gap:8px;margin-left:auto;flex:0 0 auto}
