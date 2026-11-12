@@ -1,13 +1,9 @@
-/* Results page. Sits on the home page's plaster wall, each client is one light folder with its name on the tab.
+/* Results page. Sits on the home page's plain stone ground, each client is one light folder with its name on the tab.
    Green is "after" and "paid", red is "before", the same meaning as on the case and fixes pages. */
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 body.rs{--sheet:#fbfbfa;--on:#16201b;--on2:#29332e;
   color:var(--on);position:relative;
-  background:url(../assets/home/wall/plaster-tile.webp) 0 0/512px 512px repeat,#b4b9ae}
-/* the window light from the home page, faded out at its foot so it leaves no edge on a tall page */
-body.rs::before{content:"";position:absolute;z-index:0;left:0;right:0;top:0;height:max(70.8vw,1020px);pointer-events:none;
-  background:url(../assets/home/wall/light-d.webp) 50% 0/max(100%,1440px) auto no-repeat;mix-blend-mode:color-dodge;
-  -webkit-mask-image:linear-gradient(#000 55%,transparent 96%);mask-image:linear-gradient(#000 55%,transparent 96%)}
+  background:#e7e5df}
 .rs .top,.rs main,.rs .foot{position:relative;z-index:1}
 .rs .top .msg{background:var(--on);color:#eef0e8;border-radius:10px}
 .rs .top .msg:hover{background:#2c3a33}
@@ -67,8 +63,6 @@ body.rs::before{content:"";position:absolute;z-index:0;left:0;right:0;top:0;heig
 }
 @media (max-width:767px){
   .rs .top .msg{border-radius:10px}
-  body.rs{background-size:384px 384px}
-  body.rs::before{height:171vw;background-image:url(../assets/home/wall/light-p.webp);background-size:100% auto}
   .hl{padding:22px 16px 0;font-size:clamp(34px,10vw,46px);letter-spacing:-.04em}
   .fold{margin:calc(40px + 50px) 0 0}
   .fold+.fold{margin-top:calc(56px + 50px)}
