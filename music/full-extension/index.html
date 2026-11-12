@@ -52,23 +52,23 @@ h1 span{display:block}
 .tracks .t{flex:1}
 .tracks .ft{color:var(--dim)}
 .tracks .d{color:var(--dim);font-variant-numeric:tabular-nums}
-.tracks a:hover .t{color:var(--gold)}
+@media (hover:hover) and (pointer:fine){.tracks a:hover .t{color:var(--gold)}}
 .ways{margin-top:30px}
 .ways a{display:flex;align-items:center;gap:13px;min-height:54px;padding:0 2px;color:var(--cream);text-decoration:none;font-size:1.0625rem;font-weight:400}
 .ways a::before{content:"";width:8px;height:8px;background:var(--olive);flex:none;transition:background-color .15s}
 .ways svg{width:18px;height:18px;fill:var(--dim);flex:none}
-.ways a:hover::before{background:var(--iris)}
-.ways a:hover{color:var(--gold)}
+@media (hover:hover) and (pointer:fine){.ways a:hover::before{background:var(--iris)}}
+@media (hover:hover) and (pointer:fine){.ways a:hover{color:var(--gold)}}
 .ways a.lead{min-height:64px;margin-bottom:10px;padding:0 18px;background:var(--iris);color:var(--scale);font-weight:600;font-size:1.1875rem}
 .ways a.lead::before{display:none}
 .ways a.lead svg{fill:var(--scale)}
-.ways a.lead:hover{background:var(--gold);color:var(--scale)}
+@media (hover:hover) and (pointer:fine){.ways a.lead:hover{background:var(--gold);color:var(--scale)}}
 .buy{margin:22px 0 0;color:var(--dim)}
 .buy a,.all{color:var(--cream);text-underline-offset:4px;text-decoration-color:var(--iris);text-decoration-thickness:2px}
 .follow{display:flex;flex-wrap:wrap;gap:2px 22px;margin-top:36px}
 .follow a{display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--dim);text-decoration:none}
 .follow svg{width:17px;height:17px;fill:currentColor}
-.follow a:hover{color:var(--cream)}
+@media (hover:hover) and (pointer:fine){.follow a:hover{color:var(--cream)}}
 .all{display:inline-block;margin-top:24px;font-weight:400}
 a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 @media (min-width:900px){
