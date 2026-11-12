@@ -20,31 +20,31 @@
 <meta name="twitter:description" content="Every 2026 release by SanderSax, from i look. at YOUR! FACE! to Through the Time, with links to every platform.">
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/music/through-the-time/cover.jpg">
 <link rel="icon" href="through-the-time/cover-300.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400..700&display=swap">
+<link rel="preload" as="font" type="font/woff2" href="fonts/erbarre/Erbarre-Bold.woff2" crossorigin>
 <style>
+@font-face{font-family:"Erbarre";src:url("fonts/erbarre/Erbarre-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:"Erbarre";src:url("fonts/erbarre/Erbarre-Regular.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 ul{list-style:none;margin:0;padding:0}
 :root{--ground:#262421;--card:#302d29;--paper:#eee8de;--dim:#aea596;--rule:#3b3833}
-body{margin:0;min-height:100vh;background:var(--ground);color:var(--paper);font-family:"Familjen Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;background:var(--ground);color:var(--paper);font-family:"Erbarre","Arial Narrow",Arial,sans-serif;font-weight:500;font-synthesis:none;-webkit-font-smoothing:antialiased}
 .hub{max-width:1240px;margin:0 auto;padding:32px 16px 60px}
 header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--rule)}
-h1{margin:0;font-weight:700;font-size:clamp(2.4rem,11vw,5.5rem);line-height:.95;letter-spacing:-.03em}
-header p{margin:0;color:var(--dim);font-size:.9375rem;text-align:right}
+h1{margin:0;font-weight:700;font-size:clamp(3.2rem,17vw,8rem);line-height:.9}
+header p{margin:0;color:var(--dim);font-size:1.0625rem;text-align:right;white-space:nowrap}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:28px 12px;margin-top:28px}
 .grid a{display:block;color:var(--paper);text-decoration:none}
 .grid img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;background:var(--card)}
-.grid .t{display:block;margin-top:10px;font-weight:600;font-size:1rem;line-height:1.2}
-.grid .m{display:block;margin-top:4px;font-size:.875rem;color:var(--dim)}
+.grid .t{display:block;margin-top:10px;font-weight:700;font-size:1.125rem;line-height:1.15}
+.grid .m{display:block;margin-top:4px;font-size:1rem;color:var(--dim)}
 .grid a:hover .t{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 .grid a:focus-visible,.follow a:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
 .follow{display:flex;flex-wrap:wrap;gap:0 22px;margin-top:48px;padding-top:18px;border-top:1px solid var(--rule)}
 .follow a{display:flex;align-items:center;gap:8px;padding:10px 0;color:var(--paper);text-decoration:none}
 .follow svg{width:17px;height:17px;fill:var(--dim)}
 .follow a:hover{text-decoration:underline;text-underline-offset:4px}
-@media (min-width:900px){.hub{padding:64px 48px 80px}.grid{grid-template-columns:repeat(4,1fr);gap:48px 28px;margin-top:40px}.grid .t{font-size:1.125rem}}
+@media (min-width:900px){.hub{padding:64px 48px 80px}.grid{grid-template-columns:repeat(4,1fr);gap:48px 28px;margin-top:40px}.grid .t{font-size:1.3125rem}}
 </style>
 </head>
 <body>

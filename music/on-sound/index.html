@@ -24,10 +24,8 @@
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/music/on-sound/cover.jpg">
 <meta name="twitter:image:alt" content="On Sound cover, an empty theatre with red seats under pink and violet light">
 <link rel="icon" href="cover-300.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&text=OnSoud%20&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400..600&display=swap">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/bluu-next/BluuNext-Bold.woff2" crossorigin>
+
 <link rel="preload" as="image" href="cover-720.webp" imagesrcset="cover-720.webp 720w, cover-1080.webp 1080w" imagesizes="(min-width:900px) 54vw, 100vw">
 <style>
 *{box-sizing:border-box}
@@ -36,12 +34,16 @@ body{margin:0;min-height:100vh;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 ul,ol{list-style:none;margin:0;padding:0}
 a{-webkit-tap-highlight-color:transparent}
+@font-face{font-family:"Bluu Next";src:url("../fonts/bluu-next/BluuNext-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:"Coconat";src:url("../fonts/coconat/Coconat-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Coconat";src:url("../fonts/coconat/Coconat-Demi.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+body{font-synthesis:none}
 
 :root{--house:#140e1b;--velvet:#22172b;--seat:#b8372c;--violet:#9a86f0;--paper:#f2edf4;--dim:#b2a7bb}
-body{background:var(--house);color:var(--paper);font-family:"Onest",system-ui,sans-serif}
+body{background:var(--house);color:var(--paper);font-family:"Coconat",Georgia,serif}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
 .copy{padding:30px 16px 60px;container-type:inline-size}
-h1{margin:0;font-family:"Gloock",Georgia,serif;font-weight:400;font-size:25cqi;line-height:.92;letter-spacing:-.02em}
+h1{margin:0;font-family:"Bluu Next",Georgia,serif;font-weight:700;font-size:25cqi;line-height:.92;letter-spacing:-.01em}
 .by{margin:16px 0 0;color:var(--dim)}
 .by b{color:var(--paper);font-weight:600}
 .line{margin:24px 0 0;font-size:1.125rem;line-height:1.45;color:var(--violet);max-width:26ch}

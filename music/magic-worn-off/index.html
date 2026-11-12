@@ -24,10 +24,8 @@
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/music/magic-worn-off/cover.jpg">
 <meta name="twitter:image:alt" content="Magic Worn Off cover, feet in sneakers on a concrete block at a cliff edge at night">
 <link rel="icon" href="cover-300.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:wght@900&text=MAGICWORNF%20&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400..700&display=swap">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/piscolabis/Piscolabis-Regular.woff2" crossorigin>
+
 <link rel="preload" as="image" href="cover-720.webp" imagesrcset="cover-720.webp 720w, cover-1080.webp 1080w" imagesizes="(min-width:900px) 46vw, 100vw">
 <style>
 *{box-sizing:border-box}
@@ -36,13 +34,15 @@ body{margin:0;min-height:100vh;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 ul,ol{list-style:none;margin:0;padding:0}
 a{-webkit-tap-highlight-color:transparent}
+@font-face{font-family:"Piscolabis";src:url("../fonts/piscolabis/Piscolabis-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:"Halibut Condensed";src:url("../fonts/halibut/Halibut-CondensedRegular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+body{font-synthesis:none}
 
 :root{--night:#211e1b;--rock:#2e2a26;--stone:#cfc5b6;--dust:#8f8677;--chalk:#f0eadf}
-body{background:var(--night);color:var(--chalk);font-family:"Sofia Sans",system-ui,sans-serif}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.2 -.1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+body{background:var(--night);color:var(--chalk);font-family:"Halibut Condensed",Georgia,serif;font-size:1.0625rem}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
 .copy{padding:30px 16px 60px;container-type:inline-size}
-h1{margin:0;font-family:"Sofia Sans Extra Condensed",sans-serif;font-weight:900;text-transform:uppercase;font-size:43cqi;line-height:.8;letter-spacing:-.005em}
+h1{margin:0;font-family:"Piscolabis",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:48cqi;line-height:.8}
 h1 span{display:block}
 .ridge{display:block;width:100%;height:22px;margin:26px 0 0;color:var(--stone)}
 .by{margin:18px 0 0;color:var(--dust)}
@@ -77,7 +77,7 @@ a:focus-visible{outline:2px solid var(--stone);outline-offset:3px}
  .art{grid-column:2;grid-row:1;position:sticky;top:0;height:100vh}
  .art img{height:100vh;aspect-ratio:auto;object-position:50% 70%}
  .copy{grid-column:1;grid-row:1;padding:9vh clamp(32px,5vw,96px) 72px}
- h1{font-size:29cqi}
+ h1{font-size:34cqi}
  .ways{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;border-top:0}
  .ways li:first-child{grid-column:1/-1}
 }

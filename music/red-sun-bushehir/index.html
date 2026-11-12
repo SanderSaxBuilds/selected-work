@@ -24,10 +24,8 @@
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/music/red-sun-bushehir/cover.jpg">
 <meta name="twitter:image:alt" content="Red Sun: Bushehir cover, a red sun disc over red water and trees">
 <link rel="icon" href="cover-300.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&text=RedSun:Bshir%20&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400..600&display=swap">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/avara/Avara-Black.woff2" crossorigin>
+
 <link rel="preload" as="image" href="cover-720.webp" imagesrcset="cover-720.webp 720w, cover-1080.webp 1080w" imagesizes="(min-width:900px) 46vw, 100vw">
 <style>
 *{box-sizing:border-box}
@@ -36,17 +34,19 @@ body{margin:0;min-height:100vh;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 ul,ol{list-style:none;margin:0;padding:0}
 a{-webkit-tap-highlight-color:transparent}
+@font-face{font-family:"Avara";src:url("../fonts/avara/Avara-Black.woff2") format("woff2");font-weight:900;font-style:normal;font-display:block}
+@font-face{font-family:"Sneaky Times";src:url("../fonts/sneaky-times/SneakyTimes.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+body{font-synthesis:none}
 
 :root{--deep:#3a0c0a;--blood:#4d100d;--red:#c8221a;--sun:#ee3b2b;--haze:#f3c8b8;--sand:#ead6c7;--dim:#d49b8c}
-body{background:var(--deep);color:var(--sand);font-family:"Vazirmatn",system-ui,sans-serif}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.2 -.1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+body{background:var(--deep);color:var(--sand);font-family:"Sneaky Times",Georgia,serif;font-size:1.0625rem}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
 .copy{padding:32px 16px 60px;container-type:inline-size}
 .head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;border-bottom:1px solid var(--haze);padding-bottom:16px}
-h1{margin:0;font-family:"Reem Kufi",sans-serif;font-weight:600;font-size:15cqi;line-height:.98;color:var(--haze)}
+h1{margin:0;font-family:"Avara",Georgia,serif;font-weight:900;font-size:13cqi;line-height:.98;color:var(--haze)}
 h1 span{display:block}
-.sun{flex:none;width:27cqi;height:13.5cqi;margin-bottom:-17px;overflow:hidden}
-.sun::before{content:"";display:block;width:27cqi;height:27cqi;border-radius:50%;background:var(--sun)}
+.sun{flex:none;width:24cqi;height:12cqi;margin-bottom:-17px;overflow:hidden}
+.sun::before{content:"";display:block;width:24cqi;height:24cqi;border-radius:50%;background:var(--sun)}
 .by{margin:18px 0 0;color:var(--dim)}
 .by b{color:var(--sand);font-weight:600}
 .tracks{margin-top:30px}
@@ -59,7 +59,7 @@ h1 span{display:block}
 .ways{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:34px}
 .ways li:first-child{grid-column:1/-1}
 .ways li:last-child:nth-child(even){grid-column:1/-1}
-.ways a{display:flex;align-items:center;gap:10px;min-height:56px;padding:0 14px;background:var(--blood);color:var(--sand);text-decoration:none;font-size:1rem;font-weight:500;transition:background-color .2s}
+.ways a{display:flex;align-items:center;gap:10px;min-height:56px;padding:0 12px;background:var(--blood);color:var(--sand);text-decoration:none;font-size:.9375rem;font-weight:500;transition:background-color .2s}
 .ways svg{width:18px;height:18px;fill:var(--dim);flex:none}
 .ways a:hover{background:#621611}
 .ways a.lead{min-height:64px;background:var(--sun);color:#fff6f0;font-size:1.1875rem;font-weight:600}

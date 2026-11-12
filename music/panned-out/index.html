@@ -24,9 +24,8 @@
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/music/panned-out/cover.jpg">
 <meta name="twitter:image:alt" content="Panned Out cover, a night road with a yellow centre line in the headlights">
 <link rel="icon" href="cover-300.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400..800&display=swap">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/format-1452/Format1452.woff2" crossorigin>
+
 <link rel="preload" as="image" href="cover-720.webp" imagesrcset="cover-720.webp 720w, cover-1080.webp 1080w" imagesizes="(min-width:900px) 50vw, 100vw">
 <style>
 *{box-sizing:border-box}
@@ -35,23 +34,24 @@ body{margin:0;min-height:100vh;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 ul,ol{list-style:none;margin:0;padding:0}
 a{-webkit-tap-highlight-color:transparent}
+@font-face{font-family:"Format 1452";src:url("../fonts/format-1452/Format1452.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
+body{font-synthesis:none}
 
 :root{--asphalt:#2e2f33;--tar:#26272a;--yellow:#f0c22e;--lane:#f2efe6;--exit:#1d6a44;--dim:#adaca6}
-body{background:var(--asphalt);color:var(--lane);font-family:"Overpass",system-ui,sans-serif}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.2 -.1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+body{background:var(--asphalt);color:var(--lane);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
 .road{position:relative;margin:0 16px;padding:30px 0 60px 22px;container-type:inline-size}
 .road::before{content:"";position:absolute;left:0;top:0;bottom:0;width:9px;background:linear-gradient(90deg,var(--yellow) 0 3px,transparent 3px 6px,var(--yellow) 6px 9px)}
-h1{margin:0;font-weight:800;font-size:21cqi;line-height:.92;letter-spacing:-.02em}
+h1{margin:0;font-family:"Format 1452",Arial,sans-serif;font-weight:400;font-size:21cqi;line-height:.92}
 .by{margin:14px 0 0;color:var(--dim)}
 .by b{color:var(--lane);font-weight:700}
 .line{margin:22px 0 0;font-size:1.125rem;line-height:1.45;max-width:28ch}
 .ways{margin-top:30px}
 .ways li+li{background:linear-gradient(90deg,rgba(242,239,230,.5) 0 26px,transparent 26px 50px) repeat-x 0 0/50px 2px}
-.ways a{display:flex;align-items:center;gap:13px;min-height:56px;padding:2px 2px 0;color:var(--lane);text-decoration:none;font-size:1.125rem;font-weight:600}
+.ways a{display:flex;align-items:center;gap:13px;min-height:56px;padding:2px 2px 0;color:var(--lane);text-decoration:none;font-family:"Format 1452",Arial,sans-serif;font-size:1.25rem}
 .ways svg{width:19px;height:19px;fill:currentColor;flex:none;opacity:.75}
 .ways a:hover{color:var(--yellow)}
-.ways a.lead{min-height:66px;margin:0 0 14px;padding:0 18px;border-radius:8px;background:var(--exit);box-shadow:inset 0 0 0 3px var(--exit),inset 0 0 0 5px var(--lane);font-size:1.3125rem;font-weight:700}
+.ways a.lead{min-height:66px;margin:0 0 14px;padding:0 18px;border-radius:8px;background:var(--exit);box-shadow:inset 0 0 0 3px var(--exit),inset 0 0 0 5px var(--lane);font-size:1.4375rem}
 .ways a.lead svg{opacity:1}
 .ways a.lead:hover{color:var(--lane);background:#237a4f;box-shadow:inset 0 0 0 3px #237a4f,inset 0 0 0 5px var(--lane)}
 .ways li:nth-child(2){background:none}

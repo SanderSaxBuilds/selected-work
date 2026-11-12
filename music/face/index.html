@@ -24,10 +24,8 @@
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/music/face/cover.jpg">
 <meta name="twitter:image:alt" content="i look. at YOUR! FACE! cover, a close-up of a green eye with a red rim">
 <link rel="icon" href="cover-300.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&text=ilok.atYOUR!FACEndFUCKINGfeinhg%20&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/alfphabet/Alfphabet-I.woff2" crossorigin>
+
 <link rel="preload" as="image" href="cover-720.webp" imagesrcset="cover-720.webp 720w, cover-1080.webp 1080w" imagesizes="(min-width:900px) 44vw, 100vw">
 <style>
 *{box-sizing:border-box}
@@ -36,11 +34,13 @@ body{margin:0;min-height:100vh;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 ul,ol{list-style:none;margin:0;padding:0}
 a{-webkit-tap-highlight-color:transparent}
+@font-face{font-family:"Alfphabet";src:url("../fonts/alfphabet/Alfphabet-I.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
+body{font-synthesis:none}
 
 :root{--chart:#fafaf8;--ink:#151515;--iris:#1e9455;--rim:#c5342b;--grey:#6d6d6a;--rule:#dcdcd8}
-body{background:var(--chart);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif}
+body{background:var(--chart);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .copy{padding:40px 16px 60px;container-type:inline-size}
-h1{margin:0;font-family:"Zilla Slab",Georgia,serif;font-weight:700;text-align:center;line-height:1.02;letter-spacing:.015em}
+h1{margin:0;font-family:"Alfphabet",Arial,sans-serif;font-weight:400;text-align:center;line-height:1.02}
 h1 span{display:block}
 h1 .l1{font-size:25cqi}
 h1 .l2{font-size:18cqi;margin-top:.12em}

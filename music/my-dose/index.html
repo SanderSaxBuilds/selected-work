@@ -24,10 +24,8 @@
 <meta name="twitter:image" content="https://sandersaxbuilds.github.io/selected-work/music/my-dose/cover.jpg">
 <meta name="twitter:image:alt" content="My Dose cover, a hand reaching into a bare concrete room">
 <link rel="icon" href="cover-300.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500&display=swap">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/tanklager/Tanklager-Original.woff2" crossorigin>
+
 <link rel="preload" as="image" href="cover-720.webp" imagesrcset="cover-720.webp 720w, cover-1080.webp 1080w" imagesizes="(min-width:900px) 50vw, 100vw">
 <style>
 *{box-sizing:border-box}
@@ -36,22 +34,23 @@ body{margin:0;min-height:100vh;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 ul,ol{list-style:none;margin:0;padding:0}
 a{-webkit-tap-highlight-color:transparent}
+@font-face{font-family:"Tanklager";src:url("../fonts/tanklager/Tanklager-Original.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
+body{font-synthesis:none}
 
 :root{--pit:#1d1e1e;--slab:#2b2d2d;--line:#3c3f3e;--dust:#8f9391;--wash:#dfe1dc}
-body{background:var(--pit);color:var(--wash);font-family:"Barlow",system-ui,sans-serif}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.2 -.1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+body{background:var(--pit);color:var(--wash);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;filter:grayscale(1) contrast(1.06)}
 .copy{padding:28px 16px 60px;container-type:inline-size}
-h1{margin:0;font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;font-size:33cqi;line-height:.82;letter-spacing:-.01em}
+h1{margin:0;font-family:"Tanklager",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:44cqi;line-height:.82}
 .by{margin:16px 0 0;color:var(--dust)}
 .by b{color:var(--wash);font-weight:500}
 .line{margin:22px 0 0;font-size:1.125rem;line-height:1.45;max-width:30ch;color:var(--wash)}
 .ways{margin-top:30px;border-top:1px solid var(--line)}
-.ways a{display:flex;align-items:center;gap:14px;min-height:58px;padding:0 2px;border-bottom:1px solid var(--line);color:var(--wash);text-decoration:none;font-family:"Barlow Condensed",sans-serif;font-weight:500;font-size:1.375rem;letter-spacing:.01em;transition:padding-left .2s}
+.ways a{display:flex;align-items:center;gap:14px;min-height:58px;padding:0 2px;border-bottom:1px solid var(--line);color:var(--wash);text-decoration:none;font-family:"Tanklager",Impact,sans-serif;font-weight:400;font-size:1.5rem;transition:padding-left .2s}
 .ways svg{width:19px;height:19px;fill:var(--dust);flex:none}
 .ways a:hover{padding-left:10px}
 .ways a:hover svg{fill:var(--wash)}
-.ways a.lead{min-height:70px;padding:0 18px;margin:10px 0;border:0;background:var(--wash);color:var(--pit);font-weight:600;font-size:1.625rem}
+.ways a.lead{min-height:70px;padding:0 18px;margin:10px 0;border:0;background:var(--wash);color:var(--pit);font-size:1.75rem}
 .ways a.lead svg{fill:var(--pit)}
 .ways a.lead:hover{padding-left:24px}
 .buy{margin:22px 0 0;color:var(--dust)}
