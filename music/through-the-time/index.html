@@ -90,11 +90,6 @@
     line-height: 0.92;
     letter-spacing: -0.035em;
     text-transform: lowercase;
-    animation: focus 2.2s cubic-bezier(.2,.7,.1,1) 0.15s both;
-  }
-  @keyframes focus {
-    from { filter: blur(16px); opacity: 0.35; }
-    to   { filter: blur(0); opacity: 1; }
   }
   .by {
     margin: 18px 0 0;
@@ -186,7 +181,6 @@
     .social { padding-bottom: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
-    h1 { animation: none; }
     .links a, .links a small { transition: none; }
   }
 </style>
