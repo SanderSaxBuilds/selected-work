@@ -35,26 +35,37 @@ img{max-width:100%}
 ul,ol{list-style:none;margin:0;padding:0}
 a{-webkit-tap-highlight-color:transparent}
 @font-face{font-family:"Aujournuit";src:url("../fonts/aujournuit/Aujournuit-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
-@font-face{font-family:"Halibut";src:url("../fonts/halibut/Halibut-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Newsreader";src:url("../fonts/newsreader/Newsreader-Variable.woff2") format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
 body{font-synthesis:none}
 
-:root{--field:#46423a;--deep:#3b3833;--red:#d8190a;--ember:#ff4019;--bone:#f1e8da;--dim:#bdb2a3;--rule:rgba(241,232,218,.15)}
-body{background:var(--field);color:var(--bone);font-family:"Halibut",Georgia,serif;font-size:1.0625rem}
-.art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;background:var(--red)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgl)}
+@media (max-width:899px){body::before{background:var(--bgs)}}
+.ways a,.follow a,.tracks a,.buy a,.all{transition:color .2s ease,background-color .2s ease,border-color .2s ease,text-decoration-color .2s ease,box-shadow .2s ease,padding .2s ease}
+.ways svg,.follow svg{transition:fill .2s ease,opacity .2s ease}
+@keyframes rise{from{opacity:0;transform:translateY(.3em)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+:root{--field:#3a3631;--deep:#3b3833;--red:#d8190a;--ember:#ff4019;--bone:#f1e8da;--dim:#c4b9aa;--rule:rgba(241,232,218,.16);
+ --bgl:url(bg-1600.webp) center/cover no-repeat #3a3631;--bgs:url(bg-800.webp) center/cover no-repeat #3a3631}
+body{background:var(--field);color:var(--bone);font-family:"Newsreader",Georgia,serif;font-size:1.0625rem}
+.art{background:#5b5650}
+.art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;animation:redden 2.2s cubic-bezier(.3,.6,.2,1) backwards}
+@keyframes redden{from{filter:saturate(.15) brightness(.9)}to{filter:none}}
 .copy{padding:30px 16px 56px;container-type:inline-size;overflow-x:clip}
-h1{margin:0;font-family:"Aujournuit",Georgia,serif;font-weight:400;font-size:25cqi;line-height:1;letter-spacing:-.012em;animation:close 1.9s cubic-bezier(.2,.7,.15,1) .1s both}
+h1{margin:0;font-family:"Aujournuit",Georgia,serif;font-weight:400;font-size:25cqi;line-height:1;letter-spacing:-.012em;animation:close 1.9s cubic-bezier(.2,.7,.15,1) .1s backwards}
 h1 span{display:block;white-space:nowrap}
 h1 .b{padding-left:.5em}
 @keyframes close{from{letter-spacing:.01em;opacity:.45}to{letter-spacing:-.012em;opacity:1}}
+.by,.line{animation:fade 1s ease .7s backwards}
 .by{margin:22px 0 0;font-size:1rem;color:var(--dim)}
-.by b{color:var(--bone);font-weight:650}
-.line{margin:26px 0 0;font-size:1.0625rem;line-height:1.5;color:var(--bone);max-width:30ch}
+.by b{color:var(--bone);font-weight:600}
+.line{margin:26px 0 0;font-size:1.1875rem;line-height:1.5;color:var(--bone);max-width:30ch;font-weight:350}
 .ways{margin-top:30px}
 .ways a{display:flex;align-items:center;gap:14px;min-height:56px;padding:0 4px;border-top:1px solid var(--rule);color:var(--bone);text-decoration:none;font-size:1.125rem;font-weight:500;transition:color .2s}
 .ways li:last-child a{border-bottom:1px solid var(--rule)}
 .ways svg{width:20px;height:20px;fill:currentColor;flex:none;opacity:.8}
 .ways a:hover{color:var(--ember)}
-.ways a.lead{min-height:68px;margin-bottom:10px;padding:0 18px;border:0;background:var(--red);font-size:1.3125rem;font-weight:650}
+.ways a.lead{min-height:68px;margin-bottom:10px;padding:0 18px;border:0;background:var(--red);font-size:1.3125rem;font-weight:600}
 .ways a.lead svg{opacity:1}
 .ways a.lead:hover{background:var(--ember);color:var(--bone)}
 .buy{margin:22px 0 0;color:var(--dim)}

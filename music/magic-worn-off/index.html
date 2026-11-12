@@ -35,28 +35,42 @@ img{max-width:100%}
 ul,ol{list-style:none;margin:0;padding:0}
 a{-webkit-tap-highlight-color:transparent}
 @font-face{font-family:"Piscolabis";src:url("../fonts/piscolabis/Piscolabis-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
-@font-face{font-family:"Halibut Condensed";src:url("../fonts/halibut/Halibut-CondensedRegular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Schibsted Grotesk";src:url("../fonts/schibsted-grotesk/SchibstedGrotesk-Variable.woff2") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
 body{font-synthesis:none}
 
-:root{--night:#211e1b;--rock:#2e2a26;--stone:#cfc5b6;--dust:#8f8677;--chalk:#f0eadf}
-body{background:var(--night);color:var(--chalk);font-family:"Halibut Condensed",Georgia,serif;font-size:1.0625rem}
-.art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgl)}
+@media (max-width:899px){body::before{background:var(--bgs)}}
+.ways a,.follow a,.tracks a,.buy a,.all{transition:color .2s ease,background-color .2s ease,border-color .2s ease,text-decoration-color .2s ease,box-shadow .2s ease,padding .2s ease}
+.ways svg,.follow svg{transition:fill .2s ease,opacity .2s ease}
+@keyframes rise{from{opacity:0;transform:translateY(.3em)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+:root{--night:#1e1b18;--rock:#2e2a26;--stone:#cfc5b6;--dust:#a39a8b;--chalk:#f0eadf;
+ --bgl:linear-gradient(#1e1b18 0,rgba(30,27,24,.55) 40%,rgba(30,27,24,.05)),url(bg-1600.webp) center bottom/cover no-repeat #1e1b18;--bgs:linear-gradient(#1e1b18 0,rgba(30,27,24,.55) 40%,rgba(30,27,24,.05)),url(bg-800.webp) center bottom/cover no-repeat #1e1b18}
+body{background:var(--night);color:var(--chalk);font-family:"Schibsted Grotesk",sans-serif;font-size:1.0625rem}
+.art{overflow:hidden;background:#000}
+.art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;animation:dusk 2.4s cubic-bezier(.25,.6,.2,1) backwards}
+@keyframes dusk{from{filter:brightness(.35)}to{filter:none}}
 .copy{padding:30px 16px 60px;container-type:inline-size}
 h1{margin:0;font-family:"Piscolabis",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:48cqi;line-height:.8}
-h1 span{display:block}
-.ridge{display:block;width:100%;height:22px;margin:26px 0 0;color:var(--stone)}
+h1 span{display:block;animation:rise 1s cubic-bezier(.2,.7,.2,1) backwards}
+h1 span:nth-child(2){animation-delay:.12s}
+h1 span:nth-child(3){animation-delay:.24s}
+.ridge{display:block;width:100%;height:22px;margin:26px 0 0;color:var(--stone);animation:ridge 1.4s cubic-bezier(.5,0,.2,1) .5s backwards}
+@keyframes ridge{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.by,.note{animation:fade 1s ease 1s backwards}
 .by{margin:18px 0 0;color:var(--dust)}
 .by b{color:var(--chalk);font-weight:600}
 .note{margin:20px 0 0;font-size:1.125rem;line-height:1.45;color:var(--stone);max-width:30ch}
 .tracks{margin-top:30px;columns:1}
 .tracks a{display:flex;align-items:baseline;gap:12px;padding:8px 0;color:var(--chalk);text-decoration:none;font-size:1.0625rem}
-.tracks .n{width:1.5em;color:var(--dust);font-variant-numeric:tabular-nums}
+.tracks .n{width:1.5em;color:var(--dust)}
 .tracks .t{flex:1}
 .tracks .ft{color:var(--dust)}
-.tracks .d{color:var(--dust);font-variant-numeric:tabular-nums}
+.tracks .d{color:var(--dust)}
 .tracks a:hover .t{text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--stone)}
-.ways{margin-top:28px;border-top:1px solid #3d3832}
-.ways a{display:flex;align-items:center;gap:13px;min-height:56px;padding:0 2px;border-bottom:1px solid #3d3832;color:var(--chalk);text-decoration:none;font-size:1.125rem;font-weight:500}
+.ways{margin-top:28px;border-top:1px solid rgba(207,197,182,.16)}
+.ways a{display:flex;align-items:center;gap:13px;min-height:56px;padding:0 2px;border-bottom:1px solid rgba(207,197,182,.16);color:var(--chalk);text-decoration:none;font-size:1.125rem;font-weight:500}
 .ways svg{width:18px;height:18px;fill:var(--dust);flex:none}
 .ways a:hover svg{fill:var(--chalk)}
 .ways a:hover span{text-decoration:underline;text-underline-offset:4px}
