@@ -53,26 +53,40 @@ h2{margin:0;font-weight:600;font-size:1.5rem;line-height:1.1;letter-spacing:-.01
 .singles .m{font-size:.8125rem}
 .group a:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
 @media (min-width:900px){.hub{padding:56px 48px 80px}.group{margin-top:56px;padding-top:18px}h2{font-size:2.25rem}.albums{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:28px;margin-top:24px}.albums a{display:block;padding:0;border:0}.albums .tx{display:block;margin-top:12px}.albums .t{font-size:1.1875rem}.singles{grid-template-columns:repeat(6,minmax(0,1fr));gap:24px 22px;margin-top:24px}.singles .t{font-size:1.0625rem}.singles .m{font-size:.9375rem}}
-:root{--sv-fg:#eee8de;--sv-bg:#34322e;--sv-hv:#423f3b;--sv-bd:#7a7670;--sv-lead:#eee8de;--sv-leadfg:#262421;--sv-leadhv:#dad4cb;--sv-ring:#eee8de;--sv-font:"Hanken Grotesk",sans-serif}
+:root{--sv-fg:#eee8de;--sv-panel:#36302c;--sv-acc:#f07a5c;--sv-mark:#949089;--sv-dim:#aaa59e;--sv-line:#5f4037;--sv-pbd:#5b3a30;--sv-ul:rgba(240,122,92,0.42);--sv-sh:-.06em .05em .18em rgba(226,34,12,0.8),.07em .03em .2em rgba(124,84,226,0.8);--sv-glow:-14px 16px 44px -22px rgba(226,34,12,0.42),16px 20px 48px -22px rgba(124,84,226,0.42),0 0 0 1px rgba(226,34,12,0.04);--sv-font:"Hanken Grotesk",sans-serif}
 
-.svcblk{margin-top:32px;padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
-.svc{list-style:none;margin:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:10px;max-width:620px}
-.svc a{display:flex;align-items:center;gap:14px;min-height:58px;padding:12px 18px 12px 13px;border:1px solid var(--sv-bd);border-radius:12px;background:var(--sv-bg);color:var(--sv-fg);text-decoration:none;font-family:inherit;font-size:1.0625rem;font-weight:600;font-style:normal;line-height:1.2;letter-spacing:0;text-transform:none;transition:background-color .2s ease,border-color .2s ease}
-.svc .tile,.soc .tile{flex:none;display:block;width:32px;height:32px;border-radius:8px}
-.svc .nm{flex:1;min-width:0}
-.svc .act{flex:none;font-size:.9375rem;font-weight:500}
-.svc a.lead{min-height:64px;background:var(--sv-lead);border-color:var(--sv-lead);color:var(--sv-leadfg);font-size:1.125rem}
-@media (hover:hover) and (pointer:fine){.svc a:hover{background:var(--sv-hv);border-color:var(--sv-fg)}}
-@media (hover:hover) and (pointer:fine){.svc a.lead:hover{background:var(--sv-leadhv);border-color:var(--sv-leadhv)}}
-.soc{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
-.soc a{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 18px 0 8px;border:1px solid var(--sv-bd);border-radius:999px;background:var(--sv-bg);color:var(--sv-fg);text-decoration:none;font-family:inherit;font-size:1rem;font-weight:600;font-style:normal;letter-spacing:0;text-transform:none;transition:background-color .2s ease,border-color .2s ease}
-.soc .tile{width:30px;height:30px;border-radius:50%}
-@media (hover:hover) and (pointer:fine){.soc a:hover{background:var(--sv-hv);border-color:var(--sv-fg)}}
-.home{display:flex;align-items:center;justify-content:center;min-height:56px;max-width:620px;margin-top:22px;border:1px solid var(--sv-bd);border-radius:12px;background:var(--sv-bg);color:var(--sv-fg);text-decoration:none;font-family:inherit;font-size:1.0625rem;font-weight:600;font-style:normal;letter-spacing:0;text-transform:none;transition:background-color .2s ease,border-color .2s ease}
-@media (hover:hover) and (pointer:fine){.home:hover{background:var(--sv-hv);border-color:var(--sv-fg)}}
-.svc a:focus-visible,.soc a:focus-visible,.home:focus-visible{outline:3px solid var(--sv-ring);outline-offset:3px}
-.hubsoc{margin-top:48px;padding:22px 0 calc(72px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--rule)}
-.hubsoc .soc{margin:0;justify-content:center}
+h1{text-shadow:var(--sv-sh)}
+.svcblk{margin-top:36px;max-width:620px;padding-bottom:calc(88px + env(safe-area-inset-bottom,0px));text-align:left;font-family:var(--sv-font);font-style:normal;text-transform:none;letter-spacing:0}
+.svcblk ul{list-style:none;margin:0;padding:0}
+.svcblk .panel{padding:6px 18px 8px;border:1px solid var(--sv-pbd);border-radius:18px;background:var(--sv-panel);box-shadow:var(--sv-glow)}
+.svcblk .hd{margin:14px 0 2px;padding:0 2px;font-family:inherit;font-size:.9375rem;font-weight:600;line-height:1.3;letter-spacing:0;text-transform:none;color:var(--sv-dim)}
+.svcblk .svc+.hd{margin-top:22px}
+.svcblk a{display:flex;align-items:center;gap:15px;min-height:58px;padding:0 2px;color:var(--sv-fg);text-decoration:none;font-family:inherit;font-size:1.21875rem;font-weight:500;font-style:normal;line-height:1.2;letter-spacing:-.005em;text-transform:none;-webkit-tap-highlight-color:transparent}
+.svcblk li+li a{border-top:1px solid var(--sv-line)}
+.svcblk .gl{display:block;flex:none;width:22px;height:22px;color:var(--sv-mark);background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.svcblk .nm{flex:0 1 auto;min-width:0;text-decoration-line:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:var(--sv-ul);text-decoration-skip-ink:auto;transition:text-decoration-color .2s ease,color .2s ease}
+.svcblk .ar{flex:none;width:16px;height:16px;margin-left:auto;color:var(--sv-mark);transition:transform .2s ease}
+.svcblk a.lead{min-height:68px;color:var(--sv-acc);font-size:1.4375rem;font-weight:600}
+.svcblk a.lead .gl{width:26px;height:26px;color:var(--sv-acc)}
+.svcblk a.lead .ar{color:var(--sv-acc)}
+.svcblk a.lead .nm{text-decoration-color:var(--sv-acc)}
+@media (hover:hover) and (pointer:fine){.svcblk a:hover .nm{text-decoration-color:var(--sv-acc)}}
+@media (hover:hover) and (pointer:fine){.svcblk a:hover .ar{transform:translateX(3px)}}
+.svcblk a:focus-visible{outline:3px solid var(--sv-fg);outline-offset:2px;border-radius:6px}
+.svcblk a:focus-visible .nm{text-decoration-color:var(--sv-acc)}
+.svcblk .more{margin-top:26px;padding:0 2px}
+.svcblk .more .hd{margin-top:0}
+.svcblk .soc{display:grid;grid-template-columns:1fr 1fr;column-gap:22px}
+.svcblk .soc a{min-height:52px;font-size:1.0625rem;gap:11px}
+.svcblk .soc li+li a{border-top:0}
+.svcblk .soc .gl{width:20px;height:20px}
+.svcblk .soc .ar{display:none}
+.svcblk .home{margin-top:12px;border-top:1px solid var(--sv-line);min-height:60px;font-size:1.0625rem;font-weight:600}
+.hub7{margin:0 auto;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+.hub7 .panel{padding:14px 18px 10px}
+.hub7 .hd{margin-top:0}
+.hub7 .soc li+li a{border-top:0}
+.hubsoc{margin-top:52px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -81,7 +95,7 @@ h2{margin:0;font-weight:600;font-size:1.5rem;line-height:1.1;letter-spacing:-.01
 <h1>SanderSax</h1>
 <section class="group" aria-labelledby="h-albums"><h2 id="h-albums">Albums</h2><ul class="albums"><li><a href="holdat/"><img src="holdat/cover-720.webp" srcset="holdat/cover-300.jpg 300w, holdat/cover-720.webp 720w" sizes="(min-width:900px) 220px, 112px" width="720" height="720" alt="" fetchpriority="high" decoding="async"><span class="tx"><span class="t">HOLDAT!</span><span class="m">2 October 2026</span></span></a></li><li><a href="red-sun-bushehir/"><img src="red-sun-bushehir/cover-720.webp" srcset="red-sun-bushehir/cover-300.jpg 300w, red-sun-bushehir/cover-720.webp 720w" sizes="(min-width:900px) 220px, 112px" width="720" height="720" alt="" fetchpriority="high" decoding="async"><span class="tx"><span class="t">Red Sun: Bushehir</span><span class="m">20 August 2026</span></span></a></li><li><a href="magic-worn-off/"><img src="magic-worn-off/cover-720.webp" srcset="magic-worn-off/cover-300.jpg 300w, magic-worn-off/cover-720.webp 720w" sizes="(min-width:900px) 220px, 112px" width="720" height="720" alt="" fetchpriority="high" decoding="async"><span class="tx"><span class="t">Magic Worn Off</span><span class="m">19 August 2026</span></span></a></li><li><a href="full-extension/"><img src="full-extension/cover-720.webp" srcset="full-extension/cover-300.jpg 300w, full-extension/cover-720.webp 720w" sizes="(min-width:900px) 220px, 112px" width="720" height="720" alt="" fetchpriority="high" decoding="async"><span class="tx"><span class="t">FULL EXTENSION</span><span class="m">23 February 2026</span></span></a></li><li><a href="face/"><img src="face/cover-720.webp" srcset="face/cover-300.jpg 300w, face/cover-720.webp 720w" sizes="(min-width:900px) 220px, 112px" width="720" height="720" alt="" fetchpriority="high" decoding="async"><span class="tx"><span class="t">i look. at YOUR! FACE! and i FUCKING! feel nothing.</span><span class="m">6 January 2026</span></span></a></li></ul></section>
 <section class="group" aria-labelledby="h-singles"><h2 id="h-singles">Singles</h2><ul class="singles"><li><a href="through-the-time/"><img src="through-the-time/cover-720.webp" srcset="through-the-time/cover-300.jpg 300w, through-the-time/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">Through the Time</span><span class="m">10 November 2026</span></span></a></li><li><a href="breadcrumbs/"><img src="breadcrumbs/cover-720.webp" srcset="breadcrumbs/cover-300.jpg 300w, breadcrumbs/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">Breadcrumbs</span><span class="m">30 October 2026</span></span></a></li><li><a href="on-sound/"><img src="on-sound/cover-720.webp" srcset="on-sound/cover-300.jpg 300w, on-sound/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">On Sound</span><span class="m">29 October 2026</span></span></a></li><li><a href="fantasy/"><img src="fantasy/cover-720.webp" srcset="fantasy/cover-300.jpg 300w, fantasy/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">Fantasy</span><span class="m">14 October 2026</span></span></a></li><li><a href="my-dose/"><img src="my-dose/cover-720.webp" srcset="my-dose/cover-300.jpg 300w, my-dose/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">My Dose</span><span class="m">9 October 2026</span></span></a></li><li><a href="panned-out/"><img src="panned-out/cover-720.webp" srcset="panned-out/cover-300.jpg 300w, panned-out/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">Panned Out</span><span class="m">5 October 2026</span></span></a></li></ul></section>
-<div class="hubsoc"><ul class="soc"><li><a href="https://www.tiktok.com/@sandersax_create" aria-label="SanderSax on TikTok"><img class="tile" src="icons/tiktok.webp" width="32" height="32" alt="" decoding="async"><span>TikTok</span></a></li><li><a href="https://www.instagram.com/sandersax_character/" aria-label="SanderSax on Instagram"><img class="tile" src="icons/instagram.webp" width="32" height="32" alt="" decoding="async"><span>Instagram</span></a></li><li><a href="https://www.youtube.com/@sandersax4337" aria-label="SanderSax on YouTube"><img class="tile" src="icons/yt.webp" width="32" height="32" alt="" decoding="async"><span>YouTube</span></a></li><li><a href="https://open.spotify.com/artist/3oVtU3dTk11pApcAzKdjXL" aria-label="SanderSax on Spotify"><img class="tile" src="icons/spotify.webp" width="32" height="32" alt="" decoding="async"><span>Spotify</span></a></li></ul></div>
+<div class="hubsoc"><div class="svcblk hub7"><div class="panel"><h2 class="hd">Follow SanderSax</h2><ul class="soc"><li><a href="https://www.tiktok.com/@sandersax_create" aria-label="SanderSax on TikTok"><i class="gl" style="--m:url(glyphs/tiktok.svg)" aria-hidden="true"></i><span class="nm">TikTok</span><svg class="ar" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li><li><a href="https://www.instagram.com/sandersax_character/" aria-label="SanderSax on Instagram"><i class="gl" style="--m:url(glyphs/instagram.svg)" aria-hidden="true"></i><span class="nm">Instagram</span><svg class="ar" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li><li><a href="https://www.youtube.com/@sandersax4337" aria-label="SanderSax on YouTube"><i class="gl" style="--m:url(glyphs/youtube.svg)" aria-hidden="true"></i><span class="nm">YouTube</span><svg class="ar" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li><li><a href="https://open.spotify.com/artist/3oVtU3dTk11pApcAzKdjXL" aria-label="SanderSax on Spotify"><i class="gl" style="--m:url(glyphs/spotify.svg)" aria-hidden="true"></i><span class="nm">Spotify</span><svg class="ar" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li></ul></div></div></div>
 </main>
 </body>
 </html>
