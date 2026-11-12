@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aontu's vet passes JSON that was cut off halfway</title>
+<meta name="description" content="A review of Aontu 0.76.1 by Alexandr Khrustalev: aontu vet reads data as source code, so cut-off JSON, arithmetic and file includes get through. Tested against CUE and ajv.">
+<meta name="author" content="Alexandr Khrustalev">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/results/aontu/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Aontu's vet passes JSON that was cut off halfway">
+<meta property="og:description" content="aontu vet reads data as source code. Cut-off JSON, arithmetic and file includes get through. Tested against CUE and ajv.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/results/aontu/">
+<meta name="theme-color" content="#b4b9ae">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sandersax-icon-32.png">
+<link rel="apple-touch-icon" href="../../assets/sandersax-icon-180.png">
+<link rel="preload" href="../../assets/gfonts/geologica/5ba6acaf87dfced5.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/gfonts/source-serif-4/1e7f35d42342cbc6.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/v3-pages.css?v=20261112b">
+<link rel="stylesheet" href="../results.css?v=20261113a">
+<link rel="stylesheet" href="aontu.css?v=20261113a">
+</head>
+<body class="rs ar">
+<a class="skip" href="#review">Skip to the review</a>
+<header class="top">
+  <a class="me" href="../../"><img src="../../assets/sandersax-mark.png" width="187" height="320" alt="">Sander Sax</a>
+  <nav aria-label="Sections"><a href="../../">Work</a><a href="../" aria-current="page">Results</a><a href="../../fixes/">Fixes</a><a href="../../prices/">Prices</a><a class="msg" href="https://wa.me/66961347329" target="_blank" rel="noopener">Message me</a></nav>
+</header>
+
+<main id="review">
+<a class="back" href="../">Back to paid client work</a>
+
+<article class="fold" aria-labelledby="t">
+  <p class="ftab" aria-hidden="true">Voxgig</p>
+  <div class="sheet">
+  <div class="piece">
+    <h1 id="t">Aontu's vet passes JSON that was cut off halfway</h1>
+    <p class="by">Alexandr Khrustalev, November 2026</p>
+
+    <div class="proof" role="img" aria-label="Terminal output: aontu vet with the closed and strict-coverage flags reports cut.json as valid, 6 of 6 data leaves checked, exit 0">
+<pre aria-hidden="true"><b>$ aontu vet --closed --strict-coverage model.aontu cut.json</b>
+<span class="v">verdict: valid</span>
+coverage: 6/6 data leaves checked, 7 schema declarations
+  unused: $.spec
+exit 0</pre>
+    </div>
+
+    <p><code>cut.json</code> stops in the middle of a number and has no closing braces.</p>
+<pre class="src"><code>{
+  "services": {
+    "api": { "owner": "platform", "tier": 1, "replicas": 6 },
+    "auth": { "owner": "identity", "tier": 3, "replicas": 1</code></pre>
+    <p>The complete file gives <code>auth</code> 12 replicas and has a third service called <code>billing</code>. Aontu called the shortened version valid, with the two strictest <code>vet</code> flags I could find switched on.</p>
+    <p><a href="https://aontu.dev/">Aontu</a> is a JSON superset built on unification. Its npm description calls it a validation gate for AI-agent ground truth, and the site says a change proposed by a coding agent is either admitted or refused. I tried version 0.76.1 from npm this week. The language is well designed and its error reports are very good, but I would not put bare <code>aontu vet</code> in front of agent output, because it reads untrusted data as source code.</p>
+
+    <h2>What it gets right</h2>
+    <p>Schema, defaults and data share one notation, and two statements about one path must agree. A later value cannot quietly replace an earlier one. This is the model I used throughout, a <code>service</code> type with defaults, applied to every key of <code>services</code>.</p>
+<pre class="src"><code>spec: type({ service: { owner: string, tier: *1 | integer, replicas: *3 | integer } })
+services: { &amp;: $.spec.service }</code></pre>
+    <p>A wrong value gets a report that names both sides of the conflict, with line and column.</p>
+<pre><code><b>$ aontu vet model.aontu bad.json</b>
+verdict: invalid
+
+$.services.api.tier: empty [conflict]
+  [aontu/empty]: Cannot unify values at path $.services.api.tier
+  data: bad.json:1:55 ("high")
+  schema: model.aontu:1:46 (*1|integer)
+exit 1</code></pre>
+    <p>Exit codes separate valid, invalid, incomplete and a broken schema, so a repair loop can branch on them. <code>model why</code> traced a default back to its source column. <code>breaking</code> reported a newly required key between two versions of a model. <code>hash</code> gave the same result for two differently formatted files with the same meaning.</p>
+    <p>Aontu is also stricter than <code>JSON.parse</code> about values. <code>JSON.parse</code> turned <code>12345678901234567890</code> into <code>12345678901234567000</code> without complaint, and <code>vet</code> refused it with <code>lossy_integer_literal</code>.</p>
+    <p>Speed was fine for this job. On 50,000 generated services, a 2.6 MB file on my Windows machine, the median <code>vet</code> took 5.2 seconds against 6.7 for <code>cue vet</code>. CUE was faster at 10,000 services, 0.3 seconds against 1.2.</p>
+
+    <h2>Data is read as source</h2>
+    <p>The opening result has a simple cause. <a href="https://github.com/aontu-lang/aontu/blob/d80446b4a0554018b8709645bf60babb9b6a83a2/ts/src/vet.ts"><code>vet.ts</code></a> passes the data text to <code>aontu.parse</code>, the same call it uses for the schema, and nothing treats a <code>.json</code> file differently. That parser comes from <code>@tabnas/jsonic</code>, where the <code>rule.finish</code> option closes open structures at the end of input and defaults to true. The project's <a href="https://github.com/aontu-lang/aontu/blob/d80446b4a0554018b8709645bf60babb9b6a83a2/grammar/aontu.abnf">published ABNF</a> requires the closing brace and states that the parser may accept more.</p>
+    <p>That leniency suits files people write by hand. It is a poor fit for agent output, because a response that hits a token limit ends exactly like this. I cut this file myself, but the failure is ordinary. CUE 0.17.1 refuses the same bytes.</p>
+<pre><code><b>$ cue vet model.cue json: - &lt; cut.json</b>
+invalid JSON for file "-": unexpected end of JSON input:
+    -:4:59
+exit 1</code></pre>
+    <p>With ajv 8.20.0 the schema never runs, because <code>JSON.parse</code> throws first. Aontu does catch some cuts. A cut inside a string gives <code>unterminated_string</code>, and a cut that loses a required key gives <code>incomplete</code>. A cut through a number, or right after a complete entry, passes. The coverage line is no help, since it reports 6 of 6 leaves for a file that originally had 9.</p>
+    <p>I tried the obvious fix by setting <code>finish</code> to false in a local copy. <code>vet</code> then failed with <code>end_of_source</code> on the schema itself, because brace-free top-level syntax depends on the same behaviour. So the fix has to be a separate strict path for data, and <code>main</code> does not have one as I write this.</p>
+
+    <h2>Data can compute and read files</h2>
+    <p>Since data is source, this file passes <code>vet</code>, and <code>replicas</code> evaluates to 4.</p>
+<pre class="src"><code>{ "services": { "api": { "owner": "platform", "replicas": 2 + 2 } } }</code></pre>
+    <p>Includes are more serious. A file under test can pull in another file, and a failed check prints the value it read.</p>
+<pre class="src"><code>{ "services": { "api": { "owner": "platform", "tier": @"./secret.txt" } } }</code></pre>
+<pre><code><b>$ aontu vet model.aontu peek.json</b>
+verdict: invalid
+
+$.services.api.tier: empty [conflict]
+  [aontu/empty]: Cannot unify values at path $.services.api.tier
+  data: peek.json:1:55 ("db-password-from-the-repo\n")
+  schema: model.aontu:1:46 (*1|integer)
+exit 1</code></pre>
+    <p>So an agent that can propose a data file could print a file from the checkout into a CI log. An include from outside the folder worked the same way. The bare <code>aontu</code> command warned about that one, and <code>vet</code> printed no warning, although <a href="https://github.com/aontu-lang/aontu/blob/d80446b4a0554018b8709645bf60babb9b6a83a2/docs/trust.md"><code>trust.md</code></a> describes a warning for every such resolution.</p>
+    <p>The project knows about this risk. The README warns that evaluating a document you did not write runs it, <code>--trust none</code> refused the include in my test, and <code>trust.md</code> says a later major version will deny out-of-root includes by default. That plan would not cover a file in the same folder, and the project's own <a href="https://github.com/aontu-lang/aontu/blob/d80446b4a0554018b8709645bf60babb9b6a83a2/vet-action/action.yml">GitHub Action</a> passes no <code>--trust</code> flag unless you add one. A verb whose whole job is reading untrusted input should start with includes off.</p>
+
+    <h2>The closed flag stops at the top level</h2>
+    <p>Maps are open by default, so a misspelled key is accepted and the default stays in place. Here <code>typo.json</code> sets <code>teir</code> to 3, and <code>typo.aontu</code> is the same mistake inside a model.</p>
+<pre><code><b>$ aontu vet --closed model.aontu typo.json</b>
+verdict: valid
+exit 0
+
+<b>$ aontu model get '$.services.auth' typo.aontu</b>
+{
+  "owner": "identity",
+  "teir": 3,
+  "tier": 1
+}
+exit 0</code></pre>
+    <p>The author wanted tier 3 and got tier 1. JSON Schema has the same default, and ajv returned true for this file until I set <code>additionalProperties</code> to false, so open maps are a defensible choice. CUE definitions are closed, and <code>cue vet</code> answered <code>field not allowed</code>.</p>
+    <p>The flag is the real problem. The agent skill shipped in the npm package says <code>--closed</code> refuses keys the model does not declare, and <code>teir</code> is such a key. The source closes only the anchor, which is the document root unless you move it. The <code>--help</code> text does say anchor, but nobody reading it would guess that a nested typo gets through. Writing <code>close()</code> in the model works, and the how-to guide recommends that.</p>
+
+    <h2>What I would run today</h2>
+    <p>This wrapper handles every case above, given a model that uses <code>close()</code>.</p>
+<pre class="src"><code>const { readFileSync } = require('node:fs')
+const { vet } = require('aontu')
+
+const [schemaFile, dataFile] = process.argv.slice(2)
+const schema = readFileSync(schemaFile, 'utf8')
+const data = readFileSync(dataFile, 'utf8')
+
+try {
+  JSON.parse(data) // only a syntax check, vet still reads the original text
+} catch (err) {
+  console.log(`refused: ${err.message}`)
+  process.exit(1)
+}
+
+const report = vet(schema, data, { trust: { include: 'none' } })
+console.log(report.verdict)
+process.exit(report.verdict === 'valid' ? 0 : 1)</code></pre>
+<pre><code><b>$ node gate.js model-closed.aontu cut.json</b>
+refused: Expected ',' or '}' after property value in JSON at position 139 (line 4 column 60)
+exit 1
+
+<b>$ node gate.js model-closed.aontu sum.json</b>
+refused: Expected ',' or '}' after property value in JSON at position 60 (line 1 column 61)
+exit 1
+
+<b>$ node gate.js model-closed.aontu peek.json</b>
+refused: Unexpected token '@', ...", "tier": @"./secret"... is not valid JSON
+exit 1
+
+<b>$ node gate.js model-closed.aontu typo.json</b>
+invalid
+exit 1</code></pre>
+    <p>None of this should need a wrapper. <code>vet</code> should read <code>.json</code> data with a strict parser, keep includes off for data documents, and apply <code>--closed</code> at every depth.</p>
+    <p>Priorities are my wider concern. The CLI help lists 28 verbs, including a package manager, a language server and an MCP server. The site's install line pins 0.73.0, npm serves 0.76.1 and the GitHub Action defaults to 0.58.0. A project that describes itself as a gate should settle how it reads input before adding more around it.</p>
+
+    <h2>Who should use it</h2>
+    <p>Use Aontu for models your own team writes and reviews, where unification, <code>model why</code> and <code>breaking</code> justify learning a new language. Pin the version, since it is still 0.x.</p>
+    <p>Do not point bare <code>aontu vet</code> at agent output or at any file you did not write. For a gate today, use CUE, or JSON Schema with ajv and <code>additionalProperties</code> set to false, or wrap Aontu as shown above. I tested the npm build on Windows only, so none of this speaks for the Go port.</p>
+
+    <p class="end"><a href="../">Back to paid client work</a></p>
+  </div>
+  </div>
+</article>
+</main>
+<footer class="foot"><span>Sander Sax, Alexandr Khrustalev</span><nav aria-label="Pages"><a href="../../">Work</a><a href="../../fixes/">Fixes</a><a href="../../prices/">Prices</a><a href="../../ru/" lang="ru">RU</a><a href="../../Alexandr_Khrustalev_CV.pdf">CV</a></nav><span>2026</span></footer>
+</body>
+</html>

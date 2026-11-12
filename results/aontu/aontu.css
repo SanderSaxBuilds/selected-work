@@ -1,0 +1,49 @@
+/* Aontu review. One light folder sheet on the site's stone ground, like the results page.
+   The opening terminal output is the only loud element, the rest reads like a long letter. */
+@font-face{font-family:"Source Serif 4";font-style:normal;font-weight:200 900;font-display:swap;src:url(../../assets/gfonts/source-serif-4/1e7f35d42342cbc6.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:100 800;font-display:swap;src:url(../../assets/gfonts/jetbrains-mono/73719045cd67fa93.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+.ar{--serif:"Source Serif 4",Georgia,serif;--mono:"JetBrains Mono",Consolas,monospace;
+  --term:#1c2420;--tout:#9fb0a6;--tcmd:#f1f3ec;--bad:#c2412d}
+.ar .fold{margin-top:calc(clamp(40px,5vw,72px) + 52px)}
+.ar .sheet{padding:clamp(28px,4vw,64px) clamp(18px,5vw,88px) clamp(40px,5vw,80px)}
+
+.back{display:inline-block;margin:clamp(22px,3vw,40px) var(--g) 0;font:500 15px/1.3 var(--f);color:var(--on);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px}
+.back:hover{text-decoration-thickness:2.5px}
+
+.piece{max-width:66ch;margin:0 auto}
+.piece h1{margin:0;font:800 clamp(34px,4.6vw,64px)/1 var(--f);letter-spacing:-.045em;color:var(--on);text-wrap:balance}
+.by{margin:18px 0 0;font:450 16px/1.4 var(--f);color:var(--mute)}
+
+/* the opening proof, wider than the text column */
+.proof{margin:clamp(30px,4vw,52px) calc(-1 * clamp(0px,4vw,64px)) 0;background:var(--term);color:var(--tout);border-radius:14px;
+  padding:clamp(20px,3vw,40px) clamp(18px,3vw,44px);font:400 clamp(14px,1.4vw,19px)/1.55 var(--mono);overflow-x:auto}
+.piece .proof pre{margin:0;padding:0;background:none;border-radius:0;overflow:visible;font:inherit;color:inherit;white-space:pre}
+.proof b{color:var(--tcmd);font-weight:600}
+.proof .v{color:var(--tcmd);font-weight:700;font-size:1.9em;line-height:1.25;display:inline-block;margin:.12em 0 .18em}
+
+.piece p,.piece li{font:400 19px/1.66 var(--serif);color:var(--ink)}
+.piece p{margin:1.05em 0 0}
+.piece h2{margin:2.3em 0 0;font:750 clamp(25px,2.4vw,33px)/1.08 var(--f);letter-spacing:-.035em;color:var(--on)}
+.piece h2+p{margin-top:.7em}
+.piece a{color:var(--on);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.piece a:hover{text-decoration-thickness:2px}
+.piece code{font:400 .84em/1 var(--mono);background:#ecebe6;border-radius:5px;padding:.14em .34em;overflow-wrap:anywhere}
+
+.piece pre{margin:1.3em 0 0;background:var(--term);color:var(--tout);border-radius:12px;padding:18px 22px;overflow-x:auto;
+  font:400 14.5px/1.6 var(--mono);tab-size:2}
+.piece pre code{font:inherit;background:none;padding:0;border-radius:0;overflow-wrap:normal}
+.piece pre b{color:var(--tcmd);font-weight:600}
+.piece pre.src{color:var(--tcmd)}
+
+.end{margin-top:clamp(44px,5vw,72px);padding-top:24px;border-top:2px solid var(--ink);font:450 16px/1.5 var(--f);color:var(--mute)}
+.end a{color:var(--on)}
+
+.ar a:focus-visible,.back:focus-visible{outline:2.5px solid var(--on);outline-offset:3px;border-radius:3px}
+
+@media (max-width:767px){
+  .proof{margin-left:0;margin-right:0;font-size:13.5px}
+  .proof .v{font-size:1.7em}
+  .piece p,.piece li{font-size:18px;line-height:1.62}
+  .piece pre{font-size:13px;padding:16px;margin-left:-4px;margin-right:-4px}
+}
