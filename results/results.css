@@ -1,0 +1,86 @@
+/* Results page. Sits on the home page's plaster wall, each client is one light folder with its name on the tab.
+   Green is "after" and "paid", red is "before", the same meaning as on the case and fixes pages. */
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body.rs{--sheet:#fbfbfa;--on:#16201b;--on2:#29332e;
+  color:var(--on);position:relative;
+  background:url(../assets/home/wall/plaster-tile.webp) 0 0/512px 512px repeat,#b4b9ae}
+/* the window light from the home page, faded out at its foot so it leaves no edge on a tall page */
+body.rs::before{content:"";position:absolute;z-index:0;left:0;right:0;top:0;height:max(70.8vw,1020px);pointer-events:none;
+  background:url(../assets/home/wall/light-d.webp) 50% 0/max(100%,1440px) auto no-repeat;mix-blend-mode:color-dodge;
+  -webkit-mask-image:linear-gradient(#000 55%,transparent 96%);mask-image:linear-gradient(#000 55%,transparent 96%)}
+.rs .top,.rs main,.rs .foot{position:relative;z-index:1}
+.rs .top .msg{background:var(--on);color:#eef0e8;border-radius:10px}
+.rs .top .msg:hover{background:#2c3a33}
+.rs .top nav a:not(.msg){background-image:linear-gradient(var(--on),var(--on))}
+
+.hl{padding:clamp(28px,4.6vw,72px) var(--g) 0;font:800 clamp(38px,5.6vw,84px)/.96 var(--f);letter-spacing:-.045em;color:var(--on)}
+
+/* a folder: the tab carries the client name, the sheet holds the work */
+.fold{position:relative;margin:calc(clamp(56px,6vw,96px) + 52px) var(--g) 0}
+.fold+.fold{margin-top:calc(clamp(72px,7vw,112px) + 52px)}
+.ftab{position:absolute;left:0;bottom:calc(100% - 1px);max-width:100%;background:var(--sheet);color:var(--ink);border-radius:14px 14px 0 0;
+  padding:14px clamp(18px,2vw,28px) 10px;font:750 clamp(19px,1.6vw,24px)/1.15 var(--f);letter-spacing:-.025em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet{background:var(--sheet);color:var(--ink);border-radius:0 16px 16px 16px;padding:clamp(22px,2.6vw,40px) clamp(18px,2.8vw,44px) clamp(30px,3.6vw,52px);
+  box-shadow:0 0 0 1px rgba(22,32,27,.1),10px 12px 0 -3px rgba(28,38,32,.13),24px 30px 34px -14px rgba(28,38,32,.3)}
+
+.who{display:flex;gap:12px;align-items:flex-start;font-size:clamp(16px,1.3vw,19px);line-height:1.45;padding-bottom:clamp(20px,2.2vw,30px);border-bottom:2px solid var(--ink)}
+.who span:last-child{max-width:62ch;text-wrap:pretty}
+.who .tick{margin-top:2px}
+
+.job h3{margin:0;font:750 clamp(26px,2.9vw,44px)/1 var(--f);letter-spacing:-.04em}
+.job p{margin-top:14px;font-size:clamp(16px,1.2vw,18px);line-height:1.5;color:var(--ink);max-width:46ch}
+
+/* the SDK: words on the left, the real README on the right, cut off at the bottom like a page in a folder */
+.sdk{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--col);padding-top:clamp(28px,3vw,44px);align-items:start}
+.tests{margin-top:24px;border-collapse:collapse;width:100%;max-width:340px;font-size:15.5px}
+.tests th,.tests td{padding:10px 0;border-bottom:1px solid var(--line);text-align:left;font-weight:400}
+.tests th{font-weight:600;padding-right:18px}
+.tests td{color:var(--mute);font-variant-numeric:tabular-nums}
+.tests tr:first-child>*{border-top:1px solid var(--line)}
+.go{display:inline-block;margin-top:26px;font-weight:600;font-size:16px;padding:12px 0;line-height:18px;background:linear-gradient(currentColor,currentColor) 0 calc(100% - 8px)/100% 2px no-repeat}
+.go:hover{background-size:100% 4px}
+.shot{display:block;position:relative;height:clamp(360px,34vw,520px);overflow:hidden;border-radius:8px 8px 0 0;background:#fff;
+  box-shadow:0 0 0 1px rgba(10,16,32,.12),8px 10px 0 -2px rgba(10,16,32,.08)}
+.shot img{width:100%;height:auto}
+.shot::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(10,16,32,.14)}
+
+.rev{margin-top:clamp(36px,4vw,56px);padding-top:clamp(28px,3vw,40px);border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--col)}
+.rev p{margin-top:0;max-width:54ch}
+
+/* before and after, read across */
+.ba2{width:100%;border-collapse:collapse;margin-top:clamp(18px,2vw,26px);font-size:clamp(16px,1.25vw,19px);line-height:1.4}
+.ba2 th{text-align:left;font:700 15px/1.2 var(--f);letter-spacing:-.005em;padding:10px 0 12px;width:50%}
+.ba2 th:first-child{color:var(--bad)}
+.ba2 th:last-child{color:var(--ok)}
+.ba2 td{vertical-align:top;padding:16px 0 18px;border-top:1px solid var(--line)}
+.ba2 td:first-child{color:var(--mute);padding-right:var(--col)}
+.ba2 td:last-child{font-weight:500;letter-spacing:-.01em}
+.ba2 td:last-child::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin:0 10px 1px 0}
+.ba2 td:first-child::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--bad);margin:0 10px 1px 0}
+
+.rs .contact{margin-top:clamp(96px,10vw,150px)}
+
+@media (max-width:1023px){
+  .sdk,.rev{grid-template-columns:1fr}
+  .shot{height:clamp(320px,52vw,460px)}
+  .rev{gap:16px}
+}
+@media (max-width:767px){
+  .rs .top .msg{border-radius:10px}
+  body.rs{background-size:384px 384px}
+  body.rs::before{height:171vw;background-image:url(../assets/home/wall/light-p.webp);background-size:100% auto}
+  .hl{padding:22px 16px 0;font-size:clamp(34px,10vw,46px);letter-spacing:-.04em}
+  .fold{margin:calc(40px + 50px) 0 0}
+  .fold+.fold{margin-top:calc(56px + 50px)}
+  .ftab{left:16px;max-width:calc(100% - 32px);font-size:18px;padding:13px 16px 9px}
+  .sheet{border-radius:0;padding:20px 16px 34px}
+  .shot{height:min(96vw,400px)}
+  .ba2,.ba2 thead,.ba2 tbody,.ba2 tr,.ba2 td{display:block;width:100%}
+  .ba2 thead tr{display:flex;gap:22px;padding:0 0 10px}
+  .ba2 th{width:auto;padding:0}
+  .ba2 th::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:currentColor;margin:0 8px 1px 0}
+  .ba2 tbody tr{padding:14px 0 16px;border-top:1px solid var(--line)}
+  .ba2 td{border:0;padding:0}
+  .ba2 td:first-child{padding:0 0 6px}
+  .ba2 td:first-child::before,.ba2 td:last-child::before{margin-right:9px}
+}
