@@ -38,15 +38,15 @@ a{-webkit-tap-highlight-color:transparent}
 @font-face{font-family:"Newsreader";src:url("../fonts/newsreader/Newsreader-Variable.woff2") format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
 body{font-synthesis:none}
 
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgl)}
-@media (max-width:899px){body::before{background:var(--bgs)}}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgs)}
+@media (min-width:900px){body::before{inset:var(--bgi,0);background:var(--bgl)}}
 .ways a,.follow a,.tracks a,.buy a,.all{transition:color .2s ease,background-color .2s ease,border-color .2s ease,text-decoration-color .2s ease,box-shadow .2s ease,padding .2s ease}
 .ways svg,.follow svg{transition:fill .2s ease,opacity .2s ease}
 @keyframes rise{from{opacity:0;transform:translateY(.3em)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
 :root{--field:#3a3631;--deep:#3b3833;--red:#d8190a;--ember:#ff4019;--bone:#f1e8da;--dim:#c4b9aa;--rule:rgba(241,232,218,.16);
- --bgl:url(bg-1600.webp) center/cover no-repeat #3a3631;--bgs:url(bg-800.webp) center/cover no-repeat #3a3631}
+ --bgs:url(bg-m.webp) center top/100% auto no-repeat #3a3631;--bgl:url(bg-d.webp) center/cover no-repeat #3a3631;--bgi:0 0 0 52%}
 body{background:var(--field);color:var(--bone);font-family:"Newsreader",Georgia,serif;font-size:1.0625rem}
 .art{background:#5b5650}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;animation:redden 2.2s cubic-bezier(.3,.6,.2,1) backwards}
@@ -64,16 +64,16 @@ h1 .b{padding-left:.5em}
 .ways a{display:flex;align-items:center;gap:14px;min-height:56px;padding:0 4px;border-top:1px solid var(--rule);color:var(--bone);text-decoration:none;font-size:1.125rem;font-weight:500;transition:color .2s}
 .ways li:last-child a{border-bottom:1px solid var(--rule)}
 .ways svg{width:20px;height:20px;fill:currentColor;flex:none;opacity:.8}
-.ways a:hover{color:var(--ember)}
+@media (hover:hover) and (pointer:fine){.ways a:hover{color:var(--ember)}}
 .ways a.lead{min-height:68px;margin-bottom:10px;padding:0 18px;border:0;background:var(--red);font-size:1.3125rem;font-weight:600}
 .ways a.lead svg{opacity:1}
-.ways a.lead:hover{background:var(--ember);color:var(--bone)}
+@media (hover:hover) and (pointer:fine){.ways a.lead:hover{background:var(--ember);color:var(--bone)}}
 .buy{margin:22px 0 0;color:var(--dim)}
 .buy a,.all{color:var(--bone);text-underline-offset:4px;text-decoration-color:var(--red);text-decoration-thickness:2px}
 .follow{display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:40px}
 .follow a{display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--dim);text-decoration:none}
 .follow svg{width:17px;height:17px;fill:currentColor}
-.follow a:hover{color:var(--bone)}
+@media (hover:hover) and (pointer:fine){.follow a:hover{color:var(--bone)}}
 .all{display:inline-block;margin-top:26px;font-weight:600}
 a:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
 @media (min-width:900px){

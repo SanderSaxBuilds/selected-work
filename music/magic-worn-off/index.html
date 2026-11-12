@@ -38,15 +38,15 @@ a{-webkit-tap-highlight-color:transparent}
 @font-face{font-family:"Schibsted Grotesk";src:url("../fonts/schibsted-grotesk/SchibstedGrotesk-Variable.woff2") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
 body{font-synthesis:none}
 
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgl)}
-@media (max-width:899px){body::before{background:var(--bgs)}}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgs)}
+@media (min-width:900px){body::before{inset:var(--bgi,0);background:var(--bgl)}}
 .ways a,.follow a,.tracks a,.buy a,.all{transition:color .2s ease,background-color .2s ease,border-color .2s ease,text-decoration-color .2s ease,box-shadow .2s ease,padding .2s ease}
 .ways svg,.follow svg{transition:fill .2s ease,opacity .2s ease}
 @keyframes rise{from{opacity:0;transform:translateY(.3em)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
 :root{--night:#1e1b18;--rock:#2e2a26;--stone:#cfc5b6;--dust:#a39a8b;--chalk:#f0eadf;
- --bgl:linear-gradient(#1e1b18 0,rgba(30,27,24,.55) 40%,rgba(30,27,24,.05)),url(bg-1600.webp) center bottom/cover no-repeat #1e1b18;--bgs:linear-gradient(#1e1b18 0,rgba(30,27,24,.55) 40%,rgba(30,27,24,.05)),url(bg-800.webp) center bottom/cover no-repeat #1e1b18}
+ --bgs:url(bg-m.webp) center bottom/100% auto no-repeat #1e1b18;--bgl:url(bg-d.webp) center bottom/cover no-repeat #1e1b18;--bgi:0 46% 0 0}
 body{background:var(--night);color:var(--chalk);font-family:"Schibsted Grotesk",sans-serif;font-size:1.0625rem}
 .art{overflow:hidden;background:#000}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;animation:dusk 2.4s cubic-bezier(.25,.6,.2,1) backwards}
@@ -68,22 +68,22 @@ h1 span:nth-child(3){animation-delay:.24s}
 .tracks .t{flex:1}
 .tracks .ft{color:var(--dust)}
 .tracks .d{color:var(--dust)}
-.tracks a:hover .t{text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--stone)}
+@media (hover:hover) and (pointer:fine){.tracks a:hover .t{text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--stone)}}
 .ways{margin-top:28px;border-top:1px solid rgba(207,197,182,.16)}
 .ways a{display:flex;align-items:center;gap:13px;min-height:56px;padding:0 2px;border-bottom:1px solid rgba(207,197,182,.16);color:var(--chalk);text-decoration:none;font-size:1.125rem;font-weight:500}
 .ways svg{width:18px;height:18px;fill:var(--dust);flex:none}
-.ways a:hover svg{fill:var(--chalk)}
-.ways a:hover span{text-decoration:underline;text-underline-offset:4px}
+@media (hover:hover) and (pointer:fine){.ways a:hover svg{fill:var(--chalk)}}
+@media (hover:hover) and (pointer:fine){.ways a:hover span{text-decoration:underline;text-underline-offset:4px}}
 .ways a.lead{min-height:66px;margin:12px 0;padding:0 18px;border:0;background:var(--stone);color:var(--night);font-weight:700;font-size:1.25rem}
 .ways a.lead svg{fill:var(--night)}
-.ways a.lead:hover{background:var(--chalk)}
-.ways a.lead:hover span{text-decoration:none}
+@media (hover:hover) and (pointer:fine){.ways a.lead:hover{background:var(--chalk)}}
+@media (hover:hover) and (pointer:fine){.ways a.lead:hover span{text-decoration:none}}
 .buy{margin:22px 0 0;color:var(--dust)}
 .buy a,.all{color:var(--chalk);text-underline-offset:4px;text-decoration-color:var(--dust)}
 .follow{display:flex;flex-wrap:wrap;gap:2px 22px;margin-top:36px}
 .follow a{display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--dust);text-decoration:none}
 .follow svg{width:17px;height:17px;fill:currentColor}
-.follow a:hover{color:var(--chalk)}
+@media (hover:hover) and (pointer:fine){.follow a:hover{color:var(--chalk)}}
 .all{display:inline-block;margin-top:24px;font-weight:600}
 a:focus-visible{outline:2px solid var(--stone);outline-offset:3px}
 @media (min-width:900px){

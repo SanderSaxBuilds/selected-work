@@ -38,15 +38,15 @@ a{-webkit-tap-highlight-color:transparent}
 @font-face{font-family:"Archivo";src:url("../fonts/archivo/Archivo-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 body{font-synthesis:none}
 
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgl)}
-@media (max-width:899px){body::before{background:var(--bgs)}}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgs)}
+@media (min-width:900px){body::before{inset:var(--bgi,0);background:var(--bgl)}}
 .ways a,.follow a,.tracks a,.buy a,.all{transition:color .2s ease,background-color .2s ease,border-color .2s ease,text-decoration-color .2s ease,box-shadow .2s ease,padding .2s ease}
 .ways svg,.follow svg{transition:fill .2s ease,opacity .2s ease}
 @keyframes rise{from{opacity:0;transform:translateY(.3em)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
 :root{--pit:#1b1c1c;--slab:#2b2d2d;--line:rgba(223,225,220,.16);--dust:#a2a6a4;--wash:#dfe1dc;
- --bgl:linear-gradient(90deg,rgba(27,28,28,.25),rgba(27,28,28,.6)),url(bg-1600.webp) center/cover no-repeat #1b1c1c;--bgs:linear-gradient(90deg,rgba(27,28,28,.25),rgba(27,28,28,.6)),url(bg-800.webp) center/cover no-repeat #1b1c1c}
+ --bgs:url(bg-m.webp) center top/100% auto no-repeat #1b1c1c;--bgl:url(bg-d.webp) center top/cover no-repeat #1b1c1c;--bgi:0 0 0 50%}
 body{background:var(--pit);color:var(--wash);font-family:"Archivo",sans-serif}
 .art{overflow:hidden;background:#000}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;filter:grayscale(1) contrast(1.06);animation:flash 2s cubic-bezier(.2,.6,.2,1) backwards}
@@ -60,18 +60,18 @@ h1{margin:0;font-family:"Tanklager",Impact,sans-serif;font-weight:400;text-trans
 .ways{margin-top:30px;border-top:1px solid var(--line)}
 .ways a{display:flex;align-items:center;gap:14px;min-height:58px;padding:0 2px;border-bottom:1px solid var(--line);color:var(--wash);text-decoration:none;font-family:"Tanklager",Impact,sans-serif;font-weight:400;font-size:1.5rem;transition:padding-left .2s}
 .ways svg{width:19px;height:19px;fill:var(--dust);flex:none}
-.ways a:hover{padding-left:10px}
-.ways a:hover svg{fill:var(--wash)}
+@media (hover:hover) and (pointer:fine){.ways a:hover{padding-left:10px}}
+@media (hover:hover) and (pointer:fine){.ways a:hover svg{fill:var(--wash)}}
 .ways a.lead{min-height:70px;padding:0 18px;margin:10px 0;border:0;background:var(--wash);color:var(--pit);font-size:1.75rem}
-.ways a.lead:hover{background:#fff}
+@media (hover:hover) and (pointer:fine){.ways a.lead:hover{background:#fff}}
 .ways a.lead svg{fill:var(--pit)}
-.ways a.lead:hover{padding-left:24px}
+@media (hover:hover) and (pointer:fine){.ways a.lead:hover{padding-left:24px}}
 .buy{margin:22px 0 0;color:var(--dust)}
 .buy a,.all{color:var(--wash);text-underline-offset:4px;text-decoration-color:var(--dust)}
 .follow{display:flex;flex-wrap:wrap;gap:2px 22px;margin-top:38px}
 .follow a{display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--dust);text-decoration:none}
 .follow svg{width:17px;height:17px;fill:currentColor}
-.follow a:hover{color:var(--wash)}
+@media (hover:hover) and (pointer:fine){.follow a:hover{color:var(--wash)}}
 .all{display:inline-block;margin-top:24px;font-weight:500}
 a:focus-visible{outline:2px solid var(--wash);outline-offset:3px}
 @media (min-width:900px){

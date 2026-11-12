@@ -39,15 +39,15 @@ a{-webkit-tap-highlight-color:transparent}
 @font-face{font-family:"Libre Caslon Text";src:url("../fonts/libre-caslon-text/LibreCaslonText-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
 body{font-synthesis:none}
 
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgl)}
-@media (max-width:899px){body::before{background:var(--bgs)}}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgs)}
+@media (min-width:900px){body::before{inset:var(--bgi,0);background:var(--bgl)}}
 .ways a,.follow a,.tracks a,.buy a,.all{transition:color .2s ease,background-color .2s ease,border-color .2s ease,text-decoration-color .2s ease,box-shadow .2s ease,padding .2s ease}
 .ways svg,.follow svg{transition:fill .2s ease,opacity .2s ease}
 @keyframes rise{from{opacity:0;transform:translateY(.3em)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
 :root{--house:#140e1b;--velvet:rgba(36,24,46,.88);--seat:#b8372c;--violet:#a693f5;--paper:#f2edf4;--dim:#bdb2c6;
- --bgl:linear-gradient(rgba(20,14,27,.94),rgba(20,14,27,.45) 55%,rgba(20,14,27,.12)),url(bg-1600.webp) center bottom/cover no-repeat #140e1b;--bgs:linear-gradient(rgba(20,14,27,.94),rgba(20,14,27,.45) 55%,rgba(20,14,27,.12)),url(bg-800.webp) center bottom/cover no-repeat #140e1b}
+ --bgs:url(bg-m.webp) center bottom/100% auto no-repeat #140e1b;--bgl:url(bg-d.webp) center bottom/cover no-repeat #140e1b;--bgi:0 0 0 54%}
 body{background:var(--house);color:var(--paper);font-family:"Libre Caslon Text",Georgia,serif}
 .art{overflow:hidden;background:#0b0710}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;animation:curtain 1.6s cubic-bezier(.65,0,.25,1) backwards}
@@ -62,16 +62,16 @@ h1{margin:0;font-family:"Bluu Next",Georgia,serif;font-weight:700;font-size:25cq
 .ways li:first-child{grid-column:1/-1}
 .ways a{display:flex;align-items:center;gap:10px;min-height:58px;padding:0 13px;background:var(--velvet);border-top:2px solid var(--seat);color:var(--paper);text-decoration:none;font-size:.9375rem;font-weight:400}
 .ways svg{width:18px;height:18px;fill:currentColor;flex:none;opacity:.75}
-.ways a:hover{background:rgba(58,38,72,.95)}
+@media (hover:hover) and (pointer:fine){.ways a:hover{background:rgba(58,38,72,.95)}}
 .ways a.lead{min-height:66px;background:var(--seat);border:0;font-size:1.125rem;font-weight:700}
 .ways a.lead svg{opacity:1}
-.ways a.lead:hover{background:#cc4234}
+@media (hover:hover) and (pointer:fine){.ways a.lead:hover{background:#cc4234}}
 .buy{margin:22px 0 0;color:var(--dim)}
 .buy a,.all{color:var(--paper);text-underline-offset:4px;text-decoration-color:var(--seat);text-decoration-thickness:2px}
 .follow{display:flex;flex-wrap:wrap;gap:2px 22px;margin-top:38px}
 .follow a{display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--dim);text-decoration:none}
 .follow svg{width:17px;height:17px;fill:currentColor}
-.follow a:hover{color:var(--paper)}
+@media (hover:hover) and (pointer:fine){.follow a:hover{color:var(--paper)}}
 .all{display:inline-block;margin-top:24px}
 a:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
 @media (min-width:900px){

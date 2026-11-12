@@ -37,15 +37,15 @@ a{-webkit-tap-highlight-color:transparent}
 @font-face{font-family:"Overpass";src:url("../fonts/overpass/Overpass-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 body{font-synthesis:none}
 
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgl)}
-@media (max-width:899px){body::before{background:var(--bgs)}}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgs)}
+@media (min-width:900px){body::before{inset:var(--bgi,0);background:var(--bgl)}}
 .ways a,.follow a,.tracks a,.buy a,.all{transition:color .2s ease,background-color .2s ease,border-color .2s ease,text-decoration-color .2s ease,box-shadow .2s ease,padding .2s ease}
 .ways svg,.follow svg{transition:fill .2s ease,opacity .2s ease}
 @keyframes rise{from{opacity:0;transform:translateY(.3em)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
 :root{--asphalt:#2a2b2f;--tar:#26272a;--yellow:#f0c22e;--lane:#f2efe6;--exit:#1d6a44;--dim:#b4b3ad;
- --bgl:linear-gradient(rgba(42,43,47,.7),rgba(42,43,47,0) 65%),url(bg-1600.webp) center bottom/cover no-repeat #2a2b2f;--bgs:linear-gradient(rgba(42,43,47,.7),rgba(42,43,47,0) 65%),url(bg-800.webp) center bottom/cover no-repeat #2a2b2f}
+ --bgs:url(bg-m.webp) center bottom/100% auto no-repeat #2a2b2f;--bgl:url(bg-d.webp) center bottom/cover no-repeat #2a2b2f;--bgi:0 0 0 50%}
 body{background:var(--asphalt);color:var(--lane);font-family:"Overpass",sans-serif}
 .art{overflow:hidden;background:#000}
 .art img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;animation:pan 2.6s cubic-bezier(.25,.6,.2,1) backwards}
@@ -62,17 +62,17 @@ h1{margin:0;font-weight:700;font-size:16.5cqi;line-height:1;letter-spacing:-.01e
 .ways li+li{background:linear-gradient(90deg,rgba(242,239,230,.5) 0 26px,transparent 26px 50px) repeat-x 0 0/50px 2px}
 .ways a{display:flex;align-items:center;gap:13px;min-height:56px;padding:2px 2px 0;color:var(--lane);text-decoration:none;font-weight:600;font-size:1.1875rem}
 .ways svg{width:19px;height:19px;fill:currentColor;flex:none;opacity:.75}
-.ways a:hover{color:var(--yellow)}
+@media (hover:hover) and (pointer:fine){.ways a:hover{color:var(--yellow)}}
 .ways a.lead{min-height:66px;margin:0 0 14px;padding:0 18px;border-radius:8px;background:var(--exit);box-shadow:inset 0 0 0 3px var(--exit),inset 0 0 0 5px var(--lane);font-weight:700;font-size:1.375rem}
 .ways a.lead svg{opacity:1}
-.ways a.lead:hover{color:var(--lane);background:#237a4f;box-shadow:inset 0 0 0 3px #237a4f,inset 0 0 0 5px var(--lane)}
+@media (hover:hover) and (pointer:fine){.ways a.lead:hover{color:var(--lane);background:#237a4f;box-shadow:inset 0 0 0 3px #237a4f,inset 0 0 0 5px var(--lane)}}
 .ways li:nth-child(2){background:none}
 .buy{margin:22px 0 0;color:var(--dim)}
 .buy a,.all{color:var(--lane);text-underline-offset:4px;text-decoration-color:var(--yellow);text-decoration-thickness:2px}
 .follow{display:flex;flex-wrap:wrap;gap:2px 22px;margin-top:38px}
 .follow a{display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--dim);text-decoration:none}
 .follow svg{width:17px;height:17px;fill:currentColor}
-.follow a:hover{color:var(--lane)}
+@media (hover:hover) and (pointer:fine){.follow a:hover{color:var(--lane)}}
 .all{display:inline-block;margin-top:24px;font-weight:600}
 a:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
 @media (min-width:900px){
