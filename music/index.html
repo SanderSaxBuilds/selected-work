@@ -58,26 +58,19 @@ h2{margin:0;font-weight:600;font-size:1.5rem;line-height:1.1;letter-spacing:-.01
 @media (hover:hover) and (pointer:fine){.follow a:hover{text-decoration:underline;text-underline-offset:4px}}
 @media (min-width:900px){.hub{padding:56px 48px 80px}.group{margin-top:56px;padding-top:18px}h2{font-size:2.25rem}.albums{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:28px;margin-top:24px}.albums a{display:block;padding:0;border:0}.albums .tx{display:block;margin-top:12px}.albums .t{font-size:1.1875rem}.singles{grid-template-columns:repeat(6,minmax(0,1fr));gap:24px 22px;margin-top:24px}.singles .t{font-size:1.0625rem}.singles .m{font-size:.9375rem}}
 :root{--sv-sh:-0.065em 0.045em 0.14em rgba(226,34,12,0.56),0.065em 0.035em 0.157em rgba(124,84,226,0.56)}
-.ways a.s-spotify svg,.follow a.s-spotify svg{fill:#1ed760;opacity:1}
-.ways a.s-apple svg,.follow a.s-apple svg{fill:#fa2d48;opacity:1}
-.ways a.s-ytm svg,.follow a.s-ytm svg{fill:#ff0033;opacity:1}
-.ways a.s-yt svg,.follow a.s-yt svg{fill:#ff0033;opacity:1}
-.ways a.s-youtube svg,.follow a.s-youtube svg{fill:#ff0033;opacity:1}
-.ways a.s-amazonmusic svg,.follow a.s-amazonmusic svg{fill:#25d1da;opacity:1}
-.ways a.s-tidal svg,.follow a.s-tidal svg{fill:#bdf4fb;opacity:1}
-.ways a.s-deezer svg,.follow a.s-deezer svg{fill:#a238ff;opacity:1}
-.ways a.s-soundcloud svg,.follow a.s-soundcloud svg{fill:#ff5500;opacity:1}
-.ways a.s-anghami svg,.follow a.s-anghami svg{fill:#b05cff;opacity:1}
-.ways a.s-boomplay svg,.follow a.s-boomplay svg{fill:#2f8cff;opacity:1}
-.ways a.s-iheart svg,.follow a.s-iheart svg{fill:#e11944;opacity:1}
-.ways a.s-pandora svg,.follow a.s-pandora svg{fill:#3668ff;opacity:1}
-.ways a.s-tiktok svg,.follow a.s-tiktok svg{fill:#fe2c55;opacity:1}
-.ways a.s-instagram svg,.follow a.s-instagram svg{fill:#e1306c;opacity:1}
-.ways a.lead.s-spotify svg{fill:#1ed760;opacity:1}
 h1{text-shadow:var(--sv-sh)}
 a:focus-visible{outline-width:2px;outline-style:solid}
 body{padding-bottom:env(safe-area-inset-bottom,0px)}
 .follow a{min-height:44px;box-sizing:border-box}
+/* r10 */
+.follow svg{fill:#e8805c}
+.follow li:nth-child(even) svg{fill:#ab97ea}
+.group a{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.group img{transition:filter .3s ease,transform .22s cubic-bezier(.2,.7,.2,1)}
+.group .tx{transition:opacity .2s ease}
+.group a.press img{transform:scale(.955);filter:brightness(.88)}
+.group a.go img{transform:scale(1.035);filter:brightness(1.12);transition-duration:.24s}
+.group a.go .tx{opacity:.45}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -89,5 +82,16 @@ body{padding-bottom:env(safe-area-inset-bottom,0px)}
 <section class="group" aria-labelledby="h-singles"><h2 id="h-singles">Singles</h2><ul class="singles"><li><a href="through-the-time/"><img src="through-the-time/cover-720.webp" srcset="through-the-time/cover-300.jpg 300w, through-the-time/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">Through the Time</span><span class="m">10 November 2026</span></span></a></li><li><a href="breadcrumbs/"><img src="breadcrumbs/cover-720.webp" srcset="breadcrumbs/cover-300.jpg 300w, breadcrumbs/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">Breadcrumbs</span><span class="m">30 October 2026</span></span></a></li><li><a href="on-sound/"><img src="on-sound/cover-720.webp" srcset="on-sound/cover-300.jpg 300w, on-sound/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">On Sound</span><span class="m">29 October 2026</span></span></a></li><li><a href="fantasy/"><img src="fantasy/cover-720.webp" srcset="fantasy/cover-300.jpg 300w, fantasy/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">Fantasy</span><span class="m">14 October 2026</span></span></a></li><li><a href="my-dose/"><img src="my-dose/cover-720.webp" srcset="my-dose/cover-300.jpg 300w, my-dose/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">My Dose</span><span class="m">9 October 2026</span></span></a></li><li><a href="panned-out/"><img src="panned-out/cover-720.webp" srcset="panned-out/cover-300.jpg 300w, panned-out/cover-720.webp 720w" sizes="(min-width:900px) 180px, 31vw" width="720" height="720" alt="" loading="lazy" decoding="async"><span class="tx"><span class="t">Panned Out</span><span class="m">5 October 2026</span></span></a></li></ul></section>
 <ul class="follow"><li><a class="s-tiktok" href="https://www.tiktok.com/@sandersax_create" aria-label="SanderSax on TikTok"><svg aria-hidden="true" focusable="false"><use href="#i-tiktok"/></svg><span>TikTok</span></a></li><li><a class="s-instagram" href="https://www.instagram.com/sandersax_character/" aria-label="SanderSax on Instagram"><svg aria-hidden="true" focusable="false"><use href="#i-instagram"/></svg><span>Instagram</span></a></li><li><a class="s-youtube" href="https://www.youtube.com/@sandersax4337" aria-label="SanderSax on YouTube"><svg aria-hidden="true" focusable="false"><use href="#i-youtube"/></svg><span>YouTube</span></a></li><li><a class="s-spotify" href="https://open.spotify.com/artist/3oVtU3dTk11pApcAzKdjXL" aria-label="SanderSax on Spotify"><svg aria-hidden="true" focusable="false"><use href="#i-spotify"/></svg><span>Spotify</span></a></li></ul>
 </main>
+<script>
+(()=>{const still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+document.querySelectorAll('.group a').forEach(a=>{let t=0;
+ const off=()=>{clearTimeout(t);a.classList.remove('press')};
+ a.addEventListener('pointerdown',e=>{if(e.button)return;t=setTimeout(()=>a.classList.add('press'),70)});
+ ['pointerup','pointercancel','pointerleave'].forEach(n=>a.addEventListener(n,off));
+ a.addEventListener('click',e=>{off();if(still||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button)return;
+  e.preventDefault();if(a.classList.contains('go'))return;a.classList.add('go');setTimeout(()=>{location.href=a.href},240)})});
+addEventListener('pageshow',()=>document.querySelectorAll('.group a.go,.group a.press').forEach(a=>a.classList.remove('go','press')));
+})();
+</script>
 </body>
 </html>
