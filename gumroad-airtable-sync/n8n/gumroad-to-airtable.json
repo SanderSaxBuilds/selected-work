@@ -1,0 +1,102 @@
+{
+  "name": "Gumroad sales to Airtable",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gumroad-sales-replace-with-a-random-uuid",
+        "responseMode": "lastNode",
+        "responseData": "noData",
+        "options": {}
+      },
+      "id": "a91e5d29-dd16-4edd-8fda-f26a1b31962d",
+      "name": "Gumroad Ping",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "47249e47-4dcc-48d8-8e7c-f50828b13f49"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const sale = $json.body;\nif (!sale || typeof sale !== 'object' || Array.isArray(sale)) {\n  throw new Error('Expected a form-urlencoded Gumroad Ping body');\n}\n\nconst text = (value) => typeof value === 'string' ? value.trim() : '';\nconst flag = (value) => value === true || value === 1 || ['true', '1'].includes(text(value).toLowerCase());\nconst saleId = text(sale.sale_id) || text(sale.id);\nif (!saleId) {\n  throw new Error('sale_id is required');\n}\n\nconst price = typeof sale.price === 'number' ? sale.price : text(sale.price);\nif (typeof price === 'string' && !/^-?[0-9]+$/.test(price)) {\n  throw new Error('price must be an integer in cents');\n}\nconst cents = Number(price);\nif (!Number.isSafeInteger(cents)) {\n  throw new Error('price must be a safe integer in cents');\n}\n\nconst timestamp = text(sale.sale_timestamp) || text(sale.created_at);\nconst iso = /^([0-9]{4}-[0-9]{2}-[0-9]{2})T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\\.[0-9]+)?(?:Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])$/;\nconst parts = iso.exec(timestamp);\nif (!parts || parts[1].startsWith('0000-')) {\n  throw new Error('sale_timestamp must be an ISO 8601 timestamp with a timezone');\n}\nconst date = new Date(timestamp);\nconst calendarDay = new Date(parts[1] + 'T00:00:00Z');\nif (!Number.isFinite(date.valueOf()) || !Number.isFinite(calendarDay.valueOf())\n    || calendarDay.toISOString().slice(0, 10) !== parts[1]) {\n  throw new Error('sale_timestamp is invalid');\n}\nconst utcTimestamp = date.toISOString();\nif (utcTimestamp.length !== 24 || utcTimestamp.startsWith('0000-')) {\n  throw new Error('sale_timestamp is outside the supported range');\n}\n\nconst fields = {\n  sale_id: saleId,\n  sale_timestamp: utcTimestamp,\n  amount_cents: cents,\n  refunded: flag(sale.refunded),\n  test: flag(sale.test),\n};\nconst optional = {\n  buyer_email: text(sale.email) || text(sale.purchaser_email),\n  product_id: text(sale.product_id),\n  product_name: text(sale.product_name),\n  currency: text(sale.currency).toUpperCase(),\n};\nfor (const [name, value] of Object.entries(optional)) {\n  if (value) fields[name] = value;\n}\n\nreturn {\n  json: {\n    performUpsert: { fieldsToMergeOn: ['sale_id'] },\n    records: [{ fields }],\n  },\n};"
+      },
+      "id": "c00dd58f-4e47-4fd0-ab1f-6b3eb8cc167d",
+      "name": "Map sale and prepare upsert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "https://api.airtable.com/v0/REPLACE_BASE_ID/REPLACE_TABLE_ID",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "airtableTokenApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 15000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          }
+        }
+      },
+      "id": "ecabf079-2b60-415f-a90f-7f2b981365d9",
+      "name": "Upsert Airtable sale",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        0
+      ],
+      "credentials": {
+        "airtableTokenApi": {
+          "name": "Airtable Personal Access Token"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Gumroad Ping": {
+      "main": [
+        [
+          {
+            "node": "Map sale and prepare upsert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map sale and prepare upsert": {
+      "main": [
+        [
+          {
+            "node": "Upsert Airtable sale",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveManualExecutions": false,
+    "saveExecutionProgress": false
+  },
+  "pinData": {}
+}
