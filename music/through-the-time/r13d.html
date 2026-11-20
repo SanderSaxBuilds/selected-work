@@ -105,31 +105,31 @@ h1{font-size:18.6cqi;text-shadow:0 1px 24px rgba(90,6,0,.35)}
 (()=>{
 const page=document.querySelector('.page'),cv=document.getElementById('scan'),ctx=cv.getContext('2d'),img=document.querySelector('.cover img');
 const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let W=0,H=0,dpr=1,box=null,s=1,t0=0,scanning=!still;
+let W=0,H=0,dpr=1,box=null,s=1,t0=0,scanning=!still,src=null;
 function geo(){dpr=Math.min(devicePixelRatio||1,2);const pr=page.getBoundingClientRect(),r=img.getBoundingClientRect();
  W=pr.width;H=pr.height;box={x:r.left-pr.left,y:r.top-pr.top,w:r.width,h:r.height};
  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);cv.style.height=H+'px';}
 function row(){const max=document.documentElement.scrollHeight-innerHeight;const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;return .36+.3*p}
-function draw(){if(!box||!img.naturalWidth)return;const n=img.naturalWidth,c=ctx;c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,W,H);c.imageSmoothingEnabled=true;
+function draw(){if(!box||!src)return;const n=src.width,m=src.height,c=ctx;c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,W,H);c.imageSmoothingEnabled=true;
  const {x,y,w,h}=box;
- c.drawImage(img,0,3,n,1,x,0,w,y+1);
+ c.drawImage(src,0,3,n,1,x,0,w,y+1);
  const top=c.createLinearGradient(0,0,0,y);top.addColorStop(0,'rgba(28,25,23,.55)');top.addColorStop(.5,'rgba(28,25,23,0)');c.fillStyle=top;c.fillRect(x,0,w,y);
- const sy=Math.round(s*n);
- if(sy>0)c.drawImage(img,0,0,n,sy,x,y,w,h*s);
- const rr=scanning?Math.min(n-1,sy):Math.round(row()*n);
- if(scanning&&s<1)c.drawImage(img,0,rr,n,1,x,y+h*s,w,h*(1-s));
+ const r0=Math.round(.12*m);
+ if(scanning&&s<1){const sh=Math.max(1,m*s);c.drawImage(src,0,r0*(1-s),n,sh,x,y,w,h)}
+ else c.drawImage(src,0,0,n,m,x,y,w,h);
+ const rr=scanning?r0:Math.round(row()*m/3);
  const L=Math.max(innerHeight*.95,520),by=y+h;
- c.drawImage(img,0,rr,n,1,x,by,w,L);
+ c.drawImage(src,0,rr,n/3,1,x,by,w,L);
  const g=c.createLinearGradient(0,by,0,by+L);g.addColorStop(0,'rgba(28,25,23,.18)');g.addColorStop(.45,'rgba(28,25,23,.72)');g.addColorStop(1,'rgba(28,25,23,1)');
  c.fillStyle=g;c.fillRect(x,by,w,L+2);
- if(scanning&&s<1){c.fillStyle='rgba(255,226,206,.85)';c.fillRect(x,y+h*s-1,w,1.5)}}
-function run(ts){if(!t0)t0=ts;const k=Math.min(1,(ts-t0)/1900);s=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;draw();
+}
+function run(ts){if(!t0)t0=ts;const k=Math.min(1,Math.max(0,(ts-t0-280)/1500));s=1-Math.pow(1-k,3);draw();
  if(k<1)requestAnimationFrame(run);else{scanning=false;s=1;page.classList.remove('scanning');draw()}}
 function start(){geo();if(still){scanning=false;page.classList.remove('scanning');draw();return}t0=0;scanning=true;s=0;page.classList.add('scanning');requestAnimationFrame(run)}
 let q=0;addEventListener('scroll',()=>{if(!scanning&&!q)q=requestAnimationFrame(()=>{q=0;draw()})},{passive:true});
 addEventListener('resize',()=>{geo();draw()});
 img.addEventListener('click',()=>{if(!scanning&&!still)start()});
-(img.decode?img.decode():Promise.resolve()).then(start,start);
+(img.decode?img.decode():Promise.resolve()).then(()=>window.createImageBitmap?createImageBitmap(img):img).catch(()=>img).then(b=>{src=b;start()});
 if(document.fonts)document.fonts.ready.then(()=>{geo();draw()});
 })();
 </script>
