@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prefect's create_flow_run answered 409, its OpenAPI document said 422</title>
+<meta name="description" content="Testing a TypeScript client for Prefect's REST API against a live server turned up two status codes the OpenAPI document did not list. What the server returns, what the maintainers changed, and what a client should do.">
+<meta name="author" content="Alexandr Khrustalev">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/notes/prefect-create-flow-run-409/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prefect's create_flow_run answered 409, its OpenAPI document said 422">
+<meta property="og:description" content="Two status codes Prefect's server returned but its OpenAPI document did not list, found while testing a client against a live server, and documented upstream on 19 November.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/notes/prefect-create-flow-run-409/">
+<meta name="theme-color" content="#b4b9ae">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sandersax-icon-32.png">
+<link rel="apple-touch-icon" href="../../assets/sandersax-icon-180.png">
+<link rel="preload" href="../../assets/gfonts/geologica/5ba6acaf87dfced5.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/gfonts/source-serif-4/1e7f35d42342cbc6.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/v3-pages.css?v=20261112b">
+<link rel="stylesheet" href="../../results/results.css?v=20261113a">
+<link rel="stylesheet" href="../../results/aontu/aontu.css?v=20261113a">
+</head>
+<body class="rs ar">
+<a class="skip" href="#note">Skip to the article</a>
+<header class="top">
+  <a class="me" href="../../"><img src="../../assets/sandersax-mark.png" width="187" height="320" alt="">Sander Sax</a>
+  <nav aria-label="Sections"><a href="../../">Work</a><a href="../../results/">Results</a><a href="../" aria-current="page">Notes</a><a href="../../prices/">Prices</a><a class="msg" href="https://wa.me/66961347329" target="_blank" rel="noopener">Message me</a></nav>
+</header>
+
+<main id="note">
+<a class="back" href="../">All notes</a>
+
+<article class="fold" aria-labelledby="t">
+  <p class="ftab" aria-hidden="true">Notes</p>
+  <div class="sheet">
+  <div class="piece">
+    <h1 id="t">Prefect's create_flow_run answered 409, its OpenAPI document said 422</h1>
+    <p class="by">Alexandr Khrustalev, November 2026</p>
+
+    <div class="proof" role="img" aria-label="A create_flow_run call with a wrong parameter type returns 409 Conflict, while the OpenAPI document lists only 200 and 422 for that operation">
+<pre aria-hidden="true"><b>$ curl -i -X POST $API/deployments/$DEP_ID/create_flow_run</b>
+HTTP/1.1 409 Conflict
+{"detail":"Error creating flow run: Validation failed for field
+ 'count'. Failure reason: 'not-a-number' is not of type 'integer'"}
+
+<b>$ documented responses</b>
+['200', '422']</pre>
+    </div>
+
+    <p>I wrote a <a href="https://github.com/SanderSaxBuilds/prefect-ts">TypeScript client</a> for Prefect's REST API from its OpenAPI document, then ran it against a real <code>prefect server start</code> on version 3.9.2. Most of the document matched the server. One of the most used calls did not.</p>
+
+    <h2>What the server returns</h2>
+    <p>A deployment can set <code>enforce_parameter_schema</code> to true, so every run it starts has to match the deployment's parameter schema. Send a string where the schema wants an integer, or leave out a required parameter, and <code>POST /deployments/{id}/create_flow_run</code> answers <code>409 Conflict</code> with a <code>detail</code> string that names the field.</p>
+    <p>The OpenAPI document listed <code>200</code> and <code>422</code> for this operation. A request that passes creates the run and comes back as <code>201</code>, which was not listed either. So the two answers a caller sees most often, a new run and a rejected one, were both missing from the document.</p>
+
+    <h2>Why a client cares</h2>
+    <p>A client built from the document only knows the responses written in it. Following the document strictly, it has no type for a new run and no shape for the rejection, so the field name in <code>detail</code> never reaches the person who sent the bad parameter. Treating every 2xx as success and every other status as an untyped error works, but it throws away the one message that says what to fix.</p>
+    <p>A 409 also reads as a state conflict, such as a run that already exists. For a parameter that is the wrong type, a caller would expect the 422 the document promised.</p>
+
+    <h2>What changed upstream</h2>
+    <p>I reported it as <a href="https://github.com/PrefectHQ/prefect/issues/23877">issue 23877</a> with a script that reproduces it from an empty server. The maintainers kept the 409. It came in with an earlier change, tests depend on it and clients may already check for it, so changing it to 422 would break working code. They documented it instead.</p>
+    <p>The <a href="https://github.com/PrefectHQ/prefect/pull/23879">fix</a> was merged on 19 November. <code>create_flow_run</code> now lists <code>200</code> for an existing run returned by its idempotency key, <code>201</code> for a new run, <code>400</code> when parameters cannot be hydrated or a work queue is given without a work pool, <code>404</code> for an unknown deployment and <code>409</code> for a schema mismatch. <code>PATCH /deployments/{id}</code> got the same error codes, and two new tests read <code>/openapi.json</code> so the list cannot quietly fall behind again.</p>
+
+    <h2>What a client should do now</h2>
+    <p>Handle <code>409</code> from <code>create_flow_run</code> as a validation error and show the <code>detail</code> string, since it names the field. Accept both <code>200</code> and <code>201</code> as success, and keep the idempotency key if you retry, so a retry returns the first run instead of starting a second one.</p>
+    <p>Read 422 bodies with care. Prefect's server sends <code>exception_message</code> and <code>exception_detail</code>, while the document describes the usual FastAPI <code>detail</code> array. That one is still <a href="https://github.com/PrefectHQ/prefect/issues/23876">open</a>, so a client should accept both shapes.</p>
+    <p>The wider habit is cheap. Run every error path of a generated client against a live server once, and compare the codes it gets with the codes the document lists. It took one script here, and it found two codes the document missed.</p>
+
+    <p class="end"><a href="../">All notes</a></p>
+  </div>
+  </div>
+</article>
+</main>
+<footer class="foot"><span>Sander Sax, Alexandr Khrustalev</span><nav aria-label="Pages"><a href="../../">Work</a><a href="../../fixes/">Fixes</a><a href="../../prices/">Prices</a><a href="../../ru/" lang="ru">RU</a><a href="../../Alexandr_Khrustalev_CV.pdf">CV</a></nav><span>2026</span></footer>
+</body>
+</html>
