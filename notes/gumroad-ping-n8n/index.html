@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gumroad retries a failed Ping, unless n8n already said yes</title>
+<meta name="description" content="Why a Gumroad to Airtable workflow in n8n can lose sales without an error: Gumroad's retry rules read from its source, n8n's default webhook response, and a fix with an upsert and a daily check.">
+<meta name="author" content="Alexandr Khrustalev">
+<link rel="canonical" href="https://sandersaxbuilds.github.io/selected-work/notes/gumroad-ping-n8n/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gumroad retries a failed Ping, unless n8n already said yes">
+<meta property="og:description" content="n8n answers Gumroad before the Airtable write runs, so a failed write is never retried. What Gumroad's source says about retries, and the fix.">
+<meta property="og:url" content="https://sandersaxbuilds.github.io/selected-work/notes/gumroad-ping-n8n/">
+<meta name="theme-color" content="#b4b9ae">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sandersax-icon-32.png">
+<link rel="apple-touch-icon" href="../../assets/sandersax-icon-180.png">
+<link rel="preload" href="../../assets/gfonts/geologica/5ba6acaf87dfced5.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/gfonts/source-serif-4/1e7f35d42342cbc6.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/v3-pages.css?v=20261112b">
+<link rel="stylesheet" href="../../results/results.css?v=20261113a">
+<link rel="stylesheet" href="../../results/aontu/aontu.css?v=20261113a">
+</head>
+<body class="rs ar">
+<a class="skip" href="#note">Skip to the article</a>
+<header class="top">
+  <a class="me" href="../../"><img src="../../assets/sandersax-mark.png" width="187" height="320" alt="">Sander Sax</a>
+  <nav aria-label="Sections"><a href="../../">Work</a><a href="../../results/">Results</a><a href="../" aria-current="page">Notes</a><a href="../../prices/">Prices</a><a class="msg" href="https://wa.me/66961347329" target="_blank" rel="noopener">Message me</a></nav>
+</header>
+
+<main id="note">
+<a class="back" href="../">All notes</a>
+
+<article class="fold" aria-labelledby="t">
+  <p class="ftab" aria-hidden="true">Notes</p>
+  <div class="sheet">
+  <div class="piece">
+    <h1 id="t">Gumroad retries a failed Ping, unless n8n already said yes</h1>
+    <p class="by">Alexandr Khrustalev, November 2026</p>
+
+    <div class="proof" role="img" aria-label="Three constants from Gumroad's Ping worker: retry on HTTP 499, 500, 502, 503 and 504, back off 60, 180, 600 and 3600 seconds, time out after 5 seconds">
+<pre aria-hidden="true"><b># gumroad: app/sidekiq/post_to_individual_ping_endpoint_worker.rb</b>
+ERROR_CODES_TO_RETRY = [499, 500, 502, 503, 504]
+BACKOFF_STRATEGY = [60, 180, 600, 3600]
+REQUEST_TIMEOUT_SECONDS = 5</pre>
+    </div>
+
+    <p>A seller on the n8n jobs board wrote that their Gumroad to Airtable workflow looked like it worked but did not record sales. I built a replacement for that job, and the cause is worth writing down, because the default settings on both sides lose a sale without showing an error anywhere a seller would look.</p>
+
+    <h2>What Gumroad does when your endpoint fails</h2>
+    <p>Gumroad's app is open source, so its Ping delivery can be read instead of guessed. The <a href="https://github.com/antiwork/gumroad/blob/main/app/sidekiq/post_to_individual_ping_endpoint_worker.rb">worker</a> posts the sale as a form, waits up to 5 seconds and looks at the answer. A 2xx ends it. A 499, 500, 502, 503 or 504, a timeout or a refused connection schedules another try. Any other status, such as 404, 401 or 400, ends it with no retry.</p>
+    <p>The retry check is <code>retry_count &lt; BACKOFF_STRATEGY.length - 1</code>, so a sale gets at most four attempts: right away, then 1 minute, 3 minutes and 10 minutes after each failure. The fourth value, one hour, is never used. Newer versions of the code also record each attempt and its status code, so a seller can see what their endpoint answered.</p>
+
+    <h2>What n8n answers by default</h2>
+    <p>The Webhook node's Respond option defaults to Immediately. In the node source that is <code>default: 'onReceived'</code>. n8n answers 200 with "Workflow got started" before the next node runs.</p>
+    <p>If the Airtable write then fails, because of a rate limit, a renamed field or an expired token, Gumroad has already been told the sale arrived. It will not send it again, and the only trace is a failed run in the workflow's Executions tab.</p>
+    <p>Two ordinary setups end the same way with a 404. The test URL only answers while the editor is listening for a test event, and the production URL is only registered once the workflow is published. Point Gumroad at either one at the wrong moment and the sale is dropped on the first attempt.</p>
+
+    <h2>The fix</h2>
+    <p>Set Respond to When Last Node Finishes. Gumroad then waits for the Airtable step, and a failed write fails the run, so n8n answers with a server error instead of a 200. That is a status Gumroad retries.</p>
+    <p>Make the write an upsert keyed on the sale ID. Retries mean one sale can arrive more than once. In my workflow the Airtable request may take up to 15 seconds while Gumroad gives up after 5, so a slow write can land and still be retried. Airtable's update endpoint with <code>performUpsert</code> and <code>fieldsToMergeOn</code> set to <code>sale_id</code> updates the row it already has instead of adding a second one.</p>
+<pre class="src"><code>PATCH https://api.airtable.com/v0/{base}/{table}
+{
+  "performUpsert": { "fieldsToMergeOn": ["sale_id"] },
+  "records": [{ "fields": { "sale_id": "...", "amount_cents": 725, ... } }]
+}</code></pre>
+    <p>Check the totals every day. Four attempts over about 14 minutes cover a short outage. They do not cover an n8n instance that was down for an hour, a workflow someone unpublished or a table someone renamed. My check pulls sales from the Gumroad Sales API, matches them with Airtable by sale ID and reports missing sales, wrong amounts and duplicate rows. With <code>--fix</code> it adds the missing ones, and its exit code tells a scheduler whether to alert.</p>
+
+    <h2>Smaller things in the payload</h2>
+    <p>The <a href="https://github.com/antiwork/gumroad/blob/main/app/modules/purchase/ping_notification.rb">payload builder</a> answers a few questions that come up when mapping fields.</p>
+    <p><code>price</code> is <code>price_cents</code>. A workflow that writes it into a currency field shows a 7.25 USD sale as 725.</p>
+    <p><code>test</code> is only sent, as true, when the buyer is the seller. Real sales have no <code>test</code> key at all, so map a missing key to false.</p>
+    <p><code>refunded</code> describes the sale at the moment of the Ping. A refund issued later does not reach that row on its own.</p>
+    <p>Custom checkout fields are copied into the top level of the payload under their own names, after <code>email</code> and <code>price</code> are set. A custom field named <code>email</code> would replace the buyer's address.</p>
+    <p>If the seller sets a signing secret, Gumroad adds an <code>X-Gumroad-Signature</code> header, an HMAC-SHA256 of the timestamp and the body. Without it, anyone who learns the webhook URL can post a fake sale, so check the header in a Code node or keep the URL path long and random.</p>
+
+    <p>The workflow, the daily check and their tests are in <a href="https://github.com/SanderSaxBuilds/selected-work/tree/main/gumroad-airtable-sync">gumroad-airtable-sync</a> on GitHub.</p>
+
+    <p class="end"><a href="../">All notes</a></p>
+  </div>
+  </div>
+</article>
+</main>
+<footer class="foot"><span>Sander Sax, Alexandr Khrustalev</span><nav aria-label="Pages"><a href="../../">Work</a><a href="../../fixes/">Fixes</a><a href="../../prices/">Prices</a><a href="../../ru/" lang="ru">RU</a><a href="../../Alexandr_Khrustalev_CV.pdf">CV</a></nav><span>2026</span></footer>
+</body>
+</html>
