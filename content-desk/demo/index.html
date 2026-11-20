@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Restaurant Content Desk</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f5f5ef;
+      --surface: #fff;
+      --ink: #1c2b24;
+      --muted: #4a6155;
+      --line: #d7e0d8;
+      --accent: #225e49;
+      --late: #7e321d;
+      --late-bg: #fdf3ed;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 1rem/1.5 system-ui, sans-serif; }
+    main { max-width: 72rem; margin-inline: auto; padding: clamp(1rem, 4vw, 3rem); }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.12; letter-spacing: -.04em; }
+    h2 { font-size: 1.35rem; letter-spacing: -.02em; }
+    h3 { font-size: 1rem; }
+    .intro { padding: 1rem 0 1.6rem; }
+    .intro p { color: var(--muted); margin-top: .65rem; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: .8rem; margin-bottom: 1.15rem; }
+    .panel-header { padding: 1.15rem 1.3rem; }
+    .panel-header p { color: var(--muted); margin-top: .2rem; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    td, th { padding: .75rem .8rem; border-top: 1px solid var(--line); vertical-align: top; }
+    tr > :first-child { padding-left: 1.3rem; }
+    tr > :last-child { padding-right: 1.3rem; }
+    thead { background: #eaf0ea; color: #365346; font-size: .84rem; }
+    tbody { font-size: .92rem; }
+    tbody th { font-weight: 650; }
+    .restaurant, .quiet { color: var(--muted); }
+    .restaurant { display: block; font-size: .84rem; font-weight: 400; }
+    .late { background: var(--late-bg); }
+    .flag, .reasons { color: var(--late); }
+    .reasons { margin: .12rem 0 0; padding-left: 1.1rem; font-size: .84rem; }
+    .mobile-label { display: none; }
+    a { color: var(--accent); text-underline-offset: .16em; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .brief { padding: 0 1.3rem 1.3rem; }
+    dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem 1rem; margin: 0; padding: .9rem; background: #eef3ed; border-radius: .5rem; }
+    dt { color: var(--muted); font-size: .83rem; font-weight: 650; }
+    dd { margin: .1rem 0 0; }
+    .draft { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; margin-top: 1.1rem; }
+    .draft ol { margin: .4rem 0 0; padding-left: 1.25rem; }
+    .draft li { margin-bottom: .4rem; padding-left: .22rem; }
+    @media (max-width: 42rem) {
+      .intro { padding-top: .5rem; }
+      .panel-header, .brief { padding-inline: 1rem; }
+      thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+      table, tbody { display: block; }
+      tbody tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: .72rem 1rem; gap: .45rem; border-top: 1px solid var(--line); }
+      tbody tr > * { display: block; border: 0; padding: 0; }
+      tbody tr > :first-child, tbody tr > :last-child { grid-column: 1 / -1; padding: 0; }
+      .mobile-label { display: block; color: var(--muted); font-size: .78rem; }
+      .draft { grid-template-columns: 1fr; gap: .9rem; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header class="intro">
+    <h1>Restaurant Content Desk</h1>
+    <p>Calendar for <time datetime="2026-11-16">Monday, November 16, 2026</time> in Toronto</p>
+  </header>
+
+  <section class="panel" aria-labelledby="calendar-heading">
+    <header class="panel-header">
+      <h2 id="calendar-heading">Production calendar</h2>
+      <p>4 of 8 pieces flagged across 3 owner digests</p>
+    </header>
+    <div class="table-wrap">
+      <table role="table" aria-labelledby="calendar-heading">
+        <thead role="rowgroup"><tr role="row">
+          <th scope="col">Piece</th><th scope="col">Owner</th><th scope="col">Stage</th><th scope="col">Due</th><th scope="col">Digest status</th>
+        </tr></thead>
+        <tbody role="rowgroup">
+        <tr role="row" data-piece="10000000-0000-4000-8000-000000000001" class="late" data-late>
+          <th scope="row">Charcoal mushroom toast<span class="restaurant">Lantern Table</span></th>
+          <td><span class="mobile-label" aria-hidden="true">Owner</span>Maya</td>
+          <td><span class="mobile-label" aria-hidden="true">Stage</span>Brief</td>
+          <td><span class="mobile-label" aria-hidden="true">Due</span><time datetime="2026-11-18">Nov 18</time></td>
+          <td><strong class="flag">Late</strong>
+            <ul class="reasons"><li>in stage for 2 business days (limit 1)</li></ul></td>
+        </tr>
+        <tr role="row" data-piece="10000000-0000-4000-8000-000000000002" class="late" data-late>
+          <th scope="row">Lunch set reel<span class="restaurant">Lantern Table</span></th>
+          <td><span class="mobile-label" aria-hidden="true">Owner</span>Maya</td>
+          <td><span class="mobile-label" aria-hidden="true">Stage</span>Shoot</td>
+          <td><span class="mobile-label" aria-hidden="true">Due</span><time datetime="2026-11-13">Nov 13</time></td>
+          <td><strong class="flag">Late</strong>
+            <ul class="reasons"><li>overdue since 2026-11-13</li></ul></td>
+        </tr>
+        <tr role="row" data-piece="10000000-0000-4000-8000-000000000003">
+          <th scope="row">Lemongrass noodle reel<span class="restaurant">Pepper Dock</span></th>
+          <td><span class="mobile-label" aria-hidden="true">Owner</span>Luis</td>
+          <td><span class="mobile-label" aria-hidden="true">Stage</span>Edit</td>
+          <td><span class="mobile-label" aria-hidden="true">Due</span><time datetime="2026-11-16">Nov 16</time></td>
+          <td><span class="quiet">On track</span></td>
+        </tr>
+        <tr role="row" data-piece="10000000-0000-4000-8000-000000000004" class="late" data-late>
+          <th scope="row">Coconut custard carousel<span class="restaurant">Pepper Dock</span></th>
+          <td><span class="mobile-label" aria-hidden="true">Owner</span>Luis</td>
+          <td><span class="mobile-label" aria-hidden="true">Stage</span>Client review</td>
+          <td><span class="mobile-label" aria-hidden="true">Due</span><time datetime="2026-11-13">Nov 13</time></td>
+          <td><strong class="flag">Late</strong>
+            <ul class="reasons"><li>overdue since 2026-11-13</li><li>in stage for 3 business days (limit 2)</li></ul></td>
+        </tr>
+        <tr role="row" data-piece="10000000-0000-4000-8000-000000000005" class="late" data-late>
+          <th scope="row">Sunday roast story<span class="restaurant">Juniper Room</span></th>
+          <td><span class="mobile-label" aria-hidden="true">Owner</span>Noor</td>
+          <td><span class="mobile-label" aria-hidden="true">Stage</span>Scheduled</td>
+          <td><span class="mobile-label" aria-hidden="true">Due</span><time datetime="2026-11-17">Nov 17</time></td>
+          <td><strong class="flag">Late</strong>
+            <ul class="reasons"><li>in stage for 1 business day (limit 0)</li></ul></td>
+        </tr>
+        <tr role="row" data-piece="10000000-0000-4000-8000-000000000006">
+          <th scope="row">Winter hours tile<span class="restaurant">Juniper Room</span></th>
+          <td><span class="mobile-label" aria-hidden="true">Owner</span>Noor</td>
+          <td><span class="mobile-label" aria-hidden="true">Stage</span>Scheduled</td>
+          <td><span class="mobile-label" aria-hidden="true">Due</span><time datetime="2026-11-16">Nov 16</time></td>
+          <td><span class="quiet">On track</span></td>
+        </tr>
+        <tr role="row" data-piece="10000000-0000-4000-8000-000000000007">
+          <th scope="row">Kitchen portrait<span class="restaurant">Lantern Table</span></th>
+          <td><span class="mobile-label" aria-hidden="true">Owner</span>Maya</td>
+          <td><span class="mobile-label" aria-hidden="true">Stage</span>Published</td>
+          <td><span class="mobile-label" aria-hidden="true">Due</span><time datetime="2026-11-13">Nov 13</time></td>
+          <td><span class="quiet">Complete</span></td>
+        </tr>
+        <tr role="row" data-piece="10000000-0000-4000-8000-000000000008">
+          <th scope="row"><a href="#sample-brief">Ginger-lime spritz reel</a><span class="restaurant">Pepper Dock</span></th>
+          <td><span class="mobile-label" aria-hidden="true">Owner</span>Luis</td>
+          <td><span class="mobile-label" aria-hidden="true">Stage</span>Brief</td>
+          <td><span class="mobile-label" aria-hidden="true">Due</span><time datetime="2026-11-18">Nov 18</time></td>
+          <td><span class="quiet">On track</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="sample-brief" aria-labelledby="brief-heading">
+    <header class="panel-header">
+      <h2 id="brief-heading">Ginger-lime spritz reel</h2>
+      <p>Brief and draft</p>
+    </header>
+    <div class="brief">
+      <dl>
+        <div><dt>Restaurant</dt><dd>Pepper Dock</dd></div>
+        <div><dt>Dish or offer</dt><dd>Ginger-lime spritz</dd></div>
+        <div><dt>Platform</dt><dd>Instagram Reels</dd></div>
+        <div><dt>Tone notes</dt><dd>Bright and casual. Focus on ginger, lime and fizz.</dd></div>
+      </dl>
+      <div class="draft">
+        <section aria-labelledby="caption-heading">
+          <h3 id="caption-heading">Caption options</h3>
+          <ol id="sample-captions">
+        <li>A little ginger heat, a squeeze of lime and plenty of fizz. Meet the ginger-lime spritz at Pepper Dock.</li>
+        <li>Ginger first, then lime, then bubbles. Here’s what’s in the glass at Pepper Dock.</li>
+        <li>That first sip is all lime and fizz. The ginger catches up a second later.</li>
+          </ol>
+        </section>
+        <section aria-labelledby="shot-heading">
+          <h3 id="shot-heading">Shot list</h3>
+          <ol id="sample-shots">
+        <li>Tight shot of a lime wedge being squeezed over a glass of ice.</li>
+        <li>Film the ginger base pouring over the ice from the side.</li>
+        <li>Top with soda in close-up and hold for the rising bubbles.</li>
+        <li>End on the finished spritz as it slides across the Pepper Dock bar.</li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

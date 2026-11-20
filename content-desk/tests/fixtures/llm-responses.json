@@ -1,0 +1,49 @@
+{
+  "valid": {
+    "statusCode": 200,
+    "body": {
+      "choices": [
+        {
+          "message": {
+            "content": "{\"captions\":[\"A little ginger heat, a squeeze of lime and plenty of fizz. Meet the ginger-lime spritz at Pepper Dock.\",\"Ginger first, then lime, then bubbles. Here’s what’s in the glass at Pepper Dock.\",\"That first sip is all lime and fizz. The ginger catches up a second later.\"],\"shot_list\":[\"Tight shot of a lime wedge being squeezed over a glass of ice.\",\"Film the ginger base pouring over the ice from the side.\",\"Top with soda in close-up and hold for the rising bubbles.\",\"End on the finished spritz as it slides across the Pepper Dock bar.\"]}"
+          }
+        }
+      ]
+    }
+  },
+  "malformed": {
+    "statusCode": 200,
+    "body": {
+      "choices": [
+        {
+          "message": {
+            "content": "{\"captions\": ["
+          }
+        }
+      ]
+    }
+  },
+  "missing_keys": {
+    "statusCode": 200,
+    "body": {
+      "choices": [
+        {
+          "message": {
+            "content": "{\"captions\":[\"Option one\",\"Option two\",\"Option three\"]}"
+          }
+        }
+      ]
+    }
+  },
+  "http_error": {
+    "statusCode": 503,
+    "body": {
+      "error": {
+        "message": "Fictional service unavailable"
+      }
+    }
+  },
+  "timeout": {
+    "error": "Fictional timeout"
+  }
+}
