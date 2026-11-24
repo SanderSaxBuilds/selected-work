@@ -1,0 +1,12 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/",
+  "preferredVersions": { "php": "8.2", "wp": "latest" },
+  "steps": [
+    { "step": "login" },
+    { "step": "installTheme", "themeData": { "resource": "wordpress.org/themes", "slug": "kadence" }, "options": { "activate": true } },
+    { "step": "installPlugin", "pluginData": { "resource": "wordpress.org/plugins", "slug": "kadence-blocks" } },
+    { "step": "writeFile", "path": "/wordpress/wp-content/larchway-home.html", "data": { "resource": "url", "url": "https://sandersaxbuilds.github.io/selected-work/kadence-demo/home.html" } },
+    { "step": "runPHP", "code": "<?php require '/wordpress/wp-load.php'; $c = file_get_contents('/wordpress/wp-content/larchway-home.html'); $id = wp_insert_post(array('post_type' => 'page', 'post_title' => 'Home', 'post_status' => 'publish', 'post_content' => wp_slash($c))); $meta = array('_kad_post_title' => 'hide', '_kad_post_layout' => 'fullwidth', '_kad_post_content_style' => 'unboxed', '_kad_post_vertical_padding' => 'hide'); foreach ($meta as $k => $v) { update_post_meta($id, $k, $v); } update_option('show_on_front', 'page'); update_option('page_on_front', $id); update_option('blogname', 'Larchway Advisory'); update_option('blogdescription', ''); wp_delete_post(1, true); wp_delete_post(2, true); set_theme_mod('base_font', array('size' => array('desktop' => 17), 'lineHeight' => array('desktop' => 1.6), 'family' => 'Source Serif 4', 'google' => true, 'weight' => '400', 'variant' => 'regular', 'color' => 'palette4')); set_theme_mod('heading_font', array('family' => 'Schibsted Grotesk', 'google' => true, 'weight' => '700', 'variant' => '700')); set_theme_mod('brand_typography', array('size' => array('desktop' => 22), 'family' => 'Schibsted Grotesk', 'google' => true, 'weight' => '700', 'variant' => '700', 'color' => '#13211d'));" }
+  ]
+}
